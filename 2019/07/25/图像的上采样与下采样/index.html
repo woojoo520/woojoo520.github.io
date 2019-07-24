@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="图像的上采样与下采样缩小图像（或称为下采样或降采样）的主要目的有两个：  1.使得图像符合显示区域的大小 2.生成对应图像的缩略图  放大图像（或成为上采样或图像插值）的主要目的是放大原图像，从而可以显示在更高分辨率的显示设备上。对图像的缩放操作并不能带来更多关于该图像的信息，因此图像的质量将不可避免的收受到影响。然而，确实有一些缩放方法能够增加图像的信息，从而使得缩放后的图像质量超过原图质量的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Celery Fairy">
+<meta property="og:url" content="https://woojoo520.github.io/2019/07/25/图像的上采样与下采样/index.html">
+<meta property="og:site_name" content="Celery Fairy">
+<meta property="og:description" content="图像的上采样与下采样缩小图像（或称为下采样或降采样）的主要目的有两个：  1.使得图像符合显示区域的大小 2.生成对应图像的缩略图  放大图像（或成为上采样或图像插值）的主要目的是放大原图像，从而可以显示在更高分辨率的显示设备上。对图像的缩放操作并不能带来更多关于该图像的信息，因此图像的质量将不可避免的收受到影响。然而，确实有一些缩放方法能够增加图像的信息，从而使得缩放后的图像质量超过原图质量的">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="c:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563759187630.png">
+<meta property="og:image" content="c:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563759418809.png">
+<meta property="og:image" content="c:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563762540105.png">
+<meta property="og:updated_time" content="2019-07-22T02:41:52.224Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Celery Fairy">
+<meta name="twitter:description" content="图像的上采样与下采样缩小图像（或称为下采样或降采样）的主要目的有两个：  1.使得图像符合显示区域的大小 2.生成对应图像的缩略图  放大图像（或成为上采样或图像插值）的主要目的是放大原图像，从而可以显示在更高分辨率的显示设备上。对图像的缩放操作并不能带来更多关于该图像的信息，因此图像的质量将不可避免的收受到影响。然而，确实有一些缩放方法能够增加图像的信息，从而使得缩放后的图像质量超过原图质量的">
+<meta name="twitter:image" content="c:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563759187630.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woojoo520.github.io/2019/07/25/图像的上采样与下采样/">
+
+
+
+
+
+  <title> | Celery Fairy</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Celery Fairy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Celery's Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/图像的上采样与下采样/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-25T06:43:54+08:00">
+                2019-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="图像的上采样与下采样"><a href="#图像的上采样与下采样" class="headerlink" title="图像的上采样与下采样"></a>图像的上采样与下采样</h3><p>缩小图像（或称为下采样或降采样）的主要目的有两个：</p>
+<ul>
+<li>1.使得图像符合显示区域的大小</li>
+<li>2.生成对应图像的缩略图</li>
+</ul>
+<p>放大图像（或成为上采样或图像插值）的主要目的是放大原图像，从而可以显示在更高分辨率的显示设备上。对图像的缩放操作并不能带来更多关于该图像的信息，因此图像的质量将不可避免的收受到影响。然而，确实有一些缩放方法能够增加图像的信息，从而使得缩放后的图像质量超过原图质量的</p>
+<h4 id="下采样原理："><a href="#下采样原理：" class="headerlink" title="下采样原理："></a><strong>下采样原理</strong>：</h4><p>​    对于一幅图像I尺寸为M * N，对其进行s倍下采样，即得到(M/s) * (N/s)尺寸的得分辨率图像，当然s应该是M和N的公约数才行，如果考虑的是矩阵形式的图像，就是把原始图像s*s窗口内的图像变成一个像素，这个像素点的值就是窗口内所有像素的均值；</p>
+<h4 id="上采样原理："><a href="#上采样原理：" class="headerlink" title="上采样原理："></a><strong>上采样原理：</strong></h4><p>​    图像放大几乎都是采用内插值方法，即在原有图像像素的基础上在像素点之间采用合适的插值算法插入新的元素。</p>
+<p>​    无论缩放图像（下采样）还是放大图像（上采样），采样方式有很多种。如最近邻插值，双线性插值，均值插值，中值插值等方法。在AlexNet中就使用了较合适的插值方法。各种插值方法都有各自的优缺点。</p>
+<h4 id="常用的插值方法："><a href="#常用的插值方法：" class="headerlink" title="常用的插值方法："></a>常用的插值方法：</h4><ol>
+<li><h5 id="最邻近元法"><a href="#最邻近元法" class="headerlink" title="最邻近元法"></a>最邻近元法</h5><p>这是最简单的一种插值方法，不需要计算，在待求象素的四邻象素中，将距离待求象素最近的邻象素灰度赋给待求象素。设i+u, j+v(i, j为正整数， u, v为大于零小于1的小数，下同)为待求象素坐标，则待求象素灰度的值 f(i+u, j+v)　如下图所示：</p>
+</li>
+</ol>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563759187630.png" alt="1563759187630"></p>
+<p>如果(i+u, j+v)落在A区，即u&lt;0.5, v&lt;0.5，则将左上角象素的灰度值赋给待求象素，同理，落在B区则赋予右上角的象素灰度值，落在C区则赋予左下角象素的灰度值，落在D区则赋予右下角象素的灰度值。</p>
+<p><strong>最邻近元法计算量较小，但可能会造成插值生成的图像灰度上的不连续，在灰度变化的地方可能出现明显的锯齿状。</strong></p>
+<h5 id="2、双线性内插法"><a href="#2、双线性内插法" class="headerlink" title="2、双线性内插法"></a>2、双线性内插法</h5><p>双线性内插法是利用待求象素四个邻象素的灰度在两个方向上作线性内插，如下图所示</p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563759418809.png" alt="1563759418809"></p>
+<p>对于 (i, j+v)，f(i, j) 到 f(i, j+1) 的灰度变化为线性关系，则有：</p>
+<p>f(i, j+v) = [f(i, j+1) - f(i, j)] * v + f(i, j)</p>
+<p>同理对于 (i+1, j+v) 则有：</p>
+<p>f(i+1, j+v) = [f(i+1, j+1) - f(i+1, j)] * v + f(i+1, j)</p>
+<p>从f(i, j+v) 到 f(i+1, j+v) 的灰度变化也为线性关系，由此可推导出待求象素灰度的计算式如下：</p>
+<p>f(i+u, j+v) = (1-u) * (1-v) * f(i, j) + (1-u) * v * f(i, j+1) + u * (1-v) * f(i+1, j) + u * v * f(i+1, j+1)</p>
+<p>双线性内插法的计算比最邻近点法复杂，计算量较大，但没有灰度不连续的缺点，结果基本令人满意。它具有低通滤波性质，使高频分量受损，图像轮廓可能会有一点模糊。</p>
+<h5 id="3、三次内插法"><a href="#3、三次内插法" class="headerlink" title="3、三次内插法"></a>3、三次内插法</h5><p>该方法利用三次多项式S(x)求逼近理论上最佳插值函数sin(x)/x, 其数学表达式为：</p>
+<p>$S(x)=\left{\begin{array}{cc}{1-2|x|^{2}+|x|^{3}} &amp; {0 \leq|x|&lt;1} \ {4-8|x|+5|x|^{2}-|x|^{2}} &amp; {1 \leq|x|&lt;2} \ {0} &amp; {|x| \geq 2}\end{array}\right.$</p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563762540105.png" alt="1563762540105"></p>
+<p>待求像素的灰度计算式如下：</p>
+<p>$f(x, y)=f(i+u, j+v)=A B C$</p>
+<p>其中: </p>
+<p>$A=\left(\begin{array}{c}{S(1+v)} \ {S(v)} \ {S(1-v)} \ {S(2-v)}\end{array}\right)^{\top}$</p>
+<p>$B=\left(\begin{array}{c}{f(i-1,j-1)} &amp; {f(i-1,j)} &amp; {f(i-1,j+1)} &amp; {f(i-1,j+2)} \ {f(i,j-1)}&amp;{ f(i,j) }&amp;{f(i,j+1) }&amp;{f(i,j+2)} \ {f(i+1,j-1)} &amp; {f(i+1,j)} &amp;{f(i+1,j+1)} &amp; {f(i+1,j+2)} \ {f(i+2,j-1)} &amp; {f(i+2,j)} &amp; {f(i+2,j+1)} &amp; {f(i+2,j+2)}  \end{array}\right)$</p>
+<p>$C=\left(\begin{array}{c}{S(1+u)} \ {S(u)} \ {S(1-u)} \ {S(2-u)}\end{array}\right)$</p>
+<p>三次曲线插值方法计算量较大，但插值后的图像效果最好</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/25/图形处理器GPU/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mariana</p>
+              <p class="site-description motion-element" itemprop="description">a study blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#图像的上采样与下采样"><span class="nav-number">1.</span> <span class="nav-text">图像的上采样与下采样</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下采样原理："><span class="nav-number">1.1.</span> <span class="nav-text">下采样原理：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上采样原理："><span class="nav-number">1.2.</span> <span class="nav-text">上采样原理：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用的插值方法："><span class="nav-number">1.3.</span> <span class="nav-text">常用的插值方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#最邻近元法"><span class="nav-number">1.3.1.</span> <span class="nav-text">最邻近元法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、双线性内插法"><span class="nav-number">1.3.2.</span> <span class="nav-text">2、双线性内插法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、三次内插法"><span class="nav-number">1.3.3.</span> <span class="nav-text">3、三次内插法</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mariana</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
