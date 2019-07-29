@@ -79,17 +79,21 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="ResNet（Residual Neural Network）一. 简要概括ResNet的结构可以极快的加速神经网络的训练，模型的准确率也有比较大的提升。同时ResNe的推广性非常好，甚至可以直接用到InceptionNet网络中 ResNet的主要思想是在网络中增加了直连通道，即Highway Network的思想。此前的网络结构是性能输入做一个非线性变换，而Highway Network则允许">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://woojoo520.github.io/2019/07/24/hello-world/index.html">
+<meta property="og:title" content="ResNet">
+<meta property="og:url" content="https://woojoo520.github.io/2019/07/25/ResNet/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="ResNet（Residual Neural Network）一. 简要概括ResNet的结构可以极快的加速神经网络的训练，模型的准确率也有比较大的提升。同时ResNe的推广性非常好，甚至可以直接用到InceptionNet网络中 ResNet的主要思想是在网络中增加了直连通道，即Highway Network的思想。此前的网络结构是性能输入做一个非线性变换，而Highway Network则允许">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-24T12:30:28.469Z">
+<meta property="og:image" content="https://img-blog.csdn.net/20180710193536899?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMxODE1OTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180710193619121?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMxODE1OTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5971313-ba5e9ef4e622908f.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/430">
+<meta property="og:updated_time" content="2019-07-25T14:17:23.048Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="ResNet">
+<meta name="twitter:description" content="ResNet（Residual Neural Network）一. 简要概括ResNet的结构可以极快的加速神经网络的训练，模型的准确率也有比较大的提升。同时ResNe的推广性非常好，甚至可以直接用到InceptionNet网络中 ResNet的主要思想是在网络中增加了直连通道，即Highway Network的思想。此前的网络结构是性能输入做一个非线性变换，而Highway Network则允许">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20180710193536899?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMxODE1OTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 
 
 
@@ -119,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://woojoo520.github.io/2019/07/24/hello-world/">
+  <link rel="canonical" href="https://woojoo520.github.io/2019/07/25/ResNet/">
 
 
 
 
 
-  <title>Hello World | Celery Fairy</title>
+  <title>ResNet | Celery Fairy</title>
   
 
 
@@ -232,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/24/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/ResNet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mariana">
@@ -249,7 +253,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">ResNet</h1>
         
 
         <div class="post-meta">
@@ -261,8 +265,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-24T20:30:28+08:00">
-                2019-07-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-25T20:48:56+08:00">
+                2019-07-25
               </time>
             
 
@@ -299,19 +303,18 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h2 id="ResNet（Residual-Neural-Network）"><a href="#ResNet（Residual-Neural-Network）" class="headerlink" title="ResNet（Residual Neural Network）"></a>ResNet（Residual Neural Network）</h2><h3 id="一-简要概括"><a href="#一-简要概括" class="headerlink" title="一. 简要概括"></a>一. 简要概括</h3><p>ResNet的结构可以极快的加速神经网络的训练，模型的准确率也有比较大的提升。同时ResNe的推广性非常好，甚至可以直接用到InceptionNet网络中</p>
+<p>ResNet的主要思想是在网络中增加了直连通道，即Highway Network的思想。此前的网络结构是性能输入做一个非线性变换，而Highway Network则允许保留之前网络层的一定比例的输出。ResNet的思想和way Network的思想也十分类似，允许原始输入信息直接传到后面的层中：</p>
+<p><img src="https://img-blog.csdn.net/20180710193536899?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMxODE1OTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p>这样的话这一层的神经网络可以不用学习整个的输出，而是学习上一个网络输出的残差，因此ResNet又叫做残差网络</p>
+<h3 id="二-创新点"><a href="#二-创新点" class="headerlink" title="二. 创新点"></a>二. 创新点</h3><p>提出残差学习的思想。传统的卷积网络或者全连接网络在信息传递的时候或多或少会存在信息丢失，损耗等问题，同时还有导致梯度消失或者梯度爆炸，导致很深的网络无法训练。ResNet在一定程度上解决了这个问题，通过直接将输入信息绕道传到输出，保护信息的完整性，整个网络只需要学习输入、输出差别的那一部分，简化学习目标和难度。VGGNet和ResNet的对比：</p>
+<p><img src="https://img-blog.csdn.net/20180710193619121?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMxODE1OTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p>ResNet最大的区别在于有很多的旁路将输入直接连接到后面的层，这种结构也被称为shortcut或者skip connection</p>
+<h3 id="三-深度残差学习（Deep-Residual-Learning）"><a href="#三-深度残差学习（Deep-Residual-Learning）" class="headerlink" title="三. 深度残差学习（Deep Residual Learning）"></a>三. 深度残差学习（Deep Residual Learning）</h3><h4 id="残差学习"><a href="#残差学习" class="headerlink" title="残差学习"></a>残差学习</h4><p>若将输入设为x，将某一有参网络层设为H，那么以X为输入的此层的输出将为H(X)。一般的CNN网络如Alexnet/VGG等会直接通过训练学习出参数函数H的表达，从而直接学习 X -&gt; H(X)</p>
+<p>而残差学习则是致力于使用多个有参网络层来学习输入、输出之间的残差，即H(X) - X，即学习 X -&gt; (H(X) - X) + X。其中X这一部分为直接的Identity mapping，而H(X) - X则为有参网络层要学习的输入输出间残差。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5971313-ba5e9ef4e622908f.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/430" alt="img"></p>
+<h4 id="Identity-mapping"><a href="#Identity-mapping" class="headerlink" title="Identity mapping"></a>Identity mapping</h4><p>残差学习单元通过Identity mapping的引入在输入、输出之间建立了一条直接的关联通道，从而使得强大的有参层集中精力学习输入、输出之间的残差。一般我们用 $F(X,W_i)$ 来表示残差映射，那么输出即为： $Y=F(X,W_i)+X$。 当输入、输出通道数相同时，我们自然可以如此直接使用X进行相加。而当他们之间的通道数目不同时，我们就需要考虑建立一种有效的Identity mapping函数从而可以使得处理后的输入X与输出Y的通道数目相同即 $Y=F(X,W_i)+W_s*X$。</p>
+<p>当X与Y通道数目不同时，作者尝试了两种Identity mapping的方式。一种即简单地将X相对Y确实的通道直接补零从而时期能够相对器的方式，另一种则是通过使用1 * 1的conv来表示 $W_s$ 映射从而使得最终输入与输出的通道达到一致的方式。</p>
 
       
     </div>
@@ -336,14 +339,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/07/25/YOLO/" rel="next" title="YOLO">
+                <i class="fa fa-chevron-left"></i> YOLO
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/24/Github入门/" rel="prev" title="Github入门">
-                Github入门 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/07/27/Tkinter/" rel="prev" title="Tkinter">
+                Tkinter <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -458,7 +465,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ResNet（Residual-Neural-Network）"><span class="nav-number">1.</span> <span class="nav-text">ResNet（Residual Neural Network）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-简要概括"><span class="nav-number">1.1.</span> <span class="nav-text">一. 简要概括</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-创新点"><span class="nav-number">1.2.</span> <span class="nav-text">二. 创新点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-深度残差学习（Deep-Residual-Learning）"><span class="nav-number">1.3.</span> <span class="nav-text">三. 深度残差学习（Deep Residual Learning）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#残差学习"><span class="nav-number">1.3.1.</span> <span class="nav-text">残差学习</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Identity-mapping"><span class="nav-number">1.3.2.</span> <span class="nav-text">Identity mapping</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

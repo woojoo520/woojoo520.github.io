@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. TensorFlow中tf.train.slice_input_producer和tf.train.batch函数TensorFlow数据读取机制TensorFlow中为了充分利用GPU，减少GPU等待数据的空闲时间，使用了两个线程分别执行数据读入和数据计算。 具体来说就是使用一个线程源源不断的将硬盘中的图片数据读入到一个内存队列中，另一个线程负责计算任务，所需数据直接从内存队列中获取。 t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Something about TensorFlow">
+<meta property="og:url" content="https://woojoo520.github.io/2019/07/25/Something-about-TensorFlow/index.html">
+<meta property="og:site_name" content="Celery Fairy">
+<meta property="og:description" content="1. TensorFlow中tf.train.slice_input_producer和tf.train.batch函数TensorFlow数据读取机制TensorFlow中为了充分利用GPU，减少GPU等待数据的空闲时间，使用了两个线程分别执行数据读入和数据计算。 具体来说就是使用一个线程源源不断的将硬盘中的图片数据读入到一个内存队列中，另一个线程负责计算任务，所需数据直接从内存队列中获取。 t">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://img-blog.csdn.net/20180401131308152">
+<meta property="og:updated_time" content="2019-07-25T12:24:04.533Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Something about TensorFlow">
+<meta name="twitter:description" content="1. TensorFlow中tf.train.slice_input_producer和tf.train.batch函数TensorFlow数据读取机制TensorFlow中为了充分利用GPU，减少GPU等待数据的空闲时间，使用了两个线程分别执行数据读入和数据计算。 具体来说就是使用一个线程源源不断的将硬盘中的图片数据读入到一个内存队列中，另一个线程负责计算任务，所需数据直接从内存队列中获取。 t">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20180401131308152">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woojoo520.github.io/2019/07/25/Something-about-TensorFlow/">
+
+
+
+
+
+  <title>Something about TensorFlow | Celery Fairy</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Celery Fairy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Celery's Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/Something-about-TensorFlow/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Something about TensorFlow</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-25T17:16:29+08:00">
+                2019-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1-TensorFlow中tf-train-slice-input-producer和tf-train-batch函数"><a href="#1-TensorFlow中tf-train-slice-input-producer和tf-train-batch函数" class="headerlink" title="1. TensorFlow中tf.train.slice_input_producer和tf.train.batch函数"></a>1. TensorFlow中tf.train.slice_input_producer和tf.train.batch函数</h3><h4 id="TensorFlow数据读取机制"><a href="#TensorFlow数据读取机制" class="headerlink" title="TensorFlow数据读取机制"></a>TensorFlow数据读取机制</h4><p>TensorFlow中为了充分利用GPU，减少GPU等待数据的空闲时间，使用了两个线程分别执行数据读入和数据计算。</p>
+<p>具体来说就是使用一个线程源源不断的将硬盘中的图片数据读入到一个内存队列中，另一个线程负责计算任务，所需数据直接从内存队列中获取。</p>
+<p>tf在内存队列之前，还设立了一个文件名队列，文件名队列存放的是参与训练的文件名，要训练N个epoch，则文件名队列中就含有N个批次的所有文件名。</p>
+<p><img src="https://img-blog.csdn.net/20180401131308152" alt="img"></p>
+<p>在N个epoch的文件名最后是一个结束标志，当tf读到这个结束标志的时候，会抛出一个AutoRange的异常，外部捕获到之歌异常之后皆可以结束进程了。而创建tf的文件名队列就需要使用到tf.train.slice_input_producer函数</p>
+<h4 id="tf-train-slice-input-producer"><a href="#tf-train-slice-input-producer" class="headerlink" title="tf.train.slice_input_producer"></a>tf.train.slice_input_producer</h4><p>tf.train.slice_input_producer是一个tensor生成器，作用是按照规定，每次从一个tensor列表中按顺序或者随机抽取出一个tensor放入文件名队列。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slice_input_producer(tensor_list, num_epochs=None, shuffle=True, seed=None,                         capacity=32, shared_name=None, name=None)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>第一个参数 tensor_list：包含一系列tensor的列表，表中tensor的第一维度的值必须相等，即个数必须相等，有多少个图像，就应该有多少个对应的标签。</p>
+</li>
+<li><p>第二个参数<strong>num_epochs: 可选参数，是一个整数值，代表迭代的次数</strong>，如果设置 num_epochs=None,生成器可以无限次遍历tensor列表，如果设置为 num_epochs=N，生成器只能遍历tensor列表N次。</p>
+</li>
+<li><p>第三个参数shuffle： bool类型，设置是否打乱样本的顺序。<strong>一般情况下，如果shuffle=True，生成的样本顺序就被打乱了，在批处理的时候不需要再次打乱样本，使用 tf.train.batch函数就可以了;如果shuffle=False,就需要在批处理时候使用 tf.train.shuffle_batch函数打乱样本。</strong></p>
+</li>
+<li><p>第四个参数seed: <strong>可选的整数，是生成随机数的种子，在第三个参数设置为shuffle=True的情况下才有用。</strong></p>
+</li>
+<li><p>第五个参数capacity：设置tensor列表的容量。</p>
+</li>
+<li><p>第六个参数shared_name：可选参数，如果设置一个‘shared_name’，则在不同的上下文环境（Session）中可以通过这个名字共享生成的tensor。</p>
+</li>
+<li><p>第七个参数name：可选，设置操作的名称。</p>
+</li>
+</ul>
+<p>tf.train.slice_input_producer定义了样本放入文件名队列的方式，包括迭代次数，是否乱序等，<strong>要真正将文件放入文件名队列，还需要调用tf.train.start_queue_runners 函数来启动执行文件名队列填充的线程，之后计算单元才可以把数据读出来，否则文件名队列为空的，计算单元就会处于一直等待状态，导致系统阻塞。</strong></p>
+<h4 id="tf-contrib-layers-batch-norm"><a href="#tf-contrib-layers-batch-norm" class="headerlink" title="tf.contrib.layers.batch_norm"></a><strong>tf.contrib.layers.batch_norm</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">tf.contrib.layers.batch_norm(</span><br><span class="line">    inputs,</span><br><span class="line">    decay=0.999,</span><br><span class="line">    center=True,</span><br><span class="line">    scale=False,</span><br><span class="line">    epsilon=0.001,</span><br><span class="line">    activation_fn=None,</span><br><span class="line">    param_initializers=None,</span><br><span class="line">    param_regularizers=None,</span><br><span class="line">    updates_collections=tf.GraphKeys.UPDATE_OPS,</span><br><span class="line">    is_training=True,</span><br><span class="line">    reuse=None,</span><br><span class="line">    variables_collections=None,</span><br><span class="line">    outputs_collections=None,</span><br><span class="line">    trainable=True,</span><br><span class="line">    batch_weights=None,</span><br><span class="line">    fused=None,</span><br><span class="line">    data_format=DATA_FORMAT_NHWC,</span><br><span class="line">    zero_debias_moving_mean=False,</span><br><span class="line">    scope=None,</span><br><span class="line">    renorm=False,</span><br><span class="line">    renorm_clipping=None,</span><br><span class="line">    renorm_decay=0.99,</span><br><span class="line">    adjustment=None</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>Batch Normalization 通过减少内部使用协变量加速神经网络的训练</p>
+<p>可以用作conv2d或fully_connected的标准化函数</p>
+<p>参数：</p>
+<p>1 inputs： 输入</p>
+<p>2 decay ：衰减系数。合适的衰减系数值接近1.0,特别是含多个9的值：0.999,0.99,0.9。如果训练集表现很好而验证/测试集表现得不好，选择小的系数（推荐使用0.9）。如果想要提高稳定性，zero_debias_moving_mean设为True</p>
+<p>3 center：如果为True，有beta偏移量；如果为False，无beta偏移量</p>
+<p>4 scale：如果为True，则乘以gamma。如果为False，gamma则不使用。当下一层是线性的时（例如nn.relu），由于缩放可以由下一层完成，所以可以禁用该层。</p>
+<p>5 epsilon：避免被零除</p>
+<p>6 activation_fn：用于激活，默认为线性激活函数</p>
+<p>7 param_initializers ： beta, gamma, moving mean and moving variance的优化初始化</p>
+<p>8 param_regularizers ： beta and gamma正则化优化</p>
+<p>9 updates_collections ：Collections来收集计算的更新操作。updates_ops需要使用train_op来执行。如果为None，则会添加控件依赖项以确保更新已计算到位。</p>
+<p>10 is_training:图层是否处于训练模式。在训练模式下，它将积累转入的统计量moving_mean并 moving_variance使用给定的指数移动平均值 decay。当它不是在训练模式，那么它将使用的数值moving_mean和moving_variance。<br>11 scope：可选范围variable_scope</p>
+<h4 id="tf-contrib-layers-convolution2d"><a href="#tf-contrib-layers-convolution2d" class="headerlink" title="tf.contrib.layers.convolution2d"></a>tf.contrib.layers.convolution2d</h4>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/25/循环神经网络RNN/" rel="next" title="循环神经网络RNN">
+                <i class="fa fa-chevron-left"></i> 循环神经网络RNN
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/25/YOLO/" rel="prev" title="YOLO">
+                YOLO <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mariana</p>
+              <p class="site-description motion-element" itemprop="description">a study blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-TensorFlow中tf-train-slice-input-producer和tf-train-batch函数"><span class="nav-number">1.</span> <span class="nav-text">1. TensorFlow中tf.train.slice_input_producer和tf.train.batch函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TensorFlow数据读取机制"><span class="nav-number">1.1.</span> <span class="nav-text">TensorFlow数据读取机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tf-train-slice-input-producer"><span class="nav-number">1.2.</span> <span class="nav-text">tf.train.slice_input_producer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tf-contrib-layers-batch-norm"><span class="nav-number">1.3.</span> <span class="nav-text">tf.contrib.layers.batch_norm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tf-contrib-layers-convolution2d"><span class="nav-number">1.4.</span> <span class="nav-text">tf.contrib.layers.convolution2d</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mariana</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
