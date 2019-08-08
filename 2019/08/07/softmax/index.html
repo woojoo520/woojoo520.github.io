@@ -79,17 +79,19 @@
 
 
 
-<meta name="description" content="Label &amp;amp; Button">
+<meta name="description" content="softmax交叉熵损失函数求导softmax经常被添加在分类任务的神经网络的输出层中，神经网络的反向传播中关键的步骤就是求导。 softmax函数： 一般在神经网络中，softmax可以作为分类任务的输出层。其实可以认为softmax输出的是几个类别选择的概率，比如我有一个分类任务，要分为三个类，softmax函数可以根据他们的相对大小，输出三个类别选取的概率，并且概率和为1。 公式：$S_{i">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Tkinter">
-<meta property="og:url" content="https://woojoo520.github.io/2019/07/27/Tkinter/index.html">
+<meta property="og:title" content="softmax">
+<meta property="og:url" content="https://woojoo520.github.io/2019/08/07/softmax/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="Label &amp;amp; Button">
+<meta property="og:description" content="softmax交叉熵损失函数求导softmax经常被添加在分类任务的神经网络的输出层中，神经网络的反向传播中关键的步骤就是求导。 softmax函数： 一般在神经网络中，softmax可以作为分类任务的输出层。其实可以认为softmax输出的是几个类别选择的概率，比如我有一个分类任务，要分为三个类，softmax函数可以根据他们的相对大小，输出三个类别选取的概率，并且概率和为1。 公式：$S_{i">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-27T12:12:25.182Z">
+<meta property="og:image" content="c:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565146619562.png">
+<meta property="og:updated_time" content="2019-08-07T03:39:37.169Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tkinter">
-<meta name="twitter:description" content="Label &amp;amp; Button">
+<meta name="twitter:title" content="softmax">
+<meta name="twitter:description" content="softmax交叉熵损失函数求导softmax经常被添加在分类任务的神经网络的输出层中，神经网络的反向传播中关键的步骤就是求导。 softmax函数： 一般在神经网络中，softmax可以作为分类任务的输出层。其实可以认为softmax输出的是几个类别选择的概率，比如我有一个分类任务，要分为三个类，softmax函数可以根据他们的相对大小，输出三个类别选取的概率，并且概率和为1。 公式：$S_{i">
+<meta name="twitter:image" content="c:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565146619562.png">
 
 
 
@@ -119,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="https://woojoo520.github.io/2019/07/27/Tkinter/">
+  <link rel="canonical" href="https://woojoo520.github.io/2019/08/07/softmax/">
 
 
 
 
 
-  <title>Tkinter | Celery Fairy</title>
+  <title>softmax | Celery Fairy</title>
   
 
 
@@ -232,7 +234,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/27/Tkinter/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/07/softmax/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mariana">
@@ -249,7 +251,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Tkinter</h1>
+          <h1 class="post-title" itemprop="name headline">softmax</h1>
         
 
         <div class="post-meta">
@@ -261,8 +263,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-27T16:18:34+08:00">
-                2019-07-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-07T10:52:19+08:00">
+                2019-08-07
               </time>
             
 
@@ -299,7 +301,43 @@
       
 
       
-        <h3 id="Label-amp-Button"><a href="#Label-amp-Button" class="headerlink" title="Label &amp; Button"></a>Label &amp; Button</h3>
+        <h3 id="softmax交叉熵损失函数求导"><a href="#softmax交叉熵损失函数求导" class="headerlink" title="softmax交叉熵损失函数求导"></a>softmax交叉熵损失函数求导</h3><p>softmax经常被添加在分类任务的神经网络的输出层中，神经网络的反向传播中关键的步骤就是求导。</p>
+<p>softmax函数：</p>
+<p>一般在神经网络中，softmax可以作为分类任务的输出层。其实可以认为softmax输出的是几个类别选择的概率，比如我有一个分类任务，要分为三个类，softmax函数可以根据他们的相对大小，输出三个类别选取的概率，并且概率和为1。</p>
+<p>公式：$S_{i}=\frac{e^{z_{i}}}{\sum_{k} e^{z_{k}}}$</p>
+<p>$S_{}i$ 代表的是第i个神经元的输出，其实就是在输出后面套一个这个函数</p>
+<p>首先是一个神经元的输出，一个神经元如下图：</p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565146619562.png" alt="1565146619562"></p>
+<p>神经元的输出设为：$z_{i}=\sum_{j} w_{i j} x_{i j}+b$</p>
+<p>其中 $w_{ij}$ 是第i个神经元的第j个权重，b是偏移值， $z_{i}$ 表示该网络的第i个输出</p>
+<p>给这个输出加上一个softmax函数，就是$a_{i}=\frac{e^{z_{i}}}{\sum_{k} e^{z_{k}}}$</p>
+<p>其中 $a_{i}$ 代表softmax的第i个输出值，右侧就是套用了softmax函数</p>
+<h4 id="损失函数-loss-function"><a href="#损失函数-loss-function" class="headerlink" title="损失函数 loss function"></a>损失函数 loss function</h4><p>在神经网络反向传播中，要求一个损失函数，这个损失函数其实表示的是真实值与网络的估计值的误差，知道误差了，才能知道怎样去修改网络中的权重。</p>
+<p>损失函数可以有很多形式，这里使用的是交叉熵函数，主要是由于这个求导结果比较简单，易于计算，并且交叉熵解决某些损失函数学习缓慢的问题。交叉熵的函数是这样的：$C=-\sum_{i} y_{i} \ln a_{i}$</p>
+<p>其中 $y_{i}$ 表示真实的分类结果。</p>
+<h4 id="推导过程："><a href="#推导过程：" class="headerlink" title="推导过程："></a>推导过程：</h4><p>首先，我们要明确一下我们要求什么，我们要求的是我们的loss对于神经元输出( $ z_{i}$ )的梯度，即：$\frac{\partial C}{\partial z_{i}}$</p>
+<p>根据复合函数求导法则：$\frac{\partial C}{\partial z_{i}}=\sum_{j}\left(\frac{\partial C_{j}}{\partial a_{j}} \frac{\partial a_{j}}{\partial z_{i}}\right)$</p>
+<p>这里为什么是 $a_{j}$ 而不是 $a_{i}$ ，这里要看一下softmax的公式了，因为softmax公式的特性，它的分母包含了所有神经元的输出，所以，对于不等于i的其他输出里面，也包含着 $z_{i}$，所有的a都要纳入到计算范围中，并且后面的计算可以看到需要分为 $i = j$ 和 $i \not= j$ 两种情况求导。</p>
+<p>下面我们一个一个推：</p>
+<p>$\frac{\partial C_{j}}{\partial a_{j}}=\frac{\partial\left(-y_{j} \ln a_{j}\right)}{\partial a_{j}}=-y_{j} \frac{1}{a_{j}}$</p>
+<p>第二个稍微复杂一点，我们先把他分为两种情况：</p>
+<ol>
+<li><p>如果 $i = j$ :</p>
+<p>$\frac{\partial a_{i}}{\partial z_{i}}=\frac{\partial\left(\frac{e^{z_{i}}}{\sum_{k} e^{z_{k}}}\right)}{\partial z_{i}}=\frac{\sum_{k} e^{z_{k}} e^{z_{i}}-\left(e^{z_{i}}\right)^{2}}{\left(\sum_{k} e^{z_{k}}\right)^{2}}=\left(\frac{e^{z_{i}}}{\sum_{k} e^{z_{k}}}\right)\left(1-\frac{e^{z_{i}}}{\sum_{k} e^{z_{k}}}\right)=a_{i}\left(1-a_{i}\right)$</p>
+</li>
+<li><p>如果 $i \not= j$ :</p>
+<p>$\frac{\partial a_{j}}{\partial z_{i}}=\frac{\partial\left(\frac{e^{z_{j}}}{\sum_{k} e^{z_{k}}}\right)}{\partial z_{i}}=-e^{z_{j}}\left(\frac{1}{\sum_{k} e^{z_{k}}}\right)^{2} e^{z_{i}}=-a_{i} a_{j}$</p>
+</li>
+</ol>
+<p>接下来，只需要组合两个式子：</p>
+<p>$\frac{\partial C}{\partial z_{i}}=\sum_{j}\left(\frac{\partial C_{j}}{\partial a_{j}} \frac{\partial a_{j}}{\partial z_{i}}\right)=\sum_{j=\dot{\psi}}\left(\frac{\partial C_{j}}{\partial a_{j}} \frac{\partial a_{j}}{\partial z_{i}}\right)+\sum_{i=j}\left(\frac{\partial C_{j}}{\partial a_{j}} \frac{\partial a_{j}}{\partial z_{i}}\right)$</p>
+<p>$=\sum_{j=\dot{y}}-y_{j} \frac{1}{a_{j}}\left(-a_{i} a_{j}\right)+\left(-y_{i} \frac{1}{a_{i}}\right)\left(a_{i}\left(1-a_{i}\right)\right)$</p>
+<p>$=\sum_{j=i} a_{i} y_{j}+\left(-y_{i}\left(1-a_{i}\right)\right)$</p>
+<p>$=\sum_{j=\dot{\psi}} a_{i} y_{j}+a_{i} y_{i}-y_{i}$</p>
+<p>$=a_{i} \sum_{j} y_{j}-y_{i}$</p>
+<p>最后的结果看起来简单了很多，最后，针对分类问题，我们给定的结果 $y_{i}$ 最终只会哟一个类别是1，其他类别都是0，因此对于分类问题，这个梯度等于：</p>
+<p>$\frac{\partial C}{\partial z_{i}}=a_{i}-y_{i}$</p>
+
       
     </div>
     
@@ -323,8 +361,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/25/ResNet/" rel="next" title="ResNet">
-                <i class="fa fa-chevron-left"></i> ResNet
+              <a href="/2019/07/29/OverTheWall/" rel="next" title="OverTheWall">
+                <i class="fa fa-chevron-left"></i> OverTheWall
               </a>
             
           </div>
@@ -333,8 +371,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/28/Loss-Function/" rel="prev" title="Loss Function">
-                Loss Function <i class="fa fa-chevron-right"></i>
+              <a href="/2019/08/07/Inception/" rel="prev" title="Inception">
+                Inception <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -449,7 +487,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Label-amp-Button"><span class="nav-number">1.</span> <span class="nav-text">Label &amp; Button</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#softmax交叉熵损失函数求导"><span class="nav-number">1.</span> <span class="nav-text">softmax交叉熵损失函数求导</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#损失函数-loss-function"><span class="nav-number">1.1.</span> <span class="nav-text">损失函数 loss function</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#推导过程："><span class="nav-number">1.2.</span> <span class="nav-text">推导过程：</span></a></li></ol></li></ol></div>
             
 
           </div>
