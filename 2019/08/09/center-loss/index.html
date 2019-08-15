@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Center Loss一. 简介论文链接：http://ydwen.github.io/papers/WenECCV16.pdf  二. 为什么要使用Center Loss？简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。 仅仅使用softmax作为监督信号的输出处理就只能做到sepe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="center loss">
+<meta property="og:url" content="https://woojoo520.github.io/2019/08/09/center-loss/index.html">
+<meta property="og:site_name" content="Celery Fairy">
+<meta property="og:description" content="Center Loss一. 简介论文链接：http://ydwen.github.io/papers/WenECCV16.pdf  二. 为什么要使用Center Loss？简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。 仅仅使用softmax作为监督信号的输出处理就只能做到sepe">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://img-blog.csdn.net/20180727140845416?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180727150130651?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/2018072715022915?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180727153311160?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/2018072715370270?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180727150702547?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180727162522989?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180727162755579?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:updated_time" content="2019-08-09T06:59:02.033Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="center loss">
+<meta name="twitter:description" content="Center Loss一. 简介论文链接：http://ydwen.github.io/papers/WenECCV16.pdf  二. 为什么要使用Center Loss？简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。 仅仅使用softmax作为监督信号的输出处理就只能做到sepe">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20180727140845416?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woojoo520.github.io/2019/08/09/center-loss/">
+
+
+
+
+
+  <title>center loss | Celery Fairy</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Celery Fairy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Celery's Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/center-loss/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">center loss</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-09T14:31:07+08:00">
+                2019-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Center-Loss"><a href="#Center-Loss" class="headerlink" title="Center Loss"></a>Center Loss</h2><h3 id="一-简介"><a href="#一-简介" class="headerlink" title="一. 简介"></a>一. 简介</h3><p>论文链接：<a href="http://ydwen.github.io/papers/WenECCV16.pdf" target="_blank" rel="noopener">http://ydwen.github.io/papers/WenECCV16.pdf</a> </p>
+<h3 id="二-为什么要使用Center-Loss？"><a href="#二-为什么要使用Center-Loss？" class="headerlink" title="二. 为什么要使用Center Loss？"></a>二. 为什么要使用Center Loss？</h3><p>简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。</p>
+<p>仅仅使用softmax作为监督信号的输出处理就只能做到seperable而不是discriminative，如下图:</p>
+<p><img src="https://img-blog.csdn.net/20180727140845416?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<h3 id="三-如何使学到的特征差异化更大——Center-Loss"><a href="#三-如何使学到的特征差异化更大——Center-Loss" class="headerlink" title="三. 如何使学到的特征差异化更大——Center Loss"></a>三. 如何使学到的特征差异化更大——Center Loss</h3><p>融合Softmax Loss与Center loss</p>
+<p><strong>Softmax Loss（保证类之间的feature距离最大）与Center Loss（保证类内的feature距离最小，更接近于类中心）</strong></p>
+<p><img src="https://img-blog.csdn.net/20180727150130651?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p><img src="https://img-blog.csdn.net/2018072715022915?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p>m是mini-batch、n是class。在Lc公式中有一个缺陷，就是$C_{y_{i}}$是i这个样本对应的类别yi所属于的类中心C∈ Rd，d代表d维。</p>
+<p>理想情况下，Cyi需要随着学到的feature变化而实时更新，也就是要在每一次迭代中用整个数据集的feature来算每个类的中心。</p>
+<p>但这显然不现实，做以下两个修改：</p>
+<p>1、由整个训练集更新center改为mini-batch更改center  </p>
+<p>2、避免错误分类的样本的干扰，使用scalar α 来控制center的学习率  </p>
+<p>因此求算梯度的公式如下：</p>
+<p><img src="https://img-blog.csdn.net/20180727153311160?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p>即：当yi = j，也就是mini-batch中某一个sample是对应要更新的那一个类的center的时候就累加起来除以某类的个数+1。</p>
+<p><img src="https://img-blog.csdn.net/2018072715370270?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p>最终loss联立起来如上图，λ用于平衡softmax loss与center loss，越大则区分度 越大，如下图效果：</p>
+<p><img src="https://img-blog.csdn.net/20180727150702547?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<h3 id="四-Center-Loss的实现"><a href="#四-Center-Loss的实现" class="headerlink" title="四. Center Loss的实现"></a>四. Center Loss的实现</h3><p>pytorch实现：<a href="https://github.com/jxgu1016/MNIST_center_loss_pytorch" target="_blank" rel="noopener">https://github.com/jxgu1016/MNIST_center_loss_pytorch</a></p>
+<ul>
+<li>网络结构</li>
+</ul>
+<p><img src="https://img-blog.csdn.net/20180727162522989?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p>即在特征层输出（classification前最后一层）引入center loss：</p>
+<p><img src="https://img-blog.csdn.net/20180727162755579?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<h4 id="fully-connected-和-local-connected"><a href="#fully-connected-和-local-connected" class="headerlink" title="fully-connected 和 local-connected"></a>fully-connected 和 local-connected</h4><h5 id="判断fully-connected的方法："><a href="#判断fully-connected的方法：" class="headerlink" title="判断fully-connected的方法："></a>判断fully-connected的方法：</h5><ul>
+<li><p>对于neuron的链接（点对点的链接）都是fully connected（这里其实就是MLP）</p>
+</li>
+<li><p>对于有filter的network，不是看filter的size，而是看output的feature map的size。如果output feature map的size还是1 * 1 * N的话，这个layer就是fully connected layer</p>
+<p><strong>解释第二个判断方法：</strong></p>
+<ul>
+<li>1 * 1的filter size不一定是fully connected。比如input size是10 * 10 * 100， filter size是1 * 1 * 100， 重复50次，则该layer的总weights是：1 * 1 * 100 * 50</li>
+<li>1 * 1的filter size如果要是 fully connected， 则input size必须是1 * 1</li>
+<li>input size是10x10的时候却是fully connected的情况：这里我们的output size肯定是1x1，且我们的filter size肯定是10x10。</li>
+</ul>
+<p><strong>总结：filter size等于input size则是fully connected</strong></p>
+</li>
+</ul>
+<p>综上：</p>
+<ul>
+<li>fully connected没有weight share</li>
+<li>对于neuron的连接（点对点的链接）都是fully connected（MLP——多层感知器）</li>
+<li>Convolution中当filter size等于input size时，就是fully connected，此时的output size为1 * 1 * N</li>
+<li>当1 *1不等于input size时，1 * 1一样具备weights share的能力。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/09/softmax-and-softmax-loss-and-BP/" rel="next" title="softmax and softmax-loss and BP">
+                <i class="fa fa-chevron-left"></i> softmax and softmax-loss and BP
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/09/卷积/" rel="prev" title="卷积在图像处理中的应用">
+                卷积在图像处理中的应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mariana</p>
+              <p class="site-description motion-element" itemprop="description">a study blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Center-Loss"><span class="nav-number">1.</span> <span class="nav-text">Center Loss</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-简介"><span class="nav-number">1.1.</span> <span class="nav-text">一. 简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-为什么要使用Center-Loss？"><span class="nav-number">1.2.</span> <span class="nav-text">二. 为什么要使用Center Loss？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-如何使学到的特征差异化更大——Center-Loss"><span class="nav-number">1.3.</span> <span class="nav-text">三. 如何使学到的特征差异化更大——Center Loss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-Center-Loss的实现"><span class="nav-number">1.4.</span> <span class="nav-text">四. Center Loss的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fully-connected-和-local-connected"><span class="nav-number">1.4.1.</span> <span class="nav-text">fully-connected 和 local-connected</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#判断fully-connected的方法："><span class="nav-number">1.4.1.1.</span> <span class="nav-text">判断fully-connected的方法：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mariana</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
