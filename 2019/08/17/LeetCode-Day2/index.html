@@ -79,19 +79,17 @@
 
 
 
-<meta name="description" content="Neural Network可以使用torch.nn包构造神经网络 nn取决于autograd定义的模型并区分它们。一个nn.Module包含层和一种方法forward(input)，它返回output 例如，查看对数字图像进行分类的网络  它是一个简单的前馈网络。它接受输入，一个接一个地通过及各层输入，然后最终给出输出 神经网络的典型训练程序如下：  定义一些具有可学习参数（或权重）的神经网络">
+<meta name="description" content="今天主要学习了int的最大范围的表示 $ -2^{31} &amp;lt; int &amp;lt; 2^{31} - 1$ min表示为-(1 &amp;lt;&amp;lt; 31) max表示为(1 &amp;lt;&amp;lt; 31) - 1 这里需要注意的是&amp;lt;&amp;lt;移位运算符的优先级比较低，不可以写成1 &amp;lt;&amp;lt; 31 - 1，会被理解为1 &amp;lt;&amp;lt; (31 - 1)，即1 &amp;lt;&amp;lt;30">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Neural Network">
-<meta property="og:url" content="https://woojoo520.github.io/2019/08/08/Neural-Network/index.html">
+<meta property="og:title" content="LeetCode-Day2">
+<meta property="og:url" content="https://woojoo520.github.io/2019/08/17/LeetCode-Day2/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="Neural Network可以使用torch.nn包构造神经网络 nn取决于autograd定义的模型并区分它们。一个nn.Module包含层和一种方法forward(input)，它返回output 例如，查看对数字图像进行分类的网络  它是一个简单的前馈网络。它接受输入，一个接一个地通过及各层输入，然后最终给出输出 神经网络的典型训练程序如下：  定义一些具有可学习参数（或权重）的神经网络">
+<meta property="og:description" content="今天主要学习了int的最大范围的表示 $ -2^{31} &amp;lt; int &amp;lt; 2^{31} - 1$ min表示为-(1 &amp;lt;&amp;lt; 31) max表示为(1 &amp;lt;&amp;lt; 31) - 1 这里需要注意的是&amp;lt;&amp;lt;移位运算符的优先级比较低，不可以写成1 &amp;lt;&amp;lt; 31 - 1，会被理解为1 &amp;lt;&amp;lt; (31 - 1)，即1 &amp;lt;&amp;lt;30">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://pytorch.org/tutorials/_images/mnist.png">
-<meta property="og:updated_time" content="2019-08-08T12:19:28.820Z">
+<meta property="og:updated_time" content="2019-08-17T13:47:11.383Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Neural Network">
-<meta name="twitter:description" content="Neural Network可以使用torch.nn包构造神经网络 nn取决于autograd定义的模型并区分它们。一个nn.Module包含层和一种方法forward(input)，它返回output 例如，查看对数字图像进行分类的网络  它是一个简单的前馈网络。它接受输入，一个接一个地通过及各层输入，然后最终给出输出 神经网络的典型训练程序如下：  定义一些具有可学习参数（或权重）的神经网络">
-<meta name="twitter:image" content="https://pytorch.org/tutorials/_images/mnist.png">
+<meta name="twitter:title" content="LeetCode-Day2">
+<meta name="twitter:description" content="今天主要学习了int的最大范围的表示 $ -2^{31} &amp;lt; int &amp;lt; 2^{31} - 1$ min表示为-(1 &amp;lt;&amp;lt; 31) max表示为(1 &amp;lt;&amp;lt; 31) - 1 这里需要注意的是&amp;lt;&amp;lt;移位运算符的优先级比较低，不可以写成1 &amp;lt;&amp;lt; 31 - 1，会被理解为1 &amp;lt;&amp;lt; (31 - 1)，即1 &amp;lt;&amp;lt;30">
 
 
 
@@ -121,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://woojoo520.github.io/2019/08/08/Neural-Network/">
+  <link rel="canonical" href="https://woojoo520.github.io/2019/08/17/LeetCode-Day2/">
 
 
 
 
 
-  <title>Neural Network | Celery Fairy</title>
+  <title>LeetCode-Day2 | Celery Fairy</title>
   
 
 
@@ -234,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/08/Neural-Network/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/17/LeetCode-Day2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mariana">
@@ -251,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Neural Network</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode-Day2</h1>
         
 
         <div class="post-meta">
@@ -263,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-08T15:45:06+08:00">
-                2019-08-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-17T21:43:47+08:00">
+                2019-08-17
               </time>
             
 
@@ -301,28 +299,12 @@
       
 
       
-        <h2 id="Neural-Network"><a href="#Neural-Network" class="headerlink" title="Neural Network"></a>Neural Network</h2><p>可以使用<code>torch.nn</code>包构造神经网络</p>
-<p>nn取决于autograd定义的模型并区分它们。一个<code>nn.Module</code>包含层和一种方法<code>forward(input)</code>，它返回output</p>
-<p>例如，查看对数字图像进行分类的网络</p>
-<p><img src="https://pytorch.org/tutorials/_images/mnist.png" alt="convnet"></p>
-<p>它是一个简单的前馈网络。它接受输入，一个接一个地通过及各层输入，然后最终给出输出</p>
-<p><strong>神经网络的典型训练程序如下：</strong></p>
-<ul>
-<li><p>定义一些具有可学习参数（或权重）的神经网络</p>
-</li>
-<li><p>迭代输入数据集</p>
-</li>
-<li><p>通过网络处理输入</p>
-</li>
-<li><p>计算损失（输出距离正确多远）</p>
-</li>
-<li><p>将渐变传播回网络参数</p>
-</li>
-<li><p>通常使用简单的更新规则更新网络权重</p>
-<p><code>weight = weight - learning_rate * gradient</code></p>
-</li>
-</ul>
-<h3 id="定义网络"><a href="#定义网络" class="headerlink" title="定义网络"></a>定义网络</h3>
+        <p>今天主要学习了int的最大范围的表示</p>
+<p>$ -2^{31} &lt; int &lt; 2^{31} - 1$</p>
+<p>min表示为<code>-(1 &lt;&lt; 31)</code></p>
+<p>max表示为<code>(1 &lt;&lt; 31) - 1</code></p>
+<p>这里需要注意的是<code>&lt;&lt;</code>移位运算符的优先级比较低，不可以写成<code>1 &lt;&lt; 31 - 1</code>，会被理解为<code>1 &lt;&lt; (31 - 1)</code>，即<code>1 &lt;&lt;30</code></p>
+
       
     </div>
     
@@ -346,8 +328,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/07/什么是PyTorch/" rel="next" title="什么是PyTorch?">
-                <i class="fa fa-chevron-left"></i> 什么是PyTorch?
+              <a href="/2019/08/17/HDR的简单介绍/" rel="next" title="HDR的简单介绍">
+                <i class="fa fa-chevron-left"></i> HDR的简单介绍
               </a>
             
           </div>
@@ -356,8 +338,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/08/09/Python格式化输出/" rel="prev" title="Python格式化输出">
-                Python格式化输出 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/08/17/LeetCode-Day3/" rel="prev" title="LeetCode-Day3">
+                LeetCode-Day3 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -410,17 +392,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -462,22 +435,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Neural-Network"><span class="nav-number">1.</span> <span class="nav-text">Neural Network</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义网络"><span class="nav-number">1.1.</span> <span class="nav-text">定义网络</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
