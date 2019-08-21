@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="1. 双边滤波器的快速近似在对双边网格做总结之前，先介绍一下双边滤波器的快速近似方法（http://www.cis.rit.edu/~cnspci/references/dip/filtering/paris2006.pdf），它是双边网格的雏形，是一个将双边滤波器扩展大高维空间进行线性卷积的方法。而双边网格的坐着在这篇文章的基础上，将高维空间数据映射成3D array，进而提出了双边网格 1.1">
+<meta name="description" content="19. 删除链表的倒数第N个节点给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。 示例：  给定一个链表: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5, 和 n = 2. 当删除了倒数第二个节点后，链表变为 1-&amp;gt;2-&amp;gt;3-&amp;gt;5.  说明： 给定的 n 保证是有效的。 1234567891011121314151617181920212223242526">
 <meta property="og:type" content="article">
-<meta property="og:title" content="双边网格">
-<meta property="og:url" content="https://woojoo520.github.io/2019/07/29/双边网格/index.html">
+<meta property="og:title" content="LeetCode-Day6">
+<meta property="og:url" content="https://woojoo520.github.io/2019/08/20/LeetCode-Day6/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="1. 双边滤波器的快速近似在对双边网格做总结之前，先介绍一下双边滤波器的快速近似方法（http://www.cis.rit.edu/~cnspci/references/dip/filtering/paris2006.pdf），它是双边网格的雏形，是一个将双边滤波器扩展大高维空间进行线性卷积的方法。而双边网格的坐着在这篇文章的基础上，将高维空间数据映射成3D array，进而提出了双边网格 1.1">
+<meta property="og:description" content="19. 删除链表的倒数第N个节点给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。 示例：  给定一个链表: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5, 和 n = 2. 当删除了倒数第二个节点后，链表变为 1-&amp;gt;2-&amp;gt;3-&amp;gt;5.  说明： 给定的 n 保证是有效的。 1234567891011121314151617181920212223242526">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-29T01:52:05.777Z">
+<meta property="og:updated_time" content="2019-08-20T12:58:09.150Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="双边网格">
-<meta name="twitter:description" content="1. 双边滤波器的快速近似在对双边网格做总结之前，先介绍一下双边滤波器的快速近似方法（http://www.cis.rit.edu/~cnspci/references/dip/filtering/paris2006.pdf），它是双边网格的雏形，是一个将双边滤波器扩展大高维空间进行线性卷积的方法。而双边网格的坐着在这篇文章的基础上，将高维空间数据映射成3D array，进而提出了双边网格 1.1">
+<meta name="twitter:title" content="LeetCode-Day6">
+<meta name="twitter:description" content="19. 删除链表的倒数第N个节点给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。 示例：  给定一个链表: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5, 和 n = 2. 当删除了倒数第二个节点后，链表变为 1-&amp;gt;2-&amp;gt;3-&amp;gt;5.  说明： 给定的 n 保证是有效的。 1234567891011121314151617181920212223242526">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://woojoo520.github.io/2019/07/29/双边网格/">
+  <link rel="canonical" href="https://woojoo520.github.io/2019/08/20/LeetCode-Day6/">
 
 
 
 
 
-  <title>双边网格 | Celery Fairy</title>
+  <title>LeetCode-Day6 | Celery Fairy</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/29/双边网格/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/20/LeetCode-Day6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mariana">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">双边网格</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode-Day6</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-29T08:42:33+08:00">
-                2019-07-29
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-20T20:51:45+08:00">
+                2019-08-20
               </time>
             
 
@@ -299,8 +299,22 @@
       
 
       
-        <h3 id="1-双边滤波器的快速近似"><a href="#1-双边滤波器的快速近似" class="headerlink" title="1. 双边滤波器的快速近似"></a>1. 双边滤波器的快速近似</h3><p>在对双边网格做总结之前，先介绍一下双边滤波器的快速近似方法（<a href="http://www.cis.rit.edu/~cnspci/references/dip/filtering/paris2006.pdf），它是双边网格的雏形，是一个将双边滤波器扩展大高维空间进行线性卷积的方法。而双边网格的坐着在这篇文章的基础上，将高维空间数据映射成3D" target="_blank" rel="noopener">http://www.cis.rit.edu/~cnspci/references/dip/filtering/paris2006.pdf），它是双边网格的雏形，是一个将双边滤波器扩展大高维空间进行线性卷积的方法。而双边网格的坐着在这篇文章的基础上，将高维空间数据映射成3D</a> array，进而提出了双边网格</p>
-<h4 id="1-1-双边滤波器"><a href="#1-1-双边滤波器" class="headerlink" title="1.1 双边滤波器"></a>1.1 双边滤波器</h4><p>简单的说，双边滤波器是一种高斯滤波器的扩展。传统的高斯滤波器有一个高斯核，通过对空间相邻像素点以高斯函数位权值取均值，实现对图像的平滑。由于传统高斯滤波器只考虑了空域的信息，尽管它能实现图像的有效平滑，但同时也模糊了边缘信息。双边滤波器的原理即在传统高斯滤波器的基础上添加了一个表征亮度差异的高斯核，即既考虑了空间的信息，又考虑了值域的信息。在灰度差别不大的范围的范围，表征亮度高斯核的权值较大，接近于1，因此双边滤波器退化为传统的高斯滤波器，实现对图像的平滑；在边缘部分，尽管相邻像素点的空间接近，空间距离小，但由于边缘部分，灰度差别比较大，因此在值域上距离较大，所以新加入的高斯核使得在该部分不执行平滑和粗粒，保留图像的边缘。所以说，双边滤波是一种非线性（两个高斯核的乘积）的铝箔方法，是结合图像的空间邻近度和像素值相似度的一种折中处理，同时考虑空域信息和灰度相似性，达到保边去噪的目的</p>
+        <h3 id="19-删除链表的倒数第N个节点"><a href="#19-删除链表的倒数第N个节点" class="headerlink" title="19. 删除链表的倒数第N个节点"></a>19. 删除链表的倒数第N个节点</h3><p>给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。</p>
+<p><strong>示例：</strong></p>
+<blockquote>
+<p>给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 n = 2.</p>
+<p>当删除了倒数第二个节点后，链表变为 1-&gt;2-&gt;3-&gt;5.</p>
+</blockquote>
+<p>说明：</p>
+<p>给定的 n 保证是有效的。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        ListNode* temp = head;</span><br><span class="line">        ListNode* pre = head;</span><br><span class="line">        ListNode* after = head;</span><br><span class="line">        <span class="keyword">if</span>(head-&gt;next == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++) &#123;</span><br><span class="line">            pre = pre-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(pre == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(pre-&gt;next != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            pre = pre-&gt;next;</span><br><span class="line">            after = after-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// ListNode* deleteNode = after-&gt;next;</span></span><br><span class="line">        <span class="comment">// delete deleteNode;</span></span><br><span class="line">        after-&gt;next = after-&gt;next-&gt;next;</span><br><span class="line">        <span class="keyword">return</span> head;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>基本思路：就是固定两个指针，然后让pre指针先走n步，然后pre和after同时走，这样当pre到达最后的时候，after就是倒数第n个。</p>
+<p>需要考虑的特殊情况：</p>
+<ul>
+<li>链表长度为1，只能删掉头结点，返回NULL</li>
+<li>去掉的节点是头结点（即走完n步之后就是NULL），直接返回头结点的next</li>
+</ul>
 
       
     </div>
@@ -325,8 +339,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/28/Loss-Function/" rel="next" title="Loss Function">
-                <i class="fa fa-chevron-left"></i> Loss Function
+              <a href="/2019/08/19/LeetCode-Day5/" rel="next" title="LeetCode-Day5">
+                <i class="fa fa-chevron-left"></i> LeetCode-Day5
               </a>
             
           </div>
@@ -335,8 +349,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/29/论文中的Python知识点/" rel="prev" title="论文中的Python知识点">
-                论文中的Python知识点 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/08/21/ZSL/" rel="prev" title="ZSL">
+                ZSL <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -451,7 +465,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-双边滤波器的快速近似"><span class="nav-number">1.</span> <span class="nav-text">1. 双边滤波器的快速近似</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-双边滤波器"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 双边滤波器</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#19-删除链表的倒数第N个节点"><span class="nav-number">1.</span> <span class="nav-text">19. 删除链表的倒数第N个节点</span></a></li></ol></div>
             
 
           </div>

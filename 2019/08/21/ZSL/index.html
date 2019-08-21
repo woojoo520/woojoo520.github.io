@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="1. 双边滤波器的快速近似在对双边网格做总结之前，先介绍一下双边滤波器的快速近似方法（http://www.cis.rit.edu/~cnspci/references/dip/filtering/paris2006.pdf），它是双边网格的雏形，是一个将双边滤波器扩展大高维空间进行线性卷积的方法。而双边网格的坐着在这篇文章的基础上，将高维空间数据映射成3D array，进而提出了双边网格 1.1">
+<meta name="description" content="a study blog">
 <meta property="og:type" content="article">
-<meta property="og:title" content="双边网格">
-<meta property="og:url" content="https://woojoo520.github.io/2019/07/29/双边网格/index.html">
+<meta property="og:title" content="ZSL">
+<meta property="og:url" content="https://woojoo520.github.io/2019/08/21/ZSL/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="1. 双边滤波器的快速近似在对双边网格做总结之前，先介绍一下双边滤波器的快速近似方法（http://www.cis.rit.edu/~cnspci/references/dip/filtering/paris2006.pdf），它是双边网格的雏形，是一个将双边滤波器扩展大高维空间进行线性卷积的方法。而双边网格的坐着在这篇文章的基础上，将高维空间数据映射成3D array，进而提出了双边网格 1.1">
+<meta property="og:description" content="a study blog">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-29T01:52:05.777Z">
+<meta property="og:updated_time" content="2019-08-21T08:42:41.151Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="双边网格">
-<meta name="twitter:description" content="1. 双边滤波器的快速近似在对双边网格做总结之前，先介绍一下双边滤波器的快速近似方法（http://www.cis.rit.edu/~cnspci/references/dip/filtering/paris2006.pdf），它是双边网格的雏形，是一个将双边滤波器扩展大高维空间进行线性卷积的方法。而双边网格的坐着在这篇文章的基础上，将高维空间数据映射成3D array，进而提出了双边网格 1.1">
+<meta name="twitter:title" content="ZSL">
+<meta name="twitter:description" content="a study blog">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://woojoo520.github.io/2019/07/29/双边网格/">
+  <link rel="canonical" href="https://woojoo520.github.io/2019/08/21/ZSL/">
 
 
 
 
 
-  <title>双边网格 | Celery Fairy</title>
+  <title>ZSL | Celery Fairy</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/29/双边网格/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/21/ZSL/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mariana">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">双边网格</h1>
+          <h1 class="post-title" itemprop="name headline">ZSL</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-29T08:42:33+08:00">
-                2019-07-29
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-21T16:42:41+08:00">
+                2019-08-21
               </time>
             
 
@@ -299,9 +299,7 @@
       
 
       
-        <h3 id="1-双边滤波器的快速近似"><a href="#1-双边滤波器的快速近似" class="headerlink" title="1. 双边滤波器的快速近似"></a>1. 双边滤波器的快速近似</h3><p>在对双边网格做总结之前，先介绍一下双边滤波器的快速近似方法（<a href="http://www.cis.rit.edu/~cnspci/references/dip/filtering/paris2006.pdf），它是双边网格的雏形，是一个将双边滤波器扩展大高维空间进行线性卷积的方法。而双边网格的坐着在这篇文章的基础上，将高维空间数据映射成3D" target="_blank" rel="noopener">http://www.cis.rit.edu/~cnspci/references/dip/filtering/paris2006.pdf），它是双边网格的雏形，是一个将双边滤波器扩展大高维空间进行线性卷积的方法。而双边网格的坐着在这篇文章的基础上，将高维空间数据映射成3D</a> array，进而提出了双边网格</p>
-<h4 id="1-1-双边滤波器"><a href="#1-1-双边滤波器" class="headerlink" title="1.1 双边滤波器"></a>1.1 双边滤波器</h4><p>简单的说，双边滤波器是一种高斯滤波器的扩展。传统的高斯滤波器有一个高斯核，通过对空间相邻像素点以高斯函数位权值取均值，实现对图像的平滑。由于传统高斯滤波器只考虑了空域的信息，尽管它能实现图像的有效平滑，但同时也模糊了边缘信息。双边滤波器的原理即在传统高斯滤波器的基础上添加了一个表征亮度差异的高斯核，即既考虑了空间的信息，又考虑了值域的信息。在灰度差别不大的范围的范围，表征亮度高斯核的权值较大，接近于1，因此双边滤波器退化为传统的高斯滤波器，实现对图像的平滑；在边缘部分，尽管相邻像素点的空间接近，空间距离小，但由于边缘部分，灰度差别比较大，因此在值域上距离较大，所以新加入的高斯核使得在该部分不执行平滑和粗粒，保留图像的边缘。所以说，双边滤波是一种非线性（两个高斯核的乘积）的铝箔方法，是结合图像的空间邻近度和像素值相似度的一种折中处理，同时考虑空域信息和灰度相似性，达到保边去噪的目的</p>
-
+        
       
     </div>
     
@@ -325,8 +323,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/28/Loss-Function/" rel="next" title="Loss Function">
-                <i class="fa fa-chevron-left"></i> Loss Function
+              <a href="/2019/08/20/LeetCode-Day6/" rel="next" title="LeetCode-Day6">
+                <i class="fa fa-chevron-left"></i> LeetCode-Day6
               </a>
             
           </div>
@@ -335,8 +333,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/29/论文中的Python知识点/" rel="prev" title="论文中的Python知识点">
-                论文中的Python知识点 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/08/21/LeetCode-Day7/" rel="prev" title="LeetCode-Day7">
+                LeetCode-Day7 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -389,17 +387,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -441,22 +430,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-双边滤波器的快速近似"><span class="nav-number">1.</span> <span class="nav-text">1. 双边滤波器的快速近似</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-双边滤波器"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 双边滤波器</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
