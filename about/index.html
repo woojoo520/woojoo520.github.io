@@ -1,0 +1,83 @@
+<hr>
+<p>date: 2015-08-16 14:58:08</p>
+<h2 id="comments-true"><a href="#comments-true" class="headerlink" title="comments: true"></a>comments: true</h2><h1 id="Hipaper"><a href="#Hipaper" class="headerlink" title="Hipaper"></a>Hipaper</h1><p><strong>A fashional newspaper, blog theme for Hexo</strong>. </p>
+<ul>
+<li><a href="https://itimetraveler.github.io/hexo-theme-hipaper/"><strong>☞ Preview Demo</strong></a> | <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper/blob/master/README.cn.md"><strong>查看中文使用文档</strong></a></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/master/gallery/hipaper-demo-screen.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/iTimeTraveler/hexo-theme-hipaper/master/source/preview/mobile-preview.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/iTimeTraveler/hexo-theme-hipaper/master/source/preview/hipaper-preview.png" alt=""></p>
+<!--more-->
+
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><ol>
+<li><p>Get it from GitHub</p>
+<pre><code class="shell"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> https://github.com/iTimeTraveler/hexo-theme-hipaper.git themes/hipaper</span></code></pre>
+</li>
+<li><p>Enable</p>
+<p>Modify <code>theme</code> setting in <code>_config.yml</code> to <code>hipaper</code>.</p>
+<pre><code># Extensions
+## Plugins: http://hexo.io/plugins/
+## Themes: http://hexo.io/themes/
+theme: hipaper</code></pre></li>
+<li><p>Update</p>
+<pre><code class="shell"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> themes/hipaper</span>
+<span class="meta">$</span><span class="bash"> git pull</span></code></pre>
+</li>
+</ol>
+<h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><h3 id="Logo-Image-or-Text"><a href="#Logo-Image-or-Text" class="headerlink" title="Logo: Image or Text"></a>Logo: Image or Text</h3><p>You can set a image as your logo instead of original text title. Like this:</p>
+<p><img src="https://raw.githubusercontent.com/iTimeTraveler/hexo-theme-hipaper/master/source/preview/logo-preview.jpg" alt=""></p>
+<p>just enable <code>avatar</code> field in hipaper/_config.yml.</p>
+<pre><code class="yml"><span class="comment"># Put your avatar.jpg into `hexo-site/themes/hipaper/source/` directory.</span>
+<span class="comment"># url is target link (E.g. `url: https://hexo.io/logo.svg` or `url: css/images/mylogo.jpg`)</span>
+<span class="attr">avatar:</span> 
+<span class="attr">  enable:</span> <span class="literal">true</span>
+<span class="attr">  width:</span> <span class="number">124</span>
+<span class="attr">  height:</span> <span class="number">124</span>
+<span class="attr">  bottom:</span> <span class="number">10</span>
+<span class="attr">  url:</span> <span class="attr">https://hexo.io/logo.svg</span></code></pre>
+<h3 id="Code-Highlight"><a href="#Code-Highlight" class="headerlink" title="Code Highlight"></a>Code Highlight</h3><p>Hipaper use <a href="https://github.com/chriskempson/tomorrow-theme">Tomorrow Theme</a> for your code block. We have six options in total: <code>default</code>, <code>normal</code>, <code>night</code>, <code>night blue</code>, <code>night bright</code>, <code>night eighties</code></p>
+<p><img src="https://raw.githubusercontent.com/iTimeTraveler/hexo-theme-hipaper/master/source/preview/code-theme-default.png" alt="code `default` theme Preview"></p>
+<p>Above preview picture is default theme. the image below show other five Highlight themes.</p>
+<p><img src="https://raw.githubusercontent.com/iTimeTraveler/hexo-theme-hipaper/master/source/preview/code-theme.jpg?raw=true" alt="code themes"></p>
+<p>Modify <code>highlight_theme</code> in hipaper/_config.yml.</p>
+<pre><code class="yml"><span class="comment"># Code Highlight theme</span>
+<span class="comment"># Available value:</span>
+<span class="comment">#    default | normal | night | night eighties | night blue | night bright</span>
+<span class="comment"># https://github.com/chriskempson/tomorrow-theme</span>
+<span class="attr">highlight_theme:</span> <span class="string">default</span></code></pre>
+<h3 id="Sidebar"><a href="#Sidebar" class="headerlink" title="Sidebar"></a>Sidebar</h3><p>You can put your sidebar in left side, right side or bottom of your site by editing <code>sidebar</code> setting.<br>Hipaper provides 7 built-in widgets:</p>
+<ul>
+<li>search</li>
+<li>social</li>
+<li>recent_posts</li>
+<li>category</li>
+<li>tag</li>
+<li>tagcloud</li>
+<li>archive</li>
+</ul>
+<p>All of them are enabled by default. You can edit them in <code>widget</code> setting.</p>
+<h3 id="Search"><a href="#Search" class="headerlink" title="Search"></a>Search</h3><p>Hipaper use <code>Insight Search</code> to help you search anything inside your site without any third-party plugin.</p>
+<p><img src="https://raw.githubusercontent.com/iTimeTraveler/hexo-theme-hipaper/master/source/preview/search-preview.png" alt=""></p>
+<pre><code class="yml"><span class="comment"># Search</span>
+<span class="attr">search:</span>
+<span class="attr">    insight:</span> <span class="literal">true</span> <span class="comment"># you need to install `hexo-generator-json-content` before using Insight Search</span>
+<span class="attr">    swiftype:</span> <span class="comment"># enter swiftype install key here</span>
+<span class="attr">    baidu:</span> <span class="literal">false</span> <span class="comment"># you need to disable other search engines to use Baidu search, options: true, false</span></code></pre>
+<blockquote>
+<p>Attention: You need to install <code>hexo-generator-json-content</code> before using Insight Search.</p>
+</blockquote>
+<pre><code class="bash">$ npm install -S hexo-generator-json-content</code></pre>
+<h3 id="Fancybox"><a href="#Fancybox" class="headerlink" title="Fancybox"></a>Fancybox</h3><p>Hipaper uses <a href="http://fancyapps.com/fancybox/">Fancybox</a> to showcase your photos. You can use Markdown syntax or fancybox tag plugin to add your photos.</p>
+<pre><code>![img caption](img url)
+
+{% fancybox img_url [img_thumbnail] [img_caption] %}</code></pre><h3 id="Comment-support"><a href="#Comment-support" class="headerlink" title="Comment support"></a>Comment support</h3><p>Hipaper has native support for DuoShuo &amp; Disqus comment systems. Modify the following snippets to Hipaper <code>hipaper/_config.yml</code>:</p>
+<pre><code class="yml"><span class="comment"># comment ShortName, you can choose only ONE to display.</span>
+<span class="attr">duoshuo_shortname:</span> <span class="string">iTimeTraveler</span>
+<span class="attr">disqus_shortname:</span> </code></pre>
+<h2 id="Browser-support"><a href="#Browser-support" class="headerlink" title="Browser support"></a>Browser support</h2><p><img src="https://raw.githubusercontent.com/iTimeTraveler/hexo-theme-hipaper/master/source/preview/browser-support.png?raw=true" alt=""></p>
+<h2 id="Contributing"><a href="#Contributing" class="headerlink" title="Contributing"></a>Contributing</h2><p>All kinds of contributions (enhancements, new features, documentation &amp; code improvements, issues &amp; bugs reporting) are welcome.</p>
+<p>Looking forward to your pull request.</p>
+<blockquote>
+<p>Special thanks to ATHEMES, who designed the original theme <a href="http://athemes.com/theme/fashionista/">FASHIONISTA for Wordpress</a>.</p>
+</blockquote>
+<h2 id="License"><a href="#License" class="headerlink" title="License"></a>License</h2><p>Hipaper is under the MIT license. See the <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper/blob/master/LICENSE">LICENSE</a> file for details.</p>
