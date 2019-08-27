@@ -147,6 +147,15 @@
   page-home">
     <div class="headband"></div>
 
+    <a href="https://your-url" class="github-corner" aria-label="View source on GitHub">
+      <svg width="80" height="80" viewbox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+      </svg>
+    </a>
+    <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
@@ -218,6 +227,262 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/27/LeetCode-Day13/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/27/LeetCode-Day13/" itemprop="url">LeetCode-Day13</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-27T14:44:08+08:00">
+                2019-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="37-解数独"><a href="#37-解数独" class="headerlink" title="37. 解数独"></a>37. 解数独</h3><p>编写一个程序，通过已填充的空格来解决数独问题。</p>
+<p>一个数独的解法需遵循如下规则：</p>
+<p>数字 1-9 在每一行只能出现一次。<br>数字 1-9 在每一列只能出现一次。<br>数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。<br>空白格用 ‘.’ 表示。</p>
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Sudoku-by-L2G-20050714.svg/250px-Sudoku-by-L2G-20050714.svg.png" alt="img"></p>
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Sudoku-by-L2G-20050714_solution.svg/250px-Sudoku-by-L2G-20050714_solution.svg.png" alt="img"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">bool</span> solved = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">bool</span> row[<span class="number">10</span>][<span class="number">10</span>], col[<span class="number">10</span>][<span class="number">10</span>], box[<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">solveSudoku</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; &gt;&amp;board)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//初始化</span></span><br><span class="line">        <span class="built_in">memset</span>(row, <span class="literal">false</span>, <span class="keyword">sizeof</span>(row));</span><br><span class="line">        <span class="built_in">memset</span>(col, <span class="literal">false</span>, <span class="keyword">sizeof</span>(col));</span><br><span class="line">        <span class="built_in">memset</span>(box, <span class="literal">false</span>, <span class="keyword">sizeof</span>(box));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">9</span>;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; <span class="number">9</span>;j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(board[i][j] == <span class="string">'.'</span>) &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">int</span> index = <span class="number">3</span> * (i / <span class="number">3</span>) + j / <span class="number">3</span>;</span><br><span class="line">                <span class="keyword">int</span> num = board[i][j] - <span class="string">'0'</span>;</span><br><span class="line">                row[i][num] = col[j][num] = box[index][num] = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        DFS(<span class="number">0</span>, <span class="number">0</span>, board);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; &gt;&amp; board)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(solved) &#123;</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i &gt;= <span class="number">9</span>) &#123;</span><br><span class="line">            solved = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// board[i][j]非空，则考虑下一个位置</span></span><br><span class="line">        <span class="keyword">if</span>(board[i][j] != <span class="string">'.'</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(j &lt; <span class="number">8</span>) &#123;</span><br><span class="line">                DFS(i, j + <span class="number">1</span>, board);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(j == <span class="number">8</span>) &#123;</span><br><span class="line">                DFS(i + <span class="number">1</span>, <span class="number">0</span>, board);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(solved) &#123;</span><br><span class="line">                <span class="keyword">return</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> index = <span class="number">3</span> * (i / <span class="number">3</span>) + j / <span class="number">3</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> num = <span class="number">1</span>;num &lt;= <span class="number">9</span>;num++) &#123;</span><br><span class="line">                <span class="comment">// 判断num是否符合规则</span></span><br><span class="line">                <span class="keyword">if</span>(!row[i][num] &amp;&amp; !col[j][num] &amp;&amp; !box[index][num]) &#123;</span><br><span class="line">                    board[i][j] = <span class="string">'0'</span> + num;	<span class="comment">// 填数</span></span><br><span class="line">                    row[i][num] = col[j][num] = box[index][num] = <span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">if</span>(j &lt; <span class="number">8</span>) &#123;	<span class="comment">// 递归</span></span><br><span class="line">                        DFS(i, j + <span class="number">1</span>, board);</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(j == <span class="number">8</span>) &#123;</span><br><span class="line">                        DFS(i + <span class="number">1</span>, <span class="number">0</span>, board);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span>(!solved) &#123;   <span class="comment">// 回溯</span></span><br><span class="line">                        row[i][num] = col[j][num] = box[index][num] = <span class="literal">false</span>;</span><br><span class="line">                        board[i][j] = <span class="string">'.'</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>解释：</p>
+<p>二维数组row, col, box分别是用来记录每一行，每一列，每一宫出现过的数字</p>
+<p>采用回溯的方法。</p>
+<p>这里解释一下<code>index = 3 * (i / 3) + j / 3</code>，这是用来解决，当前的<code>(i, j)</code>是属于哪一宫的，</p>
+<p><img src="https://pic.leetcode-cn.com/5a7856c3c2a2185600b7cb5cd3fd50101281af7391a70a63293d82d62873aadd-36_boxes_2.png" alt="36_boxes_2.png"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/27/后台运行程序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/27/后台运行程序/" itemprop="url">后台运行程序</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-27T08:29:03+08:00">
+                2019-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="远程服务器后台运行命令"><a href="#远程服务器后台运行命令" class="headerlink" title="远程服务器后台运行命令"></a>远程服务器后台运行命令</h2><p><code>nohup 你的命令 &gt;file.out &amp;</code></p>
+<p><code>&amp;</code>是后台运行</p>
+<p><code>nohup</code>可以使进程忽略父进程的死亡带来的关闭，即shell关闭的时候还能跑</p>
+<p>运行以后会出现<code>nohup</code>，忽略输出重定向错误到标准输出端</p>
+<p>这是正常的，下面只需要按任意一个键，然后回车退出就好了</p>
+<p>否则关闭shell时仍然会杀死子进程。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1408,336 +1673,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/21/ZSL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/21/ZSL/" itemprop="url">ZSL</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-21T16:42:41+08:00">
-                2019-08-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="ZSL的相关论文"><a href="#ZSL的相关论文" class="headerlink" title="ZSL的相关论文"></a>ZSL的相关论文</h2><ol>
-<li>基于attribute description构建语义空间A</li>
-</ol>
-<p>$Learning To Detect Unseen Object Classes by Between-Class Attribute Transfer$</p>
-<p><a href="http://pub.ist.ac.at/~chl/papers/lampert-cvpr2009.pdf" target="_blank" rel="noopener">http://pub.ist.ac.at/~chl/papers/lampert-cvpr2009.pdf</a></p>
-<p>基于attribute description的方法，其数据集中的每张图片都标注了若干attribute用以描述图片信息。一些标注了attribute的示例图片如下图所示</p>
-<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-3.jpeg" alt="img"></p>
-<p>这篇论文通过上述每张图片预定义的特征，构建了样本数据的特征表示空间X；同时，通过若干classes集合或图片集合学习可用于表示数据集中所有class的attribute description，完成语义空间A的构建；最后，论文提出了使用两种方式建立X和A之间的映射。两种方式为：Direct Attribute Prediction（DAP）和 Indirect Attribute Prediction（IAP），如下图所示：</p>
-<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-4.jpeg" alt="img"></p>
-<p><strong>DAP：</strong></p>
-<p>训练时，由一直标签的训练集，学习有关attribute的参数β；预测时，为每一个测试样本预测其attribute参数，进而根据attribute建立的seen class(y) 和 unseen class(z)之间的关系，推导得出测试样本的label</p>
-<p><strong>IAP：</strong></p>
-<p>训练时，按多分类的方式学习参数α；预测时，根据attribute建立的seen class(y) 和 unseen class(z)之间的关系，推到得到unseen class 的分布。</p>
-<p>DAP在训练是仅依据属性层，而IAP将训练样本的类标也作为一个中间层，一定程度上能限定测试样本生成新类标的范围，使得学习到的链接控制在对于Y来说，有意义的范围之内，因此可以增强系统的鲁棒性。但实际上，在作者后面的实验中，DAP的效果要比IAP好很多</p>
-<p>效果虽然不是很好，但确实在一定程度上表达了“知识迁移”的思想，不仅利用图片训练相应的特征，更是加入了属性这类的高位特征描述，实现了“从低维图片特征分类器”到“高位语义特征（属性）分类器”的转变</p>
-<p><strong>Attribute description相关论文列表：</strong></p>
-<ul>
-<li><cvpr-2009>Describing Objects by their Attributes</cvpr-2009></li>
-<li><tpami-2014>Attribute-based Classification for Zero-Shot Visual Object Categorization</tpami-2014></li>
-<li><tpami-2017>Zero-Shot Learning-A Comprehensive Evaluation of the Good, the Bad and the Ugly</tpami-2017></li>
-<li><cvpr-2017>Semantic Autoencoder for Zero-Shot Learning</cvpr-2017></li>
-<li><cvpr-2016>Recovering the Missing Link: Predicting Class-Attribute Associations for Unsupervised Zero-Shot Learning</cvpr-2016></li>
-</ul>
-<h3 id="2-基于embedding表示构建语义空间A"><a href="#2-基于embedding表示构建语义空间A" class="headerlink" title="2. 基于embedding表示构建语义空间A"></a>2. 基于embedding表示构建语义空间A</h3><p>$DeViSE: A Deep Visual-Semantic Embedding Model$</p>
-<p><a href="http://papers.nips.cc/paper/5204-devise-a-deep-visual-semantic-embedding-model.pdf" target="_blank" rel="noopener">http://papers.nips.cc/paper/5204-devise-a-deep-visual-semantic-embedding-model.pdf</a></p>
-<p>本文提出的DeViSE模型，数据集每个class/label可作为一个词在语义空间进行embedding表示，如使用与训练skip-gram模型得到有关class的language feature vector，同时利用与训练的CNN-based模型提取图片的visual feature vector，将两个向量映射到同一纬度的空间，进行相似度的计算。测试时，即可根据语义之间的相似性进行图片的分类。模型结构如下图：</p>
-<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-6.jpeg" alt="img"></p>
-<p>考虑到训练时负样本发挥的通，模型的损失函数选择hinge loss。其中，通过dot-product 计算相似度。</p>
-<p>$\text {loss(image,label)}=\sum_{j \neq l a b e l} \max \left[0, \text {margin }-\overrightarrow{t_{l a b e l}} M \vec{v}(\text {image})+\vec{t}_{j} M \vec{v}(\text {image})\right]$</p>
-<p><strong>Embedding表示相关论文列表：</strong></p>
-<ul>
-<li><iccv-2015>Predicting Deep Zero-Shot Convolutional Neural Networks using TextualDescriptions</iccv-2015></li>
-<li><cvpr-2016>Learning Deep Representations of Fine-grained Visual Descriptions</cvpr-2016></li>
-<li><cvpr-2015>Evaluation of Output Embeddings for Fine-grained Image Classification</cvpr-2015></li>
-<li><cvpr-2016>Latent Embeddings for Zero-shot Classification</cvpr-2016></li>
-</ul>
-<h3 id="3-基于KG-KB构建语义空间A"><a href="#3-基于KG-KB构建语义空间A" class="headerlink" title="3. 基于KG/KB构建语义空间A"></a>3. 基于KG/KB构建语义空间A</h3><h4 id="3-1-Zero-shot-Recognition-via-Semantic-Embeddings-and-Knowledge-Graphs"><a href="#3-1-Zero-shot-Recognition-via-Semantic-Embeddings-and-Knowledge-Graphs" class="headerlink" title="3.1 $Zero-shot Recognition via Semantic Embeddings and Knowledge Graphs$"></a>3.1 $Zero-shot Recognition via Semantic Embeddings and Knowledge Graphs$</h4><p>本文基于Graph COnvolution Network(GCN，一种处理Graph-structured数据的神经网络)引入Knowledge Graph的hierarchy结构进行计算。模型分为两个独立的部分，首先使用CNN-based方法（如resnet， Inception等）为输入的图片抽取特征向量，即CNN部分（图所示上方的CNN网络）；其次，GCN部分（图所示下方的GCN网络）将数据集中的每个class作为Graph中的一个节点，并对其做embedding表示输入GCN网络（即输入为有N个k为节点组成的N * k特征矩阵），通过神经网络每一层之间信息的传递和计算，为每个节点（class）输出一组权重向量（D维），即输出是一个N * D的特征矩阵。</p>
-<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-10.jpeg" alt="img"></p>
-<p>模型训练时，Graph中seen class节点有来自CNN部分的图片特征向量作为监督信号（图所示绿色节点）训练GCN模型的参数；而测试时，Graph中的unseen class节点输出对应的权重向量，同时，与CNN部分对应图片输出的特征向量，最终得到分类的结果。</p>
-<p>这里提及的Graph为克表示ImageNet class之间结构的WorldNet知识库，实验选取了其中一部分与ImageNet相关的子集</p>
-<h4 id="3-2-Rethinking-Knowledge-Graph-Propagation-for-Zero-Shot-Learning"><a href="#3-2-Rethinking-Knowledge-Graph-Propagation-for-Zero-Shot-Learning" class="headerlink" title="3.2 $Rethinking Knowledge Graph Propagation for Zero-Shot Learning$"></a>3.2 $Rethinking Knowledge Graph Propagation for Zero-Shot Learning$</h4><p><a href="https://arxiv.org/pdf/1805.11724v1.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1805.11724v1.pdf</a></p>
-<p>在1的基础上进行了改进，包括以下几个方面：</p>
-<ul>
-<li><p>更少的GCN层数，论文1中使用了6层神经网络进行训练，考虑到模型参数的优化问题，本文只使用了2层神经网络进行计算，即GPM</p>
-</li>
-<li><p>减少层数的同时，一些较远节点不被考虑在内，为了解决这个问题，作者将一些节点的祖先/子孙节点直接与该节点相连，生成了更密集的图，即DGPM；同时，这些直接相连的边按照距离的远近，加入attention机制进行了加权计算，即ADGPM</p>
-</li>
-<li><p>作者还提出了在CNN部分根据Graph信息进行fine tune的计算方式，使得提取图片特征的卷积网络可根据一些新出现的class进行更新</p>
-</li>
-</ul>
-<p><strong>KG/KB相关论文列表：</strong></p>
-<ul>
-<li><ijcai-2018>Fine-grained Image Classification by Visual-Semantic Embedding</ijcai-2018></li>
-<li><cvpr-2018>Multi-Label Zero-Shot Learning with Structured Knowledge Graphs</cvpr-2018></li>
-<li><nips-2009>Zero-Shot Learning with Semantic Output Codes</nips-2009></li>
-<li>少样本学习（Few-Shot Learning, FSL）</li>
-</ul>
-<p>前面 2.2 部分提到的论文，其迁移知识的方式主要是通过在语义空间构建 seen class 与 unseen class 之间的关系（下图左），而 Transductive Setting 则提出可通过 seen class 和 unseen class 的少量样本训练得到class之间的关联（下图右），即少样本学习（Few-ShotLearning, FSL）。</p>
-<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-13.jpeg" alt="img"></p>
-<h3 id="FSL–Few-ShotLearning-少样本学习"><a href="#FSL–Few-ShotLearning-少样本学习" class="headerlink" title="FSL–Few-ShotLearning(少样本学习)"></a>FSL–Few-ShotLearning(少样本学习)</h3><h4 id="Learning-to-Compare-RelationNetwork-for-Few-Shot-Learning"><a href="#Learning-to-Compare-RelationNetwork-for-Few-Shot-Learning" class="headerlink" title="$Learning to Compare: RelationNetwork for Few-Shot Learning$"></a>$Learning to Compare: RelationNetwork for Few-Shot Learning$</h4><p><a href="https://arxiv.org/pdf/1711.06025.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1711.06025.pdf</a></p>
-<p>本文从每个 class 中采样少量样本，作为参考样本（如下图左侧 5 张图片，分别代表 5 个 classes），以建立 class 之间的关系。本文所构建的 class relation 主要为相似关系，模型通过 embedding module 提取图片的特征向量，再分别将测试图片（下图所示袋鼠图片）的特征向量与参考样本的特征向量进行拼接输入 relation module，通过神经网络计算测试图片和参考样本图片之间的相似性，最终判断测试图片属于参考图片代表 class 的哪一类。</p>
-<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-15.jpeg" alt="img"></p>
-<p><strong>FSL相关论文列表：</strong></p>
-<ul>
-<li><iclr-2018>Few-Shot Learning with Graph Neural Networks</iclr-2018></li>
-<li><bigdata-2017>One-shot Learning for Fine-grained Relation Extraction via ConvolutionalSiamese Neural Network</bigdata-2017></li>
-<li><nips-2016>Matching Networks for One Shot Learning</nips-2016></li>
-<li><nips-2017>Prototypical Networks for Few-hot Learning</nips-2017></li>
-<li><iclr-2017>Optimization as a model for few-shot learning</iclr-2017></li>
-<li><icml-2016>Meta-learningwith Memory-augmented Neural Networks</icml-2016></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/20/LeetCode-Day6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/20/LeetCode-Day6/" itemprop="url">LeetCode-Day6</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-20T20:51:45+08:00">
-                2019-08-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="19-删除链表的倒数第N个节点"><a href="#19-删除链表的倒数第N个节点" class="headerlink" title="19. 删除链表的倒数第N个节点"></a>19. 删除链表的倒数第N个节点</h3><p>给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。</p>
-<p><strong>示例：</strong></p>
-<blockquote>
-<p>给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 n = 2.</p>
-<p>当删除了倒数第二个节点后，链表变为 1-&gt;2-&gt;3-&gt;5.</p>
-</blockquote>
-<p>说明：</p>
-<p>给定的 n 保证是有效的。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        ListNode* temp = head;</span><br><span class="line">        ListNode* pre = head;</span><br><span class="line">        ListNode* after = head;</span><br><span class="line">        <span class="keyword">if</span>(head-&gt;next == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++) &#123;</span><br><span class="line">            pre = pre-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(pre == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(pre-&gt;next != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            pre = pre-&gt;next;</span><br><span class="line">            after = after-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// ListNode* deleteNode = after-&gt;next;</span></span><br><span class="line">        <span class="comment">// delete deleteNode;</span></span><br><span class="line">        after-&gt;next = after-&gt;next-&gt;next;</span><br><span class="line">        <span class="keyword">return</span> head;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>基本思路：就是固定两个指针，然后让pre指针先走n步，然后pre和after同时走，这样当pre到达最后的时候，after就是倒数第n个。</p>
-<p>需要考虑的特殊情况：</p>
-<ul>
-<li>链表长度为1，只能删掉头结点，返回NULL</li>
-<li>去掉的节点是头结点（即走完n步之后就是NULL），直接返回头结点的next</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1783,7 +1723,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
