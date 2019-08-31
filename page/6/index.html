@@ -55,6 +55,136 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-图形处理器——GPU" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/25/图形处理器——GPU/" class="article-date">
+  <time datetime="2019-07-24T22:50:56.000Z" itemprop="datePublished">2019-07-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/25/图形处理器——GPU/">图形处理器——GPU</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="图形处理器GPU（Graphics-Processing-Unit）"><a href="#图形处理器GPU（Graphics-Processing-Unit）" class="headerlink" title="图形处理器GPU（Graphics Processing Unit）"></a>图形处理器GPU（Graphics Processing Unit）</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>​    又称为显示核心、视觉处理器、显示芯片，是一个专门在个人电脑、工作站、游戏机和一些移动设备上图像运算工作的微处理器</p>
+<h3 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h3><p>​    将计算机系统所需要的显示信息进行转换驱动，并向显示器提供扫描信号，控制显示器的正确显示，是连接显示器和个人电脑主板的重要元件，也是“人机对话”的中套设备之一。显卡作为电脑主机里的一个重要组成部分，承担输出显示图形的任务，对于从事专业图形设计的人来说显卡非常重要。</p>
+<h3 id="GPU加速计算"><a href="#GPU加速计算" class="headerlink" title="GPU加速计算"></a>GPU加速计算</h3><h4 id="什么是GPU加速计算"><a href="#什么是GPU加速计算" class="headerlink" title="什么是GPU加速计算"></a>什么是GPU加速计算</h4><p>GPU加速计算是指同时利用图形处理器[GPU]和CPU，加快科学、分析、工程和企业应用程序的运行速度</p>
+<h4 id="GPU如何加快软件应用程序的运行速度"><a href="#GPU如何加快软件应用程序的运行速度" class="headerlink" title="GPU如何加快软件应用程序的运行速度"></a>GPU如何加快软件应用程序的运行速度</h4><p>GPU加速计算可以提供非凡的应用程序性能，能将应用程序计算密集部分的工作负载转移到GPU，同时仍由CPU运行其余程序代码。从用户的角度来看，应用程序的运行速度明显加快。</p>
+<h4 id="GPU与CPU性能比较"><a href="#GPU与CPU性能比较" class="headerlink" title="GPU与CPU性能比较"></a>GPU与CPU性能比较</h4><p>理解GPU和CPU之间的区别的一种简单方式是比较他们如何处理任务。CPU由专为顺序串行处理而优化的几个核心组成，而GPU则拥有一个由数以千计的更小、更高效的核心（专为同时处理多重任务二设计）组成的大规模并行计算架构</p>
+<h3 id="GPU与CPU比较，GPU为什么更适合深度学习"><a href="#GPU与CPU比较，GPU为什么更适合深度学习" class="headerlink" title="GPU与CPU比较，GPU为什么更适合深度学习"></a>GPU与CPU比较，GPU为什么更适合深度学习</h3><h4 id="一-CPU与GPU对比"><a href="#一-CPU与GPU对比" class="headerlink" title="一. CPU与GPU对比"></a>一. CPU与GPU对比</h4><p>CPU是一个有多种功能的优秀领导者。它的优点在于调度、管理、协调能力强，计算能力则位于其次。而GPU相当于一个接受CPU调度的“拥有大量计算能力”的员工</p>
+<p>下面是处理器内部结构图：</p>
+<p>DRAM即动态随机存取存储器，是常见的系统内存</p>
+<p>Cache存储器：电脑中作高速缓冲存储器，是位于CPU和主存储器DRAM之间，规模较小，但速度很高的存储器</p>
+<p>算数逻辑单元ALU是能实现多组算术运算和逻辑运算的组合逻辑电路</p>
+<p><img src="https://github.com/woojoo520/MyPostImages/raw/master/GPU.png" alt="GPU&amp;CPU"></p>
+<p>当需要对大数据bigdata做同样的事情时，GPU更合适，当需要对同一数据做很多事情时，CPU正好合适关于图形方面的以及大型矩阵运算，如机器学习算法等方面，GPU就能大显身手</p>
+<p>简而言之，CPU擅长统领全局等复杂操作，CPU擅长对大数据进行简单重复操作。CPU是从事复杂脑力劳动的救援，而GPU是进行大量并行计算的体力劳动者</p>
+<h4 id="二-机器深度学习"><a href="#二-机器深度学习" class="headerlink" title="二. 机器深度学习"></a>二. 机器深度学习</h4><p>深度学习是模拟人脑神经系统而建立的数学网络模型，这个模型的最大特点是，需要大数据来训练。因此，对电脑处理器的需求，就是需要大量的并行的重复计算，GPU正好有这个专长，因此担当重任。</p>
+<h5 id="GPU的优点"><a href="#GPU的优点" class="headerlink" title="GPU的优点"></a><strong>GPU的优点</strong></h5><ul>
+<li><p>提供给了多核并行计算的基础结构，且核心数非常多，可以支撑大量数据的并行计算</p>
+<p>并行计算或称平行计算是相对于串行计算来说的。它是一种一次可执行多个指令的算法，目的是提高计算速度，及通过扩大问题求解规模，解决大型而复杂的计算问题</p>
+</li>
+<li><p>拥有更高的访存速度</p>
+</li>
+<li><p>更高的浮点运算能力。浮点运算能力是关系到处理器的多媒体、3D图形处理的一个重要指标。现在的计算机技术中，由于大量多媒体的应用，浮点数的计算大大增加了，比如3D图形的额渲染等工作，因此浮点运算能力是考察处理器计算能力的重要指标</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://woojoo520.github.io/2019/07/25/图形处理器——GPU/" data-id="cjzyyls350016qsujaco5ujtg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-图像的上采样与下采样" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/25/图像的上采样与下采样/" class="article-date">
+  <time datetime="2019-07-24T22:49:50.000Z" itemprop="datePublished">2019-07-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/25/图像的上采样与下采样/">图像的上采样与下采样</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="图像的上采样与下采样"><a href="#图像的上采样与下采样" class="headerlink" title="图像的上采样与下采样"></a>图像的上采样与下采样</h3><p>缩小图像（或称为下采样或降采样）的主要目的有两个：</p>
+<ul>
+<li>1.使得图像符合显示区域的大小</li>
+<li>2.生成对应图像的缩略图</li>
+</ul>
+<p>放大图像（或成为上采样或图像插值）的主要目的是放大原图像，从而可以显示在更高分辨率的显示设备上。对图像的缩放操作并不能带来更多关于该图像的信息，因此图像的质量将不可避免的收受到影响。然而，确实有一些缩放方法能够增加图像的信息，从而使得缩放后的图像质量超过原图质量的</p>
+<h4 id="下采样原理："><a href="#下采样原理：" class="headerlink" title="下采样原理："></a><strong>下采样原理</strong>：</h4><p>​    对于一幅图像I尺寸为M * N，对其进行s倍下采样，即得到(M/s) * (N/s)尺寸的得分辨率图像，当然s应该是M和N的公约数才行，如果考虑的是矩阵形式的图像，就是把原始图像s*s窗口内的图像变成一个像素，这个像素点的值就是窗口内所有像素的均值；</p>
+<h4 id="上采样原理："><a href="#上采样原理：" class="headerlink" title="上采样原理："></a><strong>上采样原理：</strong></h4><p>​    图像放大几乎都是采用内插值方法，即在原有图像像素的基础上在像素点之间采用合适的插值算法插入新的元素。</p>
+<p>​    无论缩放图像（下采样）还是放大图像（上采样），采样方式有很多种。如最近邻插值，双线性插值，均值插值，中值插值等方法。在AlexNet中就使用了较合适的插值方法。各种插值方法都有各自的优缺点。</p>
+<h4 id="常用的插值方法："><a href="#常用的插值方法：" class="headerlink" title="常用的插值方法："></a>常用的插值方法：</h4><ol>
+<li><h5 id="最邻近元法"><a href="#最邻近元法" class="headerlink" title="最邻近元法"></a>最邻近元法</h5><p>这是最简单的一种插值方法，不需要计算，在待求象素的四邻象素中，将距离待求象素最近的邻象素灰度赋给待求象素。设i+u, j+v(i, j为正整数， u, v为大于零小于1的小数，下同)为待求象素坐标，则待求象素灰度的值 f(i+u, j+v)　如下图所示：</p>
+</li>
+</ol>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563759187630.png" alt="1563759187630"></p>
+<p>如果(i+u, j+v)落在A区，即u&lt;0.5, v&lt;0.5，则将左上角象素的灰度值赋给待求象素，同理，落在B区则赋予右上角的象素灰度值，落在C区则赋予左下角象素的灰度值，落在D区则赋予右下角象素的灰度值。</p>
+<p><strong>最邻近元法计算量较小，但可能会造成插值生成的图像灰度上的不连续，在灰度变化的地方可能出现明显的锯齿状。</strong></p>
+<h5 id="2、双线性内插法"><a href="#2、双线性内插法" class="headerlink" title="2、双线性内插法"></a>2、双线性内插法</h5><p>双线性内插法是利用待求象素四个邻象素的灰度在两个方向上作线性内插，如下图所示</p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563759418809.png" alt="1563759418809"></p>
+<p>对于 (i, j+v)，f(i, j) 到 f(i, j+1) 的灰度变化为线性关系，则有：</p>
+<p>f(i, j+v) = [f(i, j+1) - f(i, j)] * v + f(i, j)</p>
+<p>同理对于 (i+1, j+v) 则有：</p>
+<p>f(i+1, j+v) = [f(i+1, j+1) - f(i+1, j)] * v + f(i+1, j)</p>
+<p>从f(i, j+v) 到 f(i+1, j+v) 的灰度变化也为线性关系，由此可推导出待求象素灰度的计算式如下：</p>
+<p>f(i+u, j+v) = (1-u) * (1-v) * f(i, j) + (1-u) * v * f(i, j+1) + u * (1-v) * f(i+1, j) + u * v * f(i+1, j+1)</p>
+<p>双线性内插法的计算比最邻近点法复杂，计算量较大，但没有灰度不连续的缺点，结果基本令人满意。它具有低通滤波性质，使高频分量受损，图像轮廓可能会有一点模糊。</p>
+<h5 id="3、三次内插法"><a href="#3、三次内插法" class="headerlink" title="3、三次内插法"></a>3、三次内插法</h5><p>该方法利用三次多项式S(x)求逼近理论上最佳插值函数sin(x)/x, 其数学表达式为：</p>
+<p>$S(x)=\left{\begin{array}{cc}{1-2|x|^{2}+|x|^{3}} &amp; {0 \leq|x|&lt;1} \ {4-8|x|+5|x|^{2}-|x|^{2}} &amp; {1 \leq|x|&lt;2} \ {0} &amp; {|x| \geq 2}\end{array}\right.$</p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563762540105.png" alt="1563762540105"></p>
+<p>待求像素的灰度计算式如下：</p>
+<p>$f(x, y)=f(i+u, j+v)=A B C$</p>
+<p>其中: </p>
+<p>$A=\left(\begin{array}{c}{S(1+v)} \ {S(v)} \ {S(1-v)} \ {S(2-v)}\end{array}\right)^{\top}$</p>
+<p>$B=\left(\begin{array}{c}{f(i-1,j-1)} &amp; {f(i-1,j)} &amp; {f(i-1,j+1)} &amp; {f(i-1,j+2)} \ {f(i,j-1)}&amp;{ f(i,j) }&amp;{f(i,j+1) }&amp;{f(i,j+2)} \ {f(i+1,j-1)} &amp; {f(i+1,j)} &amp;{f(i+1,j+1)} &amp; {f(i+1,j+2)} \ {f(i+2,j-1)} &amp; {f(i+2,j)} &amp; {f(i+2,j+1)} &amp; {f(i+2,j+2)}  \end{array}\right)$</p>
+<p>$C=\left(\begin{array}{c}{S(1+u)} \ {S(u)} \ {S(1-u)} \ {S(2-u)}\end{array}\right)$</p>
+<p>三次曲线插值方法计算量较大，但插值后的图像效果最好</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://woojoo520.github.io/2019/07/25/图像的上采样与下采样/" data-id="cjzyyls300012qsujvuz8v140" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/24/hello-world/" class="article-date">
@@ -94,7 +224,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://woojoo520.github.io/2019/07/24/hello-world/" data-id="cjztit1nh000v9guj1o1a8avc" class="article-share-link">Share</a>
+      <a data-url="https://woojoo520.github.io/2019/07/24/hello-world/" data-id="cjzyyls28000uqsuj3f76hyon" class="article-share-link">Share</a>
       
       
     </footer>

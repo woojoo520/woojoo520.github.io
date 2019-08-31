@@ -55,6 +55,96 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-PyTorch-中的-dim" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/09/PyTorch-中的-dim/" class="article-date">
+  <time datetime="2019-08-09T02:24:23.000Z" itemprop="datePublished">2019-08-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/09/PyTorch-中的-dim/">PyTorch 中的 dim</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="PyTorch中的dim"><a href="#PyTorch中的dim" class="headerlink" title="PyTorch中的dim"></a>PyTorch中的dim</h2><h3 id="dim概念"><a href="#dim概念" class="headerlink" title="dim概念"></a>dim概念</h3><p>dim的不同值表示不同维度。特别的在dim=0表示二维中的行，dim=1在二维矩阵中表示行。广泛的来说，我们不管一个矩阵是几维的，比如一个矩阵维度如下：${d_{0},d_{1},…,d_{n-1}}$，那么dim=0就表示对应到$d_{0}$也就是第一个维度，dim=1,表示对应到$d_{1}$也就是第二个维度，以此类推</p>
+<h3 id="dim在函数中的作用"><a href="#dim在函数中的作用" class="headerlink" title="dim在函数中的作用"></a>dim在函数中的作用</h3><h4 id="例一-torch-argmax"><a href="#例一-torch-argmax" class="headerlink" title="例一. torch.argmax()"></a>例一. torch.argmax()</h4><p>函数中dim表示该维度会消失。</p>
+<p>这个消失是什么意思？官方英文解释是：dim (int) – the dimension to reduce.</p>
+<p>我们知道argmax就是得到最大值的序号索引，对于一个维度为$(d_0,d_1)$的矩阵来说，我们想要求每一行中最大数的在该行中的列号，最后我们得到的就是一个维度为$(d_0,1)$的一矩阵。这时候，列就要消失了。</p>
+<p>因此，我们想要求每一行最大的列标号，我们就要指定dim=1，表示我们不要列了，保留行的size就可以了。<br>假如我们想求每一列的最大行标，就可以指定dim=0，表示我们不要行了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line">a = torch.rand(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">print(a.size())</span><br><span class="line">print(a)</span><br><span class="line"></span><br><span class="line">b = torch.argmax(a, dim=<span class="number">1</span>)</span><br><span class="line">print(b)</span><br><span class="line">print(b.size())</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">torch.Size([3, 4])</span></span><br><span class="line"><span class="string">tensor([[0.9120, 0.4805, 0.6701, 0.5446],</span></span><br><span class="line"><span class="string">        [0.6273, 0.1295, 0.3416, 0.2213],</span></span><br><span class="line"><span class="string">        [0.6068, 0.8448, 0.8452, 0.4931]])</span></span><br><span class="line"><span class="string">tensor([0, 0, 2])</span></span><br><span class="line"><span class="string">torch.Size([3])</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="comment"># 可以看到，指定dim=1时，列的size没有了</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.argmax(input, dim=<span class="literal">None</span>, keepdim=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+<p>返回指定维度最大的序号</p>
+<p>dim给定的定义是：the dimention to reduce.也就是吧dim这个维度的，变成这个维度的最大值</p>
+<p>如果上面的代码改成：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">b = torch.argmax(a, dim=<span class="number">1</span>, keepdim=<span class="literal">True</span>)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output：</span></span><br><span class="line"><span class="string">tensor([[0],</span></span><br><span class="line"><span class="string">		[0],</span></span><br><span class="line"><span class="string">        [2]])</span></span><br><span class="line"><span class="string">torch.Size([3, 1])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://woojoo520.github.io/2019/08/09/PyTorch-中的-dim/" data-id="cjzyyls0v000kqsujge142rjt" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-model-train-and-model-eval" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/09/model-train-and-model-eval/" class="article-date">
+  <time datetime="2019-08-09T01:46:19.000Z" itemprop="datePublished">2019-08-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/09/model-train-and-model-eval/">model.train() and model.eval()</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>model.train()     model.eval()</p>
+<p>一般在模型训练和评价的时候会加上这两句</p>
+<p>主要是针对model在训练时和评价时不同的 <strong>Batch Normalization</strong> 和 <strong>Dropout</strong> 方法模式</p>
+<p><strong>注意：</strong>使用PyTorch进行训练和测试时一定注意要把实例化的model指定train/eval， eval()时， 框架会自动把BN和DropOut固定住，不会取平均，而是用训练好的值，不然的话，一旦test的batch_size过小，很容易就会被BN层导致生成图片颜色失真极大！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://woojoo520.github.io/2019/08/09/model-train-and-model-eval/" data-id="cjzyyls24000tqsujylhmvra6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Python格式化输出" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/08/09/Python格式化输出/" class="article-date">
@@ -96,7 +186,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://woojoo520.github.io/2019/08/09/Python格式化输出/" data-id="cjztit1n6000n9gujehsed24i" class="article-share-link">Share</a>
+      <a data-url="https://woojoo520.github.io/2019/08/09/Python格式化输出/" data-id="cjzyyls15000lqsujq8ng7xho" class="article-share-link">Share</a>
       
       
     </footer>
@@ -153,7 +243,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://woojoo520.github.io/2019/08/08/Neural-Network/" data-id="cjztit1mx000i9gujv5dtqemc" class="article-share-link">Share</a>
+      <a data-url="https://woojoo520.github.io/2019/08/08/Neural-Network/" data-id="cjzyyls0t000jqsuj9wc2kivw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -257,7 +347,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://woojoo520.github.io/2019/08/07/什么是PyTorch/" data-id="cjztit1np00109guj7kzwlgi0" class="article-share-link">Share</a>
+      <a data-url="https://woojoo520.github.io/2019/08/07/什么是PyTorch/" data-id="cjzyyls2j000xqsuj6i5qzdvb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -318,7 +408,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://woojoo520.github.io/2019/08/07/PyTorch-Study/" data-id="cjztit1n3000l9gujariavgf2" class="article-share-link">Share</a>
+      <a data-url="https://woojoo520.github.io/2019/08/07/PyTorch-Study/" data-id="cjzyyls0n000hqsujav038y7c" class="article-share-link">Share</a>
       
       
     </footer>
@@ -376,7 +466,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://woojoo520.github.io/2019/08/07/Inception/" data-id="cjztit1mg00049gujdwfdtu8x" class="article-share-link">Share</a>
+      <a data-url="https://woojoo520.github.io/2019/08/07/Inception/" data-id="cjzyylppk0003qsuj2raxp0c9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -448,7 +538,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://woojoo520.github.io/2019/08/07/softmax/" data-id="cjztit1nn000z9gujehptmovb" class="article-share-link">Share</a>
+      <a data-url="https://woojoo520.github.io/2019/08/07/softmax/" data-id="cjzyyls2z0011qsuj0fpi1qfo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -507,7 +597,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://woojoo520.github.io/2019/07/29/OverTheWall/" data-id="cjztit1n0000k9gujgtgprdow" class="article-share-link">Share</a>
+      <a data-url="https://woojoo520.github.io/2019/07/29/OverTheWall/" data-id="cjzyyls0r000iqsuj948ogxlq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -693,91 +783,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://woojoo520.github.io/2019/07/29/论文中的Python知识点/" data-id="cjztit23o001d9gujl1gzwpzf" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-双边网格" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/双边网格/" class="article-date">
-  <time datetime="2019-07-29T00:42:33.000Z" itemprop="datePublished">2019-07-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/双边网格/">双边网格</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-双边滤波器的快速近似"><a href="#1-双边滤波器的快速近似" class="headerlink" title="1. 双边滤波器的快速近似"></a>1. 双边滤波器的快速近似</h3><p>在对双边网格做总结之前，先介绍一下双边滤波器的快速近似方法（<a href="http://www.cis.rit.edu/~cnspci/references/dip/filtering/paris2006.pdf），它是双边网格的雏形，是一个将双边滤波器扩展大高维空间进行线性卷积的方法。而双边网格的坐着在这篇文章的基础上，将高维空间数据映射成3D" target="_blank" rel="noopener">http://www.cis.rit.edu/~cnspci/references/dip/filtering/paris2006.pdf），它是双边网格的雏形，是一个将双边滤波器扩展大高维空间进行线性卷积的方法。而双边网格的坐着在这篇文章的基础上，将高维空间数据映射成3D</a> array，进而提出了双边网格</p>
-<h4 id="1-1-双边滤波器"><a href="#1-1-双边滤波器" class="headerlink" title="1.1 双边滤波器"></a>1.1 双边滤波器</h4><p>简单的说，双边滤波器是一种高斯滤波器的扩展。传统的高斯滤波器有一个高斯核，通过对空间相邻像素点以高斯函数位权值取均值，实现对图像的平滑。由于传统高斯滤波器只考虑了空域的信息，尽管它能实现图像的有效平滑，但同时也模糊了边缘信息。双边滤波器的原理即在传统高斯滤波器的基础上添加了一个表征亮度差异的高斯核，即既考虑了空间的信息，又考虑了值域的信息。在灰度差别不大的范围的范围，表征亮度高斯核的权值较大，接近于1，因此双边滤波器退化为传统的高斯滤波器，实现对图像的平滑；在边缘部分，尽管相邻像素点的空间接近，空间距离小，但由于边缘部分，灰度差别比较大，因此在值域上距离较大，所以新加入的高斯核使得在该部分不执行平滑和粗粒，保留图像的边缘。所以说，双边滤波是一种非线性（两个高斯核的乘积）的铝箔方法，是结合图像的空间邻近度和像素值相似度的一种折中处理，同时考虑空域信息和灰度相似性，达到保边去噪的目的</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://woojoo520.github.io/2019/07/29/双边网格/" data-id="cjztit1ns00139guj5ib2pp4m" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Loss-Function" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/28/Loss-Function/" class="article-date">
-  <time datetime="2019-07-28T13:30:13.000Z" itemprop="datePublished">2019-07-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/28/Loss-Function/">Loss Function</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>损失函数（Loss Function）是用来估计模型的预测值f(x)与真实值Y的不一致程度；他是一个非负实值函数，通常使用 L(Y,f(x)) 来表示，损失函数越小，模型的鲁棒性就越好。损失函数是经验风险函数的核心部分，也是结构风险函数重要组成部分。模型的结构风险函数包括了经验风险和正则项，通常可以表示成如下式子：</p>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1564324156129.png" alt="1564324156129"></p>
-<p>其中，前面的均值函数表示的是经验风险函数，L代表的是损失函数</p>
-<h3 id="一-LogLoss对数损失函数（逻辑回归，交叉熵损失）"><a href="#一-LogLoss对数损失函数（逻辑回归，交叉熵损失）" class="headerlink" title="一. LogLoss对数损失函数（逻辑回归，交叉熵损失）"></a>一. LogLoss对数损失函数（逻辑回归，交叉熵损失）</h3><p>平方损失函数可以通过线性回归在假设样本是高斯分布的条件下推到得到的，而逻辑回归得到的不是平方损失。在逻辑回归的推导中，它假设样本服从伯努利分布（0-1分布），然后求得满足该分布的似然函数，接着取对数求极值等等。而逻辑回归并没有求似然函数的极值，而是吧极大化当做是一种思想，进而推导出它的经验风险函数为：最小化负的似然函数（即 $maxF(y, F(x)) -&gt; min -F(y, f(x))$ ）从损失函数的角度来看，它就成log损失函数了</p>
-<p>log损失函数的标准形式：</p>
-<p>$L(Y, P(Y|X)) = -logP(Y|X)$</p>
-<p>取对数是为了方便计算极大似然值，因为MLE（最大似然估计）中，直接求导比较困难，所以通常都是先取对数再求导找极值点。损失函数 $L(Y, P(Y|X))$ 表达的是样本X在分类Y的情况下，使概率 $P(Y|X)$ 达到最大值（换言之，就是利用已知的样本分布，找到最有可能（即最大概率）导致这种分布的参数值；或者说什么样的擦书才能使我们观测到目前这组数据的概率最大）。因为log函数是单调递增的，所以 $logP(Y|X)$ 也会达到最大值，因此在前面加上负号之后，最大化 $P(Y|X)$ 就等价于最小化L了</p>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1564360345156.png" alt="1564360345156"></p>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1564360352849.png" alt="1564360352849"></p>
-<p><strong>注意：softmax使用的即为交叉熵损失函数，binary_cossentropy为二分类交叉熵损失，categorical_crossentropy为多分类交叉熵损失，当使用多分类交叉熵损失函数时，标签应该为多分类模式，即使用one-hot编码的向量。</strong></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://woojoo520.github.io/2019/07/28/Loss-Function/" data-id="cjztit1mw000h9guj7p9226fc" class="article-share-link">Share</a>
+      <a data-url="https://woojoo520.github.io/2019/07/29/论文中的Python知识点/" data-id="cjzyyltei001gqsuj5ggjbe1r" class="article-share-link">Share</a>
       
       
     </footer>
