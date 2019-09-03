@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>LeetCode-Day16 | Celery Fairy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="关于vector的初始化 vector&amp;lt;vector&amp;lt;int&amp;gt; &amp;gt; ans(n, vector&amp;lt;int&amp;gt; n(n, 0));初始化二维的vector，大小为[n][n]，0填充，否则不能直接用ans[i][j] 60. 第k个排列给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。 按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode-Day16">
+<meta property="og:url" content="https://woojoo520.github.io/2019/08/31/LeetCode-Day16/index.html">
+<meta property="og:site_name" content="Celery Fairy">
+<meta property="og:description" content="关于vector的初始化 vector&amp;lt;vector&amp;lt;int&amp;gt; &amp;gt; ans(n, vector&amp;lt;int&amp;gt; n(n, 0));初始化二维的vector，大小为[n][n]，0填充，否则不能直接用ans[i][j] 60. 第k个排列给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。 按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-31T13:41:01.628Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LeetCode-Day16">
+<meta name="twitter:description" content="关于vector的初始化 vector&amp;lt;vector&amp;lt;int&amp;gt; &amp;gt; ans(n, vector&amp;lt;int&amp;gt; n(n, 0));初始化二维的vector，大小为[n][n]，0填充，否则不能直接用ans[i][j] 60. 第k个排列给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。 按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排">
+  
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Celery Fairy</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://woojoo520.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-LeetCode-Day16" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/31/LeetCode-Day16/" class="article-date">
+  <time datetime="2019-08-31T09:20:42.000Z" itemprop="datePublished">2019-08-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      LeetCode-Day16
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>关于vector的初始化</strong></p>
+<p><code>vector&lt;vector&lt;int&gt; &gt; ans(n, vector&lt;int&gt; n(n, 0));</code>初始化二维的vector，大小为<code>[n][n]</code>，0填充，否则不能直接用<code>ans[i][j]</code></p>
+<h3 id="60-第k个排列"><a href="#60-第k个排列" class="headerlink" title="60. 第k个排列"></a>60. 第k个排列</h3><p>给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。</p>
+<p>按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;123&quot;</span><br><span class="line">&quot;132&quot;</span><br><span class="line">&quot;213&quot;</span><br><span class="line">&quot;231&quot;</span><br><span class="line">&quot;312&quot;</span><br><span class="line">&quot;321&quot;</span><br></pre></td></tr></table></figure>
+
+<p>给定 n 和 k，返回第 k 个排列。</p>
+<p><strong>说明：</strong></p>
+<p>给定 n 的范围是 [1, 9]。<br>给定 k 的范围是[1,  n!]。<br>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: n = 3, k = 3</span><br><span class="line">输出: &quot;213&quot;</span><br></pre></td></tr></table></figure>
+
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: n = 4, k = 9</span><br><span class="line">输出: &quot;2314&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fac</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= n;i++) &#123;</span><br><span class="line">        ans *= i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getPermutation</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; usedSet;</span><br><span class="line">    <span class="keyword">int</span> result = k - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> remain = <span class="number">0</span>, iFac = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) &#123;</span><br><span class="line">        iFac = fac(n - i);</span><br><span class="line">        remain = result % iFac;</span><br><span class="line">        result /= iFac;</span><br><span class="line">        <span class="keyword">int</span> iLoop = <span class="number">0</span>, temp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= n;j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(usedSet.find(j) == usedSet.end()) &#123;</span><br><span class="line">                iLoop++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(iLoop == result + <span class="number">1</span>) &#123;</span><br><span class="line">                usedSet.insert(j);</span><br><span class="line">                ans += j * <span class="built_in">pow</span>(<span class="number">10</span>, n - i);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        result = remain;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; getPermutation(<span class="number">5</span>, <span class="number">40</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解释：这里不能采用回溯的方法一个一个的求，否则会超时</p>
+<p>其实如果是求第k个排列，根本就不需要从头开始一个一个地求解。</p>
+<p>如果需要求n=5的第40个排列</p>
+<p>首先_ _ _ _ _五个位置中先确定高位</p>
+<p>如何确定？剩下四位数全排列总共有4! = 24种情况</p>
+<p>40 / 24 = 1，也就是说在首位可以有一种全排列，剩余一种不完整。</p>
+<p>所以首位为1，剩余40 - 24 = 16中情况在余下4位中解决</p>
+<p>3! = 6， 16 / 6 = 2，所以余下的三位数中有两种全排列，还有一种不完整，除去2已经用过了，剩下的从小到大的第2位数（从0开始数）就是4，所以现在已经确定2 4 _ _ _，余下也一样</p>
+<p><strong>——康托展开</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://woojoo520.github.io/2019/08/31/LeetCode-Day16/" data-id="ck035zyb20008p0ujhv2qelgo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/09/01/LeetCode-Day17/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          LeetCode-Day17
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/29/LeetCode-Day15/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">LeetCode-Day15</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Mariana<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
