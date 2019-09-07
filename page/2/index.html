@@ -241,6 +241,531 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/29/LeetCode-Day15/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/29/LeetCode-Day15/" itemprop="url">LeetCode-Day15</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-29T10:05:48+08:00">
+                2019-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="49-字母异位词分组"><a href="#49-字母异位词分组" class="headerlink" title="49. 字母异位词分组"></a>49. 字母异位词分组</h3><p>给定一个字符串数组，将字母异位词组合在一起。字母异位词指字母相同，但排列不同的字符串。</p>
+<p><strong>示例:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入: [&quot;eat&quot;, &quot;tea&quot;, &quot;tan&quot;, &quot;ate&quot;, &quot;nat&quot;, &quot;bat&quot;],</span><br><span class="line">输出:</span><br><span class="line">[</span><br><span class="line">  [&quot;ate&quot;,&quot;eat&quot;,&quot;tea&quot;],</span><br><span class="line">  [&quot;nat&quot;,&quot;tan&quot;],</span><br><span class="line">  [&quot;bat&quot;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<p>所有输入均为小写字母。<br>不考虑答案输出的顺序。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; groupAnagrams(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; strs) &#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; hashmap;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> s : strs)&#123;</span><br><span class="line">            <span class="built_in">string</span> temp = s;</span><br><span class="line">            sort(temp.begin(), temp.end());</span><br><span class="line">            hashmap[temp].push_back(s);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> len = hashmap.size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; ans(len);</span><br><span class="line">        <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i : hashmap)&#123;</span><br><span class="line">            ans[index] = i.second;</span><br><span class="line">            ++ index;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>解释：该题目的难点就在于如何将异位词对应于一个标签，这个时候就用到了sort，将每一个单词按照从小到大排序完，对应于map的key，然后如果出现异位词时，则他们的标签是一样的（即单词排完序之后是一样的）。</p>
+<h3 id="54-螺旋矩阵"><a href="#54-螺旋矩阵" class="headerlink" title="54. 螺旋矩阵"></a>54. 螺旋矩阵</h3><p>给定一个包含 m x n 个元素的矩阵（m 行, n 列），请按照顺时针螺旋顺序，返回矩阵中的所有元素。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">[</span><br><span class="line"> [ 1, 2, 3 ],</span><br><span class="line"> [ 4, 5, 6 ],</span><br><span class="line"> [ 7, 8, 9 ]</span><br><span class="line">]</span><br><span class="line">输出: [1,2,3,6,9,8,7,4,5]</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">[</span><br><span class="line">  [1, 2, 3, 4],</span><br><span class="line">  [5, 6, 7, 8],</span><br><span class="line">  [9,10,11,12]</span><br><span class="line">]</span><br><span class="line">输出: [1,2,3,4,8,12,11,10,9,5,6,7]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; spiralOrder(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ans;</span><br><span class="line">        <span class="keyword">if</span>(matrix.empty()) &#123;</span><br><span class="line">            <span class="keyword">return</span> ans;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> u = <span class="number">0</span>, d = matrix.size() - <span class="number">1</span>, l = <span class="number">0</span>, r = matrix[<span class="number">0</span>].size() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = l;i &lt;= r;++i) &#123;</span><br><span class="line">                ans.push_back(matrix[u][i]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(++u &gt; d) <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = u;i &lt;= d;++i) &#123;</span><br><span class="line">                ans.push_back(matrix[i][r]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(--r &lt; l) <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = r;i &gt;= l;--i) &#123;</span><br><span class="line">                ans.push_back(matrix[d][i]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(--d &lt; u) <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = d;i &gt;= u;--i) &#123;</span><br><span class="line">                ans.push_back(matrix[i][l]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(++l &gt; r) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>解释：</p>
+<p>这里的方法不需要记录已经走过的路径，所以执行用时和内存消耗都相对较小</p>
+<ul>
+<li>首先设定上下左右边界</li>
+<li>其次向右移动到最右，此时第一行因为已经使用过了，可以将其从图中删去，体现在代码中就是重新定义上边界</li>
+<li>判断若重新定义后，上下边界交错，表明螺旋矩阵遍历结束，跳出循环，返回答案</li>
+<li>若上下边界不交错，则遍历还未结束，接着向下向左向上移动，操作过程与第一，二步同理</li>
+<li>不断循环以上步骤，直到某两条边界交错，跳出循环，返回答案</li>
+</ul>
+<h3 id="55-跳跃游戏"><a href="#55-跳跃游戏" class="headerlink" title="55. 跳跃游戏"></a>55. 跳跃游戏</h3><p>给定一个非负整数数组，你最初位于数组的第一个位置。</p>
+<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
+<p>判断你是否能够到达最后一个位置。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [2,3,1,1,4]</span><br><span class="line">输出: true</span><br><span class="line">解释: 从位置 0 到 1 跳 1 步, 然后跳 3 步到达最后一个位置。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [3,2,1,0,4]</span><br><span class="line">输出: false</span><br><span class="line">解释: 无论怎样，你总会到达索引为 3 的位置。但该位置的最大跳跃长度是 0 ， 所以你永远不可能到达最后一个位置。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">canJump</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="keyword">int</span> last = n - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i + nums[i] &gt;= last)&#123;</span><br><span class="line">                last = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> !last;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>贪心算法：</strong></p>
+<p>从最后一个位置开始，然后看前面的位置能否跳到当前位置及其后面，如果可以，就将最后的位置往前移动。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/28/LeetCode-Day14/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/28/LeetCode-Day14/" itemprop="url">LeetCode-Day14</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-28T08:32:25+08:00">
+                2019-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="42-接雨水"><a href="#42-接雨水" class="headerlink" title="42. 接雨水"></a>42. 接雨水</h3><p>给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。</p>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/22/rainwatertrap.png" alt="img"></p>
+<p>上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [0,1,0,2,1,0,1,3,2,1,2,1]</span><br><span class="line">输出: 6</span><br></pre></td></tr></table></figure>
+
+<p>方法一：自己写的…先将<code>height</code>排序，然后从最高的两个柱子开始选取，然后遍历中间的部分，即可以装雨水的部分，已经装过水的地方做标记<code>isTrue</code>，不再重复接水。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;a, pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.second &gt; b.second;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">trap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(height.size() &lt; <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">vector</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; &gt; vec;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; height.size();i++) &#123;</span><br><span class="line">        pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; tmp(i, height[i]);</span><br><span class="line">        vec.push_back(tmp);</span><br><span class="line">    &#125;</span><br><span class="line">    sort(vec.begin(), vec.end(), cmp);</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">vector</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; &gt;::iterator it = vec.begin();it != vec.end();it++) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; (*it).first &lt;&lt; <span class="string">" "</span> &lt;&lt; (*it).second &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">bool</span> isTrue[height.size()] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> left, right, shorter, sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height.size() - <span class="number">1</span>;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(vec[i].first &lt; vec[i + <span class="number">1</span>].first) &#123;</span><br><span class="line">            left = vec[i].first;</span><br><span class="line">            right = vec[i + <span class="number">1</span>].first;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            left = vec[i].first;</span><br><span class="line">            right = vec[i + <span class="number">1</span>].first;</span><br><span class="line">        &#125;</span><br><span class="line">        shorter = vec[i].second &lt; vec[i + <span class="number">1</span>].second ? vec[i].second : vec[i + <span class="number">1</span>].second;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = left + <span class="number">1</span>;j &lt; right;j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(isTrue[j] == <span class="literal">false</span>) &#123;</span><br><span class="line">                isTrue[j] = <span class="literal">true</span>;</span><br><span class="line">                sum += (shorter - height[j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>方法二：动态编程</p>
+<p><img src="https://pic.leetcode-cn.com/53ab7a66023039ed4dce42b709b4997d2ba0089077912d39a0b31d3572a55d0b-trapping_rain_water.png" alt="trapping_rain_water.png"></p>
+<p><strong>算法</strong></p>
+<ul>
+<li>找到数组中从下标 i 到最左端最高的条形块高度<code>left_max</code>。</li>
+<li>找到数组中从下标 i 到最右端最高的条形块高度<code>right_max</code>。</li>
+<li>扫描数组 <code>height</code>并更新答案：<ul>
+<li>累加 <code>min(max_left[i], max_right[i])-hright[i]</code>到<code>ans</code> 上</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">trap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(height.size() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> size = height.size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; left_max(size), right_max(size);</span><br><span class="line">        left_max[<span class="number">0</span>] = height[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; size;i++) &#123;</span><br><span class="line">            left_max[i] = max(height[i], left_max[i - <span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        right_max[size - <span class="number">1</span>] = height[size - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = size - <span class="number">2</span>;i &gt;= <span class="number">0</span>;i--) &#123;</span><br><span class="line">            right_max[i] = max(height[i], right_max[i + <span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; size - <span class="number">1</span>;i++) &#123;</span><br><span class="line">            ans += (min(left_max[i], right_max[i]) - height[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>方法三：使用双指针</p>
+<p>和方法 2 相比，我们不从左和从右分开计算，我们想办法一次完成遍历。<br>从动态编程方法的示意图中我们注意到，只要<code>right_max[i]&gt;left_max[i]</code>（元素 0 到元素 6），积水高度将由 <code>left_max</code> 决定，类似地<code>left_max[i] &gt; right_max[i]</code>（元素 8 到元素 11）。<br>所以我们可以认为如果一端有更高的条形块（例如右端），积水的高度依赖于当前方向的高度（从左到右）。当我们发现另一侧（右侧）的条形块高度不是最高的，我们则开始从相反的方向遍历（从右到左）。<br>我们必须在遍历时维护 <code>left_max</code> 和 <code>right_max</code> ，但是我们现在可以使用两个指针交替进行，实现 1 次遍历即可完成。</p>
+<p><strong>算法如下</strong></p>
+<p><img src="https://pic.leetcode-cn.com/dca8d12e6eeb3030fda9ff5dd93fc006f0198ae3b536da3ad34306f1e2eabf33-image.png" alt="img"></p>
+<p><img src="https://pic.leetcode-cn.com/25947aa4298e665dd7fe65c7a0e0dd61e185a36059a7ed0b9e7a8d7321a5de2a-image.png" alt="img"></p>
+<p><img src="https://pic.leetcode-cn.com/5360bc242064e515f1f3b58daba2cbdc3e4da0ddee90ae9574ba227d6c7b29ea-image.png" alt="img"></p>
+<p><img src="https://pic.leetcode-cn.com/425ecab62ac1a7c6c6c3cf320b03a8736227839a3bd59532379402cefd5372c8-image.png" alt="img"></p>
+<p><img src="https://pic.leetcode-cn.com/fba2b3de3e50c0be28021d2ce7953ffbe3e5d17bed52c9818afde04db3b5deb1-image.png" alt="img"></p>
+<p><img src="https://pic.leetcode-cn.com/0e29e6e588a5b16fd317d02d0289eb31afa0ac103945118efb025eccc7d1eb0b-image.png" alt="img"></p>
+<p><img src="https://pic.leetcode-cn.com/140f13e7d149207e3ab9e92ed4f06c8309845acb5b792351850011192d2b97e1-image.png" alt="img"></p>
+<p><img src="https://pic.leetcode-cn.com/f2606dd3a2c879f7acc5ad9e16ef850d5cda52c256df3f18adb86877339f0907-image.png" alt="img"></p>
+<p>省略…</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">trap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = height.size() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> left_max = <span class="number">0</span>, right_max = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(left  &lt; right) &#123;</span><br><span class="line">            <span class="keyword">if</span>(height[left] &lt; height[right]) &#123;</span><br><span class="line">                height[left] &gt;= left_max ? (left_max = height[left]) : ans += (left_max - height[left]);</span><br><span class="line">                ++left;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                height[right] &gt;= right_max ? (right_max = height[right]) : ans += (right_max - height[right]);</span><br><span class="line">                right--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="45-跳跃游戏（贪心算法）"><a href="#45-跳跃游戏（贪心算法）" class="headerlink" title="45. 跳跃游戏（贪心算法）"></a>45. 跳跃游戏（贪心算法）</h3><p>给定一个非负整数数组，你最初位于数组的第一个位置。</p>
+<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
+<p>你的目标是使用最少的跳跃次数到达数组的最后一个位置。</p>
+<p><strong>示例:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: [2,3,1,1,4]</span><br><span class="line">输出: 2</span><br><span class="line">解释: 跳到最后一个位置的最小跳跃数是 2。</span><br><span class="line">     从下标为 0 跳到下标为 1 的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。</span><br></pre></td></tr></table></figure>
+
+<p><strong>说明:</strong></p>
+<p>假设你总是可以到达数组的最后一个位置。</p>
+<p>一开始的想法是，利用动态规划（不知道算不算），当前位于 i 的位置，然后<code>nums[i]</code>表示当前可以往下跳的范围。更新<code>jumps数组中</code>下标为<code>i ~ i + nums[i]</code>范围的值。（<code>jumps</code>数组表示从起始位置跳到当前位置所需要的最少的跳跃数）。然后返回<code>jumps</code>数组的最后一个元素</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">jump</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> jumps[nums.size()] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; nums.size() - <span class="number">1</span>;i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>;i + j &lt; nums.size() &amp;&amp; j &lt; nums[i];j++) &#123;</span><br><span class="line">            jumps[i + j] = jumps[i] + <span class="number">1</span> &lt; jumps[i + j] ? jumps[i] + <span class="number">1</span> : jumps[i + j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;       </span><br><span class="line">    <span class="keyword">return</span> jumps[nums.size() - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不幸的是，超时了……</p>
+<p>所以需要其他的解决方法了…</p>
+<p><strong>贪心算法</strong>出场了！！！</p>
+<p>贪心算法，我们每次在可跳范围内选择可以使得跳的更远的位置。</p>
+<p>如下图，开始的位置是 2，可跳的范围是橙色的。然后因为 3 可以跳的更远，所以跳到 3 的位置。</p>
+<p><img src="https://pic.leetcode-cn.com/c4a606188af249b911d06acb5e51b2f8a4589be68b02b900d32dfdd69a14d368-image.png" alt="image.png"></p>
+<p>如下图，然后现在的位置就是 3 了，能跳的范围是橙色的，然后因为 4 可以跳的更远，所以下次跳到 4 的位置。</p>
+<p><img src="https://pic.leetcode-cn.com/1c13a73f3ddd9c5badd83f818455c1ed16a251956473659ffcee6eb9a65ecdbf-image.png" alt="image.png"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">jump</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; nums.size() - <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> index;</span><br><span class="line">            <span class="keyword">int</span> far = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= nums[i];j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(i + j &gt;= nums.size() - <span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="keyword">return</span> count + <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(j + nums[i + j] &gt; far) &#123;</span><br><span class="line">                    index = i + j;</span><br><span class="line">                    far = j + nums[i + j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            i = index;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="47-全排列II"><a href="#47-全排列II" class="headerlink" title="47. 全排列II"></a>47. 全排列II</h3><p>给定一个可包含重复数字的序列，返回所有不重复的全排列。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,1,2]</span><br><span class="line">输出:</span><br><span class="line">[</span><br><span class="line">  [1,1,2],</span><br><span class="line">  [1,2,1],</span><br><span class="line">  [2,1,1]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p><strong>方法：回溯+剪枝（剪枝的效果是去重复）</strong></p>
+<p>下面这段话是<strong>解决有重复元素的序列的排列问题的关键</strong>：</p>
+<p><strong>当数组中有重复元素的时候，可以先将数组排序，排序以后在递归的过程中可以很容易发现重复的元素。当发现重复元素的时候，让这一个分支跳过，以达到“剪枝”的效果，重复的排列就不会出现在结果集中。</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">findPermute</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; temp, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt;&amp; ans, <span class="keyword">int</span> index, <span class="keyword">bool</span> isused[])</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(index == nums.size()) &#123;</span><br><span class="line">            ans.push_back(temp);</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; nums.size();i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(!isused[i]) &#123;</span><br><span class="line">                <span class="keyword">if</span>(i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i - <span class="number">1</span>] &amp;&amp; !isused[i - <span class="number">1</span>]) &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                temp.push_back(nums[i]);</span><br><span class="line">                isused[i] = <span class="literal">true</span>;</span><br><span class="line">                findPermute(nums, temp, ans, index + <span class="number">1</span>, isused);</span><br><span class="line">                temp.pop_back();</span><br><span class="line">                isused[i] = <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; permuteUnique(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        <span class="keyword">bool</span> isused[nums.size()] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; temp;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; ans;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> ans;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(nums.size() == <span class="number">1</span>) &#123;</span><br><span class="line">            ans.push_back(nums);</span><br><span class="line">            <span class="keyword">return</span> ans;</span><br><span class="line">        &#125;</span><br><span class="line">        sort(nums.begin(), nums.end());</span><br><span class="line">        findPermute(nums, temp, ans, <span class="number">0</span>, isused);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这个代码片段是关键：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(i &gt; 0 &amp;&amp; nums[i] == nums[i - 1] &amp;&amp; !isused[i - 1]) &#123;</span><br><span class="line">	continue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在进入一个新的分支之前，看看最后一个数是不是和之前一样，<strong>如果这个数和之前的数一样，并且之前的数还未使用过，那接下来如果走这个分支，就回使用到之前那个和当前一样的数，就回发生重复，此时分支和之前的分支一模一样</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/27/LeetCode-Day13/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/27/LeetCode-Day13/" itemprop="url">LeetCode-Day13</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-27T14:44:08+08:00">
+                2019-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="37-解数独"><a href="#37-解数独" class="headerlink" title="37. 解数独"></a>37. 解数独</h3><p>编写一个程序，通过已填充的空格来解决数独问题。</p>
+<p>一个数独的解法需遵循如下规则：</p>
+<p>数字 1-9 在每一行只能出现一次。<br>数字 1-9 在每一列只能出现一次。<br>数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。<br>空白格用 ‘.’ 表示。</p>
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Sudoku-by-L2G-20050714.svg/250px-Sudoku-by-L2G-20050714.svg.png" alt="img"></p>
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Sudoku-by-L2G-20050714_solution.svg/250px-Sudoku-by-L2G-20050714_solution.svg.png" alt="img"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">bool</span> solved = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">bool</span> row[<span class="number">10</span>][<span class="number">10</span>], col[<span class="number">10</span>][<span class="number">10</span>], box[<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">solveSudoku</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; &gt;&amp;board)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//初始化</span></span><br><span class="line">        <span class="built_in">memset</span>(row, <span class="literal">false</span>, <span class="keyword">sizeof</span>(row));</span><br><span class="line">        <span class="built_in">memset</span>(col, <span class="literal">false</span>, <span class="keyword">sizeof</span>(col));</span><br><span class="line">        <span class="built_in">memset</span>(box, <span class="literal">false</span>, <span class="keyword">sizeof</span>(box));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">9</span>;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; <span class="number">9</span>;j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(board[i][j] == <span class="string">'.'</span>) &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">int</span> index = <span class="number">3</span> * (i / <span class="number">3</span>) + j / <span class="number">3</span>;</span><br><span class="line">                <span class="keyword">int</span> num = board[i][j] - <span class="string">'0'</span>;</span><br><span class="line">                row[i][num] = col[j][num] = box[index][num] = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        DFS(<span class="number">0</span>, <span class="number">0</span>, board);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; &gt;&amp; board)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(solved) &#123;</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i &gt;= <span class="number">9</span>) &#123;</span><br><span class="line">            solved = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// board[i][j]非空，则考虑下一个位置</span></span><br><span class="line">        <span class="keyword">if</span>(board[i][j] != <span class="string">'.'</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(j &lt; <span class="number">8</span>) &#123;</span><br><span class="line">                DFS(i, j + <span class="number">1</span>, board);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(j == <span class="number">8</span>) &#123;</span><br><span class="line">                DFS(i + <span class="number">1</span>, <span class="number">0</span>, board);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(solved) &#123;</span><br><span class="line">                <span class="keyword">return</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> index = <span class="number">3</span> * (i / <span class="number">3</span>) + j / <span class="number">3</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> num = <span class="number">1</span>;num &lt;= <span class="number">9</span>;num++) &#123;</span><br><span class="line">                <span class="comment">// 判断num是否符合规则</span></span><br><span class="line">                <span class="keyword">if</span>(!row[i][num] &amp;&amp; !col[j][num] &amp;&amp; !box[index][num]) &#123;</span><br><span class="line">                    board[i][j] = <span class="string">'0'</span> + num;	<span class="comment">// 填数</span></span><br><span class="line">                    row[i][num] = col[j][num] = box[index][num] = <span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">if</span>(j &lt; <span class="number">8</span>) &#123;	<span class="comment">// 递归</span></span><br><span class="line">                        DFS(i, j + <span class="number">1</span>, board);</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(j == <span class="number">8</span>) &#123;</span><br><span class="line">                        DFS(i + <span class="number">1</span>, <span class="number">0</span>, board);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span>(!solved) &#123;   <span class="comment">// 回溯</span></span><br><span class="line">                        row[i][num] = col[j][num] = box[index][num] = <span class="literal">false</span>;</span><br><span class="line">                        board[i][j] = <span class="string">'.'</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>解释：</p>
+<p>二维数组row, col, box分别是用来记录每一行，每一列，每一宫出现过的数字</p>
+<p>采用回溯的方法。</p>
+<p>这里解释一下<code>index = 3 * (i / 3) + j / 3</code>，这是用来解决，当前的<code>(i, j)</code>是属于哪一宫的，</p>
+<p>36_boxes_2.png](<a href="https://pic.leetcode-cn.com/5a7856c3c2a2185600b7cb5cd3fd50101281af7391a70a63293d82d62873aadd-36_boxes_2.png" target="_blank" rel="noopener">https://pic.leetcode-cn.com/5a7856c3c2a2185600b7cb5cd3fd50101281af7391a70a63293d82d62873aadd-36_boxes_2.png</a>)</p>
+<h3 id="39-组合总和"><a href="#39-组合总和" class="headerlink" title="39. 组合总和"></a>39. 组合总和</h3><p>给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。</p>
+<p>candidates 中的数字可以无限制重复被选取。</p>
+<p>说明：</p>
+<p><strong>所有数字（包括 target）都是正整数。</strong><br><strong>解集不能包含重复的组合。</strong><br>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入: candidates = [2,3,6,7], target = 7,</span><br><span class="line">所求解集为:</span><br><span class="line">[</span><br><span class="line">  [7],</span><br><span class="line">  [2,2,3]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入: candidates = [2,3,5], target = 8,</span><br><span class="line">所求解集为:</span><br><span class="line">[</span><br><span class="line">  [2,2,2,2],</span><br><span class="line">  [2,3,3],</span><br><span class="line">  [3,5]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">backtrace</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; candidates, <span class="keyword">int</span> target, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt;&amp; ans, <span class="keyword">int</span> weight, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; bag, <span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(weight == target) &#123;</span><br><span class="line">            <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; temp = bag;</span><br><span class="line">            ans.push_back(temp);</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = index;i &lt; candidates.size();i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(weight + candidates[i] &lt;= target) &#123;</span><br><span class="line">                weight += candidates[i];</span><br><span class="line">                bag.push_back(candidates[i]);</span><br><span class="line">                backtrace(candidates, target, ans, weight, bag, i);</span><br><span class="line">                weight -= candidates[i];</span><br><span class="line">                bag.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; combinationSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; candidates, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; ans;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; bag;</span><br><span class="line">        backtrace(candidates, target, ans, <span class="number">0</span>, bag, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>解释：这里的关键点就是<strong>数组是无重复的</strong>， 并且<code>candidates</code>中的数字<strong>可以无限制重复被选取</strong>。</p>
+<p>所以，在递归的时候，<code>index</code>还是<code>i</code>，并没有变成<code>i+1</code></p>
+<h3 id="40-组合总和II"><a href="#40-组合总和II" class="headerlink" title="40. 组合总和II"></a>40. 组合总和II</h3><p>给定一个数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。</p>
+<p>candidates 中的每个数字在每个组合中只能使用一次。</p>
+<p>说明：</p>
+<p><strong>所有数字（包括目标数）都是正整数。</strong><br><strong>解集不能包含重复的组合。</strong><br>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入: candidates = [10,1,2,7,6,1,5], target = 8,</span><br><span class="line">所求解集为:</span><br><span class="line">[</span><br><span class="line">  [1, 7],</span><br><span class="line">  [1, 2, 5],</span><br><span class="line">  [2, 6],</span><br><span class="line">  [1, 1, 6]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入: candidates = [2,5,2,1,2], target = 5,</span><br><span class="line">所求解集为:</span><br><span class="line">[</span><br><span class="line">  [1,2,2],</span><br><span class="line">  [5]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">backtrace</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; candidates, <span class="keyword">int</span> target, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt;&amp; ans, <span class="keyword">int</span> weight, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; bag, <span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(weight == target) &#123;</span><br><span class="line">            <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; temp = bag;</span><br><span class="line">            ans.push_back(temp);</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = index;i &lt; candidates.size();i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(weight + candidates[i] &lt;= target) &#123;</span><br><span class="line">                weight += candidates[i];</span><br><span class="line">                bag.push_back(candidates[i]);</span><br><span class="line">                backtrace(candidates, target, ans, weight, bag, i + <span class="number">1</span>);</span><br><span class="line">                weight -= candidates[i];</span><br><span class="line">                <span class="keyword">while</span>(i + <span class="number">1</span> &lt; candidates.size() &amp;&amp; candidates[i + <span class="number">1</span>] == candidates[i]) &#123;</span><br><span class="line">                    i++;    </span><br><span class="line">                &#125;</span><br><span class="line">                bag.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; combinationSum2(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; candidates, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; ans;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; bag;</span><br><span class="line">        sort(candidates.begin(), candidates.end());</span><br><span class="line">        backtrace(candidates, target, ans, <span class="number">0</span>, bag, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>解释：</p>
+<p>这个跟上一题的区别在于这里的<code>candidate</code>数组中的数字是可以重复的，并且每个数字在每个组合中只能使用一次。在这里使用的trick就是先对<code>candidate</code>数组进行排序。在回溯的时候，<strong>如果下一个要选取的数字和当前要回溯的数字是一样的话，就不选取</strong>，因为如果下一个要选取的数字和当前正要退回的数字是一样的话，会造成重复。</p>
+<h3 id="41-缺失的第一个正数"><a href="#41-缺失的第一个正数" class="headerlink" title="41. 缺失的第一个正数"></a>41. 缺失的第一个正数</h3><p>给定一个未排序的整数数组，找出其中没有出现的最小的正整数。</p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,2,0]</span><br><span class="line">输出: 3</span><br></pre></td></tr></table></figure>
+
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [3,4,-1,1]</span><br><span class="line">输出: 2</span><br></pre></td></tr></table></figure>
+
+<p>示例 3:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [7,8,9,11,12]</span><br><span class="line">输出: 1</span><br></pre></td></tr></table></figure>
+
+<p>说明:</p>
+<p>你的算法的时间复杂度应为O(n)，并且只能使用常数级别的空间。</p>
+<p><strong>方法一：先排序，后遍历</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">firstMissingPositive</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125; </span><br><span class="line">        sort(nums.begin(), nums.end());</span><br><span class="line">        <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(index &lt; nums.size() &amp;&amp; nums[index] &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            index++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(index == nums.size() || nums[index] != <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> min = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(index &lt; nums.size()) &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[index] == min) &#123;</span><br><span class="line">                min++;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(nums[index] &gt; min) &#123;</span><br><span class="line">                <span class="keyword">return</span> min;</span><br><span class="line">            &#125;</span><br><span class="line">            index++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> min;</span><br><span class="line">    &#125;      </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>方法二：hash表</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">firstMissingPositive</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> hash[nums.size() + <span class="number">1</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; nums.size();i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i] &lt;= <span class="number">0</span> || nums[i] &gt; nums.size()) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125; </span><br><span class="line">            hash[nums[i]]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt;= nums.size() &amp;&amp; hash[i] != <span class="number">0</span>) &#123;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i == nums.size() + <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> nums.size() + <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;      </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>解释：先遍历一遍数组，然后将小于1和大于<code>nums.size()</code>的数字都过滤掉，然后统计<code>nums[i]</code>出现的次数记录在hash表中。</p>
+<p>遍历<code>hash</code>，如果在中间遇到了<code>hash</code>值为0的说明，这个就是要找的最小的缺失的整数，如果在最后才推出循环，说明，最小的整数应该不在<code>hash</code>表中，而是<code>nums</code>数组中最大的元素<code>+1</code></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/27/后台运行程序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1212,531 +1737,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/22/GCN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/22/GCN/" itemprop="url">GCN</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-22T08:42:59+08:00">
-                2019-08-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="CNN和GCN的联系与区别"><a href="#CNN和GCN的联系与区别" class="headerlink" title="CNN和GCN的联系与区别"></a>CNN和GCN的联系与区别</h2><h4 id="1-什么是离散卷积？CNN中卷积发挥什么作用？"><a href="#1-什么是离散卷积？CNN中卷积发挥什么作用？" class="headerlink" title="1. 什么是离散卷积？CNN中卷积发挥什么作用？"></a>1. 什么是离散卷积？CNN中卷积发挥什么作用？</h4><p>CNN中的卷积本质上就是利用一个共享参数的过滤器（kernel），通过计算中心像素点以及相邻像素点的加权和来构成feature map实现空间特征的提取，当然加权系数就是卷积核的权重系数。</p>
-<p>那么卷积核的系数如何确定的呢？是随机化初值，然后根据误差函数通过反向传播梯度下降进行迭代优化。这是一个关键点，<strong>卷积核的参数通过优化求出才能实现特征提取的作用，GCN的理论很大一部分工作就是为了引入可以优化的卷积参数</strong>。</p>
-<h3 id="2-GCN中的Graph指什么？为什么要研究GCN？"><a href="#2-GCN中的Graph指什么？为什么要研究GCN？" class="headerlink" title="2. GCN中的Graph指什么？为什么要研究GCN？"></a>2. GCN中的Graph指什么？为什么要研究GCN？</h3><h4 id="GCN中的Graph"><a href="#GCN中的Graph" class="headerlink" title="GCN中的Graph"></a>GCN中的Graph</h4><p>CNN可以有效的提取空间特征。但是有一点需要注意：<strong>CNN处理的图像或者视频中像素点是排列成很整齐的（也就是很多论文中所提到的Euclidean Structure）</strong></p>
-<p>与之相对应，科学研究中还有很多 Non Euclidean Structure的数据，例如社交网络、信息网络中有很多类似的结构。</p>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566438663453.png" alt="1566438663453"></p>
-<p>实际上，这样的网络结构就是图论中抽象意义上的拓扑图</p>
-<p>所以，<strong>Graph Convolution Network中的Graph是指数学（图论）中的用顶点和边建立相应关系的拓扑图</strong></p>
-<h4 id="那么为什么要研究GCN？"><a href="#那么为什么要研究GCN？" class="headerlink" title="那么为什么要研究GCN？"></a>那么为什么要研究GCN？</h4><ul>
-<li>CNN无法处理Non Euclidean Structure的数据，学术上的表达就是<strong>传统的离散卷积，在Non Euclidean Structure的数据上无法保持平移不变性</strong>。通俗理解就是在拓扑图中每个定点的相邻顶点数目都可能不同，那么当然无法用一个同样尺寸的卷积核来进行卷积运算</li>
-<li>由于CNN无法处理Non Euclidean Structure的数据，又<strong>希望在这样的数据结构（拓扑图）上有效地提取特征空间来进行机器学习</strong>，所以GCN成为了研究的重点</li>
-<li>广义上来讲，任何数据在赋范空间内都可以建立拓扑关联，谱聚类就是应用了这样的思想。<strong>所以说拓扑连接是一种广义的数据结构</strong>，GCN有很大的应用空间。</li>
-</ul>
-<h3 id="3-提取拓扑图空间特征的两种方式"><a href="#3-提取拓扑图空间特征的两种方式" class="headerlink" title="3. 提取拓扑图空间特征的两种方式"></a>3. 提取拓扑图空间特征的两种方式</h3><p>GCN的本质目的就是用来提取拓扑图的空间特征，目前实现这个目标的最主要的两种方式是：vertex domain(spatial domain)和spectral domain</p>
-<h4 id="vertex-domain-spatial-domain"><a href="#vertex-domain-spatial-domain" class="headerlink" title="vertex domain(spatial domain)"></a>vertex domain(spatial domain)</h4><p>这是一种非常直观的方式，顾名思义：提取拓扑图上的空间特征，那么就把每个顶点相邻的neighbors找出来。这里面蕴含的科学问题有二：</p>
-<ul>
-<li>按照什么条件去找中心vertex的neighbors，也就是如何确定receptive field？</li>
-<li>确定receptive field，按照什么方式处理包含不同neighbors的特征？</li>
-</ul>
-<p>根据这两个问题设计算法，就可以实现目标了。</p>
-<p>这种方法主要的缺点如下：</p>
-<ul>
-<li>每个定点提取出来的neighbors不同，使得计算处理必须针对每个顶点</li>
-<li>提取特征的效果可能没有卷积好</li>
-</ul>
-<h4 id="spectral-domain"><a href="#spectral-domain" class="headerlink" title="spectral domain"></a>spectral domain</h4><p>就是GCN的理论寄出了。这种思路就是希望接组合图谱的理论来实现拓扑图上的卷积操作。从整个研究的时间进程来看：首先研究GSP（Graph signal processing）的学者定义了graph上的Fourier Transformation，进而定义了graph上的convolution，最后与深度学习结合提出了Graph Convolution Network</p>
-<h5 id="Q1：什么是Spectral-graph-theory？"><a href="#Q1：什么是Spectral-graph-theory？" class="headerlink" title="Q1：什么是Spectral graph theory？"></a>Q1：什么是Spectral graph theory？</h5><p>简单的概括就是借助图的拉普拉斯矩阵的特征值和特征向量来研究图的性质</p>
-<h5 id="Q2：GCN为什么要利用Spectral-graph-theory？"><a href="#Q2：GCN为什么要利用Spectral-graph-theory？" class="headerlink" title="Q2：GCN为什么要利用Spectral graph theory？"></a>Q2：GCN为什么要利用Spectral graph theory？</h5><h3 id="4-什么是拉普拉斯矩阵？为什么GCN要用拉普拉斯矩阵？"><a href="#4-什么是拉普拉斯矩阵？为什么GCN要用拉普拉斯矩阵？" class="headerlink" title="4. 什么是拉普拉斯矩阵？为什么GCN要用拉普拉斯矩阵？"></a>4. 什么是拉普拉斯矩阵？为什么GCN要用拉普拉斯矩阵？</h3><h4 id="什么是拉普拉斯矩阵？"><a href="#什么是拉普拉斯矩阵？" class="headerlink" title="什么是拉普拉斯矩阵？"></a>什么是拉普拉斯矩阵？</h4><p>Graph Fourier Transformation及Graph Convolution的定义都用到了拉普拉斯矩阵，那么首先介绍一下拉普拉斯矩阵</p>
-<p>对于图$G = (V, E)$，其$Laplacian$矩阵的定义为$L = D - A$，其中$L$是$Laplacian$矩阵，$D$是定点的度矩阵（对角矩阵），对角线上元素依次为各个顶点的度，$A$是图的邻接矩阵。看下图，很快就能知道$Laplacian$矩阵的计算方法</p>
-<p><img src="https://pic2.zhimg.com/80/v2-5f9cf5fdeed19b63e1079ed2b87617b4_hd.jpg" alt="img"></p>
-<p>这里要说明的是：<strong>常用的拉普拉斯矩阵实际有三种:</strong></p>
-<ul>
-<li><p>$L = D - A$定义的$Laplacian$矩阵更专业的名称叫<strong>Combinatorial Laplacian</strong></p>
-</li>
-<li><p>$L^{sys} = D^{-1/2}LD^{-1/2}$定义的叫<strong>Symmetric normalized Laplacian</strong> </p>
-</li>
-<li><p>$L^{rw} = D^{-1}L$定义的叫<strong>Random walk normalized Laplacian</strong></p>
-</li>
-</ul>
-<h4 id="为什么GCN要用拉普拉斯矩阵？"><a href="#为什么GCN要用拉普拉斯矩阵？" class="headerlink" title="为什么GCN要用拉普拉斯矩阵？"></a>为什么GCN要用拉普拉斯矩阵？</h4><ul>
-<li>拉普拉斯矩阵是对称矩阵，可以进行特征分解（谱分解），这就和GCN的spectral domain对应上了</li>
-<li>拉普拉斯矩阵只在中心定点和一阶相连的顶点上（1-hop neighbor）有非0元素，其余之处全为0</li>
-<li>通过拉普拉斯算子与拉普拉斯矩阵进行类比</li>
-</ul>
-<h3 id="拉普拉斯矩阵的谱分解（特征分解）"><a href="#拉普拉斯矩阵的谱分解（特征分解）" class="headerlink" title="拉普拉斯矩阵的谱分解（特征分解）"></a>拉普拉斯矩阵的谱分解（特征分解）</h3><p>GCN的核心基于拉普拉斯矩阵的谱分解。</p>
-<p>首先，<strong>矩阵的谱分解，特征分解，对角化都是一个概念</strong></p>
-<p><strong>不是所有的矩阵都可以特征分解</strong>，其充要条件为n阶方阵存在n个线性无关的特征向量。</p>
-<p>但是拉普拉斯矩阵是半正定对称矩阵（半正定矩阵本身就是对称矩阵），有如下三个性质：</p>
-<ul>
-<li><strong>对称矩阵一定有n个线性无关的特征向量</strong></li>
-<li><strong>半正定矩阵的特征值一定非负</strong></li>
-<li><strong>对称矩阵的特征向量相互正交，即所有特征向量构成的矩阵为正交矩阵</strong></li>
-</ul>
-<p>由上可以知道拉普拉斯矩阵一定可以谱分解，且分解后有特殊的形式。</p>
-<p>对于拉普拉斯矩阵其谱分解为：</p>
-<p>$L=U\left(\begin{array}{ccc}{\lambda_{1}} &amp; {} \ {} &amp; {\ddots} &amp; {} \ {} &amp; {} &amp; {\lambda_{n}}\end{array}\right) U^{-1}$</p>
-<p>其中$U=(\overrightarrow{u_{1}}, \overrightarrow{u_{2}}, \cdots, \overrightarrow{u_{n}})$，是列向量为单位特征向量的矩阵，也就是$\overrightarrow{u_{l}}$是列向量。</p>
-<p>$\left(\begin{array}{cccc}{\lambda_{1}} \ {} &amp; {} &amp; {\ddots} \ {} &amp; {} &amp; {} &amp; {\lambda_{n}}\end{array}\right)$是n个特征值构成的对角矩阵</p>
-<p>由于$U$是正交矩阵，即$UU^{T} = E$</p>
-<p>所以特征分解又可以写成：</p>
-<p>$L=U\left(\begin{array}{ccc}{\lambda_{1}} &amp; {} &amp; {} \ {} &amp; {\ddots} &amp; {} \ {} &amp; {} &amp; {\lambda_{n}}\end{array}\right) U^{T}$</p>
-<h3 id="6-如何从传统的傅里叶变换、卷积类比到Graph上的傅里叶变换及卷积？"><a href="#6-如何从传统的傅里叶变换、卷积类比到Graph上的傅里叶变换及卷积？" class="headerlink" title="6. 如何从传统的傅里叶变换、卷积类比到Graph上的傅里叶变换及卷积？"></a>6. 如何从传统的傅里叶变换、卷积类比到Graph上的傅里叶变换及卷积？</h3><p>把传统的傅里叶变换以及卷积迁移到Graph上来，核心工作其实就是把拉普拉斯算子的特征函数$e^{-iwt}$变为Graph对应的拉普拉斯矩阵的特征向量</p>
-<ul>
-<li><p>Graph上的傅里叶变换</p>
-<p>传统的傅里叶变换定义为：</p>
-<p>$F(\omega)=\mathcal{F}[f(t)]=\int f(t) e^{-i \omega t} d t$</p>
-</li>
-</ul>
-<p>信号$f(t)$与基函数$e^{-iwt}$的积分，那么为什么要找</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/21/LeetCode-Day7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/21/LeetCode-Day7/" itemprop="url">LeetCode-Day7</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-21T21:21:16+08:00">
-                2019-08-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="22-括号生成"><a href="#22-括号生成" class="headerlink" title="22. 括号生成"></a>22. 括号生成</h3><p>给出 n 代表生成括号的对数，请你写出一个函数，使其能够生成所有可能的并且有效的括号组合。</p>
-<p>例如，给出 n = 3，生成结果为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &quot;((()))&quot;,</span><br><span class="line">  &quot;(()())&quot;,</span><br><span class="line">  &quot;(())()&quot;,</span><br><span class="line">  &quot;()(())&quot;,</span><br><span class="line">  &quot;()()()&quot;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> N, <span class="keyword">int</span> l, <span class="keyword">int</span> r,<span class="built_in">string</span> str, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; ans)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(r &gt; l || l &gt; N || r &gt; N) &#123;</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(l == r &amp;&amp; l == N) &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; str &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">            ans.push_back(str);</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        dfs(N, l + <span class="number">1</span>, r, str + <span class="string">'('</span>, ans);</span><br><span class="line">        dfs(N, l, r + <span class="number">1</span>, str + <span class="string">')'</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; generateParenthesis(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; ans;</span><br><span class="line">        dfs(n, <span class="number">0</span>, <span class="number">0</span>, <span class="string">""</span>, ans);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>解释：暴力构造法+剪枝（递归）</p>
-<p>递归出口:</p>
-<ul>
-<li><p>左括号数量小于右括号数量</p>
-</li>
-<li><p>左括号或右括号的数量大于n</p>
-</li>
-<li><p>左括号数量和有括号数量相等，且等于n，即符合题意的解</p>
-</li>
-</ul>
-<h3 id="23-合并k个排序链表"><a href="#23-合并k个排序链表" class="headerlink" title="23. 合并k个排序链表"></a>23. 合并k个排序链表</h3><p>合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。</p>
-<p>示例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">[</span><br><span class="line">  1-&gt;4-&gt;5,</span><br><span class="line">  1-&gt;3-&gt;4,</span><br><span class="line">  2-&gt;6</span><br><span class="line">]</span><br><span class="line">输出: 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">     <span class="function">ListNode* <span class="title">mergeTwoLists</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(l1 == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> l2;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(l2 == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> l1;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode* cur = (ListNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(ListNode));</span><br><span class="line">        ListNode* htmp = cur;</span><br><span class="line">        ListNode* cur1 = l1;</span><br><span class="line">        ListNode* cur2 = l2;</span><br><span class="line">        <span class="keyword">while</span>(cur1 != <span class="literal">NULL</span> &amp;&amp; cur2 != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(cur1-&gt;val &lt;= cur2-&gt;val) &#123;</span><br><span class="line">                cur-&gt;next = cur1;</span><br><span class="line">                cur1 = cur1-&gt;next;</span><br><span class="line">                cur = cur-&gt;next;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                cur-&gt;next = cur2;</span><br><span class="line">                cur2 = cur2-&gt;next;</span><br><span class="line">                cur = cur-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(cur1 != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            cur-&gt;next = cur1;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">if</span>(cur2 != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            cur-&gt;next = cur2;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> htmp-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ListNode* _mergeKLists(<span class="built_in">vector</span>&lt;ListNode*&gt;&amp; lists, <span class="keyword">int</span> begin, <span class="keyword">int</span> end) &#123;</span><br><span class="line">        <span class="keyword">if</span>(end &lt; begin) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(end == begin) &#123;</span><br><span class="line">            <span class="keyword">return</span> lists[begin];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> mid = (begin + end) / <span class="number">2</span>;</span><br><span class="line">        ListNode* p1 = _mergeKLists(lists, begin, mid);</span><br><span class="line">        ListNode* p2 = _mergeKLists(lists, mid + <span class="number">1</span>, end);</span><br><span class="line">        <span class="keyword">return</span> mergeTwoLists(p1, p2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">ListNode* <span class="title">mergeKLists</span><span class="params">(<span class="built_in">vector</span>&lt;ListNode*&gt;&amp; lists)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> _mergeKLists(lists, <span class="number">0</span>, lists.size() - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>解释：关于k路归并，这里采用了优先队列合并</p>
-<p>递归 + 二分</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/21/ZSL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/21/ZSL/" itemprop="url">ZSL</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-21T16:42:41+08:00">
-                2019-08-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="ZSL的相关论文"><a href="#ZSL的相关论文" class="headerlink" title="ZSL的相关论文"></a>ZSL的相关论文</h2><ol>
-<li>基于attribute description构建语义空间A</li>
-</ol>
-<p>$Learning To Detect Unseen Object Classes by Between-Class Attribute Transfer$</p>
-<p><a href="http://pub.ist.ac.at/~chl/papers/lampert-cvpr2009.pdf" target="_blank" rel="noopener">http://pub.ist.ac.at/~chl/papers/lampert-cvpr2009.pdf</a></p>
-<p>基于attribute description的方法，其数据集中的每张图片都标注了若干attribute用以描述图片信息。一些标注了attribute的示例图片如下图所示</p>
-<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-3.jpeg" alt="img"></p>
-<p>这篇论文通过上述每张图片预定义的特征，构建了样本数据的特征表示空间X；同时，通过若干classes集合或图片集合学习可用于表示数据集中所有class的attribute description，完成语义空间A的构建；最后，论文提出了使用两种方式建立X和A之间的映射。两种方式为：Direct Attribute Prediction（DAP）和 Indirect Attribute Prediction（IAP），如下图所示：</p>
-<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-4.jpeg" alt="img"></p>
-<p><strong>DAP：</strong></p>
-<p>训练时，由一直标签的训练集，学习有关attribute的参数β；预测时，为每一个测试样本预测其attribute参数，进而根据attribute建立的seen class(y) 和 unseen class(z)之间的关系，推导得出测试样本的label</p>
-<p><strong>IAP：</strong></p>
-<p>训练时，按多分类的方式学习参数α；预测时，根据attribute建立的seen class(y) 和 unseen class(z)之间的关系，推到得到unseen class 的分布。</p>
-<p>DAP在训练是仅依据属性层，而IAP将训练样本的类标也作为一个中间层，一定程度上能限定测试样本生成新类标的范围，使得学习到的链接控制在对于Y来说，有意义的范围之内，因此可以增强系统的鲁棒性。但实际上，在作者后面的实验中，DAP的效果要比IAP好很多</p>
-<p>效果虽然不是很好，但确实在一定程度上表达了“知识迁移”的思想，不仅利用图片训练相应的特征，更是加入了属性这类的高位特征描述，实现了“从低维图片特征分类器”到“高位语义特征（属性）分类器”的转变</p>
-<p><strong>Attribute description相关论文列表：</strong></p>
-<ul>
-<li><cvpr-2009>Describing Objects by their Attributes</cvpr-2009></li>
-<li><tpami-2014>Attribute-based Classification for Zero-Shot Visual Object Categorization</tpami-2014></li>
-<li><tpami-2017>Zero-Shot Learning-A Comprehensive Evaluation of the Good, the Bad and the Ugly</tpami-2017></li>
-<li><cvpr-2017>Semantic Autoencoder for Zero-Shot Learning</cvpr-2017></li>
-<li><cvpr-2016>Recovering the Missing Link: Predicting Class-Attribute Associations for Unsupervised Zero-Shot Learning</cvpr-2016></li>
-</ul>
-<h3 id="2-基于embedding表示构建语义空间A"><a href="#2-基于embedding表示构建语义空间A" class="headerlink" title="2. 基于embedding表示构建语义空间A"></a>2. 基于embedding表示构建语义空间A</h3><p>$DeViSE: A Deep Visual-Semantic Embedding Model$</p>
-<p><a href="http://papers.nips.cc/paper/5204-devise-a-deep-visual-semantic-embedding-model.pdf" target="_blank" rel="noopener">http://papers.nips.cc/paper/5204-devise-a-deep-visual-semantic-embedding-model.pdf</a></p>
-<p>本文提出的DeViSE模型，数据集每个class/label可作为一个词在语义空间进行embedding表示，如使用与训练skip-gram模型得到有关class的language feature vector，同时利用与训练的CNN-based模型提取图片的visual feature vector，将两个向量映射到同一纬度的空间，进行相似度的计算。测试时，即可根据语义之间的相似性进行图片的分类。模型结构如下图：</p>
-<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-6.jpeg" alt="img"></p>
-<p>考虑到训练时负样本发挥的通，模型的损失函数选择hinge loss。其中，通过dot-product 计算相似度。</p>
-<p>$\text {loss(image,label)}=\sum_{j \neq l a b e l} \max \left[0, \text {margin }-\overrightarrow{t_{l a b e l}} M \vec{v}(\text {image})+\vec{t}_{j} M \vec{v}(\text {image})\right]$</p>
-<p><strong>Embedding表示相关论文列表：</strong></p>
-<ul>
-<li><iccv-2015>Predicting Deep Zero-Shot Convolutional Neural Networks using TextualDescriptions</iccv-2015></li>
-<li><cvpr-2016>Learning Deep Representations of Fine-grained Visual Descriptions</cvpr-2016></li>
-<li><cvpr-2015>Evaluation of Output Embeddings for Fine-grained Image Classification</cvpr-2015></li>
-<li><cvpr-2016>Latent Embeddings for Zero-shot Classification</cvpr-2016></li>
-</ul>
-<h3 id="3-基于KG-KB构建语义空间A"><a href="#3-基于KG-KB构建语义空间A" class="headerlink" title="3. 基于KG/KB构建语义空间A"></a>3. 基于KG/KB构建语义空间A</h3><h4 id="3-1-Zero-shot-Recognition-via-Semantic-Embeddings-and-Knowledge-Graphs"><a href="#3-1-Zero-shot-Recognition-via-Semantic-Embeddings-and-Knowledge-Graphs" class="headerlink" title="3.1 $Zero-shot Recognition via Semantic Embeddings and Knowledge Graphs$"></a>3.1 $Zero-shot Recognition via Semantic Embeddings and Knowledge Graphs$</h4><p>本文基于Graph COnvolution Network(GCN，一种处理Graph-structured数据的神经网络)引入Knowledge Graph的hierarchy结构进行计算。模型分为两个独立的部分，首先使用CNN-based方法（如resnet， Inception等）为输入的图片抽取特征向量，即CNN部分（图所示上方的CNN网络）；其次，GCN部分（图所示下方的GCN网络）将数据集中的每个class作为Graph中的一个节点，并对其做embedding表示输入GCN网络（即输入为有N个k为节点组成的N * k特征矩阵），通过神经网络每一层之间信息的传递和计算，为每个节点（class）输出一组权重向量（D维），即输出是一个N * D的特征矩阵。</p>
-<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-10.jpeg" alt="img"></p>
-<p>模型训练时，Graph中seen class节点有来自CNN部分的图片特征向量作为监督信号（图所示绿色节点）训练GCN模型的参数；而测试时，Graph中的unseen class节点输出对应的权重向量，同时，与CNN部分对应图片输出的特征向量，最终得到分类的结果。</p>
-<p>这里提及的Graph为克表示ImageNet class之间结构的WorldNet知识库，实验选取了其中一部分与ImageNet相关的子集</p>
-<h4 id="3-2-Rethinking-Knowledge-Graph-Propagation-for-Zero-Shot-Learning"><a href="#3-2-Rethinking-Knowledge-Graph-Propagation-for-Zero-Shot-Learning" class="headerlink" title="3.2 $Rethinking Knowledge Graph Propagation for Zero-Shot Learning$"></a>3.2 $Rethinking Knowledge Graph Propagation for Zero-Shot Learning$</h4><p><a href="https://arxiv.org/pdf/1805.11724v1.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1805.11724v1.pdf</a></p>
-<p>在1的基础上进行了改进，包括以下几个方面：</p>
-<ul>
-<li><p>更少的GCN层数，论文1中使用了6层神经网络进行训练，考虑到模型参数的优化问题，本文只使用了2层神经网络进行计算，即GPM</p>
-</li>
-<li><p>减少层数的同时，一些较远节点不被考虑在内，为了解决这个问题，作者将一些节点的祖先/子孙节点直接与该节点相连，生成了更密集的图，即DGPM；同时，这些直接相连的边按照距离的远近，加入attention机制进行了加权计算，即ADGPM</p>
-</li>
-<li><p>作者还提出了在CNN部分根据Graph信息进行fine tune的计算方式，使得提取图片特征的卷积网络可根据一些新出现的class进行更新</p>
-</li>
-</ul>
-<p><strong>KG/KB相关论文列表：</strong></p>
-<ul>
-<li><ijcai-2018>Fine-grained Image Classification by Visual-Semantic Embedding</ijcai-2018></li>
-<li><cvpr-2018>Multi-Label Zero-Shot Learning with Structured Knowledge Graphs</cvpr-2018></li>
-<li><nips-2009>Zero-Shot Learning with Semantic Output Codes</nips-2009></li>
-<li>少样本学习（Few-Shot Learning, FSL）</li>
-</ul>
-<p>前面 2.2 部分提到的论文，其迁移知识的方式主要是通过在语义空间构建 seen class 与 unseen class 之间的关系（下图左），而 Transductive Setting 则提出可通过 seen class 和 unseen class 的少量样本训练得到class之间的关联（下图右），即少样本学习（Few-ShotLearning, FSL）。</p>
-<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-13.jpeg" alt="img"></p>
-<h3 id="FSL–Few-ShotLearning-少样本学习"><a href="#FSL–Few-ShotLearning-少样本学习" class="headerlink" title="FSL–Few-ShotLearning(少样本学习)"></a>FSL–Few-ShotLearning(少样本学习)</h3><h4 id="Learning-to-Compare-RelationNetwork-for-Few-Shot-Learning"><a href="#Learning-to-Compare-RelationNetwork-for-Few-Shot-Learning" class="headerlink" title="$Learning to Compare: RelationNetwork for Few-Shot Learning$"></a>$Learning to Compare: RelationNetwork for Few-Shot Learning$</h4><p><a href="https://arxiv.org/pdf/1711.06025.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1711.06025.pdf</a></p>
-<p>本文从每个 class 中采样少量样本，作为参考样本（如下图左侧 5 张图片，分别代表 5 个 classes），以建立 class 之间的关系。本文所构建的 class relation 主要为相似关系，模型通过 embedding module 提取图片的特征向量，再分别将测试图片（下图所示袋鼠图片）的特征向量与参考样本的特征向量进行拼接输入 relation module，通过神经网络计算测试图片和参考样本图片之间的相似性，最终判断测试图片属于参考图片代表 class 的哪一类。</p>
-<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-15.jpeg" alt="img"></p>
-<p><strong>FSL相关论文列表：</strong></p>
-<ul>
-<li><iclr-2018>Few-Shot Learning with Graph Neural Networks</iclr-2018></li>
-<li><bigdata-2017>One-shot Learning for Fine-grained Relation Extraction via ConvolutionalSiamese Neural Network</bigdata-2017></li>
-<li><nips-2016>Matching Networks for One Shot Learning</nips-2016></li>
-<li><nips-2017>Prototypical Networks for Few-hot Learning</nips-2017></li>
-<li><iclr-2017>Optimization as a model for few-shot learning</iclr-2017></li>
-<li><icml-2016>Meta-learningwith Memory-augmented Neural Networks</icml-2016></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1782,7 +1787,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-count">63</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
