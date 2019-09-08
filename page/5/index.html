@@ -241,6 +241,138 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/softmax-and-softmax-loss-and-BP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/09/softmax-and-softmax-loss-and-BP/" itemprop="url">softmax and softmax-loss and BP</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-09T13:57:43+08:00">
+                2019-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="http://freemind.pluskid.org/machine-learning/softmax-vs-softmax-loss-numerical-stability/" target="_blank" rel="noopener">http://freemind.pluskid.org/machine-learning/softmax-vs-softmax-loss-numerical-stability/</a> </p>
+<p><img src="https://img-blog.csdn.net/20170504203817251?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDM4MDE2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<p>联想逻辑回归的重要公式就是<img src="https://img-blog.csdn.net/20170504203942767?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDM4MDE2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img">，得到预测结果，然后再经过sigmoid转换成0到1的概率值，而在softmax中则通过取exponential的方式并进行归一化得到某个样本属于某类的概率。非负的意义不用说，就是避免正负值抵消。</p>
+<p><img src="https://img-blog.csdn.net/20170504204409994?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDM4MDE2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<p>逻辑回归的推导可以用最大似然或最小损失函数，本质是一样的，可以简单理解成加了一个负号，这里的y指的是真实类别。注意下softmax-loss可以看做是softmax和multinomial logistic loss两步，正如上述所写公式，把变量展开即softmax-loss。</p>
+<p><img src="https://img-blog.csdn.net/20170504204847454?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDM4MDE2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<p>原博客的重点在于介绍softmax-loss是分成两步还是一步到位比较好，而我这则重点说下BP。上面这个神经网络的图应该不陌生，这个公式也是在逻辑回归的核心（通过迭代得到w，然后在测试时按照上面这个公式计算类别概率）</p>
+<p><img src="https://img-blog.csdn.net/20170504205237865?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDM4MDE2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<p>这里第一个公式是损失函数对权重w求导，其实就是梯度，红色那部分可以看前面O是怎么算出来的，就知道其导数的形式非常简单，就是输入I。蓝色部分就是BP的核心，回传就是通过这个达到的，回传的东西就是损失函数对该层输出的导数，只有把这个往前回传，才能计算前面的梯度。所以回传的不是对权重的求导，对每层权重的求导的结果会保留在该层，等待权重更新时候使用。具体看上面最后一个公式。</p>
+<p><img src="https://img-blog.csdn.net/20170504210106340?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDM4MDE2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<p>这部分的求导：l(y,z)函数是log函数，log（x）函数求导是取1/x，后面的那个数是zy对zk的导数，当k=y时，那就是1，k不等于y时就是两个不同的常数求导，就是0。</p>
+<p><img src="https://img-blog.csdn.net/20170504210625060?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDM4MDE2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<p>这一部分就是把softmax-loss分成两步来做，第一个求导可以先找到最前面l(y,o)的公式，也是log函数，所以求导比较简单。第二个求导也是查看前面Oi的公式，分母取平方的那种求导。最后链式相乘的结果和原来合并算的结果一样。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/PyTorch-中的-dim/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1527,275 +1659,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/29/论文中的Python知识点/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/29/论文中的Python知识点/" itemprop="url">论文中的Python知识点</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-29T09:51:31+08:00">
-                2019-07-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="1-元类"><a href="#1-元类" class="headerlink" title="1. 元类"></a>1. 元类</h3><p>首先理解python中的类，用class修饰的都可以叫做类</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Class</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">c = Class()</span><br><span class="line">Class.b = <span class="number">2</span></span><br><span class="line">print(c.b)</span><br><span class="line"></span><br><span class="line"><span class="comment"># out 2</span></span><br></pre></td></tr></table></figure>
-
-<p>我们平时用的类都是实例化以后的类，可以在任何时候动态的创建类，通常情况我们都是这样c=Class(),python解释器会将它认为是创建类，可是解释器本身是如何创建类的，答案是利用type</p>
-<p>type平时我们可能认为是查看对象的类型，例如</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">print(type(c))</span><br><span class="line"><span class="comment"># out:</span></span><br><span class="line"><span class="comment"># &lt;class '__main__.Class'&gt;</span></span><br><span class="line">print(type(Class))</span><br><span class="line"><span class="comment"># out:</span></span><br><span class="line"><span class="comment"># &lt;class 'type'&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>所以，Class的类型是type，我们可以用type直接生成一个类</p>
-<p>type(类名, 父类的元组（针对继承的情况，可以为空），包含属性的字典（名称和值）)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Class_type = type(<span class="string">'Class_type'</span>, (), &#123;<span class="string">'a'</span>: <span class="number">1</span>, <span class="string">'b'</span>: <span class="number">2</span>&#125;)</span><br><span class="line">c_t = Class_type()</span><br><span class="line">print(c_t.a)</span><br><span class="line"><span class="comment"># out：1</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>元类</strong>：就是用来创建这些类（对象）的类，元类就是类的类</p>
-<p>type就是所有类的元类，可以理解为所有的类都是由type创建的，我们也可以创建自己的元类，这个类需要继承在type</p>
-<p>__metaclass__属性</p>
-<p>Class中有<em>\</em>metaclass__这个属性吗？如果是，Python会在内存中通过<em>\</em>metaclass__创建一个名字为Test的类对象<br> 如果Python没有找到<em>\</em>metaclass__，它会继续在Base（父类）中寻找<em>\</em>metaclass__属性，并尝试做和前面同样的操作。<br> 如果Python在任何父类中都找不到<em>\</em>metaclass__，它就会在模块层次中去寻找<em>\</em>metaclass__，并尝试做同样的操作。<br> 如果还是找不到<em>\</em>metaclass__,Python就会用内置的type来创建这个类对象</p>
-<p>那么<em>\</em>metaclass__是什么？</p>
-<p>答：就是可以创建类的东西，类是由type创建的，所以<em>\</em>metaclass__内部一定要返回一个类，它可以是一个函数，也可以是一个类，而这个类就是我们自定义的元类，这个类必须继承自type</p>
-<p>通常元类用来创建API是非常好的选择，使用元类的编写很复杂，但使用者可以非常简洁的调用API</p>
-<h4 id="abc-ABCMeta："><a href="#abc-ABCMeta：" class="headerlink" title="abc.ABCMeta："></a>abc.ABCMeta：</h4><p>简单的说ABCMeta就是让你的类变成一个纯虚类，子类必须实现某个方法，这个方法在父类中用@abc.abstractmethod修饰</p>
-<p>例如：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> abc</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span><span class="params">(object,metaclass=abc.ABCMeta)</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @abc.abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func_a</span><span class="params">(self,data)</span>:</span></span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        :param data:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line"><span class="meta">    @abc.abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func_b</span><span class="params">(self,data,out)</span>:</span></span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        :param data:</span></span><br><span class="line"><span class="string">        :param out:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func_d</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'func_d in base'</span>)</span><br></pre></td></tr></table></figure>
-
-<p>你可以实现这两个虚方法，也可以不实现<br>这样在Base的子类中就必须实现func_a，func_b2个函数，否则就会报错</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sub</span><span class="params">(Base)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func_a</span><span class="params">(self,data)</span>:</span></span><br><span class="line">        print(<span class="string">'over write func_a'</span>,data)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func_b</span><span class="params">(self,data,out)</span>:</span></span><br><span class="line">        print(<span class="string">'over write func_b'</span>)</span><br></pre></td></tr></table></figure>
-
-<p>如果还想调用虚类的方法用super</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func_b</span><span class="params">(self,data,out)</span>:</span></span><br><span class="line">        super(Sub,self).func_b(data,out)</span><br><span class="line">        print(<span class="string">'over write func_b'</span>)</span><br></pre></td></tr></table></figure>
-
-<p>还有一种方法是，注册虚子类</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Register</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func_c</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'func_c in third class'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func_a</span><span class="params">(self,data)</span>:</span></span><br><span class="line">        print(<span class="string">'func_a in third class'</span>,data)</span><br><span class="line">Base.register(Register)</span><br></pre></td></tr></table></figure>
-
-<p>这样调用issubclass(), issubinstance()进行判断时仍然返回真值</p>
-<h3 id="2-tensorflow中的“tf-name-scope-”有什么用？"><a href="#2-tensorflow中的“tf-name-scope-”有什么用？" class="headerlink" title="2. tensorflow中的“tf.name_scope()”有什么用？"></a>2. tensorflow中的“tf.name_scope()”有什么用？</h3><h4 id="2-1-tf-name-scope-命名空间的实际作用"><a href="#2-1-tf-name-scope-命名空间的实际作用" class="headerlink" title="2.1. tf.name_scope()命名空间的实际作用"></a><strong>2.1. tf.name_scope()命名空间的实际作用</strong></h4><p>（1）在某个tf.name_scope()指定的区域中定义的所有对象及各种操作，他们的“name”属性上会增加该命名区的区域名，用以区别对象属于哪个区域； </p>
-<p>（2）将不同的对象及操作放在由tf.name_scope()指定的区域中，便于在tensorboard中展示清晰的逻辑关系图，这点在复杂关系图中特别重要。</p>
-<p>例如：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf;  </span><br><span class="line">tf.reset_default_graph()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 无tf.name_scope()</span></span><br><span class="line">a = tf.constant(<span class="number">1</span>,name=<span class="string">'my_a'</span>) <span class="comment">#定义常量</span></span><br><span class="line">b = tf.Variable(<span class="number">2</span>,name=<span class="string">'my_b'</span>) <span class="comment">#定义变量</span></span><br><span class="line">c = tf.add(a,b,name=<span class="string">'my_add'</span>) <span class="comment">#二者相加（操作）</span></span><br><span class="line">print(<span class="string">"a.name = "</span>+a.name)</span><br><span class="line">print(<span class="string">"b.name = "</span>+b.name)</span><br><span class="line">print(<span class="string">"c.name = "</span>+c.name)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 有tf.name_scope()</span></span><br><span class="line"><span class="comment"># with tf.name_scope('cgx_name_scope'): #定义一块名为cgx_name_scope的区域，并在其中工作</span></span><br><span class="line"><span class="comment">#     a = tf.constant(1,name='my_a')</span></span><br><span class="line"><span class="comment">#     b = tf.Variable(2,name='my_b')</span></span><br><span class="line"><span class="comment">#     c = tf.add(a,b,name='my_add')</span></span><br><span class="line"><span class="comment"># print("a.name = "+a.name)</span></span><br><span class="line"><span class="comment"># print("b.name = "+b.name)</span></span><br><span class="line"><span class="comment"># print("c.name = "+c.name)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存graph用于tensorboard绘图</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    writer = tf.summary.FileWriter(<span class="string">"./test"</span>,sess.graph)</span><br><span class="line">    print(sess.run(c))</span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输出结果</span></span><br><span class="line"><span class="comment"># 无tf.name_scope()</span></span><br><span class="line">a.name = my_a:<span class="number">0</span></span><br><span class="line">b.name = my_b:<span class="number">0</span></span><br><span class="line">c.name = my_add:<span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 有tf.name_scope()</span></span><br><span class="line">a.name = cgx_name_scope/my_a:<span class="number">0</span></span><br><span class="line">b.name = cgx_name_scope/my_b:<span class="number">0</span></span><br><span class="line">c.name = cgx_name_scope/my_add:<span class="number">0</span></span><br></pre></td></tr></table></figure>
-
-<p>从输出结果可以看出，在tf.name_scope()下的所有对象和操作，其name属性前都加了cgx_name_scope，用以表示这些内容全在其范围下。<br>下图展示了两种情况的tensorboard差异，差别一目了然。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/14029140-b8d46d738bf1230c.jpg?imageMogr2/auto-orient/" alt="img"></p>
-<h4 id="2-2-name-scope-只决定“对象”属于哪个范围，并不会对“对象”的“作用域”产生任何影响。"><a href="#2-2-name-scope-只决定“对象”属于哪个范围，并不会对“对象”的“作用域”产生任何影响。" class="headerlink" title="2.2. name_scope()只决定“对象”属于哪个范围，并不会对“对象”的“作用域”产生任何影响。"></a><strong>2.2. name_scope()只决定“对象”属于哪个范围，并不会对“对象”的“作用域”产生任何影响。</strong></h4><p>tf.name_scope()只是规定了对象和操作属于哪个区域，但这并不意味着他们的作用域也只限于该区域（with的这种写法很容易让人产生这种误会），不要将其和“全局变量、局部变量”的概念搞混淆，两者完全不是一回事。在name_scope中定义的对象，从被定义的位置开始，直到后来某个地方对该对象重新定义，中间任何地方都可以使用该对象。本质上name_scope只对对象的name属性进行圈定，并不会对其作用域产生任何影响。这就好比甲、乙、丙、丁属于陈家，这里“陈家”就是一个name_scope划定的区域，虽然他们只属于陈家，但他们依然可以去全世界的任何地方，并不会只将他们限制在陈家范围。</p>
-<p>例如：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tf.name_scope(<span class="string">'cgx_1'</span>):</span><br><span class="line">    a = tf.Variable(tf.constant(<span class="number">4</span>), name=<span class="string">'my_a'</span>)</span><br><span class="line">    print(<span class="string">'case1: a.name = '</span> + a.name)</span><br><span class="line">print(<span class="string">"case2: a.name = "</span> + a.name)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.name_scope(<span class="string">'cgx_2'</span>):</span><br><span class="line">    print(<span class="string">"case3: a.name = "</span> + a.name)</span><br><span class="line">    a = tf.Variable(tf.constant(<span class="number">4</span>), name=<span class="string">'my_a'</span>)</span><br><span class="line">    print(<span class="string">"case4: a.name = "</span> + a.name)</span><br><span class="line">print(<span class="string">"case5: a.name = "</span> + a.name)</span><br><span class="line"></span><br><span class="line"><span class="comment"># out：</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">case1: a.name = cgx_1/my_a:0</span></span><br><span class="line"><span class="string">case2: a.name = cgx_1/my_a:0</span></span><br><span class="line"><span class="string">case3: a.name = cgx_1/my_a:0</span></span><br><span class="line"><span class="string">case4: a.name = cgx_2/my_a:0</span></span><br><span class="line"><span class="string">case5: a.name = cgx_2/my_a:0</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
-
-<p>（1）程序首先指定了命名区域cgx_1，并在其中定义了变量a，紧接着case1直接在cgx_1中输出a.name = cgx_1/my_a:0，这很好理解，跟想象的一样；<br> （2）case2在cgx_1之外的公共区域也输出了相同的a.name，<strong>这就说明a的作用范围并没有被限制在cgx_1中</strong>；<br> （3）接着程序又新指定了命名区域cgx_2，并在其中执行case3，输出a.name，结果还是和case1和case2完全相同，实际上还是最前面定义的那个a，这更进一步说明<strong>name_scope不会对对象的作用域产生影响</strong>；<br> （4）★★接着在cgx_2中<strong>重新定义了变量“a”</strong>，紧接着就执行case4，输出a.name = cgx_2/my_a:0，可见此时的结果与前面三个case就不同了，说明这里<strong>新定义的a覆盖了前面的a，即使他们在两个完全独立的name_scope中</strong>；<br> （5）case5输出的结果与case4结果相同，这已经无须解释了。</p>
-<h4 id="2-3-tf-name-scope-‘cgx-scope’-语句重复执行几次，就会生成几个独立的命名空间，尽管表面上看起来都是“cgx-scope”，实际上tensorflow在每一次执行相同语句都会在后面加上“-序数”，加以区别。"><a href="#2-3-tf-name-scope-‘cgx-scope’-语句重复执行几次，就会生成几个独立的命名空间，尽管表面上看起来都是“cgx-scope”，实际上tensorflow在每一次执行相同语句都会在后面加上“-序数”，加以区别。" class="headerlink" title="2.3 tf.name_scope(‘cgx_scope’)语句重复执行几次，就会生成几个独立的命名空间，尽管表面上看起来都是“cgx_scope”，实际上tensorflow在每一次执行相同语句都会在后面加上“_序数”，加以区别。"></a><strong>2.3 tf.name_scope(‘cgx_scope’)语句重复执行几次，就会生成几个独立的命名空间，尽管表面上看起来都是“cgx_scope”，实际上tensorflow在每一次执行相同语句都会在后面加上“_序数”，加以区别。</strong></h4><p>例子：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tf.name_scope(<span class="string">'cgx_scope'</span>):</span><br><span class="line">    a = tf.Variable(<span class="number">1</span>, name=<span class="string">'my_a'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.name_scope(<span class="string">'cgx_scope'</span>):</span><br><span class="line">    b = tf.Variable(<span class="number">2</span>, name=<span class="string">'my_b'</span>)</span><br><span class="line"></span><br><span class="line">c = tf.add(a, b, name=<span class="string">'my_add'</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'a.name = '</span> + a.name)</span><br><span class="line">print(<span class="string">'b.name = '</span> + b.name)</span><br><span class="line"></span><br><span class="line"><span class="comment"># out:</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">a.name = cgx_scope/my_a:0</span></span><br><span class="line"><span class="string">b.name = cgx_scope_1/my_b:0</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
-
-<p>（1）指定了“<strong>cgx_scope</strong>”命名区域，并在其中定义变量a；<br> （2）又指定了相同名称的“<strong>cgx_scope</strong>”命名区域，并在其中定义变量b；<br> （3）输出a.name = cgx_scope/my_a:0和b.name = cgx_scope_1/my_b:0，<strong>可见b.name已经自动加了“_1”，这是tensorflow的特点，自动检测是否重复，有重复就自动增加数字作为标记</strong>。</p>
-<h3 id="3-tf-shape"><a href="#3-tf-shape" class="headerlink" title="3. tf.shape()"></a>3. tf.shape()</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tf.shape(</span><br><span class="line">    input,</span><br><span class="line">    name=<span class="literal">None</span>,</span><br><span class="line">    out_type=tf.int32</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>将矩阵的维度输出为一个维度矩阵</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line"></span><br><span class="line">A = np.array([[[<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>]],</span><br><span class="line">              [[<span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">4</span>, <span class="number">4</span>]],</span><br><span class="line">              [[<span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>], [<span class="number">6</span>, <span class="number">6</span>, <span class="number">6</span>]]])</span><br><span class="line"></span><br><span class="line">t = tf.shape(A)</span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    print(sess.run(t))</span><br><span class="line">    </span><br><span class="line"><span class="comment"># out: [3 2 3]</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><ul>
-<li>input：张量或稀疏张量</li>
-<li>name：op 的名字，用于tensorboard中</li>
-<li>out_type：默认为tf.int32</li>
-</ul>
-<h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><ul>
-<li>返回out_type类型的张量</li>
-</ul>
-<h3 id="4-tf-reshape"><a href="#4-tf-reshape" class="headerlink" title="4. tf.reshape()"></a>4. tf.reshape()</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.reshape(tensor,shape,name=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
-
-<h4 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a>参数</h4><ul>
-<li><p>tensor：输入张量</p>
-</li>
-<li><p>shape：列表形式，可以存在-1</p>
-<p>-1 代表的含义是不用我们自己指定这一维的大小，函数会自动计算，但列表中只能存在一个-1</p>
-</li>
-<li><p>name：命名</p>
-</li>
-</ul>
-<h4 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h4><p>将tensor变换为参数shape的形式</p>
-<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">a = np.array([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>])</span><br><span class="line">print(<span class="string">'a = '</span>, a)</span><br><span class="line"></span><br><span class="line">b = a.reshape((<span class="number">2</span>, <span class="number">4</span>))</span><br><span class="line">print(<span class="string">'b = '</span>, b)</span><br><span class="line"></span><br><span class="line">c = a.reshape((<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>))</span><br><span class="line">print(<span class="string">'c = '</span>, c)</span><br><span class="line"></span><br><span class="line"><span class="comment"># out：</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">a =  [0 1 2 3 4 5 6 7]</span></span><br><span class="line"><span class="string">b =  [[0 1 2 3]</span></span><br><span class="line"><span class="string"> [4 5 6 7]]</span></span><br><span class="line"><span class="string">c =  [[[0 1]</span></span><br><span class="line"><span class="string">  [2 3]]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> [[4 5]</span></span><br><span class="line"><span class="string">  [6 7]]]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="5-tf-control-dependencies"><a href="#5-tf-control-dependencies" class="headerlink" title="5. tf.control_dependencies()"></a>5. tf.control_dependencies()</h3><p>在有些机器学习程序中我们想要指定某些操作执行的依赖关系，这时我们可以使用tf.control_dependencies()来实现。 </p>
-<p>control_dependencies(control_inputs)返回一个控制依赖的上下文管理器，使用with关键字可以让在这个上下文环境中的操作都在control_inputs 执行。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> g.control_dependencies([a, b, c]):</span><br><span class="line">  <span class="comment"># `d` and `e` will only run after `a`, `b`, and `c` have executed.</span></span><br><span class="line">  d = ...</span><br><span class="line">  e = ...</span><br></pre></td></tr></table></figure>
-
-<p>可以嵌套<code>control_dependencies</code> 使用</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> g.control_dependencies([a, b]):</span><br><span class="line">  <span class="comment"># Ops constructed here run after `a` and `b`.</span></span><br><span class="line">  <span class="keyword">with</span> g.control_dependencies([c, d]):</span><br><span class="line">    <span class="comment"># Ops constructed here run after `a`, `b`, `c`, and `d`.</span></span><br></pre></td></tr></table></figure>
-
-<p>可以传入<code>None</code> 来消除依赖：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> g.control_dependencies([a, b]):</span><br><span class="line">  <span class="comment"># Ops constructed here run after `a` and `b`.</span></span><br><span class="line">  <span class="keyword">with</span> g.control_dependencies(<span class="literal">None</span>):</span><br><span class="line">    <span class="comment"># Ops constructed here run normally, not waiting for either `a` or `b`.</span></span><br><span class="line">    <span class="keyword">with</span> g.control_dependencies([c, d]):</span><br><span class="line">      <span class="comment"># Ops constructed here run after `c` and `d`, also not waiting</span></span><br><span class="line">      <span class="comment"># for either `a` or `b`.</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>注意</strong>：<br>控制依赖只对那些在上下文环境中<strong>建立</strong>的操作有效，仅仅在context中<strong>使用</strong>一个操作或张量是没用的</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># WRONG</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_func</span><span class="params">(pred, tensor)</span>:</span></span><br><span class="line">  t = tf.matmul(tensor, tensor)</span><br><span class="line">  <span class="keyword">with</span> tf.control_dependencies([pred]):</span><br><span class="line">    <span class="comment"># The matmul op is created outside the context, so no control</span></span><br><span class="line">    <span class="comment"># dependency will be added.</span></span><br><span class="line">    <span class="keyword">return</span> t</span><br><span class="line"></span><br><span class="line"><span class="comment"># RIGHT</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_func</span><span class="params">(pred, tensor)</span>:</span></span><br><span class="line">  <span class="keyword">with</span> tf.control_dependencies([pred]):</span><br><span class="line">    <span class="comment"># The matmul op is created in the context, so a control dependency</span></span><br><span class="line">    <span class="comment"># will be added.</span></span><br><span class="line">    <span class="keyword">return</span> tf.matmul(tensor, tensor)</span><br></pre></td></tr></table></figure>
-
-<p>例子：<br>在训练模型时我们每步训练可能要执行两种操作，<code>op a, b</code> 这时我们就可以使用如下代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tf.control_dependencies([a, b]):</span><br><span class="line">    c= tf.no_op(name=<span class="string">'train'</span>)<span class="comment">#tf.no_op；什么也不做</span></span><br><span class="line">sess.run(c)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">c= tf.no_op提供一个什么都不做的节点，该节点属于整个执行的流程图，但是操作a和操作b不是流程图中的一部分，但是为了确保操作a和操作b在某一个环节（此时可能是个未知环节）之前执行，所以提供一个什么都不做的环节c(前面称为节点)，确保操作a和操作b在c之前能够完成。而环节c可以插入流程图中。在整个流程图运行起来时，当运行到c时，就确保a,b操作先执行。 我只是根据官方文档以及常用用法猜测，不一定对。</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
-
-<p>在这样简单的要求下，可以将上面代码替换为：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c= tf.group([a, b])</span><br><span class="line">sess.run(c)</span><br></pre></td></tr></table></figure>
-
-<h3 id="set-shape-与reshape"><a href="#set-shape-与reshape" class="headerlink" title="set_shape()与reshape()"></a>set_shape()与reshape()</h3><p>set_shape() 方法更新张量对象的静态形状，通常用于在无法直接推断时提供其他形状信息。它不会改变张量的动态形状</p>
-<p>reshape()操作创建一个具有不同动态形状的新张量</p>
-<h3 id="tf-image-resize-images"><a href="#tf-image-resize-images" class="headerlink" title="tf.image.resize_images()"></a>tf.image.resize_images()</h3><p>改变图片尺寸的大小</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> img_resized = tf.image.resize_images(image_data, [<span class="number">300</span>, <span class="number">300</span>], method=<span class="number">0</span>)</span><br><span class="line"><span class="comment"># 第一个参数为袁术图像的大小</span></span><br><span class="line"><span class="comment"># 第二三个分别为调整后图像的大小</span></span><br><span class="line"><span class="comment"># method参数给出了调整图像大小的方向</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">method = 0, 双线性插值法</span></span><br><span class="line"><span class="string">method = 1, 最近邻居法</span></span><br><span class="line"><span class="string">method = 2, 双三次插值法</span></span><br><span class="line"><span class="string">method = 3, 面积插值法</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="xreadline-与-readlines"><a href="#xreadline-与-readlines" class="headerlink" title="xreadline() 与 readlines()"></a>xreadline() 与 readlines()</h3><p>xreadlines返回的是一个生成器类型</p>
-<p>readlines()返回的是一个列表</p>
-<p>但是使用时是相同的</p>
-<h3 id="os-path-join"><a href="#os-path-join" class="headerlink" title="os.path.join()"></a>os.path.join()</h3><p>连接两个或更多的路径名组件</p>
-<ul>
-<li>如果各组件名首字母不包含‘/’，则函数会自动加上</li>
-<li>如果有一个组件是一个绝对路径，则在它之前的所有组件均会被舍弃</li>
-<li>如果最后䘝组件为空，则生成的路径以一个‘/’分隔符结尾</li>
-</ul>
-<h3 id="tf-train-slice-input-producer"><a href="#tf-train-slice-input-producer" class="headerlink" title="tf.train.slice_input_producer()"></a>tf.train.slice_input_producer()</h3><p>是一个tensor生成器，作用是按照设定，每次从一个tensor列表中按顺序或者随机抽取出一个tensor放入文件名队列。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slice_input_producer(tensor_list, num_epochs=<span class="literal">None</span>, shuffle=<span class="literal">True</span>, seed=<span class="literal">None</span>, capacity=<span class="number">32</span>, shared_name=<span class="literal">None</span>, name=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="tf-read-file-amp-tf-image-decode-jpeg-处理图片"><a href="#tf-read-file-amp-tf-image-decode-jpeg-处理图片" class="headerlink" title="tf.read_file() &amp; tf.image.decode_jpeg()处理图片"></a>tf.read_file() &amp; tf.image.decode_jpeg()处理图片</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">file_contents = tf.read_file(filename)</span><br><span class="line">image = tf.image.decode_png(file_contents)	<span class="comment"># 解码png格式</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="os-path-splitext"><a href="#os-path-splitext" class="headerlink" title="os.path.splitext()"></a>os.path.splitext()</h3><p><code>os.path.splitext(“文件路径”)</code>分离文件名与扩展名；默认返回<code>(frame,fextension)</code>元组，可做分片操作</p>
-<p>例子：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">path_01=<span class="string">'D:/User/wgy/workplace/data/notMNIST_large.tar.gar'</span></span><br><span class="line">path_02=<span class="string">'D:/User/wgy/workplace/data/notMNIST_large'</span></span><br><span class="line">root_01=os.path.splitext(path_01)</span><br><span class="line">root_02=os.path.splitext(path_02)</span><br><span class="line">print(root_01)</span><br><span class="line">print(root_02)</span><br><span class="line"></span><br><span class="line"><span class="comment"># out：</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">('D:/User/wgy/workplace/data/notMNIST_large.tar', '.gar')</span></span><br><span class="line"><span class="string">('D:/User/wgy/workplace/data/notMNIST_large', '')</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="tf-concat"><a href="#tf-concat" class="headerlink" title="tf.concat()"></a>tf.concat()</h3><p><code>tf.concat([tensor1, tensor2, tensor3, ...], axis)</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">t1 = [[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]]  </span><br><span class="line">t2 = [[<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>], [<span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>]]  </span><br><span class="line">tf.concat([t1, t2], <span class="number">0</span>)  <span class="comment"># [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]  </span></span><br><span class="line">tf.concat([t1, t2], <span class="number">1</span>)  <span class="comment"># [[1, 2, 3, 7, 8, 9], [4, 5, 6, 10, 11, 12]]</span></span><br><span class="line"><span class="comment"># axis = 0, 代表在第0个维度拼接</span></span><br><span class="line"><span class="comment"># axis = 1, 代表在第1个维度拼接</span></span><br></pre></td></tr></table></figure>
-
-<p>对于一个二维矩阵，第0个维度代表最外层方括号所框下的子集，第一个维度代表内部方括号所框下的子集。<strong>维度越高，括号越小</strong></p>
-<p>对于[ [ ], [ ]]和[[ ], [ ]]，低维拼接等于拿掉最外面括号，高维拼接是拿掉里面的括号(保证其他维度不变)。</p>
-<p><strong>注意：tf.concat()拼接的张量只会改变一个维度，其他维度是保存不变的。</strong></p>
-<p>比如两个shape为[2,3]的矩阵拼接，要么通过axis=0变成[4,3]，要么通过axis=1变成[2,6]。<strong>改变的维度索引对应axis的值。</strong></p>
-<h3 id="tf-contrib-layers-batch-norm"><a href="#tf-contrib-layers-batch-norm" class="headerlink" title="tf.contrib.layers.batch_norm()"></a>tf.contrib.layers.batch_norm()</h3><h3 id="tf-contrib-layers-conv2d"><a href="#tf-contrib-layers-conv2d" class="headerlink" title="tf.contrib.layers.conv2d()"></a>tf.contrib.layers.conv2d()</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">tf.contrib.layers.conv2d(</span><br><span class="line">    inputs,			<span class="comment"># [batch_size] + input_spatial_shape + [in_channels]如果data_format不以“NC”（默认值）[batch_size, in_channels] + input_spatial_shape开头，或者 data_format以“NC”开头，则为形状等级N + 2的张量。</span></span><br><span class="line">    num_outputs,	<span class="comment"># 整数，输出过滤器的数量。</span></span><br><span class="line">    kernel_size,	<span class="comment"># N个正整数的序列，指定过滤器的空间维度。可以是单个整数，以指定所有空间维度的相同值。</span></span><br><span class="line">    stride=<span class="number">1</span>,	</span><br><span class="line">    padding=<span class="string">'SAME'</span>,</span><br><span class="line">    data_format=<span class="literal">None</span>,</span><br><span class="line">    rate=<span class="number">1</span>,</span><br><span class="line">    activation_fn=tf.nn.relu,</span><br><span class="line">    normalizer_fn=<span class="literal">None</span>,	<span class="comment"># 使用标准化功能代替biases。如果 normalizer_fn提供biases_initializer， biases_regularizer则忽略并且biases不创建也不添加。没有规范化器功能，默认设置为“无”</span></span><br><span class="line">    normalizer_params=<span class="literal">None</span>,		<span class="comment"># 规范化函数参数。</span></span><br><span class="line">    weights_initializer=initializers.xavier_initializer(),	<span class="comment"># 权重的初始化程序。</span></span><br><span class="line">    weights_regularizer=<span class="literal">None</span>,	<span class="comment"># 可选的权重正则化器。</span></span><br><span class="line">    biases_initializer=tf.zeros_initializer(),	<span class="comment"># 偏移量的初始化程序。如果没有跳过偏移量。</span></span><br><span class="line">    biases_regularizer=<span class="literal">None</span>,	<span class="comment"># 偏移量的可选正则化器。</span></span><br><span class="line">    reuse=<span class="literal">None</span>,					<span class="comment"># 是否应重用图层及其变量。必须给出能够重用层范围的能力</span></span><br><span class="line">    variables_collections=<span class="literal">None</span>,	<span class="comment"># 所有变量的集合的可选列表或包含每个变量的不同集合列表的字典。</span></span><br><span class="line">    outputs_collections=<span class="literal">None</span>,	<span class="comment"># 用于添加输出的集合。</span></span><br><span class="line">    trainable=<span class="literal">True</span>,				<span class="comment"># 如果True还将变量添加到图表集合中 GraphKeys.TRAINABLE_VARIABLES（请参阅tf.Variable）。</span></span><br><span class="line">    scope=<span class="literal">None</span>					<span class="comment"># 可选范围variable_scope。</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<h3 id="tf-contrib-layers-variance-scaling-initializer"><a href="#tf-contrib-layers-variance-scaling-initializer" class="headerlink" title="tf.contrib.layers.variance_scaling_initializer()"></a>tf.contrib.layers.variance_scaling_initializer()</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">variance_scaling_initializer(</span><br><span class="line">    factor=<span class="number">2.0</span>,</span><br><span class="line">    mode=<span class="string">'FAN_IN'</span>,</span><br><span class="line">    uniform=<span class="literal">False</span>,</span><br><span class="line">    seed=<span class="literal">None</span>,</span><br><span class="line">    dtype=tf.float32</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<p>方差缩放初始化</p>
-<p>这种初始化方法比常规高斯分布初始化、阶段高斯分布初始化及Xavier初始化的泛华/缩放性能更好。粗略地说，方差缩放初始化根据每一层输入或输出的数量(在 TensorFlow 中默认为输入的数量)来调整初始随机权重的方差，从而帮助信号在不需要其他技巧(如梯度裁剪或批归一化)的情况下在网络中更深入地传播。</p>
-<h3 id="tf-constant-initializer"><a href="#tf-constant-initializer" class="headerlink" title="tf.constant_initializer()"></a>tf.constant_initializer()</h3><p>初始化为常数，这个非常有用，通常偏置项就是用它初始化的。</p>
-<p>由它衍生出的两个初始化方法：</p>
-<ul>
-<li>tf.zeros_initializer()， 也可以简写为tf.Zeros()</li>
-<li>tf.ones_initializer(), 也可以简写为tf.Ones()</li>
-</ul>
-<h3 id="tf-contrib-layers-convolution"><a href="#tf-contrib-layers-convolution" class="headerlink" title="tf.contrib.layers.convolution()"></a>tf.contrib.layers.convolution()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">def convolution(inputs,</span><br><span class="line">                num_outputs,</span><br><span class="line">                kernel_size,</span><br><span class="line">                stride=1,</span><br><span class="line">                padding=&apos;SAME&apos;,</span><br><span class="line">                data_format=None,</span><br><span class="line">                rate=1,</span><br><span class="line">                activation_fn=nn.relu,</span><br><span class="line">                normalizer_fn=None,</span><br><span class="line">                normalizer_params=None,</span><br><span class="line">                weights_initializer=initializers.xavier_initializer(),</span><br><span class="line">                weights_regularizer=None,</span><br><span class="line">                biases_initializer=init_ops.zeros_initializer(),</span><br><span class="line">                biases_regularizer=None,</span><br><span class="line">                reuse=None,</span><br><span class="line">                variables_collections=None,</span><br><span class="line">                outputs_collections=None,</span><br><span class="line">                trainable=True,</span><br><span class="line">                scope=None):</span><br></pre></td></tr></table></figure>
-
-<h3 id="x-get-shape-as-list"><a href="#x-get-shape-as-list" class="headerlink" title="x.get_shape().as_list()"></a>x.get_shape().as_list()</h3><p>x.get_shape()，只有tensor才可以使用这种方法，返回的是一个元组</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">a_array = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]])</span><br><span class="line">b_list = [[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]]</span><br><span class="line">c_tensor = tf.constant([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]])</span><br><span class="line"></span><br><span class="line">print(c_tensor.get_shape())</span><br><span class="line">print(c_tensor.get_shape().as_list())</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    print(sess.run(tf.shape(a_array)))</span><br><span class="line">    print(sess.run(tf.shape(b_list)))</span><br><span class="line">    print(sess.run(tf.shape(c_tensor)))</span><br><span class="line">    </span><br><span class="line"><span class="comment"># out:</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">(2, 3)</span></span><br><span class="line"><span class="string">[2, 3]</span></span><br><span class="line"><span class="string">[2 3]</span></span><br><span class="line"><span class="string">[2 3]</span></span><br><span class="line"><span class="string">[2 3]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
-
-<p>只能用于tensor来返回shape，但是是一个元组，需要通过as_list()的操作转换成list.</p>
-<h3 id="tf-image-rgb-to-grayscale"><a href="#tf-image-rgb-to-grayscale" class="headerlink" title="tf.image.rgb_to_grayscale()"></a>tf.image.rgb_to_grayscale()</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tf.image.rgb_to_grayscale(</span><br><span class="line">    images,		<span class="comment"># 要转换的RGB张量，最后一个维度的大小必须为3，并且应该包含RGB值</span></span><br><span class="line">    name=<span class="literal">None</span>	<span class="comment"># 操作的名称（可选）</span></span><br><span class="line">)</span><br><span class="line"><span class="comment"># 返回：该函数返回转换后的灰度图像</span></span><br></pre></td></tr></table></figure>
-
-<p>将一个或多个图像从RGB转化为灰度</p>
-<p>输出与images具有相同DType和等级的张量，最后一个维度大小为1，包含像素的灰度值。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1846,7 +1709,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
