@@ -241,6 +241,400 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/02/LeetCode-Day18/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/02/LeetCode-Day18/" itemprop="url">LeetCode-Day18</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-02T19:36:59+08:00">
+                2019-09-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="80-删除排序数组中的重复项II"><a href="#80-删除排序数组中的重复项II" class="headerlink" title="80. 删除排序数组中的重复项II"></a>80. 删除排序数组中的重复项II</h3><p>给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素最多出现两次，返回移除后数组的新长度。</p>
+<p>不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [1,1,1,2,2,3],</span><br><span class="line"></span><br><span class="line">函数应返回新长度 length = 5, 并且原数组的前五个元素被修改为 1, 1, 2, 2, 3 。</span><br><span class="line"></span><br><span class="line">你不需要考虑数组中超出新长度后面的元素。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [0,0,1,1,1,1,2,3,3],</span><br><span class="line"></span><br><span class="line">函数应返回新长度 length = 7, 并且原数组的前五个元素被修改为 0, 0, 1, 1, 2, 3, 3 。</span><br><span class="line"></span><br><span class="line">你不需要考虑数组中超出新长度后面的元素。</span><br></pre></td></tr></table></figure>
+
+<h4 id="思路："><a href="#思路：" class="headerlink" title="思路："></a><strong>思路：</strong></h4><p>原地删除肯定是<strong>双指针</strong>，一个指向遍历元素，一个指向可以写入的位置，后者的大小是小于等于前者的，关键在于题目条件的转换，如何实现限制最多两次的重复。</p>
+<p>先不考虑边界的情况，只考虑中间的情况，假设当前的遍历位置为<code>i</code>，写指针的可写入位置为<code>current +1</code>，对于<code>i</code>处的值，其写入的条件时重复小于等于2次，我们考虑已经写入的最后两位<code>current</code>和<code>current - 1</code>，这两个位置的情况有两个，相等和不相等，首先考虑相等的情况，此时若<code>i</code>处的值和<code>current - 1</code>或者说与<code>current</code>处的值相同，那么<code>i</code>处的值肯定不能加入；然后考虑不相等的情况，即<code>current - 1</code>和<code>current</code>处值不相等，那么<code>i</code>处的值无论为什么，都满足题意，即可以加入，综上所述，当<code>i</code>处的值与<code>current - 1</code>的值不相等时，<code>i</code>处的值可以加入，其他情况均不能加入</p>
+<p>接着考虑边界的情况，我们只需要考虑开始即可，开始时，前两个值无论等还是不等，都要原封不动的挪到新数组里，由于新数组就是在原数组上进行修改的，因此前两位直接不动即可，只需要修改遍历指针和写入指针就行</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">removeDuplicates</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() &lt;= <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> nums.size();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> current = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>;i &lt; nums.size();i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i] != nums[current - <span class="number">1</span>]) &#123;</span><br><span class="line">                nums[++current] = nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> current + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="84-柱状图中的最大矩形"><a href="#84-柱状图中的最大矩形" class="headerlink" title="84. 柱状图中的最大矩形"></a>84. 柱状图中的最大矩形</h3><p>给定 <em>n</em> 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。</p>
+<p>求在该柱状图中，能够勾勒出来的矩形的最大面积。</p>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram.png" alt="img"></p>
+<p>以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 <code>[2,1,5,6,2,3]</code>。</p>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram_area.png" alt="img"></p>
+<p>图中阴影部分为所能勾勒出的最大矩形面积，其面积为 <code>10</code> 个单位。</p>
+<p><strong>示例:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [2,1,5,6,2,3]</span><br><span class="line">输出: 10</span><br></pre></td></tr></table></figure>
+
+<h4 id="方法一-暴力"><a href="#方法一-暴力" class="headerlink" title="方法一. 暴力"></a><strong>方法一. 暴力</strong></h4><p>首先我们可以想到，两个柱子间矩形的高由他们之间最矮的柱子决定，如下图所示：</p>
+<p><img src="https://pic.leetcode-cn.com/0239df28a3a9d97a96c773a4b5babc59cf55219332f815eda3fc240a7d530cda-image.png" alt="image.png"></p>
+<p>右移，我们可以考虑所有亮亮竹子之间形成的矩形面积，该矩形的高为他们之间最矮柱子的高度，宽为他们之间的距离，这样可以找到所要求的最大面积的矩形</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; heights)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(heights.size() == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> heights[<span class="number">0</span>];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(heights.size() == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> maxArea = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; heights.size();i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt; heights.size();j++) &#123;</span><br><span class="line">            <span class="keyword">int</span> maxH = heights[i];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = i;k &lt;= j;k++) &#123;</span><br><span class="line">                maxH = min(maxH, heights[k]);</span><br><span class="line">            &#125;</span><br><span class="line">            maxArea = max(maxArea, maxH * (j - i + <span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> maxArea;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>复杂度分析：</p>
+<ul>
+<li>时间复杂度: $O(n^3)$。我们需要使用$O(n)$ 的时间找到$O(n^2)$枚举出啦的所有柱子对之间的最矮柱子</li>
+<li>空间复杂度：$O(1)$。只需要常数空间的额外变量</li>
+</ul>
+<h4 id="方法二-优化的暴力"><a href="#方法二-优化的暴力" class="headerlink" title="方法二. 优化的暴力"></a>方法二. 优化的暴力</h4><p><strong>算法：</strong></p>
+<p>我们可以基于方法1进行一点点修改来优化算法。我们可以用前一对柱子之间的最低高度来求出当前柱子对间的最低高度</p>
+<p>即：$minHeight = min(minHeight, heights[j])$，其中$heights[j]$是第<code>j</code>个柱子的高度</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; heights)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(heights.size() == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> heights[<span class="number">0</span>];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(heights.size() == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> maxArea = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; heights.size();i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> maxH = heights[i];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt; heights.size();j++) &#123;</span><br><span class="line">            maxH = min(maxH, heights[j]);</span><br><span class="line">            maxArea = max(maxArea, maxH * (j - i + <span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> maxArea;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>复杂度分析：</p>
+<ul>
+<li>时间复杂度： $O(n^2)$，需要枚举所有可能的柱子对</li>
+<li>空间复杂度： $O(1)$，不需要额外的空间</li>
+</ul>
+<p>然鹅…还是超时了…</p>
+<h4 id="方法三-分治"><a href="#方法三-分治" class="headerlink" title="方法三. 分治"></a>方法三. 分治</h4><p>通过观察，可以发现，最大面积矩形存在于以下几种可能</p>
+<ul>
+<li>确定了最矮柱子以后，矩形的宽尽可能往两边延伸</li>
+<li>在最矮柱子左边的最大面积矩形（子问题）</li>
+<li>在最矮柱子右边的最大面积矩形（子问题）</li>
+</ul>
+<p>举个例子：</p>
+<p><code>[6, 4, 5, 2, 4, 3, 9]</code><br>这里最矮柱子高度为 2 。以 2 为高的最大子矩阵面积是 2x7=14 。现在，我们考虑上面提到的第二种和第三种情况。我们对高度为 2 柱子的左边和右边采用同样的过程。在 2 的左边， 4 是最小的，形成区域为 4x3=12 。将左边区域再继续分，矩形的面积分别为 6x1=6 和 5x1=5 。同样的，我们可以求出右边区域的面积为 3x3=9, 4x1=4 和 9x1=9 。因此，我们得到最大面积是 16 。具体过程可参考下图：</p>
+<p><img src="https://pic.leetcode-cn.com/2013f70b237a16bcf8bae8f5873669b8b21d5300b2ed254adbddd2b9b577f02b-image.png" alt="image.png"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">calculate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; heights, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(start &gt; end) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> midindex = start;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = start;i &lt;= end;i++) &#123;</span><br><span class="line">        midindex = heights[midindex] &lt; heights[i] ? midindex : i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max(heights[midindex] * (end - start + <span class="number">1</span>), max(calculate(heights, midindex + <span class="number">1</span>, end), calculate(heights, start, midindex - <span class="number">1</span>)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; heights)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> calculate(heights, <span class="number">0</span>, heights.size() - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>复杂度分析：</p>
+<ul>
+<li><p>时间复杂度：</p>
+<ul>
+<li>平均开销：$O(nlogn)$</li>
+<li>最坏情况：$O(n^2)$。如果数组中的数字是有序的，分治算法将没有任何优化效果</li>
+</ul>
+</li>
+<li><p>空间复杂度：$O(n)$。最坏情况下递归需要$O(n)$的空间</p>
+</li>
+</ul>
+<h4 id="方法四-优化的分治"><a href="#方法四-优化的分治" class="headerlink" title="方法四. 优化的分治"></a>方法四. 优化的分治</h4><p>可以观察到，方法三中大的问题被分解成更小的子问题来求解，所以分治方法会有一定程度的优化。但是如果数组本身是升序或者降序的，将没有任何优化作用，原因是我们每次都需要一个很大的$O(n)$级别的数组里找最小值。因此，最坏情况下总的时间复杂度变成了$O(n^2)$。我们可以用线段树代替遍历来找到区间的最小值。单词查询复杂度就变成了$O(logn)$</p>
+<p>复杂度分析：</p>
+<ul>
+<li>时间复杂度：$O(nlogn)$。对于长度为n的查询，线段树需要$logn$的时间</li>
+<li>空间复杂度：$O(n)$。这是线段树的空间开销</li>
+</ul>
+<h4 id="方法五-栈"><a href="#方法五-栈" class="headerlink" title="方法五. 栈"></a>方法五. 栈</h4><p><strong>算法</strong></p>
+<p>在这种方法中，我们维护一个栈。一开始，我们把-1放进栈的顶部来表示开始。初始化时，按照从左到右的顺序，我们不断将柱子的序号放进栈中，直到遇到相邻柱子呈下降关系，也就是<code>a[i-1] &gt; a[i]​</code>。现在，我们开始将栈中的序号弹出，直到遇到$stack[j]$满足<code>a[stack[j]] &lt;= a[i]</code>。每次我们弹出下标的的时候，我们用弹出元素作为高形成的最大面积的矩形的高，宽是当前元素与<code>stack[top - 1]</code>之间的那些柱子。也就是当我们弹出<code>stack[top]</code>时，记当前元素在原数组中的下标为<code>i</code>，当前弹出元素为高的最大矩形面积为：</p>
+<p><code>(i - stack[top - 1] - 1) * a[stack[top]]</code></p>
+<p>更进一步，当我们达到数组的尾部时，我们将栈中的元素全部弹出栈。在弹出每一个元素时，我们用下面的式子来求面积：<code>(stack[top] - stack[top - 1]) * a[stack[top]]</code>。其中<code>stack[top]</code>表示刚刚被弹出的元素。因此，我们可以通过每次比较新计算的矩形面积来获得最大的矩形面积</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; heights)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; st;</span><br><span class="line">    st.push(<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">int</span> maxArea = <span class="number">0</span>, size = heights.size();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; size;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(st.top() == <span class="number">-1</span> || heights[st.top()] &lt;= heights[i]) &#123;</span><br><span class="line">            st.push(i);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">while</span>(st.top() != <span class="number">-1</span> &amp;&amp; heights[st.top()] &gt;= heights[i]) &#123;</span><br><span class="line">                <span class="keyword">int</span> maxH = st.top();</span><br><span class="line">                st.pop();</span><br><span class="line">                maxArea = max(maxArea, heights[maxH] * (i - st.top() - <span class="number">1</span>));</span><br><span class="line">            &#125;</span><br><span class="line">            st.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(st.top() != <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> maxH = st.top();</span><br><span class="line">        st.pop();</span><br><span class="line">        maxArea = max(maxArea, heights[maxH] * (size - st.top() - <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> maxArea;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>复杂度分析：</p>
+<ul>
+<li>时间复杂度： $O(n)$，n个数字每个会被压栈弹栈各一次</li>
+<li>空间复杂度：$O(n)$。用来存放栈中元素</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/01/LeetCode-Day17/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/01/LeetCode-Day17/" itemprop="url">LeetCode-Day17</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-01T15:19:18+08:00">
+                2019-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="63-不同路径"><a href="#63-不同路径" class="headerlink" title="63. 不同路径"></a>63. 不同路径</h3><p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。</p>
+<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p>
+<p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？</p>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/22/robot_maze.png" alt="img"></p>
+<p>网格中的障碍物和空位置分别用 1 和 0 来表示。</p>
+<p>说明：m 和 n 的值均不超过 100。</p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">[</span><br><span class="line">  [0,0,0],</span><br><span class="line">  [0,1,0],</span><br><span class="line">  [0,0,0]</span><br><span class="line">]</span><br><span class="line">输出: 2</span><br><span class="line">解释:</span><br><span class="line">3x3 网格的正中间有一个障碍物。</span><br><span class="line">从左上角到右下角一共有 2 条不同的路径：</span><br><span class="line">1. 向右 -&gt; 向右 -&gt; 向下 -&gt; 向下</span><br><span class="line">2. 向下 -&gt; 向下 -&gt; 向右 -&gt; 向右</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; obstacleGrid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = obstacleGrid.size(), n = obstacleGrid[<span class="number">0</span>].size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt; &gt; ans(m, <span class="built_in">vector</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt;(n, <span class="number">0</span>));</span><br><span class="line">        ans[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; m;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; n;j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(obstacleGrid[i][j]) &#123;</span><br><span class="line">                    ans[i][j] = <span class="number">0</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span>(i) &#123;</span><br><span class="line">                        ans[i][j] += ans[i - <span class="number">1</span>][j];</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span>(j) &#123;</span><br><span class="line">                        ans[i][j] += ans[i][j - <span class="number">1</span>];</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;        </span><br><span class="line">        <span class="keyword">return</span> ans[m - <span class="number">1</span>][n - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>解释：这里的思想主要就是<strong>动态规划</strong>。</p>
+<p>这里需要注意的是第一行和第一列，如果当前位于第一行<code>(i = 0)</code>，则如果当前位置的左边是障碍物，则当前位置的值为0，即不可达，如果当前位于第一列<code>(j = 0)</code> ，则如果当前位置的上面是障碍物，则当前位置的值是0，即不可达。</p>
+<p>其余位置考虑方法：</p>
+<p>如果当前位置时障碍物，则<code>ans[i][j] = 0</code></p>
+<p>否则，<code>ans[i][j] = ans[i - 1][j] + ans[i][j - 1]</code></p>
+<p>最后返回右下角的值即可。</p>
+<h3 id="69-x的平方根"><a href="#69-x的平方根" class="headerlink" title="69. x的平方根"></a>69. x的平方根</h3><p>实现 int sqrt(int x) 函数。</p>
+<p>计算并返回 x 的平方根，其中 x 是非负整数。</p>
+<p>由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。</p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 4</span><br><span class="line">输出: 2</span><br></pre></td></tr></table></figure>
+
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: 8</span><br><span class="line">输出: 2</span><br><span class="line">说明: 8 的平方根是 2.82842..., </span><br><span class="line">     由于返回类型是整数，小数部分将被舍去。</span><br></pre></td></tr></table></figure>
+
+<p>方法一：二分法</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//注：在中间过程计算平方的时候可能出现溢出，所以用long long。</span></span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> j=x/<span class="number">2</span>+<span class="number">1</span>;<span class="comment">//对于一个非负数n，它的平方根不会大于（n/2+1）</span></span><br><span class="line">        <span class="keyword">while</span>(i&lt;=j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">long</span> <span class="keyword">long</span> mid=(i+j)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">long</span> <span class="keyword">long</span> res=mid*mid;</span><br><span class="line">            <span class="keyword">if</span>(res==x) <span class="keyword">return</span> mid;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(res&lt;x) i=mid+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> j=mid<span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>方法二：牛顿迭代法</p>
+<p>![img](file:///C:\Users\12751\Documents\Tencent Files\1275121799\Image\C2C{0039E991-7BE9-FCCB-A37F-5A2DE4C3F38E}.png)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(x == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">double</span> last = <span class="number">0</span>, res = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(res != last) &#123;</span><br><span class="line">            last = res;</span><br><span class="line">            res = (res + x/last) / <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">int</span>(res);    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="75-颜色分类"><a href="#75-颜色分类" class="headerlink" title="75. 颜色分类"></a>75. 颜色分类</h3><p>给定一个包含红色、白色和蓝色，一共 n 个元素的数组，原地对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。</p>
+<p>此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。</p>
+<p>注意:<br>不能使用代码库中的排序函数来解决这道题。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [2,0,2,1,1,0]</span><br><span class="line">输出: [0,0,1,1,2,2]</span><br></pre></td></tr></table></figure>
+
+<p><strong>荷兰旗问题</strong></p>
+<p>其主要思想是给每个数字设定一种颜色，并按照荷兰国旗颜色的顺序进行调整。</p>
+<p><img src="https://pic.leetcode-cn.com/3ab6cc20bb91835c2722c688c2f894e407289333bae839a930957461e810a957-image.png" alt="image.png"></p>
+<p>我们用三个指针（p0, p2和curr）来分别追踪0的最右边界，2的最左边界和当前考虑的元素。</p>
+<p><img src="https://pic.leetcode-cn.com/5b3d372e0bfb293ca3aac12e90421d7612c9e75b78b579f954c42ebfe74705d4-image.png" alt="image.png"></p>
+<p>本解法的思路是沿着数组移动<code>curr</code>指针，若<code>nums[curr] = 0</code>，则将其与<code>nums[p0]</code>互换；若<code>nums[curr]</code> = 2，则与<code>nums[p2]</code>互换。</p>
+<p><strong>算法</strong>：</p>
+<ul>
+<li><p>初始化0的最右边界：p0 = 0。在整个算法执行过程中 nums[idx &lt; p0] = 0.</p>
+</li>
+<li><p>初始化2的最左边界 ：p2 = n - 1。在整个算法执行过程中 nums[idx &gt; p2] = 2.</p>
+</li>
+<li><p>初始化当前考虑的元素序号 ：curr = 0.</p>
+</li>
+<li><p>While curr &lt;= p2 :</p>
+<ul>
+<li>若 nums[curr] = 0 ：交换第 curr个 和 第p0个 元素，并将指针都向右移。</li>
+<li>若 nums[curr] = 2 ：交换第 curr个和第 p2个元素，并将 p2指针左移 。</li>
+<li>若 nums[curr] = 1 ：将指针curr右移。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sortColors</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>, r = nums.size() - <span class="number">1</span>, mid = <span class="number">0</span>, temp;</span><br><span class="line">        <span class="keyword">while</span>(mid &lt;= r) &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[mid] == <span class="number">0</span>) &#123;</span><br><span class="line">                swap(nums[mid++], nums[l++]);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(nums[mid] == <span class="number">2</span>) &#123;</span><br><span class="line">                swap(nums[mid], nums[r--]);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                mid++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="76-最小覆盖子串"><a href="#76-最小覆盖子串" class="headerlink" title="76. 最小覆盖子串"></a>76. 最小覆盖子串</h3><p>给你一个字符串 S、一个字符串 T，请在字符串 S 里面找出：包含 T 所有字母的最小子串。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: S = &quot;ADOBECODEBANC&quot;, T = &quot;ABC&quot;</span><br><span class="line">输出: &quot;BANC&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>说明：</strong></p>
+<p>如果 S 中不存这样的子串，则返回空字符串 “”。<br>如果 S 中存在这样的子串，我们保证它是唯一的答案。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">minWindow</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count[<span class="number">256</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> c : t) &#123;</span><br><span class="line">            count[c]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">0</span>, minLength = s.length();</span><br><span class="line">        <span class="built_in">string</span> res;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> l = <span class="number">0</span>, r = <span class="number">0</span>;r &lt; s.length();r++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(--count[s[r]] &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                len++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span>(len == t.length()) &#123;</span><br><span class="line">                <span class="keyword">if</span>(r - l + <span class="number">1</span> &lt;= minLength) &#123;</span><br><span class="line">                    minLength = r - l + <span class="number">1</span>;</span><br><span class="line">                    res = s.substr(l, r - l + <span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(++count[s[l++]] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    --len;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>解释：该问题属于<strong>滑动窗口问题</strong>。</p>
+<p>首先遍历t，记录下每一个字母有多少个（记录在count数组中）</p>
+<p>然后从头遍历s，即移动r，<code>count[s[i]]--</code>，如果说减完之后，值仍然大于等于0，表示<code>s[i]</code>在子串t当中，则len++，如果<code>len == t.length()</code>，则表示当前要找的字符串已经全部包含在<code>l ~ r</code>中。此时需要不比较<code>minLength</code>和<code>r - l + 1</code>，然后开始移动l，移动的时候<code>++count[s[l++]]</code>，如果该值大于0，则表示这个字符是在t当中的，如果等于0，则表示不在t中（因为之前r遍历的时候减掉了，现在l遍历的时候加回去了，如果等于0，表示原来该字符就不在t中），所以当大于0的时候，就应该停止l的移动，表明已经滑动到新的在t中出现的字符了。 </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/31/LeetCode-Day16/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1422,301 +1816,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/25/LeetCode-Day10/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/25/LeetCode-Day10/" itemprop="url">LeetCode-Day10</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-25T09:07:13+08:00">
-                2019-08-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="29-两数相除"><a href="#29-两数相除" class="headerlink" title="29. 两数相除"></a>29. 两数相除</h3><p>给定两个整数，被除数 dividend 和除数 divisor。将两数相除，要求不使用乘法、除法和 mod 运算符。</p>
-<p>返回被除数 dividend 除以除数 divisor 得到的商。</p>
-<p>示例 1:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: dividend = 10, divisor = 3</span><br><span class="line">输出: 3</span><br></pre></td></tr></table></figure>
-
-<p>示例 2:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: dividend = 7, divisor = -3</span><br><span class="line">输出: -2</span><br></pre></td></tr></table></figure>
-
-<p>说明:</p>
-<p>被除数和除数均为 32 位有符号整数。<br>除数不为 0。<br>假设我们的环境只能存储 32 位有符号整数，其数值范围是 [$−2^{31}$,  $2^{31}$ − 1]。本题中，如果除法结果溢出，则返回 $2^{31}$ − 1。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">divide</span><span class="params">(<span class="keyword">int</span> dividend, <span class="keyword">int</span> divisor)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> HALF_INT = <span class="number">1</span> &lt;&lt; <span class="number">30</span>;</span><br><span class="line">        <span class="keyword">if</span>(divisor == INT_MIN) &#123;</span><br><span class="line">            <span class="keyword">if</span>(dividend == INT_MIN) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> flag = <span class="number">1</span>, add = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span>(dividend &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span>(dividend == INT_MIN) &#123;   </span><br><span class="line">                    <span class="keyword">if</span>(divisor == <span class="number">-1</span>) &#123;</span><br><span class="line">                        <span class="keyword">return</span> INT_MAX;</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (divisor == <span class="number">1</span>) &#123;</span><br><span class="line">                        <span class="keyword">return</span> INT_MIN;</span><br><span class="line">                    &#125;</span><br><span class="line">                    add = <span class="number">1</span>;</span><br><span class="line">                    dividend = INT_MAX;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    add = <span class="number">0</span>;</span><br><span class="line">                    dividend = -dividend;</span><br><span class="line">                &#125;</span><br><span class="line">                flag = (flag == <span class="number">-1</span> ? <span class="number">1</span> : <span class="number">-1</span>);</span><br><span class="line">            &#125; </span><br><span class="line">            <span class="keyword">if</span>(divisor &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                flag = (flag == <span class="number">-1</span> ? <span class="number">1</span> : <span class="number">-1</span>);</span><br><span class="line">                divisor = -divisor;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> cnt = <span class="number">0</span>, bs = divisor;</span><br><span class="line">            <span class="keyword">while</span>(bs &lt; HALF_INT &amp;&amp; bs &lt; dividend) &#123;</span><br><span class="line">                bs &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">                cnt++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = cnt; i &gt;= <span class="number">0</span>; --i, bs &gt;&gt;= <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">while</span>(dividend &gt;= bs) &#123;</span><br><span class="line">                    dividend -= bs;</span><br><span class="line">                    res += <span class="number">1</span> &lt;&lt; i;</span><br><span class="line">                    <span class="keyword">if</span>(add) &#123;</span><br><span class="line">                        dividend += add;</span><br><span class="line">                        add = <span class="number">0</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> flag == <span class="number">-1</span> ? -res : res;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>解释：npy帮忙写的…我还没看….</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/25/LeetCode-Day11/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/25/LeetCode-Day11/" itemprop="url">LeetCode-Day11</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-25T09:06:51+08:00">
-                2019-08-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="30-串联所有单词的子串"><a href="#30-串联所有单词的子串" class="headerlink" title="30. 串联所有单词的子串"></a>30. 串联所有单词的子串</h3><p>给定一个字符串 s 和一些长度相同的单词 words。找出 s 中恰好可以由 words 中所有单词串联形成的子串的起始位置。</p>
-<p>注意子串要与 words 中的单词完全匹配，中间不能有其他字符，但<strong>不需要考虑 words 中单词串联的顺序</strong>。</p>
-<p><strong>示例 1：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">  s = &quot;barfoothefoobarman&quot;,</span><br><span class="line">  words = [&quot;foo&quot;,&quot;bar&quot;]</span><br><span class="line">输出：[0,9]</span><br></pre></td></tr></table></figure>
-
-<p>解释：<br>从索引 0 和 9 开始的子串分别是 “barfoor” 和 “foobar” 。<br>输出的顺序不重要, [9,0] 也是有效答案。<br><strong>示例 2：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">  s = &quot;wordgoodgoodgoodbestword&quot;,</span><br><span class="line">  words = [&quot;word&quot;,&quot;good&quot;,&quot;best&quot;,&quot;word&quot;]</span><br><span class="line">输出：[]</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; findSubstring(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; words) &#123;</span><br><span class="line">        <span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt; mp;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; wstart;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ans;</span><br><span class="line">        <span class="keyword">if</span>(s.size()==<span class="number">0</span>||words.size()==<span class="number">0</span>) <span class="keyword">return</span> ans;</span><br><span class="line">        <span class="comment">//建立单词-&gt;单词个数的映射</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;(<span class="keyword">int</span>)words.size();i++)</span><br><span class="line">            mp[words[i]]++;</span><br><span class="line">        <span class="comment">//分割出所有候选单词</span></span><br><span class="line">        <span class="keyword">int</span> wlen=(<span class="keyword">int</span>)words[<span class="number">0</span>].length();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i+wlen&lt;=(<span class="keyword">int</span>)s.size();i++)&#123;</span><br><span class="line">            <span class="built_in">string</span> ss=s.substr(i,wlen);</span><br><span class="line">            <span class="keyword">int</span> id=mp[ss];</span><br><span class="line">            <span class="keyword">if</span>(id) wstart.push_back(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//滑动窗口</span></span><br><span class="line">        <span class="keyword">int</span> wnum=(<span class="keyword">int</span>)words.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i+wnum&lt;=(<span class="keyword">int</span>)wstart.size();i++)&#123;</span><br><span class="line">            <span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt; window;</span><br><span class="line">            <span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;(<span class="keyword">int</span>)wstart.size()&amp;&amp;wstart[j]&lt;=wstart[i]+cnt*wlen&amp;&amp;cnt&lt;wnum;j++)</span><br><span class="line">                <span class="keyword">if</span>(wstart[j]==wstart[i]+cnt*wlen) &#123;</span><br><span class="line">                    ++window[s.substr(wstart[j],wlen)];</span><br><span class="line">                    ++cnt;</span><br><span class="line">                &#125;</span><br><span class="line">            <span class="keyword">bool</span> valid=<span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> it=mp.begin();it!=mp.end();it++)</span><br><span class="line">                <span class="keyword">if</span>(window[it-&gt;first]!=it-&gt;second) &#123;valid=<span class="literal">false</span>; <span class="keyword">break</span>;&#125;</span><br><span class="line">            <span class="keyword">if</span>(valid) ans.push_back(wstart[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>一开始的想法是滑动窗口，但是因为下面这个例子总是超时…</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">最后执行的输入：</span><br><span class="line">&quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...&quot;</span><br><span class="line">[&quot;a&quot;,&quot;a&quot;,&quot;a&quot;,&quot;a&quot;,&quot;a&quot;,&quot;a&quot;,&quot;a&quot;,&quot;a&quot;....]</span><br></pre></td></tr></table></figure>
-
-<p>代码如下：</p>
-<p>主要想法就是先遍历一遍s，然后把在words中的单词的首字母的索引记录在mask中</p>
-<p>然后遍历mask，当前位置为index，然后再一层循环，先copy一份words，然后mask后面的单词如果再words中，就删除一个，知道删除为0为止，说明这个index是合法的，然后加入ans中，index++，重复。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; findSubstring(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; words) &#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; cor;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ans;</span><br><span class="line">    <span class="keyword">if</span>(s.length() == <span class="number">0</span> || words.size() == <span class="number">0</span> || s.length() &lt; words[<span class="number">0</span>].length()) &#123;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> length = words[<span class="number">0</span>].length();</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; mask;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= s.length() - length;i++) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;::iterator ret;</span><br><span class="line">        ret = find(words.begin(), words.end(), s.substr(i, length));</span><br><span class="line">        <span class="keyword">if</span>(ret != words.end()) &#123;</span><br><span class="line">            mask.push_back(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">bool</span> isTrue = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">int</span> index;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; mask.size();i++) &#123;</span><br><span class="line">        isTrue = <span class="literal">true</span>;</span><br><span class="line">        index = mask[i];</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; wordcopy = words;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; words.size();j++) &#123;</span><br><span class="line">            <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator it;</span><br><span class="line">            it = find(mask.begin(), mask.end(), index + j * length);</span><br><span class="line">            <span class="keyword">if</span>(it == mask.end()) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;::iterator iter=<span class="built_in">std</span>::find(wordcopy.begin(),wordcopy.end(),s.substr(index + j * length, length));</span><br><span class="line">                <span class="keyword">if</span>(iter != wordcopy.end()) &#123;</span><br><span class="line">                    wordcopy.erase(iter);  </span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(wordcopy.empty()) &#123;</span><br><span class="line">            ans.push_back(index - wordcopy[<span class="number">0</span>].size() * wordcopy.size());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="31-下一个排列"><a href="#31-下一个排列" class="headerlink" title="31. 下一个排列"></a>31. 下一个排列</h3><p>实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。</p>
-<p>如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。</p>
-<p>必须原地修改，只允许使用额外常数空间。</p>
-<p>以下是一些例子，输入位于左侧列，其相应输出位于右侧列。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1,2,3 → 1,3,2</span><br><span class="line">3,2,1 → 1,2,3</span><br><span class="line">1,1,5 → 1,5,1</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">nextPermutation</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> i = nums.size() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(i - <span class="number">1</span> &gt;= <span class="number">0</span> &amp;&amp; nums[i] &lt;= nums[i - <span class="number">1</span>]) &#123;</span><br><span class="line">            i--;</span><br><span class="line">        &#125;       </span><br><span class="line">        <span class="keyword">if</span>(i - <span class="number">1</span> &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            sort(nums.begin(), nums.end());</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> minIndex = i;</span><br><span class="line">            <span class="keyword">int</span> min = nums[i];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i;j &lt; nums.size();j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[j] &lt; min &amp;&amp; nums[j] &gt; nums[i - <span class="number">1</span>]) &#123;</span><br><span class="line">                    min = nums[j];</span><br><span class="line">                    minIndex = j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> temp = nums[i - <span class="number">1</span>];</span><br><span class="line">            nums[i - <span class="number">1</span>] = nums[minIndex];</span><br><span class="line">            nums[minIndex] = temp;</span><br><span class="line">            sort(nums.begin() + i, nums.end());</span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>解释：大致的思路就是，从后往前遍历vector，后一个数字(index = i)必须比前一个数字(index = i - 1)小，如果不满足的话，就说明需要进行下一个排列</p>
-<p>下一个排列的方法，在i及其后面寻找到一个最小的但是比i大的值，然后进行元素替换(i - 1和最小值)，剩下的就是对i及其后面的元素进行排序</p>
-<p>如果已经到最前的数字了(即i=1)，说明已经是最大值了，则将全部元素进行sort即可。</p>
-<h3 id="32-最长有效括号"><a href="#32-最长有效括号" class="headerlink" title="32. 最长有效括号"></a>32. 最长有效括号</h3><p>给定一个只包含 ‘(‘ 和 ‘)’ 的字符串，找出最长的包含有效括号的子串的长度。</p>
-<p>示例 1:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;(()&quot;</span><br><span class="line">输出: 2</span><br><span class="line">解释: 最长有效括号子串为 &quot;()&quot;</span><br></pre></td></tr></table></figure>
-
-<p>示例 2:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;)()())&quot;</span><br><span class="line">输出: 4</span><br><span class="line">解释: 最长有效括号子串为 &quot;()()&quot;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">longestValidParentheses</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> isValid[s.length()] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; preLeft;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; s.length();i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(s[i] == <span class="string">'('</span>) &#123;</span><br><span class="line">            preLeft.push_back(i);</span><br><span class="line">            isValid[i] = <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(preLeft.size() == <span class="number">0</span>) &#123;</span><br><span class="line">                isValid[i] = <span class="number">-1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                preLeft.pop_back();</span><br><span class="line">                <span class="keyword">int</span> pre = preLeft.back();</span><br><span class="line">                isValid[pre] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; s.length();i++) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; isValid[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; s.length();i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; s.length() &amp;&amp; isValid[i] == <span class="number">0</span>) &#123;</span><br><span class="line">            count++;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        max = max &gt; count ? max : count;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> s = <span class="string">")()())"</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; longestValidParentheses(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>解释：</p>
-<p><code>preLeft</code>用来保存上一次没有完成匹配的左括号</p>
-<p><code>isValid[]</code>用来标记已经匹配的括号，当<code>isValid[k] = 1</code>，则表明该左括号未完成匹配，如果<code>isValid[k] = 0</code>，则表明该括号（有可能是左，也有可能是右）已经完成匹配，如果<code>isValid[k] = -1</code>，表明该右括号未完成匹配</p>
-<p>然后遍历s，当遇到左括号，<code>isValid[i] = 1</code>，并且<code>preLeft.push_back[i]</code>，保存未匹配的左括号，当遇到右括号，如果此时<code>preLeft</code>中还有未完成匹配的左括号，则通过<code>preLeft``来获取其下标j，然后将isValid[j] = 0</code>，表明该左括号已经完成匹配；如果此时<code>preLeft.size() == 0</code>，表明该右括号为非法的右括号，则令<code>isValid[i] = -1</code></p>
-<p>然后遍历<code>isValid</code>，求其中连续0最长的个数，返回即可。</p>
-<p>第一次没有参考做出一道难题，很是开心哈哈哈哈！！</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1767,7 +1866,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
