@@ -241,6 +241,272 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/25/LeetCode-Day8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/25/LeetCode-Day8/" itemprop="url">LeetCode-Day8</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-25T09:07:46+08:00">
+                2019-08-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="25-k个一组翻转链表"><a href="#25-k个一组翻转链表" class="headerlink" title="25. k个一组翻转链表"></a>25. k个一组翻转链表</h3><p>给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。</p>
+<p>k 是一个正整数，它的值小于或等于链表的长度。</p>
+<p>如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序。</p>
+<p><strong>示例 :</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定这个链表：1-&gt;2-&gt;3-&gt;4-&gt;5</span><br><span class="line">当 k = 2 时，应当返回: 2-&gt;1-&gt;4-&gt;3-&gt;5</span><br><span class="line">当 k = 3 时，应当返回: 3-&gt;2-&gt;1-&gt;4-&gt;5</span><br></pre></td></tr></table></figure>
+
+<p>说明 :</p>
+<p><strong>你的算法只能使用常数的额外空间。</strong><br><strong>你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">reverseK</span><span class="params">(ListNode*&amp; cur, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">      ListNode* head = cur;</span><br><span class="line">      ListNode* tail = <span class="literal">NULL</span>;</span><br><span class="line">      ListNode* pre = cur-&gt;next;</span><br><span class="line">      ListNode* back = pre-&gt;next;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; k;i++) &#123;</span><br><span class="line">          pre-&gt;next = tail;</span><br><span class="line">          tail = pre;</span><br><span class="line">          pre = back;</span><br><span class="line">          back = back-&gt;next;</span><br><span class="line">      &#125;</span><br><span class="line">      pre-&gt;next = tail;</span><br><span class="line">      cur-&gt;next = pre;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; k;i++) &#123;</span><br><span class="line">          cur = cur-&gt;next;</span><br><span class="line">      &#125;</span><br><span class="line">      cur-&gt;next = back;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">PrintList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">while</span>(head != <span class="literal">NULL</span>) &#123;</span><br><span class="line">          <span class="built_in">cout</span> &lt;&lt; head-&gt;val &lt;&lt; <span class="string">" "</span>; </span><br><span class="line">      &#125;</span><br><span class="line">     <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">ListNode* <span class="title">reverseKGroup</span><span class="params">(ListNode* head, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">      ListNode* H = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">      H-&gt;next = head;</span><br><span class="line">      ListNode* tmp = head;</span><br><span class="line">      <span class="keyword">while</span>(tmp != <span class="literal">NULL</span>) &#123;</span><br><span class="line">          tmp = tmp-&gt;next;</span><br><span class="line">          count++;</span><br><span class="line">      &#125;</span><br><span class="line">      tmp = H;</span><br><span class="line">      <span class="keyword">while</span>(count &gt;= k) &#123;</span><br><span class="line">          reverseK(H, k);</span><br><span class="line">          <span class="comment">//PrintList(head);</span></span><br><span class="line">          count -= k;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> tmp-&gt;next;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>解释：大致的想法就是先遍历一遍链表，然后记录下链表的个数count</p>
+<p>每k个进行一次翻转，然后count - k，直到count &lt; k，则停止循环</p>
+<p>翻转的过程如下图：</p>
+<p>![img](file:///C:\Users\12751\Documents\Tencent Files\1275121799\Image\C2C{F4B410F0-99BD-8F5D-3C49-BC4EA40B6DEE}.png)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/25/LeetCode-Day9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/25/LeetCode-Day9/" itemprop="url">LeetCode-Day9</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-25T09:07:30+08:00">
+                2019-08-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="28-实现strStr"><a href="#28-实现strStr" class="headerlink" title="28. 实现strStr()"></a>28. 实现strStr()</h3><p>给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: haystack = &quot;hello&quot;, needle = &quot;ll&quot;</span><br><span class="line">输出: 2</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: haystack = &quot;aaaaa&quot;, needle = &quot;bba&quot;</span><br><span class="line">输出: -1</span><br></pre></td></tr></table></figure>
+
+<p>说明:</p>
+<p>当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。</p>
+<p>对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">getNext</span><span class="params">(<span class="built_in">string</span> ps, <span class="keyword">int</span>* next)</span> </span>&#123;</span><br><span class="line">        next[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> k = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(j &lt; ps.length() - <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(k == <span class="number">-1</span> || ps[j] == ps[k]) &#123;</span><br><span class="line">                next[++j] = ++k;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                k = next[k];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">getNext2</span><span class="params">(<span class="built_in">string</span> ps, <span class="keyword">int</span>* next)</span> </span>&#123;</span><br><span class="line">        next[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> k = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(j &lt; ps.length() - <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(k == <span class="number">-1</span> || ps[j] == ps[k]) &#123;</span><br><span class="line">                <span class="keyword">if</span>(ps[++j] == ps[++k]) &#123;</span><br><span class="line">                    next[j] = next[k];</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    next[j] = k;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                k = next[k];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">KmpSearch</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> p)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> sLen = s.length();</span><br><span class="line">        <span class="keyword">int</span> pLen = p.length();</span><br><span class="line">        <span class="keyword">int</span> next[p.length()] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">        getNext2(p, next);</span><br><span class="line">        <span class="keyword">while</span>(i &lt; sLen &amp;&amp; j &lt; pLen) &#123;</span><br><span class="line">            <span class="keyword">if</span>(j == <span class="number">-1</span> || s[i] == p[j]) &#123;</span><br><span class="line">                i++;</span><br><span class="line">                j++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                j = next[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(j == pLen) &#123;</span><br><span class="line">            <span class="keyword">return</span> i - j;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">strStr</span><span class="params">(<span class="built_in">string</span> haystack, <span class="built_in">string</span> needle)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(needle.length() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> KmpSearch(haystack, needle);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>解释：就是很麻烦…用到了KMP算法</p>
+<p>![img](file:///C:\Users\12751\Documents\Tencent Files\1275121799\Image\C2C{9E1A0958-4F67-8F2C-5D75-2D582B43F2A7}.png)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/25/LeetCode-Day10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1470,419 +1736,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/19/物体检测/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/19/物体检测/" itemprop="url">物体检测</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-19T14:37:47+08:00">
-                2019-08-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="物体检测"><a href="#物体检测" class="headerlink" title="物体检测"></a>物体检测</h2><h3 id="1-物体检测与图片分类的不同点："><a href="#1-物体检测与图片分类的不同点：" class="headerlink" title="1. 物体检测与图片分类的不同点："></a>1. 物体检测与图片分类的不同点：</h3><ul>
-<li>图片分类器通常只需要输出对图片中的主物体的分类。但物体检测必须能够识别多个物体，即使有些物体可能在图片中不是占主要版面。严格来讲，这个任务一般叫<strong>多类物体检测</strong>，但绝大部分研究都是针对多类的设置，这里为了简单去掉了“多类”。</li>
-<li>图片分类器只需要输出将图片识别成某类的概率，但物体检测不仅需要输出识别的概率，还需要识别物体在图片中的位置。这个通常是一个括住这个物体的方框，通常也被称之为<strong>边界框(bounding box)</strong></li>
-</ul>
-<h3 id="2-基于卷积神经网络的物体检测算法"><a href="#2-基于卷积神经网络的物体检测算法" class="headerlink" title="2. 基于卷积神经网络的物体检测算法"></a>2. 基于卷积神经网络的物体检测算法</h3><ul>
-<li><h4 id="RCNN-https-arxiv-org-abs-1311-2524"><a href="#RCNN-https-arxiv-org-abs-1311-2524" class="headerlink" title="RCNN    https://arxiv.org/abs/1311.2524"></a>RCNN    <a href="https://arxiv.org/abs/1311.2524" target="_blank" rel="noopener">https://arxiv.org/abs/1311.2524</a></h4></li>
-<li><h4 id="Fast-R-CNN-https-arxiv-org-abs-1504-08083"><a href="#Fast-R-CNN-https-arxiv-org-abs-1504-08083" class="headerlink" title="Fast R-CNN    https://arxiv.org/abs/1504.08083"></a>Fast R-CNN    <a href="https://arxiv.org/abs/1504.08083" target="_blank" rel="noopener">https://arxiv.org/abs/1504.08083</a></h4></li>
-<li><h4 id="Faster-R-CNN-https-arxiv-org-abs-1506-01497"><a href="#Faster-R-CNN-https-arxiv-org-abs-1506-01497" class="headerlink" title="Faster R-CNN    https://arxiv.org/abs/1506.01497"></a>Faster R-CNN    <a href="https://arxiv.org/abs/1506.01497" target="_blank" rel="noopener">https://arxiv.org/abs/1506.01497</a></h4></li>
-<li><h4 id="Mask-R-CNN-https-arxiv-org-abs-1703-06870"><a href="#Mask-R-CNN-https-arxiv-org-abs-1703-06870" class="headerlink" title="Mask R-CNN    https://arxiv.org/abs/1703.06870"></a>Mask R-CNN    <a href="https://arxiv.org/abs/1703.06870" target="_blank" rel="noopener">https://arxiv.org/abs/1703.06870</a></h4></li>
-<li><h4 id="SSD-https-arxiv-org-abs-1512-02325"><a href="#SSD-https-arxiv-org-abs-1512-02325" class="headerlink" title="SSD    https://arxiv.org/abs/1512.02325"></a>SSD    <a href="https://arxiv.org/abs/1512.02325" target="_blank" rel="noopener">https://arxiv.org/abs/1512.02325</a></h4></li>
-<li><h4 id="YOLO-https-arxiv-org-abs-1506-02640"><a href="#YOLO-https-arxiv-org-abs-1506-02640" class="headerlink" title="YOLO    https://arxiv.org/abs/1506.02640"></a>YOLO    <a href="https://arxiv.org/abs/1506.02640" target="_blank" rel="noopener">https://arxiv.org/abs/1506.02640</a></h4></li>
-<li><h4 id="YOLOv2-https-arxiv-org-abs-1612-08242"><a href="#YOLOv2-https-arxiv-org-abs-1612-08242" class="headerlink" title="YOLOv2    https://arxiv.org/abs/1612.08242"></a>YOLOv2    <a href="https://arxiv.org/abs/1612.08242" target="_blank" rel="noopener">https://arxiv.org/abs/1612.08242</a></h4></li>
-</ul>
-<h3 id="3-具体介绍"><a href="#3-具体介绍" class="headerlink" title="3. 具体介绍"></a>3. 具体介绍</h3><h4 id="3-1-R-CNN-区域卷积神经网络"><a href="#3-1-R-CNN-区域卷积神经网络" class="headerlink" title="3.1 R-CNN(区域卷积神经网络)"></a>3.1 R-CNN(区域卷积神经网络)</h4><p>这是一个基于卷积神经网络的物体检测的奠基之作。其核心思想是在对每张图片选取多个区域，然后每个区域作为一个样本进入一个卷积神经网络来抽取特征，最后使用分类器来对其进行分类，和一个回归器来得到准确的边框。</p>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566198219445.png" alt="1566198219445"></p>
-<p>具体来说，这个算法有如下几个步骤：</p>
-<ul>
-<li>对每张输入图片使用一个基于规则的“选择型搜索”算法来选取多候选区域</li>
-<li>跟微调迁移学习里那样，选取一个预先训练好的神经网络并去掉最后一个输入层。每个区域被调整成整个网络要求的输入大小并计算输出。这个输出将作为这个区域的特征。</li>
-<li>使用这些区域特征训练多个SVM来做物体识别，每个SVM预测一个区域是不是包含某个物体</li>
-<li>使用这些区域特征来训练线性回归器将候选区域</li>
-</ul>
-<p>直观上R-CNN很好理解，但<strong>问题是它可能特别慢</strong>。一张图片我们可能选出上千个区域，导致一张图片需要做上千次预测。虽然跟微调不一样，这里训练可以不用更新用来抽特征的卷积神经网络，从而我们可以事先算好每个区域的特征并保存。但对于预测，我们无法避免这个。从而导致R-CNN很难在十几种被使用</p>
-<h4 id="3-2-Fast-R-CNN-快速的区域卷积神经网络"><a href="#3-2-Fast-R-CNN-快速的区域卷积神经网络" class="headerlink" title="3.2 Fast R-CNN(快速的区域卷积神经网络)"></a>3.2 Fast R-CNN(快速的区域卷积神经网络)</h4><p>Fast-RCNN对R-CNN主要做了两点改进来提升性能</p>
-<ul>
-<li>考虑到<strong>R-CNN里面的大量区域可能是相互覆盖</strong>，每次重新抽取特征过于浪费。因此<strong>Fast R-CNN先对输入图片抽取特征，然后再选取区域</strong></li>
-<li>代替R-CNN使用多个SVM来做分类，Fast-RCNN使用单个多类逻辑回归，这也是前面教程里默认使用的</li>
-</ul>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566201897248.png" alt="1566201897248"></p>
-<p>从示意图中可以看到，使用选择型搜索选取的区域是作用在卷积神经网络提取的特征上。这样我们只需要对原始的输入图片做一次特征提取即可，如此节省了大量重复计算。</p>
-<p>Fast R-CNN提出<strong>特征区域池化层（Region of Interest(RoI) Pooling）</strong>，它的输入为特征和一系列的区域，对每个区域它将其均匀划分成n * m的小区域，并对每个小区域做最大池化，从而得到一个n * m的输出。因此不管输入区域的大小，RoI池化层都将其池化成固定大小输出。</p>
-<p>下面，详细的来看一下ROI Pooling：</p>
-<p>ROIs Pooling顾名思义，是Pooling层的一种，而且是针对RoIs的Pooling，它的特点是<strong>输入特征图尺寸不固定，但是输出特征图尺寸固定</strong>。</p>
-<ul>
-<li>在Fast R-CNN中，RoI是指Selective Search完成后得到的“候选框”在特征图上的映射，如下图所示</li>
-<li>在Faster R-CNN中，候选框是经过RPN产生的，然后再把各个“候选框”映射到特征图上，得到RoIs</li>
-</ul>
-<p><img src="https://img-blog.csdn.net/20180119150020632?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGFucmFuMg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p>图1 Fast R-CNN整体结构</p>
-<p><strong>ROI Pooling的输入：</strong></p>
-<ul>
-<li><strong>特征图：</strong>指的是图1中所示的特征图，在Fast R-CNN中，它位于RoI Pooling之前，在Faster RCNN中，它是与RPN共享的那个特征图，通常我们称之为“share_conv”</li>
-<li><strong>rois：</strong>在Fast R-CNN中，指的是Selective Search的输出；在Faster R-CNN中指的是RPN的输出，一堆矩形候选框框，形状为1 * 5 * 1 * 1 (4个坐标+索引index)，其中值得注意的是：<strong>坐标的参考系</strong>不是针对feature map这张图的，而<strong>是针对原图的（神经网络最开始的输入）</strong></li>
-</ul>
-<p><strong>ROI Pooling的输出：</strong></p>
-<p>输出是batch个vector，其中batch的值等于RoI的个数，vector的大小为channel * w * h；RoI Pooling的过程就是将一个个大小不同的box矩形框，都映射成大小固定（w * h）的矩形框</p>
-<p><strong>ROI Pooling的过程：</strong></p>
-<ul>
-<li>根据输入image，将RoI映射到feature map对应位置</li>
-<li>将映射后的区域划分为相同大小的sections（sections数量与输出的维度相同）</li>
-<li>对每个sections进行max pooling操作</li>
-</ul>
-<p>这样我们就可以从不同大小的方框得到固定大小的相应的feature maps。值得一提的是，输出的feature maps的大小不取决与ROI和卷积feature maps的大小。ROI Pooling最大的好处就在于极大地提高了处理速度</p>
-<p><strong>Example：</strong></p>
-<p>考虑一个8 * 8大小的feature map，一个ROI，以及输出大小为2 * 2</p>
-<p>1）输入固定大小的feature map</p>
-<p><img src="https://img-blog.csdn.net/20171112193549325?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQVVUTzE5OTM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
-<p>2）region proposal投影之后位置（左上角，右下角坐标）：（0，3），（7，8）</p>
-<p><img src="https://img-blog.csdn.net/20171112193608750?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQVVUTzE5OTM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
-<p>3）将其划分为（2 * 2）个sections（因为输出大小为2 * 2），我们可以得到：</p>
-<p><img src="https://img-blog.csdn.net/20171112193628721?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQVVUTzE5OTM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
-<p>4）对每个section做max pooling，可以得到</p>
-<p><img src="https://img-blog.csdn.net/20171112193709781?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQVVUTzE5OTM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
-<p>Faster R-CNN</p>
-<p>Fast R-CNN沿用了R-CNN的选择型搜索方法来选择区域，这个通常很慢。Faster R-CNN做的主要改进就是提出了<strong>区域候选网络（Region Proposal Network, RPN）</strong>来代替选择型搜索。</p>
-<p>它是这么工作的：</p>
-<ul>
-<li>在输入特征上放置一个填充为1通道是256 的3 * 3卷积。这样，连同他的周围8个像素，都被映射成一个长为256的向量</li>
-<li>以对每个像素为中心生成数个大小和长宽比预先设计好的k个默认框，通常也叫做锚框</li>
-<li>对每个边框，使用其中心像素对应的256维向量作为特征，RPN训练一个2类分类器来判断这个区域是不是含有任何感兴趣的物体还是只是背景，和一个4位输出的回归分类器来预测一个更准确的边框</li>
-<li>对于所有的锚框，个数为n m k，如果输入大小是n * m, 选出被判断成还有物体的，然后对他们对应的回归器预测的边框作为输入放进接下来的RoI池化层</li>
-</ul>
-<p>虽然看上去有些复杂，但RPN思想非常直观。首先候选预先配置好的一些区域，然后通过神经网络来判断这些区域是不是感兴趣的。如果是，那么再预测一个更加准确的边框。这样我们能有效降低搜索任何形状的边框的代价。</p>
-<p><strong>Faster R-CNN的RPN详解：</strong></p>
-<ul>
-<li><p>anchors：特征可以看做一个尺度51<em>39的256通道图像，对于该图像的每一个位置，考虑9个可能的候选窗口：三种面积{128,256,512}×{128,256,512}×三种比例{1:1,1:2,2:1}{1:1,1:2,2:1}。这些候选窗口称为anchors。下图示出51</em>39个anchor中心，以及9种anchor示例。</p>
-<p>特征可以看做一个尺度51<em>39的256通道图像，对于该图像的每一个位置，考虑9个可能的候选窗口：三种面积{128,256,512}×{128,256,512}×三种比例{1:1,1:2,2:1}{1:1,1:2,2:1}。这些候选窗口称为anchors。下图示出51</em>39个anchor中心，以及9种anchor示例。<br><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566260296023.png" alt="1566260296023"></p>
-</li>
-<li><p>SOFTMAX的两支</p>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566260328221.png" alt="1566260328221"></p>
-<p> 计算每个像素256-d的9个尺度下的值，得到9个anchor，我们给每个anchor分配一个二进制的标签（前景背景）。我们分配正标签前景给两类anchor：1）与某个ground truth（GT）包围盒有最高的IoU重叠的anchor（也许不到0.7），2）与任意GT包围盒有大于0.7的IoU交叠的anchor。注意到一个GT包围盒可能分配正标签给多个anchor。我们分配负标签（背景）给与所有GT包围盒的IoU比率都低于0.3的anchor。非正非负的anchor对训练目标没有任何作用，由此输出维度为（2*9）18，一共18维。</p>
-<p>假设在conv5 feature map中每个点上有k个anchor（默认k=9），而每个anhcor要分foreground和background，所以每个点由256d feature转化为cls=2k scores；而每个anchor都有[x, y, w, h]对应4个偏移量，所以reg=4k coordinates</p>
-<p>补充一点，全部anchors拿去训练太多了，训练程序会在合适的anchors中随机选取128个postive anchors+128个negative anchors进行训练。<br><strong>以上是传统的RPN，下面是Faster R-CNN 的RPN部分</strong>。</p>
-</li>
-<li><p><strong>bounding box regression</strong></p>
-<p>前2.）中已经计算出foreground anchors，使用bounding box regression回归得到预设anchor-box到ground-truth-box之间的变换参数，即平移（dx和dy）和伸缩参数（dw和dh），由此得到初步确定proposal。</p>
-</li>
-</ul>
-<p>  如图9所示绿色框为飞机的Ground Truth(GT)，红色为提取的foreground anchors，那么即便红色的框被分类器识别为飞机，但是由于红色的框定位不准，这张图相当于没有正确的检测出飞机。所以我们希望采用一种方法对红色的框进行微调，使得foreground anchors和GT更加接近。<br>  <img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566260396876.png" alt="1566260396876"></p>
-<p>  对于窗口一般使用四维向量(x, y, w, h)表示，分别表示窗口的中心点坐标和宽高。对于图 10，红色的框A代表原始的Foreground Anchors，绿色的框G代表目标的GT，我们的目标是寻找一种关系，使得输入原始的anchor A经过映射得到一个跟真实窗口G更接近的回归窗口G’，即：给定A=(Ax, Ay, Aw, Ah)，寻找一种映射f，使得f(Ax, Ay, Aw, Ah)=(G’x, G’y, G’w, G’h)，其中(G’x, G’y, G’w, G’h)≈(Gx, Gy, Gw, Gh)。<br>  <img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566260415053.png" alt="1566260415053"></p>
-<p>  那么经过何种变换才能从图6中的A变为G’呢？ 比较简单的思路就是:</p>
-<ol>
-<li><p>先做平移</p>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566260462344.png" alt="1566260462344"></p>
-</li>
-<li><p>再做缩放</p>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566260476062.png" alt="1566260476062"></p>
-<p>观察上面4个公式发现，需要学习的是dx(A)，dy(A)，dw(A)，dh(A)这四个变换。当输入的anchor与GT相差较小时，可以认为这种变换是一种线性变换， 那么就可以用线性回归来建模对窗口进行微调（注意，只有当anchors和GT比较接近时，才能使用线性回归模型，否则就是复杂的非线性问题了）。对应于Faster RCNN原文，平移量(tx, ty)与尺度因子(tw, th)如下：</p>
-</li>
-</ol>
-<p>  接下来的问题就是如何通过线性回归获得dx(A)，dy(A)，dw(A)，dh(A)了。线性回归就是给定输入的特征向量X, 学习一组参数W, 使得经过线性回归后的值跟真实值Y（即GT）非常接近，即Y=WX。对于该问题，输入X是一张经过卷积获得的feature map，定义为Φ；同时还有训练传入的GT，即(tx, ty, tw, th)。输出是dx(A)，dy(A)，dw(A)，dh(A)四个变换。那么目标函数可以表示为：$d_{<em>}(P) = w_{</em>}^T \phi_{s}(P)$ </p>
-<p>  其中Φ(A)是对应anchor的feature map组成的特征向量，w是需要学习的参数，d(A)是得到的预测值（*表示 x，y，w，h，也就是每一个变换对应一个上述目标函数）。为了让预测值(tx, ty, tw, th)与真实值最小，得到损失函数：</p>
-<p>  $Loss = \sum_{i}^{N}(t_{<em>}^{i} - w_{</em>}^{T} \phi_{s}(P^{i})^2)$</p>
-<p>  函数优化目标为：<img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566260749902.png" alt="1566260749902"></p>
-<ul>
-<li><p>将预proposal利用feat_stride和im_info将anchors映射回原图，判断预proposal是否大范围超过边界，剔除严重超出边界的。</p>
-<p>按照softmax score进行从大到小排序，提取前2000个预proposal，对这个2000个进行NMS(非极大值抑制)，将得到的再次进行排序，输出300个proposal。</p>
-</li>
-</ul>
-<p><strong>NMS（非极大抑制致）</strong></p>
-<p>由于锚点经常重叠，因此候选框最终也会在同一个目标上重叠。为了解决重复候选框的问题，我们使用一个简单的泛，称为非极大抑制(NMS)。NMS获取按照分数排序的候选列表并对已排序的列表进行迭代，丢弃那些IoU值大于某个预定义阈值的候选框，并提出一个具有更高分数的候选框。总之，抑制的过程是一个迭代-遍历-消除的过程，如下图所示：</p>
-<ul>
-<li><p>将所有候选框的得分进行排序，选中最高分及其所对应的框</p>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566260974214.png" alt="1566260974214"></p>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566260986791.png" alt="1566260986791"></p>
-</li>
-<li><p>遍历其余的框，如果它和当前最高得分框的重叠面积大于一定的阈值，我们将其删除</p>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566261025214.png" alt="1566261025214"></p>
-</li>
-<li><p>从没有处理的框中继续选择一个得分最高的，重复上述过程。</p>
-</li>
-</ul>
-<h4 id="Mask-R-CNN"><a href="#Mask-R-CNN" class="headerlink" title="Mask R-CNN"></a>Mask R-CNN</h4><p>Mask R-CNN在Faster R-CNN上加入了一个新的像素级别的预测层，它不仅对一个锚框预测它对应的类和真实的边框，而且他会判断这个锚框类每个像素对应的那个物体还是只是背景。后者是语义分割要解决的问题。Mask R-CNN使用了全连接卷积网络（FCN）来完成这个预测。当然这也意味着训练数据必须有像素级别的标注，而不是简单的边框。</p>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566264201349.png" alt="1566264201349"></p>
-<p>因为FCN会精确预测每个像素的类别，就是输入图片中的每个像素都会在标注中对应一个类别。对于输入图片中的一个锚框，我们可以精确的匹配到像素标注中对应的区域。但是PoI池化是作用在卷积之后的特征上，其默认是将锚框做了定点化。例如假设选择的锚框是( x , y , w , h ) ，且特征抽取将图片变小了16倍，就是如果原始图片是256 × 256 ，那么特征大小就是16 × 16 。这时候在特征上对应的锚框就是变成了( ⌊ x / 16 ⌋ , ⌊ y / 16 ⌋ , ⌊ w / 16 ⌋ , ⌊ h / 16 ⌋ ) 。如果x , y , w , h 中有任何一个不被16整除，那么就可能发生错位。同样道理，在上面的样例中我们看到，如果锚框的长宽不被池化大小整除，那么同样会定点化，从而带来错位。</p>
-<p>通常这样的错位只是在几个像素之间，对于分类和边框预测影响不大。但对于像素级别的预测，这样的错位可能会带来大问题。Mask R-CNN提出一个RoI Align层，它类似于RoI池化层，但是去除掉了定点化步骤，就是移除了所有⌊ ⋅ ⌋ 。如果计算得到的表框不是刚好在像素之间，那么我们就用四周的像素来线性插值得到这个点上的值。</p>
-<h4 id="SSD：单发多框检测器"><a href="#SSD：单发多框检测器" class="headerlink" title="SSD：单发多框检测器"></a>SSD：单发多框检测器</h4><p>在R-CNN系列的模型里面。区域候选和分类是分作两块来进行的。SSD则将其统一成一个步骤来使得模型更加简单并且速度更快。</p>
-<p>它跟Faster R-CNN主要有两点不一样：</p>
-<ul>
-<li><p>对于锚框，我们不再首先判断它是不是含有感兴趣物体，再将正类锚框放入真正物体分类。SSD里我们直接使用一个num_class+1类分类器来判断它对应的是哪类物体，还是只是背景。我们也不再有额外的回归器对边框再进一步预测，而是直接使用单个回归器来预测真实边框。</p>
-</li>
-<li><p>SSD不只是对卷积神经网络输出的特征做预测，它会进一步将特征通过卷积和池化层变小来做预测。这样达到多尺度预测的效果</p>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566264662752.png" alt="1566264662752"></p>
-</li>
-</ul>
-<h4 id="YOLO：只需要看一遍"><a href="#YOLO：只需要看一遍" class="headerlink" title="YOLO：只需要看一遍"></a>YOLO：只需要看一遍</h4><p>不管是Faster R-CNN还是SSD， 他们声称的锚框仍然有大量是重叠的，从而导致仍然有大量的区域被重复计算了。YOLO试图来解决这个问题。它将图片特征均匀的切成S * S块，每一块当做一个锚框。每个锚框预测B个框，以及这个锚框主要包含哪个物体。</p>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566264803189.png" alt="1566264803189"></p>
-<h4 id="YOLO-v2：更好，更快，更强"><a href="#YOLO-v2：更好，更快，更强" class="headerlink" title="YOLO v2：更好，更快，更强"></a>YOLO v2：更好，更快，更强</h4><p>YOLO v2 对WOLO进行一些改进的地方，其主要包括：</p>
-<ul>
-<li><p>使用更好的卷积神经网络来做特征提取，使用更大输入图片448 * 448 使得特征输出大小增大到13 * 13</p>
-</li>
-<li><p>不再使用均匀切割的锚框，而是对训练数据里的真实锚框做聚类，然后使用聚类中心作为锚框。相对于SSD 和Faster R-CNN来说可以大幅降低锚框的个数</p>
-</li>
-<li><p>不再使用YOLO的全连接层来预测，而是同SSD一样使用卷积。例如假设使用5个锚框（聚类为5类），那么物体分类使用通道数是 5 * (1 + num_classes)的1 * 1卷积，边框回归使用通道数为4 * 5</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/19/LeetCode-Day4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/19/LeetCode-Day4/" itemprop="url">LeetCode-Day4</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-19T09:10:55+08:00">
-                2019-08-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="14-最长公共前缀"><a href="#14-最长公共前缀" class="headerlink" title="14. 最长公共前缀"></a>14. 最长公共前缀</h3><p>编写一个函数来查找字符串数组中的最长公共前缀。</p>
-<p>如果不存在公共前缀，返回空字符串 “”。</p>
-<p>示例 1:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;]</span><br><span class="line">输出: &quot;fl&quot;</span><br></pre></td></tr></table></figure>
-
-<p>示例 2:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [&quot;dog&quot;,&quot;racecar&quot;,&quot;car&quot;]</span><br><span class="line">输出: &quot;&quot;</span><br><span class="line">解释: 输入不存在公共前缀。</span><br></pre></td></tr></table></figure>
-
-<p><strong>说明:</strong></p>
-<p>所有输入只包含小写字母 a-z 。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">longestCommonPrefix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; strs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(strs.empty()) <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j&lt;strs[<span class="number">0</span>].size(); j++)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;strs.size(); i++)</span><br><span class="line">                <span class="keyword">if</span>(j&gt;strs[i].size() || strs[<span class="number">0</span>][j] != strs[i][j])</span><br><span class="line">                    <span class="keyword">return</span> strs[i].substr(<span class="number">0</span>,j);</span><br><span class="line">        <span class="keyword">return</span> strs[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>解释：</p>
-<p>如果strs的长度为0，直接返回“”</p>
-<p>然后同时遍历每个字母的第一个字符，第二个字符…直到遇到不相等的就直接返回。</p>
-<h3 id="15-三数之和"><a href="#15-三数之和" class="headerlink" title="15. 三数之和"></a>15. 三数之和</h3><p>给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。</p>
-<p>注意：答案中不可以包含重复的三元组。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，</span><br><span class="line"></span><br><span class="line">满足要求的三元组集合为：</span><br><span class="line">[</span><br><span class="line">  [-1, 0, 1],</span><br><span class="line">  [-1, -1, 2]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p><strong>解题方案：</strong></p>
-<ul>
-<li>首先对数组进行排序， 排序后固定一个数nums[i]，再使用左右指针指向nums[i]后面的两端，数字分别为nums[L]和nums[R]， 计算三个数的和sum，判断是否满足为0，满足则添加进结果集</li>
-<li>如果nums[i] 大于0，则三数之和必然无法等于0，结束循环</li>
-<li>如果nums[i] == nums[i - 1]，则说明该数字重复，会导致结果重复，所以应该跳过</li>
-<li>当sum == 0时，nums[L] == nums[L + 1]则会导致结果重复，应该跳过,L++</li>
-<li>当sum == 0时，nums[R] == nums[R - 1]时会导致结果重复，应该跳过，R–</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; threeSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        sort(nums.begin(), nums.end());</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; ans;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; nums.size() &amp;&amp; nums[i] &lt;= <span class="number">0</span>;i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(i == <span class="number">0</span> || nums[i] &gt; nums[i - <span class="number">1</span>]) &#123;</span><br><span class="line">                <span class="keyword">int</span> l = i + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">int</span> r = nums.size() - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span>(l &lt; r) &#123;</span><br><span class="line">                    <span class="keyword">int</span> sum = nums[i] + nums[l] + nums[r];</span><br><span class="line">                    <span class="keyword">if</span>(sum == <span class="number">0</span>) &#123;</span><br><span class="line">                        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; temp;</span><br><span class="line">                        temp.push_back(nums[i]);</span><br><span class="line">                        temp.push_back(nums[l]);</span><br><span class="line">                        temp.push_back(nums[r]);</span><br><span class="line">                        ans.push_back(temp);</span><br><span class="line">                        l += <span class="number">1</span>;</span><br><span class="line">                        r -= <span class="number">1</span>;</span><br><span class="line">                        <span class="keyword">while</span>(l &lt; r &amp;&amp; nums[l] == nums[l - <span class="number">1</span>]) &#123;</span><br><span class="line">                            l++;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">while</span>(l &lt; r &amp;&amp; nums[r] == nums[r + <span class="number">1</span>]) &#123;</span><br><span class="line">                            r--;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(sum &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                        l++;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        r--;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1933,7 +1786,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

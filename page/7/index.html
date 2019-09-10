@@ -241,6 +241,326 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/Something-about-TensorFlow/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/25/Something-about-TensorFlow/" itemprop="url">Something about TensorFlow</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-25T17:16:29+08:00">
+                2019-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1-TensorFlow中tf-train-slice-input-producer和tf-train-batch函数"><a href="#1-TensorFlow中tf-train-slice-input-producer和tf-train-batch函数" class="headerlink" title="1. TensorFlow中tf.train.slice_input_producer和tf.train.batch函数"></a>1. TensorFlow中tf.train.slice_input_producer和tf.train.batch函数</h3><h4 id="TensorFlow数据读取机制"><a href="#TensorFlow数据读取机制" class="headerlink" title="TensorFlow数据读取机制"></a>TensorFlow数据读取机制</h4><p>TensorFlow中为了充分利用GPU，减少GPU等待数据的空闲时间，使用了两个线程分别执行数据读入和数据计算。</p>
+<p>具体来说就是使用一个线程源源不断的将硬盘中的图片数据读入到一个内存队列中，另一个线程负责计算任务，所需数据直接从内存队列中获取。</p>
+<p>tf在内存队列之前，还设立了一个文件名队列，文件名队列存放的是参与训练的文件名，要训练N个epoch，则文件名队列中就含有N个批次的所有文件名。</p>
+<p><img src="https://img-blog.csdn.net/20180401131308152" alt="img"></p>
+<p>在N个epoch的文件名最后是一个结束标志，当tf读到这个结束标志的时候，会抛出一个AutoRange的异常，外部捕获到之歌异常之后皆可以结束进程了。而创建tf的文件名队列就需要使用到tf.train.slice_input_producer函数</p>
+<h4 id="tf-train-slice-input-producer"><a href="#tf-train-slice-input-producer" class="headerlink" title="tf.train.slice_input_producer"></a>tf.train.slice_input_producer</h4><p>tf.train.slice_input_producer是一个tensor生成器，作用是按照规定，每次从一个tensor列表中按顺序或者随机抽取出一个tensor放入文件名队列。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slice_input_producer(tensor_list, num_epochs=None, shuffle=True, seed=None,                         capacity=32, shared_name=None, name=None)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>第一个参数 tensor_list：包含一系列tensor的列表，表中tensor的第一维度的值必须相等，即个数必须相等，有多少个图像，就应该有多少个对应的标签。</p>
+</li>
+<li><p>第二个参数<strong>num_epochs: 可选参数，是一个整数值，代表迭代的次数</strong>，如果设置 num_epochs=None,生成器可以无限次遍历tensor列表，如果设置为 num_epochs=N，生成器只能遍历tensor列表N次。</p>
+</li>
+<li><p>第三个参数shuffle： bool类型，设置是否打乱样本的顺序。<strong>一般情况下，如果shuffle=True，生成的样本顺序就被打乱了，在批处理的时候不需要再次打乱样本，使用 tf.train.batch函数就可以了;如果shuffle=False,就需要在批处理时候使用 tf.train.shuffle_batch函数打乱样本。</strong></p>
+</li>
+<li><p>第四个参数seed: <strong>可选的整数，是生成随机数的种子，在第三个参数设置为shuffle=True的情况下才有用。</strong></p>
+</li>
+<li><p>第五个参数capacity：设置tensor列表的容量。</p>
+</li>
+<li><p>第六个参数shared_name：可选参数，如果设置一个‘shared_name’，则在不同的上下文环境（Session）中可以通过这个名字共享生成的tensor。</p>
+</li>
+<li><p>第七个参数name：可选，设置操作的名称。</p>
+</li>
+</ul>
+<p>tf.train.slice_input_producer定义了样本放入文件名队列的方式，包括迭代次数，是否乱序等，<strong>要真正将文件放入文件名队列，还需要调用tf.train.start_queue_runners 函数来启动执行文件名队列填充的线程，之后计算单元才可以把数据读出来，否则文件名队列为空的，计算单元就会处于一直等待状态，导致系统阻塞。</strong></p>
+<h4 id="tf-contrib-layers-batch-norm"><a href="#tf-contrib-layers-batch-norm" class="headerlink" title="tf.contrib.layers.batch_norm"></a><strong>tf.contrib.layers.batch_norm</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">tf.contrib.layers.batch_norm(</span><br><span class="line">    inputs,</span><br><span class="line">    decay=0.999,</span><br><span class="line">    center=True,</span><br><span class="line">    scale=False,</span><br><span class="line">    epsilon=0.001,</span><br><span class="line">    activation_fn=None,</span><br><span class="line">    param_initializers=None,</span><br><span class="line">    param_regularizers=None,</span><br><span class="line">    updates_collections=tf.GraphKeys.UPDATE_OPS,</span><br><span class="line">    is_training=True,</span><br><span class="line">    reuse=None,</span><br><span class="line">    variables_collections=None,</span><br><span class="line">    outputs_collections=None,</span><br><span class="line">    trainable=True,</span><br><span class="line">    batch_weights=None,</span><br><span class="line">    fused=None,</span><br><span class="line">    data_format=DATA_FORMAT_NHWC,</span><br><span class="line">    zero_debias_moving_mean=False,</span><br><span class="line">    scope=None,</span><br><span class="line">    renorm=False,</span><br><span class="line">    renorm_clipping=None,</span><br><span class="line">    renorm_decay=0.99,</span><br><span class="line">    adjustment=None</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>Batch Normalization 通过减少内部使用协变量加速神经网络的训练</p>
+<p>可以用作conv2d或fully_connected的标准化函数</p>
+<p>参数：</p>
+<p>1 inputs： 输入</p>
+<p>2 decay ：衰减系数。合适的衰减系数值接近1.0,特别是含多个9的值：0.999,0.99,0.9。如果训练集表现很好而验证/测试集表现得不好，选择小的系数（推荐使用0.9）。如果想要提高稳定性，zero_debias_moving_mean设为True</p>
+<p>3 center：如果为True，有beta偏移量；如果为False，无beta偏移量</p>
+<p>4 scale：如果为True，则乘以gamma。如果为False，gamma则不使用。当下一层是线性的时（例如nn.relu），由于缩放可以由下一层完成，所以可以禁用该层。</p>
+<p>5 epsilon：避免被零除</p>
+<p>6 activation_fn：用于激活，默认为线性激活函数</p>
+<p>7 param_initializers ： beta, gamma, moving mean and moving variance的优化初始化</p>
+<p>8 param_regularizers ： beta and gamma正则化优化</p>
+<p>9 updates_collections ：Collections来收集计算的更新操作。updates_ops需要使用train_op来执行。如果为None，则会添加控件依赖项以确保更新已计算到位。</p>
+<p>10 is_training:图层是否处于训练模式。在训练模式下，它将积累转入的统计量moving_mean并 moving_variance使用给定的指数移动平均值 decay。当它不是在训练模式，那么它将使用的数值moving_mean和moving_variance。<br>11 scope：可选范围variable_scope</p>
+<h4 id="tf-contrib-layers-convolution2d"><a href="#tf-contrib-layers-convolution2d" class="headerlink" title="tf.contrib.layers.convolution2d"></a>tf.contrib.layers.convolution2d</h4><h4 id="tf-reduce-mean"><a href="#tf-reduce-mean" class="headerlink" title="tf.reduce_mean"></a>tf.reduce_mean</h4><p>用于计算张量tensor沿着指定的数轴（tensor的某一维度）上的平均值，主要用作降维或者计算tensor（图像）的平均值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">reduce_mean(</span><br><span class="line">	input_tensor， </span><br><span class="line">    axis=<span class="literal">None</span>, </span><br><span class="line">	keep_dims=<span class="literal">False</span>,</span><br><span class="line">	name=<span class="literal">None</span>, </span><br><span class="line">	reduction_indices=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>参数：<ul>
+<li>axis：指定的轴，如果不指定，则计算所有元素的均值</li>
+<li>keep_dims：是否降维度，设置为True， 则输出的结果保持输入tensor的结果，设置为False， 输出结果会降低维度</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf </span><br><span class="line"></span><br><span class="line">x = [[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">     [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]]</span><br><span class="line"></span><br><span class="line">xx = tf.cast(x, tf.float32)</span><br><span class="line">mean_all = tf.reduce_mean(xx, keep_dims=<span class="literal">False</span>)</span><br><span class="line">mean_0 = tf.reduce_mean(xx, axis=<span class="number">0</span>, keep_dims=<span class="literal">False</span>)</span><br><span class="line">mean_1 = tf.reduce_mean(xx, axis=<span class="number">1</span>, keep_dims=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    m_a, m_0, m_1 = sess.run([mean_all, mean_0, mean_1])</span><br><span class="line"></span><br><span class="line">print(mean_a)</span><br><span class="line">print(mean_0)</span><br><span class="line">print(mean_1)    </span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string"> 2.0</span></span><br><span class="line"><span class="string">[ 1. 2. 3.]</span></span><br><span class="line"><span class="string">[ 2. 2.]</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">如果keep_dims=True，则结果为</span></span><br><span class="line"><span class="string">[[ 2.]]</span></span><br><span class="line"><span class="string">[[ 1. 2. 3.]]</span></span><br><span class="line"><span class="string">[[ 2.], [ 2.]]</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/循环神经网络RNN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/25/循环神经网络RNN/" itemprop="url">循环神经网络RNN</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-25T15:00:57+08:00">
+                2019-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="循环神经网络RNN（Recurrent-neural-network）"><a href="#循环神经网络RNN（Recurrent-neural-network）" class="headerlink" title="循环神经网络RNN（Recurrent neural network）"></a>循环神经网络RNN（<strong>Recurrent neural network</strong>）</h3><h4 id="1-为什么需要RNN？"><a href="#1-为什么需要RNN？" class="headerlink" title="1. 为什么需要RNN？"></a>1. 为什么需要RNN？</h4><p>普通的神经网络智能单独的去处理一个个的输入，前一个输入和后一个输入是完全没有关系的。但是，某些任务需要能够更好地处理序列的信息，即前面的输入和后面的输入是有关系的。</p>
+<p>从网络结构上看，循环神经网络会记忆之前的信息。即：循环神经网络的隐藏层之间的节点是有连接的，隐藏层的输入不仅包括输入层的输出，还包括上一时刻隐藏层的输出。</p>
+<p>循环神经网络对于每一个时刻的输入结合当前模型的状态给出一个输出。循环神经网络可以看做同一个神经网络被无限复制的结果，处于优化考虑，显示生活中无法做到真正的无限循环</p>
+<h4 id="2-RNN结构"><a href="#2-RNN结构" class="headerlink" title="2. RNN结构"></a>2. RNN结构</h4><p>如下为循环神经网络按时间展开后的结构</p>
+<p><img src="https://img-blog.csdnimg.cn/20190117185302437.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hlbGxvd3V4aWE=,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p><strong>循环神经网络在每一个时刻会有一个输入 $X_i$，然后根据循环神经网络当前的状态 $A_i$ 提供一个输出 $h_i$。</strong>而循环神经网络<strong>当前的状态 $A_i$ 是根据上一时刻的状态 $A_{i-1}$ 和当前的输入 $X_i$ 共同决定的。</strong>从神经网络的结构特征考科一看出它最擅长解决的问题是时间序列相关的。循环神经网络也是处理这类问题时最自然的神经网络结构。对于一个序列数据，<strong>可以将这个序列上不同时刻的数据依次传入循环神经网络的输入层，而输出可以是对序列中下一个时刻的预测，也可以是对当前时刻心系的处理结果（比如语音识别结果）。循环神经网络要求每一时刻都有一个输入，但是不一定每个时刻都需要所有输出</strong></p>
+<p>循环神经网络中的<strong>参数在不同时刻是共享</strong>的</p>
+<p>为了将当前时刻的状态转换成<strong>最终的输出</strong>，<strong>循环神经网络需要另一个完成此过程</strong>。<strong>同时刻用于输出的全连接神经网络中的参数也是一致的。</strong></p>
+<p><strong>循环神经网络的总损失：</strong>所有时刻（或部分时刻）上损失函数的综合</p>
+<p>循环神经网络可以更好地利用传统神经网络结构所不能建模的信息，但同时，带来更大的技术挑战——<strong>长期依赖（Long-term dependencies）</strong>问题</p>
+<h4 id="3-长短时记忆网络（Long-Short-Term-Memory，LSTM）"><a href="#3-长短时记忆网络（Long-Short-Term-Memory，LSTM）" class="headerlink" title="3. 长短时记忆网络（Long Short Term Memory，LSTM）"></a>3. 长短时记忆网络（Long Short Term Memory，LSTM）</h4><p>解决长期以来、有用信息的间隔有大有小、长短不一的问题。</p>
+<p>LSTM是一种拥有三个“门”结构的特殊网络结构</p>
+<p>LSTM靠一些“门”的结构让信息有选择性地影响神经网络中每个时刻的状态。“门”结构就是一个<strong>使用sigmoid神经网络</strong>和<strong>一个按位做乘法</strong>结合在一起的操作。</p>
+<p>叫做“门”是因为使用sigmoid作为激活函数的全连接神经网络层<strong>会输出一个0到1之间的数值，描述当前输入有多少信息量可以通过这个结构。</strong>这个结构的功能类似于一扇门，当门<strong>打开时</strong>（sigmoid神经网络层<strong>输出为1</strong>），<strong>全部信息都可以通过</strong>；当门<strong>关上时</strong>（sigmoid神经网络层<strong>输出为0</strong>），任何信息<strong>无法通过</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20190118092213504.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hlbGxvd3V4aWE=,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p>“遗忘门”和“输入门”至关重要。通过“遗忘门”和“输出门”，<strong>LSTM结构可以更加有效的决定哪些信息应该被遗忘，哪些信息应该被保留</strong></p>
+<p><strong>遗忘门的作用</strong>：让循环神经网络“忘记”之前没有用的信息。遗忘门会根据当前的输入 $X_t$、商议时刻的状态 $C_{t-1}$ 、上一时刻的输出 $H_{t-1}$ 共同决定哪一部分记忆需要被遗忘</p>
+<p><strong>输入门</strong>：在循环神经网络“忘记”了部分之间的状态后，它还需要<strong>从当前的输入补充最新的记忆</strong>，这个过程需要“输入门”完成。输入门根据 $X_t$ 、$C_{t-1}$ 、 $H_{t-1}$ 决定哪些部分将进入当前时刻 $C_t$</p>
+<p><strong>输出门</strong>：LSTM结构在计算得到新的状态 $C_t$ 后需要产生当前时刻的输出，这个过程是由“输出门”完成。输出门根据最新的状态 $C_t$ 、上一时刻的输出 $H_{t-1}$ 和当前的输入 $X_t$ 来决定该时刻的输出 $H_t$</p>
+<h4 id="4-双向循环神经网络（BiDirection-RNN）"><a href="#4-双向循环神经网络（BiDirection-RNN）" class="headerlink" title="4. 双向循环神经网络（BiDirection RNN）"></a>4. 双向循环神经网络（BiDirection RNN）</h4><p>在经典的循环神经网络中，状态的传输是从前往后单向传的，然而有些问题中，<strong>当前时刻的输出不仅和之前的状态有关，也与之后的状态有关</strong>，这就需要使用双向循环神经网络解决这个问题。</p>
+<p>双向循环神经网络是<strong>由两个单项循环神经网络上下叠加在一起组成的，输出由这两个循环神经网络的状态共同决定</strong></p>
+<p>在每一个时刻t，输入会同时提供给这两个方向相反的循环神经网络，而输出则是由两个单项循环神经网络共同决定的</p>
+<p><img src="https://img-blog.csdnimg.cn/20190118102555836.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hlbGxvd3V4aWE=,size_16,color_FFFFFF,t_70" alt="img"></p>
+<h4 id="5-深层循环神经网络（deep-RNN）"><a href="#5-深层循环神经网络（deep-RNN）" class="headerlink" title="5. 深层循环神经网络（deep RNN）"></a>5. 深层循环神经网络（deep RNN）</h4><p>为了增强模型的表达能力，可以<strong>将每一时刻上的循环体重复多次。</strong>深层循环神经网络在每一时刻上将循环体结构复制了多次。<strong>每一层循环体中参数是一致的，而不同层中的参数可以不同。</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20190118103252680.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hlbGxvd3V4aWE=,size_16,color_FFFFFF,t_70" alt="img"></p>
+<h4 id="6-循环神经网络的Dropout"><a href="#6-循环神经网络的Dropout" class="headerlink" title="6. 循环神经网络的Dropout"></a>6. 循环神经网络的Dropout</h4><p>通过dropout可以让军妓神经网络更加健壮。类似，在循环神经网络中使用dropout也有同样的功能。</p>
+<p>如果模型的参数太多，而训练样本又太少，训练出来的模型很容易产生过拟合的现象。Dropout可以有效的缓解过拟合的发生，在一定程度上达到正则化的效果。</p>
+<p>Dropout可以作为训练深度神经网络的一种trick供选择。在每个训练批次中，通过忽略一半的特征检测器（让一般的隐层节点值为0），可以明显地减少过拟合现象。这种方式可以减少隐层节点间的相互作用，隐层节点相互作用是指某些隐层节点依赖其他隐层节点才能发挥作用。</p>
+<p>Dropout通俗讲，即：在前向传播的时候，<strong>让某个神经元的激活值以一定的概率p停止工作</strong>，这样可以使模型的泛化性更强，因为它不会太依赖某些局部的特征，类似<strong>卷积神经网络只在全连接层使用dropout</strong>，<strong>循环神经网络一般只在不同层循环结构之间使用dropout</strong>，不在同一层循环结构之间使用。即，从时刻 t - 1传递到时刻t，循环神经网络不会进行状态的dropout；而在同一时刻t中，不同层循环体之间会使用dropout</p>
+<p><img src="https://img-blog.csdnimg.cn/2019011810431060.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hlbGxvd3V4aWE=,size_16,color_FFFFFF,t_70" alt="img"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/卷积神经网络/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1243,7 +1563,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
