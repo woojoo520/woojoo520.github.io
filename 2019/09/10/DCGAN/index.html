@@ -79,17 +79,38 @@
 
 
 
-<meta name="description" content="a study blog">
+<meta name="description" content="UNSUPERVISED REPRESENTATION LEARNING WITH DEEP CONVOLUTIONAL GENERATIVE ADVERSARIAL NETWORKS（DCGAN的非监督表征学习）GAN：对抗生成网络，是生成模型的一种，而它的训练则是处于一种对抗博弈状态中的。 GAN的基本结构GAN的主要结构包括一个生成器G（Generator）和一个判别器（Discrimina">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DCGAN">
 <meta property="og:url" content="https://woojoo520.github.io/2019/09/10/DCGAN/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="a study blog">
+<meta property="og:description" content="UNSUPERVISED REPRESENTATION LEARNING WITH DEEP CONVOLUTIONAL GENERATIVE ADVERSARIAL NETWORKS（DCGAN的非监督表征学习）GAN：对抗生成网络，是生成模型的一种，而它的训练则是处于一种对抗博弈状态中的。 GAN的基本结构GAN的主要结构包括一个生成器G（Generator）和一个判别器（Discrimina">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-10T11:25:36.488Z">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-9aaed21e79bebcc6638742fb126de225_hd.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-b3442ba7058c07d82a17f6a6478ed569_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-a69772e79f153fd05748d4d1f4b0caef_hd.jpg">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=x_i">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cwidetilde+x">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=G%28z%29">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=z">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=y_i">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=1+-+y_i">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=y_i">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=G%28z%29">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-be9ca3874041e3e820cb228851b7eef9_hd.jpg">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cmin+%5Climits_G+%5Cmax+%5Climits_D">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-8ae44c8e2e7f740300055c8944cd2281_hd.jpg">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=V%28G%2C+D%29">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cmax+%5Climits_DV%28D%2C+G%29">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=L">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cmax+%5Climits_DV%28D%2C+G%29">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cmin+%5Climits_G+L">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-f6ce32e325de1f56fe06811de767084c_1200x500.jpg">
+<meta property="og:updated_time" content="2019-09-11T08:06:50.795Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DCGAN">
-<meta name="twitter:description" content="a study blog">
+<meta name="twitter:description" content="UNSUPERVISED REPRESENTATION LEARNING WITH DEEP CONVOLUTIONAL GENERATIVE ADVERSARIAL NETWORKS（DCGAN的非监督表征学习）GAN：对抗生成网络，是生成模型的一种，而它的训练则是处于一种对抗博弈状态中的。 GAN的基本结构GAN的主要结构包括一个生成器G（Generator）和一个判别器（Discrimina">
+<meta name="twitter:image" content="https://pic2.zhimg.com/80/v2-9aaed21e79bebcc6638742fb126de225_hd.jpg">
 
 
 
@@ -308,7 +329,66 @@
       
 
       
-        
+        <h2 id="UNSUPERVISED-REPRESENTATION-LEARNING-WITH-DEEP-CONVOLUTIONAL-GENERATIVE-ADVERSARIAL-NETWORKS（DCGAN的非监督表征学习）"><a href="#UNSUPERVISED-REPRESENTATION-LEARNING-WITH-DEEP-CONVOLUTIONAL-GENERATIVE-ADVERSARIAL-NETWORKS（DCGAN的非监督表征学习）" class="headerlink" title="UNSUPERVISED REPRESENTATION LEARNING WITH DEEP CONVOLUTIONAL GENERATIVE ADVERSARIAL NETWORKS（DCGAN的非监督表征学习）"></a>UNSUPERVISED REPRESENTATION LEARNING WITH DEEP CONVOLUTIONAL GENERATIVE ADVERSARIAL NETWORKS（DCGAN的非监督表征学习）</h2><p>GAN：对抗生成网络，是生成模型的一种，而它的训练则是处于一种对抗博弈状态中的。</p>
+<h3 id="GAN的基本结构"><a href="#GAN的基本结构" class="headerlink" title="GAN的基本结构"></a>GAN的基本结构</h3><p>GAN的主要结构包括一个生成器G（Generator）和一个判别器（Discriminator）</p>
+<h4 id="关于生成器"><a href="#关于生成器" class="headerlink" title="关于生成器"></a>关于生成器</h4><p>对于生成器，输入需要一个n维度向量，输出为图片像素大小的图片。因此需要得到输入的向量。</p>
+<h4 id="关于判别器"><a href="#关于判别器" class="headerlink" title="关于判别器"></a>关于判别器</h4><p>输入为图片，输出为图片的真伪标签</p>
+<h3 id="如何训练"><a href="#如何训练" class="headerlink" title="如何训练"></a>如何训练</h3><p>基本流程如下：</p>
+<ul>
+<li><p>初始化判别器D的参数$\theta_{d}$和生成器G的参数$\theta_{g}$</p>
+</li>
+<li><p>从真实样本中采样$m$个样本${x^1, x^2, …,x^m}$，从先验分布噪声中采样$m$个噪声样本${z^1, z^2,…,z^m}$并通过生成器获取$m$个生成样本$\left{\tilde{x}^{1}, \tilde{x}^{2}, \ldots, \tilde{x}^{m}\right}$。固定生成器G，训练判别器D尽可能好地准确判别真实样本和生成样本，尽可能大地区分正确样本和生成的样本。</p>
+</li>
+<li><p><strong>循环$k$次更新判别器之后，使用较小的学习率来更新一次生成器的参数</strong>，训练生成器使其尽可能能够减小生成样本与真实样本之间的差距，也相当于尽量使得判别器判别错误</p>
+</li>
+<li><p>多次更新迭代之后，最终理想情况是使得判别器判别不出样本来自生成器的输出还是真实的输出，亦即最终样本判别概率均为0.5</p>
+</li>
+</ul>
+<p><code>Tips:之所以要训练k次判别器，再训练生成器，是因为要现拥有一个好的判别器，使得能够较好地区分出真实样本和生成样本之后，才能更为准确地对生成器进行更新</code></p>
+<h3 id="训练相关理论基础"><a href="#训练相关理论基础" class="headerlink" title="训练相关理论基础"></a>训练相关理论基础</h3><p><img src="https://pic2.zhimg.com/80/v2-9aaed21e79bebcc6638742fb126de225_hd.jpg" alt="img"></p>
+<p>判别器在这里是一种分类器，用于区分样本的真伪，因此我们常常使用交叉熵（cross entropy）来进行判别分布的相似性，交叉熵公式如下图所示：</p>
+<p>$H(p, q) :=-\sum_{i} p_{i} \log q_{i}$</p>
+<p><code>Tips:公式中的pi和qi为真实的样本分布和生成器的样本分布。</code></p>
+<p>在当前模型的情况下，判别器为一个二分类问题，因此可以对基本交叉熵进行更具体地展开：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-b3442ba7058c07d82a17f6a6478ed569_hd.jpg" alt="img"></p>
+<p><code>Tips: 其中，假定y1为正确样本分布，那么对应的(1-y1))就是生成样本的分布。D表示判别器，则D(x1)表示判别样本为正确的概率，(1-D(x1)))则对应着判别为错误样本的概率。这里仅仅是对当前情况下的交叉熵损失的具体化。相信大家也还是比较熟悉。</code></p>
+<p>将上式推广到N个样本后，将N个样本相加得到对应的公式如下：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-a69772e79f153fd05748d4d1f4b0caef_hd.jpg" alt="img"></p>
+<p>下面加入GAN中特殊的地方：</p>
+<p><strong>对于GAN中的样本点 <img src="https://www.zhihu.com/equation?tex=x_i" alt="[公式]"> ，对应于两个出处，要么来自于真实样本，要么来自于生成器生成的样本</strong> <img src="https://www.zhihu.com/equation?tex=%5Cwidetilde+x" alt="[公式]"> ~ <img src="https://www.zhihu.com/equation?tex=G%28z%29" alt="[公式]"> ( 这里的 <img src="https://www.zhihu.com/equation?tex=z" alt="[公式]"> 是服从于投到生成器中噪声的分布)。</p>
+<p>其中，对于来自于真实的样本，我们要判别为正确的分布 <img src="https://www.zhihu.com/equation?tex=y_i" alt="[公式]"> 。来自于生成的样本我们要判别其为错误分布（ <img src="https://www.zhihu.com/equation?tex=1+-+y_i" alt="[公式]"> ）。将上面式子进一步使用概率分布的期望形式写出（为了表达无限的样本情况，相当于无限样本求和情况），并且让 <img src="https://www.zhihu.com/equation?tex=y_i" alt="[公式]"> 为 1/2 且使用 <img src="https://www.zhihu.com/equation?tex=G%28z%29" alt="[公式]"> 表示生成样本可以得到如下图8的公式：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-be9ca3874041e3e820cb228851b7eef9_hd.jpg" alt="img"></p>
+<p>实际上就是原本的 <img src="https://www.zhihu.com/equation?tex=%5Cmin+%5Climits_G+%5Cmax+%5Climits_D" alt="[公式]"> 公式，发现他们是不是其实就是同一个东西呢！:-D</p>
+<p><img src="https://pic2.zhimg.com/80/v2-8ae44c8e2e7f740300055c8944cd2281_hd.jpg" alt="img"></p>
+<ul>
+<li><p>这里的 <img src="https://www.zhihu.com/equation?tex=V%28G%2C+D%29" alt="[公式]">相当于表示真实样本和生成样本的差异程度。</p>
+</li>
+<li><p>先看 <img src="https://www.zhihu.com/equation?tex=%5Cmax+%5Climits_DV%28D%2C+G%29" alt="[公式]"> 。这里的意思是固定生成器G，尽可能地让判别器能够最大化地判别出样本来自于真实数据还是生成的数据。</p>
+</li>
+<li><p>再将后面部分看成一个整体令 <img src="https://www.zhihu.com/equation?tex=L" alt="[公式]"> = <img src="https://www.zhihu.com/equation?tex=%5Cmax+%5Climits_DV%28D%2C+G%29" alt="[公式]"> ，看 <img src="https://www.zhihu.com/equation?tex=%5Cmin+%5Climits_G+L" alt="[公式]">，这里是在固定判别器D的条件下得到生成器G，这个G要求能够最小化真实样本与生成样本的差异。</p>
+</li>
+<li><p>通过上述min max的博弈过程，理想情况下会收敛于生成分布拟合于真实分布。</p>
+</li>
+</ul>
+<h3 id="DCGAN"><a href="#DCGAN" class="headerlink" title="DCGAN"></a>DCGAN</h3><p>对现行CNN架构三个改进的学习和纠正</p>
+<ul>
+<li><p>所有的卷积网络，凡是自卷积开始，使用了确定性pooling函数的，都能学习到自己空间上的降采样。我们在生成器中使用了这种方法，允许生成器学习到它自己的空间降采样，也包括判别器</p>
+</li>
+<li><p>消除卷积特征顶部的全连接层：全局pooling增强了模型的稳定性，但减缓了收敛速度。将最该层的卷积特征和输入连接起来，生成器和判别器各自做自己的输出。</p>
+</li>
+<li><p>不使用BN。将每一层的输入都正则化为期望0方差1。改进了训练问题，也缓解了深层网络中的梯度溢出问题。但实际上，在这种方法在深层的生成器中被证明是不适用的，它会导致生成器反复震荡生成单点数据，这在GANs中往往是失败的。对于直接将BN使用在所有层上的方法，同样会引起震荡并导致模型不稳定，所以，不要再生成器的输入层上使用BN，也不要在判别器的输出层上使用BN</p>
+</li>
+</ul>
+<p>DCGAN的架构指导：</p>
+<ul>
+<li>在判别器中，使用带步长的卷积层来替换所有pooling层，生成器中使用小步长卷积来代替pooling层</li>
+<li>在生成器和判别器中使用BN（有效的使数据服从某个固定的数据分布）</li>
+<li>去除深度架构中的全连接层（因为全连接层的参数过多，容易使网络过拟合）</li>
+<li>生成器中，除去最后一层使用Tanh，每一层都使用ReLU来激活（因为发现有边界的激活函数可以让模型更快的学习，并且能快速的覆盖彩色空间）</li>
+<li>判别器中，每一层都用LeakReLU来激活（激活函数的作用是为了在神经网络中进行非线性变换，在DCGAN中，生成器和判别器使用不同的激活函数。）</li>
+</ul>
+<p><img src="https://pic4.zhimg.com/v2-f6ce32e325de1f56fe06811de767084c_1200x500.jpg" alt="ä¸æçæGANæ¼è¿å¾è°±"></p>
+
       
     </div>
     
@@ -341,6 +421,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/11/LeetCode-Day27/" rel="prev" title="LeetCode-Day27">
+                LeetCode-Day27 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -392,8 +476,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -408,7 +501,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -435,6 +528,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#UNSUPERVISED-REPRESENTATION-LEARNING-WITH-DEEP-CONVOLUTIONAL-GENERATIVE-ADVERSARIAL-NETWORKS（DCGAN的非监督表征学习）"><span class="nav-number">1.</span> <span class="nav-text">UNSUPERVISED REPRESENTATION LEARNING WITH DEEP CONVOLUTIONAL GENERATIVE ADVERSARIAL NETWORKS（DCGAN的非监督表征学习）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GAN的基本结构"><span class="nav-number">1.1.</span> <span class="nav-text">GAN的基本结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于生成器"><span class="nav-number">1.1.1.</span> <span class="nav-text">关于生成器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于判别器"><span class="nav-number">1.1.2.</span> <span class="nav-text">关于判别器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何训练"><span class="nav-number">1.2.</span> <span class="nav-text">如何训练</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练相关理论基础"><span class="nav-number">1.3.</span> <span class="nav-text">训练相关理论基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DCGAN"><span class="nav-number">1.4.</span> <span class="nav-text">DCGAN</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

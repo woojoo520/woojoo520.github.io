@@ -241,6 +241,314 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/12/LeetCode-Day28/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/12/LeetCode-Day28/" itemprop="url">LeetCode-Day28</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-12T08:13:31+08:00">
+                2019-09-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/11/LeetCode-Day27/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/11/LeetCode-Day27/" itemprop="url">LeetCode-Day27</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-11T07:59:37+08:00">
+                2019-09-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="LeetCode-Day27——动态规划专题"><a href="#LeetCode-Day27——动态规划专题" class="headerlink" title="LeetCode-Day27——动态规划专题"></a>LeetCode-Day27——动态规划专题</h2><h3 id="97-交错字符串"><a href="#97-交错字符串" class="headerlink" title="97. 交错字符串"></a>97. 交错字符串</h3><p>给定三个字符串 s1, s2, s3, 验证 s3 是否是由 s1 和 s2 交错组成的。</p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: s1 = &quot;aabcc&quot;, s2 = &quot;dbbca&quot;, s3 = &quot;aadbbcbcac&quot;</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure>
+
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: s1 = &quot;aabcc&quot;, s2 = &quot;dbbca&quot;, s3 = &quot;aadbbbaccc&quot;</span><br><span class="line">输出: false</span><br></pre></td></tr></table></figure>
+
+<p>思路：<strong>动态规划</strong></p>
+<p><strong>划重点：</strong></p>
+<p><code>dp[i][j]</code>表示<code>s1</code>的前<code>i</code>个字符和<code>s2</code>的前<code>j</code>个字符是否能够交错生成<code>s3</code>的前<code>i+j</code>个字符。 </p>
+<p><code>dp[0][0] = 1</code>：因为当所有都为空的时候，就已经符合条件了</p>
+<p>初始化的时候第一行为<code>dp[0][i] = dp[0][i - 1] &amp;&amp; s2[i - 1] == s3[i - 1]</code></p>
+<p>同理，第一列为<code>dp[i][0] = dp[i - 1][0] &amp;&amp; s1[i - 1] == s3[i - 1]</code></p>
+<p>（初始化非常非常重要，一定要从空开始考虑，而不要从第一个字符开始考虑，否则会遇到很多bug然后通不过）</p>
+<p>然后动态规划的方程为</p>
+<p><code>dp[i][j] = (dp[i - 1][j] &amp;&amp; s1[i - 1] == s3[i + j - 1]) || (dp[i][j - 1] &amp;&amp; s2[j - 1] == s3[i + j - 1])</code></p>
+<p>这样就可以写出Code了：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isInterleave</span><span class="params">(<span class="built_in">string</span> s1, <span class="built_in">string</span> s2, <span class="built_in">string</span> s3)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len1 = s1.length(), len2 = s2.length();</span><br><span class="line">        <span class="keyword">if</span>(s3.length() != s1.length() + s2.length()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(len1 == <span class="number">0</span> &amp;&amp; len2 == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> s3.length() == <span class="number">0</span> ? <span class="literal">true</span> : <span class="literal">false</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(len1 == <span class="number">0</span> || len2 == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> (s3 == s1 || s3 == s2) ? <span class="literal">true</span> : <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">bool</span> dp[len1 + <span class="number">1</span>][len2 + <span class="number">1</span>] = &#123;&#123;<span class="number">0</span>&#125;&#125;;</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= len1;i++) &#123;</span><br><span class="line">            dp[i][<span class="number">0</span>] = dp[i - <span class="number">1</span>][<span class="number">0</span>] &amp;&amp; s1[i - <span class="number">1</span>] == s3[i - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= len2;i++) &#123;</span><br><span class="line">            dp[<span class="number">0</span>][i] = dp[<span class="number">0</span>][i - <span class="number">1</span>] &amp;&amp; s2[i - <span class="number">1</span>] == s3[i - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= len1;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= len2;j++) &#123;</span><br><span class="line">                dp[i][j] = (dp[i - <span class="number">1</span>][j] &amp;&amp; s1[i - <span class="number">1</span>] == s3[i + j - <span class="number">1</span>]) || (dp[i][j - <span class="number">1</span>] &amp;&amp; s2[j - <span class="number">1</span>] == s3[i + j - <span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[len1][len2];  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="115-不同的子序列"><a href="#115-不同的子序列" class="headerlink" title="115. 不同的子序列"></a>115. 不同的子序列</h3><p>给定一个字符串 S 和一个字符串 T，计算在 S 的子序列中 T 出现的个数。</p>
+<p>一个字符串的一个子序列是指，通过删除一些（也可以不删除）字符且不干扰剩余字符相对位置所组成的新字符串。（例如，”ACE” 是 “ABCDE” 的一个子序列，而 “AEC” 不是）</p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">输入: S = &quot;rabbbit&quot;, T = &quot;rabbit&quot;</span><br><span class="line">输出: 3</span><br><span class="line">解释:</span><br><span class="line"></span><br><span class="line">如下图所示, 有 3 种可以从 S 中得到 &quot;rabbit&quot; 的方案。</span><br><span class="line">(上箭头符号 ^ 表示选取的字母)</span><br><span class="line"></span><br><span class="line">rabbbit</span><br><span class="line">^^^^ ^^</span><br><span class="line">rabbbit</span><br><span class="line">^^ ^^^^</span><br><span class="line">rabbbit</span><br><span class="line">^^^ ^^</span><br></pre></td></tr></table></figure>
+
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">输入: S = &quot;babgbag&quot;, T = &quot;bag&quot;</span><br><span class="line">输出: 5</span><br><span class="line">解释:</span><br><span class="line"></span><br><span class="line">如下图所示, 有 5 种可以从 S 中得到 &quot;bag&quot; 的方案。 </span><br><span class="line">(上箭头符号 ^ 表示选取的字母)</span><br><span class="line"></span><br><span class="line">babgbag</span><br><span class="line">^^ ^</span><br><span class="line">babgbag</span><br><span class="line">^^    ^</span><br><span class="line">babgbag</span><br><span class="line">^    ^^</span><br><span class="line">babgbag</span><br><span class="line">  ^  ^^</span><br><span class="line">babgbag</span><br><span class="line">    ^^</span><br></pre></td></tr></table></figure>
+
+<p>思路：</p>
+<p><code>dp[i][j]</code>表示<code>t</code>的前<code>i</code>个字符与<code>s</code>的前<code>j</code>个字符匹配的个数。</p>
+<p>如果<code>t</code>的第<code>i</code>个字符和<code>s</code>的第<code>j</code>的字符一样的话，那么<code>dp[i][j] = dp[i - 1][j - 1] + dp[i][j - 1]</code></p>
+<p>如果不一样的话， <code>dp[i][j] = dp[i][j - 1]</code>。</p>
+<p>Code：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numDistinct</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len1 = s.length(), len2 = t.length();</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> dp[len2 + <span class="number">1</span>][len1 + <span class="number">1</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= len1;i++) &#123;</span><br><span class="line">            dp[<span class="number">0</span>][i] = <span class="number">1</span>;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= len2;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= len1;j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(t[i - <span class="number">1</span>] == s[j - <span class="number">1</span>]) &#123;</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j - <span class="number">1</span>] + dp[i][j - <span class="number">1</span>];</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    dp[i][j] = dp[i][j - <span class="number">1</span>];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[len2][len1];  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>注意：不过不用long long的话，只用int会爆掉。</p>
+<h3 id="132-分割回文串II"><a href="#132-分割回文串II" class="headerlink" title="132. 分割回文串II"></a>132. 分割回文串II</h3><p>给定一个字符串 s，将 s 分割成一些子串，使每个子串都是回文串。</p>
+<p>返回符合要求的最少分割次数。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;aab&quot;</span><br><span class="line">输出: 1</span><br><span class="line">解释: 进行一次分割就可将 s 分割成 [&quot;aa&quot;,&quot;b&quot;] 这样两个回文子串。</span><br></pre></td></tr></table></figure>
+
+<p>解释：这里一维动态规划，但是这里的想法很难想到（我很难…想到…</p>
+<p>首先初始化整个数组的内容为自己的下标，即一个字母就是一个分割。然后遍历每一个点，以该点为回文中心，向两边更新（注意考虑奇数偶数两种情况）。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minCut</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = s.length();</span><br><span class="line">        <span class="keyword">int</span> dp[len + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= len;i++) &#123;</span><br><span class="line">            dp[i] = i - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++) &#123;</span><br><span class="line">            dp[i + <span class="number">1</span>] = min(dp[i + <span class="number">1</span>], dp[i] + <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(i == len - <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> start = i, end = i + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(start &gt;= <span class="number">0</span> &amp;&amp; end &lt; len &amp;&amp; s[start] == s[end]) &#123;</span><br><span class="line">                dp[end + <span class="number">1</span>] = min(dp[end + <span class="number">1</span>], dp[start] + <span class="number">1</span>);</span><br><span class="line">                start--, end++;</span><br><span class="line">            &#125;</span><br><span class="line">            start = i - <span class="number">1</span>, end = i + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(start &gt;= <span class="number">0</span> &amp;&amp; end &lt; len &amp;&amp; s[start] == s[end]) &#123;</span><br><span class="line">                dp[end + <span class="number">1</span>] = min(dp[end + <span class="number">1</span>], dp[start] + <span class="number">1</span>);</span><br><span class="line">                start--, end++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[len];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="174-地下城游戏"><a href="#174-地下城游戏" class="headerlink" title="174. 地下城游戏"></a>174. 地下城游戏</h3><p>一些恶魔抓住了公主（P）并将她关在了地下城的右下角。地下城是由 M x N 个房间组成的二维网格。我们英勇的骑士（K）最初被安置在左上角的房间里，他必须穿过地下城并通过对抗恶魔来拯救公主。</p>
+<p>骑士的初始健康点数为一个正整数。如果他的健康点数在某一时刻降至 0 或以下，他会立即死亡。</p>
+<p>有些房间由恶魔守卫，因此骑士在进入这些房间时会失去健康点数（若房间里的值为负整数，则表示骑士将损失健康点数）；其他房间要么是空的（房间里的值为 0），要么包含增加骑士健康点数的魔法球（若房间里的值为正整数，则表示骑士将增加健康点数）。</p>
+<p>为了尽快到达公主，骑士决定每次只向右或向下移动一步。</p>
+<p>编写一个函数来计算确保骑士能够拯救到公主所需的最低初始健康点数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">例如，考虑到如下布局的地下城，如果骑士遵循最佳路径 右 -&gt; 右 -&gt; 下 -&gt; 下，则骑士的初始健康点数至少为 7。</span><br><span class="line"></span><br><span class="line">-2 (K)	-3	3</span><br><span class="line">-5	-10	1</span><br><span class="line">10	30	-5 (P)</span><br><span class="line"></span><br><span class="line">说明:</span><br><span class="line"></span><br><span class="line">骑士的健康点数没有上限。</span><br><span class="line"></span><br><span class="line">任何房间都可能对骑士的健康点数造成威胁，也可能增加骑士的健康点数，包括骑士进入的左上角房间以及公主被监禁的右下角房间。</span><br></pre></td></tr></table></figure>
+
+<p>思路：依然是<strong>动态规划。</strong></p>
+<p>但是不一样的是，这道题需要倒着考虑，你需要从右下角位置P处生命值至少为1开始倒着计算。</p>
+<p>每一个点的生命值由它右边或下面的生命值求解，但需要注意的是，求解出来的生命值需要和1进行比较，比如，求解出来的生命值为负值（即后面有可能遇到加了很多生命值的情况），但是在该点<code>[i][j]</code>仍然需要满足生命值大于等于1的请款，因此会有<code>max(1, min(nums[i + 1][j], nums[i][j + 1]) - dungeon[i][j])</code>的表达式产生！</p>
+<p>Code：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">calculateMinimumHP</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; dungeon)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> row = dungeon.size(), col = dungeon[<span class="number">0</span>].size();</span><br><span class="line">    <span class="keyword">int</span> nums[row][col];</span><br><span class="line">    nums[row - <span class="number">1</span>][col - <span class="number">1</span>] = max(<span class="number">1</span>,<span class="number">1</span> - dungeon[row - <span class="number">1</span>][col - <span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = row - <span class="number">2</span>;i &gt;= <span class="number">0</span>;i--) &#123;</span><br><span class="line">        nums[i][col - <span class="number">1</span>] = max(<span class="number">1</span>, nums[i + <span class="number">1</span>][col - <span class="number">1</span>] - dungeon[i][col - <span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = col - <span class="number">2</span>;i &gt;= <span class="number">0</span>;i--) &#123;</span><br><span class="line">        nums[row - <span class="number">1</span>][i] = max(<span class="number">1</span>, nums[row - <span class="number">1</span>][i + <span class="number">1</span>] - dungeon[row - <span class="number">1</span>][i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = row - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = col - <span class="number">2</span>;j &gt;= <span class="number">0</span>;j--) &#123;</span><br><span class="line">            nums[i][j] = max(<span class="number">1</span>, min(nums[i + <span class="number">1</span>][j], nums[i][j + <span class="number">1</span>]) - dungeon[i][j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;       </span><br><span class="line">    <span class="keyword">return</span> nums[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="213-打家劫舍II"><a href="#213-打家劫舍II" class="headerlink" title="213. 打家劫舍II"></a>213. 打家劫舍II</h3><p>你是一个专业的小偷，计划偷窃沿街的房屋，每间房内都藏有一定的现金。这个地方所有的房屋都围成一圈，这意味着第一个房屋和最后一个房屋是紧挨着的。同时，相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。</p>
+<p>给定一个代表每个房屋存放金额的非负整数数组，计算你在不触动警报装置的情况下，能够偷窃到的最高金额。</p>
+<p>示例 1:</p>
+<p>输入: [2,3,2]<br>输出: 3<br>解释: 你不能先偷窃 1 号房屋（金额 = 2），然后偷窃 3 号房屋（金额 = 2）, 因为他们是相邻的。<br>示例 2:</p>
+<p>输入: [1,2,3,1]<br>输出: 4<br>解释: 你可以先偷窃 1 号房屋（金额 = 1），然后偷窃 3 号房屋（金额 = 3）。<br>     偷窃到的最高金额 = 1 + 3 = 4 。</p>
+<p>思路：这里需要注意的是<strong>环形</strong>，因此不能简单的考虑<code>dp[i] = max(dp[i - 1], dp[i - 2] + nums[i])</code>，因为你需要注意第一个是否拿过，因此，我们就设置两种情况，一种是强制拿第一个，另一种就是强制不拿第一个。</p>
+<p>所以我们使用二维的<code>dp[n][2]</code>数组。</p>
+<p><code>dp[0][0]</code>表示不拿第一个,<code>dp[0][1]</code>表示拿第一个，则推导初始情况：</p>
+<p><code>dp[0][0] = 0, dp[1][0] = nums[1], dp[0][1] = nums[0], dp[1][1] = nums[0]</code></p>
+<p>然后写动态转移方程的时候需要注意<code>dp[i][0]</code>只能从<code>dp[j][0]</code>转移过来，<code>dp[i][1]</code>只能从<code>dp[j][1]</code>转移过来。</p>
+<p>最后返回最值的时候，只要<code>dp[n - 1][0]</code>和<code>dp[n - 2][1]</code>之间考虑即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.size();</span><br><span class="line">        <span class="keyword">if</span>(len == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(len &lt; <span class="number">3</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> nums.size() == <span class="number">1</span> ? nums[<span class="number">0</span>] : max(nums[<span class="number">0</span>], nums[<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> dp[len][<span class="number">2</span>];</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>, dp[<span class="number">1</span>][<span class="number">0</span>] = nums[<span class="number">1</span>], dp[<span class="number">0</span>][<span class="number">1</span>] = nums[<span class="number">0</span>], dp[<span class="number">1</span>][<span class="number">1</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>;i &lt; len;i++) &#123;</span><br><span class="line">            dp[i][<span class="number">0</span>] = max(dp[i - <span class="number">1</span>][<span class="number">0</span>], dp[i - <span class="number">2</span>][<span class="number">0</span>] + nums[i]);</span><br><span class="line">            dp[i][<span class="number">1</span>] = max(dp[i - <span class="number">1</span>][<span class="number">1</span>], dp[i - <span class="number">2</span>][<span class="number">1</span>] + nums[i]);</span><br><span class="line">        &#125;     </span><br><span class="line">        <span class="keyword">return</span> max(dp[len - <span class="number">1</span>][<span class="number">0</span>], dp[len - <span class="number">2</span>][<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/10/DCGAN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -312,7 +620,66 @@
       
         
           
-            
+            <h2 id="UNSUPERVISED-REPRESENTATION-LEARNING-WITH-DEEP-CONVOLUTIONAL-GENERATIVE-ADVERSARIAL-NETWORKS（DCGAN的非监督表征学习）"><a href="#UNSUPERVISED-REPRESENTATION-LEARNING-WITH-DEEP-CONVOLUTIONAL-GENERATIVE-ADVERSARIAL-NETWORKS（DCGAN的非监督表征学习）" class="headerlink" title="UNSUPERVISED REPRESENTATION LEARNING WITH DEEP CONVOLUTIONAL GENERATIVE ADVERSARIAL NETWORKS（DCGAN的非监督表征学习）"></a>UNSUPERVISED REPRESENTATION LEARNING WITH DEEP CONVOLUTIONAL GENERATIVE ADVERSARIAL NETWORKS（DCGAN的非监督表征学习）</h2><p>GAN：对抗生成网络，是生成模型的一种，而它的训练则是处于一种对抗博弈状态中的。</p>
+<h3 id="GAN的基本结构"><a href="#GAN的基本结构" class="headerlink" title="GAN的基本结构"></a>GAN的基本结构</h3><p>GAN的主要结构包括一个生成器G（Generator）和一个判别器（Discriminator）</p>
+<h4 id="关于生成器"><a href="#关于生成器" class="headerlink" title="关于生成器"></a>关于生成器</h4><p>对于生成器，输入需要一个n维度向量，输出为图片像素大小的图片。因此需要得到输入的向量。</p>
+<h4 id="关于判别器"><a href="#关于判别器" class="headerlink" title="关于判别器"></a>关于判别器</h4><p>输入为图片，输出为图片的真伪标签</p>
+<h3 id="如何训练"><a href="#如何训练" class="headerlink" title="如何训练"></a>如何训练</h3><p>基本流程如下：</p>
+<ul>
+<li><p>初始化判别器D的参数$\theta_{d}$和生成器G的参数$\theta_{g}$</p>
+</li>
+<li><p>从真实样本中采样$m$个样本${x^1, x^2, …,x^m}$，从先验分布噪声中采样$m$个噪声样本${z^1, z^2,…,z^m}$并通过生成器获取$m$个生成样本$\left{\tilde{x}^{1}, \tilde{x}^{2}, \ldots, \tilde{x}^{m}\right}$。固定生成器G，训练判别器D尽可能好地准确判别真实样本和生成样本，尽可能大地区分正确样本和生成的样本。</p>
+</li>
+<li><p><strong>循环$k$次更新判别器之后，使用较小的学习率来更新一次生成器的参数</strong>，训练生成器使其尽可能能够减小生成样本与真实样本之间的差距，也相当于尽量使得判别器判别错误</p>
+</li>
+<li><p>多次更新迭代之后，最终理想情况是使得判别器判别不出样本来自生成器的输出还是真实的输出，亦即最终样本判别概率均为0.5</p>
+</li>
+</ul>
+<p><code>Tips:之所以要训练k次判别器，再训练生成器，是因为要现拥有一个好的判别器，使得能够较好地区分出真实样本和生成样本之后，才能更为准确地对生成器进行更新</code></p>
+<h3 id="训练相关理论基础"><a href="#训练相关理论基础" class="headerlink" title="训练相关理论基础"></a>训练相关理论基础</h3><p><img src="https://pic2.zhimg.com/80/v2-9aaed21e79bebcc6638742fb126de225_hd.jpg" alt="img"></p>
+<p>判别器在这里是一种分类器，用于区分样本的真伪，因此我们常常使用交叉熵（cross entropy）来进行判别分布的相似性，交叉熵公式如下图所示：</p>
+<p>$H(p, q) :=-\sum_{i} p_{i} \log q_{i}$</p>
+<p><code>Tips:公式中的pi和qi为真实的样本分布和生成器的样本分布。</code></p>
+<p>在当前模型的情况下，判别器为一个二分类问题，因此可以对基本交叉熵进行更具体地展开：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-b3442ba7058c07d82a17f6a6478ed569_hd.jpg" alt="img"></p>
+<p><code>Tips: 其中，假定y1为正确样本分布，那么对应的(1-y1))就是生成样本的分布。D表示判别器，则D(x1)表示判别样本为正确的概率，(1-D(x1)))则对应着判别为错误样本的概率。这里仅仅是对当前情况下的交叉熵损失的具体化。相信大家也还是比较熟悉。</code></p>
+<p>将上式推广到N个样本后，将N个样本相加得到对应的公式如下：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-a69772e79f153fd05748d4d1f4b0caef_hd.jpg" alt="img"></p>
+<p>下面加入GAN中特殊的地方：</p>
+<p><strong>对于GAN中的样本点 <img src="https://www.zhihu.com/equation?tex=x_i" alt="[公式]"> ，对应于两个出处，要么来自于真实样本，要么来自于生成器生成的样本</strong> <img src="https://www.zhihu.com/equation?tex=%5Cwidetilde+x" alt="[公式]"> ~ <img src="https://www.zhihu.com/equation?tex=G%28z%29" alt="[公式]"> ( 这里的 <img src="https://www.zhihu.com/equation?tex=z" alt="[公式]"> 是服从于投到生成器中噪声的分布)。</p>
+<p>其中，对于来自于真实的样本，我们要判别为正确的分布 <img src="https://www.zhihu.com/equation?tex=y_i" alt="[公式]"> 。来自于生成的样本我们要判别其为错误分布（ <img src="https://www.zhihu.com/equation?tex=1+-+y_i" alt="[公式]"> ）。将上面式子进一步使用概率分布的期望形式写出（为了表达无限的样本情况，相当于无限样本求和情况），并且让 <img src="https://www.zhihu.com/equation?tex=y_i" alt="[公式]"> 为 1/2 且使用 <img src="https://www.zhihu.com/equation?tex=G%28z%29" alt="[公式]"> 表示生成样本可以得到如下图8的公式：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-be9ca3874041e3e820cb228851b7eef9_hd.jpg" alt="img"></p>
+<p>实际上就是原本的 <img src="https://www.zhihu.com/equation?tex=%5Cmin+%5Climits_G+%5Cmax+%5Climits_D" alt="[公式]"> 公式，发现他们是不是其实就是同一个东西呢！:-D</p>
+<p><img src="https://pic2.zhimg.com/80/v2-8ae44c8e2e7f740300055c8944cd2281_hd.jpg" alt="img"></p>
+<ul>
+<li><p>这里的 <img src="https://www.zhihu.com/equation?tex=V%28G%2C+D%29" alt="[公式]">相当于表示真实样本和生成样本的差异程度。</p>
+</li>
+<li><p>先看 <img src="https://www.zhihu.com/equation?tex=%5Cmax+%5Climits_DV%28D%2C+G%29" alt="[公式]"> 。这里的意思是固定生成器G，尽可能地让判别器能够最大化地判别出样本来自于真实数据还是生成的数据。</p>
+</li>
+<li><p>再将后面部分看成一个整体令 <img src="https://www.zhihu.com/equation?tex=L" alt="[公式]"> = <img src="https://www.zhihu.com/equation?tex=%5Cmax+%5Climits_DV%28D%2C+G%29" alt="[公式]"> ，看 <img src="https://www.zhihu.com/equation?tex=%5Cmin+%5Climits_G+L" alt="[公式]">，这里是在固定判别器D的条件下得到生成器G，这个G要求能够最小化真实样本与生成样本的差异。</p>
+</li>
+<li><p>通过上述min max的博弈过程，理想情况下会收敛于生成分布拟合于真实分布。</p>
+</li>
+</ul>
+<h3 id="DCGAN"><a href="#DCGAN" class="headerlink" title="DCGAN"></a>DCGAN</h3><p>对现行CNN架构三个改进的学习和纠正</p>
+<ul>
+<li><p>所有的卷积网络，凡是自卷积开始，使用了确定性pooling函数的，都能学习到自己空间上的降采样。我们在生成器中使用了这种方法，允许生成器学习到它自己的空间降采样，也包括判别器</p>
+</li>
+<li><p>消除卷积特征顶部的全连接层：全局pooling增强了模型的稳定性，但减缓了收敛速度。将最该层的卷积特征和输入连接起来，生成器和判别器各自做自己的输出。</p>
+</li>
+<li><p>不使用BN。将每一层的输入都正则化为期望0方差1。改进了训练问题，也缓解了深层网络中的梯度溢出问题。但实际上，在这种方法在深层的生成器中被证明是不适用的，它会导致生成器反复震荡生成单点数据，这在GANs中往往是失败的。对于直接将BN使用在所有层上的方法，同样会引起震荡并导致模型不稳定，所以，不要再生成器的输入层上使用BN，也不要在判别器的输出层上使用BN</p>
+</li>
+</ul>
+<p>DCGAN的架构指导：</p>
+<ul>
+<li>在判别器中，使用带步长的卷积层来替换所有pooling层，生成器中使用小步长卷积来代替pooling层</li>
+<li>在生成器和判别器中使用BN（有效的使数据服从某个固定的数据分布）</li>
+<li>去除深度架构中的全连接层（因为全连接层的参数过多，容易使网络过拟合）</li>
+<li>生成器中，除去最后一层使用Tanh，每一层都使用ReLU来激活（因为发现有边界的激活函数可以让模型更快的学习，并且能快速的覆盖彩色空间）</li>
+<li>判别器中，每一层都用LeakReLU来激活（激活函数的作用是为了在神经网络中进行非线性变换，在DCGAN中，生成器和判别器使用不同的激活函数。）</li>
+</ul>
+<p><img src="https://pic4.zhimg.com/v2-f6ce32e325de1f56fe06811de767084c_1200x500.jpg" alt="ä¸æçæGANæ¼è¿å¾è°±"></p>
+
           
         
       
@@ -1566,356 +1933,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/05/LeetCode-Day21/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/05/LeetCode-Day21/" itemprop="url">LeetCode-Day21</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-05T08:34:54+08:00">
-                2019-09-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="91-解码方法"><a href="#91-解码方法" class="headerlink" title="91. 解码方法"></a>91. 解码方法</h3><p>一条包含字母 A-Z 的消息通过以下方式进行了编码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&apos;A&apos; -&gt; 1</span><br><span class="line">&apos;B&apos; -&gt; 2</span><br><span class="line">...</span><br><span class="line">&apos;Z&apos; -&gt; 26</span><br></pre></td></tr></table></figure>
-
-<p>给定一个只包含数字的非空字符串，请计算解码方法的总数。</p>
-<p>示例 1:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;12&quot;</span><br><span class="line">输出: 2</span><br><span class="line">解释: 它可以解码为 &quot;AB&quot;（1 2）或者 &quot;L&quot;（12）。</span><br></pre></td></tr></table></figure>
-
-<p>示例 2:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;226&quot;</span><br><span class="line">输出: 3</span><br><span class="line">解释: 它可以解码为 &quot;BZ&quot; (2 26), &quot;VF&quot; (22 6), 或者 &quot;BBF&quot; (2 2 6) 。</span><br></pre></td></tr></table></figure>
-
-<h4 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h4><p>本题利用<strong>动态规划</strong>比较容易解决，但是注意需要分情况讨论：</p>
-<ul>
-<li><code>dp[i]</code>为<code>str[i]</code>的译码方法总数</li>
-<li>分情况讨论：（建立最优子情况）<ul>
-<li>若<code>s[i] = &#39;0&#39;</code>，那个若<code>s[i - 1] = ‘1’ or ‘2’</code>，则<code>dp[i] = dp[i - 1]</code><ul>
-<li>解释：<code>s[i - 1] + s[i]</code>唯一被译码，不增加情况</li>
-</ul>
-</li>
-<li>若<code>s[i - 1] = ‘1’</code>，则<code>dp[i] = dp[i - 1] + dp[i - 2]</code><ul>
-<li>解释：<code>s[i - 1]</code>与<code>s[i]</code>分开译码，为<code>dp[i - 1]</code>；合并译码，为<code>dp[i - 2]</code></li>
-</ul>
-</li>
-<li>若<code>s[i - 1]  ‘2’ and ‘1’ &lt;= s[i] &lt;= ‘6’</code>，则<code>dp[i ] = dp[i - 1] + dp[i - 2]</code><ul>
-<li>解释：同上</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>由分析可知，<code>dp[i]</code>仅可能与前两项有关，故可以用单变量代替<code>dp[]</code> 数组，将空间复杂度从<code>O(n)</code> 降到 <code>O(1)</code></li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numDecodings</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s[<span class="number">0</span>] == <span class="string">'0'</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> pre = <span class="number">1</span>, curr = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; s.size();i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> tmp = curr;</span><br><span class="line">            <span class="keyword">if</span>(s[i] == <span class="string">'0'</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span>(s[i - <span class="number">1</span>] == <span class="string">'1'</span> || s[i - <span class="number">1</span>] == <span class="string">'2'</span>) &#123;</span><br><span class="line">                    curr = pre;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(s[i - <span class="number">1</span>] == <span class="string">'1'</span> || (s[i - <span class="number">1</span>] == <span class="string">'2'</span> &amp;&amp; s[i] &gt;= <span class="string">'0'</span> &amp;&amp; s[i] &lt;= <span class="string">'6'</span>)) &#123;</span><br><span class="line">                curr = curr + pre;</span><br><span class="line">            &#125;</span><br><span class="line">            pre = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> curr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="94-二叉树的中序遍历"><a href="#94-二叉树的中序遍历" class="headerlink" title="94. 二叉树的中序遍历"></a>94. 二叉树的中序遍历</h3><p>回顾二叉树了….</p>
-<p>给定一个二叉树，返回它的中序 遍历。</p>
-<p>示例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,null,2,3]</span><br><span class="line">   1</span><br><span class="line">    \</span><br><span class="line">     2</span><br><span class="line">    /</span><br><span class="line">   3</span><br><span class="line"></span><br><span class="line">输出: [1,3,2]</span><br></pre></td></tr></table></figure>
-
-<h4 id="方法一-递归"><a href="#方法一-递归" class="headerlink" title="方法一. 递归"></a>方法一. 递归</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    TreeNode *left;</span><br><span class="line">    TreeNode *right;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Traversal</span><span class="params">(TreeNode* root, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; ans)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        Traversal(root-&gt;left, ans);</span><br><span class="line">        ans.push_back(root-&gt;val);</span><br><span class="line">        Traversal(root-&gt;right, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; inorderTraversal(TreeNode* root) &#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ans;       </span><br><span class="line">    Traversal(root, ans);</span><br><span class="line">    <span class="keyword">return</span> ans; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="方法二-栈"><a href="#方法二-栈" class="headerlink" title="方法二. 栈"></a>方法二. 栈</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; inorderTraversal2(TreeNode* root) &#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ans;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; st;</span><br><span class="line">    TreeNode* curr = root;</span><br><span class="line">    <span class="keyword">while</span>(curr != <span class="literal">NULL</span> || !st.empty) &#123;</span><br><span class="line">        <span class="keyword">while</span>(curr != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            st.push(curr);</span><br><span class="line">            curr = curr-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">        curr = st.top();</span><br><span class="line">        st.pop();</span><br><span class="line">        ans.push_back(curr-&gt;val);</span><br><span class="line">        curr = curr-&gt;right;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> curr-&gt;right;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>解释：</p>
-<p><img src="https://pic.leetcode-cn.com/e2b24c9eb433f8ba14c44891e11371dcb9bd8ee9f89d958802cfb502da7a94c2-image.png" alt="img"></p>
-<p><img src="https://pic.leetcode-cn.com/10eeee7184287966edfc1bdf42321d3cba925af54a8feca860e9fb4e5373ed4c-image.png" alt="img"></p>
-<p><img src="https://pic.leetcode-cn.com/8bccfa2a5634b386e55b07e960da58ec25d58f6aaf60ecbb1348f4e3e8124399-image.png" alt="img"></p>
-<p><img src="https://pic.leetcode-cn.com/4d772c2fb4729a5d7fd2435cce8773ee67395af8191cfc324eeab5def8dc52e1-image.png" alt="img"></p>
-<p><img src="https://pic.leetcode-cn.com/45b974ac01bb9e32983a9650f2fd94eb7c0cb85747d9a01c6921e3070b4d9999-image.png" alt="img"></p>
-<p><img src="https://pic.leetcode-cn.com/bf5ce43502f59ec4a910a092536aba5f8dc118823be4ccb15396e465bcdef4ee-image.png" alt="img"></p>
-<p><img src="https://pic.leetcode-cn.com/275d4b64a6c147129f6cb79a6d9fbd9774bbd3c54bcc4b5a349b249e6027cdf3-image.png" alt="img"></p>
-<p><img src="https://pic.leetcode-cn.com/12de88b354060944395f32020b0759c19283b9bae5d627c865fa0cd133de903c-image.png" alt="img"></p>
-<p><img src="https://pic.leetcode-cn.com/c46c24445c4a29991e5ab2d00d1bf85ce31b92697744820fb6ff4d51fa333c8c-image.png" alt="img"></p>
-<h4 id="方法三-莫里斯遍历"><a href="#方法三-莫里斯遍历" class="headerlink" title="方法三. 莫里斯遍历"></a>方法三. 莫里斯遍历</h4><p>在该方法中，我们使用一种新的数据结构：线索二叉树</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; inorderTraversal3(TreeNode* root) &#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ans;</span><br><span class="line">    TreeNode* curr = root;</span><br><span class="line">    TreeNode* pre;</span><br><span class="line">    <span class="keyword">while</span>(curr != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(curr-&gt;left == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            ans.push_back(curr-&gt;val);</span><br><span class="line">            curr = curr-&gt;right;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            pre = curr-&gt;left;</span><br><span class="line">            <span class="keyword">while</span>(pre-&gt;right != <span class="literal">NULL</span>) &#123;</span><br><span class="line">                pre = pre-&gt;right;</span><br><span class="line">            &#125;</span><br><span class="line">            pre-&gt;right = curr;</span><br><span class="line">            TreeNode* temp = curr;</span><br><span class="line">            curr = curr-&gt;left;</span><br><span class="line">            temp-&gt;left = <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这个还没学会….</p>
-<h3 id="96-不同的二叉搜索树"><a href="#96-不同的二叉搜索树" class="headerlink" title="96. 不同的二叉搜索树"></a>96. 不同的二叉搜索树</h3><p>给定一个整数 n，求以 1 … n 为节点组成的二叉搜索树有多少种？</p>
-<p>示例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">输入: 3</span><br><span class="line">输出: 5</span><br><span class="line">解释:</span><br><span class="line">给定 n = 3, 一共有 5 种不同结构的二叉搜索树:</span><br><span class="line"></span><br><span class="line">   1         3     3      2      1</span><br><span class="line">    \       /     /      / \      \</span><br><span class="line">     3     2     1      1   3      2</span><br><span class="line">    /     /       \                 \</span><br><span class="line">   2     1         2                 3</span><br></pre></td></tr></table></figure>
-
-<p>这是有公式的！</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numTrees</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> dp[n + <span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) &#123;</span><br><span class="line">            dp[i] = dp[i - <span class="number">1</span>] * (<span class="number">2</span> * n - (i - <span class="number">1</span>)) / i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n] - dp[n - <span class="number">1</span>]; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>解释：用到了递归的思想</p>
-<p>先考虑只有一个节点的情形，设此时的形态有<code>f(1)</code>种，很显然，<code>f(1) = 1</code></p>
-<p>如果有两个节点呢？我们很自然的想到，应该在<code>f(1)</code>的基础上考虑递推关系。那么，如果固定一个节点之后，有两种情况，一是左子树还剩下一个节点，此时，类型数量为<code>f(1)</code>，第二种情况是右子树剩下一个节点，此时，类型数量为<code>f(1)</code>，故有<code>f(2) = f(1) + f(1)</code></p>
-<p>如果有三个节点呢？此时不能再固定节点了，因为当节点数量大于等于2时，无论如何固定，其形态必然有很多种，而在这多种基础之上你如何安排后续剩下的节点呢？因此必须跳出这个误区</p>
-<p>回到二叉树的定义，二叉树本质上就是一个递归的形式，左子树，右子树，根节点。所以，根节点应该不变，需要递归处理的是左右子树。</p>
-<p>也就是说，还要考虑固定一个节点，即根节点。按照这个思路，那么左右子树的分布情况为 <code>2 = 0 + 2 = 1 + 1 = 2 + 0</code></p>
-<p>所以，有3个节点的时候，递归形式为<code>f(3) = f(2) + f(1) * f(1) + f(2)</code>（注意这里的乘法，因为左右子树一起组成整棵树，所以根据排列组合里面的乘法原理即可得出）</p>
-<p>那么有n个节点时呢？我们固定一个节点，那么左右子树的分布情况为</p>
-<p><code>n - 1 = n - 1 + 0 = n - 2 + 1 = n - 3 + 2 = ... = 1 + n - 2 = 0 + n - 1</code></p>
-<p>OK，所以递归表达式就出来了</p>
-<p><code>f(n) = f(n - 1) + f(n - 2) * f(1) + f(n - 3) * f(2) + ... + f(1) + f(n - 2) + f(n - 1)</code></p>
-<p>通项公式为：<code>f(n) = 1/(n+1)*C(n, 2n) = C(n, 2n) - C(n - 1, 2n), n = 0, 1, 2...</code> </p>
-<p>前几个数字为1,1,2,5,14,42,132</p>
-<h3 id="98-验证二叉搜索树"><a href="#98-验证二叉搜索树" class="headerlink" title="98. 验证二叉搜索树"></a>98. 验证二叉搜索树</h3><p>给定一个二叉树，判断其是否是一个有效的二叉搜索树。</p>
-<p>假设一个二叉搜索树具有如下特征：</p>
-<p>节点的左子树只包含小于当前节点的数。<br>节点的右子树只包含大于当前节点的数。<br>所有左子树和右子树自身必须也是二叉搜索树。<br>示例 1:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">    2</span><br><span class="line">   / \</span><br><span class="line">  1   3</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure>
-
-<p>示例 2:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">    5</span><br><span class="line">   / \</span><br><span class="line">  1   4</span><br><span class="line">     / \</span><br><span class="line">    3   6</span><br><span class="line">输出: false</span><br><span class="line">解释: 输入为: [5,1,4,null,null,3,6]。</span><br><span class="line">     根节点的值为 5 ，但是其右子节点值为 4 。</span><br></pre></td></tr></table></figure>
-
-<p>方法：中序遍历即可，只要数字是从小到大排列的就好，下面用了栈来解决中序遍历的问题</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">stack</span>&lt;TreeNode*&gt; st;</span><br><span class="line">        <span class="keyword">double</span> inorder = -DBL_MAX;</span><br><span class="line">        <span class="keyword">while</span>(!st.empty() || root != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">while</span>(root != <span class="literal">NULL</span>) &#123;</span><br><span class="line">                st.push(root);</span><br><span class="line">                root = root-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line">            root = st.top();</span><br><span class="line">            st.pop();</span><br><span class="line">            <span class="keyword">if</span>(root-&gt;val &lt;= inorder) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            inorder = root-&gt;val;</span><br><span class="line">            root = root-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>注意：这里有一个巨大无比的坑，就是这里的最小值的表示，如果使用<code>int inorder = INT_MIN</code>，就会出bug，就算是用<code>double inorder = DLB_MIN</code>也会出问题，只能使用<code>double inorder = -DBL_MAX</code>，这是为什么呢？</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DBL_MAX 1.7976931348623158e+308 <span class="comment">// max value </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DBL_MIN 2.2250738585072014e-308 <span class="comment">// min positive value</span></span></span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/05/About-paper/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/05/About-paper/" itemprop="url">About paper</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-05T08:34:31+08:00">
-                2019-09-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="About-Paper"><a href="#About-Paper" class="headerlink" title="About Paper"></a>About Paper</h2><h4 id="论文搜索"><a href="#论文搜索" class="headerlink" title="论文搜索"></a>论文搜索</h4><p>40合一的学术搜索引擎： <a href="https://scholar.chongbuluo.com/" target="_blank" rel="noopener">https://scholar.chongbuluo.com/</a></p>
-<p>这个网站还有资源搜索、图片搜索、数据搜索等等</p>
-<h4 id="数据查找"><a href="#数据查找" class="headerlink" title="数据查找"></a>数据查找</h4><ul>
-<li>国家数据：<a href="http://data.stats.gov.cn/index.htm" target="_blank" rel="noopener">http://data.stats.gov.cn/index.htm</a>    （可以对图表进行编辑等强大操作）</li>
-<li>互联网数据资讯中心：<a href="http://www.199it.com/（有大数据导航）" target="_blank" rel="noopener">http://www.199it.com/（有大数据导航）</a></li>
-</ul>
-<h4 id="公式图表等制作"><a href="#公式图表等制作" class="headerlink" title="公式图表等制作"></a>公式图表等制作</h4><ul>
-<li>MathType和Viso（但是比较难用）</li>
-<li>webdemo：<a href="https://webdemo.myscript.com/（比较好用）" target="_blank" rel="noopener">https://webdemo.myscript.com/（比较好用）</a></li>
-<li>图表在线制作：<a href="https://datavizcatalogue.com/ZH/index.html" target="_blank" rel="noopener">https://datavizcatalogue.com/ZH/index.html</a></li>
-<li>制作各类图表Draw.io：<a href="https://www.draw.io/" target="_blank" rel="noopener">https://www.draw.io/</a></li>
-</ul>
-<h4 id="学术翻译"><a href="#学术翻译" class="headerlink" title="学术翻译"></a>学术翻译</h4><ul>
-<li>Google翻译</li>
-<li>CNKI翻译助手：<a href="http://dict.cnki.net/" target="_blank" rel="noopener">http://dict.cnki.net/</a></li>
-</ul>
-<h4 id="答辩PPT制作"><a href="#答辩PPT制作" class="headerlink" title="答辩PPT制作"></a>答辩PPT制作</h4><ul>
-<li>一键生成完整的PPT：<a href="http://www.itbour.com/" target="_blank" rel="noopener">http://www.itbour.com/</a></li>
-</ul>
-<p>计算机方面的论文收集：</p>
-<p>Computer Vision Foundation open access：<a href="http://openaccess.thecvf.com/menu.py" target="_blank" rel="noopener">http://openaccess.thecvf.com/menu.py</a></p>
-<p>论文收集下载：<a href="https://arxiv.org/" target="_blank" rel="noopener">https://arxiv.org/</a></p>
-<p>NeurlPS： <a href="https://nips.cc/Conferences/" target="_blank" rel="noopener">https://nips.cc/Conferences/</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1966,7 +1983,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
