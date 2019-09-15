@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="29. 两数相除给定两个整数，被除数 dividend 和除数 divisor。将两数相除，要求不使用乘法、除法和 mod 运算符。 返回被除数 dividend 除以除数 divisor 得到的商。 示例 1: 12输入: dividend = 10, divisor = 3输出: 3  示例 2: 12输入: dividend = 7, divisor = -3输出: -2  说明: 被除数和">
+<meta name="description" content="LeetCode-Day31——栈636. 函数的独占时间给出一个非抢占单线程CPU的 n 个函数运行日志，找到函数的独占时间。 每个函数都有一个唯一的 Id，从 0 到 n-1，函数可能会递归调用或者被其他函数调用。 日志是具有以下格式的字符串：function_id：start_or_end：timestamp。例如：”0:start:0” 表示函数 0 从 0 时刻开始运行。”0:end:0">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode-Day10">
-<meta property="og:url" content="https://woojoo520.github.io/2019/08/25/LeetCode-Day10/index.html">
+<meta property="og:title" content="LeetCode-Day31">
+<meta property="og:url" content="https://woojoo520.github.io/2019/09/15/LeetCode-Day31/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="29. 两数相除给定两个整数，被除数 dividend 和除数 divisor。将两数相除，要求不使用乘法、除法和 mod 运算符。 返回被除数 dividend 除以除数 divisor 得到的商。 示例 1: 12输入: dividend = 10, divisor = 3输出: 3  示例 2: 12输入: dividend = 7, divisor = -3输出: -2  说明: 被除数和">
+<meta property="og:description" content="LeetCode-Day31——栈636. 函数的独占时间给出一个非抢占单线程CPU的 n 个函数运行日志，找到函数的独占时间。 每个函数都有一个唯一的 Id，从 0 到 n-1，函数可能会递归调用或者被其他函数调用。 日志是具有以下格式的字符串：function_id：start_or_end：timestamp。例如：”0:start:0” 表示函数 0 从 0 时刻开始运行。”0:end:0">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-25T03:03:13.829Z">
+<meta property="og:updated_time" content="2019-09-15T00:59:44.241Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode-Day10">
-<meta name="twitter:description" content="29. 两数相除给定两个整数，被除数 dividend 和除数 divisor。将两数相除，要求不使用乘法、除法和 mod 运算符。 返回被除数 dividend 除以除数 divisor 得到的商。 示例 1: 12输入: dividend = 10, divisor = 3输出: 3  示例 2: 12输入: dividend = 7, divisor = -3输出: -2  说明: 被除数和">
+<meta name="twitter:title" content="LeetCode-Day31">
+<meta name="twitter:description" content="LeetCode-Day31——栈636. 函数的独占时间给出一个非抢占单线程CPU的 n 个函数运行日志，找到函数的独占时间。 每个函数都有一个唯一的 Id，从 0 到 n-1，函数可能会递归调用或者被其他函数调用。 日志是具有以下格式的字符串：function_id：start_or_end：timestamp。例如：”0:start:0” 表示函数 0 从 0 时刻开始运行。”0:end:0">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://woojoo520.github.io/2019/08/25/LeetCode-Day10/">
+  <link rel="canonical" href="https://woojoo520.github.io/2019/09/15/LeetCode-Day31/">
 
 
 
 
 
-  <title>LeetCode-Day10 | Celery Fairy</title>
+  <title>LeetCode-Day31 | Celery Fairy</title>
   
 
 
@@ -241,7 +241,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/25/LeetCode-Day10/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/15/LeetCode-Day31/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mariana">
@@ -258,7 +258,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LeetCode-Day10</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode-Day31</h1>
         
 
         <div class="post-meta">
@@ -270,8 +270,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-25T09:07:13+08:00">
-                2019-08-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-15T08:53:21+08:00">
+                2019-09-15
               </time>
             
 
@@ -308,19 +308,25 @@
       
 
       
-        <h3 id="29-两数相除"><a href="#29-两数相除" class="headerlink" title="29. 两数相除"></a>29. 两数相除</h3><p>给定两个整数，被除数 dividend 和除数 divisor。将两数相除，要求不使用乘法、除法和 mod 运算符。</p>
-<p>返回被除数 dividend 除以除数 divisor 得到的商。</p>
+        <h2 id="LeetCode-Day31——栈"><a href="#LeetCode-Day31——栈" class="headerlink" title="LeetCode-Day31——栈"></a>LeetCode-Day31——栈</h2><h3 id="636-函数的独占时间"><a href="#636-函数的独占时间" class="headerlink" title="636. 函数的独占时间"></a>636. 函数的独占时间</h3><p>给出一个非抢占单线程CPU的 n 个函数运行日志，找到函数的独占时间。</p>
+<p>每个函数都有一个唯一的 Id，从 0 到 n-1，函数可能会递归调用或者被其他函数调用。</p>
+<p>日志是具有以下格式的字符串：function_id：start_or_end：timestamp。例如：”0:start:0” 表示函数 0 从 0 时刻开始运行。”0:end:0” 表示函数 0 在 0 时刻结束。</p>
+<p>函数的独占时间定义是在该方法中花费的时间，调用其他函数花费的时间不算该函数的独占时间。你需要根据函数的 Id 有序地返回每个函数的独占时间。</p>
 <p>示例 1:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: dividend = 10, divisor = 3</span><br><span class="line">输出: 3</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">n = 2</span><br><span class="line">logs = </span><br><span class="line">[&quot;0:start:0&quot;,</span><br><span class="line"> &quot;1:start:2&quot;,</span><br><span class="line"> &quot;1:end:5&quot;,</span><br><span class="line"> &quot;0:end:6&quot;]</span><br><span class="line">输出:[3, 4]</span><br></pre></td></tr></table></figure>
 
-<p>示例 2:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: dividend = 7, divisor = -3</span><br><span class="line">输出: -2</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">函数 0 在时刻 0 开始，在执行了  2个时间单位结束于时刻 1。</span><br><span class="line">现在函数 0 调用函数 1，函数 1 在时刻 2 开始，执行 4 个时间单位后结束于时刻 5。</span><br><span class="line">函数 0 再次在时刻 6 开始执行，并在时刻 6 结束运行，从而执行了 1 个时间单位。</span><br><span class="line">所以函数 0 总共的执行了 2 +1 =3 个时间单位，函数 1 总共执行了 4 个时间单位。</span><br><span class="line">说明：</span><br><span class="line"></span><br><span class="line">输入的日志会根据时间戳排序，而不是根据日志Id排序。</span><br><span class="line">你的输出会根据函数Id排序，也就意味着你的输出数组中序号为 0 的元素相当于函数 0 的执行时间。</span><br><span class="line">两个函数不会在同时开始或结束。</span><br><span class="line">函数允许被递归调用，直到运行结束。</span><br><span class="line">1 &lt;= n &lt;= 100</span><br></pre></td></tr></table></figure>
 
-<p>说明:</p>
-<p>被除数和除数均为 32 位有符号整数。<br>除数不为 0。<br>假设我们的环境只能存储 32 位有符号整数，其数值范围是 [$−2^{31}$,  $2^{31}$ − 1]。本题中，如果除法结果溢出，则返回 $2^{31}$ − 1。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">divide</span><span class="params">(<span class="keyword">int</span> dividend, <span class="keyword">int</span> divisor)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> HALF_INT = <span class="number">1</span> &lt;&lt; <span class="number">30</span>;</span><br><span class="line">        <span class="keyword">if</span>(divisor == INT_MIN) &#123;</span><br><span class="line">            <span class="keyword">if</span>(dividend == INT_MIN) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> flag = <span class="number">1</span>, add = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span>(dividend &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span>(dividend == INT_MIN) &#123;   </span><br><span class="line">                    <span class="keyword">if</span>(divisor == <span class="number">-1</span>) &#123;</span><br><span class="line">                        <span class="keyword">return</span> INT_MAX;</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (divisor == <span class="number">1</span>) &#123;</span><br><span class="line">                        <span class="keyword">return</span> INT_MIN;</span><br><span class="line">                    &#125;</span><br><span class="line">                    add = <span class="number">1</span>;</span><br><span class="line">                    dividend = INT_MAX;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    add = <span class="number">0</span>;</span><br><span class="line">                    dividend = -dividend;</span><br><span class="line">                &#125;</span><br><span class="line">                flag = (flag == <span class="number">-1</span> ? <span class="number">1</span> : <span class="number">-1</span>);</span><br><span class="line">            &#125; </span><br><span class="line">            <span class="keyword">if</span>(divisor &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                flag = (flag == <span class="number">-1</span> ? <span class="number">1</span> : <span class="number">-1</span>);</span><br><span class="line">                divisor = -divisor;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> cnt = <span class="number">0</span>, bs = divisor;</span><br><span class="line">            <span class="keyword">while</span>(bs &lt; HALF_INT &amp;&amp; bs &lt; dividend) &#123;</span><br><span class="line">                bs &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">                cnt++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = cnt; i &gt;= <span class="number">0</span>; --i, bs &gt;&gt;= <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">while</span>(dividend &gt;= bs) &#123;</span><br><span class="line">                    dividend -= bs;</span><br><span class="line">                    res += <span class="number">1</span> &lt;&lt; i;</span><br><span class="line">                    <span class="keyword">if</span>(add) &#123;</span><br><span class="line">                        dividend += add;</span><br><span class="line">                        add = <span class="number">0</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> flag == <span class="number">-1</span> ? -res : res;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>思路：</p>
+<p>这里主要的问题就在于入栈和出栈的时间如何计算的问题</p>
+<p>首先，<code>res</code>是我们要返回的独占时间的<code>vector</code>，然后<code>st</code>是存放还未出栈（即还未结束的程序）的<code>pair&lt;序号， 时间&gt;</code></p>
+<p>如果当前程序是<code>start</code>的，那么就先计算当前栈顶运行的时间<code>(end - start)</code>，加到<code>res</code>上去，然后再将当前程序压入栈</p>
+<p>人如果当前程序是<code>end</code>的，那么需要先计算当前程序运行的时间，加到<code>res</code>上去，注意这里需要用<code>(end - start + 1)</code>。然后出栈，接着更新栈顶的时间为当前时间，这样就下一次匹配的时候就可以直接使用这边的时间作为<code>start</code>了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; exclusiveTime(<span class="keyword">int</span> n, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; logs) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res(n, <span class="number">0</span>);</span><br><span class="line">        <span class="built_in">stack</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; st;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">string</span> <span class="built_in">log</span>: logs) &#123;</span><br><span class="line">            <span class="function"><span class="built_in">istringstream</span> <span class="title">ss</span><span class="params">(<span class="built_in">log</span>)</span></span>;</span><br><span class="line">            <span class="built_in">string</span> s1, s2, s3;</span><br><span class="line">            getline(ss, s1, <span class="string">':'</span>);</span><br><span class="line">            getline(ss, s2, <span class="string">':'</span>);</span><br><span class="line">            getline(ss, s3, <span class="string">':'</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> id = stoi(s1);</span><br><span class="line">            <span class="built_in">string</span> action = s2;</span><br><span class="line">            <span class="keyword">int</span> time = stoi(s3);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(action == <span class="string">"start"</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span>(!st.empty()) &#123;</span><br><span class="line">                    res[st.top().first] += (time - st.top().second);</span><br><span class="line">                &#125;</span><br><span class="line">                st.push(&#123;id, time&#125;);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; p = st.top();</span><br><span class="line">                st.pop();</span><br><span class="line">                res[p.first] += (time - p.second + <span class="number">1</span>);</span><br><span class="line">                <span class="keyword">if</span>(!st.empty()) &#123;</span><br><span class="line">                    st.top().second = time + <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>解释：npy帮忙写的…我还没看….</p>
+<p><code>Tips:</code></p>
+<p>通过上述程序还可以了解一下<code>istringstream</code>的操作，以及<code>stoi</code>的方便的操作。</p>
 
       
     </div>
@@ -345,8 +351,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/25/LeetCode-Day11/" rel="next" title="LeetCode-Day11">
-                <i class="fa fa-chevron-left"></i> LeetCode-Day11
+              <a href="/2019/09/14/LeetCode-Day30/" rel="next" title="LeetCode-Day30">
+                <i class="fa fa-chevron-left"></i> LeetCode-Day30
               </a>
             
           </div>
@@ -354,10 +360,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/25/LeetCode-Day9/" rel="prev" title="LeetCode-Day9">
-                LeetCode-Day9 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -471,7 +473,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#29-两数相除"><span class="nav-number">1.</span> <span class="nav-text">29. 两数相除</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-Day31——栈"><span class="nav-number">1.</span> <span class="nav-text">LeetCode-Day31——栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#636-函数的独占时间"><span class="nav-number">1.1.</span> <span class="nav-text">636. 函数的独占时间</span></a></li></ol></li></ol></div>
             
 
           </div>
