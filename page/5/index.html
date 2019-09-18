@@ -241,6 +241,414 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/19/LeetCode-Day4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/19/LeetCode-Day4/" itemprop="url">LeetCode-Day4</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-19T09:10:55+08:00">
+                2019-08-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="14-最长公共前缀"><a href="#14-最长公共前缀" class="headerlink" title="14. 最长公共前缀"></a>14. 最长公共前缀</h3><p>编写一个函数来查找字符串数组中的最长公共前缀。</p>
+<p>如果不存在公共前缀，返回空字符串 “”。</p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;]</span><br><span class="line">输出: &quot;fl&quot;</span><br></pre></td></tr></table></figure>
+
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [&quot;dog&quot;,&quot;racecar&quot;,&quot;car&quot;]</span><br><span class="line">输出: &quot;&quot;</span><br><span class="line">解释: 输入不存在公共前缀。</span><br></pre></td></tr></table></figure>
+
+<p><strong>说明:</strong></p>
+<p>所有输入只包含小写字母 a-z 。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">longestCommonPrefix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; strs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(strs.empty()) <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j&lt;strs[<span class="number">0</span>].size(); j++)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;strs.size(); i++)</span><br><span class="line">                <span class="keyword">if</span>(j&gt;strs[i].size() || strs[<span class="number">0</span>][j] != strs[i][j])</span><br><span class="line">                    <span class="keyword">return</span> strs[i].substr(<span class="number">0</span>,j);</span><br><span class="line">        <span class="keyword">return</span> strs[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>解释：</p>
+<p>如果strs的长度为0，直接返回“”</p>
+<p>然后同时遍历每个字母的第一个字符，第二个字符…直到遇到不相等的就直接返回。</p>
+<h3 id="15-三数之和"><a href="#15-三数之和" class="headerlink" title="15. 三数之和"></a>15. 三数之和</h3><p>给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。</p>
+<p>注意：答案中不可以包含重复的三元组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，</span><br><span class="line"></span><br><span class="line">满足要求的三元组集合为：</span><br><span class="line">[</span><br><span class="line">  [-1, 0, 1],</span><br><span class="line">  [-1, -1, 2]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p><strong>解题方案：</strong></p>
+<ul>
+<li>首先对数组进行排序， 排序后固定一个数nums[i]，再使用左右指针指向nums[i]后面的两端，数字分别为nums[L]和nums[R]， 计算三个数的和sum，判断是否满足为0，满足则添加进结果集</li>
+<li>如果nums[i] 大于0，则三数之和必然无法等于0，结束循环</li>
+<li>如果nums[i] == nums[i - 1]，则说明该数字重复，会导致结果重复，所以应该跳过</li>
+<li>当sum == 0时，nums[L] == nums[L + 1]则会导致结果重复，应该跳过,L++</li>
+<li>当sum == 0时，nums[R] == nums[R - 1]时会导致结果重复，应该跳过，R–</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; threeSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        sort(nums.begin(), nums.end());</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; ans;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; nums.size() &amp;&amp; nums[i] &lt;= <span class="number">0</span>;i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(i == <span class="number">0</span> || nums[i] &gt; nums[i - <span class="number">1</span>]) &#123;</span><br><span class="line">                <span class="keyword">int</span> l = i + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">int</span> r = nums.size() - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span>(l &lt; r) &#123;</span><br><span class="line">                    <span class="keyword">int</span> sum = nums[i] + nums[l] + nums[r];</span><br><span class="line">                    <span class="keyword">if</span>(sum == <span class="number">0</span>) &#123;</span><br><span class="line">                        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; temp;</span><br><span class="line">                        temp.push_back(nums[i]);</span><br><span class="line">                        temp.push_back(nums[l]);</span><br><span class="line">                        temp.push_back(nums[r]);</span><br><span class="line">                        ans.push_back(temp);</span><br><span class="line">                        l += <span class="number">1</span>;</span><br><span class="line">                        r -= <span class="number">1</span>;</span><br><span class="line">                        <span class="keyword">while</span>(l &lt; r &amp;&amp; nums[l] == nums[l - <span class="number">1</span>]) &#123;</span><br><span class="line">                            l++;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">while</span>(l &lt; r &amp;&amp; nums[r] == nums[r + <span class="number">1</span>]) &#123;</span><br><span class="line">                            r--;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(sum &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                        l++;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        r--;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/17/LeetCode-Day3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/17/LeetCode-Day3/" itemprop="url">LeetCode-Day3</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-17T21:44:01+08:00">
+                2019-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="11-盛最多水的容器"><a href="#11-盛最多水的容器" class="headerlink" title="11. 盛最多水的容器"></a>11. 盛最多水的容器</h3><p>给定 n 个非负整数 a1，a2，…，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。</p>
+<p>说明：你不能倾斜容器，且 n 的值至少为 2</p>
+<p><img src="https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/07/25/question_11.jpg" alt="img"></p>
+<p><strong>示例:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,8,6,2,5,4,8,3,7]</span><br><span class="line">输出: 49</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = height.size();</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = len - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>, temp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> minHeight;</span><br><span class="line">        <span class="keyword">while</span>(left != right) &#123;</span><br><span class="line">            minHeight = height[left] &lt; height[right] ? height[left++] : height[right--];</span><br><span class="line">            temp = minHeight * (right - left + <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(temp &gt; max) &#123;</span><br><span class="line">                max = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>解释：</p>
+<p>这里采用的是<strong>双指针法</strong></p>
+<p>这种方法背后的思路在于，两线段之间形成的区域总是会受到较短的那条长度的限制。此外，两条线段距离越远，得到的面积就会越大。</p>
+<p>所以，我们在由线段构成的数组中使用两个指针，一个放在开始，一个放在末尾。此外，我们会使用变量 max 来持续存储到目前为止所获得的最大面积。 在每一步中，我们会找出指针所指向的两条线段形成的区域，更新 max，并将指向较短线段的指针向较长线段那端移动一步。</p>
+<p><img src="https://pic.leetcode-cn.com/Figures/11_Container_WaterSlide1.PNG" alt="img"></p>
+<p>这种方法如何工作？</p>
+<p>最初我们考虑由最外围两条线段构成的区域。现在，为了使面积最大化，我们需要考虑更长的两条线段之间的区域。如果我们试图将指向较长线段的指针向内侧移动，矩形区域的面积将受限于较短的线段而不会获得任何增加。但是，在同样的条件下，移动指向较短线段的指针尽管造成了矩形宽度的减小，但却可能会有助于面积的增大。因为移动较短线段的指针会得到一条相对较长的线段，这可以克服由宽度减小而引起的面积减小。</p>
+<h3 id="12-整数转罗马数字"><a href="#12-整数转罗马数字" class="headerlink" title="12.整数转罗马数字"></a>12.整数转罗马数字</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">intToRoman</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> values[] = &#123;<span class="number">1000</span>, <span class="number">900</span>, <span class="number">500</span>, <span class="number">400</span>, <span class="number">100</span>, <span class="number">90</span>, <span class="number">50</span>, <span class="number">40</span>, <span class="number">10</span>, <span class="number">9</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">1</span>&#125;;</span><br><span class="line">        <span class="built_in">string</span> reps[] = &#123;<span class="string">"M"</span>, <span class="string">"CM"</span>, <span class="string">"D"</span>, <span class="string">"CD"</span>, <span class="string">"C"</span>, <span class="string">"XC"</span>, <span class="string">"L"</span>, <span class="string">"XL"</span>, <span class="string">"X"</span>, <span class="string">"IX"</span>, <span class="string">"V"</span>, <span class="string">"IV"</span>, <span class="string">"I"</span>&#125;;</span><br><span class="line">        <span class="built_in">string</span> res;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">13</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">while</span>(num &gt;= values[i]) &#123;</span><br><span class="line">                num -= values[i];</span><br><span class="line">                res += reps[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;        </span><br><span class="line">        <span class="keyword">return</span> res; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/17/LeetCode-Day2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/17/LeetCode-Day2/" itemprop="url">LeetCode-Day2</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-17T21:43:47+08:00">
+                2019-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今天主要学习了int的最大范围的表示</p>
+<p>$ -2^{31} &lt; int &lt; 2^{31} - 1$</p>
+<p>min表示为<code>-(1 &lt;&lt; 31)</code></p>
+<p>max表示为<code>(1 &lt;&lt; 31) - 1</code></p>
+<p>这里需要注意的是<code>&lt;&lt;</code>移位运算符的优先级比较低，不可以写成<code>1 &lt;&lt; 31 - 1</code>，会被理解为<code>1 &lt;&lt; (31 - 1)</code>，即<code>1 &lt;&lt;30</code></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/17/HDR的简单介绍/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1438,448 +1846,6 @@ Neural Networks</code>中，他们声称<code>Fancy PCA</code>可以近似捕获
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/NormFace/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/09/NormFace/" itemprop="url">NormFace</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-09T16:29:48+08:00">
-                2019-08-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="人脸识别：NormFace"><a href="#人脸识别：NormFace" class="headerlink" title="人脸识别：NormFace"></a>人脸识别：NormFace</h2><p>参考链接：<a href="https://blog.csdn.net/wfei101/article/details/82890444" target="_blank" rel="noopener">https://blog.csdn.net/wfei101/article/details/82890444</a></p>
-<h3 id="提出问题"><a href="#提出问题" class="headerlink" title="提出问题"></a>提出问题</h3><p>之前的人脸识别工作，在特征比较阶段，通常使用的都是特征的余弦距离</p>
-<p>$cos \theta = \frac {a * b} {||a|| ||b||}$</p>
-<p>而余弦距离等价于L2归一化后的内积，也等价于L2归一化后的欧氏距离（欧氏距离表示超球面上的弦长，两个向量之间的夹角越大，弦长也越大）</p>
-<p>然而，实际上训练的时候用的都是没有L2归一化的内积</p>
-<p>关于这一点，可以这样解释，softmax函数是：</p>
-<p>$P_{k}= \frac {e^{W_{k}x}} {\sum_{j=0}^{d} e^{W_{j}x}}$</p>
-<p>可以理解为$W_{k}$ 和特征向量 $x$的内积越大，x属于第k类概率也就越大，训练过程就是最大化x与其标签项所对应项的权值$W_{label(x)}$的过程</p>
-<p><img src="https://img-blog.csdn.net/20180318154156748?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L0ZpcmVfTGlnaHRf/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>也就是说在训练时使用的距离度量与在测试时使用的度量是不一样的</p>
-<h3 id="测试时是否需要归一化？"><a href="#测试时是否需要归一化？" class="headerlink" title="测试时是否需要归一化？"></a>测试时是否需要归一化？</h3><p>事实证明，进行人脸验证时，使用归一化后的内积或者欧氏距离效果会优于直接计算两个特征向量的内积或者欧氏距离，实验结果如下</p>
-<p><img src="https://img-blog.csdn.net/20180318154219273?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L0ZpcmVfTGlnaHRf/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<ul>
-<li>注意这个Normalization不同于batch normalization，一个是对L2翻书进行归一化，一个是均值归0，方差归1</li>
-</ul>
-<h3 id="那么是否可以直接在训练时也对特征向量归一化？"><a href="#那么是否可以直接在训练时也对特征向量归一化？" class="headerlink" title="那么是否可以直接在训练时也对特征向量归一化？"></a>那么是否可以直接在训练时也对特征向量归一化？</h3><p>针对上面的问题，作者设计实验，通过归一化Softmax所有的特征和权重来创建一个cosine layer，实验结果是<strong>网络不收敛了</strong>。</p>
-<h3 id="本论文要解决的四大问题："><a href="#本论文要解决的四大问题：" class="headerlink" title="本论文要解决的四大问题："></a>本论文要解决的四大问题：</h3><ul>
-<li>为什么在测试时必须要归一化？</li>
-<li>为什么直接优化余弦相似度会导致网络不收敛？</li>
-<li>怎么样使用softmaxloss优化余弦相似度？</li>
-<li>既然softmax loss在优化余弦相似度时不能收敛，那么其他的损失函数可以收敛吗？</li>
-</ul>
-<h3 id="L2归一化"><a href="#L2归一化" class="headerlink" title="L2归一化"></a>L2归一化</h3><h4 id="为什么要归一化"><a href="#为什么要归一化" class="headerlink" title="为什么要归一化"></a>为什么要归一化</h4><p>全连接层特征降至二维的MNIST特征图</p>
-<p>左图中，f2f3是同一类的两个特征，但是可以看到f1和f2的距离明显小于f2和f3的距离，因此，加入不对特征进行归一化再比较距离的话，可能就会误判f1f2为同一类</p>
-<p><img src="https://img-blog.csdn.net/20180318154315787?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L0ZpcmVfTGlnaHRf/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<h4 id="为什么特征会呈辐射状分布？"><a href="#为什么特征会呈辐射状分布？" class="headerlink" title="为什么特征会呈辐射状分布？"></a>为什么特征会呈辐射状分布？</h4><p>Softmax实际上是一种（Soft）软的max（最大化）操作,考虑Softmax的概率</p>
-<p>$P_{i}(f)= \frac {e^{W_{i}^{T}f}} {\sum_{j=1}^{n} e^{W_{j}^{T}f}}$</p>
-<p>假设是一个十个分类问题，那么每个类都会对应一个权值向量W0,W1…W9,某个特征f会被分为哪一类，<strong>取决f和哪一个权值向量的内积最大</strong>。</p>
-<p>也就是说，靠近W0的向量会被归为第一类，靠近W1的向量会归为第二类，以此类推。网络在训练过程中，为了使得各个分类更明显，会让各个权值向量W逐渐分散开，相互之间有一定的角度，而<strong>靠近某一权值向量的特征就会被归为相应的类别</strong>，因此特征最终会呈辐射状分布。</p>
-<h4 id="如果添加了偏置，结果会是怎么样的呢？"><a href="#如果添加了偏置，结果会是怎么样的呢？" class="headerlink" title="如果添加了偏置，结果会是怎么样的呢？"></a>如果添加了偏置，结果会是怎么样的呢？</h4><p>$L_{s}= - \frac{1}{m} \sum_{i = 1}^{m} log\frac {e^{W_{y_{i}}^{T} f_{i} + b_{y_{i}}}} {\sum_{j=1}^{n} e^{W_{j}^{T}f_{i} + b_{j}}}$</p>
-<p>如果添加了骗纸，不同类的b不同，则会造成有的类w角度近似相等，而依据b来区分的情况。如下图：</p>
-<p><img src="https://img-blog.csdn.net/20180318154405545?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L0ZpcmVfTGlnaHRf/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>在这种情况下，如果再对w进行归一化，那个中间这些类会散步在单位圆上各个方向，造成错误分类。</p>
-<p>所以添加偏置对我们通过余弦距离来分类没有帮助，弱化了网络的学习能力，所以我们不添加偏置</p>
-<h4 id="网络为何不收敛？"><a href="#网络为何不收敛？" class="headerlink" title="网络为何不收敛？"></a>网络为何不收敛？</h4>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/卷积/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/09/卷积/" itemprop="url">卷积在图像处理中的应用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-09T15:09:44+08:00">
-                2019-08-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>卷积的用途：</p>
-<p>将图像相邻子区域的像素值与卷积核执行“卷积”操作，可以获取相邻数据之间的统计关系，从而可挖掘图像中的某些重要特征。</p>
-<p>比较抽象…所以特征到底是什么？用图像来形象的说明一下</p>
-<p><img src="https://pic4.zhimg.com/v2-b0f198aa46872eb91cb7f1f593073f13_b.jpg" alt="img"></p>
-<p>下面我们简单介绍一下常用的“久经考验”的卷积核。<br>（1）同一化核（Identity）。从图13-6可见，这个滤波器什么也没有做，卷积后得到的图像和原图一样。因为这个核只有中心点的值是1。邻域点的权值都是0，所以对滤波后的取值没有任何影响。<br>（2）边缘检测核（Edge Detection），也称为高斯-拉普拉斯算子。需要注意的是，这个核矩阵的元素总和为0（即中间元素为8，而周围8个元素之和为-8），所以滤波后的图像会很暗，而只有边缘位置是有亮度的。<br>（3）图像锐化核（Sharpness Filter）。图像的锐化和边缘检测比较相似。首先找到边缘，然后再把边缘加到原来的图像上面，如此一来，就强化了图像的边缘，使得图像看起来更加锐利。<br>（4）均值模糊（Box Blur /Averaging）。这个核矩阵的每个元素值都是1，它将当前像素和它的四邻域的像素一起取平均，然后再除以9。均值模糊比较简单，但图像处理得不够平滑。因此，还可以采用高斯模糊核（Gaussian Blur），这个核被广泛用在图像降噪上。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/center-loss/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/09/center-loss/" itemprop="url">center loss</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-09T14:31:07+08:00">
-                2019-08-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Center-Loss"><a href="#Center-Loss" class="headerlink" title="Center Loss"></a>Center Loss</h2><h3 id="一-简介"><a href="#一-简介" class="headerlink" title="一. 简介"></a>一. 简介</h3><p>论文链接：<a href="http://ydwen.github.io/papers/WenECCV16.pdf" target="_blank" rel="noopener">http://ydwen.github.io/papers/WenECCV16.pdf</a> </p>
-<h3 id="二-为什么要使用Center-Loss？"><a href="#二-为什么要使用Center-Loss？" class="headerlink" title="二. 为什么要使用Center Loss？"></a>二. 为什么要使用Center Loss？</h3><p>简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。</p>
-<p>仅仅使用softmax作为监督信号的输出处理就只能做到seperable而不是discriminative，如下图:</p>
-<p><img src="https://img-blog.csdn.net/20180727140845416?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<h3 id="三-如何使学到的特征差异化更大——Center-Loss"><a href="#三-如何使学到的特征差异化更大——Center-Loss" class="headerlink" title="三. 如何使学到的特征差异化更大——Center Loss"></a>三. 如何使学到的特征差异化更大——Center Loss</h3><p>融合Softmax Loss与Center loss</p>
-<p><strong>Softmax Loss（保证类之间的feature距离最大）与Center Loss（保证类内的feature距离最小，更接近于类中心）</strong></p>
-<p><img src="https://img-blog.csdn.net/20180727150130651?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<p><img src="https://img-blog.csdn.net/2018072715022915?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<p>m是mini-batch、n是class。在Lc公式中有一个缺陷，就是$C_{y_{i}}$是i这个样本对应的类别yi所属于的类中心C∈ Rd，d代表d维。</p>
-<p>理想情况下，Cyi需要随着学到的feature变化而实时更新，也就是要在每一次迭代中用整个数据集的feature来算每个类的中心。</p>
-<p>但这显然不现实，做以下两个修改：</p>
-<p>1、由整个训练集更新center改为mini-batch更改center  </p>
-<p>2、避免错误分类的样本的干扰，使用scalar α 来控制center的学习率  </p>
-<p>因此求算梯度的公式如下：</p>
-<p><img src="https://img-blog.csdn.net/20180727153311160?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<p>即：当yi = j，也就是mini-batch中某一个sample是对应要更新的那一个类的center的时候就累加起来除以某类的个数+1。</p>
-<p><img src="https://img-blog.csdn.net/2018072715370270?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<p>最终loss联立起来如上图，λ用于平衡softmax loss与center loss，越大则区分度 越大，如下图效果：</p>
-<p><img src="https://img-blog.csdn.net/20180727150702547?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<h3 id="四-Center-Loss的实现"><a href="#四-Center-Loss的实现" class="headerlink" title="四. Center Loss的实现"></a>四. Center Loss的实现</h3><p>pytorch实现：<a href="https://github.com/jxgu1016/MNIST_center_loss_pytorch" target="_blank" rel="noopener">https://github.com/jxgu1016/MNIST_center_loss_pytorch</a></p>
-<ul>
-<li>网络结构</li>
-</ul>
-<p><img src="https://img-blog.csdn.net/20180727162522989?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<p>即在特征层输出（classification前最后一层）引入center loss：</p>
-<p><img src="https://img-blog.csdn.net/20180727162755579?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<h4 id="fully-connected-和-local-connected"><a href="#fully-connected-和-local-connected" class="headerlink" title="fully-connected 和 local-connected"></a>fully-connected 和 local-connected</h4><h5 id="判断fully-connected的方法："><a href="#判断fully-connected的方法：" class="headerlink" title="判断fully-connected的方法："></a>判断fully-connected的方法：</h5><ul>
-<li><p>对于neuron的链接（点对点的链接）都是fully connected（这里其实就是MLP）</p>
-</li>
-<li><p>对于有filter的network，不是看filter的size，而是看output的feature map的size。如果output feature map的size还是1 * 1 * N的话，这个layer就是fully connected layer</p>
-<p><strong>解释第二个判断方法：</strong></p>
-<ul>
-<li>1 * 1的filter size不一定是fully connected。比如input size是10 * 10 * 100， filter size是1 * 1 * 100， 重复50次，则该layer的总weights是：1 * 1 * 100 * 50</li>
-<li>1 * 1的filter size如果要是 fully connected， 则input size必须是1 * 1</li>
-<li>input size是10x10的时候却是fully connected的情况：这里我们的output size肯定是1x1，且我们的filter size肯定是10x10。</li>
-</ul>
-<p><strong>总结：filter size等于input size则是fully connected</strong></p>
-</li>
-</ul>
-<p>综上：</p>
-<ul>
-<li>fully connected没有weight share</li>
-<li>对于neuron的连接（点对点的链接）都是fully connected（MLP——多层感知器）</li>
-<li>Convolution中当filter size等于input size时，就是fully connected，此时的output size为1 * 1 * N</li>
-<li>当1 *1不等于input size时，1 * 1一样具备weights share的能力。</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1930,7 +1896,7 @@ Neural Networks</code>中，他们声称<code>Fancy PCA</code>可以近似捕获
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-count">77</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

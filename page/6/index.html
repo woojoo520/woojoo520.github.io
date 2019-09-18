@@ -241,6 +241,448 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/NormFace/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/09/NormFace/" itemprop="url">NormFace</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-09T16:29:48+08:00">
+                2019-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="人脸识别：NormFace"><a href="#人脸识别：NormFace" class="headerlink" title="人脸识别：NormFace"></a>人脸识别：NormFace</h2><p>参考链接：<a href="https://blog.csdn.net/wfei101/article/details/82890444" target="_blank" rel="noopener">https://blog.csdn.net/wfei101/article/details/82890444</a></p>
+<h3 id="提出问题"><a href="#提出问题" class="headerlink" title="提出问题"></a>提出问题</h3><p>之前的人脸识别工作，在特征比较阶段，通常使用的都是特征的余弦距离</p>
+<p>$cos \theta = \frac {a * b} {||a|| ||b||}$</p>
+<p>而余弦距离等价于L2归一化后的内积，也等价于L2归一化后的欧氏距离（欧氏距离表示超球面上的弦长，两个向量之间的夹角越大，弦长也越大）</p>
+<p>然而，实际上训练的时候用的都是没有L2归一化的内积</p>
+<p>关于这一点，可以这样解释，softmax函数是：</p>
+<p>$P_{k}= \frac {e^{W_{k}x}} {\sum_{j=0}^{d} e^{W_{j}x}}$</p>
+<p>可以理解为$W_{k}$ 和特征向量 $x$的内积越大，x属于第k类概率也就越大，训练过程就是最大化x与其标签项所对应项的权值$W_{label(x)}$的过程</p>
+<p><img src="https://img-blog.csdn.net/20180318154156748?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L0ZpcmVfTGlnaHRf/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>也就是说在训练时使用的距离度量与在测试时使用的度量是不一样的</p>
+<h3 id="测试时是否需要归一化？"><a href="#测试时是否需要归一化？" class="headerlink" title="测试时是否需要归一化？"></a>测试时是否需要归一化？</h3><p>事实证明，进行人脸验证时，使用归一化后的内积或者欧氏距离效果会优于直接计算两个特征向量的内积或者欧氏距离，实验结果如下</p>
+<p><img src="https://img-blog.csdn.net/20180318154219273?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L0ZpcmVfTGlnaHRf/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<ul>
+<li>注意这个Normalization不同于batch normalization，一个是对L2翻书进行归一化，一个是均值归0，方差归1</li>
+</ul>
+<h3 id="那么是否可以直接在训练时也对特征向量归一化？"><a href="#那么是否可以直接在训练时也对特征向量归一化？" class="headerlink" title="那么是否可以直接在训练时也对特征向量归一化？"></a>那么是否可以直接在训练时也对特征向量归一化？</h3><p>针对上面的问题，作者设计实验，通过归一化Softmax所有的特征和权重来创建一个cosine layer，实验结果是<strong>网络不收敛了</strong>。</p>
+<h3 id="本论文要解决的四大问题："><a href="#本论文要解决的四大问题：" class="headerlink" title="本论文要解决的四大问题："></a>本论文要解决的四大问题：</h3><ul>
+<li>为什么在测试时必须要归一化？</li>
+<li>为什么直接优化余弦相似度会导致网络不收敛？</li>
+<li>怎么样使用softmaxloss优化余弦相似度？</li>
+<li>既然softmax loss在优化余弦相似度时不能收敛，那么其他的损失函数可以收敛吗？</li>
+</ul>
+<h3 id="L2归一化"><a href="#L2归一化" class="headerlink" title="L2归一化"></a>L2归一化</h3><h4 id="为什么要归一化"><a href="#为什么要归一化" class="headerlink" title="为什么要归一化"></a>为什么要归一化</h4><p>全连接层特征降至二维的MNIST特征图</p>
+<p>左图中，f2f3是同一类的两个特征，但是可以看到f1和f2的距离明显小于f2和f3的距离，因此，加入不对特征进行归一化再比较距离的话，可能就会误判f1f2为同一类</p>
+<p><img src="https://img-blog.csdn.net/20180318154315787?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L0ZpcmVfTGlnaHRf/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<h4 id="为什么特征会呈辐射状分布？"><a href="#为什么特征会呈辐射状分布？" class="headerlink" title="为什么特征会呈辐射状分布？"></a>为什么特征会呈辐射状分布？</h4><p>Softmax实际上是一种（Soft）软的max（最大化）操作,考虑Softmax的概率</p>
+<p>$P_{i}(f)= \frac {e^{W_{i}^{T}f}} {\sum_{j=1}^{n} e^{W_{j}^{T}f}}$</p>
+<p>假设是一个十个分类问题，那么每个类都会对应一个权值向量W0,W1…W9,某个特征f会被分为哪一类，<strong>取决f和哪一个权值向量的内积最大</strong>。</p>
+<p>也就是说，靠近W0的向量会被归为第一类，靠近W1的向量会归为第二类，以此类推。网络在训练过程中，为了使得各个分类更明显，会让各个权值向量W逐渐分散开，相互之间有一定的角度，而<strong>靠近某一权值向量的特征就会被归为相应的类别</strong>，因此特征最终会呈辐射状分布。</p>
+<h4 id="如果添加了偏置，结果会是怎么样的呢？"><a href="#如果添加了偏置，结果会是怎么样的呢？" class="headerlink" title="如果添加了偏置，结果会是怎么样的呢？"></a>如果添加了偏置，结果会是怎么样的呢？</h4><p>$L_{s}= - \frac{1}{m} \sum_{i = 1}^{m} log\frac {e^{W_{y_{i}}^{T} f_{i} + b_{y_{i}}}} {\sum_{j=1}^{n} e^{W_{j}^{T}f_{i} + b_{j}}}$</p>
+<p>如果添加了骗纸，不同类的b不同，则会造成有的类w角度近似相等，而依据b来区分的情况。如下图：</p>
+<p><img src="https://img-blog.csdn.net/20180318154405545?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L0ZpcmVfTGlnaHRf/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>在这种情况下，如果再对w进行归一化，那个中间这些类会散步在单位圆上各个方向，造成错误分类。</p>
+<p>所以添加偏置对我们通过余弦距离来分类没有帮助，弱化了网络的学习能力，所以我们不添加偏置</p>
+<h4 id="网络为何不收敛？"><a href="#网络为何不收敛？" class="headerlink" title="网络为何不收敛？"></a>网络为何不收敛？</h4>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/卷积/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/09/卷积/" itemprop="url">卷积在图像处理中的应用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-09T15:09:44+08:00">
+                2019-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>卷积的用途：</p>
+<p>将图像相邻子区域的像素值与卷积核执行“卷积”操作，可以获取相邻数据之间的统计关系，从而可挖掘图像中的某些重要特征。</p>
+<p>比较抽象…所以特征到底是什么？用图像来形象的说明一下</p>
+<p><img src="https://pic4.zhimg.com/v2-b0f198aa46872eb91cb7f1f593073f13_b.jpg" alt="img"></p>
+<p>下面我们简单介绍一下常用的“久经考验”的卷积核。<br>（1）同一化核（Identity）。从图13-6可见，这个滤波器什么也没有做，卷积后得到的图像和原图一样。因为这个核只有中心点的值是1。邻域点的权值都是0，所以对滤波后的取值没有任何影响。<br>（2）边缘检测核（Edge Detection），也称为高斯-拉普拉斯算子。需要注意的是，这个核矩阵的元素总和为0（即中间元素为8，而周围8个元素之和为-8），所以滤波后的图像会很暗，而只有边缘位置是有亮度的。<br>（3）图像锐化核（Sharpness Filter）。图像的锐化和边缘检测比较相似。首先找到边缘，然后再把边缘加到原来的图像上面，如此一来，就强化了图像的边缘，使得图像看起来更加锐利。<br>（4）均值模糊（Box Blur /Averaging）。这个核矩阵的每个元素值都是1，它将当前像素和它的四邻域的像素一起取平均，然后再除以9。均值模糊比较简单，但图像处理得不够平滑。因此，还可以采用高斯模糊核（Gaussian Blur），这个核被广泛用在图像降噪上。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/center-loss/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/09/center-loss/" itemprop="url">center loss</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-09T14:31:07+08:00">
+                2019-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Center-Loss"><a href="#Center-Loss" class="headerlink" title="Center Loss"></a>Center Loss</h2><h3 id="一-简介"><a href="#一-简介" class="headerlink" title="一. 简介"></a>一. 简介</h3><p>论文链接：<a href="http://ydwen.github.io/papers/WenECCV16.pdf" target="_blank" rel="noopener">http://ydwen.github.io/papers/WenECCV16.pdf</a> </p>
+<h3 id="二-为什么要使用Center-Loss？"><a href="#二-为什么要使用Center-Loss？" class="headerlink" title="二. 为什么要使用Center Loss？"></a>二. 为什么要使用Center Loss？</h3><p>简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。</p>
+<p>仅仅使用softmax作为监督信号的输出处理就只能做到seperable而不是discriminative，如下图:</p>
+<p><img src="https://img-blog.csdn.net/20180727140845416?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<h3 id="三-如何使学到的特征差异化更大——Center-Loss"><a href="#三-如何使学到的特征差异化更大——Center-Loss" class="headerlink" title="三. 如何使学到的特征差异化更大——Center Loss"></a>三. 如何使学到的特征差异化更大——Center Loss</h3><p>融合Softmax Loss与Center loss</p>
+<p><strong>Softmax Loss（保证类之间的feature距离最大）与Center Loss（保证类内的feature距离最小，更接近于类中心）</strong></p>
+<p><img src="https://img-blog.csdn.net/20180727150130651?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p><img src="https://img-blog.csdn.net/2018072715022915?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p>m是mini-batch、n是class。在Lc公式中有一个缺陷，就是$C_{y_{i}}$是i这个样本对应的类别yi所属于的类中心C∈ Rd，d代表d维。</p>
+<p>理想情况下，Cyi需要随着学到的feature变化而实时更新，也就是要在每一次迭代中用整个数据集的feature来算每个类的中心。</p>
+<p>但这显然不现实，做以下两个修改：</p>
+<p>1、由整个训练集更新center改为mini-batch更改center  </p>
+<p>2、避免错误分类的样本的干扰，使用scalar α 来控制center的学习率  </p>
+<p>因此求算梯度的公式如下：</p>
+<p><img src="https://img-blog.csdn.net/20180727153311160?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p>即：当yi = j，也就是mini-batch中某一个sample是对应要更新的那一个类的center的时候就累加起来除以某类的个数+1。</p>
+<p><img src="https://img-blog.csdn.net/2018072715370270?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p>最终loss联立起来如上图，λ用于平衡softmax loss与center loss，越大则区分度 越大，如下图效果：</p>
+<p><img src="https://img-blog.csdn.net/20180727150702547?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<h3 id="四-Center-Loss的实现"><a href="#四-Center-Loss的实现" class="headerlink" title="四. Center Loss的实现"></a>四. Center Loss的实现</h3><p>pytorch实现：<a href="https://github.com/jxgu1016/MNIST_center_loss_pytorch" target="_blank" rel="noopener">https://github.com/jxgu1016/MNIST_center_loss_pytorch</a></p>
+<ul>
+<li>网络结构</li>
+</ul>
+<p><img src="https://img-blog.csdn.net/20180727162522989?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p>即在特征层输出（classification前最后一层）引入center loss：</p>
+<p><img src="https://img-blog.csdn.net/20180727162755579?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<h4 id="fully-connected-和-local-connected"><a href="#fully-connected-和-local-connected" class="headerlink" title="fully-connected 和 local-connected"></a>fully-connected 和 local-connected</h4><h5 id="判断fully-connected的方法："><a href="#判断fully-connected的方法：" class="headerlink" title="判断fully-connected的方法："></a>判断fully-connected的方法：</h5><ul>
+<li><p>对于neuron的链接（点对点的链接）都是fully connected（这里其实就是MLP）</p>
+</li>
+<li><p>对于有filter的network，不是看filter的size，而是看output的feature map的size。如果output feature map的size还是1 * 1 * N的话，这个layer就是fully connected layer</p>
+<p><strong>解释第二个判断方法：</strong></p>
+<ul>
+<li>1 * 1的filter size不一定是fully connected。比如input size是10 * 10 * 100， filter size是1 * 1 * 100， 重复50次，则该layer的总weights是：1 * 1 * 100 * 50</li>
+<li>1 * 1的filter size如果要是 fully connected， 则input size必须是1 * 1</li>
+<li>input size是10x10的时候却是fully connected的情况：这里我们的output size肯定是1x1，且我们的filter size肯定是10x10。</li>
+</ul>
+<p><strong>总结：filter size等于input size则是fully connected</strong></p>
+</li>
+</ul>
+<p>综上：</p>
+<ul>
+<li>fully connected没有weight share</li>
+<li>对于neuron的连接（点对点的链接）都是fully connected（MLP——多层感知器）</li>
+<li>Convolution中当filter size等于input size时，就是fully connected，此时的output size为1 * 1 * N</li>
+<li>当1 *1不等于input size时，1 * 1一样具备weights share的能力。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/softmax-and-softmax-loss-and-BP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1221,444 +1663,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/07/Inception/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/07/Inception/" itemprop="url">Inception</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-07T12:55:01+08:00">
-                2019-08-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Inception-v1"><a href="#Inception-v1" class="headerlink" title="Inception-v1"></a>Inception-v1</h3><p>在这篇论文之前，卷积神经网络的性能高都是依赖于提高网络的深度和宽度，而这篇论文是从网络结构上入手，改变了网络结构</p>
-<h4 id="为什么提出Inception？"><a href="#为什么提出Inception？" class="headerlink" title="为什么提出Inception？"></a>为什么提出Inception？</h4><p>提高网络最简单粗暴的方法就是提高网络的深度和宽度，即增加隐层以及各层神经元数目。但这种简单粗暴的方法存在一些问题：</p>
-<ul>
-<li>会导致更大的参数空间，更容易过拟合</li>
-<li>需要更多的计算资源</li>
-<li>网络越深，梯度容易消失，优化困难（这时还没有提出BN，网络优化极其困难）</li>
-</ul>
-<p>基于此，我们的目标就是，提高网络计算资源的利用率，在计算率不变的情况下，提高网络的宽度和深度</p>
-<p>作者认为，解决这种困难的方法就是，把全连接改成稀疏连接，卷积层也是稀疏连接，但是不对称稀疏数据数值计算效率低下，因为硬件全是针对密集矩阵优化的，所以，我们要找到卷积网络可以近似优化的最优局部稀疏结构，并且该结构下可以用现有的密度矩阵计算硬件实现，产生的结果就是Inception</p>
-<h4 id="Inception结构"><a href="#Inception结构" class="headerlink" title="Inception结构"></a>Inception结构</h4><p><img src="https://img-blog.csdn.net/20180709151519421?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zOTk1MzUwMg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<p>首先看第一个结构，有四个通道，有1 * 1、3 * 3、5 * 5卷积核，该结构有几个特点：</p>
-<ul>
-<li>使用这些大小卷积核，没有什么特殊含义，主要方便对齐，只要padding = 0、1、2，就可以得到相同大小的特征图，可以顺利concat</li>
-<li>采用大小不同的卷积核，以为着感受野的大小不同，就可以得到不同尺度的特征</li>
-<li>采用比较大的卷积核，即5 * 5，意味着有些相关性可能隔得比较远，用大的卷积核才能学到此特征</li>
-</ul>
-<p>当时，这个结构有个缺点，5 * 5的卷积核的计算量太大。那么作者想到的第二个结构，用1 * 1的卷积核进行降维。</p>
-<p>这个1 * 1的卷积核，它的作用就是：</p>
-<ul>
-<li>降低维度，减少计算瓶颈</li>
-<li>增加网络层数，提高网络的表达能力。</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/07/softmax/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/07/softmax/" itemprop="url">softmax</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-07T10:52:19+08:00">
-                2019-08-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="softmax交叉熵损失函数求导"><a href="#softmax交叉熵损失函数求导" class="headerlink" title="softmax交叉熵损失函数求导"></a>softmax交叉熵损失函数求导</h3><p>softmax经常被添加在分类任务的神经网络的输出层中，神经网络的反向传播中关键的步骤就是求导。</p>
-<p>softmax函数：</p>
-<p>一般在神经网络中，softmax可以作为分类任务的输出层。其实可以认为softmax输出的是几个类别选择的概率，比如我有一个分类任务，要分为三个类，softmax函数可以根据他们的相对大小，输出三个类别选取的概率，并且概率和为1。</p>
-<p>公式：$S_{i}=\frac{e^{z_{i}}}{\sum_{k} e^{z_{k}}}$</p>
-<p>$S_{}i$ 代表的是第i个神经元的输出，其实就是在输出后面套一个这个函数</p>
-<p>首先是一个神经元的输出，一个神经元如下图：</p>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565146619562.png" alt="1565146619562"></p>
-<p>神经元的输出设为：$z_{i}=\sum_{j} w_{i j} x_{i j}+b$</p>
-<p>其中 $w_{ij}$ 是第i个神经元的第j个权重，b是偏移值， $z_{i}$ 表示该网络的第i个输出</p>
-<p>给这个输出加上一个softmax函数，就是$a_{i}=\frac{e^{z_{i}}}{\sum_{k} e^{z_{k}}}$</p>
-<p>其中 $a_{i}$ 代表softmax的第i个输出值，右侧就是套用了softmax函数</p>
-<h4 id="损失函数-loss-function"><a href="#损失函数-loss-function" class="headerlink" title="损失函数 loss function"></a>损失函数 loss function</h4><p>在神经网络反向传播中，要求一个损失函数，这个损失函数其实表示的是真实值与网络的估计值的误差，知道误差了，才能知道怎样去修改网络中的权重。</p>
-<p>损失函数可以有很多形式，这里使用的是交叉熵函数，主要是由于这个求导结果比较简单，易于计算，并且交叉熵解决某些损失函数学习缓慢的问题。交叉熵的函数是这样的：$C=-\sum_{i} y_{i} \ln a_{i}$</p>
-<p>其中 $y_{i}$ 表示真实的分类结果。</p>
-<h4 id="推导过程："><a href="#推导过程：" class="headerlink" title="推导过程："></a>推导过程：</h4><p>首先，我们要明确一下我们要求什么，我们要求的是我们的loss对于神经元输出( $ z_{i}$ )的梯度，即：$\frac{\partial C}{\partial z_{i}}$</p>
-<p>根据复合函数求导法则：$\frac{\partial C}{\partial z_{i}}=\sum_{j}\left(\frac{\partial C_{j}}{\partial a_{j}} \frac{\partial a_{j}}{\partial z_{i}}\right)$</p>
-<p>这里为什么是 $a_{j}$ 而不是 $a_{i}$ ，这里要看一下softmax的公式了，因为softmax公式的特性，它的分母包含了所有神经元的输出，所以，对于不等于i的其他输出里面，也包含着 $z_{i}$，所有的a都要纳入到计算范围中，并且后面的计算可以看到需要分为 $i = j$ 和 $i \not= j$ 两种情况求导。</p>
-<p>下面我们一个一个推：</p>
-<p>$\frac{\partial C_{j}}{\partial a_{j}}=\frac{\partial\left(-y_{j} \ln a_{j}\right)}{\partial a_{j}}=-y_{j} \frac{1}{a_{j}}$</p>
-<p>第二个稍微复杂一点，我们先把他分为两种情况：</p>
-<ol>
-<li><p>如果 $i = j$ :</p>
-<p>$\frac{\partial a_{i}}{\partial z_{i}}=\frac{\partial\left(\frac{e^{z_{i}}}{\sum_{k} e^{z_{k}}}\right)}{\partial z_{i}}=\frac{\sum_{k} e^{z_{k}} e^{z_{i}}-\left(e^{z_{i}}\right)^{2}}{\left(\sum_{k} e^{z_{k}}\right)^{2}}=\left(\frac{e^{z_{i}}}{\sum_{k} e^{z_{k}}}\right)\left(1-\frac{e^{z_{i}}}{\sum_{k} e^{z_{k}}}\right)=a_{i}\left(1-a_{i}\right)$</p>
-</li>
-<li><p>如果 $i \not= j$ :</p>
-<p>$\frac{\partial a_{j}}{\partial z_{i}}=\frac{\partial\left(\frac{e^{z_{j}}}{\sum_{k} e^{z_{k}}}\right)}{\partial z_{i}}=-e^{z_{j}}\left(\frac{1}{\sum_{k} e^{z_{k}}}\right)^{2} e^{z_{i}}=-a_{i} a_{j}$</p>
-</li>
-</ol>
-<p>接下来，只需要组合两个式子：</p>
-<p>$\frac{\partial C}{\partial z_{i}}=\sum_{j}\left(\frac{\partial C_{j}}{\partial a_{j}} \frac{\partial a_{j}}{\partial z_{i}}\right)=\sum_{j=\dot{\psi}}\left(\frac{\partial C_{j}}{\partial a_{j}} \frac{\partial a_{j}}{\partial z_{i}}\right)+\sum_{i=j}\left(\frac{\partial C_{j}}{\partial a_{j}} \frac{\partial a_{j}}{\partial z_{i}}\right)$</p>
-<p>$=\sum_{j=\dot{y}}-y_{j} \frac{1}{a_{j}}\left(-a_{i} a_{j}\right)+\left(-y_{i} \frac{1}{a_{i}}\right)\left(a_{i}\left(1-a_{i}\right)\right)$</p>
-<p>$=\sum_{j=i} a_{i} y_{j}+\left(-y_{i}\left(1-a_{i}\right)\right)$</p>
-<p>$=\sum_{j=\dot{\psi}} a_{i} y_{j}+a_{i} y_{i}-y_{i}$</p>
-<p>$=a_{i} \sum_{j} y_{j}-y_{i}$</p>
-<p>最后的结果看起来简单了很多，最后，针对分类问题，我们给定的结果 $y_{i}$ 最终只会哟一个类别是1，其他类别都是0，因此对于分类问题，这个梯度等于：</p>
-<p>$\frac{\partial C}{\partial z_{i}}=a_{i}-y_{i}$</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/29/OverTheWall/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/29/OverTheWall/" itemprop="url">OverTheWall</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-29T19:38:03+08:00">
-                2019-07-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="匿名术"><a href="#匿名术" class="headerlink" title="匿名术"></a>匿名术</h3><ul>
-<li><p>网络层面：隐藏公网IP</p>
-</li>
-<li><p>操作系统层面</p>
-</li>
-<li><p>个人软件层面</p>
-</li>
-<li><p>通讯工具层面</p>
-</li>
-<li><p>通讯工具层面</p>
-</li>
-</ul>
-<h3 id="DNS欺骗（DNS污染）"><a href="#DNS欺骗（DNS污染）" class="headerlink" title="DNS欺骗（DNS污染）"></a>DNS欺骗（DNS污染）</h3><p>DNS欺骗又称DNS Spoofing，DNS污染又称为“域名缓存投毒”。如果你使用的是翻墙外的DNS服务器，那么，你每次进行DNS查询，都会要经过国际出口。这时候GFW会通过技术手段伪造DNS的查询结果——使得你查询到的网站IP是错误的。如此一来，你自然就无法访问该网站。</p>
-<p>DNS劫持不同于DNS污染。DNS劫持是指DNS服务器上的记录被认为修改成错误的，把某些敏感网站的记录修改成错误的。</p>
-<h3 id="代理软件"><a href="#代理软件" class="headerlink" title="代理软件"></a>代理软件</h3><h4 id="代理的工作原理"><a href="#代理的工作原理" class="headerlink" title="代理的工作原理"></a>代理的工作原理</h4><p>假设你想通过翻墙代理访问某个被墙的网站，这时候会经历如下几个步骤：</p>
-<ul>
-<li>你的上网软件（通常是浏览器）会把数据发送给你电脑中的代理工具</li>
-<li>该工具把数据进行<strong>加密</strong>，然后发送给<strong>国外</strong>的某个代理服务器</li>
-<li>该代理服务器吧数据解密，然后发送给你要访问的网站</li>
-<li>从该网站回传的数据，也是经过上述过程，最终回到你的浏览器</li>
-</ul>
-<h4 id="代理的分类"><a href="#代理的分类" class="headerlink" title="代理的分类"></a>代理的分类</h4><p>按照是否加密，代理软件可分为加密代理和不加密代理两种</p>
-<p>按照协议类型，常见的有HTTP和SOCKS代理。如果你纯粹用浏览器翻墙，HTTP代理就够用了。如果还需要使用其他软件翻墙，那就得使用SOCKS代理</p>
-<h4 id="代理工具的获取"><a href="#代理工具的获取" class="headerlink" title="代理工具的获取"></a>代理工具的获取</h4>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1709,7 +1713,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-count">77</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

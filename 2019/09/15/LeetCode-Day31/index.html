@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Celery Fairy">
 <meta property="og:description" content="LeetCode-Day31——栈636. 函数的独占时间给出一个非抢占单线程CPU的 n 个函数运行日志，找到函数的独占时间。 每个函数都有一个唯一的 Id，从 0 到 n-1，函数可能会递归调用或者被其他函数调用。 日志是具有以下格式的字符串：function_id：start_or_end：timestamp。例如：”0:start:0” 表示函数 0 从 0 时刻开始运行。”0:end:0">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-15T00:59:44.241Z">
+<meta property="og:updated_time" content="2019-09-15T03:17:27.904Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode-Day31">
 <meta name="twitter:description" content="LeetCode-Day31——栈636. 函数的独占时间给出一个非抢占单线程CPU的 n 个函数运行日志，找到函数的独占时间。 每个函数都有一个唯一的 Id，从 0 到 n-1，函数可能会递归调用或者被其他函数调用。 日志是具有以下格式的字符串：function_id：start_or_end：timestamp。例如：”0:start:0” 表示函数 0 从 0 时刻开始运行。”0:end:0">
@@ -327,6 +327,18 @@
 
 <p><code>Tips:</code></p>
 <p>通过上述程序还可以了解一下<code>istringstream</code>的操作，以及<code>stoi</code>的方便的操作。</p>
+<h3 id="901-股票价格跨度"><a href="#901-股票价格跨度" class="headerlink" title="901. 股票价格跨度"></a>901. 股票价格跨度</h3><p>编写一个 StockSpanner 类，它收集某些股票的每日报价，并返回该股票当日价格的跨度。</p>
+<p>今天股票价格的跨度被定义为股票价格小于或等于今天价格的最大连续日数（从今天开始往回数，包括今天）。</p>
+<p>例如，如果未来7天股票的价格是 [100, 80, 60, 70, 60, 75, 85]，那么股票跨度将是 [1, 1, 1, 2, 1, 4, 6]。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">输入：[&quot;StockSpanner&quot;,&quot;next&quot;,&quot;next&quot;,&quot;next&quot;,&quot;next&quot;,&quot;next&quot;,&quot;next&quot;,&quot;next&quot;], [[],[100],[80],[60],[70],[60],[75],[85]]</span><br><span class="line">输出：[null,1,1,1,2,1,4,6]</span><br><span class="line">解释：</span><br><span class="line">首先，初始化 S = StockSpanner()，然后：</span><br><span class="line">S.next(100) 被调用并返回 1，</span><br><span class="line">S.next(80) 被调用并返回 1，</span><br><span class="line">S.next(60) 被调用并返回 1，</span><br><span class="line">S.next(70) 被调用并返回 2，</span><br><span class="line">S.next(60) 被调用并返回 1，</span><br><span class="line">S.next(75) 被调用并返回 4，</span><br><span class="line">S.next(85) 被调用并返回 6。</span><br><span class="line"></span><br><span class="line">注意 (例如) S.next(75) 返回 4，因为截至今天的最后 4 个价格</span><br><span class="line">(包括今天的价格 75) 小于或等于今天的价格。</span><br></pre></td></tr></table></figure>
+
+<p>思路：</p>
+<p>本质上还是单调栈的应用</p>
+<p>但是这里需要注意的是<code>maxDay</code>的计算（即连续第当前价格低的天数），这个需要累积，所以我的<code>stack</code>设计成<code>pair&lt;int, int&gt;</code>类型的，分别存放的是股票的价格以及前面连续有多少个比他低的天数（即有多少个比他小的数字被弹出栈）</p>
+<p>那么新进来的股票价格就可以按照原先单调栈的思想进栈，但是需要累积<code>maxDay</code>（注意，这里的<code>maxDay</code>需要每新进入一个元素就需要计算）。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StockSpanner</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; prices;</span><br><span class="line">    <span class="built_in">stack</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; st;</span><br><span class="line">    StockSpanner() &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">next</span><span class="params">(<span class="keyword">int</span> price)</span> </span>&#123;</span><br><span class="line">        prices.push_back(price);</span><br><span class="line">        <span class="keyword">if</span>(st.empty()) &#123;</span><br><span class="line">            st.push(&#123;price, <span class="number">1</span>&#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(st.top().first &gt; price) &#123;</span><br><span class="line">            st.push(&#123;price, <span class="number">1</span>&#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> maxDay = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(!st.empty() &amp;&amp; st.top().first &lt;= price) &#123;</span><br><span class="line">                maxDay += st.top().second;</span><br><span class="line">                st.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            st.push(&#123;price, maxDay&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> st.top().second;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your StockSpanner object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * StockSpanner* obj = new StockSpanner();</span></span><br><span class="line"><span class="comment"> * int param_1 = obj-&gt;next(price);</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -360,6 +372,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/16/LeetCode-Day32/" rel="prev" title="LeetCode-Day32">
+                LeetCode-Day32 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -436,7 +452,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-count">77</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -473,7 +489,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-Day31——栈"><span class="nav-number">1.</span> <span class="nav-text">LeetCode-Day31——栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#636-函数的独占时间"><span class="nav-number">1.1.</span> <span class="nav-text">636. 函数的独占时间</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-Day31——栈"><span class="nav-number">1.</span> <span class="nav-text">LeetCode-Day31——栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#636-函数的独占时间"><span class="nav-number">1.1.</span> <span class="nav-text">636. 函数的独占时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#901-股票价格跨度"><span class="nav-number">1.2.</span> <span class="nav-text">901. 股票价格跨度</span></a></li></ol></li></ol></div>
             
 
           </div>
