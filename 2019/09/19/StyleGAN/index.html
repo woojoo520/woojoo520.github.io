@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="原有GAN出现的问题：与多数GAN一样，proGAN控制生成图像的特定特征的能力非常有限。这些属性相互纠缠，即使略微调整输入，也会同时影响生成图像的多个属性。所以如何将ProGAN该位条件生成模型，或者增强其微调单个属性的能力，是一个可以研究的方向。 解决的方法： StyleGAN是NVIDIA继ProGAN之后提出的新的生成网络，其主要通过修改每一层级的输入，在不影响其它层级的情况下，开控制该层">
+<meta property="og:type" content="article">
+<meta property="og:title" content="StyleGAN">
+<meta property="og:url" content="https://woojoo520.github.io/2019/09/19/StyleGAN/index.html">
+<meta property="og:site_name" content="Celery Fairy">
+<meta property="og:description" content="原有GAN出现的问题：与多数GAN一样，proGAN控制生成图像的特定特征的能力非常有限。这些属性相互纠缠，即使略微调整输入，也会同时影响生成图像的多个属性。所以如何将ProGAN该位条件生成模型，或者增强其微调单个属性的能力，是一个可以研究的方向。 解决的方法： StyleGAN是NVIDIA继ProGAN之后提出的新的生成网络，其主要通过修改每一层级的输入，在不影响其它层级的情况下，开控制该层">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://pic2.zhimg.com/v2-452bcc62544bdd83d4eb6e108f977a45_b.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-026759c4449b86d41d7b85b62c0868bb_b.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/v2-23b95580269d527ac1be9ccdf19fb030_b.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-99f307a8cde4d1b0dfde84f2893a3ff7_b.jpg">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%28x_i-%CE%BC%28x_i%29%29+%2F%CF%83%28x_i%29">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-9fb97d3991e3ceb6f45cf177cca76fd7_b.jpg">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cepsilon%3D10%5E%7B-4%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=l_%7BZ%7D%3D%5Cmathbb%7BE%7D%5B%5Cfrac%7B1%7D%7B%5Cepsilon%5E%7B2%7D%7Dd%28G%28slerp%28z_1%2Cz_2%3Bt%29%29%2CG%28slerp%28z_1%2Cz_2%3Bt%2B%5Cepsilon%29%29%29%5D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=t%5Csim+U%280%2C1%29">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cepsilon%5E%7B2%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cepsilon">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=l_%7BW%7D%3D%5Cmathbb%7BE%7D%5B%5Cfrac%7B1%7D%7B%5Cepsilon%5E%7B2%7D%7Dd%28g%28lerp%28f%28z_1%29%2Cf%28z_2%29%3Bt%29%29%2Cg%28lerp%28f%28z_1%29%2Cf%28z_2%29%3Bt%2B%5Cepsilon%29%29%29%5D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cexp+%5Cleft%28%5Csum_%7Bi%7D+%5Cmathrm%7BH%7D%5Cleft%28Y_%7Bi%7D+%7C+X_%7Bi%7D%5Cright%29%5Cright%29">
+<meta property="og:updated_time" content="2019-09-19T12:39:09.338Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="StyleGAN">
+<meta name="twitter:description" content="原有GAN出现的问题：与多数GAN一样，proGAN控制生成图像的特定特征的能力非常有限。这些属性相互纠缠，即使略微调整输入，也会同时影响生成图像的多个属性。所以如何将ProGAN该位条件生成模型，或者增强其微调单个属性的能力，是一个可以研究的方向。 解决的方法： StyleGAN是NVIDIA继ProGAN之后提出的新的生成网络，其主要通过修改每一层级的输入，在不影响其它层级的情况下，开控制该层">
+<meta name="twitter:image" content="https://pic2.zhimg.com/v2-452bcc62544bdd83d4eb6e108f977a45_b.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woojoo520.github.io/2019/09/19/StyleGAN/">
+
+
+
+
+
+  <title>StyleGAN | Celery Fairy</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/woojoo520" class="github-corner" aria-label="View source on GitHub">
+      <svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+      </svg>
+    </a>
+    <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Celery Fairy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Celery's Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/19/StyleGAN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">StyleGAN</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-19T12:21:42+08:00">
+                2019-09-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>原有GAN出现的问题：</strong>与多数GAN一样，proGAN控制生成图像的特定特征的能力非常有限。这些属性相互纠缠，即使略微调整输入，也会同时影响生成图像的多个属性。所以如何将ProGAN该位条件生成模型，或者增强其微调单个属性的能力，是一个可以研究的方向。</p>
+<p><strong>解决的方法：</strong></p>
+<p>StyleGAN是NVIDIA继ProGAN之后提出的新的生成网络，其主要通过修改每一层级的输入，在不影响其它层级的情况下，开控制该层级所表示的视觉特征。这些特征可以使粗的特征（如姿势、脸型等），也可以是一些细节特征（如瞳色、发色等）</p>
+<p>本文的工作及贡献：</p>
+<ul>
+<li><p>借鉴风格迁移，提出基于样式的生成器（style-based generator）</p>
+<ul>
+<li>实现了无监督地分离高级属性（人脸姿势、身份）和随机变化（例如雀斑，头发）</li>
+<li>实现对生成图像中特定尺度的属性的控制</li>
+<li>生成器从一个科学系的常量输入开始，隐码在每个卷积层调整图像的“样式”，从而直接控制不同尺度下图像特征的强度。</li>
+</ul>
+</li>
+<li><p>实现了对<strong>隐空间（latent space）</strong>较好的解耦</p>
+<ul>
+<li>生成器将输入的隐码z嵌入一个中间的隐空间。因为输入的隐空间Z必须服从训练数据的概率密度，这在一定程度上导致了不可避免的纠缠，而嵌入的中间的隐空间W不受这个控制，因此可以被解耦</li>
+</ul>
+</li>
+<li><p>提出了两个新的<strong>量化隐空间解耦程度</strong>的方法</p>
+<ul>
+<li>感知路径长度和线性可分性。与传统的生成器相比，新的生成器允许更线性、更解耦地表示不同的变化因素</li>
+</ul>
+</li>
+<li><p>提出了新的高质量的人脸数据集（FFHQ,7万张1024 * 1024的人脸图片）</p>
+<p>![img](file:///C:\Users\12751\Documents\Tencent Files\1275121799\Image\C2C{255CC7E5-BCDA-210F-8F43-B410432DFEB2}.png)</p>
+</li>
+</ul>
+<h3 id="2-模型和方法"><a href="#2-模型和方法" class="headerlink" title="2. 模型和方法"></a>2. 模型和方法</h3><h4 id="2-1-基于样式的生成器结构"><a href="#2-1-基于样式的生成器结构" class="headerlink" title="2.1 基于样式的生成器结构"></a>2.1 基于样式的生成器结构</h4><p><img src="https://pic2.zhimg.com/v2-452bcc62544bdd83d4eb6e108f977a45_b.jpg" alt="img"></p>
+<p>总共有18层，每个分辨率有两个卷积层（4， 8， 16， …1024）</p>
+<ul>
+<li><p>1.移除了传统的输入</p>
+</li>
+<li><p>2.映射网络</p>
+</li>
+<li><p>3.样式模块（AdaIN，自适应实例归一化）</p>
+</li>
+<li><p>4.随机变化（通过加入噪声为生成器生成随机细节）</p>
+</li>
+</ul>
+<p><strong>移除传统输入</strong></p>
+<p><img src="https://pic4.zhimg.com/v2-026759c4449b86d41d7b85b62c0868bb_b.jpg" alt="img"></p>
+<p>传统的生成器使用latent code（随机输入）作为生成器的初始输入；StyleGAN抛弃了这种设计，将一个可学习的常数作为生成器的初始输入。一个假设是它减少了特征纠缠——对于网络来说，只使用w而不依赖纠缠的输入向量更容易学习</p>
+<p><strong>映射网络（Mapping Network）</strong></p>
+<p><img src="https://pic1.zhimg.com/v2-23b95580269d527ac1be9ccdf19fb030_b.jpg" alt="img"></p>
+<p>映射网络由8个全连接层组成，其输出w与输入z大小相同（512 * 1）。<strong>映射网络的目标是将输入向量编码为中间向量，中间向量W的不同元素控制不同的视觉特征。</strong></p>
+<p>使用输入向量z控制视觉特征的能力是有限的，它必须遵循训练数据的概率密度。例如，如果黑色头发的人的图像在数据集中更加常见，那么更多的输入值将映射到该特性。因此该模型无法将输入向量z的一部分（向量中的元素）映射到特征，这种向量称为特征纠缠。</p>
+<p>但是，通过映射网络，该模型可以生成一个不需要跟随训练数据分布的向量w，并且可以减少特征之间的相关性（解耦，特征分离）</p>
+<p><strong>样式模块（AdalN）</strong></p>
+<p><img src="https://pic4.zhimg.com/v2-99f307a8cde4d1b0dfde84f2893a3ff7_b.jpg" alt="img"></p>
+<p>W通过每个卷积层的AdaIN输入到生成器的每一层中。</p>
+<p>计算方法：</p>
+<ul>
+<li>计算每个特征图xi（feature map）独立进行归一化<img src="https://www.zhihu.com/equation?tex=%28x_i-%CE%BC%28x_i%29%29+%2F%CF%83%28x_i%29" alt="[å¬å¼]">特征图中的每个值减去该特征值的均值然后除以方差。</li>
+<li>一个可学习的仿射变换（全连接层）将w转换为style中AdaIN的平移和缩放因子 $y = (y_s, i, y_b, i)$</li>
+<li>然后对每个特征图分别使用style中学习到的平移和缩放因子进行尺度和平移变换</li>
+</ul>
+<p>这里的不同之处在于这里的缩放和平移是用隐码w计算得到，而不是用一个图像计算得到的。</p>
+<p><strong>随机变化（通过引入噪声为生成器生成随机细节）</strong></p>
+<p><img src="https://pic4.zhimg.com/v2-9fb97d3991e3ceb6f45cf177cca76fd7_b.jpg" alt="img"></p>
+<p>人的连有很多可以看做是随机的，比如头发的精确位置，使特向更真实，增加了输出的多样性。将这些小特征插入GAN图像的<strong>常用方法是向输入向量添加随机噪声，然后通过输入层输入生成器</strong>。然而，在很多情况下，控制噪声效果是很棘手的，因为特征纠缠现象，略微改变噪声会导致<strong>图像的其他特征收到影响</strong>。</p>
+<p>该框架通过<strong>在合成网络的每个分辨率级上增加尺度化的噪声</strong>来回避这些问题。噪声是由高斯噪声组成的单通道图像，将一个噪声图像提供给合成网络的一个特征图。在卷积之后、AdaIN之前将高斯噪声加入生成器网络中。B使用可学习的缩放参数对输入的高斯噪声进行变换，然后将噪声广播到所有的特征图中（分别加到每个特征图上，每个特征图对应一个可学习的scale参数）</p>
+<h4 id="2-2-正则化-混合正则化（mixing-regularization）"><a href="#2-2-正则化-混合正则化（mixing-regularization）" class="headerlink" title="2.2 正则化-混合正则化（mixing regularization）"></a>2.2 正则化-混合正则化（mixing regularization）</h4><p>为了进一步距离styles的局部化（<strong>减少不同层之间样式的相关性</strong>），本文对生成器使用混合正则化。</p>
+<p>方法：对<strong>给定的训练样本（随机选取）</strong>使用<strong>样式混合</strong>的方式生成图像。在训练过程中，使用两个随机隐码z（latent code）而不是一个，生成图像时，<strong>在合成网络中随机选择一个点（某层），从一个隐码切换到另一个隐码（称之为样式混合）</strong>。具体来说，通过映射网络运行两个潜码z1、z2，并让对应的w1、w2控制样式，使w1在交点前应用，w2在交点后应用</p>
+<p>这种正则化技术<strong>防止网络假设相邻样式是相关的</strong>，随机切换确保网络不会学习和依赖级别之间的相关性。</p>
+<h4 id="2-3-两种新的量化隐空间（latent-space）耦合度的方法"><a href="#2-3-两种新的量化隐空间（latent-space）耦合度的方法" class="headerlink" title="2.3 两种新的量化隐空间（latent space）耦合度的方法"></a>2.3 两种新的量化隐空间（latent space）耦合度的方法</h4><ul>
+<li><p><strong>解耦的目标</strong>是使隐空间（latent space）由线性子空间组成，即每个子空间（每个维度）控制一个变异因子（特征）</p>
+</li>
+<li><p>但是<strong>隐空间Z</strong>中的各个因子的采样概率<strong>需要与训练数据中响应的密度匹配，就会产生纠缠</strong>。而中间隐藏空间W不需要根据任何固定分布进行采样，<strong>他的采样密度是由可学习的映射网络f(z)得到的，使变化的因素变得更加线性</strong>。</p>
+</li>
+<li><p>本文假设，生成器基于解耦的表示比基于纠缠的表示应该更容易产生真实的图像（若在FID变小的同时，隐空间耦合度变小，则可以得证）。因此，我们期望训练在无监督的情况下（即，当不预先知道变异的因素时）产生较少纠缠的W</p>
+</li>
+<li><p><strong>最近提出的用于量化解耦的指标，需要将一个输入图像映射到隐码的编码器网络。</strong>但是不适合本文，因为baseline GAN缺乏这样的编码器</p>
+</li>
+<li><p>所以本文提出了两种新的量化解耦的方法，他们都不需要编码器，所以对于任何数据集和生成器都是可计算的</p>
+<ul>
+<li>感知路径长度（Perceptual path length）</li>
+<li>线性可分性（Linear separability）</li>
+</ul>
+</li>
+</ul>
+<h5 id="感知路径长度"><a href="#感知路径长度" class="headerlink" title="感知路径长度"></a>感知路径长度</h5><p>为什么这种量化纠缠的方法是可行的？</p>
+<ul>
+<li>对隐空间向量进行插值会在图像中产生非线性变化。比如，在所有断点中缺失的特征可能会出现在线性插值路径的中间。这表明隐空间是耦合的，变化因子没有被恰当的分开。所以通过测量当在两个隐空间之间进行插值时图像的剧烈变化程度，可以反映隐空间的纠缠程度（特征分离程度）</li>
+</ul>
+<p>感知路径长度计算，使用10000个样本计算</p>
+<ul>
+<li>将两个隐空间之间的插值路径细分为小段，感知总长度定义为每段感知差异的总和。感知路径长度的定义是这个和在无限细的细分下的极限，实际上是用一个小的细分<img src="https://www.zhihu.com/equation?tex=%5Cepsilon%3D10%5E%7B-4%7D" alt="[å¬å¼]">来近似它。隐空间Z中所有可能端点（在路径中的位置）的平均感知路径长度，计算如下：<img src="https://www.zhihu.com/equation?tex=l_%7BZ%7D%3D%5Cmathbb%7BE%7D%5B%5Cfrac%7B1%7D%7B%5Cepsilon%5E%7B2%7D%7Dd%28G%28slerp%28z_1%2Cz_2%3Bt%29%29%2CG%28slerp%28z_1%2Cz_2%3Bt%2B%5Cepsilon%29%29%29%5D" alt="[å¬å¼]"></li>
+<li>其中<img src="https://www.zhihu.com/equation?tex=t%5Csim+U%280%2C1%29" alt="[å¬å¼]">。t服从0， 1分布，slerp表示球面插值操作，这是在归一化的输入隐空间中最合适的插值方式。</li>
+<li>G是生成器，d计算得到生成图像之间的感知距离。因为d是二次的，所以除以<img src="https://www.zhihu.com/equation?tex=%5Cepsilon%5E%7B2%7D" alt="[å¬å¼]">而不是<img src="https://www.zhihu.com/equation?tex=%5Cepsilon" alt="[å¬å¼]">来消除对细分粒度的依赖</li>
+<li>d的具体计算方式：使用基于感知的成对距离图像，测量连续图像之间的差异（两个VGG16 embeddings之间的差异，利用VGG16提取出图像的特征，在特征层面上计算距离）</li>
+</ul>
+<p>计算隐空间W的感知路径的长度与z的唯一不同时采用lerp线性插值，因为w向量没有进行归一化</p>
+<p><img src="https://www.zhihu.com/equation?tex=l_%7BW%7D%3D%5Cmathbb%7BE%7D%5B%5Cfrac%7B1%7D%7B%5Cepsilon%5E%7B2%7D%7Dd%28g%28lerp%28f%28z_1%29%2Cf%28z_2%29%3Bt%29%29%2Cg%28lerp%28f%28z_1%29%2Cf%28z_2%29%3Bt%2B%5Cepsilon%29%29%29%5D" alt="[å¬å¼]"></p>
+<p><strong>线性可分性（linear separability）</strong></p>
+<p>为什么这种量化纠缠的方法是可行的？</p>
+<p><strong>如果一个隐空间是充分解耦的，应该能够找到与每个变化因子对应的方向向量。</strong>我们提出了另一种度量方法来量化这种效果，<strong>测量通过线性超平面将隐空间点分割成两个不同集合的程度</strong>，使每个集合对应于图像的特定的二元属性（比如男、女）</p>
+<p>计算方法：</p>
+<ul>
+<li>训练40个辅助分类器，分别对40个二元属性进行区分（每个分类器区分一个属性）。分类器与StyleGAN判别器结构相同，使用CelebA-HQ数据集训练得到（保留原始CelebA的40个属性，150000个训练样本),学习率10-3，批次大小8，Adam优化器。</li>
+<li>使用生成器生成的200,000个图像，并使用辅助分类器进行分类，根据分类器的置信度对样本进行排序，去掉置信度最低的一般，得到100,000个一直类别的隐空间向量（latent code）</li>
+<li>对于每个属性，拟合一个线性SVM来预测标签——基于传统的隐空间点或基于样式的隐空间点w—并且根据这个超平面对这些隐空间点（512维，100,0000个点）进行分类</li>
+<li>用<strong>条件熵H(Y |X)度量超平面将点划分为正确类别的能力</strong>，X是SVM预测的类别，Y是预先训练好的辅助分类器确定的类（作为真实类别）；因此，根据SVM确定样本在超平面的哪一边，条件熵告诉我们需要多少额外的信息来确定样本的真实类别。直觉上，如果隐空间中的变化因子是耦合的（非线性的），那么用超平面来分离样本点将会更加困难（需要更多的额外信息），产生高的条件熵。较低的值表示易于分离（可分性好），因此解耦程度更大</li>
+</ul>
+<p>可分性计算公式 <img src="https://www.zhihu.com/equation?tex=%5Cexp+%5Cleft%28%5Csum_%7Bi%7D+%5Cmathrm%7BH%7D%5Cleft%28Y_%7Bi%7D+%7C+X_%7Bi%7D%5Cright%29%5Cright%29" alt="[公式]"> ，其中i列举了40个属性。取幂是为了将值从对数域变换为线性域，便于进行比较</p>
+<p>截断技巧</p>
+<p>考虑到训练数据的分布，低密度区域很少被表示，因此生成器很难学习该区域。通过对隐空间进行阶段可以提升生成影响的平均质量，虽然会损失一些变化。对中间隐码W进行阶段，迫使W接近平均值</p>
+<p>经过试验：<strong>噪声只会影响随机方面，而保留了整体结构和身份、面部等高级特征。</strong></p>
+<p>$\epsilon$</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/19/self-Attention/" rel="next" title="self-Attention">
+                <i class="fa fa-chevron-left"></i> self-Attention
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/19/LeetCode-Day35/" rel="prev" title="LeetCode-Day35">
+                LeetCode-Day35 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mariana</p>
+              <p class="site-description motion-element" itemprop="description">a study blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-模型和方法"><span class="nav-number">1.</span> <span class="nav-text">2. 模型和方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-基于样式的生成器结构"><span class="nav-number">1.1.</span> <span class="nav-text">2.1 基于样式的生成器结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-正则化-混合正则化（mixing-regularization）"><span class="nav-number">1.2.</span> <span class="nav-text">2.2 正则化-混合正则化（mixing regularization）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-两种新的量化隐空间（latent-space）耦合度的方法"><span class="nav-number">1.3.</span> <span class="nav-text">2.3 两种新的量化隐空间（latent space）耦合度的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#感知路径长度"><span class="nav-number">1.3.1.</span> <span class="nav-text">感知路径长度</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mariana</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
