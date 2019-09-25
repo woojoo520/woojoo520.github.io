@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="189. 旋转数组给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 示例 1: 输入: [1,2,3,4,5,6,7] 和 k = 3输出: [5,6,7,1,2,3,4]解释:向右旋转 1 步: [7,1,2,3,4,5,6]向右旋转 2 步: [6,7,1,2,3,4,5]向右旋转 3 步: [5,6,7,1,2,3,4]示例 2: 输入: [-1,-100,3,99]">
+<meta name="description" content="189. 旋转数组给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 示例 1: 123456输入: [1,2,3,4,5,6,7] 和 k = 3输出: [5,6,7,1,2,3,4]解释:向右旋转 1 步: [7,1,2,3,4,5,6]向右旋转 2 步: [6,7,1,2,3,4,5]向右旋转 3 步: [5,6,7,1,2,3,4]  示例 2: 12345输入: [-">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode-Day38">
 <meta property="og:url" content="https://woojoo520.github.io/2019/09/22/LeetCode-Day38/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="189. 旋转数组给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 示例 1: 输入: [1,2,3,4,5,6,7] 和 k = 3输出: [5,6,7,1,2,3,4]解释:向右旋转 1 步: [7,1,2,3,4,5,6]向右旋转 2 步: [6,7,1,2,3,4,5]向右旋转 3 步: [5,6,7,1,2,3,4]示例 2: 输入: [-1,-100,3,99]">
+<meta property="og:description" content="189. 旋转数组给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 示例 1: 123456输入: [1,2,3,4,5,6,7] 和 k = 3输出: [5,6,7,1,2,3,4]解释:向右旋转 1 步: [7,1,2,3,4,5,6]向右旋转 2 步: [6,7,1,2,3,4,5]向右旋转 3 步: [5,6,7,1,2,3,4]  示例 2: 12345输入: [-">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-22T13:53:33.865Z">
+<meta property="og:updated_time" content="2019-09-23T06:24:12.085Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode-Day38">
-<meta name="twitter:description" content="189. 旋转数组给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 示例 1: 输入: [1,2,3,4,5,6,7] 和 k = 3输出: [5,6,7,1,2,3,4]解释:向右旋转 1 步: [7,1,2,3,4,5,6]向右旋转 2 步: [6,7,1,2,3,4,5]向右旋转 3 步: [5,6,7,1,2,3,4]示例 2: 输入: [-1,-100,3,99]">
+<meta name="twitter:description" content="189. 旋转数组给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 示例 1: 123456输入: [1,2,3,4,5,6,7] 和 k = 3输出: [5,6,7,1,2,3,4]解释:向右旋转 1 步: [7,1,2,3,4,5,6]向右旋转 2 步: [6,7,1,2,3,4,5]向右旋转 3 步: [5,6,7,1,2,3,4]  示例 2: 12345输入: [-">
 
 
 
@@ -310,8 +310,21 @@
       
         <h3 id="189-旋转数组"><a href="#189-旋转数组" class="headerlink" title="189. 旋转数组"></a>189. 旋转数组</h3><p>给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。</p>
 <p>示例 1:</p>
-<p>输入: [1,2,3,4,5,6,7] 和 k = 3<br>输出: [5,6,7,1,2,3,4]<br>解释:<br>向右旋转 1 步: [7,1,2,3,4,5,6]<br>向右旋转 2 步: [6,7,1,2,3,4,5]<br>向右旋转 3 步: [5,6,7,1,2,3,4]<br>示例 2:</p>
-<p>输入: [-1,-100,3,99] 和 k = 2<br>输出: [3,99,-1,-100]<br>解释:<br>向右旋转 1 步: [99,-1,-100,3]<br>向右旋转 2 步: [3,99,-1,-100]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,2,3,4,5,6,7] 和 k = 3</span><br><span class="line">输出: [5,6,7,1,2,3,4]</span><br><span class="line">解释:</span><br><span class="line">向右旋转 1 步: [7,1,2,3,4,5,6]</span><br><span class="line">向右旋转 2 步: [6,7,1,2,3,4,5]</span><br><span class="line">向右旋转 3 步: [5,6,7,1,2,3,4]</span><br></pre></td></tr></table></figure>
+
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入: [-1,-100,3,99] 和 k = 2</span><br><span class="line">输出: [3,99,-1,-100]</span><br><span class="line">解释: </span><br><span class="line">向右旋转 1 步: [99,-1,-100,3]</span><br><span class="line">向右旋转 2 步: [3,99,-1,-100]</span><br></pre></td></tr></table></figure>
+
+<p>思路：这道题虽然很简单，但是却有更加快速的操作。</p>
+<p>就是先翻转整个数组，然后在要求的节点前后进行两次翻转。</p>
+<p>举个栗子：</p>
+<p><code>[1, 2, 3, 4, 5, 6, 7] k = 3</code></p>
+<p>整个数组翻转：<code>[7, 6, 5, 4, 3, 2, 1]</code></p>
+<p>前半部分翻转：<code>[5, 6, 7, 4, 3, 2, 1]</code></p>
+<p>后半部分翻转：<code>[5, 6, 7, 1, 2, 3, 4]</code></p>
+<p>上Code：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums.size() &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        k %= nums.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n / <span class="number">2</span>;i++) &#123;</span><br><span class="line">            swap(nums[i], nums[n - <span class="number">1</span> - i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; k / <span class="number">2</span>;i++) &#123;</span><br><span class="line">            swap(nums[i], nums[k - i - <span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = k;i &lt; (n + k) / <span class="number">2</span>;i++) &#123;</span><br><span class="line">            swap(nums[i], nums[n - <span class="number">1</span> - i + k]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -425,7 +438,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-count">87</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
