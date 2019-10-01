@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="背包问题的详解1. 01背包问题题目：有N 件物品和一个容量为V 的背包。放入第i件物品耗费的费用是$C_i$，得到的价值是$W_i$。求解将哪些物品装入背包可使价值总和最大。 基本思路：这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或者不放 用子问题定义状态，即f[i,v]表示前i间物品恰放入一个容量为v的背包可以获得的最大值。则其状态转移方程便是$f[i,v] = max(F[i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode-Day42">
+<meta property="og:url" content="https://woojoo520.github.io/2019/09/30/LeetCode-Day42/index.html">
+<meta property="og:site_name" content="Celery Fairy">
+<meta property="og:description" content="背包问题的详解1. 01背包问题题目：有N 件物品和一个容量为V 的背包。放入第i件物品耗费的费用是$C_i$，得到的价值是$W_i$。求解将哪些物品装入背包可使价值总和最大。 基本思路：这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或者不放 用子问题定义状态，即f[i,v]表示前i间物品恰放入一个容量为v的背包可以获得的最大值。则其状态转移方程便是$f[i,v] = max(F[i">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="c:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1569847212976.png">
+<meta property="og:image" content="c:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1569847314337.png">
+<meta property="og:image" content="c:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1569849873174.png">
+<meta property="og:updated_time" content="2019-09-30T13:57:01.853Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LeetCode-Day42">
+<meta name="twitter:description" content="背包问题的详解1. 01背包问题题目：有N 件物品和一个容量为V 的背包。放入第i件物品耗费的费用是$C_i$，得到的价值是$W_i$。求解将哪些物品装入背包可使价值总和最大。 基本思路：这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或者不放 用子问题定义状态，即f[i,v]表示前i间物品恰放入一个容量为v的背包可以获得的最大值。则其状态转移方程便是$f[i,v] = max(F[i">
+<meta name="twitter:image" content="c:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1569847212976.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woojoo520.github.io/2019/09/30/LeetCode-Day42/">
+
+
+
+
+
+  <title>LeetCode-Day42 | Celery Fairy</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/woojoo520" class="github-corner" aria-label="View source on GitHub">
+      <svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+      </svg>
+    </a>
+    <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Celery Fairy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Celery's Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/30/LeetCode-Day42/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">LeetCode-Day42</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-30T14:34:57+08:00">
+                2019-09-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="背包问题的详解"><a href="#背包问题的详解" class="headerlink" title="背包问题的详解"></a>背包问题的详解</h2><h3 id="1-01背包问题"><a href="#1-01背包问题" class="headerlink" title="1. 01背包问题"></a>1. 01背包问题</h3><h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p>有N 件物品和一个容量为V 的背包。放入第<code>i</code>件物品耗费的费用是$C_i$，得到的价值是$W_i$。求解将哪些物品装入背包可使价值总和最大。</p>
+<h4 id="基本思路："><a href="#基本思路：" class="headerlink" title="基本思路："></a>基本思路：</h4><p>这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或者不放</p>
+<p>用子问题定义状态，即<code>f[i,v]</code>表示前<code>i</code>间物品恰放入一个容量为<code>v</code>的背包可以获得的最大值。则其状态转移方程便是$f[i,v] = max(F[i - 1,v], F[i - 1, v - C_i] + W_i)$</p>
+<h4 id="伪代码如下："><a href="#伪代码如下：" class="headerlink" title="伪代码如下："></a>伪代码如下：</h4><p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1569847212976.png" alt="1569847212976"></p>
+<h4 id="优化空间复杂度："><a href="#优化空间复杂度：" class="headerlink" title="优化空间复杂度："></a>优化空间复杂度：</h4><p>以上方法的时间和空间复杂度均为$O(VN)$，其中时间复杂度已经不能再优化了，但是空间复杂度却可以优化到$O(V)$</p>
+<p>我们可以将代码写成下面这种形式：</p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1569847314337.png" alt="1569847314337"></p>
+<p>首先，这里本来是个二维数组，但是由于我们每次更新当前行的时候，只用到了前一行的数据，因此可以变成一个一维数组。</p>
+<p>这里注意到：$v \leftarrow V \text { to } C_{i}$</p>
+<p>为什么要这样写呢？</p>
+<p>因为当我们变成一维数组的时候，在进行状态更新的时候，当前的状态依赖于前面的状态，如图：</p>
+<p>![img](file:///C:\Users\12751\Documents\Tencent Files\1275121799\Image\C2C{5ABE66EB-46E4-094C-B286-7156B3D63719}.png)</p>
+<p>更新完之后，还得写回当前的位置，为了不影响后面的操作，所以这里需要倒过来写</p>
+<h4 id="初始化的细节问题："><a href="#初始化的细节问题：" class="headerlink" title="初始化的细节问题："></a>初始化的细节问题：</h4><p>我们看到的求最优解的背包问题题目中，事实上有两种不太相同的问法。有的题目要求“恰好装满背包”时的最优解，有的题目则并没有要求必须把背包装满。一种区别这两种问法的实现方法是在初始化的时候有所不同。</p>
+<p>如果是第一种问法，要求恰好装满背包，那么在初始化时除了<code>f[0] = 0</code>，其他<code>F[1...V]</code>均设为$-\infty$。这样就能保证最终得到的<code>f[V]</code>是一种恰好装满背包的最优解。</p>
+<p>如果并没有要求必须把背包装满，而是只希望价格尽量大，初始化时应将<code>F[0...V]</code>全部设为0</p>
+<p>为什么呢？可以这样理解：初始化的<code>F</code>数组事实上就是在没有任何物品可以放入背包时的合法状态。如果要求背包恰好装满，那么此时只有容量为0的背包可以在什么也不装且价值为0的情况下被“恰好装满”，其他容量的背包均没有合法的解，属于未定义的状态，应该就被赋值为$-\infty$。如果背包并非必须被装满，那么任何容量的背包都有一个合法解“什么都不装”，这个解的价值为0，所以初始时状态的值也就是全部为0了</p>
+<h3 id="2-完全背包问题"><a href="#2-完全背包问题" class="headerlink" title="2. 完全背包问题"></a>2. 完全背包问题</h3><h4 id="题目：-1"><a href="#题目：-1" class="headerlink" title="题目："></a>题目：</h4><p>有$N$ 种物品和一个容量为$V $的背包，每种物品都有无限件可用。放入第i 种物品的费用是$C_i$，价值是$W_i$。求解：将哪些物品装入背包，可使这些物品的耗费的费用总和不超过背包容量，且价值总和最大。</p>
+<h4 id="常规思路："><a href="#常规思路：" class="headerlink" title="常规思路："></a>常规思路：</h4><p>常规思路应该写出这样的表达式：</p>
+<p>$F[i, v] = max(F[i - 1,v - k * (C_i)] + kW_i), 0 \le kC_i \le v$</p>
+<h4 id="一个简单有效的优化："><a href="#一个简单有效的优化：" class="headerlink" title="一个简单有效的优化："></a>一个简单有效的优化：</h4><p>完全背包问题有一个很简单有效的优化，是这样的：若两件物品$i$、$j$ 满足 $C_i \le C_j$，且$W_i \ge W_j$，则可以直接将物品<code>j</code>去掉，不用考虑。这个优化的正确性是显然的：任何情况下都可以将价值小费用高的<code>j</code>换成物美价廉的<code>i</code>，得到的方案至少不会更差。</p>
+<h4 id="O-VN-的算法："><a href="#O-VN-的算法：" class="headerlink" title="$O(VN)$的算法："></a>$O(VN)$的算法：</h4><p>伪代码：</p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1569849873174.png" alt="1569849873174"></p>
+<p>你会发现，这个伪代码与01背包的伪代码只有v的循环次序不同而已。 </p>
+<p>为什么这个方法可行呢？我们先来看看原来为什么需要逆序？</p>
+<p>![img](file:///C:\Users\12751\Documents\Tencent Files\1275121799\Image\C2C{5ABE66EB-46E4-094C-B286-7156B3D63719}.png)</p>
+<p>因为我们怕改变当前的值会影响到后面，但是现在我们恰恰需要这种影响，因为这个时候，我们的物品不止一件了，可以无限的放进背包，而且这种影响可以表示为：我在已经放入<code>k</code>个<code>i</code>物品之后，在放入一件<code>i</code>物品不会不会使得我的价值更大呢？</p>
+<h3 id="3-多重背包问题"><a href="#3-多重背包问题" class="headerlink" title="3. 多重背包问题"></a>3. 多重背包问题</h3><h4 id="题目：-2"><a href="#题目：-2" class="headerlink" title="题目："></a>题目：</h4><p>有N 种物品和一个容量为$V$ 的背包。第$i$ 种物品最多有$M_i$ 件可用，每件耗费的空间是$C_i$，价值是$W_i$。求解将哪些物品装入背包可使这些物品的耗费的空间总和不超过背包容量，且价值总和最大。</p>
+<h4 id="基本算法："><a href="#基本算法：" class="headerlink" title="基本算法："></a>基本算法：</h4><p>$F[i, v] = max(F[i - 1,v - k * (C_i)] + kW_i), 0 \le k \le M_i$</p>
+<h4 id="转换为01背包问题："><a href="#转换为01背包问题：" class="headerlink" title="转换为01背包问题："></a>转换为01背包问题：</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">k &lt;- <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span>(k &lt; M) </span><br><span class="line">	ZeroOnePack(kC, kW)</span><br><span class="line">	M &lt;- M - k</span><br><span class="line">	k &lt;- <span class="number">2</span>k</span><br><span class="line">ZeroOnePack(CM, WM)</span><br></pre></td></tr></table></figure>
+
+<h3 id="377-组合总和IV"><a href="#377-组合总和IV" class="headerlink" title="377. 组合总和IV"></a>377. 组合总和IV</h3><p>给定一个由正整数组成且不存在重复数字的数组，找出和为给定目标正整数的组合的个数。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">nums = [1, 2, 3]</span><br><span class="line">target = 4</span><br><span class="line">所有可能的组合为：</span><br><span class="line">(1, 1, 1, 1)</span><br><span class="line">(1, 1, 2)</span><br><span class="line">(1, 2, 1)</span><br><span class="line">(1, 3)</span><br><span class="line">(2, 1, 1)</span><br><span class="line">(2, 2)</span><br><span class="line">(3, 1)</span><br><span class="line">请注意，顺序不同的序列被视作不同的组合。</span><br><span class="line">因此输出为 7。</span><br></pre></td></tr></table></figure>
+
+<p>思路：实际上就是一个完全背包的问题</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">combinationSum4</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> dp[target + <span class="number">1</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= target;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">                <span class="keyword">if</span>(i &gt;= num) &#123;</span><br><span class="line">                    dp[i] = dp[i] &gt;= INT_MAX - dp[i - num] ? <span class="number">0</span> : dp[i] + dp[i - num];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>  dp[target];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这里需要注意有可能会出现<code>int</code>范围爆炸的问题。所以需要提前判断一下！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/27/LeetCode-Day41/" rel="next" title="LeetCode-Day41">
+                <i class="fa fa-chevron-left"></i> LeetCode-Day41
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/01/Regular-expression/" rel="prev" title="Regular expression">
+                Regular expression <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mariana</p>
+              <p class="site-description motion-element" itemprop="description">a study blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背包问题的详解"><span class="nav-number">1.</span> <span class="nav-text">背包问题的详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-01背包问题"><span class="nav-number">1.1.</span> <span class="nav-text">1. 01背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目："><span class="nav-number">1.1.1.</span> <span class="nav-text">题目：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本思路："><span class="nav-number">1.1.2.</span> <span class="nav-text">基本思路：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#伪代码如下："><span class="nav-number">1.1.3.</span> <span class="nav-text">伪代码如下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优化空间复杂度："><span class="nav-number">1.1.4.</span> <span class="nav-text">优化空间复杂度：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化的细节问题："><span class="nav-number">1.1.5.</span> <span class="nav-text">初始化的细节问题：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-完全背包问题"><span class="nav-number">1.2.</span> <span class="nav-text">2. 完全背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目：-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">题目：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常规思路："><span class="nav-number">1.2.2.</span> <span class="nav-text">常规思路：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个简单有效的优化："><span class="nav-number">1.2.3.</span> <span class="nav-text">一个简单有效的优化：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#O-VN-的算法："><span class="nav-number">1.2.4.</span> <span class="nav-text">$O(VN)$的算法：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-多重背包问题"><span class="nav-number">1.3.</span> <span class="nav-text">3. 多重背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目：-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">题目：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本算法："><span class="nav-number">1.3.2.</span> <span class="nav-text">基本算法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#转换为01背包问题："><span class="nav-number">1.3.3.</span> <span class="nav-text">转换为01背包问题：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#377-组合总和IV"><span class="nav-number">1.4.</span> <span class="nav-text">377. 组合总和IV</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mariana</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
