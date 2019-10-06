@@ -241,6 +241,555 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/09/NAS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/09/NAS/" itemprop="url">NAS</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-09T13:53:08+08:00">
+                2019-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="NAS综述"><a href="#NAS综述" class="headerlink" title="NAS综述"></a>NAS综述</h2><h3 id="1-NAS综述"><a href="#1-NAS综述" class="headerlink" title="1.NAS综述"></a>1.NAS综述</h3><p>AutoML（automated machine learning）是模型选择、特征提取和超参数调优的一系列自动化方法，可以实现自动训练有价值的模型。</p>
+<p>深度学习可以自动学习出有用的特征，脱离了对特征工程的依赖，在图像、语音等任务上取得了超越其他算法的结果。这种成功很大程度上得益于新神经网络结构的出现，如ResNet、Inception、DenseNet等。但设计出高性能的神经网络需要大量的专业知识与反复实验，成本极高，限制了神经网络在很多问题上的应用。神经结构搜索（Neural Architecture Search ，简称NAS）是<strong>一种自动设计神经网络的技术</strong>，可以通过算法根据样本集自动设计出高性能的网络结构，在某些任务上甚至可以媲美人类专家的水准，甚至发现某些人类之前未曾提出过的网络结构，这可以有效的降低神经网络的使用和实现成本。</p>
+<p>NAS的<strong>原理</strong>是给定一个称为<strong>搜索空间</strong>的候选神经网络结构集合，用某种策略从中<strong>搜索出最优网络结构</strong>。神经网络结构的优劣即性能用某些指标如精度、速度来度量，称为<strong>性能评估</strong>。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-261f4e89d5c60e5d336052e7fc6d116d_hd.png" alt="img"></p>
+<p>在搜索的每次迭代中，从<strong>搜索空间产生“样本”</strong>即得到一个神经网络结构，称为“子网络”。在<strong>训练样本集上训练子网络</strong>，然后<strong>在验证集上评估其性能</strong>。逐步优化网络结构，知道找到最优子结构。</p>
+<p><strong>搜索空间</strong>、<strong>搜索策略</strong>、<strong>性能评估</strong>策略是<code>NAS算法</code>的核心要素。搜索空间定义了可以搜索的神经网络结构的集合，即解的空间。搜索策略定义了如何在搜索空间中寻找最有网络结构。性能评估策略定义了如何评估搜索出的网络结构的性能。对这些要素的不同实现得到了各种不同的NAS算法。</p>
+<h3 id="空间"><a href="#空间" class="headerlink" title="空间"></a>空间</h3><p>搜索空间定义了NAS算法可以搜索的神经网络的类型，同时也定义了如何描述神经网络。神经网络所实现的计算可以抽象成一个无孤立节点的有向无环图（DAG），图的节点代表神经网络的层，边代表数据的流动。每个节点从其前驱节点（有边射入）接收数据，经过计算之后将数据输出到后续节点（有边射出）。理论上说，只要是无孤立节点的DAG，都是合法的神经网络结构。按照不同的尺度，神经网络的结构定义包含如下层次的信息：</p>
+<ul>
+<li><p><strong>网络的拓扑结构</strong></p>
+<p>网络有多少个层，这些层的连接关系。从简单的图结构到任意的DAG也反映了整个神经网络结构的发展历程。最简单的神经网络是线性链式结构，其对应的图的每个节点最多只有一个前驱，一个后续，类似于数据结构中的链表。早期的全连接神经网络，卷积神经网络都是这种拓扑结构。Inception、ResNet、DenseNet中的节点允许有多个前驱，多个后续，从而形成了多分支、跨层连接结构，它们是更复杂的图。这些典型的拓扑结构如下图所示。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-0e574807c1ef41d73e80d67eb6dbe5d2_hd.png" alt="img"></p>
+<p>在描述网络的拓扑结构时，一般采用前驱节点来定义，即定义每个节点的前驱节点，一旦该信息确定，则网络拓扑结构确定。</p>
+</li>
+<li><p><strong>每个层的类型。</strong></p>
+<p>除了第一个层必须为输入层，最后一个层必须为输出之外，中间的层的类型是可选的，它们代表了各种不同的运算即层的类型。典型有<code>全连接，卷积，反卷积，空洞卷积，池化，激活函数</code>等。但这些层的组合使用一般要符合某些规则。</p>
+</li>
+<li><p><strong>每个层内部的超参数</strong></p>
+<p><code>卷积层</code>的超参数有<code>卷积核的数量，卷积核的通道数，高度，宽度，水平方向的步长，垂直方向的步长</code>等。<code>全连接层</code>的超参数有<code>神经元的数量</code>。<code>激活函数层</code>的超参数有<code>激活函数的类型，函数的参数（如果有）</code>等。各种典型层的超参数如下表所示</p>
+<p><img src="https://pic1.zhimg.com/80/v2-926c10c9ca9f9a5feff26ad0cd1b10f8_hd.png" alt="img"></p>
+</li>
+</ul>
+<p>​        如果一个节点的前驱节点只有一个，则直接以前驱节点的输出值作为本节点的输入。如果<code>前驱节点有多个</code>，需要将前驱节点的值汇总后输入本节点，这里有两种策略：<strong>相加和拼接</strong>，前者的典型代表是<code>ResNet</code>，后者的典型代表是<code>DenseNet</code>。由于神经网络的层数不固定，每层的超参数数量也不固定，因此描述网络结构的参数是变长的。</p>
+<p>​        为了提高搜索效率，有时候会<strong>对搜索空间进行限定或简化</strong>。在某些NAS实现中会<code>把网络切分成基本单元</code>（cell，或block），通过这些单元的堆叠形成更复杂的网络。基本单元由多个节点（神经网络的层）组成，它们在整个网络中重复出现多次，但具有不同的权重参数。另外一种做法是<strong>限定神经网络的整体拓扑结构</strong>，借鉴于人类设计神经网络的经验。这些做法虽然减少了NAS算法的计算量，但也限定了算法能够寻找的神经网络的类型。</p>
+<p>​        由于描述神经网络结构的参数含有离散数据（如拓扑结构的定义，层的类型，层内的离散型超参数），因此<strong>网络结构搜索是一个离散优化问题</strong>。定义结构的参数数量一般比较大，因此<strong>属于高维优化问题</strong>。另外，对于该问题，<strong>算法不知道优化目标函数的具体形式</strong>（每种网络结构与该网络的性能的函数关系），因此属于<strong>黑盒优化</strong>问题。这些特点为NAS带来了巨大的挑战。</p>
+<h3 id="搜索策略"><a href="#搜索策略" class="headerlink" title="搜索策略"></a>搜索策略</h3><p><strong>搜索策略定义了如何找到最优的网络结构</strong>，通常是一个<strong>迭代优化</strong>过程，<strong>本质上是超参数优化问题</strong>。目前已知的搜索方法有随机搜索，贝叶斯优化，遗传算法，强化学习，基于梯度的算法。其中强化学习，遗传学习，基于梯度的优化是目前的主流算法，也是本章介绍的重点。</p>
+<h4 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h4><p>​        基于强化学习的NAS算法[4-6]将神经网络结构设计看作一个强化学习问题，学习得到一个产生网络结构的最优策略。这里的智能体是设计神经网络结构的算法，用于输出神经网络结构描述，强化学习算法使得生成的神经网络的性能最优化。为了用强化学习求解，可以<strong>将神经网络的设计看做一个动作序列</strong>，每次执行动作确定网络的一部分结构如层。神经网络在验证集上的性能值是强化学习中的奖励值。</p>
+<p>​        由于神经网络的结构参数长度不固定，因此需要用一个可变长度的串描述网络结构，算法需要输出这种不定长的串。循环神经网络可以输出不固定长度是数据，因此可以用它来生成网络结构的描述，文献[2]提出的NAS采用了这种方案。</p>
+<p>​        算法用一个称为<strong>控制器</strong>的<strong>循环神经网络</strong>生成描述子网络结构的串，从而确定子网络的结构。然后在训练集上训练子网络，在验证集上计算其精度值。以精度值作为反馈信号，采用策略梯度算法更新控制器网络的参数。在迭代时，控制器会以给予那些有更高精度值的神经网络以更高的概率值，从而确保策略函数能够输出最优网络结构。这一过程如下图所示。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-b4040b08e683800e815365184d6f6025_hd.png" alt="img"></p>
+<p>​       算法的<strong>输出限定为分层的网络结构</strong>，第n个网络层以第n-1个网络层为基础。网络结构生成可抽象为<strong>序列生成问题</strong>，按层逐次预测网络结构。在RNN中，每5个输出值定义一个神经网络层。上一时刻的输出是本时刻的输入，确保RNN基于前面n-1层所有的结构信息来预测第n层的结构。<strong>RNN的输出层是softmax回归，根据它确定结构参数</strong>。对于卷积核高度，可以限定输出值为[ 1,3,5,7]四个数，RNN的softmax输出是取这4个数的概率值。</p>
+<p>​        控制器每一时刻的输出包括：卷积核的数量，卷积核的高度，卷积核的宽度，卷积操作在水平方向的步长，卷积操作在垂直方向的步长。这一过程如下图所示</p>
+<p><img src="https://pic4.zhimg.com/80/v2-6d1a397e485909024f33a6989cbd1ccb_hd.png" alt="img"></p>
+<p>​         实现时考虑典型的网络结构。对于卷积核的数量，取值范围为[ 24,36,48,64]，卷积核的高度取值范围为[ 1,3,5,7]，卷积核宽度的取值范围与高度相同。卷积步长可以固定为1，也可以按照 [ 1,2,3]取值。</p>
+<p>​        这里需要考虑的一个问题是<strong>何时终止预测</strong>，实现时限定了神经网络的层数，达到一定的层之后，停止输出。<strong>在训练过程中这个值会逐步增加</strong>。</p>
+<p>​        控制器生成该描述串之后，接下来在训练集上训练该子网络，这里采用了<strong>REINFORCE算法</strong>。<strong>目标函数为子网络在验证集上的精度的数学期望</strong></p>
+<p><img src="https://www.zhihu.com/equation?tex=L%28%5Ctheta+%29%3DE_%7B%5CDelta+%5Csim+p_%7B%5Ctheta+%28%5Ccdot+%29%7D%7D%5Cleft+%5B+R%28%5CDelta+%29+%5Cright+%5D" alt="[å¬å¼]"></p>
+<p>其中 <img src="https://www.zhihu.com/equation?tex=%5Ctheta+" alt="[公式]"> 是控制器的参数， <img src="https://www.zhihu.com/equation?tex=%5CDelta+" alt="[公式]"> 是子网络， <img src="https://www.zhihu.com/equation?tex=P_%7B%5Ctheta+%7D%28%5CDelta+%29" alt="[公式]"> 是控制器输出的子网络所服从的概率分布， <img src="https://www.zhihu.com/equation?tex=R%28%5CDelta+%29" alt="[公式]"> 是子网络在验证集上的精度值。<strong>直观的目标是某种结构的子网络准确率越高，则控制器生成该网络结构的概率越大</strong>。因此可以按照下式计算控制器的参数</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cbigtriangledown+_%7B%5Ctheta+%7DL%28%5Ctheta+%29%3D+%5Csum_%7B1%7D%5E%7BT%7DE_%7Bp%28a_%7B1%3AT%7D%3B%5Ctheta+%29%7D%5Cleft+%5B+%5Cbigtriangledown+_%7B%5Ctheta+%7D%5Cln+p%28a_%7Bt%7D%5Cmid+a_%7Bt-1%3A1%7D%3B%5Ctheta+%29+R%5Cright+%5D" alt="[公式]"></p>
+<p>其中R为子网络的准确率，p为生成该子网络结构的概率。实现时使用采样来近似数学期望值<br>  <img src="https://www.zhihu.com/equation?tex=%5Cfrac%7B1%7D%7Bm%7D%5Csum_%7Bk%3D1%7D%5E%7Bm%7D%5Csum_%7Bt%3D1%7D%5E%7BT%7D%5Cbigtriangledown+_%7B%5Ctheta+%7D%5Cln+p%28a_%7Bt%7D%5Cmid+a_%7Bt-1%3A1%7D%3B%5Ctheta+%29R_%7Bk%7D" alt="[公式]"></p>
+<p>其中m为mini-batch的样本数，T为神经网络的层数。为了解决REINFORCE算法计算出的梯度值偏差问题，在计算梯度时减掉了均值b</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cfrac%7B1%7D%7Bm%7D%5Csum_%7Bk%3D1%7D%5E%7Bm%7D%5Csum_%7Bt%3D1%7D%5E%7BT%7D%5Cbigtriangledown+_%7B%5Ctheta+%7D%5Cln+p%28a_%7Bt%7D%5Cmid+a_%7Bt-1%3A1%7D%3B%5Ctheta+%29%28R_%7Bk%7D-b%29" alt="[公式]"></p>
+<p>其中b为所有奖励的均值。前面介绍的方法只能生成标准的线性结构网络，通过改进可以生成跨层连接的卷积神经网络以及循环神经网络，通过在控制器softmax输出中增加相关信息而实现。</p>
+<p>​       文献[2]奠定了用强化学习解决NAS问题的基础，但面临计算量大的问题。一种解决方案是对搜索空间进行简化，限定网络结构为某些类型。回顾卷积网络的发展历史，<strong>各种典型卷积神经网络一般都具有某些重复、规整的结构</strong>，如ResNet中的跨层连接块，GoogLeNet中的Inception块等。<strong>如果能预测出这种基本块结构，然后将其堆叠形成网络，既可以降低搜索成本，又能使得网络随着输入数据的尺寸动态扩展，对于大尺寸的输入图像，只需要增加堆叠的块数即可。</strong></p>
+<p>​        文献[3]采用了这种思想，提出了一种称为NASNet的方法。NASNet预测出基本块（building block），在小规模的CIFAR-10数据集上训练，然后将学习得到的网络结构迁移到更大规模的ImageNet数据集上。<strong>控制器预测的是基本两种网络单元，分别称为普通单元（Normal Cell）和约简单元（Reduction Cell）</strong>。前者不改变输入图像的尺寸，后者将图像的高度和宽度减半。根据这种设计，<strong>搜索整个神经网络结构的任务被简化为搜索最优基本块结构</strong>。除了降低搜索空间的大小，这种做法还使得在一个数据集上搜索得到的网络结构更容易泛化到其他数据集上。</p>
+<p>​        完整的神经网络通过这些相同结构的基本单元堆叠形成，但各个基本单元有不同的权重参数。对于不同尺寸和规模的数据集，使用了不同数量的基本块。下图为用于CIFAR-10和ImageNet数据集的网络结构。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-3f15a91ff3431a49e87c4b515e326d46_hd.png" alt="img"></p>
+<p>​       上图中的乘以N表示这种基本块堆叠N次。<strong>算法的核心是如何生成基本块</strong>。控制器网络用RNN实现，其输出层为softmax，用于生成描述神经网络结构的决策。每个基本单元由B个块构成，每个块有两个输入，执行某一运算后产生输出。下图为生成每个块的方法，包含5个步骤：</p>
+<ul>
+<li>选择一个隐含状态作为第一个输入</li>
+<li>选择一个隐含状态作为第二个输入</li>
+<li>为第一个隐含状态选择一个运算</li>
+<li>为第二个隐含状态选择一个运算</li>
+<li>为两个运算的结果选择一个合并方式，执行合并</li>
+</ul>
+<p>隐含状态即神经网络前面的层的输出结果，如CNN中的卷积特征图像，或RNN中的隐含状态。然后对两个输入各选择一个运算，再将两个运算的结果合并。这一过程如下图所示。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-cb5e1634ec0e10ff10b3c64801f39a1c_hd.png" alt="img"></p>
+<p>作用于隐含状态上的<strong>运算包括各种卷积，池化等操作</strong>。<strong>运算结果的合并方式有相加，拼接两种选择</strong>。</p>
+<p>下图为生成一个基本单元的过程。图中上方为候选隐含状态集合，第1次选择H1和H2作为输入，分别执行池化和卷积运算，然后相加，得到H3，并将其加入候选隐含状态集合。接下来生成第2个块，选择H2和H3作为输入，分布执行卷积和恒等运算，将结果进行拼接，产生H4。其他的以此类推。在这里B的值由人工设定。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-57e5e32c98acc4675afc6c45a79584d7_hd.png" alt="img"></p>
+<p>下图是典型的约简块，同样的B=4，这里将4个临时结果拼接，形成 <img src="https://www.zhihu.com/equation?tex=h_%7Bt%7D" alt="[公式]"> 作为本单元的输出值。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-9457ff0a3ac4a0d9f262616f6d7ece08_hd.png" alt="img"></p>
+<p>​       在生成网络结构描述之后，训练子网络和控制器网络的方法与文献[2]相同，不同的是策略梯度算法采用了<strong>PPO算法</strong>（Proximal Policy Optimization）。</p>
+<p>​        NASNet虽然在速度上有提升，但计算量还是太大。作为这一系列方法的改进，文献[4]提出了一种称为ENAS（Efficient Neural Architecture Search）的算法，<strong>通过在各个网络之间共享权重来减少计算量</strong>。由于各个子网络共享权重，因此每个子网络不需要从头开始训练，这极大的提高了搜索速度。</p>
+<p>​        ENAS将NAS看做是寻找最优子图的问题，问题的解是一张大的图的子图。图23-1展示了这一概念。在这种图表示中，图的顶点为某种计算（如卷积，池化，相加），边表示数据的流动。下图的图有6个顶点，<strong>任意两个节点之间都可能有边连接，但边的方向只能是从编号较小的节点指向编号较大的节点，以防止环的出现</strong>。各个顶点可以对应于神经网络中的层，数据只能从编号小的层流向编号大的层。这个图的最优子图包含全部6个顶点，边为图中红色的边。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-fb009a576bba7f77afd1b012672892a9_hd.png" alt="img"></p>
+<p>​       使用这种表示，可以将NAS限定为在一个固定顶点数的图中寻找最优子图。神经网络的结构描述同样由RNN实现的控制器生成。对于卷积神经网络和循环神经网络采用了不同的描述，控制器生成这两种神经网络单元的方法也不同，下面分别介绍。</p>
+<p>​        循环神经网络中可以选择的操作为激活函数，包括ReLU和tanh两种类型。下图为一个子图以及对应的循环神经网络。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-d937276289ee331c8315dab46fac8e16_hd.png" alt="img"></p>
+<p>该图有4个顶点，红色的边表示信息的流动，黑色的边无效即没有使用。右图为对应的循环神经网络单元，运算节点的编号与左图中图的顶点编号对应。节点1接收 <img src="https://www.zhihu.com/equation?tex=x_%7Bt%7D" alt="[公式]"> 和 <img src="https://www.zhihu.com/equation?tex=h_%7Bt-1%7D" alt="[公式]"> 作为输入，执行下面的运算</p>
+<p><img src="https://www.zhihu.com/equation?tex=h_%7B1%7D%3Dtanh%28x_%7Bt%7D%5Ccdot+W%5E%7B%28x%29%7D%2Bh_%7Bt-1%7D%5Ccdot+W_%7B1%7D%5E%7B%28h%29%7D%29" alt="[公式]"></p>
+<p>这里的激活函数选用tanh，权重矩阵为本节点的参数。节点2以节点1的输出值为输入，选择ReLU作为激活函数，执行下面的运算</p>
+<p><img src="https://www.zhihu.com/equation?tex=h_%7B2%7D%3DReLU%28h_%7B1%7D%5Ccdot+W_%7B2%2C1%7D%5E%7B%28h%29%7D%29" alt="[公式]"></p>
+<p>该节点同样有权重矩阵。节点3以节点2的输出值为输入，选择ReLU作为激活函数，执行下面的运算</p>
+<p><img src="https://www.zhihu.com/equation?tex=h_%7B3%7D%3DReLU%28h_%7B2%7D%5Ccdot+W_%7B3%2C2%7D%5E%7B%28h%29%7D%29" alt="[公式]"></p>
+<p>节点4以节点1的输出值作为输入，选择tanh作为激活函数，执行下面运算</p>
+<p><img src="https://www.zhihu.com/equation?tex=h_%7B4%7D%3DReLU%28h_%7B1%7D%5Ccdot+W_%7B4%2C1%7D%5E%7B%28h%29%7D%29" alt="[公式]"></p>
+<p>节点3和4没有后续节点，因此根据它们计算输出值。输出值为它们的均值</p>
+<p><img src="https://www.zhihu.com/equation?tex=h_%7Bt%7D%3D%28h_%7B3%7D%2Bh_%7B4%7D%29%2F2" alt="[公式]"></p>
+<p>对每个 <img src="https://www.zhihu.com/equation?tex=j%3C+l" alt="[公式]"> 的节点对，<strong>都有一个独立的权重矩阵</strong> <img src="https://www.zhihu.com/equation?tex=W_%7Bl%2Cj%7D%5E%7B%28h%29%7D" alt="[公式]"> ，<strong>为每个节点l一旦确定其前驱节点j，则使用该矩阵</strong>。在ENAS中，所有循环单元共用一组相同的权重参数。</p>
+<p>​       下面介绍控制器如何生成该网络结构。控制器在每次预测时需要做两个决策：确定以哪个节点的输出值作为输入即作为当前节点的前驱，为当前节点选用哪种激活函数。对于第1个节点，输入值是确定的，为 <img src="https://www.zhihu.com/equation?tex=x_%7Bt%7D" alt="[公式]"> 和 <img src="https://www.zhihu.com/equation?tex=h_%7Bt-1%7D" alt="[公式]"> ，控制器只用为其选择激活函数。接下来生成节点2，首先选择一个节点作为输入即作为节点2的前驱节点，然后为节点2选择激活函数。其他节点依次类推，这一过程如下图所示。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-b0153571a7b252d0ebf1ca80445ee8d3_hd.png" alt="img"></p>
+<p>​       假设循环神经网络的单元有N个节点，在生成第i个节点时，可以选择的前驱节点为[0,i-1]之间的整数，有i种情况，因此网络的拓扑结构有N!种。对于每种网络拓扑，每个节点的激活函数有4种选择，分别为tanh，sigmoid，identity，ReLU。因此可以搜索的网络结构总共有 <img src="https://www.zhihu.com/equation?tex=4%5E%7BN%7D%5Ctimes+N%21" alt="[公式]"> 种情况。</p>
+<p>​        下面介绍卷积神经网络的生成方式。下图给4个节点的卷积神经网络，同样的，红色的边表示有效边，黑色的未激活。这个图对应的网络结构如右图所示。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-25b74be6615d7c472de50487c0729a01_hd.png" alt="img"></p>
+<pre><code>与循环神经网络不同的是，**这里每个节点可以允许有多个前驱节点**。例如节点3有两个前驱，分别为1和2。</code></pre><p>​        生成卷积神经网络结构的方法与循环神经网络类似：为当前节点选择前驱节点，为当前节点选择要使用的运算。这两个决策结果形成卷积神经网络的一个层。这一过程如上图所示。</p>
+<p>​        <strong>对于第k层，小于等于k-1的不同层都可以用来作为它的输入</strong>，因此有 <img src="https://www.zhihu.com/equation?tex=2%5E%7Bk-1%7D" alt="[公式]"> 种连接关系。对于上图中的卷积神经网络，在k=4时选择{1,3}作为它的前驱，导致第1、3个层都与第4个层连接。这种做法可以形成任意的跨层连接。</p>
+<p>​        在每个节点处允许的运算有6种情况，分别是： <img src="https://www.zhihu.com/equation?tex=3%5Ctimes+3" alt="[公式]"> 卷积， <img src="https://www.zhihu.com/equation?tex=5%5Ctimes+5" alt="[公式]"> 卷积， <img src="https://www.zhihu.com/equation?tex=3%5Ctimes+3" alt="[公式]"> 深度可分离卷积， <img src="https://www.zhihu.com/equation?tex=5%5Ctimes+5" alt="[公式]"> 深度可分离卷积， <img src="https://www.zhihu.com/equation?tex=3%5Ctimes+3" alt="[公式]"> 均值池化， <img src="https://www.zhihu.com/equation?tex=3%5Ctimes+3" alt="[公式]"> 最大值池化。与循环神经网络相同，每个节点处都有所有运算的参数，并被所有网络结构共享。生成卷积神经网络结构的过程如下图所示。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-1b54654c641c486000a35ab5a1eb4abc_hd.png" alt="img"></p>
+<p>如果一个卷积神经网络有L个层，则在第k层处有 <img src="https://www.zhihu.com/equation?tex=2%5E%7Bk-1%7D" alt="[公式]"> 种连接关系，由于各个层之间的连接关系是单独确定即相互独立的，因此网络的连接关系及拓扑结构有</p>
+<p><img src="https://www.zhihu.com/equation?tex=2%5E%7B1%2B2%2B...%2BL-1%7D%3D2%5E%7BL%28L-1%29%2F2%7D" alt="[公式]"></p>
+<p>种情况，对于每种网络结构，在每个层有6种可供选择的运算，因此所有可能的网络结构有</p>
+<p><img src="https://www.zhihu.com/equation?tex=6%5E%7BL%7D%5Ctimes+2%5E%7BL%28L-1%29%2F2%7D" alt="[公式]"></p>
+<p>种情况。如果L=12，则所有可能的网络结构数为 <img src="https://www.zhihu.com/equation?tex=1.6%5Ctimes+10%5E%7B29%7D" alt="[公式]">。</p>
+<p>​        除了生成整个卷积网络，还可以生成卷积网络额单元然后将其堆叠形成完整的网络，具体做法与NASNet类似，不再重复介绍。</p>
+<p>​        生成网络结构之后，接下来的核心任务是训练子网络和控制器网络。假设控制器网络的参数为 <img src="https://www.zhihu.com/equation?tex=%5Ctheta" alt="[公式]"> ，子网络的参数为W，后者被所有子网络共享。这两组参数交替训练，在每次迭代时分两个阶段，首先训练W，然后训练 <img src="https://www.zhihu.com/equation?tex=%5Ctheta" alt="[公式]"> 。</p>
+<p>​        <strong>第一阶段先固定住控制器的参数</strong>，控制器的输出策略为 <img src="https://www.zhihu.com/equation?tex=%5Cpi+%28m%3B%5Ctheta+%29" alt="[公式]">，<strong>从中采样出网络结构</strong>。以交叉熵作为损失函数，计算损失函数对w的梯度并更新。<strong>第二阶段固定住w</strong>，用 REINFORCE算法更新控制器的参数 <img src="https://www.zhihu.com/equation?tex=%5Ctheta" alt="[公式]"> ，<strong>最大化奖励值的数学期望</strong></p>
+<p><img src="https://www.zhihu.com/equation?tex=E_%7Bm-%5Cpi+%28m%3B%5Ctheta+%29%7D%5Cleft+%5B+R%28m%2Cw%29+%5Cright+%5D" alt="[公式]"></p>
+<p>奖励值 <img src="https://www.zhihu.com/equation?tex=R%28m%2Cw%29" alt="[公式]"> 为子网络m在验证集上的<strong>精度值</strong>。训练完成之后，根据控制器的策略 <img src="https://www.zhihu.com/equation?tex=%5Cpi+%28m%3B%5Ctheta+%29" alt="[公式]"> 采样出多个子网络并训练，计算它们在验证集上的表现，选择表现最好的网络作为最终生成的网络。</p>
+<p>​        除上述方法之外，用强化学习实现NAS还有其他方案，具体可以阅读参考文献[11-13]。</p>
+<h3 id="性能评估策略"><a href="#性能评估策略" class="headerlink" title="性能评估策略"></a>性能评估策略</h3><p>​        对于搜索策略搜索出的神经网络结构，首先在一个训练集上训练，然后在验证集上测试精度值。训练和验证过程非常耗时，因此有必要采取措施以降低性能评估的成本。<strong>降低训练成本的简单做法有减少训练时间（迭代次数）</strong>，在训练样本的一个子集上进行训练，在低分辨率的图像上进行训练，或者在训练时减少某些层的卷积核的数量。这些做法在降低计算成本的同时可能会导致性能评估值的偏差。虽然搜索策略只需对各种网络结构的优劣进行排序，无需知道它们准确的性能指标，但这种近似可能还是会导致排序结果的偏差。</p>
+<p>​        更复杂的做法是<strong>对神经网络的性能进行预测（外推），即通过训练时前面若干次迭代时的性能表现推断其最终的性能，或者用搜索出的单元（块）的特性预测整个网络的性能</strong>。<strong>权值共享</strong>也是一种方案。以之前训练过的子网络的权重作为当前要评估的子网络的初始权重可以有效的提高训练速度，加速收敛，避免从头开始训练。<strong>ENAS和DARTS则直接让各个子网络共享同一套权重参数</strong>。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/09/LeetCode-Day25/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/09/LeetCode-Day25/" itemprop="url">LeetCode-Day25</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-09T08:44:24+08:00">
+                2019-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="72-编辑距离"><a href="#72-编辑距离" class="headerlink" title="72. 编辑距离"></a>72. 编辑距离</h3><p>给定两个单词 word1 和 word2，计算出将 word1 转换成 word2 所使用的最少操作数 。</p>
+<p>你可以对一个单词进行如下三种操作：</p>
+<p>插入一个字符<br>删除一个字符<br>替换一个字符<br>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入: word1 = &quot;horse&quot;, word2 = &quot;ros&quot;</span><br><span class="line">输出: 3</span><br><span class="line">解释: </span><br><span class="line">horse -&gt; rorse (将 &apos;h&apos; 替换为 &apos;r&apos;)</span><br><span class="line">rorse -&gt; rose (删除 &apos;r&apos;)</span><br><span class="line">rose -&gt; ros (删除 &apos;e&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入: word1 = &quot;intention&quot;, word2 = &quot;execution&quot;</span><br><span class="line">输出: 5</span><br><span class="line">解释: </span><br><span class="line">intention -&gt; inention (删除 &apos;t&apos;)</span><br><span class="line">inention -&gt; enention (将 &apos;i&apos; 替换为 &apos;e&apos;)</span><br><span class="line">enention -&gt; exention (将 &apos;n&apos; 替换为 &apos;x&apos;)</span><br><span class="line">exention -&gt; exection (将 &apos;n&apos; 替换为 &apos;c&apos;)</span><br><span class="line">exection -&gt; execution (插入 &apos;u&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>思路：</p>
+<p>这是一个关于<strong>动态规划</strong>的问题</p>
+<p>这里有一个<code>dp</code>二维数组，<code>dp[i][j]</code>表示的是<code>word1</code>从0到第<code>i</code>个位置与<code>word2</code>从0到第<code>j</code>个位置的编辑距离，那么就可以有动态规划的逻辑</p>
+<p>当<code>word1</code>的第<code>i</code>个位置与<code>word2</code>的第<code>j</code>个位置相同的时候，<code>dp[i][j] = dp[i - 1][j - 1]</code>，否则：</p>
+<p><code>dp[i][j] = min(dp[i - 1][j] + 1, min(dp[i][j - 1] + 1, dp[i - 1][j - 1] + 1))</code></p>
+<p>这里比较烦恼的是dp数组的初始化问题，就是因为在这里发生了很多bug</p>
+<p>正确的初始化方法（见code）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minDistance</span><span class="params">(<span class="built_in">string</span> word1, <span class="built_in">string</span> word2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(word1.length() == <span class="number">0</span> || word2.length() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> max(word1.length(), word2.length());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> len1 = word1.length(), len2 = word2.length();</span><br><span class="line">        <span class="keyword">int</span> dp[len1][len2];</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = word1[<span class="number">0</span>] == word2[<span class="number">0</span>] ? <span class="number">0</span> : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">bool</span> flag = word1[<span class="number">0</span>] == word2[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; len2;i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(word1[<span class="number">0</span>] == word2[i]) &#123;</span><br><span class="line">                flag = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            dp[<span class="number">0</span>][i] = flag ? i : i + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        flag = word1[<span class="number">0</span>] == word2[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; len1;i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(word1[i] == word2[<span class="number">0</span>]) &#123;</span><br><span class="line">                flag = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            dp[i][<span class="number">0</span>] = flag ? i : i + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; len1;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>;j &lt; len2;j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(word1[i] == word2[j]) &#123;</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    dp[i][j] = min(dp[i - <span class="number">1</span>][j <span class="number">-1</span>] + <span class="number">1</span>, min(dp[i - <span class="number">1</span>][j] + <span class="number">1</span>, dp[i][j - <span class="number">1</span>] + <span class="number">1</span>));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;   </span><br><span class="line">        <span class="keyword">return</span> dp[len1 - <span class="number">1</span>][len2 - <span class="number">1</span>];      </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/08/LeetCode-Day24/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/08/LeetCode-Day24/" itemprop="url">LeetCode-Day24</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-08T09:32:14+08:00">
+                2019-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="148-排序链表"><a href="#148-排序链表" class="headerlink" title="148. 排序链表"></a>148. 排序链表</h3><p>在 $O(nlogn)$ 时间复杂度和常数级空间复杂度下，对链表进行排序。</p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 4-&gt;2-&gt;1-&gt;3</span><br><span class="line">输出: 1-&gt;2-&gt;3-&gt;4</span><br></pre></td></tr></table></figure>
+
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: -1-&gt;5-&gt;3-&gt;4-&gt;0</span><br><span class="line">输出: -1-&gt;0-&gt;3-&gt;4-&gt;5</span><br></pre></td></tr></table></figure>
+
+<p>思路：</p>
+<p>因为<strong>时间复杂度</strong>是$O(nlogn)$，所以就会想到归并排序，但是<strong>常数级空间复杂度</strong>又限制了不能采用递归，因此：</p>
+<p>定义了三个函数:</p>
+<ul>
+<li><p><code>ListNode* sortList(ListNode* head)</code>：用于进行归并排序</p>
+</li>
+<li><p><code>ListNode* cut(ListNode* head, int size)</code>： 用于拆分，从<code>head</code>节点开始，拆分<code>size</code>长度，即进行如下图的操作：</p>
+<p>![img](file:///C:\Users\12751\Documents\Tencent Files\1275121799\Image\C2C{0BB96E9F-E75D-2FDE-2714-7A2DF391FC3B}.png)</p>
+</li>
+<li><p><code>ListNode* merge(ListNode* l1, ListNode* l2)</code>：应该是闭着眼睛都会写的，归并两个有序链表。</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">sortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = <span class="number">0</span>;</span><br><span class="line">        ListNode* tempH = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">        tempH-&gt;next = head;</span><br><span class="line">        ListNode* lenP = head;</span><br><span class="line">        <span class="keyword">while</span>(lenP) &#123;</span><br><span class="line">            length++;</span><br><span class="line">            lenP = lenP-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 先计算链表的总长度为length</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> size = <span class="number">1</span>;size &lt; length;size &lt;&lt;= <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">// 总共进行logn次排序</span></span><br><span class="line">            ListNode* H = tempH;</span><br><span class="line">            ListNode* cur = H-&gt;next;</span><br><span class="line">            <span class="keyword">while</span>(H-&gt;next) &#123;</span><br><span class="line">                <span class="comment">// left表示l1, right表示l2，cur表示l2之后的一个节点 </span></span><br><span class="line">                ListNode* left = cur;</span><br><span class="line">                ListNode* right = cut(left, size);</span><br><span class="line">                cur = cut(right, size);</span><br><span class="line">                <span class="comment">// 进行归并操作</span></span><br><span class="line">                H-&gt;next = merge(left, right);</span><br><span class="line">                <span class="comment">// 将H挪到归并之后的前一段链表的尾节点</span></span><br><span class="line">                <span class="keyword">while</span>(H-&gt;next) &#123;</span><br><span class="line">                    H = H-&gt;next;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 将两段链表连接起来</span></span><br><span class="line">                H-&gt;next = cur;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> tempH-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">ListNode* <span class="title">cut</span><span class="params">(ListNode* head, <span class="keyword">int</span> size)</span> </span>&#123;</span><br><span class="line">        ListNode* temp = head;</span><br><span class="line">        <span class="keyword">while</span>(--size &amp;&amp; temp)  &#123;</span><br><span class="line">            temp = temp-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode* last = temp;</span><br><span class="line">        <span class="keyword">if</span>(!temp) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        temp = temp-&gt;next;</span><br><span class="line">        last-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> temp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">ListNode* <span class="title">merge</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">        ListNode* head = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">        ListNode* temp = head;</span><br><span class="line">        <span class="keyword">while</span>(l1 &amp;&amp; l2) &#123;</span><br><span class="line">            <span class="keyword">if</span>(l1-&gt;val &lt; l2-&gt;val) &#123;</span><br><span class="line">                temp-&gt;next = l1;</span><br><span class="line">                l1 = l1-&gt;next;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                temp-&gt;next = l2;</span><br><span class="line">                l2 = l2-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            temp = temp-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        temp-&gt;next = l1 ? l1 : l2;</span><br><span class="line">        <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>图解：</p>
+<p><img src="https://pic.leetcode-cn.com/c1d5347aa56648afdec22372ee0ed13cf4c25347bd2bb9727b09327ce04360c2-Picture1.png" alt="Picture1.png"></p>
+<h3 id="146-LRU缓存机制"><a href="#146-LRU缓存机制" class="headerlink" title="146. LRU缓存机制"></a>146. LRU缓存机制</h3><p>运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制。它应该支持以下操作： 获取数据 get 和 写入数据 put 。</p>
+<p>获取数据 get(key) - 如果密钥 (key) 存在于缓存中，则获取密钥的值（总是正数），否则返回 -1。<br>写入数据 put(key, value) - 如果密钥不存在，则写入其数据值。当缓存容量达到上限时，它应该在写入新数据之前删除最近最少使用的数据值，从而为新的数据值留出空间。</p>
+<p>进阶:</p>
+<p>你是否可以在 O(1) 时间复杂度内完成这两种操作？</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">LRUCache cache = new LRUCache( 2 /* 缓存容量 */ );</span><br><span class="line"></span><br><span class="line">cache.put(1, 1);</span><br><span class="line">cache.put(2, 2);</span><br><span class="line">cache.get(1);       // 返回  1</span><br><span class="line">cache.put(3, 3);    // 该操作会使得密钥 2 作废</span><br><span class="line">cache.get(2);       // 返回 -1 (未找到)</span><br><span class="line">cache.put(4, 4);    // 该操作会使得密钥 1 作废</span><br><span class="line">cache.get(1);       // 返回 -1 (未找到)</span><br><span class="line">cache.get(3);       // 返回  3</span><br><span class="line">cache.get(4);       // 返回  4</span><br></pre></td></tr></table></figure>
+
+<p><strong>思路详解：</strong></p>
+<p>要让 put 和 get 方法的时间复杂度为 O(1)O(1)，我们可以总结出 cache 这个数据结构必要的条件：查找快，插入快，删除快，有顺序之分。</p>
+<p>因为显然 cache 必须有顺序之分，以区分最近使用的和久未使用的数据；而且我们要在 cache 中查找键是否已存在；如果容量满了要删除最后一个数据；每次访问还要把数据插入到队头。</p>
+<p>那么，什么数据结构同时符合上述条件呢？哈希表查找快，但是数据无固定顺序；链表有顺序之分，插入删除快，但是查找慢。所以结合一下，形成一种新的数据结构：哈希链表。</p>
+<p>LRU 缓存算法的核心数据结构就是哈希链表，双向链表和哈希表的结合体。这个数据结构长这样：</p>
+<p><img src="https://pic.leetcode-cn.com/9201fabe4dfdb5a874b43c325d39857182c8ec267f830649a52dda90a63d6671-file_1562356927818" alt="HashLinkedList"></p>
+<p>思想很简单，就是借助哈希表赋予了链表快速查找的特性嘛：可以快速查找某个 key 是否存在缓存（链表）中，同时可以快速删除、添加节点。回想刚才的例子，这种数据结构是不是完美解决了 LRU 缓存的需求？</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> cap;</span><br><span class="line">    <span class="comment">// 双链表： 装着(key, value)元组</span></span><br><span class="line">    <span class="built_in">list</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; cache;</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="built_in">list</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt;::iterator&gt; <span class="built_in">map</span>;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    LRUCache(<span class="keyword">int</span> capacity) &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;cap = capacity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> it = <span class="built_in">map</span>.find(key);</span><br><span class="line">        <span class="keyword">if</span>(it == <span class="built_in">map</span>.end()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; kv = *<span class="built_in">map</span>[key];</span><br><span class="line">        cache.erase(<span class="built_in">map</span>[key]);</span><br><span class="line">        cache.push_front(kv);</span><br><span class="line">        <span class="built_in">map</span>[key] = cache.begin();</span><br><span class="line">        <span class="keyword">return</span> kv.second;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">put</span><span class="params">(<span class="keyword">int</span> key, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> it = <span class="built_in">map</span>.find(key);</span><br><span class="line">        <span class="keyword">if</span>(it == <span class="built_in">map</span>.end()) &#123;</span><br><span class="line">            <span class="comment">// key不存在，判断cache是否已满</span></span><br><span class="line">            <span class="keyword">if</span>(cache.size() == cap) &#123;</span><br><span class="line">                <span class="keyword">auto</span> lastPair = cache.back();</span><br><span class="line">                <span class="keyword">int</span> lastKey = lastPair.first;</span><br><span class="line">                <span class="built_in">map</span>.erase(lastKey);</span><br><span class="line">                cache.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">            cache.push_front(make_pair(key, value));</span><br><span class="line">            <span class="built_in">map</span>[key] = cache.begin();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            cache.erase(<span class="built_in">map</span>[key]);</span><br><span class="line">            cache.push_front(make_pair(key, value));</span><br><span class="line">            <span class="built_in">map</span>[key] = cache.begin();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="149-直线上最多的点数"><a href="#149-直线上最多的点数" class="headerlink" title="149. 直线上最多的点数"></a>149. 直线上最多的点数</h3><p>给定一个二维平面，平面上有 n 个点，求最多有多少个点在同一条直线上。</p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">输入: [[1,1],[2,2],[3,3]]</span><br><span class="line">输出: 3</span><br><span class="line">解释:</span><br><span class="line">^</span><br><span class="line">|</span><br><span class="line">|        o</span><br><span class="line">|     o</span><br><span class="line">|  o  </span><br><span class="line">+-------------&gt;</span><br><span class="line">0  1  2  3  4</span><br></pre></td></tr></table></figure>
+
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">输入: [[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]</span><br><span class="line">输出: 4</span><br><span class="line">解释:</span><br><span class="line">^</span><br><span class="line">|</span><br><span class="line">|  o</span><br><span class="line">|     o        o</span><br><span class="line">|        o</span><br><span class="line">|  o        o</span><br><span class="line">+-------------------&gt;</span><br><span class="line">0  1  2  3  4  5  6</span><br></pre></td></tr></table></figure>
+
+<p>思路：</p>
+<p>针对每一个点，利用<strong>hashmap</strong>，然后遍历每一个点，计算斜率，利用<code>hashmap</code>检查该斜率是否已经出现过，然后更新<code>hashmap</code></p>
+<p>这里需要注意的是精度问题！因为斜率计算的时候是double类型。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxPoints</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; points)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(points.size() &lt;= <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> points.size();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">map</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>, <span class="keyword">int</span>&gt; mp;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; points.size();i++) &#123;</span><br><span class="line">            mp.clear();</span><br><span class="line">            <span class="keyword">int</span> col = <span class="number">1</span>, tp = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span>;j &lt; points.size();j++) &#123;</span><br><span class="line">                <span class="keyword">int</span> dely = points[j][<span class="number">1</span>] - points[i][<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">int</span> delx = points[j][<span class="number">0</span>] - points[i][<span class="number">0</span>];</span><br><span class="line">                <span class="keyword">if</span>(delx == <span class="number">0</span> &amp;&amp; dely == <span class="number">0</span>)  &#123;</span><br><span class="line">                    col++;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">int</span> gcd = __gcd(delx, dely);</span><br><span class="line">                dely = dely / gcd;</span><br><span class="line">                delx = delx / gcd;</span><br><span class="line">                <span class="keyword">long</span> <span class="keyword">long</span> hash = <span class="number">1l</span>l * delx * <span class="number">1000000</span> + dely;</span><br><span class="line">                <span class="comment">// cout &lt;&lt; "hash = " &lt;&lt; hash &lt;&lt; endl; </span></span><br><span class="line">                <span class="keyword">if</span>(mp.count(hash) == <span class="number">0</span>) &#123;</span><br><span class="line">                    mp[hash] = <span class="number">1</span>;</span><br><span class="line">                    tp = max(tp, mp[hash]);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    mp[hash]++;</span><br><span class="line">                    tp = max(tp, mp[hash]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            ans = max(ans, tp + col);</span><br><span class="line">            <span class="comment">// cout &lt;&lt; "ans = " &lt;&lt; ans &lt;&lt; endl;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="152-乘积最大子序列"><a href="#152-乘积最大子序列" class="headerlink" title="152. 乘积最大子序列"></a>152. 乘积最大子序列</h3><p>给定一个整数数组 nums ，找出一个序列中乘积最大的连续子序列（该序列至少包含一个数）。</p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [2,3,-2,4]</span><br><span class="line">输出: 6</span><br><span class="line">解释: 子数组 [2,3] 有最大乘积 6。</span><br></pre></td></tr></table></figure>
+
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [-2,0,-1]</span><br><span class="line">输出: 0</span><br><span class="line">解释: 结果不能为 2, 因为 [-2,-1] 不是子数组。</span><br></pre></td></tr></table></figure>
+
+<p>思路：这里还是才有用动态规划的思路，但是需要注意，仅仅用一个dp是不够的，因为你可能遇到的是如下数据：</p>
+<p><code>[-2,3,-4]</code></p>
+<p>如果只有一个<code>dp[]</code>，则你记录下的<code>dp[]</code>的值为<code>[-2,3,3]</code></p>
+<p>因为忽略了负数乘以负数得到最大值的情形，，因此下面的方法记录了两个<code>dp</code>数组，分别是<code>dpmin[]</code>,<code>dpmax</code>，这样，就可以顺利解决刚刚的bug了。</p>
+<p>Code如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProduct</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        &#125;        </span><br><span class="line">        <span class="keyword">int</span> ans = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dpmax(nums.size(), <span class="number">0</span>);</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dpmin(nums.size(), <span class="number">0</span>);</span><br><span class="line">        dpmax[<span class="number">0</span>] = ans;</span><br><span class="line">        dpmin[<span class="number">0</span>] = ans;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; nums.size();i++) &#123;</span><br><span class="line">            dpmax[i] = max(dpmax[i - <span class="number">1</span>] * nums[i], max(dpmin[i - <span class="number">1</span>] * nums[i], nums[i]));</span><br><span class="line">            dpmin[i] = min(dpmin[i - <span class="number">1</span>] * nums[i], min(dpmax[i - <span class="number">1</span>] * nums[i], nums[i]));</span><br><span class="line">            ans = max(ans, dpmax[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="155-最小栈"><a href="#155-最小栈" class="headerlink" title="155. 最小栈"></a>155. 最小栈</h3><p>设计一个支持 push，pop，top 操作，并能在常数时间内检索到最小元素的栈。</p>
+<p>push(x) – 将元素 x 推入栈中。<br>pop() – 删除栈顶的元素。<br>top() – 获取栈顶元素。<br>getMin() – 检索栈中的最小元素。<br>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MinStack minStack = new MinStack();</span><br><span class="line">minStack.push(-2);</span><br><span class="line">minStack.push(0);</span><br><span class="line">minStack.push(-3);</span><br><span class="line">minStack.getMin();   --&gt; 返回 -3.</span><br><span class="line">minStack.pop();</span><br><span class="line">minStack.top();      --&gt; 返回 0.</span><br><span class="line">minStack.getMin();   --&gt; 返回 -2.</span><br></pre></td></tr></table></figure>
+
+<p>思路：</p>
+<p>一般来说，为了做到提取最小值，一般采用的是$O(n)$的做法，但是，为了做到$O(1)$的解法，我们可以有以下思路：</p>
+<p>就是在每一次push的时候push两个值，一个是当前的<code>x</code>，另一个是<code>当前的最小值</code>，而push进去的最小值只需要在之前的最小值和x之间选择较小的一个即可。pop的时候同理，每次pop两个元素。而这样在去的最小值的时候，可以直接取栈顶元素。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MinStack</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> index = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">int</span> length;</span><br><span class="line">    <span class="keyword">int</span> nums[<span class="number">20000</span>];</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/** initialize your data structure here. */</span></span><br><span class="line">    MinStack() &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        nums[++index] = x;</span><br><span class="line">        <span class="keyword">if</span>(index == <span class="number">0</span>) &#123;</span><br><span class="line">            nums[++index] = x; </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            nums[++index] = min(x, nums[index - <span class="number">1</span>]);   </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        index -= <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">top</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> nums[index - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getMin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> nums[index];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/07/Excel操作之添加数据透视图/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1439,544 +1988,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/02/LeetCode-Day18/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/02/LeetCode-Day18/" itemprop="url">LeetCode-Day18</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-02T19:36:59+08:00">
-                2019-09-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="80-删除排序数组中的重复项II"><a href="#80-删除排序数组中的重复项II" class="headerlink" title="80. 删除排序数组中的重复项II"></a>80. 删除排序数组中的重复项II</h3><p>给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素最多出现两次，返回移除后数组的新长度。</p>
-<p>不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。</p>
-<p><strong>示例 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [1,1,1,2,2,3],</span><br><span class="line"></span><br><span class="line">函数应返回新长度 length = 5, 并且原数组的前五个元素被修改为 1, 1, 2, 2, 3 。</span><br><span class="line"></span><br><span class="line">你不需要考虑数组中超出新长度后面的元素。</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [0,0,1,1,1,1,2,3,3],</span><br><span class="line"></span><br><span class="line">函数应返回新长度 length = 7, 并且原数组的前五个元素被修改为 0, 0, 1, 1, 2, 3, 3 。</span><br><span class="line"></span><br><span class="line">你不需要考虑数组中超出新长度后面的元素。</span><br></pre></td></tr></table></figure>
-
-<h4 id="思路："><a href="#思路：" class="headerlink" title="思路："></a><strong>思路：</strong></h4><p>原地删除肯定是<strong>双指针</strong>，一个指向遍历元素，一个指向可以写入的位置，后者的大小是小于等于前者的，关键在于题目条件的转换，如何实现限制最多两次的重复。</p>
-<p>先不考虑边界的情况，只考虑中间的情况，假设当前的遍历位置为<code>i</code>，写指针的可写入位置为<code>current +1</code>，对于<code>i</code>处的值，其写入的条件时重复小于等于2次，我们考虑已经写入的最后两位<code>current</code>和<code>current - 1</code>，这两个位置的情况有两个，相等和不相等，首先考虑相等的情况，此时若<code>i</code>处的值和<code>current - 1</code>或者说与<code>current</code>处的值相同，那么<code>i</code>处的值肯定不能加入；然后考虑不相等的情况，即<code>current - 1</code>和<code>current</code>处值不相等，那么<code>i</code>处的值无论为什么，都满足题意，即可以加入，综上所述，当<code>i</code>处的值与<code>current - 1</code>的值不相等时，<code>i</code>处的值可以加入，其他情况均不能加入</p>
-<p>接着考虑边界的情况，我们只需要考虑开始即可，开始时，前两个值无论等还是不等，都要原封不动的挪到新数组里，由于新数组就是在原数组上进行修改的，因此前两位直接不动即可，只需要修改遍历指针和写入指针就行</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">removeDuplicates</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() &lt;= <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> nums.size();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> current = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>;i &lt; nums.size();i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i] != nums[current - <span class="number">1</span>]) &#123;</span><br><span class="line">                nums[++current] = nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> current + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="84-柱状图中的最大矩形"><a href="#84-柱状图中的最大矩形" class="headerlink" title="84. 柱状图中的最大矩形"></a>84. 柱状图中的最大矩形</h3><p>给定 <em>n</em> 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。</p>
-<p>求在该柱状图中，能够勾勒出来的矩形的最大面积。</p>
-<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram.png" alt="img"></p>
-<p>以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 <code>[2,1,5,6,2,3]</code>。</p>
-<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram_area.png" alt="img"></p>
-<p>图中阴影部分为所能勾勒出的最大矩形面积，其面积为 <code>10</code> 个单位。</p>
-<p><strong>示例:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [2,1,5,6,2,3]</span><br><span class="line">输出: 10</span><br></pre></td></tr></table></figure>
-
-<h4 id="方法一-暴力"><a href="#方法一-暴力" class="headerlink" title="方法一. 暴力"></a><strong>方法一. 暴力</strong></h4><p>首先我们可以想到，两个柱子间矩形的高由他们之间最矮的柱子决定，如下图所示：</p>
-<p><img src="https://pic.leetcode-cn.com/0239df28a3a9d97a96c773a4b5babc59cf55219332f815eda3fc240a7d530cda-image.png" alt="image.png"></p>
-<p>右移，我们可以考虑所有亮亮竹子之间形成的矩形面积，该矩形的高为他们之间最矮柱子的高度，宽为他们之间的距离，这样可以找到所要求的最大面积的矩形</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; heights)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(heights.size() == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> heights[<span class="number">0</span>];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(heights.size() == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> maxArea = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; heights.size();i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt; heights.size();j++) &#123;</span><br><span class="line">            <span class="keyword">int</span> maxH = heights[i];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = i;k &lt;= j;k++) &#123;</span><br><span class="line">                maxH = min(maxH, heights[k]);</span><br><span class="line">            &#125;</span><br><span class="line">            maxArea = max(maxArea, maxH * (j - i + <span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> maxArea;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>复杂度分析：</p>
-<ul>
-<li>时间复杂度: $O(n^3)$。我们需要使用$O(n)$ 的时间找到$O(n^2)$枚举出啦的所有柱子对之间的最矮柱子</li>
-<li>空间复杂度：$O(1)$。只需要常数空间的额外变量</li>
-</ul>
-<h4 id="方法二-优化的暴力"><a href="#方法二-优化的暴力" class="headerlink" title="方法二. 优化的暴力"></a>方法二. 优化的暴力</h4><p><strong>算法：</strong></p>
-<p>我们可以基于方法1进行一点点修改来优化算法。我们可以用前一对柱子之间的最低高度来求出当前柱子对间的最低高度</p>
-<p>即：$minHeight = min(minHeight, heights[j])$，其中$heights[j]$是第<code>j</code>个柱子的高度</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; heights)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(heights.size() == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> heights[<span class="number">0</span>];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(heights.size() == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> maxArea = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; heights.size();i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> maxH = heights[i];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt; heights.size();j++) &#123;</span><br><span class="line">            maxH = min(maxH, heights[j]);</span><br><span class="line">            maxArea = max(maxArea, maxH * (j - i + <span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> maxArea;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>复杂度分析：</p>
-<ul>
-<li>时间复杂度： $O(n^2)$，需要枚举所有可能的柱子对</li>
-<li>空间复杂度： $O(1)$，不需要额外的空间</li>
-</ul>
-<p>然鹅…还是超时了…</p>
-<h4 id="方法三-分治"><a href="#方法三-分治" class="headerlink" title="方法三. 分治"></a>方法三. 分治</h4><p>通过观察，可以发现，最大面积矩形存在于以下几种可能</p>
-<ul>
-<li>确定了最矮柱子以后，矩形的宽尽可能往两边延伸</li>
-<li>在最矮柱子左边的最大面积矩形（子问题）</li>
-<li>在最矮柱子右边的最大面积矩形（子问题）</li>
-</ul>
-<p>举个例子：</p>
-<p><code>[6, 4, 5, 2, 4, 3, 9]</code><br>这里最矮柱子高度为 2 。以 2 为高的最大子矩阵面积是 2x7=14 。现在，我们考虑上面提到的第二种和第三种情况。我们对高度为 2 柱子的左边和右边采用同样的过程。在 2 的左边， 4 是最小的，形成区域为 4x3=12 。将左边区域再继续分，矩形的面积分别为 6x1=6 和 5x1=5 。同样的，我们可以求出右边区域的面积为 3x3=9, 4x1=4 和 9x1=9 。因此，我们得到最大面积是 16 。具体过程可参考下图：</p>
-<p><img src="https://pic.leetcode-cn.com/2013f70b237a16bcf8bae8f5873669b8b21d5300b2ed254adbddd2b9b577f02b-image.png" alt="image.png"></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">calculate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; heights, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(start &gt; end) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> midindex = start;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = start;i &lt;= end;i++) &#123;</span><br><span class="line">        midindex = heights[midindex] &lt; heights[i] ? midindex : i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max(heights[midindex] * (end - start + <span class="number">1</span>), max(calculate(heights, midindex + <span class="number">1</span>, end), calculate(heights, start, midindex - <span class="number">1</span>)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; heights)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> calculate(heights, <span class="number">0</span>, heights.size() - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>复杂度分析：</p>
-<ul>
-<li><p>时间复杂度：</p>
-<ul>
-<li>平均开销：$O(nlogn)$</li>
-<li>最坏情况：$O(n^2)$。如果数组中的数字是有序的，分治算法将没有任何优化效果</li>
-</ul>
-</li>
-<li><p>空间复杂度：$O(n)$。最坏情况下递归需要$O(n)$的空间</p>
-</li>
-</ul>
-<h4 id="方法四-优化的分治"><a href="#方法四-优化的分治" class="headerlink" title="方法四. 优化的分治"></a>方法四. 优化的分治</h4><p>可以观察到，方法三中大的问题被分解成更小的子问题来求解，所以分治方法会有一定程度的优化。但是如果数组本身是升序或者降序的，将没有任何优化作用，原因是我们每次都需要一个很大的$O(n)$级别的数组里找最小值。因此，最坏情况下总的时间复杂度变成了$O(n^2)$。我们可以用线段树代替遍历来找到区间的最小值。单词查询复杂度就变成了$O(logn)$</p>
-<p>复杂度分析：</p>
-<ul>
-<li>时间复杂度：$O(nlogn)$。对于长度为n的查询，线段树需要$logn$的时间</li>
-<li>空间复杂度：$O(n)$。这是线段树的空间开销</li>
-</ul>
-<h4 id="方法五-栈"><a href="#方法五-栈" class="headerlink" title="方法五. 栈"></a>方法五. 栈</h4><p><strong>算法</strong></p>
-<p>在这种方法中，我们维护一个栈。一开始，我们把-1放进栈的顶部来表示开始。初始化时，按照从左到右的顺序，我们不断将柱子的序号放进栈中，直到遇到相邻柱子呈下降关系，也就是<code>a[i-1] &gt; a[i]​</code>。现在，我们开始将栈中的序号弹出，直到遇到$stack[j]$满足<code>a[stack[j]] &lt;= a[i]</code>。每次我们弹出下标的的时候，我们用弹出元素作为高形成的最大面积的矩形的高，宽是当前元素与<code>stack[top - 1]</code>之间的那些柱子。也就是当我们弹出<code>stack[top]</code>时，记当前元素在原数组中的下标为<code>i</code>，当前弹出元素为高的最大矩形面积为：</p>
-<p><code>(i - stack[top - 1] - 1) * a[stack[top]]</code></p>
-<p>更进一步，当我们达到数组的尾部时，我们将栈中的元素全部弹出栈。在弹出每一个元素时，我们用下面的式子来求面积：<code>(stack[top] - stack[top - 1]) * a[stack[top]]</code>。其中<code>stack[top]</code>表示刚刚被弹出的元素。因此，我们可以通过每次比较新计算的矩形面积来获得最大的矩形面积</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; heights)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; st;</span><br><span class="line">    st.push(<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">int</span> maxArea = <span class="number">0</span>, size = heights.size();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; size;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(st.top() == <span class="number">-1</span> || heights[st.top()] &lt;= heights[i]) &#123;</span><br><span class="line">            st.push(i);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">while</span>(st.top() != <span class="number">-1</span> &amp;&amp; heights[st.top()] &gt;= heights[i]) &#123;</span><br><span class="line">                <span class="keyword">int</span> maxH = st.top();</span><br><span class="line">                st.pop();</span><br><span class="line">                maxArea = max(maxArea, heights[maxH] * (i - st.top() - <span class="number">1</span>));</span><br><span class="line">            &#125;</span><br><span class="line">            st.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(st.top() != <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> maxH = st.top();</span><br><span class="line">        st.pop();</span><br><span class="line">        maxArea = max(maxArea, heights[maxH] * (size - st.top() - <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> maxArea;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>复杂度分析：</p>
-<ul>
-<li>时间复杂度： $O(n)$，n个数字每个会被压栈弹栈各一次</li>
-<li>空间复杂度：$O(n)$。用来存放栈中元素</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/01/LeetCode-Day17/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/01/LeetCode-Day17/" itemprop="url">LeetCode-Day17</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-01T15:19:18+08:00">
-                2019-09-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="63-不同路径"><a href="#63-不同路径" class="headerlink" title="63. 不同路径"></a>63. 不同路径</h3><p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。</p>
-<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p>
-<p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？</p>
-<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/22/robot_maze.png" alt="img"></p>
-<p>网格中的障碍物和空位置分别用 1 和 0 来表示。</p>
-<p>说明：m 和 n 的值均不超过 100。</p>
-<p>示例 1:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">[</span><br><span class="line">  [0,0,0],</span><br><span class="line">  [0,1,0],</span><br><span class="line">  [0,0,0]</span><br><span class="line">]</span><br><span class="line">输出: 2</span><br><span class="line">解释:</span><br><span class="line">3x3 网格的正中间有一个障碍物。</span><br><span class="line">从左上角到右下角一共有 2 条不同的路径：</span><br><span class="line">1. 向右 -&gt; 向右 -&gt; 向下 -&gt; 向下</span><br><span class="line">2. 向下 -&gt; 向下 -&gt; 向右 -&gt; 向右</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; obstacleGrid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = obstacleGrid.size(), n = obstacleGrid[<span class="number">0</span>].size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt; &gt; ans(m, <span class="built_in">vector</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt;(n, <span class="number">0</span>));</span><br><span class="line">        ans[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; m;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; n;j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(obstacleGrid[i][j]) &#123;</span><br><span class="line">                    ans[i][j] = <span class="number">0</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span>(i) &#123;</span><br><span class="line">                        ans[i][j] += ans[i - <span class="number">1</span>][j];</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span>(j) &#123;</span><br><span class="line">                        ans[i][j] += ans[i][j - <span class="number">1</span>];</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;        </span><br><span class="line">        <span class="keyword">return</span> ans[m - <span class="number">1</span>][n - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>解释：这里的思想主要就是<strong>动态规划</strong>。</p>
-<p>这里需要注意的是第一行和第一列，如果当前位于第一行<code>(i = 0)</code>，则如果当前位置的左边是障碍物，则当前位置的值为0，即不可达，如果当前位于第一列<code>(j = 0)</code> ，则如果当前位置的上面是障碍物，则当前位置的值是0，即不可达。</p>
-<p>其余位置考虑方法：</p>
-<p>如果当前位置时障碍物，则<code>ans[i][j] = 0</code></p>
-<p>否则，<code>ans[i][j] = ans[i - 1][j] + ans[i][j - 1]</code></p>
-<p>最后返回右下角的值即可。</p>
-<h3 id="69-x的平方根"><a href="#69-x的平方根" class="headerlink" title="69. x的平方根"></a>69. x的平方根</h3><p>实现 int sqrt(int x) 函数。</p>
-<p>计算并返回 x 的平方根，其中 x 是非负整数。</p>
-<p>由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。</p>
-<p>示例 1:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 4</span><br><span class="line">输出: 2</span><br></pre></td></tr></table></figure>
-
-<p>示例 2:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: 8</span><br><span class="line">输出: 2</span><br><span class="line">说明: 8 的平方根是 2.82842..., </span><br><span class="line">     由于返回类型是整数，小数部分将被舍去。</span><br></pre></td></tr></table></figure>
-
-<p>方法一：二分法</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//注：在中间过程计算平方的时候可能出现溢出，所以用long long。</span></span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> j=x/<span class="number">2</span>+<span class="number">1</span>;<span class="comment">//对于一个非负数n，它的平方根不会大于（n/2+1）</span></span><br><span class="line">        <span class="keyword">while</span>(i&lt;=j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">long</span> <span class="keyword">long</span> mid=(i+j)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">long</span> <span class="keyword">long</span> res=mid*mid;</span><br><span class="line">            <span class="keyword">if</span>(res==x) <span class="keyword">return</span> mid;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(res&lt;x) i=mid+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> j=mid<span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>方法二：牛顿迭代法</p>
-<p>![img](file:///C:\Users\12751\Documents\Tencent Files\1275121799\Image\C2C{0039E991-7BE9-FCCB-A37F-5A2DE4C3F38E}.png)</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(x == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">double</span> last = <span class="number">0</span>, res = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(res != last) &#123;</span><br><span class="line">            last = res;</span><br><span class="line">            res = (res + x/last) / <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">int</span>(res);    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="75-颜色分类"><a href="#75-颜色分类" class="headerlink" title="75. 颜色分类"></a>75. 颜色分类</h3><p>给定一个包含红色、白色和蓝色，一共 n 个元素的数组，原地对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。</p>
-<p>此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。</p>
-<p>注意:<br>不能使用代码库中的排序函数来解决这道题。</p>
-<p>示例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [2,0,2,1,1,0]</span><br><span class="line">输出: [0,0,1,1,2,2]</span><br></pre></td></tr></table></figure>
-
-<p><strong>荷兰旗问题</strong></p>
-<p>其主要思想是给每个数字设定一种颜色，并按照荷兰国旗颜色的顺序进行调整。</p>
-<p><img src="https://pic.leetcode-cn.com/3ab6cc20bb91835c2722c688c2f894e407289333bae839a930957461e810a957-image.png" alt="image.png"></p>
-<p>我们用三个指针（p0, p2和curr）来分别追踪0的最右边界，2的最左边界和当前考虑的元素。</p>
-<p><img src="https://pic.leetcode-cn.com/5b3d372e0bfb293ca3aac12e90421d7612c9e75b78b579f954c42ebfe74705d4-image.png" alt="image.png"></p>
-<p>本解法的思路是沿着数组移动<code>curr</code>指针，若<code>nums[curr] = 0</code>，则将其与<code>nums[p0]</code>互换；若<code>nums[curr]</code> = 2，则与<code>nums[p2]</code>互换。</p>
-<p><strong>算法</strong>：</p>
-<ul>
-<li><p>初始化0的最右边界：p0 = 0。在整个算法执行过程中 nums[idx &lt; p0] = 0.</p>
-</li>
-<li><p>初始化2的最左边界 ：p2 = n - 1。在整个算法执行过程中 nums[idx &gt; p2] = 2.</p>
-</li>
-<li><p>初始化当前考虑的元素序号 ：curr = 0.</p>
-</li>
-<li><p>While curr &lt;= p2 :</p>
-<ul>
-<li>若 nums[curr] = 0 ：交换第 curr个 和 第p0个 元素，并将指针都向右移。</li>
-<li>若 nums[curr] = 2 ：交换第 curr个和第 p2个元素，并将 p2指针左移 。</li>
-<li>若 nums[curr] = 1 ：将指针curr右移。</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sortColors</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>, r = nums.size() - <span class="number">1</span>, mid = <span class="number">0</span>, temp;</span><br><span class="line">        <span class="keyword">while</span>(mid &lt;= r) &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[mid] == <span class="number">0</span>) &#123;</span><br><span class="line">                swap(nums[mid++], nums[l++]);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(nums[mid] == <span class="number">2</span>) &#123;</span><br><span class="line">                swap(nums[mid], nums[r--]);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                mid++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="76-最小覆盖子串"><a href="#76-最小覆盖子串" class="headerlink" title="76. 最小覆盖子串"></a>76. 最小覆盖子串</h3><p>给你一个字符串 S、一个字符串 T，请在字符串 S 里面找出：包含 T 所有字母的最小子串。</p>
-<p><strong>示例：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: S = &quot;ADOBECODEBANC&quot;, T = &quot;ABC&quot;</span><br><span class="line">输出: &quot;BANC&quot;</span><br></pre></td></tr></table></figure>
-
-<p><strong>说明：</strong></p>
-<p>如果 S 中不存这样的子串，则返回空字符串 “”。<br>如果 S 中存在这样的子串，我们保证它是唯一的答案。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">minWindow</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count[<span class="number">256</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> c : t) &#123;</span><br><span class="line">            count[c]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">0</span>, minLength = s.length();</span><br><span class="line">        <span class="built_in">string</span> res;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> l = <span class="number">0</span>, r = <span class="number">0</span>;r &lt; s.length();r++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(--count[s[r]] &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                len++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span>(len == t.length()) &#123;</span><br><span class="line">                <span class="keyword">if</span>(r - l + <span class="number">1</span> &lt;= minLength) &#123;</span><br><span class="line">                    minLength = r - l + <span class="number">1</span>;</span><br><span class="line">                    res = s.substr(l, r - l + <span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(++count[s[l++]] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    --len;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>解释：该问题属于<strong>滑动窗口问题</strong>。</p>
-<p>首先遍历t，记录下每一个字母有多少个（记录在count数组中）</p>
-<p>然后从头遍历s，即移动r，<code>count[s[i]]--</code>，如果说减完之后，值仍然大于等于0，表示<code>s[i]</code>在子串t当中，则len++，如果<code>len == t.length()</code>，则表示当前要找的字符串已经全部包含在<code>l ~ r</code>中。此时需要不比较<code>minLength</code>和<code>r - l + 1</code>，然后开始移动l，移动的时候<code>++count[s[l++]]</code>，如果该值大于0，则表示这个字符是在t当中的，如果等于0，则表示不在t中（因为之前r遍历的时候减掉了，现在l遍历的时候加回去了，如果等于0，表示原来该字符就不在t中），所以当大于0的时候，就应该停止l的移动，表明已经滑动到新的在t中出现的字符了。 </p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/31/LeetCode-Day16/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/31/LeetCode-Day16/" itemprop="url">LeetCode-Day16</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-31T17:20:42+08:00">
-                2019-08-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>关于vector的初始化</strong></p>
-<p><code>vector&lt;vector&lt;int&gt; &gt; ans(n, vector&lt;int&gt; n(n, 0));</code>初始化二维的vector，大小为<code>[n][n]</code>，0填充，否则不能直接用<code>ans[i][j]</code></p>
-<h3 id="60-第k个排列"><a href="#60-第k个排列" class="headerlink" title="60. 第k个排列"></a>60. 第k个排列</h3><p>给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。</p>
-<p>按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;123&quot;</span><br><span class="line">&quot;132&quot;</span><br><span class="line">&quot;213&quot;</span><br><span class="line">&quot;231&quot;</span><br><span class="line">&quot;312&quot;</span><br><span class="line">&quot;321&quot;</span><br></pre></td></tr></table></figure>
-
-<p>给定 n 和 k，返回第 k 个排列。</p>
-<p><strong>说明：</strong></p>
-<p>给定 n 的范围是 [1, 9]。<br>给定 k 的范围是[1,  n!]。<br>示例 1:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: n = 3, k = 3</span><br><span class="line">输出: &quot;213&quot;</span><br></pre></td></tr></table></figure>
-
-<p>示例 2:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: n = 4, k = 9</span><br><span class="line">输出: &quot;2314&quot;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fac</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= n;i++) &#123;</span><br><span class="line">        ans *= i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getPermutation</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; usedSet;</span><br><span class="line">    <span class="keyword">int</span> result = k - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> remain = <span class="number">0</span>, iFac = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) &#123;</span><br><span class="line">        iFac = fac(n - i);</span><br><span class="line">        remain = result % iFac;</span><br><span class="line">        result /= iFac;</span><br><span class="line">        <span class="keyword">int</span> iLoop = <span class="number">0</span>, temp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= n;j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(usedSet.find(j) == usedSet.end()) &#123;</span><br><span class="line">                iLoop++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(iLoop == result + <span class="number">1</span>) &#123;</span><br><span class="line">                usedSet.insert(j);</span><br><span class="line">                ans += j * <span class="built_in">pow</span>(<span class="number">10</span>, n - i);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        result = remain;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; getPermutation(<span class="number">5</span>, <span class="number">40</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>解释：这里不能采用回溯的方法一个一个的求，否则会超时</p>
-<p>其实如果是求第k个排列，根本就不需要从头开始一个一个地求解。</p>
-<p>如果需要求n=5的第40个排列</p>
-<p>首先_ _ _ _ _五个位置中先确定高位</p>
-<p>如何确定？剩下四位数全排列总共有4! = 24种情况</p>
-<p>40 / 24 = 1，也就是说在首位可以有一种全排列，剩余一种不完整。</p>
-<p>所以首位为1，剩余40 - 24 = 16中情况在余下4位中解决</p>
-<p>3! = 6， 16 / 6 = 2，所以余下的三位数中有两种全排列，还有一种不完整，除去2已经用过了，剩下的从小到大的第2位数（从0开始数）就是4，所以现在已经确定2 4 _ _ _，余下也一样</p>
-<p><strong>——康托展开</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2027,7 +2038,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-count">96</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

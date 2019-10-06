@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="HDRHDR的简介HDR——High-Dynamic Range（高动态光照渲染），相比普通的图像，可以提供更多的动态范围和图像细节，根据不同的曝光时间的LDR(Low-Dynamic Range)图像，利用曝光时间相对应最佳细节的LDR图像来合成最终的HDR图像，能够更好的反映出真实环境中的视觉效果。 说白了，就是一张图片尽可能得同时显示最亮和最暗的地方，或者说是让亮的地方更亮，让暗的地方更暗（">
+<meta name="description" content="后验分布知道事情的结果，然后根据结果推测原因，即结果是由某个原因导致的概率就是后验概率。p(原因|结果) 例子： 隔壁老王要去10公里外的一个地方办事，他 可以选择走路，骑自行车或者开车，并花费了一定时间到达目的地。在这个事件中，可以把交通方式（走路、骑车或开车）认为是原因，花费的时间认为是结果。若老王花了一个小时的时间完成了10公里的距离，那么很大可能是骑车过去的，当然也有较小可能老王是个健身达">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HDR的简单介绍">
-<meta property="og:url" content="https://woojoo520.github.io/2019/08/17/HDR的简单介绍/index.html">
+<meta property="og:title" content="先验分布&#x2F;后验分布&#x2F;似然估计">
+<meta property="og:url" content="https://woojoo520.github.io/2019/10/06/先验分布-后验分布-似然估计/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="HDRHDR的简介HDR——High-Dynamic Range（高动态光照渲染），相比普通的图像，可以提供更多的动态范围和图像细节，根据不同的曝光时间的LDR(Low-Dynamic Range)图像，利用曝光时间相对应最佳细节的LDR图像来合成最终的HDR图像，能够更好的反映出真实环境中的视觉效果。 说白了，就是一张图片尽可能得同时显示最亮和最暗的地方，或者说是让亮的地方更亮，让暗的地方更暗（">
+<meta property="og:description" content="后验分布知道事情的结果，然后根据结果推测原因，即结果是由某个原因导致的概率就是后验概率。p(原因|结果) 例子： 隔壁老王要去10公里外的一个地方办事，他 可以选择走路，骑自行车或者开车，并花费了一定时间到达目的地。在这个事件中，可以把交通方式（走路、骑车或开车）认为是原因，花费的时间认为是结果。若老王花了一个小时的时间完成了10公里的距离，那么很大可能是骑车过去的，当然也有较小可能老王是个健身达">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-17T01:15:11.349Z">
+<meta property="og:updated_time" content="2019-10-06T06:45:13.007Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HDR的简单介绍">
-<meta name="twitter:description" content="HDRHDR的简介HDR——High-Dynamic Range（高动态光照渲染），相比普通的图像，可以提供更多的动态范围和图像细节，根据不同的曝光时间的LDR(Low-Dynamic Range)图像，利用曝光时间相对应最佳细节的LDR图像来合成最终的HDR图像，能够更好的反映出真实环境中的视觉效果。 说白了，就是一张图片尽可能得同时显示最亮和最暗的地方，或者说是让亮的地方更亮，让暗的地方更暗（">
+<meta name="twitter:title" content="先验分布&#x2F;后验分布&#x2F;似然估计">
+<meta name="twitter:description" content="后验分布知道事情的结果，然后根据结果推测原因，即结果是由某个原因导致的概率就是后验概率。p(原因|结果) 例子： 隔壁老王要去10公里外的一个地方办事，他 可以选择走路，骑自行车或者开车，并花费了一定时间到达目的地。在这个事件中，可以把交通方式（走路、骑车或开车）认为是原因，花费的时间认为是结果。若老王花了一个小时的时间完成了10公里的距离，那么很大可能是骑车过去的，当然也有较小可能老王是个健身达">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://woojoo520.github.io/2019/08/17/HDR的简单介绍/">
+  <link rel="canonical" href="https://woojoo520.github.io/2019/10/06/先验分布-后验分布-似然估计/">
 
 
 
 
 
-  <title>HDR的简单介绍 | Celery Fairy</title>
+  <title>先验分布/后验分布/似然估计 | Celery Fairy</title>
   
 
 
@@ -241,7 +241,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/17/HDR的简单介绍/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/06/先验分布-后验分布-似然估计/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mariana">
@@ -258,7 +258,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">HDR的简单介绍</h1>
+          <h1 class="post-title" itemprop="name headline">先验分布/后验分布/似然估计</h1>
         
 
         <div class="post-meta">
@@ -270,8 +270,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-17T08:57:27+08:00">
-                2019-08-17
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-06T13:46:48+08:00">
+                2019-10-06
               </time>
             
 
@@ -308,13 +308,30 @@
       
 
       
-        <h2 id="HDR"><a href="#HDR" class="headerlink" title="HDR"></a>HDR</h2><h3 id="HDR的简介"><a href="#HDR的简介" class="headerlink" title="HDR的简介"></a>HDR的简介</h3><p><strong>HDR——High-Dynamic Range（高动态光照渲染）</strong>，相比普通的图像，可以提供更多的动态范围和图像细节，根据不同的曝光时间的LDR(Low-Dynamic Range)图像，利用曝光时间相对应最佳细节的LDR图像来合成最终的HDR图像，能够更好的反映出真实环境中的视觉效果。</p>
-<p>说白了，就是一张图片尽可能得同时显示最亮和最暗的地方，或者说是让亮的地方更亮，让暗的地方更暗（或者理解为<strong>能够大幅提高画面细节的明暗对比度</strong>）。HDR显示下的色彩更接近人眼真实的感知，所以HDR提供更逼真，更身临其境的电影、游戏和内容创作体验。</p>
-<p>人眼的视觉是目前最强大的摄影器材跟显像设备，我们不断升级的摄影跟显示器设备都是为了还原人眼所见，以求达到所见即所得的效果。</p>
-<h3 id="HDR的组成"><a href="#HDR的组成" class="headerlink" title="HDR的组成"></a>HDR的组成</h3><p>HDR由两部分组成：<strong>动态曝光控制</strong>和<strong>光晕效果</strong>。</p>
-<h4 id="动态曝光控制"><a href="#动态曝光控制" class="headerlink" title="动态曝光控制"></a>动态曝光控制</h4><p>通常，显示器能够显示R、G、B分量在[0, 255]之间的像素值。而256个不同的亮度级别显然不能表示自然界中光线的亮度情况。举个例子，太阳的亮度是白炽灯亮度的几千倍或者被漫反射照亮的室内亮度的几万倍，这远远超出了显示器的亮度表示能力。HDR技术所要解决的问题就是在有限的亮度范围内表示出宽广的亮度范围。原理类似于照相机的曝光功能，通过算法调整光线亮度，将光线从高动态范围映射到低动态范围，从而得到令人信服的光照效果</p>
-<h4 id="光晕效果"><a href="#光晕效果" class="headerlink" title="光晕效果"></a>光晕效果</h4><p>人从暗处走到光亮的地方，瞳孔由于来不及收缩，眼睛会自己眯起来，以保护视网膜上的感光细胞。HDR通过对原始图像进行调整，可以模拟这种人眼自动适应光线变化的胜利反应，产生类似于光晕的效果</p>
-<p>图像经DHR处理后的理想效果是亮处足够耀眼，暗处能够分辨物体的轮廓与深度，而非原图的一团漆黑。</p>
+        <h3 id="后验分布"><a href="#后验分布" class="headerlink" title="后验分布"></a>后验分布</h3><p><strong>知道事情的结果，然后根据结果推测原因，即结果是由某个原因导致的概率就是后验概率。p(原因|结果)</strong></p>
+<p>例子：</p>
+<p>隔壁老王要去10公里外的一个地方办事，他 可以选择走路，骑自行车或者开车，并花费了一定时间到达目的地。在这个事件中，可以把交通方式（走路、骑车或开车）认为是原因，花费的时间认为是结果。若老王花了一个小时的时间完成了10公里的距离，那么很大可能是骑车过去的，当然也有较小可能老王是个健身达人跑步过去的，或者开车过去但是堵车很严重。若老王一共用了两个小时的时间完成了10公里的距离，那么很有可能他是走路过去的。若老王只用了二十分钟，那么很有可能是开车。这种先知道结果，然后由结果估计原因的概率分布，p(交通方式|时间)，就是后验概率。</p>
+<p>预先<strong>已知结果</strong>，然后根据结果<strong>估计原因</strong>的概率分布即后验概率</p>
+<p><code>P(因|果)  -&gt; P(θ|x)</code> </p>
+<h3 id="先验分布"><a href="#先验分布" class="headerlink" title="先验分布"></a>先验分布</h3><p><strong>对未知参数x的先验信息用一个分布形式p(x)来表示，此分布p(x)称为未知参数x的先验分布.(即在实验前通过已知信息知道的分布)可以理解为对某个原因的经验推断。</strong></p>
+<p>对于一个未知参数，在抽取样本之前就已经知道了一些关于该参数的信息。我们知道的途径可能来源于生活经验，自然规律等等。</p>
+<p>例子：来源  <a href="https://blog.csdn.net/lsgqjh/article/details/79168156" target="_blank" rel="noopener">https://blog.csdn.net/lsgqjh/article/details/79168156</a></p>
+<p>比如，测量自己的体重，在测量之前就可以推断出自己不会超过120斤，也不会少于90斤。这个推断可以理解为我们的生活经验所得。</p>
+<p>比如测量某地的重力加速度，测量之前根据自然规律，就知道该地的重力加速度必然在9.8附近。这就是根据自然规律得到的先验信息。再根据自然规律，知道任何一个地方的重力加速度与标准不会相差0.1，这就是先验分布。可以写成G~(9.8,0.01)，这就是先验分布。</p>
+<p><code>老王会走路，骑自行车，或者开车去某个地方，假设老王是个健身达人，且大家都知道，那么老王开车去的可能性就较小，跑步的可能性比较大，这就是根据我们的常识得到的先验分布。</code></p>
+<p>根据历史规律确定<strong>原因</strong>的概率分布即先验概率</p>
+<p><code>P(因) -&gt; P(θ)</code></p>
+<h3 id="似然估计"><a href="#似然估计" class="headerlink" title="似然估计"></a>似然估计</h3><p><strong>与后验分布相反，后验分布根据结果推测原因，而似然估计则是根据原因推测该原因导致结果发生的概率。</strong></p>
+<p>例子：</p>
+<p>老王决定步行过去，那么很大可能10公里的距离大约需要两个小时；较小可能是老王平时坚持锻炼，跑步过去用了一个小时；更小可能是老王是个猛人，40分钟就到了。老王决定骑车过去，很可能一个小时就能到；较小可能是老王那天精神不错加上单双号限行交通很通畅，40分钟就到了；还有一种较小可能是老王运气很差，连着坏了好几辆共享单车，花了一个半小时才到。老王决定开车过去，很大可能是20分钟就到了，较小可能是那天堵车很严重，磨磨唧唧花了一个小时才到。这种先确定原因，根据原因来估计结果的概率分布，p(时间|交通方式)，就是似然估计。</p>
+<p>补充：</p>
+<p>如果老王去了那个地方好多次，我们只搜集到了老王这么多次花费的时间的信息，那么关于花费时间的概率分布 p(时间) 就叫evidence.</p>
+<p><strong>先定下来原因</strong>，<strong>根据原因来估计结果</strong>的概率分布即似然估计。根据原因来统计各种可能结果的概率即似然函数</p>
+<p><code>P(果|因) -&gt; P(x|θ)</code></p>
+<h3 id="贝叶斯公式"><a href="#贝叶斯公式" class="headerlink" title="贝叶斯公式"></a>贝叶斯公式</h3><p>$P(A|B)=\frac{P(B | A) * P(A)}{P(B)}\ $</p>
+<p>即 $P(\theta | x)=\frac{P(x | \theta) * P(\theta)}{P(x)}$</p>
+<p>$后验概率=\frac{似然估计 * 先验概率} {evidence}$</p>
+<p><code>注：P(x)即evidence。隔壁小哥去公园很多次，忽略交通方式是什么，只统计每次到达公园的时间x，于是得到了一组时间的概率分布。这种不考虑原因，值看到结果的概率分布即evidence，它也称为样本发生的概率分布的证据，即P(果)</code></p>
 
       
     </div>
@@ -339,8 +356,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/16/DCNN-trick/" rel="next" title="DCNN-trick">
-                <i class="fa fa-chevron-left"></i> DCNN-trick
+              <a href="/2019/10/01/Lex-Learning/" rel="next" title="Lex Learning">
+                <i class="fa fa-chevron-left"></i> Lex Learning
               </a>
             
           </div>
@@ -349,8 +366,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/08/17/LeetCode-Day2/" rel="prev" title="LeetCode-Day2">
-                LeetCode-Day2 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/10/06/2019-10-6/" rel="prev" title="2019.10.6">
+                2019.10.6 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -465,7 +482,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HDR"><span class="nav-number">1.</span> <span class="nav-text">HDR</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HDR的简介"><span class="nav-number">1.1.</span> <span class="nav-text">HDR的简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDR的组成"><span class="nav-number">1.2.</span> <span class="nav-text">HDR的组成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#动态曝光控制"><span class="nav-number">1.2.1.</span> <span class="nav-text">动态曝光控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#光晕效果"><span class="nav-number">1.2.2.</span> <span class="nav-text">光晕效果</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#后验分布"><span class="nav-number">1.</span> <span class="nav-text">后验分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先验分布"><span class="nav-number">2.</span> <span class="nav-text">先验分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#似然估计"><span class="nav-number">3.</span> <span class="nav-text">似然估计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贝叶斯公式"><span class="nav-number">4.</span> <span class="nav-text">贝叶斯公式</span></a></li></ol></div>
             
 
           </div>
