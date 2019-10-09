@@ -241,6 +241,618 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/08/Neural-Network/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/08/Neural-Network/" itemprop="url">Neural Network</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-08T15:45:06+08:00">
+                2019-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Neural-Network"><a href="#Neural-Network" class="headerlink" title="Neural Network"></a>Neural Network</h2><p>可以使用<code>torch.nn</code>包构造神经网络</p>
+<p>nn取决于autograd定义的模型并区分它们。一个<code>nn.Module</code>包含层和一种方法<code>forward(input)</code>，它返回output</p>
+<p>例如，查看对数字图像进行分类的网络</p>
+<p><img src="https://pytorch.org/tutorials/_images/mnist.png" alt="convnet"></p>
+<p>它是一个简单的前馈网络。它接受输入，一个接一个地通过及各层输入，然后最终给出输出</p>
+<p><strong>神经网络的典型训练程序如下：</strong></p>
+<ul>
+<li><p>定义一些具有可学习参数（或权重）的神经网络</p>
+</li>
+<li><p>迭代输入数据集</p>
+</li>
+<li><p>通过网络处理输入</p>
+</li>
+<li><p>计算损失（输出距离正确多远）</p>
+</li>
+<li><p>将渐变传播回网络参数</p>
+</li>
+<li><p>通常使用简单的更新规则更新网络权重</p>
+<p><code>weight = weight - learning_rate * gradient</code></p>
+</li>
+</ul>
+<h3 id="定义网络"><a href="#定义网络" class="headerlink" title="定义网络"></a>定义网络</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/07/什么是PyTorch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/07/什么是PyTorch/" itemprop="url">什么是PyTorch?</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-07T16:37:37+08:00">
+                2019-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="什么是PyTorch？"><a href="#什么是PyTorch？" class="headerlink" title="什么是PyTorch？"></a>什么是PyTorch？</h3><p>这是一个基于Python的科学计算软件包，针对两组受众：</p>
+<ul>
+<li>Numpy的替代品，可以使用GPU的强大功能</li>
+<li>深入学习研究平台，提供最大的灵活性和速度</li>
+</ul>
+<h3 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h3><h4 id="张量"><a href="#张量" class="headerlink" title="张量"></a>张量</h4><p>张量与Numpy的ndarray类似，另外还有Tensor也可用于GPU以加速计算</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">import</span> torch</span><br></pre></td></tr></table></figure>
+
+<p>构造一个未初始化的5 * 3矩阵：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">x = torch.empty(<span class="number">5</span>, <span class="number">3</span>)</span><br><span class="line">print(x)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[1.0561e-38, 1.0653e-38, 4.1327e-39],</span></span><br><span class="line"><span class="string">        [8.9082e-39, 9.8265e-39, 9.4592e-39],</span></span><br><span class="line"><span class="string">        [1.0561e-38, 1.0653e-38, 1.0469e-38],</span></span><br><span class="line"><span class="string">        [9.5510e-39, 1.0378e-38, 8.9082e-39],</span></span><br><span class="line"><span class="string">        [9.6429e-39, 8.9082e-39, 9.1837e-39]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p>构造一个随机初始化的矩阵：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">x = torch.rand(<span class="number">5</span>, <span class="number">3</span>)</span><br><span class="line">print(x)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[0.4904, 0.0543, 0.2698],</span></span><br><span class="line"><span class="string">        [0.4626, 0.9494, 0.6573],</span></span><br><span class="line"><span class="string">        [0.2933, 0.7157, 0.5195],</span></span><br><span class="line"><span class="string">        [0.3329, 0.3446, 0.3271],</span></span><br><span class="line"><span class="string">        [0.3962, 0.9864, 0.2137]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p>构造一个0填充的矩阵 of dtype long：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">x = torch.zeros(<span class="number">5</span>, <span class="number">3</span>, dtype=torch.long)</span><br><span class="line">print(x)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[0, 0, 0],</span></span><br><span class="line"><span class="string">        [0, 0, 0],</span></span><br><span class="line"><span class="string">        [0, 0, 0],</span></span><br><span class="line"><span class="string">        [0, 0, 0],</span></span><br><span class="line"><span class="string">        [0, 0, 0]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p>直接从数据构造Tensor：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x = torch.tensor([<span class="number">5.5</span>, <span class="number">3</span>])</span><br><span class="line">print(x)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([5.5000, 3.0000])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p>或者根据现有的张量创建张量。除非用户提供新值，否则这些方法将重用与输入张量的属性，例如dtype</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">x = torch.tensor([<span class="number">5.5</span>, <span class="number">3</span>])</span><br><span class="line"></span><br><span class="line">x = x.new_ones(<span class="number">5</span>, <span class="number">3</span>, dtype=torch.double)	<span class="comment"># new method take in size</span></span><br><span class="line">print(x)</span><br><span class="line"></span><br><span class="line">x = torch.randn_like(x, dtype=torch.float)	<span class="comment"># override dtype!</span></span><br><span class="line">print(x)	<span class="comment"># result has the same size</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[1., 1., 1.],</span></span><br><span class="line"><span class="string">        [1., 1., 1.],</span></span><br><span class="line"><span class="string">        [1., 1., 1.],</span></span><br><span class="line"><span class="string">        [1., 1., 1.],</span></span><br><span class="line"><span class="string">        [1., 1., 1.]], dtype=torch.float64)</span></span><br><span class="line"><span class="string">tensor([[-1.5400,  0.6350,  1.6990],</span></span><br><span class="line"><span class="string">        [ 0.0767,  0.3982, -0.0827],</span></span><br><span class="line"><span class="string">        [ 0.1511,  0.8096,  0.0600],</span></span><br><span class="line"><span class="string">        [ 0.2931,  0.8122, -0.3534],</span></span><br><span class="line"><span class="string">        [ 0.7164, -0.0334,  0.2272]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p>得到它的大小</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(x, size())</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">torch.Size([5, 3])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong><code>torch.Size()</code>实际上是一个元组，因此它支持所有元组操作</p>
+<h4 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h4><p>操作有多种语法。下面的示例中，我们将查看添加操作：</p>
+<p>增加：语法1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">y = torch.rand(<span class="number">5</span>, <span class="number">3</span>)</span><br><span class="line">print(x + y)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[ 0.9977,  0.2656,  2.2842],</span></span><br><span class="line"><span class="string">        [ 0.5430, -0.5758,  1.1323],</span></span><br><span class="line"><span class="string">        [ 0.5859,  2.5553, -0.9625],</span></span><br><span class="line"><span class="string">        [-0.2265,  1.2381,  0.8061],</span></span><br><span class="line"><span class="string">        [-0.2200, -0.0597,  0.8266]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p>增加：语法2</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">print(torch.add(x, y))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[ 0.9977,  0.2656,  2.2842],</span></span><br><span class="line"><span class="string">        [ 0.5430, -0.5758,  1.1323],</span></span><br><span class="line"><span class="string">        [ 0.5859,  2.5553, -0.9625],</span></span><br><span class="line"><span class="string">        [-0.2265,  1.2381,  0.8061],</span></span><br><span class="line"><span class="string">        [-0.2200, -0.0597,  0.8266]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p>增加：提供输出张量作为参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">result = torch.empty(<span class="number">5</span>, <span class="number">3</span>)</span><br><span class="line">torch.add(x, y, out=result)</span><br><span class="line">print(result)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[ 0.9977,  0.2656,  2.2842],</span></span><br><span class="line"><span class="string">        [ 0.5430, -0.5758,  1.1323],</span></span><br><span class="line"><span class="string">        [ 0.5859,  2.5553, -0.9625],</span></span><br><span class="line"><span class="string">        [-0.2265,  1.2381,  0.8061],</span></span><br><span class="line"><span class="string">        [-0.2200, -0.0597,  0.8266]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p>增加：就地</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># add x to y</span></span><br><span class="line">y.add_(x)</span><br><span class="line">print(y)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[ 0.9977,  0.2656,  2.2842],</span></span><br><span class="line"><span class="string">        [ 0.5430, -0.5758,  1.1323],</span></span><br><span class="line"><span class="string">        [ 0.5859,  2.5553, -0.9625],</span></span><br><span class="line"><span class="string">        [-0.2265,  1.2381,  0.8061],</span></span><br><span class="line"><span class="string">        [-0.2200, -0.0597,  0.8266]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong></p>
+<p>任何使原张量变形的操作都是用 _ 后固定的。例如：x.copy_(y), x.t_(), 将改变x。</p>
+<p>可以使用标准的NumPy索引与所有bells和whistles</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">x = torch.rand(<span class="number">5</span>, <span class="number">3</span>)</span><br><span class="line">print(x)</span><br><span class="line">print(x[:, <span class="number">1</span>])</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[0.3356, 0.3659, 0.7898],</span></span><br><span class="line"><span class="string">        [0.3474, 0.4648, 0.2795],</span></span><br><span class="line"><span class="string">        [0.0268, 0.8986, 0.5615],</span></span><br><span class="line"><span class="string">        [0.8278, 0.4778, 0.0131],</span></span><br><span class="line"><span class="string">        [0.2451, 0.6178, 0.0125]])</span></span><br><span class="line"><span class="string">tensor([0.3659, 0.4648, 0.8986, 0.4778, 0.6178])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p>调整大小：如果要调整tensor/重塑tensor，可以使用<code>torch.view</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">x = torch.rand(<span class="number">4</span>, <span class="number">4</span>)</span><br><span class="line">y = x.view(<span class="number">16</span>)</span><br><span class="line">z = x.view(<span class="number">-1</span>, <span class="number">8</span>)	<span class="comment"># the size of -1 is inferred from other dimensions</span></span><br><span class="line">print(x.size(), y.size(), z.size())</span><br><span class="line">print(x)</span><br><span class="line">print(y)</span><br><span class="line">print(z)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">torch.Size([4, 4]) torch.Size([16]) torch.Size([2, 8])</span></span><br><span class="line"><span class="string">tensor([[0.3415, 0.9245, 0.5641, 0.9463],</span></span><br><span class="line"><span class="string">        [0.5833, 0.5632, 0.3456, 0.6338],</span></span><br><span class="line"><span class="string">        [0.2562, 0.6854, 0.1495, 0.0351],</span></span><br><span class="line"><span class="string">        [0.6777, 0.8511, 0.9998, 0.7963]])</span></span><br><span class="line"><span class="string">tensor([0.3415, 0.9245, 0.5641, 0.9463, 0.5833, 0.5632, 0.3456, 0.6338, 0.2562,</span></span><br><span class="line"><span class="string">        0.6854, 0.1495, 0.0351, 0.6777, 0.8511, 0.9998, 0.7963])</span></span><br><span class="line"><span class="string">tensor([[0.3415, 0.9245, 0.5641, 0.9463, 0.5833, 0.5632, 0.3456, 0.6338],</span></span><br><span class="line"><span class="string">        [0.2562, 0.6854, 0.1495, 0.0351, 0.6777, 0.8511, 0.9998, 0.7963]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p>假如你有一个元素张量，可以用item()获取值作为python数字</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = torch.randn(<span class="number">1</span>)</span><br><span class="line">print(x)</span><br><span class="line">print(x.item())</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([-0.2729])</span></span><br><span class="line"><span class="string">-0.2729296088218689</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p>torch包含用于多维张量的数据结构，并且定义了浙西额数学运算。此外还提供了徐国使用程序，用于搞笑序列化Tensor和任意类型，以及其他有用的实用程序。</p>
+<p>它有一个CUDA对应物，能够在计算能力 &gt;= 3.0的NVIDIA GPU上运行张量计算</p>
+<p>关于张量的操作：</p>
+<h3 id="NumPy-Bridge："><a href="#NumPy-Bridge：" class="headerlink" title="NumPy Bridge："></a>NumPy Bridge：</h3><p>将Torch Tensor转换为NumPy阵列（反之亦然）是一件轻而易举的事</p>
+<p>Torch Tensor和NumPy阵列将共享其底层内存位置（如果Torch Tensor在CPU上），更改一个将改变另一个。</p>
+<h4 id="将Torch-Tensor转换为NumPy数组"><a href="#将Torch-Tensor转换为NumPy数组" class="headerlink" title="将Torch Tensor转换为NumPy数组"></a>将Torch Tensor转换为NumPy数组</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a = torch.ones(<span class="number">5</span>)</span><br><span class="line">print(a)</span><br><span class="line">b = a.numpy()</span><br><span class="line">print(b)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([1., 1., 1., 1., 1.])</span></span><br><span class="line"><span class="string">[1. 1. 1. 1. 1.]</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p>了解numpy数组的值如何变化</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a.add_(<span class="number">1</span>)</span><br><span class="line">print(a)</span><br><span class="line">print(b)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([2., 2., 2., 2., 2.])</span></span><br><span class="line"><span class="string">[2. 2. 2. 2. 2.]</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="将NumPy数组转换为Torch-Tensor"><a href="#将NumPy数组转换为Torch-Tensor" class="headerlink" title="将NumPy数组转换为Torch Tensor"></a>将NumPy数组转换为Torch Tensor</h4><p>了解更改np阵列如何自动更改Torch Tensor</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.ones(<span class="number">5</span>)</span><br><span class="line">b = torch.from_numpy(a)</span><br><span class="line">torch.add(a, <span class="number">1</span>, out=a)</span><br><span class="line">print(a)</span><br><span class="line">print(b)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">[2. 2. 2. 2. 2.]</span></span><br><span class="line"><span class="string">tensor([2., 2., 2., 2., 2.], dtype=torch.float64)</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong>除了CharTensor之外，CPU上的所有Tensor都支持转换为NumPy并返回</p>
+<h4 id="CUDA-Tensors"><a href="#CUDA-Tensors" class="headerlink" title="CUDA Tensors"></a>CUDA Tensors</h4><p>可以使用<code>.to</code>方法将张量移动到任何设备上</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">x = torch.randn(<span class="number">5</span>, <span class="number">3</span>)</span><br><span class="line">print(x)</span><br><span class="line"><span class="keyword">if</span> torch.cuda.is_available():</span><br><span class="line">    device = torch.device(<span class="string">"cuda"</span>)			<span class="comment"># a CUDA device object </span></span><br><span class="line">   	y = torch.ones_like(x, device=device)	<span class="comment"># directly create a tensor on GPU</span></span><br><span class="line">    x = x.to(device)						<span class="comment"># or just use strings ``.to("cuda")``</span></span><br><span class="line">    z = x + y</span><br><span class="line">    print(z)</span><br><span class="line">    print(z.to(<span class="string">"cpu"</span>, torch.double))		<span class="comment"># ``.to`` can also change dtype together!</span></span><br><span class="line"> <span class="string">"""</span></span><br><span class="line"><span class="string"> output:</span></span><br><span class="line"><span class="string"> tensor([[-0.6816,  0.2219, -0.4269],</span></span><br><span class="line"><span class="string">        [-1.1169, -1.7020,  0.6161],</span></span><br><span class="line"><span class="string">        [-0.2312, -0.8429,  0.9232],</span></span><br><span class="line"><span class="string">        [ 0.8789, -0.4840,  0.8420],</span></span><br><span class="line"><span class="string">        [-1.4957, -0.8483,  0.0130]])</span></span><br><span class="line"><span class="string">tensor([[ 0.3184,  1.2219,  0.5731],</span></span><br><span class="line"><span class="string">        [-0.1169, -0.7020,  1.6161],</span></span><br><span class="line"><span class="string">        [ 0.7688,  0.1571,  1.9232],</span></span><br><span class="line"><span class="string">        [ 1.8789,  0.5160,  1.8420],</span></span><br><span class="line"><span class="string">        [-0.4957,  0.1517,  1.0130]], device='cuda:0')</span></span><br><span class="line"><span class="string">tensor([[ 0.3184,  1.2219,  0.5731],</span></span><br><span class="line"><span class="string">        [-0.1169, -0.7020,  1.6161],</span></span><br><span class="line"><span class="string">        [ 0.7688,  0.1571,  1.9232],</span></span><br><span class="line"><span class="string">        [ 1.8789,  0.5160,  1.8420],</span></span><br><span class="line"><span class="string">        [-0.4957,  0.1517,  1.0130]], dtype=torch.float64)</span></span><br><span class="line"><span class="string"> """</span></span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/07/PyTorch-Study/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/07/PyTorch-Study/" itemprop="url">PyTorch Study</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-07T14:57:07+08:00">
+                2019-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="PyTorch搭建神经网络"><a href="#PyTorch搭建神经网络" class="headerlink" title="PyTorch搭建神经网络"></a>PyTorch搭建神经网络</h3><h4 id="1-导入库"><a href="#1-导入库" class="headerlink" title="1. 导入库"></a>1. 导入库</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-搭建卷积神经网络"><a href="#2-搭建卷积神经网络" class="headerlink" title="2. 搭建卷积神经网络"></a>2. 搭建卷积神经网络</h4><p>网络定义一般由两部分组成：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span>		<span class="comment"># 用来定义网络节点参数</span></span><br></pre></td></tr></table></figure>
+
+<p>将节点连接成图</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br></pre></td></tr></table></figure>
+
+<p>卷积计算规则：</p>
+<p>对我们输入形状1， 1， 64， 64.四个维度分别是<code>(batch, channel, height, width)</code></p>
+<p><code>new_height = (height - kernel_size) + s * padding / (stride[0]) + 1</code></p>
+<p>即在周围补一圈0， stride默认为1.因此</p>
+<p><code>new_height = new_width = (64 - 3) / 1 + 1 = 62</code></p>
+<p>由于输出通道是6，所以通过卷积层后维度为<code>(1, 6, 62, 62)</code></p>
+<p>经过pooling后，<code>(1, 6, 31, 31)</code></p>
+<p><code>x.view(1, -1)</code>把x伸缩为(1 : ?)的维度。这样整个网络其实输入<code>(1, 1, 64, 64)</code>，输出为(1, 10)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(Net, self).__init__()</span><br><span class="line">        self.conv = nn.Conv2d(in_channels=<span class="number">1</span>, out_channels=<span class="number">6</span>, kernel_size=<span class="number">3</span>)</span><br><span class="line">        self.linear = nn.Leaner(<span class="number">5766</span>, <span class="number">10</span>)</span><br><span class="line">        self.relu = nn.ReLU(inplace=<span class="literal">True</span>)</span><br><span class="line">        self.maxpooling = nn.MaxPool2d((<span class="number">2</span>, <span class="number">2</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        x = self.conv(x)</span><br><span class="line">        <span class="comment"># print (x.shape)</span></span><br><span class="line">        x = self.maxpooling(x)</span><br><span class="line">        <span class="comment"># print(x.shape)</span></span><br><span class="line">        x = self.relu(x)</span><br><span class="line">        x = view(<span class="number">1</span>, <span class="number">-1</span>)</span><br><span class="line">        <span class="comment"># print (x.shape)</span></span><br><span class="line">        x = self.linear(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-添加训练数据"><a href="#3-添加训练数据" class="headerlink" title="3. 添加训练数据"></a>3. 添加训练数据</h4><p>optimizer：是优化器，即所谓的反向传播算法。<code>criterion = nn.MSELoss()</code>定义损失函数。</p>
+<p><code>input = torch.randn(1， 1， 64， 64).cuda()</code></p>
+<p><code>output = torch.ones(1, 10).cuda()</code></p>
+<p>定义训练样本，注意如果实在gpu中训练，在pytorch中需要.cuda()把数据从cpu中导入到gpu中</p>
+<p>网络的功能是给定随机噪声向量，输出是逼近1的单位向量</p>
+<h4 id="4-训练"><a href="#4-训练" class="headerlink" title="4. 训练"></a>4. 训练</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> step <span class="keyword">in</span> range(epoch):</span><br><span class="line">    prediction = net(input)</span><br><span class="line">    loss = creterion(prediction, output)</span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    <span class="comment"># 消除优化器梯度</span></span><br><span class="line">    loss.backward()</span><br><span class="line">    <span class="comment"># 指自动求导</span></span><br><span class="line">    optimizer.step()</span><br><span class="line">    <span class="comment"># 根据自动求导反向传播优化参数</span></span><br><span class="line">    <span class="keyword">if</span> step % <span class="number">10</span> == <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">"EPOCH: &#123;&#125;, Loss:&#123;:4f&#125;"</span>).format(step, loss))</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/07/Inception/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/07/Inception/" itemprop="url">Inception</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-07T12:55:01+08:00">
+                2019-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Inception-v1"><a href="#Inception-v1" class="headerlink" title="Inception-v1"></a>Inception-v1</h3><p>在这篇论文之前，卷积神经网络的性能高都是依赖于提高网络的深度和宽度，而这篇论文是从网络结构上入手，改变了网络结构</p>
+<h4 id="为什么提出Inception？"><a href="#为什么提出Inception？" class="headerlink" title="为什么提出Inception？"></a>为什么提出Inception？</h4><p>提高网络最简单粗暴的方法就是提高网络的深度和宽度，即增加隐层以及各层神经元数目。但这种简单粗暴的方法存在一些问题：</p>
+<ul>
+<li>会导致更大的参数空间，更容易过拟合</li>
+<li>需要更多的计算资源</li>
+<li>网络越深，梯度容易消失，优化困难（这时还没有提出BN，网络优化极其困难）</li>
+</ul>
+<p>基于此，我们的目标就是，提高网络计算资源的利用率，在计算率不变的情况下，提高网络的宽度和深度</p>
+<p>作者认为，解决这种困难的方法就是，把全连接改成稀疏连接，卷积层也是稀疏连接，但是不对称稀疏数据数值计算效率低下，因为硬件全是针对密集矩阵优化的，所以，我们要找到卷积网络可以近似优化的最优局部稀疏结构，并且该结构下可以用现有的密度矩阵计算硬件实现，产生的结果就是Inception</p>
+<h4 id="Inception结构"><a href="#Inception结构" class="headerlink" title="Inception结构"></a>Inception结构</h4><p><img src="https://img-blog.csdn.net/20180709151519421?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zOTk1MzUwMg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p>首先看第一个结构，有四个通道，有1 * 1、3 * 3、5 * 5卷积核，该结构有几个特点：</p>
+<ul>
+<li>使用这些大小卷积核，没有什么特殊含义，主要方便对齐，只要padding = 0、1、2，就可以得到相同大小的特征图，可以顺利concat</li>
+<li>采用大小不同的卷积核，以为着感受野的大小不同，就可以得到不同尺度的特征</li>
+<li>采用比较大的卷积核，即5 * 5，意味着有些相关性可能隔得比较远，用大的卷积核才能学到此特征</li>
+</ul>
+<p>当时，这个结构有个缺点，5 * 5的卷积核的计算量太大。那么作者想到的第二个结构，用1 * 1的卷积核进行降维。</p>
+<p>这个1 * 1的卷积核，它的作用就是：</p>
+<ul>
+<li>降低维度，减少计算瓶颈</li>
+<li>增加网络层数，提高网络的表达能力。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/07/softmax/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1163,587 +1775,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/ResNet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/25/ResNet/" itemprop="url">ResNet</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-25T20:48:56+08:00">
-                2019-07-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="ResNet（Residual-Neural-Network）"><a href="#ResNet（Residual-Neural-Network）" class="headerlink" title="ResNet（Residual Neural Network）"></a>ResNet（Residual Neural Network）</h2><h3 id="一-简要概括"><a href="#一-简要概括" class="headerlink" title="一. 简要概括"></a>一. 简要概括</h3><p>ResNet的结构可以极快的加速神经网络的训练，模型的准确率也有比较大的提升。同时ResNe的推广性非常好，甚至可以直接用到InceptionNet网络中</p>
-<p>ResNet的主要思想是在网络中增加了直连通道，即Highway Network的思想。此前的网络结构是性能输入做一个非线性变换，而Highway Network则允许保留之前网络层的一定比例的输出。ResNet的思想和way Network的思想也十分类似，允许原始输入信息直接传到后面的层中：</p>
-<p><img src="https://img-blog.csdn.net/20180710193536899?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMxODE1OTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<p>这样的话这一层的神经网络可以不用学习整个的输出，而是学习上一个网络输出的残差，因此ResNet又叫做残差网络</p>
-<h3 id="二-创新点"><a href="#二-创新点" class="headerlink" title="二. 创新点"></a>二. 创新点</h3><p>提出残差学习的思想。传统的卷积网络或者全连接网络在信息传递的时候或多或少会存在信息丢失，损耗等问题，同时还有导致梯度消失或者梯度爆炸，导致很深的网络无法训练。ResNet在一定程度上解决了这个问题，通过直接将输入信息绕道传到输出，保护信息的完整性，整个网络只需要学习输入、输出差别的那一部分，简化学习目标和难度。VGGNet和ResNet的对比：</p>
-<p><img src="https://img-blog.csdn.net/20180710193619121?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMxODE1OTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<p>ResNet最大的区别在于有很多的旁路将输入直接连接到后面的层，这种结构也被称为shortcut或者skip connection</p>
-<h3 id="三-深度残差学习（Deep-Residual-Learning）"><a href="#三-深度残差学习（Deep-Residual-Learning）" class="headerlink" title="三. 深度残差学习（Deep Residual Learning）"></a>三. 深度残差学习（Deep Residual Learning）</h3><h4 id="残差学习"><a href="#残差学习" class="headerlink" title="残差学习"></a>残差学习</h4><p>若将输入设为x，将某一有参网络层设为H，那么以X为输入的此层的输出将为H(X)。一般的CNN网络如Alexnet/VGG等会直接通过训练学习出参数函数H的表达，从而直接学习 X -&gt; H(X)</p>
-<p>而残差学习则是致力于使用多个有参网络层来学习输入、输出之间的残差，即H(X) - X，即学习 X -&gt; (H(X) - X) + X。其中X这一部分为直接的Identity mapping，而H(X) - X则为有参网络层要学习的输入输出间残差。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/5971313-ba5e9ef4e622908f.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/430" alt="img"></p>
-<h4 id="Identity-mapping"><a href="#Identity-mapping" class="headerlink" title="Identity mapping"></a>Identity mapping</h4><p>残差学习单元通过Identity mapping的引入在输入、输出之间建立了一条直接的关联通道，从而使得强大的有参层集中精力学习输入、输出之间的残差。一般我们用 $F(X,W_i)$ 来表示残差映射，那么输出即为： $Y=F(X,W_i)+X$。 当输入、输出通道数相同时，我们自然可以如此直接使用X进行相加。而当他们之间的通道数目不同时，我们就需要考虑建立一种有效的Identity mapping函数从而可以使得处理后的输入X与输出Y的通道数目相同即 $Y=F(X,W_i)+W_s*X$。</p>
-<p>当X与Y通道数目不同时，作者尝试了两种Identity mapping的方式。一种即简单地将X相对Y确实的通道直接补零从而时期能够相对器的方式，另一种则是通过使用1 * 1的conv来表示 $W_s$ 映射从而使得最终输入与输出的通道达到一致的方式。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/YOLO/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/25/YOLO/" itemprop="url">YOLO</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-25T20:37:09+08:00">
-                2019-07-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="《You-Only-Look-Once-Unified-Real-Time-Object-Detection》——YOLO"><a href="#《You-Only-Look-Once-Unified-Real-Time-Object-Detection》——YOLO" class="headerlink" title="《You Only Look Once: Unified, Real-Time Object Detection》——YOLO"></a>《You Only Look Once: Unified, Real-Time Object Detection》——YOLO</h2><p>目前，基于深度学习算法的一系列目标检测算法大致可以分为两个流派：</p>
-<ol>
-<li>两步走（two-stage）算法：先生产候选区域然后再进行CNN分类（RCNN系列）</li>
-<li>一步走（one-stage）算法：直接对输入图像应用算法并输出类别和相应的定位（YOLO系列）</li>
-</ol>
-<p>之前的R-CNN系列虽然准确率比较高，但是即使是发展到Faster R-CNN，检测一张图片如下图所示也要7pfd（原文为5fps），为了使得检测的工作能够应用到实时的场景中，提出了YOLO</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/6983308-92902dcbd7c8262d.png?imageMogr2/auto-orient/" alt="img"></p>
-<p>WOLO的检测思想不同于R-CNN系列的思想，它将目标检测作为回归任务来解决。</p>
-<p>YOLO的整体结构：</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/6983308-d54136f1eb0cd733.png?imageMogr2/auto-orient/" alt="img"></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/6983308-0d1e8d42480e1c1a.png?imageMogr2/auto-orient/" alt="img"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/Something-about-TensorFlow/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/25/Something-about-TensorFlow/" itemprop="url">Something about TensorFlow</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-25T17:16:29+08:00">
-                2019-07-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="1-TensorFlow中tf-train-slice-input-producer和tf-train-batch函数"><a href="#1-TensorFlow中tf-train-slice-input-producer和tf-train-batch函数" class="headerlink" title="1. TensorFlow中tf.train.slice_input_producer和tf.train.batch函数"></a>1. TensorFlow中tf.train.slice_input_producer和tf.train.batch函数</h3><h4 id="TensorFlow数据读取机制"><a href="#TensorFlow数据读取机制" class="headerlink" title="TensorFlow数据读取机制"></a>TensorFlow数据读取机制</h4><p>TensorFlow中为了充分利用GPU，减少GPU等待数据的空闲时间，使用了两个线程分别执行数据读入和数据计算。</p>
-<p>具体来说就是使用一个线程源源不断的将硬盘中的图片数据读入到一个内存队列中，另一个线程负责计算任务，所需数据直接从内存队列中获取。</p>
-<p>tf在内存队列之前，还设立了一个文件名队列，文件名队列存放的是参与训练的文件名，要训练N个epoch，则文件名队列中就含有N个批次的所有文件名。</p>
-<p><img src="https://img-blog.csdn.net/20180401131308152" alt="img"></p>
-<p>在N个epoch的文件名最后是一个结束标志，当tf读到这个结束标志的时候，会抛出一个AutoRange的异常，外部捕获到之歌异常之后皆可以结束进程了。而创建tf的文件名队列就需要使用到tf.train.slice_input_producer函数</p>
-<h4 id="tf-train-slice-input-producer"><a href="#tf-train-slice-input-producer" class="headerlink" title="tf.train.slice_input_producer"></a>tf.train.slice_input_producer</h4><p>tf.train.slice_input_producer是一个tensor生成器，作用是按照规定，每次从一个tensor列表中按顺序或者随机抽取出一个tensor放入文件名队列。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slice_input_producer(tensor_list, num_epochs=None, shuffle=True, seed=None,                         capacity=32, shared_name=None, name=None)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>第一个参数 tensor_list：包含一系列tensor的列表，表中tensor的第一维度的值必须相等，即个数必须相等，有多少个图像，就应该有多少个对应的标签。</p>
-</li>
-<li><p>第二个参数<strong>num_epochs: 可选参数，是一个整数值，代表迭代的次数</strong>，如果设置 num_epochs=None,生成器可以无限次遍历tensor列表，如果设置为 num_epochs=N，生成器只能遍历tensor列表N次。</p>
-</li>
-<li><p>第三个参数shuffle： bool类型，设置是否打乱样本的顺序。<strong>一般情况下，如果shuffle=True，生成的样本顺序就被打乱了，在批处理的时候不需要再次打乱样本，使用 tf.train.batch函数就可以了;如果shuffle=False,就需要在批处理时候使用 tf.train.shuffle_batch函数打乱样本。</strong></p>
-</li>
-<li><p>第四个参数seed: <strong>可选的整数，是生成随机数的种子，在第三个参数设置为shuffle=True的情况下才有用。</strong></p>
-</li>
-<li><p>第五个参数capacity：设置tensor列表的容量。</p>
-</li>
-<li><p>第六个参数shared_name：可选参数，如果设置一个‘shared_name’，则在不同的上下文环境（Session）中可以通过这个名字共享生成的tensor。</p>
-</li>
-<li><p>第七个参数name：可选，设置操作的名称。</p>
-</li>
-</ul>
-<p>tf.train.slice_input_producer定义了样本放入文件名队列的方式，包括迭代次数，是否乱序等，<strong>要真正将文件放入文件名队列，还需要调用tf.train.start_queue_runners 函数来启动执行文件名队列填充的线程，之后计算单元才可以把数据读出来，否则文件名队列为空的，计算单元就会处于一直等待状态，导致系统阻塞。</strong></p>
-<h4 id="tf-contrib-layers-batch-norm"><a href="#tf-contrib-layers-batch-norm" class="headerlink" title="tf.contrib.layers.batch_norm"></a><strong>tf.contrib.layers.batch_norm</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">tf.contrib.layers.batch_norm(</span><br><span class="line">    inputs,</span><br><span class="line">    decay=0.999,</span><br><span class="line">    center=True,</span><br><span class="line">    scale=False,</span><br><span class="line">    epsilon=0.001,</span><br><span class="line">    activation_fn=None,</span><br><span class="line">    param_initializers=None,</span><br><span class="line">    param_regularizers=None,</span><br><span class="line">    updates_collections=tf.GraphKeys.UPDATE_OPS,</span><br><span class="line">    is_training=True,</span><br><span class="line">    reuse=None,</span><br><span class="line">    variables_collections=None,</span><br><span class="line">    outputs_collections=None,</span><br><span class="line">    trainable=True,</span><br><span class="line">    batch_weights=None,</span><br><span class="line">    fused=None,</span><br><span class="line">    data_format=DATA_FORMAT_NHWC,</span><br><span class="line">    zero_debias_moving_mean=False,</span><br><span class="line">    scope=None,</span><br><span class="line">    renorm=False,</span><br><span class="line">    renorm_clipping=None,</span><br><span class="line">    renorm_decay=0.99,</span><br><span class="line">    adjustment=None</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<p>Batch Normalization 通过减少内部使用协变量加速神经网络的训练</p>
-<p>可以用作conv2d或fully_connected的标准化函数</p>
-<p>参数：</p>
-<p>1 inputs： 输入</p>
-<p>2 decay ：衰减系数。合适的衰减系数值接近1.0,特别是含多个9的值：0.999,0.99,0.9。如果训练集表现很好而验证/测试集表现得不好，选择小的系数（推荐使用0.9）。如果想要提高稳定性，zero_debias_moving_mean设为True</p>
-<p>3 center：如果为True，有beta偏移量；如果为False，无beta偏移量</p>
-<p>4 scale：如果为True，则乘以gamma。如果为False，gamma则不使用。当下一层是线性的时（例如nn.relu），由于缩放可以由下一层完成，所以可以禁用该层。</p>
-<p>5 epsilon：避免被零除</p>
-<p>6 activation_fn：用于激活，默认为线性激活函数</p>
-<p>7 param_initializers ： beta, gamma, moving mean and moving variance的优化初始化</p>
-<p>8 param_regularizers ： beta and gamma正则化优化</p>
-<p>9 updates_collections ：Collections来收集计算的更新操作。updates_ops需要使用train_op来执行。如果为None，则会添加控件依赖项以确保更新已计算到位。</p>
-<p>10 is_training:图层是否处于训练模式。在训练模式下，它将积累转入的统计量moving_mean并 moving_variance使用给定的指数移动平均值 decay。当它不是在训练模式，那么它将使用的数值moving_mean和moving_variance。<br>11 scope：可选范围variable_scope</p>
-<h4 id="tf-contrib-layers-convolution2d"><a href="#tf-contrib-layers-convolution2d" class="headerlink" title="tf.contrib.layers.convolution2d"></a>tf.contrib.layers.convolution2d</h4><h4 id="tf-reduce-mean"><a href="#tf-reduce-mean" class="headerlink" title="tf.reduce_mean"></a>tf.reduce_mean</h4><p>用于计算张量tensor沿着指定的数轴（tensor的某一维度）上的平均值，主要用作降维或者计算tensor（图像）的平均值</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">reduce_mean(</span><br><span class="line">	input_tensor， </span><br><span class="line">    axis=<span class="literal">None</span>, </span><br><span class="line">	keep_dims=<span class="literal">False</span>,</span><br><span class="line">	name=<span class="literal">None</span>, </span><br><span class="line">	reduction_indices=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>参数：<ul>
-<li>axis：指定的轴，如果不指定，则计算所有元素的均值</li>
-<li>keep_dims：是否降维度，设置为True， 则输出的结果保持输入tensor的结果，设置为False， 输出结果会降低维度</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf </span><br><span class="line"></span><br><span class="line">x = [[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">     [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]]</span><br><span class="line"></span><br><span class="line">xx = tf.cast(x, tf.float32)</span><br><span class="line">mean_all = tf.reduce_mean(xx, keep_dims=<span class="literal">False</span>)</span><br><span class="line">mean_0 = tf.reduce_mean(xx, axis=<span class="number">0</span>, keep_dims=<span class="literal">False</span>)</span><br><span class="line">mean_1 = tf.reduce_mean(xx, axis=<span class="number">1</span>, keep_dims=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    m_a, m_0, m_1 = sess.run([mean_all, mean_0, mean_1])</span><br><span class="line"></span><br><span class="line">print(mean_a)</span><br><span class="line">print(mean_0)</span><br><span class="line">print(mean_1)    </span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string"> 2.0</span></span><br><span class="line"><span class="string">[ 1. 2. 3.]</span></span><br><span class="line"><span class="string">[ 2. 2.]</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">如果keep_dims=True，则结果为</span></span><br><span class="line"><span class="string">[[ 2.]]</span></span><br><span class="line"><span class="string">[[ 1. 2. 3.]]</span></span><br><span class="line"><span class="string">[[ 2.], [ 2.]]</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/循环神经网络RNN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/25/循环神经网络RNN/" itemprop="url">循环神经网络RNN</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-25T15:00:57+08:00">
-                2019-07-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="循环神经网络RNN（Recurrent-neural-network）"><a href="#循环神经网络RNN（Recurrent-neural-network）" class="headerlink" title="循环神经网络RNN（Recurrent neural network）"></a>循环神经网络RNN（<strong>Recurrent neural network</strong>）</h3><h4 id="1-为什么需要RNN？"><a href="#1-为什么需要RNN？" class="headerlink" title="1. 为什么需要RNN？"></a>1. 为什么需要RNN？</h4><p>普通的神经网络智能单独的去处理一个个的输入，前一个输入和后一个输入是完全没有关系的。但是，某些任务需要能够更好地处理序列的信息，即前面的输入和后面的输入是有关系的。</p>
-<p>从网络结构上看，循环神经网络会记忆之前的信息。即：循环神经网络的隐藏层之间的节点是有连接的，隐藏层的输入不仅包括输入层的输出，还包括上一时刻隐藏层的输出。</p>
-<p>循环神经网络对于每一个时刻的输入结合当前模型的状态给出一个输出。循环神经网络可以看做同一个神经网络被无限复制的结果，处于优化考虑，显示生活中无法做到真正的无限循环</p>
-<h4 id="2-RNN结构"><a href="#2-RNN结构" class="headerlink" title="2. RNN结构"></a>2. RNN结构</h4><p>如下为循环神经网络按时间展开后的结构</p>
-<p><img src="https://img-blog.csdnimg.cn/20190117185302437.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hlbGxvd3V4aWE=,size_16,color_FFFFFF,t_70" alt="img"></p>
-<p><strong>循环神经网络在每一个时刻会有一个输入 $X_i$，然后根据循环神经网络当前的状态 $A_i$ 提供一个输出 $h_i$。</strong>而循环神经网络<strong>当前的状态 $A_i$ 是根据上一时刻的状态 $A_{i-1}$ 和当前的输入 $X_i$ 共同决定的。</strong>从神经网络的结构特征考科一看出它最擅长解决的问题是时间序列相关的。循环神经网络也是处理这类问题时最自然的神经网络结构。对于一个序列数据，<strong>可以将这个序列上不同时刻的数据依次传入循环神经网络的输入层，而输出可以是对序列中下一个时刻的预测，也可以是对当前时刻心系的处理结果（比如语音识别结果）。循环神经网络要求每一时刻都有一个输入，但是不一定每个时刻都需要所有输出</strong></p>
-<p>循环神经网络中的<strong>参数在不同时刻是共享</strong>的</p>
-<p>为了将当前时刻的状态转换成<strong>最终的输出</strong>，<strong>循环神经网络需要另一个完成此过程</strong>。<strong>同时刻用于输出的全连接神经网络中的参数也是一致的。</strong></p>
-<p><strong>循环神经网络的总损失：</strong>所有时刻（或部分时刻）上损失函数的综合</p>
-<p>循环神经网络可以更好地利用传统神经网络结构所不能建模的信息，但同时，带来更大的技术挑战——<strong>长期依赖（Long-term dependencies）</strong>问题</p>
-<h4 id="3-长短时记忆网络（Long-Short-Term-Memory，LSTM）"><a href="#3-长短时记忆网络（Long-Short-Term-Memory，LSTM）" class="headerlink" title="3. 长短时记忆网络（Long Short Term Memory，LSTM）"></a>3. 长短时记忆网络（Long Short Term Memory，LSTM）</h4><p>解决长期以来、有用信息的间隔有大有小、长短不一的问题。</p>
-<p>LSTM是一种拥有三个“门”结构的特殊网络结构</p>
-<p>LSTM靠一些“门”的结构让信息有选择性地影响神经网络中每个时刻的状态。“门”结构就是一个<strong>使用sigmoid神经网络</strong>和<strong>一个按位做乘法</strong>结合在一起的操作。</p>
-<p>叫做“门”是因为使用sigmoid作为激活函数的全连接神经网络层<strong>会输出一个0到1之间的数值，描述当前输入有多少信息量可以通过这个结构。</strong>这个结构的功能类似于一扇门，当门<strong>打开时</strong>（sigmoid神经网络层<strong>输出为1</strong>），<strong>全部信息都可以通过</strong>；当门<strong>关上时</strong>（sigmoid神经网络层<strong>输出为0</strong>），任何信息<strong>无法通过</strong></p>
-<p><img src="https://img-blog.csdnimg.cn/20190118092213504.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hlbGxvd3V4aWE=,size_16,color_FFFFFF,t_70" alt="img"></p>
-<p>“遗忘门”和“输入门”至关重要。通过“遗忘门”和“输出门”，<strong>LSTM结构可以更加有效的决定哪些信息应该被遗忘，哪些信息应该被保留</strong></p>
-<p><strong>遗忘门的作用</strong>：让循环神经网络“忘记”之前没有用的信息。遗忘门会根据当前的输入 $X_t$、商议时刻的状态 $C_{t-1}$ 、上一时刻的输出 $H_{t-1}$ 共同决定哪一部分记忆需要被遗忘</p>
-<p><strong>输入门</strong>：在循环神经网络“忘记”了部分之间的状态后，它还需要<strong>从当前的输入补充最新的记忆</strong>，这个过程需要“输入门”完成。输入门根据 $X_t$ 、$C_{t-1}$ 、 $H_{t-1}$ 决定哪些部分将进入当前时刻 $C_t$</p>
-<p><strong>输出门</strong>：LSTM结构在计算得到新的状态 $C_t$ 后需要产生当前时刻的输出，这个过程是由“输出门”完成。输出门根据最新的状态 $C_t$ 、上一时刻的输出 $H_{t-1}$ 和当前的输入 $X_t$ 来决定该时刻的输出 $H_t$</p>
-<h4 id="4-双向循环神经网络（BiDirection-RNN）"><a href="#4-双向循环神经网络（BiDirection-RNN）" class="headerlink" title="4. 双向循环神经网络（BiDirection RNN）"></a>4. 双向循环神经网络（BiDirection RNN）</h4><p>在经典的循环神经网络中，状态的传输是从前往后单向传的，然而有些问题中，<strong>当前时刻的输出不仅和之前的状态有关，也与之后的状态有关</strong>，这就需要使用双向循环神经网络解决这个问题。</p>
-<p>双向循环神经网络是<strong>由两个单项循环神经网络上下叠加在一起组成的，输出由这两个循环神经网络的状态共同决定</strong></p>
-<p>在每一个时刻t，输入会同时提供给这两个方向相反的循环神经网络，而输出则是由两个单项循环神经网络共同决定的</p>
-<p><img src="https://img-blog.csdnimg.cn/20190118102555836.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hlbGxvd3V4aWE=,size_16,color_FFFFFF,t_70" alt="img"></p>
-<h4 id="5-深层循环神经网络（deep-RNN）"><a href="#5-深层循环神经网络（deep-RNN）" class="headerlink" title="5. 深层循环神经网络（deep RNN）"></a>5. 深层循环神经网络（deep RNN）</h4><p>为了增强模型的表达能力，可以<strong>将每一时刻上的循环体重复多次。</strong>深层循环神经网络在每一时刻上将循环体结构复制了多次。<strong>每一层循环体中参数是一致的，而不同层中的参数可以不同。</strong></p>
-<p><img src="https://img-blog.csdnimg.cn/20190118103252680.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hlbGxvd3V4aWE=,size_16,color_FFFFFF,t_70" alt="img"></p>
-<h4 id="6-循环神经网络的Dropout"><a href="#6-循环神经网络的Dropout" class="headerlink" title="6. 循环神经网络的Dropout"></a>6. 循环神经网络的Dropout</h4><p>通过dropout可以让军妓神经网络更加健壮。类似，在循环神经网络中使用dropout也有同样的功能。</p>
-<p>如果模型的参数太多，而训练样本又太少，训练出来的模型很容易产生过拟合的现象。Dropout可以有效的缓解过拟合的发生，在一定程度上达到正则化的效果。</p>
-<p>Dropout可以作为训练深度神经网络的一种trick供选择。在每个训练批次中，通过忽略一半的特征检测器（让一般的隐层节点值为0），可以明显地减少过拟合现象。这种方式可以减少隐层节点间的相互作用，隐层节点相互作用是指某些隐层节点依赖其他隐层节点才能发挥作用。</p>
-<p>Dropout通俗讲，即：在前向传播的时候，<strong>让某个神经元的激活值以一定的概率p停止工作</strong>，这样可以使模型的泛化性更强，因为它不会太依赖某些局部的特征，类似<strong>卷积神经网络只在全连接层使用dropout</strong>，<strong>循环神经网络一般只在不同层循环结构之间使用dropout</strong>，不在同一层循环结构之间使用。即，从时刻 t - 1传递到时刻t，循环神经网络不会进行状态的dropout；而在同一时刻t中，不同层循环体之间会使用dropout</p>
-<p><img src="https://img-blog.csdnimg.cn/2019011810431060.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hlbGxvd3V4aWE=,size_16,color_FFFFFF,t_70" alt="img"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1794,7 +1825,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">96</span>
+                  <span class="site-state-item-count">100</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
