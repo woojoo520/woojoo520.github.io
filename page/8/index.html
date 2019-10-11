@@ -241,6 +241,276 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/15/常见的loss函数-TV-Loss/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/15/常见的loss函数-TV-Loss/" itemprop="url">常见的loss函数-TV_Loss</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-15T10:56:54+08:00">
+                2019-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="TV-Loss"><a href="#TV-Loss" class="headerlink" title="TV Loss"></a>TV Loss</h1><p>在图像复原过程中，图像上的一点点噪声可能就会对复原的结果产生非常大的影响，因为很过复原算法都会放大噪声。这时候我们就需要在最优化问题的模型中添加一些正则项来保持图像的光滑性，TV Loss是常用的一种正则项（<strong>注意是正则项，配合其他loss、</strong></p>
+<p><strong>一起使用，约束噪声</strong>）。图片中相邻像素值的差异可以通过降低TV Loss来一定程度上解决。比如降噪，对抗checkboard等等。</p>
+<h3 id="1-初始定义"><a href="#1-初始定义" class="headerlink" title="1.初始定义"></a>1.初始定义</h3><p>Rudin等人观察到，受噪声污染的图像的总变分比无噪图像的总变分明显的大。那么最小化TV理论上就可以最小化噪声。图片中相邻像素值的差异可以通过降低TV loss来一定程度上解决。</p>
+<p>总编分定义为梯度幅值的积分：</p>
+<p>$J_{T_{0}}(u)=\int_{\Omega_{u}}\left|\nabla_{u}\right| d x d y=\int_{D_{u}} \sqrt{u_{x}^{2}+u_{y}^{2}} d x d y$</p>
+<p>其中$u_{x}=\frac{\partial u}{\partial x}$， $u_{y}=\frac{\partial u}{\partial y}$，$D_{u}$是图像的支持域。限制总变分就会限制噪声</p>
+<h3 id="2-扩展定义"><a href="#2-扩展定义" class="headerlink" title="2.扩展定义"></a>2.扩展定义</h3><p>带阶数的TV loss定义如下：</p>
+<p>$\Re_{V^{\beta}}(f)=\int_{\Omega}\left(\frac{\partial f}{\partial u}(u, v)^{2}+\frac{\partial f}{\partial v}(u, v)^{2}\right)^{\frac{\beta}{2}}$</p>
+<p>但是在图像中，连续域的积分就变成了像素离散域中求和，所以可以这么算：<br>$\Re_{V^{\beta}}(x)=\sum_{i, j}\left(\left(x_{i, j-1}-x_{i, j}\right)^{2}+\left(x_{i+1, j}-x_{i, j}\right)^{2}\right)^{\frac{\beta}{2}}$</p>
+<p>即：求每一个像素和横向下一个像素的差的平方，加上纵向下一个像素的差的平方。然后开β/2次根</p>
+<h3 id="3-效果"><a href="#3-效果" class="headerlink" title="3.效果"></a>3.效果</h3><p>总变差（TV）损失促进了生成的图像中的空间平滑性，根据论文的描述，当β &lt; 1时，会出现下图左侧的小点点的artifact, 当β &gt; 1时，图像中的小点点会被消除，但是代价就是图像的清晰度</p>
+<p><img src="https://img-blog.csdnimg.cn/20190311152735551.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lleGlhb2d1MTEwNA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/14/Pytorch-transforms/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/14/Pytorch-transforms/" itemprop="url">Pytorch transforms</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-14T14:59:19+08:00">
+                2019-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Transfroms"><a href="#Transfroms" class="headerlink" title="Transfroms"></a>Transfroms</h2><h3 id="1-裁剪——Crop"><a href="#1-裁剪——Crop" class="headerlink" title="1. 裁剪——Crop"></a>1. 裁剪——Crop</h3><h4 id="1-1-随机裁剪：transforms-RandomCrop"><a href="#1-1-随机裁剪：transforms-RandomCrop" class="headerlink" title="1.1 随机裁剪：transforms.RandomCrop()"></a>1.1 随机裁剪：transforms.RandomCrop()</h4><ul>
+<li><p><code>torchvision.transforms.RandomCrop(size, padding=None, pad_if_needed=False, fill=0, padding_mode=&#39;constant&#39;)</code></p>
+<ul>
+<li><p>功能：依据给定的size随机裁剪</p>
+</li>
+<li><p>参数：</p>
+<ul>
+<li><p><code>size-(sequence or int),若为sequence， 则为(h, w),若为int， 则(size, size)</code></p>
+</li>
+<li><p><code>padding-(sequence or int, optional)</code>,此参数是设置为多少个pixel，当为int时，图像上下左右均填充int个，例如<code>padding=4</code>，则上下左右均填充4个padding， 若为32 * 32，则会变成40 * 40；当为sequence时，若有两个数，则第一个数表示左右扩充多少，第二个数表示上下的，当有4个数是，则为左、上、右、下</p>
+</li>
+<li><p><code>fill-(int or tuple)</code>，填充的值是什么（仅当填充模式为constant时有用）。int时，各通道均填充该值，当长度为3的tuple时，表示RGB通道需要填充的值</p>
+</li>
+<li><p><code>padding-mode</code>,填充模式（constant（常量）， edge（按照图片边缘的像素值来填充），reflect， symmetric）</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-2-中心裁剪：transforms-CenterCrop"><a href="#1-2-中心裁剪：transforms-CenterCrop" class="headerlink" title="1.2 中心裁剪：transforms.CenterCrop()"></a>1.2 中心裁剪：transforms.CenterCrop()</h4><h4 id="1-3-随机长宽比裁剪-transforms-RandomResizedCrop"><a href="#1-3-随机长宽比裁剪-transforms-RandomResizedCrop" class="headerlink" title="1.3 随机长宽比裁剪 transforms.RandomResizedCrop()"></a>1.3 随机长宽比裁剪 transforms.RandomResizedCrop()</h4><h4 id="1-4-上下左右中心裁剪：transforms-FiveCrop"><a href="#1-4-上下左右中心裁剪：transforms-FiveCrop" class="headerlink" title="1.4 上下左右中心裁剪：transforms.FiveCrop()"></a>1.4 上下左右中心裁剪：transforms.FiveCrop()</h4><h4 id="1-5-上下左右中心裁剪后翻转：transform-TenCrop"><a href="#1-5-上下左右中心裁剪后翻转：transform-TenCrop" class="headerlink" title="1.5 上下左右中心裁剪后翻转：transform.TenCrop()"></a>1.5 上下左右中心裁剪后翻转：transform.TenCrop()</h4><h3 id="2-翻转和旋转——Flip-and-Rotation"><a href="#2-翻转和旋转——Flip-and-Rotation" class="headerlink" title="2. 翻转和旋转——Flip and Rotation"></a>2. 翻转和旋转——Flip and Rotation</h3><h4 id="2-1-依概率p水平翻转-transfroms-RandomHorizontalFlip"><a href="#2-1-依概率p水平翻转-transfroms-RandomHorizontalFlip" class="headerlink" title="2.1 依概率p水平翻转 transfroms. RandomHorizontalFlip()"></a>2.1 依概率p水平翻转 transfroms. RandomHorizontalFlip()</h4><h4 id="2-2-依概率p垂直翻转-transforms-RandomVerticalFlip"><a href="#2-2-依概率p垂直翻转-transforms-RandomVerticalFlip" class="headerlink" title="2.2 依概率p垂直翻转 transforms.RandomVerticalFlip()"></a>2.2 依概率p垂直翻转 transforms.RandomVerticalFlip()</h4><h4 id="2-3-随机旋转-transforms-RandomRotation"><a href="#2-3-随机旋转-transforms-RandomRotation" class="headerlink" title="2.3 随机旋转 transforms.RandomRotation()"></a>2.3 随机旋转 transforms.RandomRotation()</h4><h3 id="3-图像变换"><a href="#3-图像变换" class="headerlink" title="3. 图像变换"></a>3. 图像变换</h3><h4 id="3-1-resize-transform-Resize"><a href="#3-1-resize-transform-Resize" class="headerlink" title="3.1 resize  transform.Resize"></a>3.1 resize  transform.Resize</h4><h4 id="3-2-标准化-transform-Normalize"><a href="#3-2-标准化-transform-Normalize" class="headerlink" title="3.2 标准化 transform.Normalize"></a>3.2 标准化 transform.Normalize</h4><h4 id="3-3-转为tensor-transforms-ToTensor"><a href="#3-3-转为tensor-transforms-ToTensor" class="headerlink" title="3.3 转为tensor transforms.ToTensor"></a>3.3 转为tensor transforms.ToTensor</h4><h4 id="3-4-填充-transforms-Pad"><a href="#3-4-填充-transforms-Pad" class="headerlink" title="3.4 填充 transforms.Pad"></a>3.4 填充 transforms.Pad</h4><h4 id="3-5-修改亮度、对比度和饱和度-transforms-ColorJitter"><a href="#3-5-修改亮度、对比度和饱和度-transforms-ColorJitter" class="headerlink" title="3.5 修改亮度、对比度和饱和度 transforms.ColorJitter()"></a>3.5 修改亮度、对比度和饱和度 transforms.ColorJitter()</h4><h4 id="3-6-转灰度图-transforms-GrayScale"><a href="#3-6-转灰度图-transforms-GrayScale" class="headerlink" title="3.6 转灰度图 transforms.GrayScale"></a>3.6 转灰度图 transforms.GrayScale</h4><h4 id="3-7-线性变换-transforms-LinearTransformation"><a href="#3-7-线性变换-transforms-LinearTransformation" class="headerlink" title="3.7 线性变换 transforms.LinearTransformation()"></a>3.7 线性变换 transforms.LinearTransformation()</h4><h4 id="3-8-放射变换-transform-RandomAffine"><a href="#3-8-放射变换-transform-RandomAffine" class="headerlink" title="3.8 放射变换 transform.RandomAffine"></a>3.8 放射变换 transform.RandomAffine</h4><h4 id="3-9-依概率p转为灰度图-transforms-RandomGrayScale"><a href="#3-9-依概率p转为灰度图-transforms-RandomGrayScale" class="headerlink" title="3.9 依概率p转为灰度图 transforms.RandomGrayScale"></a>3.9 依概率p转为灰度图 transforms.RandomGrayScale</h4><h4 id="3-10-将数据转换为PILImage-transforms-ToPILImage"><a href="#3-10-将数据转换为PILImage-transforms-ToPILImage" class="headerlink" title="3.10 将数据转换为PILImage transforms.ToPILImage"></a>3.10 将数据转换为PILImage transforms.ToPILImage</h4><h4 id="3-11-transforms-Lambda"><a href="#3-11-transforms-Lambda" class="headerlink" title="3.11 transforms.Lambda"></a>3.11 transforms.Lambda</h4><h3 id="4-对transforms操作，使数据增强更灵活"><a href="#4-对transforms操作，使数据增强更灵活" class="headerlink" title="4. 对transforms操作，使数据增强更灵活"></a>4. 对transforms操作，使数据增强更灵活</h3><h4 id="4-1-transforms-RandomChoice-transfroms"><a href="#4-1-transforms-RandomChoice-transfroms" class="headerlink" title="4.1 transforms.RandomChoice(transfroms)"></a>4.1 transforms.RandomChoice(transfroms)</h4><h4 id="4-2-transforms-RandomApply-transforms-p-0-5"><a href="#4-2-transforms-RandomApply-transforms-p-0-5" class="headerlink" title="4.2 transforms.RandomApply(transforms, p=0.5)"></a>4.2 transforms.RandomApply(transforms, p=0.5)</h4><h4 id="4-3-transforms-RandomOrder"><a href="#4-3-transforms-RandomOrder" class="headerlink" title="4.3 transforms.RandomOrder"></a>4.3 transforms.RandomOrder</h4><h4 id><a href="#" class="headerlink" title=" "></a> </h4>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/14/Something-about-PyTorch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1497,268 +1767,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/model-train-and-model-eval/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/09/model-train-and-model-eval/" itemprop="url">model.train() and model.eval()</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-09T09:46:19+08:00">
-                2019-08-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>model.train()     model.eval()</p>
-<p>一般在模型训练和评价的时候会加上这两句</p>
-<p>主要是针对model在训练时和评价时不同的 <strong>Batch Normalization</strong> 和 <strong>Dropout</strong> 方法模式</p>
-<p><strong>注意：</strong>使用PyTorch进行训练和测试时一定注意要把实例化的model指定train/eval， eval()时， 框架会自动把BN和DropOut固定住，不会取平均，而是用训练好的值，不然的话，一旦test的batch_size过小，很容易就会被BN层导致生成图片颜色失真极大！</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/Python格式化输出/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/09/Python格式化输出/" itemprop="url">Python格式化输出</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-09T09:25:45+08:00">
-                2019-08-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Python格式化输出"><a href="#Python格式化输出" class="headerlink" title="Python格式化输出"></a>Python格式化输出</h2><h3 id="格式化输出字符串"><a href="#格式化输出字符串" class="headerlink" title="格式化输出字符串"></a>格式化输出字符串</h3><h4 id="用法一："><a href="#用法一：" class="headerlink" title="用法一："></a>用法一：</h4><p>与%s类似，不同指出是将<code>%s</code>换乘了<code>‘{ }’</code>大括号，调用时依然需要按照顺序对应</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"My name is &#123;&#125;, &#123;&#125; years old, and my hobby is &#123;&#125;"</span></span><br><span class="line">s1 = s.format(<span class="string">'MMMMMQ'</span>, <span class="string">'25'</span>, <span class="string">'watching TV'</span>)</span><br><span class="line">print(s1)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">My name is MMMMMQ, 25 years old, My hobby is watching TV</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="用法二："><a href="#用法二：" class="headerlink" title="用法二："></a>用法二：</h4><p>通过<code>{n}</code>方式来指定接收参数的位置，将调用时传入的参数按照位置进行传入。相比%s可以减少参数的个数，实现了参数的复用</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"My name is &#123;0&#125;, &#123;1&#125; years old, and my name is still &#123;0&#125;"</span></span><br><span class="line">s1 = s.format(<span class="string">'MMMMQ'</span>, <span class="string">'25'</span>, <span class="string">'watching TV'</span>)</span><br><span class="line">print(s1)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">My name is MMMMQ, 25 years old, and my name is still MMMMQ</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="用法三："><a href="#用法三：" class="headerlink" title="用法三："></a>用法三：</h4><p>通过<code>str{}</code>方式来指定名字，调用时使用<code>str=&#39;xxx&#39;</code>，确定参数传入</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"My name is &#123;name&#125;, &#123;age&#125; years old, and my hobby is &#123;hobby&#125;"</span></span><br><span class="line">s1 = s.format(age=<span class="number">25</span>, hobby=<span class="string">'watching TV'</span>, name=<span class="string">'MMMMQ'</span>)</span><br><span class="line">print(s1)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">My name is MMMMQ, 25 years old, and my hobby is watching TV</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="保留n位小数："><a href="#保留n位小数：" class="headerlink" title="保留n位小数："></a>保留n位小数：</h3><h4 id="保留一个数字"><a href="#保留一个数字" class="headerlink" title="保留一个数字"></a>保留一个数字</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'This is a float number &#123;:.2f&#125;'</span>.format(<span class="number">123.432423432</span>))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">This is a float number 123.43</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="保留两个数字"><a href="#保留两个数字" class="headerlink" title="保留两个数字"></a>保留两个数字</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'This are two float numbers &#123;:.2f&#125; and &#123;:.4f&#125;'</span>.format(<span class="number">123.432423432</span>, <span class="number">0.321423423</span>))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">This are two float numbers 123.43 and 0.3214</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="保留数字和文字"><a href="#保留数字和文字" class="headerlink" title="保留数字和文字"></a>保留数字和文字</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'This are two float numbers and a string &#123;:.2f&#125; , &#123;:.4f&#125; and &#123;&#125; '</span>.format(<span class="number">123.432423432</span>, <span class="number">0.321423423</span>, <span class="string">'MMMMQ'</span>))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">This are two float numbers and a string 123.43 , 0.3214 and MMMMQ </span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1804,7 +1817,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">102</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

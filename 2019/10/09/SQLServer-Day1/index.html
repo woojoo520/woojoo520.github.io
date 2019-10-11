@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Celery Fairy">
 <meta property="og:description" content="123456789101112131415161718192021表1: Person+-------------+---------+| 列名         | 类型     |+-------------+---------+| PersonId    | int     || FirstName   | varchar || LastName    | varchar |+--------">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-09T13:36:39.541Z">
+<meta property="og:updated_time" content="2019-10-09T13:44:01.435Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQLServer-Day1">
 <meta name="twitter:description" content="123456789101112131415161718192021表1: Person+-------------+---------+| 列名         | 类型     |+-------------+---------+| PersonId    | int     || FirstName   | varchar || LastName    | varchar |+--------">
@@ -331,6 +331,12 @@
 <p>先将词表与它自身在电子邮箱列中连接起来，然后我们需要找到其他记录中具有相同电子邮件地址的更大ID。所以在``WHERE`自自居中添加一个新的条件。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> p1 <span class="keyword">FROM</span> Person p1,</span><br><span class="line">    Person p2</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">    p1.Email = p2.Email <span class="keyword">AND</span> p1.Id &gt; p2.Id</span><br></pre></td></tr></table></figure>
 
+<h3 id="197-上升的温度"><a href="#197-上升的温度" class="headerlink" title="197. 上升的温度"></a>197. 上升的温度</h3><p>给定一个 Weather 表，编写一个 SQL 查询，来查找与之前（昨天的）日期相比温度更高的所有日期的 Id。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">+---------+------------------+------------------+</span><br><span class="line">| Id(INT) | RecordDate(DATE) | Temperature(INT) |</span><br><span class="line">+---------+------------------+------------------+</span><br><span class="line">|       1 |       2015-01-01 |               10 |</span><br><span class="line">|       2 |       2015-01-02 |               25 |</span><br><span class="line">|       3 |       2015-01-03 |               20 |</span><br><span class="line">|       4 |       2015-01-04 |               30 |</span><br><span class="line">+---------+------------------+------------------+</span><br><span class="line">例如，根据上述给定的 Weather 表格，返回如下 Id:</span><br><span class="line"></span><br><span class="line">+----+</span><br><span class="line">| Id |</span><br><span class="line">+----+</span><br><span class="line">|  2 |</span><br><span class="line">|  4 |</span><br><span class="line">+----+</span><br></pre></td></tr></table></figure>
+
+<p>DATEIFF：计算DATA时间差</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> A.Id <span class="keyword">as</span> <span class="string">"Id"</span></span><br><span class="line"><span class="keyword">FROM</span> Weather <span class="keyword">as</span> A, Weather <span class="keyword">as</span> B </span><br><span class="line"><span class="keyword">where</span> <span class="keyword">DATEDIFF</span>(A.RecordDate, B.RecordDate) = <span class="number">1</span> <span class="keyword">AND</span> A.Temperature &gt; B.Temperature</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -364,6 +370,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/10/Python-Day1/" rel="prev" title="Python-Day1">
+                Python-Day1 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -440,7 +450,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">102</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -477,7 +487,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#183-从不订购的客户"><span class="nav-number">1.</span> <span class="nav-text">183. 从不订购的客户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#196-删除重复的电子邮箱"><span class="nav-number">2.</span> <span class="nav-text">196. 删除重复的电子邮箱</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#183-从不订购的客户"><span class="nav-number">1.</span> <span class="nav-text">183. 从不订购的客户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#196-删除重复的电子邮箱"><span class="nav-number">2.</span> <span class="nav-text">196. 删除重复的电子邮箱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#197-上升的温度"><span class="nav-number">3.</span> <span class="nav-text">197. 上升的温度</span></a></li></ol></div>
             
 
           </div>
