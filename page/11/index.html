@@ -241,6 +241,294 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/批训练/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/25/批训练/" itemprop="url">批训练</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-25T07:43:09+08:00">
+                2019-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="要点："><a href="#要点：" class="headerlink" title="要点："></a>要点：</h4><p>Torch中提供了一种帮你整理你的数据结构的好东西，叫做DataLoader，我们能用它来包装自己的数据，进行批训练，而且批训练可以有很多种途径</p>
+<h4 id="DataLoader"><a href="#DataLoader" class="headerlink" title="DataLoader"></a>DataLoader</h4><p><strong>DataLoader</strong>是torch给你用来包装你的数据的工具，所以你要将自己的（numpy array或其他）数据形式装换成Tensor，然后再放进这个包装器中，使用DataLoader可以帮你有效地迭代数据</p>
+<p>举例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line"><span class="keyword">import</span> torch.utils.data <span class="keyword">as</span> Data</span><br><span class="line"></span><br><span class="line">torch.manual_seed(<span class="number">1</span>)    <span class="comment">#reproducible</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 批训练的数据个数</span></span><br><span class="line">BATCH_SIZE = <span class="number">5</span></span><br><span class="line"></span><br><span class="line">x = torch.linspace(<span class="number">1</span>, <span class="number">10</span>, <span class="number">10</span>)       <span class="comment"># this is x data (torch tensor)</span></span><br><span class="line">y = torch.linspace(<span class="number">10</span>, <span class="number">1</span>, <span class="number">10</span>)       <span class="comment"># this is y data (torch tensor)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 先转换成torch能识别的Dataset</span></span><br><span class="line">torch_dataset = Data.TensorDataset(x, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 把dataset 放入 DataLoader</span></span><br><span class="line">loader = Data.DataLoader(</span><br><span class="line">    dataset=torch_dataset,          <span class="comment"># torch TensorDataset format</span></span><br><span class="line">    batch_size=BATCH_SIZE,          <span class="comment"># mini batch size</span></span><br><span class="line">    shuffle=<span class="literal">True</span>,                   <span class="comment"># 要不要打乱数据(打乱比较好)</span></span><br><span class="line">    num_workers=<span class="number">2</span>,                  <span class="comment"># 多线程来读取数据</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_batch</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># train entire dataset 3 times</span></span><br><span class="line">    <span class="keyword">for</span> eopch <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">        <span class="comment"># 每一步loader释放一小批数据用来学习</span></span><br><span class="line">        <span class="keyword">for</span> step, (batch_x, batch_y) <span class="keyword">in</span> enumerate(loader):</span><br><span class="line">            <span class="comment"># training your data...</span></span><br><span class="line">            print(<span class="string">'Epoch: '</span>, eopch, <span class="string">'| Step: '</span>, step, <span class="string">'| batch x: '</span>, batch_x.numpy(), <span class="string">'| batch y: '</span>, batch_y.numpy())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    show_batch()</span><br></pre></td></tr></table></figure>
+
+<p>得到的结果</p>
+<p>Epoch:  0 | Step:  0 | batch x:  [ 5.  7. 10.  3.  4.] | batch y:  [6. 4. 1. 8. 7.]</p>
+<p>Epoch:  0 | Step:  1 | batch x:  [2. 1. 8. 9. 6.] | batch y:  [ 9. 10.  3.  2.  5.]</p>
+<p>Epoch:  1 | Step:  0 | batch x:  [ 4.  6.  7. 10.  8.] | batch y:  [7. 5. 4. 1. 3.]</p>
+<p>Epoch:  1 | Step:  1 | batch x:  [5. 3. 2. 1. 9.] | batch y:  [ 6.  8.  9. 10.  2.]</p>
+<p>Epoch:  2 | Step:  0 | batch x:  [ 4.  2.  5.  6. 10.] | batch y:  [7. 9. 6. 5. 1.]</p>
+<p>Epoch:  2 | Step:  1 | batch x:  [3. 9. 1. 8. 7.] | batch y:  [ 8.  2. 10.  3.  4.]</p>
+<p>如果 <strong>shuffle = True</strong>，则导出的数据是</p>
+<p>Epoch:  0 | Step:  0 | batch x:  [1. 2. 3. 4. 5.] | batch y:  [10.  9.  8.  7.  6.]</p>
+<p>Epoch:  0 | Step:  1 | batch x:  [ 6.  7.  8.  9. 10.] | batch y:  [5. 4. 3. 2. 1.]</p>
+<p>Epoch:  1 | Step:  0 | batch x:  [1. 2. 3. 4. 5.] | batch y:  [10.  9.  8.  7.  6.]</p>
+<p>Epoch:  1 | Step:  1 | batch x:  [ 6.  7.  8.  9. 10.] | batch y:  [5. 4. 3. 2. 1.]</p>
+<p>Epoch:  2 | Step:  0 | batch x:  [1. 2. 3. 4. 5.] | batch y:  [10.  9.  8.  7.  6.]</p>
+<p>Epoch:  2 | Step:  1 | batch x:  [ 6.  7.  8.  9. 10.] | batch y:  [5. 4. 3. 2. 1.]</p>
+<p>可以看出来，每步都导出了5个数据进行学习，然后每个epoch的导出数据都是先打乱了以后再导出</p>
+<p>如果改变 <strong>BATCH_SIZE = 8</strong> ，这样 step = 0，就回导出8个数据 ，但是，step = 1 时数据库中的数据不够8个，则step1，只能给你返回epoch中剩下的数据了</p>
+<p>Epoch:  0 | Step:  0 | batch x:  [1. 2. 3. 4. 5. 6. 7. 8.] | batch y:  [10.  9.  8.  7.  6.  5.  4.  3.]</p>
+<p>Epoch:  0 | Step:  1 | batch x:  [ 9. 10.] | batch y:  [2. 1.]</p>
+<p>Epoch:  1 | Step:  0 | batch x:  [1. 2. 3. 4. 5. 6. 7. 8.] | batch y:  [10.  9.  8.  7.  6.  5.  4.  3.]</p>
+<p>Epoch:  1 | Step:  1 | batch x:  [ 9. 10.] | batch y:  [2. 1.]</p>
+<p>Epoch:  2 | Step:  0 | batch x:  [1. 2. 3. 4. 5. 6. 7. 8.] | batch y:  [10.  9.  8.  7.  6.  5.  4.  3.]</p>
+<p>Epoch:  2 | Step:  1 | batch x:  [ 9. 10.] | batch y:  [2. 1.]</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/图形处理器——GPU/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/25/图形处理器——GPU/" itemprop="url">图形处理器——GPU</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-25T06:50:56+08:00">
+                2019-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="图形处理器GPU（Graphics-Processing-Unit）"><a href="#图形处理器GPU（Graphics-Processing-Unit）" class="headerlink" title="图形处理器GPU（Graphics Processing Unit）"></a>图形处理器GPU（Graphics Processing Unit）</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>​    又称为显示核心、视觉处理器、显示芯片，是一个专门在个人电脑、工作站、游戏机和一些移动设备上图像运算工作的微处理器</p>
+<h3 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h3><p>​    将计算机系统所需要的显示信息进行转换驱动，并向显示器提供扫描信号，控制显示器的正确显示，是连接显示器和个人电脑主板的重要元件，也是“人机对话”的中套设备之一。显卡作为电脑主机里的一个重要组成部分，承担输出显示图形的任务，对于从事专业图形设计的人来说显卡非常重要。</p>
+<h3 id="GPU加速计算"><a href="#GPU加速计算" class="headerlink" title="GPU加速计算"></a>GPU加速计算</h3><h4 id="什么是GPU加速计算"><a href="#什么是GPU加速计算" class="headerlink" title="什么是GPU加速计算"></a>什么是GPU加速计算</h4><p>GPU加速计算是指同时利用图形处理器[GPU]和CPU，加快科学、分析、工程和企业应用程序的运行速度</p>
+<h4 id="GPU如何加快软件应用程序的运行速度"><a href="#GPU如何加快软件应用程序的运行速度" class="headerlink" title="GPU如何加快软件应用程序的运行速度"></a>GPU如何加快软件应用程序的运行速度</h4><p>GPU加速计算可以提供非凡的应用程序性能，能将应用程序计算密集部分的工作负载转移到GPU，同时仍由CPU运行其余程序代码。从用户的角度来看，应用程序的运行速度明显加快。</p>
+<h4 id="GPU与CPU性能比较"><a href="#GPU与CPU性能比较" class="headerlink" title="GPU与CPU性能比较"></a>GPU与CPU性能比较</h4><p>理解GPU和CPU之间的区别的一种简单方式是比较他们如何处理任务。CPU由专为顺序串行处理而优化的几个核心组成，而GPU则拥有一个由数以千计的更小、更高效的核心（专为同时处理多重任务二设计）组成的大规模并行计算架构</p>
+<h3 id="GPU与CPU比较，GPU为什么更适合深度学习"><a href="#GPU与CPU比较，GPU为什么更适合深度学习" class="headerlink" title="GPU与CPU比较，GPU为什么更适合深度学习"></a>GPU与CPU比较，GPU为什么更适合深度学习</h3><h4 id="一-CPU与GPU对比"><a href="#一-CPU与GPU对比" class="headerlink" title="一. CPU与GPU对比"></a>一. CPU与GPU对比</h4><p>CPU是一个有多种功能的优秀领导者。它的优点在于调度、管理、协调能力强，计算能力则位于其次。而GPU相当于一个接受CPU调度的“拥有大量计算能力”的员工</p>
+<p>下面是处理器内部结构图：</p>
+<p>DRAM即动态随机存取存储器，是常见的系统内存</p>
+<p>Cache存储器：电脑中作高速缓冲存储器，是位于CPU和主存储器DRAM之间，规模较小，但速度很高的存储器</p>
+<p>算数逻辑单元ALU是能实现多组算术运算和逻辑运算的组合逻辑电路</p>
+<p><img src="https://github.com/woojoo520/MyPostImages/raw/master/GPU.png" alt="GPU&amp;CPU"></p>
+<p>当需要对大数据bigdata做同样的事情时，GPU更合适，当需要对同一数据做很多事情时，CPU正好合适关于图形方面的以及大型矩阵运算，如机器学习算法等方面，GPU就能大显身手</p>
+<p>简而言之，CPU擅长统领全局等复杂操作，CPU擅长对大数据进行简单重复操作。CPU是从事复杂脑力劳动的救援，而GPU是进行大量并行计算的体力劳动者</p>
+<h4 id="二-机器深度学习"><a href="#二-机器深度学习" class="headerlink" title="二. 机器深度学习"></a>二. 机器深度学习</h4><p>深度学习是模拟人脑神经系统而建立的数学网络模型，这个模型的最大特点是，需要大数据来训练。因此，对电脑处理器的需求，就是需要大量的并行的重复计算，GPU正好有这个专长，因此担当重任。</p>
+<h5 id="GPU的优点"><a href="#GPU的优点" class="headerlink" title="GPU的优点"></a><strong>GPU的优点</strong></h5><ul>
+<li><p>提供给了多核并行计算的基础结构，且核心数非常多，可以支撑大量数据的并行计算</p>
+<p>并行计算或称平行计算是相对于串行计算来说的。它是一种一次可执行多个指令的算法，目的是提高计算速度，及通过扩大问题求解规模，解决大型而复杂的计算问题</p>
+</li>
+<li><p>拥有更高的访存速度</p>
+</li>
+<li><p>更高的浮点运算能力。浮点运算能力是关系到处理器的多媒体、3D图形处理的一个重要指标。现在的计算机技术中，由于大量多媒体的应用，浮点数的计算大大增加了，比如3D图形的额渲染等工作，因此浮点运算能力是考察处理器计算能力的重要指标</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/图像的上采样与下采样/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -564,7 +852,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-count">104</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SQLServer-Day4IN操作符允许我们在WHERE子句中规定多个值  SELECT column_name(s) FROM table_name WHERE column_name IN (value1, value2, …)  原始的Persons表：    Id LastName FirstName Address City    1 Adams John Oxford Street">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQLServer-Day4">
+<meta property="og:url" content="https://woojoo520.github.io/2019/10/13/SQLServer-Day4/index.html">
+<meta property="og:site_name" content="Celery Fairy">
+<meta property="og:description" content="SQLServer-Day4IN操作符允许我们在WHERE子句中规定多个值  SELECT column_name(s) FROM table_name WHERE column_name IN (value1, value2, …)  原始的Persons表：    Id LastName FirstName Address City    1 Adams John Oxford Street">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-10-13T10:35:06.216Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SQLServer-Day4">
+<meta name="twitter:description" content="SQLServer-Day4IN操作符允许我们在WHERE子句中规定多个值  SELECT column_name(s) FROM table_name WHERE column_name IN (value1, value2, …)  原始的Persons表：    Id LastName FirstName Address City    1 Adams John Oxford Street">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woojoo520.github.io/2019/10/13/SQLServer-Day4/">
+
+
+
+
+
+  <title>SQLServer-Day4 | Celery Fairy</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/woojoo520" class="github-corner" aria-label="View source on GitHub">
+      <svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+      </svg>
+    </a>
+    <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Celery Fairy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Celery's Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/13/SQLServer-Day4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SQLServer-Day4</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-13T15:22:53+08:00">
+                2019-10-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="SQLServer-Day4"><a href="#SQLServer-Day4" class="headerlink" title="SQLServer-Day4"></a>SQLServer-Day4</h2><h3 id="IN操作符"><a href="#IN操作符" class="headerlink" title="IN操作符"></a><code>IN</code>操作符</h3><p>允许我们在<code>WHERE</code>子句中规定多个值</p>
+<blockquote>
+<p>SELECT column_name(s)</p>
+<p>FROM table_name</p>
+<p>WHERE column_name IN (value1, value2, …)</p>
+</blockquote>
+<p>原始的Persons表：</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Adams</td>
+<td>John</td>
+<td>Oxford Street</td>
+<td>London</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bush</td>
+<td>George</td>
+<td>Fifth Avenue</td>
+<td>New York</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Carter</td>
+<td>Thomas</td>
+<td>Changan Street</td>
+<td>Beijing</td>
+</tr>
+</tbody></table>
+<p>例：寻找姓氏为Adams和Carter的人</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> LastName <span class="keyword">IN</span> (<span class="string">'Adams'</span>, <span class="string">'Carter'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Adams</td>
+<td>John</td>
+<td>Oxford Street</td>
+<td>London</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Carter</td>
+<td>Thomas</td>
+<td>Changan Street</td>
+<td>Beijing</td>
+</tr>
+</tbody></table>
+<h3 id="BETWEEN操作符"><a href="#BETWEEN操作符" class="headerlink" title="BETWEEN操作符"></a><code>BETWEEN</code>操作符</h3><p>在<code>WHERE</code>子句中使用，作用是选取介于两个值之间的数据范围。</p>
+<p>操作符<code>BETWEEN ... AND</code>会选取介于两个值之间的数据范围。这些值可以是数据、文本或者日期。</p>
+<blockquote>
+<p><strong>SELECT</strong> column_name(s)</p>
+<p><strong>FROM</strong> table_name</p>
+<p><strong>WHERE</strong> column_name</p>
+<p><strong>BETWEEN</strong> value1 <strong>AND</strong> value2</p>
+</blockquote>
+<p>原始的Persons表：</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Adams</td>
+<td>John</td>
+<td>Oxford Street</td>
+<td>London</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bush</td>
+<td>George</td>
+<td>Fifth Avenue</td>
+<td>New York</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Carter</td>
+<td>Thomas</td>
+<td>Changan Street</td>
+<td>Beijing</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Gates</td>
+<td>Bill</td>
+<td>Xuanwumen 10</td>
+<td>Beijing</td>
+</tr>
+</tbody></table>
+<p>例：寻找以字母顺序介于‘Adams’（包括）和‘Carter’（不包括）之间的人：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> LastName</span><br><span class="line"><span class="keyword">BETWEEN</span> <span class="string">'Adams'</span> <span class="keyword">AND</span> <span class="string">'Carter'</span></span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Adams</td>
+<td>John</td>
+<td>Oxford Street</td>
+<td>London</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bush</td>
+<td>George</td>
+<td>Fifth Avenue</td>
+<td>New York</td>
+</tr>
+</tbody></table>
+<p><strong>重要事项：</strong>不同数据库对<code>BETWEEN...AND</code>操作符的处理方式是有差异的。某些数据库会列出介于‘Adams’和‘Carter’的人，但不包括‘Adams’和‘Carter’；某些数据库会列出介于 ‘Adams’和‘Carter’之间并包括‘Adams’和‘Carter’的人；而另一些数据库会列出介于‘Adams’和‘Carter’之间的人，包括‘Adams’，但不包括‘Carter’</p>
+<p>所以，需要检查自己的数据库是如何处理<code>BETWEEN...AND</code>操作符的</p>
+<p>例2：如果需要显示该范围之外的人，需要使用<code>NOT</code>操作符：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">WHERE</span> LastName</span><br><span class="line"><span class="keyword">NOT</span> <span class="keyword">BETWEEN</span> <span class="string">'Adams'</span> <span class="keyword">AND</span> <span class="string">'Carter'</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Alias-别名"><a href="#Alias-别名" class="headerlink" title="Alias (别名)"></a>Alias (别名)</h3><p>可以为列名称和表名称指定别名（Alias）</p>
+<h4 id="表的SQL-Alias语法"><a href="#表的SQL-Alias语法" class="headerlink" title="表的SQL Alias语法"></a>表的SQL Alias语法</h4><blockquote>
+<p>SELECT column_name(s)</p>
+<p>FROM table_name </p>
+<p><strong>AS</strong> alias_name</p>
+</blockquote>
+<h4 id="列的SQL-Alias语法"><a href="#列的SQL-Alias语法" class="headerlink" title="列的SQL Alias语法"></a>列的SQL Alias语法</h4><blockquote>
+<p>SELECT column_name <strong>AS</strong> alias_name</p>
+<p>FROM table_name</p>
+</blockquote>
+<p>例：使用表名称别名</p>
+<p>假设我们有两个表分别是：”Persons” 和 “Product_Orders”。我们分别为它们指定别名 “p” 和 “po”。</p>
+<p>现在，我们希望列出 “John Adams” 的所有定单。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> po.OrderID, p.LastName, p.FirstName</span><br><span class="line"><span class="keyword">FROM</span> Persons, Product_Orders</span><br><span class="line"><span class="keyword">WHERE</span> p.LastName = <span class="string">'Adams'</span> <span class="keyword">AND</span> p.FirstName = <span class="string">'John'</span></span><br></pre></td></tr></table></figure>
+
+<p>如果不使用别名：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.OrderID, Product_Orders.LastName, Product_Orders.FirstName</span><br><span class="line"><span class="keyword">FROM</span> Persons, Product_Orders</span><br><span class="line"><span class="keyword">WHERE</span> Product_Orders.LastName = <span class="string">'Adams'</span> <span class="keyword">AND</span> Product_Orders.FirstName = <span class="string">'John'</span></span><br></pre></td></tr></table></figure>
+
+<p>例：</p>
+<p>Persons表：</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Adams</td>
+<td>John</td>
+<td>Oxford Street</td>
+<td>London</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bush</td>
+<td>George</td>
+<td>Fifth Avenue</td>
+<td>New York</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Carter</td>
+<td>Thomas</td>
+<td>Changan Street</td>
+<td>Beijing</td>
+</tr>
+</tbody></table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> LastName <span class="keyword">AS</span> Family, FirstName <span class="keyword">as</span> <span class="keyword">Name</span></span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>Family</th>
+<th>FirstName</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Adams</td>
+<td>John</td>
+</tr>
+<tr>
+<td>Bush</td>
+<td>George</td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+</tr>
+</tbody></table>
+<p><strong>注意：这里的列的名称也发生了改变！</strong></p>
+<h3 id="JOIN"><a href="#JOIN" class="headerlink" title="JOIN"></a>JOIN</h3><p><code>join</code>用于根据两个或多个表中的列之间的关系，从这些表中查询数据</p>
+<h4 id="Join和Key"><a href="#Join和Key" class="headerlink" title="Join和Key"></a>Join和Key</h4><p>有时，为了得到完整的结果，我们需要从两个或更多的表中获取数据，我们就需要执行join</p>
+<p>数据库中的表可通过键值将彼此联系起来。主键（Primary Key）是一个列，在这个列中的每一行的值都是唯一的。在表中，每个主键的值都是唯一的。这样说的目的是在不重复每个表中的所有数据的情况下，把表间的数据交叉捆绑在一起。</p>
+<p>例如，Persons表</p>
+<table>
+<thead>
+<tr>
+<th>Id_P</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Adams</td>
+<td>John</td>
+<td>Oxford Street</td>
+<td>London</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bush</td>
+<td>George</td>
+<td>Fifth Avenue</td>
+<td>New York</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Carter</td>
+<td>Thomas</td>
+<td>Changan Street</td>
+<td>Beijing</td>
+</tr>
+</tbody></table>
+<p>这里：<strong>Id_P</strong>是Persons表中的主键，这意味着没有两行能够拥有相同的<code>Id_P</code></p>
+<p>Orders表：</p>
+<table>
+<thead>
+<tr>
+<th>Id_O</th>
+<th>OrderNo</th>
+<th>Id_P</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>77895</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>44678</td>
+<td>3</td>
+</tr>
+<tr>
+<td>3</td>
+<td>22456</td>
+<td>1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>24562</td>
+<td>1</td>
+</tr>
+<tr>
+<td>5</td>
+<td>34764</td>
+<td>65</td>
+</tr>
+</tbody></table>
+<p>注意：“<strong>Id_O</strong>“列值Orders表中的主键，同时，”Orders“表中的”Id_P“列用于引用”Persons“表中的人，而无需使用他人的确切姓名</p>
+<p>这个时候“Id_P”列把上面两个表联系起来了</p>
+<p><strong>引用两个表</strong>，我们可以知道谁订购了什么产品？</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Persons.FirstName, Orders.No</span><br><span class="line"><span class="keyword">FROM</span> Persons, Orders</span><br><span class="line"><span class="keyword">WHERE</span> Persons.Id_P = Orders.Id_P</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>LastName</th>
+<th>FirstName</th>
+<th>OrderNo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Adams</td>
+<td>John</td>
+<td>22456</td>
+</tr>
+<tr>
+<td>Adams</td>
+<td>John</td>
+<td>24562</td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>77895</td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>44678</td>
+</tr>
+</tbody></table>
+<p>除了上面的方法，我们还可以使用关键字<code>JOIN</code>来从两个表中获取数据</p>
+<p>如果我们希望列出所有人的订购，可以这样写：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Persons.FirstName, Orders.OrderNo</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Persons.LastName</span><br></pre></td></tr></table></figure>
+
+<p>不同的SQL JOIN</p>
+<p>除了上面使用的<code>INNER JOIN</code>（内连接），还有其他的连接方式</p>
+<ul>
+<li><code>JOIN</code>：如果表中至少有一个匹配，则返回</li>
+<li><code>LEFT JOIN</code>：即使右表中没有匹配，也从左表返回所有的行</li>
+<li><code>RIGHT JOIN</code>：即使左表中没有匹配，也从右表中返回所有的行</li>
+<li><code>FULL JOIN</code>：只要其中一个表中存在匹配，就返回行</li>
+</ul>
+<h3 id="INNER-JOIN-关键字"><a href="#INNER-JOIN-关键字" class="headerlink" title="INNER JOIN 关键字"></a>INNER JOIN 关键字</h3><p>在表中至少存在一个匹配项时，INNER JOIN关键字返回行</p>
+<blockquote>
+<p>SELECT column_name(s)</p>
+<p>FROM table_name1</p>
+<p><strong>INNER JOIN</strong> table_name2</p>
+<p><strong>ON</strong> table_name1.column_name = table_name2.column_name</p>
+</blockquote>
+<p>注释：<code>INNER JOIN</code>和<code>JOIN</code>是相同的</p>
+<p>如果在”Persons“中的行在“Orders”中没有匹配，则不会返回</p>
+<h3 id="LEFT-JOIN关键字"><a href="#LEFT-JOIN关键字" class="headerlink" title="LEFT JOIN关键字"></a>LEFT JOIN关键字</h3><p><code>LEFT JOIN</code>关键字会从左表（table_name1）那里返回所有的行，即使在右表（table_name2）中没有匹配</p>
+<blockquote>
+<p>SELECT column_name(s)</p>
+<p>FROM table_name1</p>
+<p><strong>LEFT JOIN</strong> table_name2</p>
+<p><strong>ON</strong> table_name1.column_name = table_name2.column_name</p>
+</blockquote>
+<p>注释：在某些数据库中，<code>LEFT JOIN</code> 称为 <code>LEFT OUTER JOIN</code></p>
+<p>如果在上述的Persons表和Orders表中采用左连接，即：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Persons.FirstName, Orders,OrderNo</span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Persons.LastName</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>LastName</th>
+<th>FirstName</th>
+<th>OrderNo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Adams</td>
+<td>John</td>
+<td>22456</td>
+</tr>
+<tr>
+<td>Adams</td>
+<td>John</td>
+<td>24562</td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>77895</td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>44678</td>
+</tr>
+<tr>
+<td>Bush</td>
+<td>George</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="RIGHT-JOIN-关键字"><a href="#RIGHT-JOIN-关键字" class="headerlink" title="RIGHT JOIN 关键字"></a>RIGHT JOIN 关键字</h3><p><code>RIGHT JOIN</code>关键字会在右表（table_name2）那里返回所有的行，即使在左表（table_name1）中没有匹配的行</p>
+<blockquote>
+<p>SELECT column_name(s)</p>
+<p>FROM table_name1</p>
+<p><strong>RIGHT JOIN</strong> table_name2</p>
+<p><strong>ON</strong> table_name1.column_name = table_name2.column_name</p>
+</blockquote>
+<p>还是上面那两张表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Persons.FirstName, Orders.OrderNo</span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Persons.LastName</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>LastName</th>
+<th>FirstName</th>
+<th>OrderNo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Adams</td>
+<td>John</td>
+<td>22456</td>
+</tr>
+<tr>
+<td>Adams</td>
+<td>John</td>
+<td>24562</td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>77895</td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>44678</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>34764</td>
+</tr>
+</tbody></table>
+<p><code>RIGHT JOIN</code>关键字会从右表（Orders）那里返回所有的行，即使在左表（Persons）中没有匹配的行</p>
+<h3 id="FULL-JOIN-关键字"><a href="#FULL-JOIN-关键字" class="headerlink" title="FULL JOIN 关键字"></a>FULL JOIN 关键字</h3><p>只要其中某个表存在匹配，<code>FULL JOIN</code>关键字就回返回行</p>
+<blockquote>
+<p>SELECT column_name(s)</p>
+<p>FROM table_name1</p>
+<p><strong>FULL JOIN</strong> table_name2</p>
+<p><strong>ON</strong> table_name1.column_name = table_name2.column_name</p>
+</blockquote>
+<p>Persons表和Orders表同上</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Persons.FirstName, Orders.OrderNo</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">FULL</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Persons.LastName</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<table>
+<thead>
+<tr>
+<th>LastName</th>
+<th>FirstName</th>
+<th>OrderNo</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Adams</td>
+<td>John</td>
+<td>22456</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Adams</td>
+<td>John</td>
+<td>24562</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>77895</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>44678</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Bush</td>
+<td>George</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>34764</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><code>FLLL JOIN</code>关键字会从左表（Persons）和右表（Orders）那里返回所有的行。如果“Persons”中的行在表“Orders”中没有匹配，或者如果“Orders”中的行在表“Persons”中没有匹配，这些行同样会列出。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/12/SQLServer-Day3/" rel="next" title="SQLServer-Day3">
+                <i class="fa fa-chevron-left"></i> SQLServer-Day3
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mariana</p>
+              <p class="site-description motion-element" itemprop="description">a study blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQLServer-Day4"><span class="nav-number">1.</span> <span class="nav-text">SQLServer-Day4</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IN操作符"><span class="nav-number">1.1.</span> <span class="nav-text">IN操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BETWEEN操作符"><span class="nav-number">1.2.</span> <span class="nav-text">BETWEEN操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Alias-别名"><span class="nav-number">1.3.</span> <span class="nav-text">Alias (别名)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#表的SQL-Alias语法"><span class="nav-number">1.3.1.</span> <span class="nav-text">表的SQL Alias语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#列的SQL-Alias语法"><span class="nav-number">1.3.2.</span> <span class="nav-text">列的SQL Alias语法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JOIN"><span class="nav-number">1.4.</span> <span class="nav-text">JOIN</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Join和Key"><span class="nav-number">1.4.1.</span> <span class="nav-text">Join和Key</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INNER-JOIN-关键字"><span class="nav-number">1.5.</span> <span class="nav-text">INNER JOIN 关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LEFT-JOIN关键字"><span class="nav-number">1.6.</span> <span class="nav-text">LEFT JOIN关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RIGHT-JOIN-关键字"><span class="nav-number">1.7.</span> <span class="nav-text">RIGHT JOIN 关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FULL-JOIN-关键字"><span class="nav-number">1.8.</span> <span class="nav-text">FULL JOIN 关键字</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mariana</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
