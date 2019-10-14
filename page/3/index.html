@@ -241,6 +241,168 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/23/LeetCode-Day39/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/23/LeetCode-Day39/" itemprop="url">LeetCode-Day39</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-23T13:10:13+08:00">
+                2019-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="209-长度最小的子数组"><a href="#209-长度最小的子数组" class="headerlink" title="209. 长度最小的子数组"></a>209. 长度最小的子数组</h3><p>给定一个含有 n 个正整数的数组和一个正整数 s ，找出该数组中满足其和 ≥ s 的长度最小的连续子数组。如果不存在符合条件的连续子数组，返回 0。</p>
+<p>示例: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: s = 7, nums = [2,3,1,2,4,3]</span><br><span class="line">输出: 2</span><br><span class="line">解释: 子数组 [4,3] 是该条件下的长度最小的连续子数组。</span><br></pre></td></tr></table></figure>
+
+<p>思路：这个问题其实很容易就能想到在$O(n^2)$的时间复杂度下解决问题，但是这里采用了一种$O(nlogn)$的做法去解决这个问题。</p>
+<p>首先，我们先求解<code>sums</code>数组，表示从头加到当前位置的和。</p>
+<p>然后从<code>i = 1</code>到<code>n</code>枚举</p>
+<ul>
+<li><p>首先<code>to_find</code>定义为当前位置的<code>sum</code>值加上<code>s</code></p>
+</li>
+<li><p>在<code>sums</code>中找到值<code>to_find</code>最早能插入的地方，即满足从<code>i</code>开始，往后搜索差值为<code>s</code>的需要的最短距离。</p>
+<p>在这里搜索的过程中可以采用二分搜索的方法，但是还有一个小技巧，就是利用<code>STL</code>中的<code>lower_bound</code>函数，来表示某一个数字最早能够插入在数组中的位置，这样显然就很高效了鸭~</p>
+</li>
+</ul>
+<p>上Code：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minSubArrayLen2</span><span class="params">(<span class="keyword">int</span> s, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.size();</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> ans = INT_MAX;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; sums(n + <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) &#123;</span><br><span class="line">        sums[i] = sums[i - <span class="number">1</span>] + nums[i - <span class="number">1</span>]; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> to_find = s + sums[i - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">auto</span> bound = lower_bound(sums.begin(), sums.end(), to_find);</span><br><span class="line">        <span class="keyword">if</span>(bound != sums.end()) &#123;</span><br><span class="line">            ans = min(ans, <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>&gt; (bound - (sums.begin() + i - <span class="number">1</span>)));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (ans != INT_MAX) ? ans : <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关于<code>lower_bound &amp;&amp; upper_bound</code>的测试</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; num(a, a + <span class="number">5</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; num.size();i++) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; num[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>&gt; (lower_bound(num.begin(), num.end(), <span class="number">2</span>) - num.begin()) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>&gt; (upper_bound(num.begin(), num.end(), <span class="number">2</span>) - num.begin()) &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="128-最长连续序列"><a href="#128-最长连续序列" class="headerlink" title="128. 最长连续序列"></a>128. 最长连续序列</h3><p>给定一个未排序的整数数组，找出最长连续序列的长度。</p>
+<p>要求算法的时间复杂度为 O(n)。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [100, 4, 200, 1, 3, 2]</span><br><span class="line">输出: 4</span><br><span class="line">解释: 最长连续序列是 [1, 2, 3, 4]。它的长度为 4。</span><br></pre></td></tr></table></figure>
+
+<p>思路：</p>
+<p><strong>哈希表 + 线性空间的构造</strong></p>
+<p>我们先将所有元素放进一个<code>Hash set</code>中，然后遍历<code>num_set</code>中的每一个元素，如果它前面一个数字没有在<code>num_set</code>中，那么它一定不是一个连续数组的开始，则跳过。如果是连续数组的开始，那么就需要一种往后找连续的元素是否存在，然后记录下最长的数列长度。</p>
+<p>上Code：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">longestConsecutive</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; num_set;</span><br><span class="line">        <span class="keyword">int</span> maxLength = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            num_set.insert(num);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> num : num_set) &#123;</span><br><span class="line">            <span class="keyword">if</span>(num_set.find(num - <span class="number">1</span>) == num_set.end()) &#123;</span><br><span class="line">                <span class="keyword">int</span> currentNum = num;</span><br><span class="line">                <span class="keyword">int</span> currentLen = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span>(num_set.find(currentNum + <span class="number">1</span>) != num_set.end()) &#123;</span><br><span class="line">                    currentNum += <span class="number">1</span>;</span><br><span class="line">                    currentLen += <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                maxLength = max(maxLength, currentLen);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxLength;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这里虽然看上去复杂度挺高，但实际上是$O(n)$复杂度的，因为每个数字只会遍历到一次，因为如果不是连续数字开头的，就直接跳过了，而是连续数字开头的，就一直遍历到连续数字的末尾，所以总的时间复杂度是$O(n)$的。</p>
+<h3 id="126-单词接龙II"><a href="#126-单词接龙II" class="headerlink" title="126. 单词接龙II"></a>126. 单词接龙II</h3><p>给定两个单词（beginWord 和 endWord）和一个字典 wordList，找出所有从 beginWord 到 endWord 的最短转换序列。转换需遵循如下规则：</p>
+<p>每次转换只能改变一个字母。<br>转换过程中的中间单词必须是字典中的单词。<br>说明:</p>
+<p>如果不存在这样的转换序列，返回一个空列表。<br>所有单词具有相同的长度。<br>所有单词只由小写字母组成。<br>字典中不存在重复的单词。<br>你可以假设 beginWord 和 endWord 是非空的，且二者不相同。<br>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">beginWord = &quot;hit&quot;,</span><br><span class="line">endWord = &quot;cog&quot;,</span><br><span class="line">wordList = [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;,&quot;cog&quot;]</span><br><span class="line"></span><br><span class="line">输出:</span><br><span class="line">[</span><br><span class="line">  [&quot;hit&quot;,&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;cog&quot;],</span><br><span class="line">  [&quot;hit&quot;,&quot;hot&quot;,&quot;lot&quot;,&quot;log&quot;,&quot;cog&quot;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">beginWord = &quot;hit&quot;</span><br><span class="line">endWord = &quot;cog&quot;</span><br><span class="line">wordList = [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;]</span><br><span class="line"></span><br><span class="line">输出: []</span><br><span class="line">解释: endWord &quot;cog&quot; 不在字典中，所以不存在符合要求的转换序列。</span><br></pre></td></tr></table></figure>
+
+<p>思路：<strong>双向BFS</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">ladderLength</span><span class="params">(<span class="built_in">string</span> beginWord, <span class="built_in">string</span> endWord, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordList)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt; freqs;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;word:wordList)</span><br><span class="line">			freqs[word]=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(freqs.count(endWord)==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="built_in">queue</span>&lt;<span class="built_in">string</span>&gt; q1(&#123;beginWord&#125;), q2(&#123;endWord&#125;);</span><br><span class="line">		<span class="keyword">int</span> step=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(freqs[beginWord]|=<span class="number">1</span>,freqs[endWord]|=<span class="number">2</span>; q1.size() &amp;&amp; q2.size(); ++step)&#123;</span><br><span class="line">			<span class="keyword">bool</span> first=q1.size()&lt;q2.size();</span><br><span class="line">			<span class="built_in">queue</span>&lt;<span class="built_in">string</span>&gt; &amp;q=first?q1:q2;</span><br><span class="line">			<span class="keyword">int</span> flag=first?<span class="number">1</span>:<span class="number">2</span>;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> size=q.size(); size--; q.pop())&#123;</span><br><span class="line">				<span class="built_in">string</span> &amp;word=q.front();</span><br><span class="line">				<span class="keyword">if</span>(freqs[word]==<span class="number">3</span>) <span class="keyword">return</span> step;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;word.length(); ++i)&#123;</span><br><span class="line">					<span class="keyword">for</span>(<span class="keyword">char</span> ch=<span class="string">'a'</span>; ch&lt;=<span class="string">'z'</span>; ++ch)&#123;</span><br><span class="line">						<span class="built_in">string</span> s=word;</span><br><span class="line">						<span class="keyword">if</span>(s[i]==ch) <span class="keyword">continue</span>;</span><br><span class="line">						s[i]=ch;</span><br><span class="line">						<span class="keyword">if</span>(freqs.count(s)==<span class="number">0</span> || freqs[s]&amp;flag) <span class="keyword">continue</span>;</span><br><span class="line">						freqs[s]|=flag;</span><br><span class="line">						q.push(s);</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/23/FFT/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1698,152 +1860,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/16/LeetCode-Day32/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/16/LeetCode-Day32/" itemprop="url">LeetCode-Day32</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-16T17:47:27+08:00">
-                2019-09-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="LeetCode-Day32——依旧贪心"><a href="#LeetCode-Day32——依旧贪心" class="headerlink" title="LeetCode-Day32——依旧贪心"></a>LeetCode-Day32——依旧贪心</h2><h3 id="630-课程表III"><a href="#630-课程表III" class="headerlink" title="630. 课程表III"></a>630. 课程表III</h3><p>这里有 n 门不同的在线课程，他们按从 1 到 n 编号。每一门课程有一定的持续上课时间（课程时间）t 以及关闭时间第 d 天。一门课要持续学习 t 天直到第 d 天时要完成，你将会从第 1 天开始。</p>
-<p>给出 n 个在线课程用 (t, d) 对表示。你的任务是找出最多可以修几门课。</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入: [[100, 200], [200, 1300], [1000, 1250], [2000, 3200]]</span><br><span class="line">输出: 3</span><br><span class="line">解释: </span><br><span class="line">这里一共有 4 门课程, 但是你最多可以修 3 门:</span><br><span class="line">首先, 修第一门课时, 它要耗费 100 天，你会在第 100 天完成, 在第 101 天准备下门课。</span><br><span class="line">第二, 修第三门课时, 它会耗费 1000 天，所以你将在第 1100 天的时候完成它, 以及在第 1101 天开始准备下门课程。</span><br><span class="line">第三, 修第二门课时, 它会耗时 200 天，所以你将会在第 1300 天时完成它。</span><br><span class="line">第四门课现在不能修，因为你将会在第 3300 天完成它，这已经超出了关闭日期。</span><br></pre></td></tr></table></figure>
-
-<p>提示:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">整数 1 &lt;= d, t, n &lt;= 10,000 。</span><br><span class="line">你不能同时修两门课程。</span><br></pre></td></tr></table></figure>
-
-<p>思路：</p>
-<ul>
-<li>首先，按照以往的思路，先按照结束时间对课程进行排序</li>
-<li>使用一个<strong>大顶堆</strong>来储存已经选择的课程的长度</li>
-<li>一旦发现安排了当前课程之后，其结束时间超过了最晚结束时间，那么就从已经安排的课程汇总，取消掉一门最耗时的课程。</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">scheduleCourse</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; courses)</span> </span>&#123;</span><br><span class="line">        sort(courses.begin(), courses.end(), [](<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; a, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; b) &#123;</span><br><span class="line">            <span class="keyword">return</span> a[<span class="number">1</span>] &lt; b[<span class="number">1</span>];</span><br><span class="line">        &#125;);</span><br><span class="line">        priority_queue&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">        <span class="keyword">int</span> dur = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; courses.size();i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(dur + courses[i][<span class="number">0</span>] &lt;= courses[i][<span class="number">1</span>]) &#123;</span><br><span class="line">                dur += courses[i][<span class="number">0</span>];</span><br><span class="line">                q.push(courses[i][<span class="number">0</span>]);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(!q.empty() &amp;&amp; q.top() &gt; courses[i][<span class="number">0</span>]) &#123;</span><br><span class="line">                dur += (courses[i][<span class="number">0</span>] - q.top());</span><br><span class="line">                q.pop();</span><br><span class="line">                q.push(courses[i][<span class="number">0</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> q.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p><code>Tips</code></p>
-<p>今日的小提示就是大顶堆，可以利用C++中已有的数据结构<code>qriority_queue</code>，基本操作也就是<code>push(),pop()</code></p>
-<h3 id="714-买卖股票的最佳时期含手续费"><a href="#714-买卖股票的最佳时期含手续费" class="headerlink" title="714. 买卖股票的最佳时期含手续费"></a>714. 买卖股票的最佳时期含手续费</h3><p><strong>方法：动态规划</strong></p>
-<p>我们维护两个变量<code>cash</code> 和<code>hold</code>，前者表示当我们不持有股票时的最大利润（即卖出），后者表示当我们持有股票时的最大利润。</p>
-<p>在第<code>i</code>天是，我们需要根据第<code>i - 1</code>天的装啊提来更新<code>cash</code>和<code>hold</code>的值。对于<code>cash</code>，我们可以保持不变，或者将手上的股票卖出，状态转移方程为：</p>
-<p><code>cash = max(cash, hold + prices[i] - fee)</code></p>
-<p>对于<code>hold</code>，我们可以保持不变，或者买入这一天的股票，状态转移方程为:</p>
-<p><code>hold = max(hold, cash - prices[i])</code></p>
-<p>在计算这两个状态转移方程时，我们可以不使用临时变量来存储<code>cash</code>和<code>hold</code>的值，而是可以先计算<code>cash</code>再计算<code>hold</code>，原因是在同一天卖出在买入（亏了一比手续费）一定不会比不进行任何操作好</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices, <span class="keyword">int</span> fee)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> cash = <span class="number">0</span>, hold = -prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; prices.size();i++) &#123;</span><br><span class="line">            cash = max(cash, hold + prices[i] - fee);</span><br><span class="line">            hold = max(hold, cash - prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cash;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1894,7 +1910,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">105</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
