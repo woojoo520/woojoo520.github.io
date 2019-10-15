@@ -241,6 +241,289 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/15/SQLServer-Day6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/10/15/SQLServer-Day6/" itemprop="url">SQLServer-Day6</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-15T11:58:00+08:00">
+                2019-10-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="SQLServer-Day6"><a href="#SQLServer-Day6" class="headerlink" title="SQLServer-Day6"></a>SQLServer-Day6</h2><h3 id="UNIQUE-约束"><a href="#UNIQUE-约束" class="headerlink" title="UNIQUE 约束"></a>UNIQUE 约束</h3><p><code>UNIQUE</code>约束唯一表示数据库中的每条记录</p>
+<p><code>UNIQUE</code>和<code>PRIMARY KEY</code> 约束均为列或列集合提供了唯一性的保证</p>
+<p><code>PRIMARY KEY</code>拥有自动定义的<code>UNIQUE</code>约束</p>
+<p><strong>Tips：</strong>每个表可以有多个<code>UNIQUE</code>约束，但是每个表只能有一个<code>PRIMARY KEY</code>约束</p>
+<h4 id="SQL-UNIQUE-Constraint-on-CREATE-TABLE"><a href="#SQL-UNIQUE-Constraint-on-CREATE-TABLE" class="headerlink" title="SQL UNIQUE Constraint on CREATE TABLE"></a>SQL UNIQUE Constraint on CREATE TABLE</h4><p>例1：下面的SQL在“Persons”表创建时在“Id_P”列创建<code>UNIQUE</code>约束</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line">(</span><br><span class="line">Id_P <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">LastName <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">FirstName <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">Address <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">City <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line"><span class="keyword">UNIQUE</span> (Id_P)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>SQL Server / Oracle / MS Access:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line">(</span><br><span class="line">Id_P <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">UNIQUE</span>, </span><br><span class="line">LastName <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">FirstName <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">Address <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">City <span class="built_in">varchar</span>(<span class="number">255</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>如果需要命名UNIQUE约束，以及为多个列定义UNIQUE约束，需要使用下面的SQL语句。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line">(</span><br><span class="line">Id_P <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">LastName <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">FirstName <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">Address <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">City <span class="built_in">varchar</span>(<span class="number">255</span>),</span><br><span class="line"><span class="keyword">CONSTRAINT</span> uc_PersonID <span class="keyword">UNIQUE</span> (Id_P, LastName)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h4 id="SQL-UNIQUE-Constraint-on-ALTER-TABLE"><a href="#SQL-UNIQUE-Constraint-on-ALTER-TABLE" class="headerlink" title="SQL UNIQUE Constraint on ALTER TABLE"></a>SQL UNIQUE Constraint on ALTER TABLE</h4><p>当表已被创建时，如需在“Id_P”列创建UNIQUE约束是，可以这样：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">UNIQUE</span>(Id_P)</span><br></pre></td></tr></table></figure>
+
+<p>如需要命名UNIQUE约束，并定义多个列的UNIQUE约束，这样：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> uc_PersonID <span class="keyword">UNIQUE</span> (Id_P, LastName)</span><br></pre></td></tr></table></figure>
+
+<h4 id="撤销UNIQUE约束"><a href="#撤销UNIQUE约束" class="headerlink" title="撤销UNIQUE约束"></a>撤销UNIQUE约束</h4><p>MySQL:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">INDEX</span> uc_PersonID</span><br></pre></td></tr></table></figure>
+
+<p>SQL Server / Oracle / MS Access</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">CONSTRAINT</span> uc_PersonID</span><br></pre></td></tr></table></figure>
+
+<h3 id="PRIMARY-KEY"><a href="#PRIMARY-KEY" class="headerlink" title="PRIMARY KEY"></a>PRIMARY KEY</h3><p><code>PRIMARY KEY</code>约束唯一标识数据库中的每条记录</p>
+<p>主键必须包含唯一的值</p>
+<p>主键列不能包含NULL值</p>
+<p>每个表都应该有一个主键，并且每个表只能有一个主键</p>
+<p>用法同上，不赘述了</p>
+<h3 id="FOREIGN-KEY"><a href="#FOREIGN-KEY" class="headerlink" title="FOREIGN KEY"></a>FOREIGN KEY</h3><p>一个表中的FOREIGN KEY指向另一个表中的PRIMARY KEY</p>
+<p>举个例子：</p>
+<p>Persons</p>
+<table>
+<thead>
+<tr>
+<th>Id_P</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Adams</td>
+<td>John</td>
+<td>Oxford Street</td>
+<td>London</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bush</td>
+<td>George</td>
+<td>Fifth Avenue</td>
+<td>New York</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Carter</td>
+<td>Thomas</td>
+<td>Changan Street</td>
+<td>Beijing</td>
+</tr>
+</tbody></table>
+<p>Orders：</p>
+<table>
+<thead>
+<tr>
+<th>Id_O</th>
+<th>OrderNo</th>
+<th>Id_P</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>77895</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>44678</td>
+<td>3</td>
+</tr>
+<tr>
+<td>3</td>
+<td>22456</td>
+<td>1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>24562</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p>请注意，”Orders“中的“Id_P”列指向“Persons”表中的“Id_P”列</p>
+<p>“Persons”表中的“Id_P”列是“Persons”表中的<code>PRIMARY KEY</code></p>
+<p>“Orders”表中的“Id_P”列是“Orders”表中的<code>FOREIGN KEY</code></p>
+<p><code>FOREIGN KEY</code>约束用来预防破坏表之间连接的动作</p>
+<p><code>FOREIGN KEY</code>约束也能防止非法数据插入外键列，因为它必须是它指向的那个表中的值之一。</p>
+<h4 id="SQL-FOREIGN-KEY-Constraint-on-CREATE-TABLE"><a href="#SQL-FOREIGN-KEY-Constraint-on-CREATE-TABLE" class="headerlink" title="SQL FOREIGN KEY Constraint on CREATE TABLE"></a>SQL FOREIGN KEY Constraint on CREATE TABLE</h4><p>例：在创建”Orders”表时为“Id_P”列创建<code>FOREIGN KEY</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line">(</span><br><span class="line">Id_O <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">OrderNo <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">Id_P <span class="built_in">int</span>, </span><br><span class="line">PRIMARY <span class="keyword">KEY</span> (Id_O), </span><br><span class="line"><span class="keyword">FOREIGN</span> <span class="keyword">KEY</span> (Id_P) <span class="keyword">REFERENCES</span> Persons(Id_P)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>SQL Server / Oracle / MS Access:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Orders</span><br><span class="line">(</span><br><span class="line">Id_O <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> PRIMARY <span class="keyword">KEY</span>, </span><br><span class="line">OrderNo <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">Id_P <span class="built_in">int</span> <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span> <span class="keyword">REFERENCES</span> Persons(Id_P)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>如果需要命名FOREIGN KEY约束，以及为多个列定义FOREIGN KEY约束，需要使用以下SQL语法：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Orders</span><br><span class="line">(</span><br><span class="line">Id_O <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">OrderNo <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">Id_P <span class="built_in">int</span>, </span><br><span class="line">PRIMARY <span class="keyword">KEY</span> (Id_O), </span><br><span class="line"><span class="keyword">CONSTRAINT</span> fk_PreOrders <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span> (Id_P) </span><br><span class="line"><span class="keyword">REFERENCE</span> Person(Id_P)  </span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>在ALTER TABLE的时候，与之前的样例相似，不赘述了。</p>
+<h3 id="CHECK-约束"><a href="#CHECK-约束" class="headerlink" title="CHECK 约束"></a>CHECK 约束</h3><p>CHECK约束用于限制列中的值的范围</p>
+<p>如果对单个列定义CHECK约束，那么该列只允许特定的值</p>
+<p>如果对一个表定义CHECK约束，那么此约束会在特定的列中对值进行限制。</p>
+<p>SQL CHECK Constraint on CREATE TABLE</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line">(</span><br><span class="line">Id_P <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">LastName <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">FirstName <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">Address <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">City <span class="built_in">varchar</span>(<span class="number">255</span>),</span><br><span class="line"><span class="keyword">CHECK</span> (Id_P &gt; <span class="number">0</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>SQL Server / Oracle / MS Access：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line">(</span><br><span class="line">Id_P <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">CHECK</span> (Id_P &gt; <span class="number">0</span>), </span><br><span class="line">LastName <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">FirstName <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">Address <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">City <span class="built_in">varchar</span>(<span class="number">255</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="DEFAULT-约束"><a href="#DEFAULT-约束" class="headerlink" title="DEFAULT 约束"></a>DEFAULT 约束</h3><p>DEFAULT约束用于向列中插入默认值</p>
+<p>如果没有规定其他的值，那么会将默认值添加到所有的新纪录</p>
+<h4 id="SQL-DEFAULT-Constraint-on-CREATE-TABLE"><a href="#SQL-DEFAULT-Constraint-on-CREATE-TABLE" class="headerlink" title="SQL DEFAULT Constraint on CREATE  TABLE"></a>SQL DEFAULT Constraint on CREATE  TABLE</h4><p>下面的 SQL 在 “Persons” 表创建时为 “City” 列创建 DEFAULT 约束：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line">(</span><br><span class="line">Id_P <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">LastName <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">FirstName <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">Address <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">City <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="string">'Sandnes'</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>通过使用类似GETDATE()这样的函数，DEFAULT约束可以用于插入系统值。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Orders</span><br><span class="line">(</span><br><span class="line">Id_O <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">OrderNo <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">Id_P <span class="built_in">int</span>, </span><br><span class="line">OrderDate <span class="built_in">date</span> <span class="keyword">DEFAULT</span> <span class="keyword">GETDATE</span>()</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="SQL-DEFAULT-Constraint-on-ALTER-TABLE"><a href="#SQL-DEFAULT-Constraint-on-ALTER-TABLE" class="headerlink" title="SQL DEFAULT Constraint on ALTER TABLE"></a>SQL DEFAULT Constraint on ALTER TABLE</h3><p>MySQL: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE Persons</span><br><span class="line">ALTER City SET DEFAULT &apos;SANDNES&apos;</span><br></pre></td></tr></table></figure>
+
+<p>SQL Server / Oracle / MS Access：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Persons </span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">COLUMN</span> City <span class="keyword">SET</span> <span class="keyword">DEFAULT</span> <span class="string">'SANDNES'</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="撤销DEFAULT约束"><a href="#撤销DEFAULT约束" class="headerlink" title="撤销DEFAULT约束"></a>撤销DEFAULT约束</h4><p>MySQL：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE Persons </span><br><span class="line">ALTER City DROP DEFAULT</span><br></pre></td></tr></table></figure>
+
+<p>SQL Server / Oracle / MS Access：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">COLUMN</span> City <span class="keyword">DROP</span> <span class="keyword">DEFAULT</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="CREATE-INDEX-语句"><a href="#CREATE-INDEX-语句" class="headerlink" title="CREATE INDEX 语句"></a>CREATE INDEX 语句</h3><p>用于在表中创建索引</p>
+<p>在不读取整个表的情况下，索引使数据库应用程序可以发更快地查找数据</p>
+<p><strong>索引:</strong></p>
+<p>我们可以在表中创建索引，以便更加快速高效地查询数据</p>
+<p>用户无法看到索引，它们只能被用来加速搜索/查询</p>
+<p><strong>Tips：</strong>更新一个包含索引的表需要比更新一个没有索引的表更多的时间，这是由于索引本身也需要更新。因此，理想的做法是仅仅在常常被搜索的列（以及表）上面创建索引。</p>
+<h4 id="SQL-CREATE-INDEX语法"><a href="#SQL-CREATE-INDEX语法" class="headerlink" title="SQL CREATE INDEX语法"></a>SQL CREATE INDEX语法</h4><blockquote>
+<p>CREATE INDEX index_name</p>
+<p>ON table_name (column_name)</p>
+</blockquote>
+<p><strong>Tips：</strong>“column_name”规定需要索引的列</p>
+<h4 id="SQL-CREATE-UNIQUE-INDEX语法"><a href="#SQL-CREATE-UNIQUE-INDEX语法" class="headerlink" title="SQL CREATE UNIQUE INDEX语法"></a>SQL CREATE UNIQUE INDEX语法</h4><p>在表上创建一个唯一的索引。唯一的索引意味着两个行不能拥有相同的索引值。</p>
+<blockquote>
+<p>CREATE UNIQUE INDEX index_name</p>
+<p>ON table_name(column_name)</p>
+</blockquote>
+<p>例：创建一个简单的索引，名为“PersonIndex”， 在Person表的LastName列：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">INDEX</span> PersonIndex</span><br><span class="line"><span class="keyword">ON</span> Person (LastName)</span><br></pre></td></tr></table></figure>
+
+<p>如果希望以<strong>降序</strong>索引某个列中的值，可以在列名称之后添加保留字<strong>DECS</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">INDEX</span> PersonIndex</span><br><span class="line"><span class="keyword">ON</span> Person (LastName <span class="keyword">DESC</span>)</span><br></pre></td></tr></table></figure>
+
+<p>如果希望索引不止一个列，可以在括号中列出这些列的名称，用逗号隔开：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">INDEX</span> PersonInde, </span><br><span class="line"><span class="keyword">ON</span> Person(LastName, FirstName)</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/14/SQLServer-Day5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2836,141 +3119,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/06/PCA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/10/06/PCA/" itemprop="url">PCA</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-06T20:50:23+08:00">
-                2019-10-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>推导过程详见：<a href="https://zhuanlan.zhihu.com/p/77151308" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/77151308</a></p>
-<h3 id="PCA算法步骤："><a href="#PCA算法步骤：" class="headerlink" title="PCA算法步骤："></a>PCA算法步骤：</h3><p>设有m条n维数据</p>
-<ul>
-<li>将原始数据按列组成n行m列矩阵$X$</li>
-<li>将X的每一行进行零均值化，即减去这一行的均值</li>
-<li>求出协方差矩阵$C = \frac {1} {m} X X^T$</li>
-<li>求出协方差矩阵的特征值即对应的特征向量</li>
-<li>将特征向量按对应特征值大小从上到下按行排列成矩阵，取前k行组成矩阵$P$</li>
-<li>$Y=PX$即为降维到$K$维后的数据</li>
-</ul>
-<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><ul>
-<li>缓解维度灾难：PCA算法通过社区一部分信息之后能使得样本的采样密度增大（因为维数降低了），这是缓解维度灾难的重要手段</li>
-<li>降噪：当数据收到噪声影响时，最小特征值对应的特征向量往往与噪声有关，将他们舍弃能在一定程度上起到降噪的效果</li>
-<li>过拟合：PCA保留了主要信息，但这个主要信息只是针对训练集的，而且这个主要信息未必是重要信息。有可能舍弃了一些看似无用的信息，但这些看似无用的信息恰好是重要信息，只是在训练集上没有很大的表现，所以PCA也可能加剧了过拟合</li>
-<li>特征独立：PCA不仅将数据压缩到低维，它也使得降维之后的数据各特征相互独立</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3021,7 +3169,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">105</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
