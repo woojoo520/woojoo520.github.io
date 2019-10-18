@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SQLServer-Day7DROP INDEX语句可以使用DROP INDEX命令删除表格中的索引 用于 Microsoft SQLJet (以及 Microsoft Access) 的语法:  DROP INDEX index_name ON table_name  用于 MS SQL Server的语法  DROP INDEX table_name.index_name  用于IBM DB2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQLServer-Day7">
+<meta property="og:url" content="https://woojoo520.github.io/2019/10/17/SQLServer-Day7/index.html">
+<meta property="og:site_name" content="Celery Fairy">
+<meta property="og:description" content="SQLServer-Day7DROP INDEX语句可以使用DROP INDEX命令删除表格中的索引 用于 Microsoft SQLJet (以及 Microsoft Access) 的语法:  DROP INDEX index_name ON table_name  用于 MS SQL Server的语法  DROP INDEX table_name.index_name  用于IBM DB2">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-10-17T12:51:43.354Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SQLServer-Day7">
+<meta name="twitter:description" content="SQLServer-Day7DROP INDEX语句可以使用DROP INDEX命令删除表格中的索引 用于 Microsoft SQLJet (以及 Microsoft Access) 的语法:  DROP INDEX index_name ON table_name  用于 MS SQL Server的语法  DROP INDEX table_name.index_name  用于IBM DB2">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woojoo520.github.io/2019/10/17/SQLServer-Day7/">
+
+
+
+
+
+  <title>SQLServer-Day7 | Celery Fairy</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/woojoo520" class="github-corner" aria-label="View source on GitHub">
+      <svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+      </svg>
+    </a>
+    <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Celery Fairy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Celery's Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/17/SQLServer-Day7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SQLServer-Day7</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-17T19:42:29+08:00">
+                2019-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="SQLServer-Day7"><a href="#SQLServer-Day7" class="headerlink" title="SQLServer-Day7"></a>SQLServer-Day7</h2><h3 id="DROP-INDEX语句"><a href="#DROP-INDEX语句" class="headerlink" title="DROP INDEX语句"></a>DROP INDEX语句</h3><p>可以使用<code>DROP INDEX</code>命令删除表格中的索引</p>
+<p>用于 Microsoft SQLJet (以及 Microsoft Access) 的语法:</p>
+<blockquote>
+<p>DROP INDEX index_name ON table_name</p>
+</blockquote>
+<p>用于 MS SQL Server的语法</p>
+<blockquote>
+<p>DROP INDEX table_name.index_name</p>
+</blockquote>
+<p>用于IBM DB2 和 Oracle语法：</p>
+<blockquote>
+<p>DROP INDEX index_name</p>
+</blockquote>
+<p>用于MySQL的语法</p>
+<blockquote>
+<p>ALTER TABLE table_name DROP index_name</p>
+</blockquote>
+<h3 id="DROP-TABLE-语句"><a href="#DROP-TABLE-语句" class="headerlink" title="DROP TABLE 语句"></a>DROP TABLE 语句</h3><p>用于删除表（表的结构、属性以及索引也会被删除）</p>
+<blockquote>
+<p>DROP TABLE 表名称</p>
+</blockquote>
+<h3 id="DROP-DATABASE语句"><a href="#DROP-DATABASE语句" class="headerlink" title="DROP DATABASE语句"></a>DROP DATABASE语句</h3><p>用于删除数据库</p>
+<blockquote>
+<p>DROP DATABASE 数据库名称</p>
+</blockquote>
+<h3 id="TRUNCATE-TABLE语句"><a href="#TRUNCATE-TABLE语句" class="headerlink" title="TRUNCATE TABLE语句"></a>TRUNCATE TABLE语句</h3><p>如果我们仅仅需要删除表内的数据，但并不删除表本身，可以使用<code>TRUNCATE TABLE</code>命令，仅仅删除表格中的数据</p>
+<blockquote>
+<p>TRUNCATE TABLE 表名称</p>
+</blockquote>
+<h3 id="ALTER-TABLE语句"><a href="#ALTER-TABLE语句" class="headerlink" title="ALTER TABLE语句"></a>ALTER TABLE语句</h3><p>用于在已有的表中添加、修改或删除列</p>
+<p>添加列：</p>
+<blockquote>
+<p>ALTER TABLE table_name</p>
+<p>ADD column_name datatype</p>
+</blockquote>
+<p>删除列：</p>
+<blockquote>
+<p>ALTER TABLE table_name</p>
+<p>DROP COLUMN column_name</p>
+</blockquote>
+<p><strong>Tips：</strong>某些数据库系统不允许这种在数据库表中删除列的方式</p>
+<p>要更改表中列的数据类型：</p>
+<blockquote>
+<p>ALTER TABLE table_name</p>
+<p>ALTER COLUMN column_name datatype</p>
+</blockquote>
+<p>例1：</p>
+<p>原始的Persons表：</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Adams</td>
+<td>John</td>
+<td>Oxford Street</td>
+<td>London</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bush</td>
+<td>George</td>
+<td>Fifth Avenue</td>
+<td>New York</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Carter</td>
+<td>Thomas</td>
+<td>Changan Street</td>
+<td>Beijing</td>
+</tr>
+</tbody></table>
+<p>现在，需要在表“Persons”中添加一个名为“Birthday”的新列</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line"><span class="keyword">ADD</span> Birthday <span class="built_in">date</span></span><br></pre></td></tr></table></figure>
+
+<p>请注意，新列 “Birthday” 的类型是 date，可以存放日期。数据类型规定列中可以存放的数据的类型。</p>
+<p>所以，新的表长这样：</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+<th>Birthday</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Adams</td>
+<td>John</td>
+<td>Oxford Street</td>
+<td>London</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bush</td>
+<td>George</td>
+<td>Fifth Avenue</td>
+<td>New York</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Carter</td>
+<td>Thomas</td>
+<td>Changan Street</td>
+<td>Beijing</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>例2：改变数据类型实例</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">COLUMN</span> Birthday <span class="keyword">year</span></span><br></pre></td></tr></table></figure>
+
+<p>例3：删除Birthday列</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Persons </span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">COLUMN</span> Birthday</span><br></pre></td></tr></table></figure>
+
+<h3 id="AUTO-INCREMENT-字段"><a href="#AUTO-INCREMENT-字段" class="headerlink" title="AUTO INCREMENT 字段"></a>AUTO INCREMENT 字段</h3><p>会在新纪录插入表示生成一个唯一的数字</p>
+<p>我们通常希望在每次插入记录时，自动创建主键字段的值，这时候，可以在表中创建一个auto-increament字段</p>
+<p>用于MySQL的语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE</span><br><span class="line">(</span><br><span class="line">P_Id int NOT NULL AUTO_INCREAMENT, </span><br><span class="line">LastName varchar(255) NOT NULL, </span><br><span class="line">FirstName varcahr(255), </span><br><span class="line">Address varcahr(255), </span><br><span class="line">City varcahr(255), </span><br><span class="line">PRIMARY KEY (P_Id)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>上面的语句把“Persons”表中的P_Id列定义为auto-increament主键，默认的，AUTO_INCREAMENT的开始值是1，每条新纪录递增1</p>
+<p>要让AUTO_INCREAMENT序列以其他的值起始，需要这样使用SQL语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE Persons AUTO_INCREAMENT=100</span><br></pre></td></tr></table></figure>
+
+<p>要在“Persons”表中插入新纪录，我们不必为“P_Id”列规定值（会自动添加一个唯一的值）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO Persons (FirstName, LastName)</span><br><span class="line">VALUES (&apos;Bill&apos;, &apos;Gates&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>用于SQL Serer的语法</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span></span><br><span class="line">(</span><br><span class="line">P_Id <span class="built_in">int</span> PRIMARY <span class="keyword">KEY</span> <span class="keyword">IDENTITY</span>, </span><br><span class="line">LastName <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">FirstName varcahr(<span class="number">255</span>), </span><br><span class="line">Address varcahr(<span class="number">255</span>), </span><br><span class="line">City varcahr(<span class="number">255</span>), </span><br><span class="line">PRIMARY <span class="keyword">KEY</span> (P_Id)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>若要规定“P_Id”列以20起始且递增10，请把identity改为<code>IDENTITY(20, 10)</code></p>
+<p>用于Access的语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE</span><br><span class="line">(</span><br><span class="line">P_Id int PRIMARY KEY AUTOINCREAMENT, </span><br><span class="line">LastName varchar(255) NOT NULL, </span><br><span class="line">FirstName varcahr(255), </span><br><span class="line">Address varcahr(255), </span><br><span class="line">City varcahr(255), </span><br><span class="line">PRIMARY KEY (P_Id)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>修改起始值与增量，同SQL Server</p>
+<p>用于Oracle的语法：</p>
+<p>稍微复杂一点，必须通过sequence 对创建auto-increament字段(该对象生成数字序列)</p>
+<p>CREATE SEQUENCE</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE SEQUENCE seq_person</span><br><span class="line">MINVALUE 1</span><br><span class="line">START WITH 1</span><br><span class="line">INCREASE BY1</span><br><span class="line">CACHE 10</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码创建名为seq_person的序列对象，它以1起始且以1递增。该对象缓存10个值以提高性能。CACHE选项规定了为了提高访问速度要储存多少个序列值</p>
+<p>要在“Persons”表中插入新纪录，必须使用nextval函数（该函数从seq_person）序列中取回下一个值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO Persons(P_Id, FirstName, LastName)</span><br><span class="line">VALUES (seq_person.nextval, &apos;Lars&apos;, &apos;Monsen&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>“P_Id” 的赋值是来自 seq_person 序列的下一个数字</p>
+<h3 id="Date函数"><a href="#Date函数" class="headerlink" title="Date函数"></a>Date函数</h3><h4 id="SQL日期"><a href="#SQL日期" class="headerlink" title="SQL日期"></a>SQL日期</h4><p>当我们处理日期时，最难的任务恐怕是确保所插入的日期的格式，与数据库中日期列的格式相匹配</p>
+<p>只要数据包含的只是日期部分，运行查询就不会出问题。但是，如果涉及时间，情况就有点复杂了</p>
+<p>在讨论日期查询的复杂性之前，先看看内置日期的处理函数</p>
+<h4 id="MySQL-Date函数"><a href="#MySQL-Date函数" class="headerlink" title="MySQL Date函数"></a>MySQL Date函数</h4><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NOW()</td>
+<td>返回当前的时间和日期</td>
+</tr>
+<tr>
+<td>CURDATE()</td>
+<td>返回当前的日期</td>
+</tr>
+<tr>
+<td>CURTIME()</td>
+<td>返回当前的时间</td>
+</tr>
+<tr>
+<td>DATE()</td>
+<td>提取日期或日期/时间表达式的部分日期</td>
+</tr>
+<tr>
+<td>EXTRATE()</td>
+<td>返回日期/时间按的单独部分</td>
+</tr>
+<tr>
+<td>DATE_ADD()</td>
+<td>给日期添加指定的时间间隔</td>
+</tr>
+<tr>
+<td>DATE_SUB()</td>
+<td>从日期减去指定的时间间隔</td>
+</tr>
+<tr>
+<td>DATEDIFF()</td>
+<td>返回两个日期之间的天数</td>
+</tr>
+<tr>
+<td>DATE_FORMAT()</td>
+<td>用不同的格式显示日期/时间</td>
+</tr>
+</tbody></table>
+<h4 id="SQL-Server-Date函数"><a href="#SQL-Server-Date函数" class="headerlink" title="SQL Server Date函数"></a>SQL Server Date函数</h4><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GETDATE()</td>
+<td>返回当前日期和时间</td>
+</tr>
+<tr>
+<td>DATEPART()</td>
+<td>返回日期/时间的单独部分</td>
+</tr>
+<tr>
+<td>DATEADD()</td>
+<td>在日期中添加或减去指定的时间间隔</td>
+</tr>
+<tr>
+<td>DATEDIFF()</td>
+<td>返回两个日期之间的时间</td>
+</tr>
+<tr>
+<td>CONVERT()</td>
+<td>用不同的格式显示日期/时间</td>
+</tr>
+</tbody></table>
+<h4 id="SQL-Date-数据类型"><a href="#SQL-Date-数据类型" class="headerlink" title="SQL Date 数据类型"></a>SQL Date 数据类型</h4><p>MySQL 使用下列数据类型在数据库中存储日期或日期/时间值：</p>
+<ul>
+<li>DATE - 格式 YYYY-MM-DD</li>
+<li>DATETIME - 格式 YYYY-MM-DD HH:MM:SS</li>
+<li>TIMESTAMP - 格式 YYYY-MM-DD HH:MM:SS</li>
+<li>YEAR - 格式 YYYY 或 YY</li>
+</ul>
+<p>SQL Server 使用下列数据类型在数据库中存储日期或日期/时间值</p>
+<ul>
+<li>DATE - 格式 YYYY-MM-DD</li>
+<li>DATETIME - 格式 YYYY-MM-DD HH:MM:SS</li>
+<li>SMALLDATETIME- 格式 YYYY-MM-DD HH:MM:SS</li>
+<li>TIMESTAMP - 格式 唯一的数字</li>
+</ul>
+<h4 id="日期处理"><a href="#日期处理" class="headerlink" title="日期处理"></a>日期处理</h4><p>如果不涉及时间部分，可以轻松的比较两个日期</p>
+<p>比如，有下面这个”Orders”表：</p>
+<table>
+<thead>
+<tr>
+<th>OrderId</th>
+<th>ProductName</th>
+<th>OrderDate</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>computer</td>
+<td>2008-12-26</td>
+</tr>
+<tr>
+<td>2</td>
+<td>printer</td>
+<td>2008-12-26</td>
+</tr>
+<tr>
+<td>3</td>
+<td>electrograph</td>
+<td>2008-11-12</td>
+</tr>
+<tr>
+<td>4</td>
+<td>telephone</td>
+<td>2008-10-19</td>
+</tr>
+</tbody></table>
+<p>希望获取OrderDate为“2008-12-26”的记录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM Orders WHERE OrderDate = &apos;2008-12-16&apos;</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>OrderId</th>
+<th>ProductName</th>
+<th>OrderDate</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>computer</td>
+<td>2008-12-26</td>
+</tr>
+<tr>
+<td>2</td>
+<td>printer</td>
+<td>2008-12-26</td>
+</tr>
+</tbody></table>
+<p>如果Orders表长成这样：</p>
+<table>
+<thead>
+<tr>
+<th>OrderId</th>
+<th>ProductName</th>
+<th>OrderDate</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>computer</td>
+<td>2008-12-26 16:23:55</td>
+</tr>
+<tr>
+<td>2</td>
+<td>printer</td>
+<td>2008-12-26 10:45：26</td>
+</tr>
+<tr>
+<td>3</td>
+<td>electrograph</td>
+<td>2008-11-12 14:12:08</td>
+</tr>
+<tr>
+<td>4</td>
+<td>telephone</td>
+<td>2008-10-19 12:56:10</td>
+</tr>
+</tbody></table>
+<p>依然使用上面的语句，将得不到结果，因为该查询不含有时间部分的日期</p>
+<p><strong>Tips：</strong>如果希望使查询简单并且更容易维护，那么尽量不要使用时间部分</p>
+<h3 id="NULL值"><a href="#NULL值" class="headerlink" title="NULL值"></a>NULL值</h3><p>NULL值是一楼的位置数据</p>
+<p>默认的，表的列可以存放NULL值</p>
+<h4 id="SQL-NULL值"><a href="#SQL-NULL值" class="headerlink" title="SQL NULL值"></a>SQL NULL值</h4><p>如果表中的某个列是可选的，那么可以在不向改列添加值的情况下插入新记录或更新已有记录，这意味着该字段将以NULL值保存</p>
+<p>NULL值的处理方式与其他值不同</p>
+<p>NULL用作为止的或不适用的值的占位符</p>
+<p><strong>Tips：</strong>无法比较NULL 和 0，他们是不等价的</p>
+<p>无法使用比较运算符来测试NULL值，比如<code>=</code>， <code>&lt;</code>或者<code>&lt;&gt;</code></p>
+<p>必须使用 <code>IS NULL</code>和<code>IS NOT NULL</code>操作符</p>
+<h4 id="SQL-IS-NULL"><a href="#SQL-IS-NULL" class="headerlink" title="SQL IS NULL"></a>SQL IS NULL</h4><p>Persons表</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Adams</td>
+<td>John</td>
+<td></td>
+<td>London</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bush</td>
+<td>George</td>
+<td>Fifth Avenue</td>
+<td>New York</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Carter</td>
+<td>Thomas</td>
+<td></td>
+<td>Beijing</td>
+</tr>
+</tbody></table>
+<p>仅仅选取在“Address”列中带有NULL值的记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> LastName, FirstName, Address <span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> Address <span class="keyword">IS</span> <span class="literal">NULL</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Tips:</strong> 只能使用<code>IS NULL</code>来查找NULL值</p>
+<h4 id="SQL-IS-NOT-NULL"><a href="#SQL-IS-NOT-NULL" class="headerlink" title="SQL IS NOT NULL"></a>SQL IS NOT NULL</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> LastName, FirstName, Address <span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> Address <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="NULL函数"><a href="#NULL函数" class="headerlink" title="NULL函数"></a>NULL函数</h3><p>Products表:</p>
+<table>
+<thead>
+<tr>
+<th>P_Id</th>
+<th>ProductName</th>
+<th>UnitPrice</th>
+<th>UnitsInStock</th>
+<th>UnitsOnOrder</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>computer</td>
+<td>699</td>
+<td>25</td>
+<td>15</td>
+</tr>
+<tr>
+<td>2</td>
+<td>printer</td>
+<td>365</td>
+<td>36</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>telephone</td>
+<td>280</td>
+<td>159</td>
+<td>57</td>
+</tr>
+</tbody></table>
+<p>假设“UnitsOnOrder”是可选的，而且可以包含NULL值</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ProductName, UnitPrices*(UnitsInStock+UnitsOnOrder)</span><br><span class="line"><span class="keyword">FROM</span> Products</span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中，如果有“UnitOnOrder”值是NULL，那么结果是NULL</p>
+<p>微软的<code>ISNULL()</code>函数用于规定如何处理NULL值</p>
+<p><code>NVL()</code>, <code>IFNULL()</code>和<code>COALESCE()</code>函数也可以达到相同的结果</p>
+<h4 id="SQL-Server-MS-Access"><a href="#SQL-Server-MS-Access" class="headerlink" title="SQL Server / MS Access"></a>SQL Server / MS Access</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ProductName, UnitPrice*(UnitsInStock+<span class="keyword">ISNULL</span>(UnitsOnOrder, <span class="number">0</span>))</span><br><span class="line"><span class="keyword">FROM</span> Products</span><br></pre></td></tr></table></figure>
+
+<h4 id="Oracle"><a href="#Oracle" class="headerlink" title="Oracle"></a>Oracle</h4><p>Oracle没有<code>ISNULL()</code>函数，但是可以使用<code>NVL()</code>函数达到相同的效果</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ProductName, UnitPrice*(UnitsInStock+NVL(UnitsOnOrder, <span class="number">0</span>))</span><br><span class="line"><span class="keyword">FROM</span> Products</span><br></pre></td></tr></table></figure>
+
+<h4 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT ProductName, UnitPrice*(UnitsInStock+IFNULL(UnitsOnOrder, 0))</span><br><span class="line">FROM Products</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT ProductName,UnitPrice*(UnitsInStock+COALESCE(UnitsOnOrder,0))</span><br><span class="line">FROM Products</span><br></pre></td></tr></table></figure>
+
+<h3 id="SQL-Server数据类型"><a href="#SQL-Server数据类型" class="headerlink" title="SQL Server数据类型"></a>SQL Server数据类型</h3><h4 id="Character字符串："><a href="#Character字符串：" class="headerlink" title="Character字符串："></a>Character字符串：</h4><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>char(n)</td>
+<td>固定长度的字符串，最多8000个字符</td>
+</tr>
+<tr>
+<td>varchar(n)</td>
+<td>可变长度的字符串，最多8000个字符</td>
+</tr>
+<tr>
+<td>varchar(max)</td>
+<td>可变长度的字符串，最多1,073,741,824个字符</td>
+</tr>
+<tr>
+<td>text</td>
+<td>可变长度的字符串，最多2GB字符数据</td>
+</tr>
+</tbody></table>
+<h4 id="UniCode字符串"><a href="#UniCode字符串" class="headerlink" title="UniCode字符串"></a>UniCode字符串</h4><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>nchar(n)</td>
+<td>固定长度的Unicode 数据，最多4000个字符</td>
+</tr>
+<tr>
+<td>nvarchar(n)</td>
+<td>可变长度的Unicode 数据，最多4000个字符</td>
+</tr>
+<tr>
+<td>nvarchar(max)</td>
+<td>可变长度的Unicode 数据，最多536,870,912个字符</td>
+</tr>
+<tr>
+<td>ntext</td>
+<td>可变长度的Unicode 数据，最多2GB字符数据</td>
+</tr>
+</tbody></table>
+<h4 id="Binary类型"><a href="#Binary类型" class="headerlink" title="Binary类型"></a>Binary类型</h4><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bit</td>
+<td>允许0、1或NULL</td>
+</tr>
+<tr>
+<td>binary(n)</td>
+<td>固定长度的二进制数据。最多 8,000 字节。</td>
+</tr>
+<tr>
+<td>varbinary(n)</td>
+<td>可变长度的二进制数据。最多 8,000 字节。</td>
+</tr>
+<tr>
+<td>varbinary(max)可变</td>
+<td>可变长度的二进制数据。最多 2GB字节。</td>
+</tr>
+<tr>
+<td>image</td>
+<td>可变长度的二进制数据。最多 2GB。</td>
+</tr>
+</tbody></table>
+<h4 id="Number类型"><a href="#Number类型" class="headerlink" title="Number类型"></a>Number类型</h4><table>
+<thead>
+<tr>
+<th align="left">数据类型</th>
+<th align="left">描述</th>
+<th align="left">存储</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">tinyint</td>
+<td align="left">允许从 0 到 255 的所有数字。</td>
+<td align="left">1 字节</td>
+</tr>
+<tr>
+<td align="left">smallint</td>
+<td align="left">允许从 -32,768 到 32,767 的所有数字。</td>
+<td align="left">2 字节</td>
+</tr>
+<tr>
+<td align="left">int</td>
+<td align="left">允许从 -2,147,483,648 到 2,147,483,647 的所有数字。</td>
+<td align="left">4 字节</td>
+</tr>
+<tr>
+<td align="left">bigint</td>
+<td align="left">允许介于 -9,223,372,036,854,775,808 和 9,223,372,036,854,775,807 之间的所有数字。</td>
+<td align="left">8 字节</td>
+</tr>
+<tr>
+<td align="left">decimal(p,s)</td>
+<td align="left">固定精度和比例的数字。允许从 -10^38 +1 到 10^38 -1 之间的数字。p 参数指示可以存储的最大位数（小数点左侧和右侧）。p 必须是 1 到 38 之间的值。默认是 18。s 参数指示小数点右侧存储的最大位数。s 必须是 0 到 p 之间的值。默认是 0。</td>
+<td align="left">5-17 字节</td>
+</tr>
+<tr>
+<td align="left">numeric(p,s)</td>
+<td align="left">固定精度和比例的数字。允许从 -10^38 +1 到 10^38 -1 之间的数字。p 参数指示可以存储的最大位数（小数点左侧和右侧）。p 必须是 1 到 38 之间的值。默认是 18。s 参数指示小数点右侧存储的最大位数。s 必须是 0 到 p 之间的值。默认是 0。</td>
+<td align="left">5-17 字节</td>
+</tr>
+<tr>
+<td align="left">smallmoney</td>
+<td align="left">介于 -214,748.3648 和 214,748.3647 之间的货币数据。</td>
+<td align="left">4 字节</td>
+</tr>
+<tr>
+<td align="left">money</td>
+<td align="left">介于 -922,337,203,685,477.5808 和 922,337,203,685,477.5807 之间的货币数据。</td>
+<td align="left">8 字节</td>
+</tr>
+<tr>
+<td align="left">float(n)</td>
+<td align="left">从 -1.79E + 308 到 1.79E + 308 的浮动精度数字数据。 参数 n 指示该字段保存 4 字节还是 8 字节。float(24) 保存 4 字节，而 float(53) 保存 8 字节。n 的默认值是 53。</td>
+<td align="left">4 或 8 字节</td>
+</tr>
+<tr>
+<td align="left">real</td>
+<td align="left">从 -3.40E + 38 到 3.40E + 38 的浮动精度数字数据。</td>
+<td align="left">4 字节</td>
+</tr>
+</tbody></table>
+<h4 id="Date-类型："><a href="#Date-类型：" class="headerlink" title="Date 类型："></a>Date 类型：</h4><table>
+<thead>
+<tr>
+<th align="left">数据类型</th>
+<th align="left">描述</th>
+<th align="left">存储</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">datetime</td>
+<td align="left">从 1753 年 1 月 1 日 到 9999 年 12 月 31 日，精度为 3.33 毫秒。</td>
+<td align="left">8 bytes</td>
+</tr>
+<tr>
+<td align="left">datetime2</td>
+<td align="left">从 1753 年 1 月 1 日 到 9999 年 12 月 31 日，精度为 100 纳秒。</td>
+<td align="left">6-8 bytes</td>
+</tr>
+<tr>
+<td align="left">smalldatetime</td>
+<td align="left">从 1900 年 1 月 1 日 到 2079 年 6 月 6 日，精度为 1 分钟。</td>
+<td align="left">4 bytes</td>
+</tr>
+<tr>
+<td align="left">date</td>
+<td align="left">仅存储日期。从 0001 年 1 月 1 日 到 9999 年 12 月 31 日。</td>
+<td align="left">3 bytes</td>
+</tr>
+<tr>
+<td align="left">time</td>
+<td align="left">仅存储时间。精度为 100 纳秒。</td>
+<td align="left">3-5 bytes</td>
+</tr>
+<tr>
+<td align="left">datetimeoffset</td>
+<td align="left">与 datetime2 相同，外加时区偏移。</td>
+<td align="left">8-10 bytes</td>
+</tr>
+<tr>
+<td align="left">timestamp</td>
+<td align="left">存储唯一的数字，每当创建或修改某行时，该数字会更新。timestamp 基于内部时钟，不对应真实时间。每个表只能有一个 timestamp 变量。</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h4 id="其他数据类型："><a href="#其他数据类型：" class="headerlink" title="其他数据类型："></a>其他数据类型：</h4><table>
+<thead>
+<tr>
+<th align="left">数据类型</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">sql_variant</td>
+<td align="left">存储最多 8,000 字节不同数据类型的数据，除了 text、ntext 以及 timestamp。</td>
+</tr>
+<tr>
+<td align="left">uniqueidentifier</td>
+<td align="left">存储全局标识符 (GUID)。</td>
+</tr>
+<tr>
+<td align="left">xml</td>
+<td align="left">存储 XML 格式化数据。最多 2GB。</td>
+</tr>
+<tr>
+<td align="left">cursor</td>
+<td align="left">存储对用于数据库操作的指针的引用。</td>
+</tr>
+<tr>
+<td align="left">table</td>
+<td align="left">存储结果集，供稍后处理。</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/15/SQLServer-Day6/" rel="next" title="SQLServer-Day6">
+                <i class="fa fa-chevron-left"></i> SQLServer-Day6
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/18/SQLServer-Day8/" rel="prev" title="SQLServer-Day8">
+                SQLServer-Day8 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mariana</p>
+              <p class="site-description motion-element" itemprop="description">a study blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">108</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQLServer-Day7"><span class="nav-number">1.</span> <span class="nav-text">SQLServer-Day7</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DROP-INDEX语句"><span class="nav-number">1.1.</span> <span class="nav-text">DROP INDEX语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DROP-TABLE-语句"><span class="nav-number">1.2.</span> <span class="nav-text">DROP TABLE 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DROP-DATABASE语句"><span class="nav-number">1.3.</span> <span class="nav-text">DROP DATABASE语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TRUNCATE-TABLE语句"><span class="nav-number">1.4.</span> <span class="nav-text">TRUNCATE TABLE语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ALTER-TABLE语句"><span class="nav-number">1.5.</span> <span class="nav-text">ALTER TABLE语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AUTO-INCREMENT-字段"><span class="nav-number">1.6.</span> <span class="nav-text">AUTO INCREMENT 字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Date函数"><span class="nav-number">1.7.</span> <span class="nav-text">Date函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL日期"><span class="nav-number">1.7.1.</span> <span class="nav-text">SQL日期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL-Date函数"><span class="nav-number">1.7.2.</span> <span class="nav-text">MySQL Date函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-Server-Date函数"><span class="nav-number">1.7.3.</span> <span class="nav-text">SQL Server Date函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-Date-数据类型"><span class="nav-number">1.7.4.</span> <span class="nav-text">SQL Date 数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#日期处理"><span class="nav-number">1.7.5.</span> <span class="nav-text">日期处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NULL值"><span class="nav-number">1.8.</span> <span class="nav-text">NULL值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-NULL值"><span class="nav-number">1.8.1.</span> <span class="nav-text">SQL NULL值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-IS-NULL"><span class="nav-number">1.8.2.</span> <span class="nav-text">SQL IS NULL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-IS-NOT-NULL"><span class="nav-number">1.8.3.</span> <span class="nav-text">SQL IS NOT NULL</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NULL函数"><span class="nav-number">1.9.</span> <span class="nav-text">NULL函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-Server-MS-Access"><span class="nav-number">1.9.1.</span> <span class="nav-text">SQL Server / MS Access</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Oracle"><span class="nav-number">1.9.2.</span> <span class="nav-text">Oracle</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL"><span class="nav-number">1.9.3.</span> <span class="nav-text">MySQL</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL-Server数据类型"><span class="nav-number">1.10.</span> <span class="nav-text">SQL Server数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Character字符串："><span class="nav-number">1.10.1.</span> <span class="nav-text">Character字符串：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UniCode字符串"><span class="nav-number">1.10.2.</span> <span class="nav-text">UniCode字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Binary类型"><span class="nav-number">1.10.3.</span> <span class="nav-text">Binary类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Number类型"><span class="nav-number">1.10.4.</span> <span class="nav-text">Number类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Date-类型："><span class="nav-number">1.10.5.</span> <span class="nav-text">Date 类型：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他数据类型："><span class="nav-number">1.10.6.</span> <span class="nav-text">其他数据类型：</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mariana</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

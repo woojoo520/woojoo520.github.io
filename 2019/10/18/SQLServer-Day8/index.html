@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SQLServer-Day8AVG 函数AVG函数但会数值列的平均值，NULL 值不包括在计算中  SELECT AVG(column_name) FROM yable_name  Orders表：    O_Id OrderDate OrderPrice Customer    1 2008/12/29 1000 Bush   2 2008/11/23 1600 Carter   3 2008/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQLServer-Day8">
+<meta property="og:url" content="https://woojoo520.github.io/2019/10/18/SQLServer-Day8/index.html">
+<meta property="og:site_name" content="Celery Fairy">
+<meta property="og:description" content="SQLServer-Day8AVG 函数AVG函数但会数值列的平均值，NULL 值不包括在计算中  SELECT AVG(column_name) FROM yable_name  Orders表：    O_Id OrderDate OrderPrice Customer    1 2008/12/29 1000 Bush   2 2008/11/23 1600 Carter   3 2008/">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-10-18T13:02:36.163Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SQLServer-Day8">
+<meta name="twitter:description" content="SQLServer-Day8AVG 函数AVG函数但会数值列的平均值，NULL 值不包括在计算中  SELECT AVG(column_name) FROM yable_name  Orders表：    O_Id OrderDate OrderPrice Customer    1 2008/12/29 1000 Bush   2 2008/11/23 1600 Carter   3 2008/">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woojoo520.github.io/2019/10/18/SQLServer-Day8/">
+
+
+
+
+
+  <title>SQLServer-Day8 | Celery Fairy</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/woojoo520" class="github-corner" aria-label="View source on GitHub">
+      <svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+      </svg>
+    </a>
+    <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Celery Fairy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Celery's Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/18/SQLServer-Day8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mariana">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SQLServer-Day8</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-18T19:33:37+08:00">
+                2019-10-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="SQLServer-Day8"><a href="#SQLServer-Day8" class="headerlink" title="SQLServer-Day8"></a>SQLServer-Day8</h2><h3 id="AVG-函数"><a href="#AVG-函数" class="headerlink" title="AVG 函数"></a>AVG 函数</h3><p><code>AVG</code>函数但会数值列的平均值，<code>NULL</code></p>
+<p>值不包括在计算中</p>
+<blockquote>
+<p>SELECT AVG(column_name) FROM yable_name</p>
+</blockquote>
+<p>Orders表：</p>
+<table>
+<thead>
+<tr>
+<th align="left">O_Id</th>
+<th align="left">OrderDate</th>
+<th align="left">OrderPrice</th>
+<th align="left">Customer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">2008/12/29</td>
+<td align="left">1000</td>
+<td align="left">Bush</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">2008/11/23</td>
+<td align="left">1600</td>
+<td align="left">Carter</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">2008/10/05</td>
+<td align="left">700</td>
+<td align="left">Bush</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">2008/09/28</td>
+<td align="left">300</td>
+<td align="left">Bush</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">2008/08/06</td>
+<td align="left">2000</td>
+<td align="left">Adams</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">2008/07/21</td>
+<td align="left">100</td>
+<td align="left">Carter</td>
+</tr>
+</tbody></table>
+<p>例1：计算OrderPrice字段的平均值：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">AVG</span>(OrderPrice) <span class="keyword">AS</span> OrderAverage <span class="keyword">FROM</span> Orders</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">OrderAverage</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">950</td>
+</tr>
+</tbody></table>
+<p>例2：找到OrderPrice值高于OrderPrice平均值的客户</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Curstomer <span class="keyword">FROM</span> Orders </span><br><span class="line"><span class="keyword">WHERE</span> OrderPrice &gt; (<span class="keyword">SELECT</span> <span class="keyword">AVG</span>(OrderPrice) <span class="keyword">FROM</span> Orders)</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">Customer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Bush</td>
+</tr>
+<tr>
+<td align="left">Carter</td>
+</tr>
+<tr>
+<td align="left">Adams</td>
+</tr>
+</tbody></table>
+<h3 id="COUNT函数"><a href="#COUNT函数" class="headerlink" title="COUNT函数"></a>COUNT函数</h3><p><code>COUNT()</code>函数返回匹配指定条件的行数</p>
+<h4 id="SQL-COUNT-column-name-语法"><a href="#SQL-COUNT-column-name-语法" class="headerlink" title="SQL COUNT(column_name)语法"></a>SQL COUNT(column_name)语法</h4><p>COUNT(column_name)函数返回指定列的值的数目（NULL不计入）：</p>
+<blockquote>
+<p>SELECT COUNT(column_name) FROM table_name</p>
+</blockquote>
+<h4 id="SQL-COUNT-语法"><a href="#SQL-COUNT-语法" class="headerlink" title="SQL COUNT(*)语法"></a>SQL COUNT(*)语法</h4><p>COUNT(*) 函数返回表中的记录数</p>
+<blockquote>
+<p>SELECT COUNT(*) FROM table_name</p>
+</blockquote>
+<h4 id="SQL-COUNT-DISTINCT-column-name-语法"><a href="#SQL-COUNT-DISTINCT-column-name-语法" class="headerlink" title="SQL COUNT(DISTINCT column_name)语法"></a>SQL COUNT(DISTINCT column_name)语法</h4><p>COUNT(DISTINCT column_name) 函数返回指定列的不同值的数目：</p>
+<blockquote>
+<p>SELECT COUNT(DISTINCT column_name) FROM table_name</p>
+</blockquote>
+<p>注释：<code>COUNT(DISTINCT)</code> 适用于ORACLE和Microsoft SQL Server,但是不能用于Microsoft Access</p>
+<p>Orders表：</p>
+<table>
+<thead>
+<tr>
+<th align="left">O_Id</th>
+<th align="left">OrderDate</th>
+<th align="left">OrderPrice</th>
+<th align="left">Customer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">2008/12/29</td>
+<td align="left">1000</td>
+<td align="left">Bush</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">2008/11/23</td>
+<td align="left">1600</td>
+<td align="left">Carter</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">2008/10/05</td>
+<td align="left">700</td>
+<td align="left">Bush</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">2008/09/28</td>
+<td align="left">300</td>
+<td align="left">Bush</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">2008/08/06</td>
+<td align="left">2000</td>
+<td align="left">Adams</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">2008/07/21</td>
+<td align="left">100</td>
+<td align="left">Carter</td>
+</tr>
+</tbody></table>
+<p>例1：计算客户“Carter”的订单数。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(Customer) <span class="keyword">AS</span> CustimerNilsen <span class="keyword">FROM</span> Orders</span><br><span class="line"><span class="keyword">WHERE</span> Customer = <span class="string">'Carter'</span></span><br></pre></td></tr></table></figure>
+
+<p>以上SQL语句的返回结果是2，因为客户Carter共有2个订单。</p>
+<table>
+<thead>
+<tr>
+<th align="left">CustomerNilsen</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">2</td>
+</tr>
+</tbody></table>
+<p>例2：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> NumberOfOrders <span class="keyword">FROM</span> Orders</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">NumberOfOrders</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">6</td>
+</tr>
+</tbody></table>
+<p>这是表中的总行数。</p>
+<p>例3：计算”Orders”表中不同客户的数目</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> Customer) <span class="keyword">AS</span> NumberOdCustomers <span class="keyword">FROM</span> Orders</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">NumberOfCustomers</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">3</td>
+</tr>
+</tbody></table>
+<h3 id="FIRST-函数"><a href="#FIRST-函数" class="headerlink" title="FIRST()函数"></a>FIRST()函数</h3><p>FIRST()函数返回指定的字段中第一个记录的值。</p>
+<p><strong>Tips：</strong>可使用ORDER BY 语句对记录进行排序</p>
+<blockquote>
+<p>SELECT FIRST(column_name) FROM table_name </p>
+</blockquote>
+<p>实例：Orders表同上，查找“OrderPrice”列的第一个值</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">FIRST</span>(OrderPrice) <span class="keyword">AS</span> FirstOrderPrice <span class="keyword">FROM</span> Orders</span><br></pre></td></tr></table></figure>
+
+<p>结果类似这样：</p>
+<table>
+<thead>
+<tr>
+<th align="left">FirstOrderPrice</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1000</td>
+</tr>
+</tbody></table>
+<h3 id="LAST-函数"><a href="#LAST-函数" class="headerlink" title="LAST()函数"></a>LAST()函数</h3><p>LAST()函数返回指定的字段中最后一个记录的值</p>
+<p><strong>Tips：</strong>可使用<code>ORDER BY</code> 语句对记录进行排序</p>
+<blockquote>
+<p>SELECT LAST(column_name) FROM table_name</p>
+</blockquote>
+<p>例：查找”OrderPrice“列的最后一个值</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">LAST</span>(OrderPrices) <span class="keyword">AS</span> LastOrderPrice <span class="keyword">FROM</span> Orders</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">LastOrderPrice</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">100</td>
+</tr>
+</tbody></table>
+<h3 id="MAX-和-MIN-函数"><a href="#MAX-和-MIN-函数" class="headerlink" title="MAX() 和 MIN() 函数"></a>MAX() 和 MIN() 函数</h3><p><code>MAX</code>函数返回一列中的最大值，<code>MIN</code>函数返回一列中的最小值。<code>NULL</code>值不包括在计算中</p>
+<blockquote>
+<p>SELECT MAX(column_name) FROM table_name</p>
+</blockquote>
+<p>注释：<code>MIN</code>和<code>MAX</code>也可用于文本列，以获得按字母顺序排序的最高或者最低值</p>
+<p>Orders表：</p>
+<p>例：我们要查找”OrderPrice“列中的最大值</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">MAX</span>(OrderPrice) <span class="keyword">AS</span> LargestOrderPrice <span class="keyword">FROM</span> Orders</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">LargestOrderPrice</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">2000</td>
+</tr>
+</tbody></table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">MIN</span>(OrderPrice) <span class="keyword">AS</span> LargestOrderPrice <span class="keyword">FROM</span> Orders</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">SmallestOrderPrice</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">100</td>
+</tr>
+</tbody></table>
+<h3 id="SUM-函数"><a href="#SUM-函数" class="headerlink" title="SUM() 函数"></a>SUM() 函数</h3><p><code>SUM</code>函数返回数值列的总数（总额）</p>
+<blockquote>
+<p>SELECT SUM(column_name) FROM table_name</p>
+</blockquote>
+<p>例：我们希望查找“OrderPrice”字段的总数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">SUM</span>(OrderPrice) <span class="keyword">AS</span> OrderTotal <span class="keyword">FROM</span> Orders</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">OrderTotal</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">5700</td>
+</tr>
+</tbody></table>
+<h3 id="GROUP-BY语句"><a href="#GROUP-BY语句" class="headerlink" title="GROUP BY语句"></a>GROUP BY语句</h3><p>合计函数（比如<code>SUM</code>）尝尝需要添加<code>GROUP BY</code>语句</p>
+<p><code>GROUP BY</code>语句用于结合合计函数，根据一个或多个列对结果集进行分组</p>
+<h4 id="SQL-GROUP-BY语法"><a href="#SQL-GROUP-BY语法" class="headerlink" title="SQL GROUP BY语法"></a>SQL GROUP BY语法</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_name, aggregate_function(column_name)</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> column_name <span class="keyword">operator</span> <span class="keyword">value</span> </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> column_name</span><br></pre></td></tr></table></figure>
+
+<h4 id="SQL-GROUP-BY示例"><a href="#SQL-GROUP-BY示例" class="headerlink" title="SQL GROUP BY示例"></a>SQL GROUP BY示例</h4><p>现在，我们希望查找每个客户的总金额（总订单）</p>
+<p>我们想要使用<code>GROUP BY</code>语句对客户进行组合。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Customer, <span class="keyword">SUM</span>(OrderPrice) <span class="keyword">FROM</span> Orders</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> Customer</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">Customer</th>
+<th align="left">SUM(OrderPrice)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Bush</td>
+<td align="left">2000</td>
+</tr>
+<tr>
+<td align="left">Carter</td>
+<td align="left">1700</td>
+</tr>
+<tr>
+<td align="left">Adams</td>
+<td align="left">2000</td>
+</tr>
+</tbody></table>
+<h4 id="GROUP-BY一个以上的列"><a href="#GROUP-BY一个以上的列" class="headerlink" title="GROUP BY一个以上的列"></a>GROUP BY一个以上的列</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Customer, OrderDate, <span class="keyword">SUM</span>(OrderPrice) <span class="keyword">FROM</span> Orders</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> Customer, OrderDate</span><br></pre></td></tr></table></figure>
+
+<h3 id="HAVING子句"><a href="#HAVING子句" class="headerlink" title="HAVING子句"></a>HAVING子句</h3><p>在SQL中增加HAVING子句原因是，<code>WHERE</code>关键字无法与合计函数一起使用</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_name, aggregate_function(column_name)</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> colum_name <span class="keyword">operator</span> <span class="keyword">value</span> </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> column_name</span><br><span class="line"><span class="keyword">HAVING</span> aggregate_function(column_name) <span class="keyword">operator</span> <span class="keyword">value</span></span><br></pre></td></tr></table></figure>
+
+<p>例1：我们希望查找订单总金额少于2000的客户</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Customer, <span class="keyword">SUM</span>(OrderPrice) <span class="keyword">FROM</span> Orders</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> Customer</span><br><span class="line"><span class="keyword">HAVING</span> <span class="keyword">SUM</span>(OrderPrice) &lt; <span class="number">2000</span></span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">Customer</th>
+<th align="left">SUM(OrderPrice)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Carter</td>
+<td align="left">1700</td>
+</tr>
+</tbody></table>
+<p>例2：我们希望查找客户“Bush”或“Adams”拥有超过1500的订单总金额</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Customer, <span class="keyword">SUM</span>(OrderPrice) <span class="keyword">FROM</span> Orders</span><br><span class="line"><span class="keyword">WHERE</span> Customer=<span class="string">'Bush'</span> <span class="keyword">OR</span> Customer=<span class="string">'Adams'</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> Customer</span><br><span class="line"><span class="keyword">HAVING</span> <span class="keyword">SUM</span>(OrderPrice) &gt; <span class="number">1500</span></span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">Customer</th>
+<th align="left">SUM(OrderPrice)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Bush</td>
+<td align="left">2000</td>
+</tr>
+<tr>
+<td align="left">Adams</td>
+<td align="left">2000</td>
+</tr>
+</tbody></table>
+<h3 id="UCASE-和LCASE-函数"><a href="#UCASE-和LCASE-函数" class="headerlink" title="UCASE()和LCASE()函数"></a>UCASE()和LCASE()函数</h3><p><code>UCASE</code>函数把字段的值转换为大写，<code>LCASE()</code>函数把字段的值转换为小写</p>
+<blockquote>
+<p>SELECT UCASE(column_name) FROM table_name</p>
+</blockquote>
+<p>”Persons“表</p>
+<table>
+<thead>
+<tr>
+<th align="left">Id</th>
+<th align="left">LastName</th>
+<th align="left">FirstName</th>
+<th align="left">Address</th>
+<th align="left">City</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">Adams</td>
+<td align="left">John</td>
+<td align="left">Oxford Street</td>
+<td align="left">London</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">Bush</td>
+<td align="left">George</td>
+<td align="left">Fifth Avenue</td>
+<td align="left">New York</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">Carter</td>
+<td align="left">Thomas</td>
+<td align="left">Changan Street</td>
+<td align="left">Beijing</td>
+</tr>
+</tbody></table>
+<p>现在，我们希望选取“LastName”和“FirstName”列的内容，然后把“LastName”列转换为大写</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">UCASE</span>(LastName) <span class="keyword">as</span> LastName, FirstName <span class="keyword">FROM</span>  Persons</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">LastName</th>
+<th align="left">FirstName</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ADAMS</td>
+<td align="left">John</td>
+</tr>
+<tr>
+<td align="left">BUSH</td>
+<td align="left">George</td>
+</tr>
+<tr>
+<td align="left">CARTER</td>
+<td align="left">Thomas</td>
+</tr>
+</tbody></table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">LCASE</span>(LastName) <span class="keyword">as</span> LastName, FirstName <span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">LastName</th>
+<th align="left">FirstName</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">adams</td>
+<td align="left">John</td>
+</tr>
+<tr>
+<td align="left">bush</td>
+<td align="left">George</td>
+</tr>
+<tr>
+<td align="left">carter</td>
+<td align="left">Thomas</td>
+</tr>
+</tbody></table>
+<h3 id="MID-函数"><a href="#MID-函数" class="headerlink" title="MID()函数"></a>MID()函数</h3><p><code>MID</code>函数用于从文本字段中提取字符</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">MID</span>(column_name, <span class="keyword">start</span>[, <span class="keyword">length</span>] <span class="keyword">FROM</span> table_name)</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>column_name</td>
+<td>必需。要提取字符的字段</td>
+</tr>
+<tr>
+<td>start</td>
+<td>必需。规定开始位置（起始值是1）</td>
+</tr>
+<tr>
+<td>length</td>
+<td>可选。要返回的字符数。如果省略，则MID()函数返回剩余文本</td>
+</tr>
+</tbody></table>
+<p>Persons表</p>
+<table>
+<thead>
+<tr>
+<th align="left">Id</th>
+<th align="left">LastName</th>
+<th align="left">FirstName</th>
+<th align="left">Address</th>
+<th align="left">City</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">Adams</td>
+<td align="left">John</td>
+<td align="left">Oxford Street</td>
+<td align="left">London</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">Bush</td>
+<td align="left">George</td>
+<td align="left">Fifth Avenue</td>
+<td align="left">New York</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">Carter</td>
+<td align="left">Thomas</td>
+<td align="left">Changan Street</td>
+<td align="left">Beijing</td>
+</tr>
+</tbody></table>
+<p>例1：我们希望从“City”列中提出前3个字符。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">MID</span>(City, <span class="number">1</span>, <span class="number">3</span>) <span class="keyword">as</span> SmallCity Persons</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">SmallCity</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Lon</td>
+</tr>
+<tr>
+<td align="left">New</td>
+</tr>
+<tr>
+<td align="left">Bei</td>
+</tr>
+</tbody></table>
+<h3 id="LEN-函数"><a href="#LEN-函数" class="headerlink" title="LEN()函数"></a>LEN()函数</h3><p><code>LEN</code>函数返回文本字段中值的长度</p>
+<blockquote>
+<p>SELECT LEN(column_name) FROM table_name</p>
+</blockquote>
+<p>Persons表同上：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">LEN</span>(City) <span class="keyword">AS</span> LengthOfCity <span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">LengthOfCity</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">8</td>
+</tr>
+<tr>
+<td align="left">7</td>
+</tr>
+</tbody></table>
+<h3 id="ROUND-函数"><a href="#ROUND-函数" class="headerlink" title="ROUND()函数"></a>ROUND()函数</h3><p><code>ROUND</code>函数用于把数值字段舍入为指定的小数位数</p>
+<blockquote>
+<p>SELECT ROUND(column_name, decimals) FROM table_name</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>column_name</td>
+<td>必需。要舍入的字段</td>
+</tr>
+<tr>
+<td>decimals</td>
+<td>必需。规定要返回的小数位数</td>
+</tr>
+</tbody></table>
+<p>Products表</p>
+<table>
+<thead>
+<tr>
+<th align="left">Prod_Id</th>
+<th align="left">ProductName</th>
+<th align="left">Unit</th>
+<th align="left">UnitPrice</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">gold</td>
+<td align="left">1000 g</td>
+<td align="left">32.35</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">silver</td>
+<td align="left">1000 g</td>
+<td align="left">11.56</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">copper</td>
+<td align="left">1000 g</td>
+<td align="left">6.85</td>
+</tr>
+</tbody></table>
+<p>例：把名称和价格舍入为最接近的整数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ProductName, <span class="keyword">ROUND</span>(UnitPrice, <span class="number">0</span>) <span class="keyword">AS</span> UnitPrice <span class="keyword">FROM</span> Products</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">ProductName</th>
+<th align="left">UnitPrice</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">gold</td>
+<td align="left">32</td>
+</tr>
+<tr>
+<td align="left">silver</td>
+<td align="left">12</td>
+</tr>
+</tbody></table>
+<h3 id="NOW-函数"><a href="#NOW-函数" class="headerlink" title="NOW()函数"></a>NOW()函数</h3><p>NOW函数返回当前的日期和时间</p>
+<p><strong>Tips：</strong>如果您在使用SQL Server数据库，请使用getdate()函数来获得当前的日期时间。</p>
+<blockquote>
+<p>SELECT NOW() FROM table_name</p>
+</blockquote>
+<p>例：表格同上，要求显示当天的日期所对应的名称和价格</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ProfuctName, UnitPrice, <span class="keyword">NOW</span>() <span class="keyword">as</span> PerDate <span class="keyword">FROM</span> Products</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">ProductName</th>
+<th align="left">UnitPrice</th>
+<th align="left">PerDate</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">gold</td>
+<td align="left">32.35</td>
+<td align="left">12/29/2008 11:36:05 AM</td>
+</tr>
+<tr>
+<td align="left">silver</td>
+<td align="left">11.56</td>
+<td align="left">12/29/2008 11:36:05 AM</td>
+</tr>
+<tr>
+<td align="left">copper</td>
+<td align="left">6.85</td>
+<td align="left">12/29/2008 11:36:05 AM</td>
+</tr>
+</tbody></table>
+<h3 id="FORMAT-函数"><a href="#FORMAT-函数" class="headerlink" title="FORMAT()函数"></a>FORMAT()函数</h3><p>FORMAT()函数用于对字段的显示进行格式化</p>
+<blockquote>
+<p>SELECT FORMAT(column_name, format) FROM table_name</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>column_name</td>
+<td>必需。要规格式化的字段</td>
+</tr>
+<tr>
+<td>format</td>
+<td>必需。规定格式。</td>
+</tr>
+</tbody></table>
+<p>表同上。</p>
+<p>例：需要实现每天日期所对应的名称和价格（日期显示的格式为“YYYY-MM-DD”）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ProductName, UnitPrice, <span class="keyword">FORMAT</span>(<span class="keyword">NOW</span>(), <span class="string">'YYYY-MM-DD'</span>) <span class="keyword">AS</span> PerDate </span><br><span class="line"><span class="keyword">FROM</span> Product</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th align="left">ProductName</th>
+<th align="left">UnitPrice</th>
+<th align="left">PerDate</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">gold</td>
+<td align="left">32.35</td>
+<td align="left">12/29/2008</td>
+</tr>
+<tr>
+<td align="left">silver</td>
+<td align="left">11.56</td>
+<td align="left">12/29/2008</td>
+</tr>
+<tr>
+<td align="left">copper</td>
+<td align="left">6.85</td>
+<td align="left">12/29/2008</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/17/SQLServer-Day7/" rel="next" title="SQLServer-Day7">
+                <i class="fa fa-chevron-left"></i> SQLServer-Day7
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mariana</p>
+              <p class="site-description motion-element" itemprop="description">a study blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">108</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQLServer-Day8"><span class="nav-number">1.</span> <span class="nav-text">SQLServer-Day8</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AVG-函数"><span class="nav-number">1.1.</span> <span class="nav-text">AVG 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#COUNT函数"><span class="nav-number">1.2.</span> <span class="nav-text">COUNT函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-COUNT-column-name-语法"><span class="nav-number">1.2.1.</span> <span class="nav-text">SQL COUNT(column_name)语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-COUNT-语法"><span class="nav-number">1.2.2.</span> <span class="nav-text">SQL COUNT(*)语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-COUNT-DISTINCT-column-name-语法"><span class="nav-number">1.2.3.</span> <span class="nav-text">SQL COUNT(DISTINCT column_name)语法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FIRST-函数"><span class="nav-number">1.3.</span> <span class="nav-text">FIRST()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LAST-函数"><span class="nav-number">1.4.</span> <span class="nav-text">LAST()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MAX-和-MIN-函数"><span class="nav-number">1.5.</span> <span class="nav-text">MAX() 和 MIN() 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SUM-函数"><span class="nav-number">1.6.</span> <span class="nav-text">SUM() 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GROUP-BY语句"><span class="nav-number">1.7.</span> <span class="nav-text">GROUP BY语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-GROUP-BY语法"><span class="nav-number">1.7.1.</span> <span class="nav-text">SQL GROUP BY语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-GROUP-BY示例"><span class="nav-number">1.7.2.</span> <span class="nav-text">SQL GROUP BY示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GROUP-BY一个以上的列"><span class="nav-number">1.7.3.</span> <span class="nav-text">GROUP BY一个以上的列</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HAVING子句"><span class="nav-number">1.8.</span> <span class="nav-text">HAVING子句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UCASE-和LCASE-函数"><span class="nav-number">1.9.</span> <span class="nav-text">UCASE()和LCASE()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MID-函数"><span class="nav-number">1.10.</span> <span class="nav-text">MID()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LEN-函数"><span class="nav-number">1.11.</span> <span class="nav-text">LEN()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ROUND-函数"><span class="nav-number">1.12.</span> <span class="nav-text">ROUND()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NOW-函数"><span class="nav-number">1.13.</span> <span class="nav-text">NOW()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FORMAT-函数"><span class="nav-number">1.14.</span> <span class="nav-text">FORMAT()函数</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mariana</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
