@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="要点：Torch中提供了一种帮你整理你的数据结构的好东西，叫做DataLoader，我们能用它来包装自己的数据，进行批训练，而且批训练可以有很多种途径 DataLoaderDataLoader是torch给你用来包装你的数据的工具，所以你要将自己的（numpy array或其他）数据形式装换成Tensor，然后再放进这个包装器中，使用DataLoader可以帮你有效地迭代数据 举例： 123456">
+<meta name="description" content="SQLServer-Day9178. 分数排名编写一个 SQL 查询来实现分数排名。如果两个分数相同，则两个分数排名（Rank）相同。请注意，平分后的下一个名次应该是下一个连续的整数值。换句话说，名次之间不应该有“间隔”。 12345678910+----+-------+| Id | Score |+----+-------+| 1  | 3.50  || 2  | 3.65  || 3  |">
 <meta property="og:type" content="article">
-<meta property="og:title" content="批训练">
-<meta property="og:url" content="https://woojoo520.github.io/2019/07/25/批训练/index.html">
+<meta property="og:title" content="SQLServer-Day9">
+<meta property="og:url" content="https://woojoo520.github.io/2019/10/19/SQLServer-Day9/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="要点：Torch中提供了一种帮你整理你的数据结构的好东西，叫做DataLoader，我们能用它来包装自己的数据，进行批训练，而且批训练可以有很多种途径 DataLoaderDataLoader是torch给你用来包装你的数据的工具，所以你要将自己的（numpy array或其他）数据形式装换成Tensor，然后再放进这个包装器中，使用DataLoader可以帮你有效地迭代数据 举例： 123456">
+<meta property="og:description" content="SQLServer-Day9178. 分数排名编写一个 SQL 查询来实现分数排名。如果两个分数相同，则两个分数排名（Rank）相同。请注意，平分后的下一个名次应该是下一个连续的整数值。换句话说，名次之间不应该有“间隔”。 12345678910+----+-------+| Id | Score |+----+-------+| 1  | 3.50  || 2  | 3.65  || 3  |">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-25T00:52:53.116Z">
+<meta property="og:updated_time" content="2019-10-19T03:26:15.491Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="批训练">
-<meta name="twitter:description" content="要点：Torch中提供了一种帮你整理你的数据结构的好东西，叫做DataLoader，我们能用它来包装自己的数据，进行批训练，而且批训练可以有很多种途径 DataLoaderDataLoader是torch给你用来包装你的数据的工具，所以你要将自己的（numpy array或其他）数据形式装换成Tensor，然后再放进这个包装器中，使用DataLoader可以帮你有效地迭代数据 举例： 123456">
+<meta name="twitter:title" content="SQLServer-Day9">
+<meta name="twitter:description" content="SQLServer-Day9178. 分数排名编写一个 SQL 查询来实现分数排名。如果两个分数相同，则两个分数排名（Rank）相同。请注意，平分后的下一个名次应该是下一个连续的整数值。换句话说，名次之间不应该有“间隔”。 12345678910+----+-------+| Id | Score |+----+-------+| 1  | 3.50  || 2  | 3.65  || 3  |">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://woojoo520.github.io/2019/07/25/批训练/">
+  <link rel="canonical" href="https://woojoo520.github.io/2019/10/19/SQLServer-Day9/">
 
 
 
 
 
-  <title>批训练 | Celery Fairy</title>
+  <title>SQLServer-Day9 | Celery Fairy</title>
   
 
 
@@ -241,7 +241,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/批训练/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/19/SQLServer-Day9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mariana">
@@ -258,7 +258,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">批训练</h1>
+          <h1 class="post-title" itemprop="name headline">SQLServer-Day9</h1>
         
 
         <div class="post-meta">
@@ -270,8 +270,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-25T07:43:09+08:00">
-                2019-07-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-19T10:18:58+08:00">
+                2019-10-19
               </time>
             
 
@@ -308,33 +308,41 @@
       
 
       
-        <h4 id="要点："><a href="#要点：" class="headerlink" title="要点："></a>要点：</h4><p>Torch中提供了一种帮你整理你的数据结构的好东西，叫做DataLoader，我们能用它来包装自己的数据，进行批训练，而且批训练可以有很多种途径</p>
-<h4 id="DataLoader"><a href="#DataLoader" class="headerlink" title="DataLoader"></a>DataLoader</h4><p><strong>DataLoader</strong>是torch给你用来包装你的数据的工具，所以你要将自己的（numpy array或其他）数据形式装换成Tensor，然后再放进这个包装器中，使用DataLoader可以帮你有效地迭代数据</p>
-<p>举例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line"><span class="keyword">import</span> torch.utils.data <span class="keyword">as</span> Data</span><br><span class="line"></span><br><span class="line">torch.manual_seed(<span class="number">1</span>)    <span class="comment">#reproducible</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 批训练的数据个数</span></span><br><span class="line">BATCH_SIZE = <span class="number">5</span></span><br><span class="line"></span><br><span class="line">x = torch.linspace(<span class="number">1</span>, <span class="number">10</span>, <span class="number">10</span>)       <span class="comment"># this is x data (torch tensor)</span></span><br><span class="line">y = torch.linspace(<span class="number">10</span>, <span class="number">1</span>, <span class="number">10</span>)       <span class="comment"># this is y data (torch tensor)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 先转换成torch能识别的Dataset</span></span><br><span class="line">torch_dataset = Data.TensorDataset(x, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 把dataset 放入 DataLoader</span></span><br><span class="line">loader = Data.DataLoader(</span><br><span class="line">    dataset=torch_dataset,          <span class="comment"># torch TensorDataset format</span></span><br><span class="line">    batch_size=BATCH_SIZE,          <span class="comment"># mini batch size</span></span><br><span class="line">    shuffle=<span class="literal">True</span>,                   <span class="comment"># 要不要打乱数据(打乱比较好)</span></span><br><span class="line">    num_workers=<span class="number">2</span>,                  <span class="comment"># 多线程来读取数据</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_batch</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># train entire dataset 3 times</span></span><br><span class="line">    <span class="keyword">for</span> eopch <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">        <span class="comment"># 每一步loader释放一小批数据用来学习</span></span><br><span class="line">        <span class="keyword">for</span> step, (batch_x, batch_y) <span class="keyword">in</span> enumerate(loader):</span><br><span class="line">            <span class="comment"># training your data...</span></span><br><span class="line">            print(<span class="string">'Epoch: '</span>, eopch, <span class="string">'| Step: '</span>, step, <span class="string">'| batch x: '</span>, batch_x.numpy(), <span class="string">'| batch y: '</span>, batch_y.numpy())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    show_batch()</span><br></pre></td></tr></table></figure>
+        <h2 id="SQLServer-Day9"><a href="#SQLServer-Day9" class="headerlink" title="SQLServer-Day9"></a>SQLServer-Day9</h2><h3 id="178-分数排名"><a href="#178-分数排名" class="headerlink" title="178. 分数排名"></a>178. 分数排名</h3><p>编写一个 SQL 查询来实现分数排名。如果两个分数相同，则两个分数排名（Rank）相同。请注意，平分后的下一个名次应该是下一个连续的整数值。换句话说，名次之间不应该有“间隔”。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">+----+-------+</span><br><span class="line">| Id | Score |</span><br><span class="line">+----+-------+</span><br><span class="line">| 1  | 3.50  |</span><br><span class="line">| 2  | 3.65  |</span><br><span class="line">| 3  | 4.00  |</span><br><span class="line">| 4  | 3.85  |</span><br><span class="line">| 5  | 4.00  |</span><br><span class="line">| 6  | 3.65  |</span><br><span class="line">+----+-------+</span><br></pre></td></tr></table></figure>
 
-<p>得到的结果</p>
-<p>Epoch:  0 | Step:  0 | batch x:  [ 5.  7. 10.  3.  4.] | batch y:  [6. 4. 1. 8. 7.]</p>
-<p>Epoch:  0 | Step:  1 | batch x:  [2. 1. 8. 9. 6.] | batch y:  [ 9. 10.  3.  2.  5.]</p>
-<p>Epoch:  1 | Step:  0 | batch x:  [ 4.  6.  7. 10.  8.] | batch y:  [7. 5. 4. 1. 3.]</p>
-<p>Epoch:  1 | Step:  1 | batch x:  [5. 3. 2. 1. 9.] | batch y:  [ 6.  8.  9. 10.  2.]</p>
-<p>Epoch:  2 | Step:  0 | batch x:  [ 4.  2.  5.  6. 10.] | batch y:  [7. 9. 6. 5. 1.]</p>
-<p>Epoch:  2 | Step:  1 | batch x:  [3. 9. 1. 8. 7.] | batch y:  [ 8.  2. 10.  3.  4.]</p>
-<p>如果 <strong>shuffle = True</strong>，则导出的数据是</p>
-<p>Epoch:  0 | Step:  0 | batch x:  [1. 2. 3. 4. 5.] | batch y:  [10.  9.  8.  7.  6.]</p>
-<p>Epoch:  0 | Step:  1 | batch x:  [ 6.  7.  8.  9. 10.] | batch y:  [5. 4. 3. 2. 1.]</p>
-<p>Epoch:  1 | Step:  0 | batch x:  [1. 2. 3. 4. 5.] | batch y:  [10.  9.  8.  7.  6.]</p>
-<p>Epoch:  1 | Step:  1 | batch x:  [ 6.  7.  8.  9. 10.] | batch y:  [5. 4. 3. 2. 1.]</p>
-<p>Epoch:  2 | Step:  0 | batch x:  [1. 2. 3. 4. 5.] | batch y:  [10.  9.  8.  7.  6.]</p>
-<p>Epoch:  2 | Step:  1 | batch x:  [ 6.  7.  8.  9. 10.] | batch y:  [5. 4. 3. 2. 1.]</p>
-<p>可以看出来，每步都导出了5个数据进行学习，然后每个epoch的导出数据都是先打乱了以后再导出</p>
-<p>如果改变 <strong>BATCH_SIZE = 8</strong> ，这样 step = 0，就回导出8个数据 ，但是，step = 1 时数据库中的数据不够8个，则step1，只能给你返回epoch中剩下的数据了</p>
-<p>Epoch:  0 | Step:  0 | batch x:  [1. 2. 3. 4. 5. 6. 7. 8.] | batch y:  [10.  9.  8.  7.  6.  5.  4.  3.]</p>
-<p>Epoch:  0 | Step:  1 | batch x:  [ 9. 10.] | batch y:  [2. 1.]</p>
-<p>Epoch:  1 | Step:  0 | batch x:  [1. 2. 3. 4. 5. 6. 7. 8.] | batch y:  [10.  9.  8.  7.  6.  5.  4.  3.]</p>
-<p>Epoch:  1 | Step:  1 | batch x:  [ 9. 10.] | batch y:  [2. 1.]</p>
-<p>Epoch:  2 | Step:  0 | batch x:  [1. 2. 3. 4. 5. 6. 7. 8.] | batch y:  [10.  9.  8.  7.  6.  5.  4.  3.]</p>
-<p>Epoch:  2 | Step:  1 | batch x:  [ 9. 10.] | batch y:  [2. 1.]</p>
+<p>例如，根据上述给定的 Scores 表，你的查询应该返回（按分数从高到低排列）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">+-------+------+</span><br><span class="line">| Score | Rank |</span><br><span class="line">+-------+------+</span><br><span class="line">| 4.00  | 1    |</span><br><span class="line">| 4.00  | 1    |</span><br><span class="line">| 3.85  | 2    |</span><br><span class="line">| 3.65  | 3    |</span><br><span class="line">| 3.65  | 3    |</span><br><span class="line">| 3.50  | 4    |</span><br><span class="line">+-------+------+</span><br></pre></td></tr></table></figure>
+
+<p>Code：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Score, <span class="keyword">dense_rank</span>() <span class="keyword">over</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> Score <span class="keyword">DESC</span>) <span class="keyword">as</span> <span class="keyword">Rank</span></span><br><span class="line"><span class="keyword">FROM</span> Scores</span><br></pre></td></tr></table></figure>
+
+<p><strong>Tips：</strong>SQL Server中<code>ROW_NUMBER()</code> 和 <code>RANK()</code> 和 <code>DENSE_RANK()</code>这三个函数都是对分过组的数据排序，凡是又各有区别：</p>
+<blockquote>
+<p>ROWNUMBER() OVER ([PARTITION BY Columns1 ORDER BY columns2)</p>
+</blockquote>
+<blockquote>
+<p>DENSE_RANK() OVER ([PARTITION BY Columns1] ORDER BY columns2)</p>
+</blockquote>
+<blockquote>
+<p>RANK() OVER ([PARTITION BY Columns1] ORDER BY columns2)</p>
+</blockquote>
+<p>这三个函数都是按照column1分组从1开始排序</p>
+<p>其中，<code>ROW_NUMBER()</code>是没有重复值的排序（即使两条记录仙童，序号也不重复），不会有同名次</p>
+<p><code>DENSE_RANK()</code>是连续的排序，两个第二名仍然跟着第三名</p>
+<p><code>RANK()</code>是跳跃排序，两个第二名下来就是第四名</p>
+<h3 id="184-部门工资最高的员工"><a href="#184-部门工资最高的员工" class="headerlink" title="184. 部门工资最高的员工"></a>184. 部门工资最高的员工</h3><p>Employee 表包含所有员工信息，每个员工有其对应的 Id, salary 和 department Id。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+----+-------+--------+--------------+</span><br><span class="line">| Id | Name  | Salary | DepartmentId |</span><br><span class="line">+----+-------+--------+--------------+</span><br><span class="line">| 1  | Joe   | 70000  | 1            |</span><br><span class="line">| 2  | Henry | 80000  | 2            |</span><br><span class="line">| 3  | Sam   | 60000  | 2            |</span><br><span class="line">| 4  | Max   | 90000  | 1            |</span><br><span class="line">+----+-------+--------+--------------+</span><br></pre></td></tr></table></figure>
+
+<p>Department 表包含公司所有部门的信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+----+----------+</span><br><span class="line">| Id | Name     |</span><br><span class="line">+----+----------+</span><br><span class="line">| 1  | IT       |</span><br><span class="line">| 2  | Sales    |</span><br><span class="line">+----+----------+</span><br></pre></td></tr></table></figure>
+
+<p>编写一个 SQL 查询，找出每个部门工资最高的员工。例如，根据上述给定的表格，Max 在 IT 部门有最高工资，Henry 在 Sales 部门有最高工资。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+------------+----------+--------+</span><br><span class="line">| Department | Employee | Salary |</span><br><span class="line">+------------+----------+--------+</span><br><span class="line">| IT         | Max      | 90000  |</span><br><span class="line">| Sales      | Henry    | 80000  |</span><br><span class="line">+------------+----------+--------+</span><br></pre></td></tr></table></figure>
+
+<p>Code：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> d.Name <span class="keyword">as</span> Department,e.Name <span class="keyword">as</span> Employee, e.Salary <span class="keyword">from</span></span><br><span class="line">(<span class="keyword">select</span> <span class="keyword">max</span>(Salary) <span class="keyword">as</span> Salary,DepartmentId <span class="keyword">from</span> Employee </span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> DepartmentId) t </span><br><span class="line"><span class="keyword">join</span> Employee e <span class="keyword">on</span> e.Salary = t.Salary <span class="keyword">and</span> e.DepartmentId = t.DepartmentId</span><br><span class="line"><span class="keyword">join</span> Department d <span class="keyword">on</span> d.Id = e.DepartmentId</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -359,8 +367,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/25/图形处理器——GPU/" rel="next" title="图形处理器——GPU">
-                <i class="fa fa-chevron-left"></i> 图形处理器——GPU
+              <a href="/2019/10/18/SQLServer-Day8/" rel="next" title="SQLServer-Day8">
+                <i class="fa fa-chevron-left"></i> SQLServer-Day8
               </a>
             
           </div>
@@ -369,8 +377,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/25/加速神经网络训练/" rel="prev" title="加速神经网络训练">
-                加速神经网络训练 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/10/20/Transfer-Learning/" rel="prev" title="Transfer Learning">
+                Transfer Learning <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -485,7 +493,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#要点："><span class="nav-number">1.</span> <span class="nav-text">要点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DataLoader"><span class="nav-number">2.</span> <span class="nav-text">DataLoader</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQLServer-Day9"><span class="nav-number">1.</span> <span class="nav-text">SQLServer-Day9</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#178-分数排名"><span class="nav-number">1.1.</span> <span class="nav-text">178. 分数排名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#184-部门工资最高的员工"><span class="nav-number">1.2.</span> <span class="nav-text">184. 部门工资最高的员工</span></a></li></ol></li></ol></div>
             
 
           </div>
