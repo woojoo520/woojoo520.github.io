@@ -1,129 +1,77 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Celery Fairy" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
 
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hexo, NexT">
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="后验分布知道事情的结果，然后根据结果推测原因，即结果是由某个原因导致的概率就是后验概率。p(原因|结果) 例子： 隔壁老王要去10公里外的一个地方办事，他 可以选择走路，骑自行车或者开车，并花费了一定时间到达目的地。在这个事件中，可以把交通方式（走路、骑车或开车）认为是原因，花费的时间认为是结果。若老王花了一个小时的时间完成了10公里的距离，那么很大可能是骑车过去的，当然也有较小可能老王是个健身达">
-<meta property="og:type" content="article">
-<meta property="og:title" content="先验分布&#x2F;后验分布&#x2F;似然估计">
-<meta property="og:url" content="https://woojoo520.github.io/2019/10/06/先验分布-后验分布-似然估计/index.html">
-<meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="后验分布知道事情的结果，然后根据结果推测原因，即结果是由某个原因导致的概率就是后验概率。p(原因|结果) 例子： 隔壁老王要去10公里外的一个地方办事，他 可以选择走路，骑自行车或者开车，并花费了一定时间到达目的地。在这个事件中，可以把交通方式（走路、骑车或开车）认为是原因，花费的时间认为是结果。若老王花了一个小时的时间完成了10公里的距离，那么很大可能是骑车过去的，当然也有较小可能老王是个健身达">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-06T06:45:13.007Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="先验分布&#x2F;后验分布&#x2F;似然估计">
-<meta name="twitter:description" content="后验分布知道事情的结果，然后根据结果推测原因，即结果是由某个原因导致的概率就是后验概率。p(原因|结果) 例子： 隔壁老王要去10公里外的一个地方办事，他 可以选择走路，骑自行车或者开车，并花费了一定时间到达目的地。在这个事件中，可以把交通方式（走路、骑车或开车）认为是原因，花费的时间认为是结果。若老王花了一个小时的时间完成了10公里的距离，那么很大可能是骑车过去的，当然也有较小可能老王是个健身达">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
+    hostname: new URL('https://woojoo520.github.io').hostname,
     root: '/',
-    scheme: 'Muse',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
     algolia: {
-      applicationID: '',
+      appID: '',
       apiKey: '',
       indexName: '',
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
   };
 </script>
 
+  <meta name="description" content="后验分布 知道事情的结果，然后根据结果推测原因，即结果是由某个原因导致的概率就是后验概率。p(原因|结果) 例子： 隔壁老王要去10公里外的一个地方办事，他 可以选择走路，骑自行车或者开车，并花费了一定时间到达目的地。在这个事件中，可以把交通方式（走路、骑车或开车）认为是原因，花费的时间认为是结果。若老王花了一个小时的时间完成了10公里的距离，那么很大可能是骑车过去的，当然也有较小可能老王是个健">
+<meta property="og:type" content="article">
+<meta property="og:title" content="先验分布&#x2F;后验分布&#x2F;似然估计">
+<meta property="og:url" content="https://woojoo520.github.io/2019/10/06/先验分布-后验分布-似然估计/index.html">
+<meta property="og:site_name" content="Celery Fairy">
+<meta property="og:description" content="后验分布 知道事情的结果，然后根据结果推测原因，即结果是由某个原因导致的概率就是后验概率。p(原因|结果) 例子： 隔壁老王要去10公里外的一个地方办事，他 可以选择走路，骑自行车或者开车，并花费了一定时间到达目的地。在这个事件中，可以把交通方式（走路、骑车或开车）认为是原因，花费的时间认为是结果。若老王花了一个小时的时间完成了10公里的距离，那么很大可能是骑车过去的，当然也有较小可能老王是个健">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-06T06:45:13.007Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="先验分布&#x2F;后验分布&#x2F;似然估计">
+<meta name="twitter:description" content="后验分布 知道事情的结果，然后根据结果推测原因，即结果是由某个原因导致的概率就是后验概率。p(原因|结果) 例子： 隔壁老王要去10公里外的一个地方办事，他 可以选择走路，骑自行车或者开车，并花费了一定时间到达目的地。在这个事件中，可以把交通方式（走路、骑车或开车）认为是原因，花费的时间认为是结果。若老王花了一个小时的时间完成了10公里的距离，那么很大可能是骑车过去的，当然也有较小可能老王是个健">
+
+<link rel="canonical" href="https://woojoo520.github.io/2019/10/06/先验分布-后验分布-似然估计/">
 
 
-  <link rel="canonical" href="https://woojoo520.github.io/2019/10/06/先验分布-后验分布-似然估计/">
-
-
-
-
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
 
   <title>先验分布/后验分布/似然估计 | Celery Fairy</title>
   
@@ -133,171 +81,158 @@
 
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="default">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <a href="https://github.com/woojoo520" class="github-corner" aria-label="View source on GitHub">
-      <svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
-      </svg>
-    </a>
-    <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
+    <div>
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">Celery Fairy</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-      
         <p class="site-subtitle">Celery's Blog</p>
-      
   </div>
 
   <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
   </div>
 </div>
 
+
 <nav class="site-nav">
   
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            Home
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            Archives
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
 
-  
+  </li>
+  </ul>
+
 </nav>
-
-
-
- </div>
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-
+  <div class="posts-expand">
+      
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/06/先验分布-后验分布-似然估计/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/uploads/logo.jpg">
+      <meta itemprop="name" content="Woojoo">
+      <meta itemprop="description" content="a study blog">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Celery Fairy">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">先验分布/后验分布/似然估计</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          先验分布/后验分布/似然估计
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
+              <span class="post-meta-item-text">发表于</span>
               
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-06T13:46:48+08:00">
-                2019-10-06
-              </time>
-            
 
-            
-
-            
-          </span>
+              <time title="创建时间：2019-10-06 13:46:48 / 修改时间：14:45:13" itemprop="dateCreated datePublished" datetime="2019-10-06T13:46:48+08:00">2019-10-06</time>
+            </span>
 
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/10/06/先验分布-后验分布-似然估计/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/06/先验分布-后验分布-似然估计/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
-    
 
     
     
@@ -305,15 +240,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <h3 id="后验分布"><a href="#后验分布" class="headerlink" title="后验分布"></a>后验分布</h3><p><strong>知道事情的结果，然后根据结果推测原因，即结果是由某个原因导致的概率就是后验概率。p(原因|结果)</strong></p>
+        <h3 id="后验分布"><a class="markdownIt-Anchor" href="#后验分布"></a> 后验分布</h3>
+<p><strong>知道事情的结果，然后根据结果推测原因，即结果是由某个原因导致的概率就是后验概率。p(原因|结果)</strong></p>
 <p>例子：</p>
 <p>隔壁老王要去10公里外的一个地方办事，他 可以选择走路，骑自行车或者开车，并花费了一定时间到达目的地。在这个事件中，可以把交通方式（走路、骑车或开车）认为是原因，花费的时间认为是结果。若老王花了一个小时的时间完成了10公里的距离，那么很大可能是骑车过去的，当然也有较小可能老王是个健身达人跑步过去的，或者开车过去但是堵车很严重。若老王一共用了两个小时的时间完成了10公里的距离，那么很有可能他是走路过去的。若老王只用了二十分钟，那么很有可能是开车。这种先知道结果，然后由结果估计原因的概率分布，p(交通方式|时间)，就是后验概率。</p>
 <p>预先<strong>已知结果</strong>，然后根据结果<strong>估计原因</strong>的概率分布即后验概率</p>
-<p><code>P(因|果)  -&gt; P(θ|x)</code> </p>
-<h3 id="先验分布"><a href="#先验分布" class="headerlink" title="先验分布"></a>先验分布</h3><p><strong>对未知参数x的先验信息用一个分布形式p(x)来表示，此分布p(x)称为未知参数x的先验分布.(即在实验前通过已知信息知道的分布)可以理解为对某个原因的经验推断。</strong></p>
+<p><code>P(因|果) -&gt; P(θ|x)</code></p>
+<h3 id="先验分布"><a class="markdownIt-Anchor" href="#先验分布"></a> 先验分布</h3>
+<p><strong>对未知参数x的先验信息用一个分布形式p(x)来表示，此分布p(x)称为未知参数x的先验分布.(即在实验前通过已知信息知道的分布)可以理解为对某个原因的经验推断。</strong></p>
 <p>对于一个未知参数，在抽取样本之前就已经知道了一些关于该参数的信息。我们知道的途径可能来源于生活经验，自然规律等等。</p>
 <p>例子：来源  <a href="https://blog.csdn.net/lsgqjh/article/details/79168156" target="_blank" rel="noopener">https://blog.csdn.net/lsgqjh/article/details/79168156</a></p>
 <p>比如，测量自己的体重，在测量之前就可以推断出自己不会超过120斤，也不会少于90斤。这个推断可以理解为我们的生活经验所得。</p>
@@ -321,211 +255,144 @@
 <p><code>老王会走路，骑自行车，或者开车去某个地方，假设老王是个健身达人，且大家都知道，那么老王开车去的可能性就较小，跑步的可能性比较大，这就是根据我们的常识得到的先验分布。</code></p>
 <p>根据历史规律确定<strong>原因</strong>的概率分布即先验概率</p>
 <p><code>P(因) -&gt; P(θ)</code></p>
-<h3 id="似然估计"><a href="#似然估计" class="headerlink" title="似然估计"></a>似然估计</h3><p><strong>与后验分布相反，后验分布根据结果推测原因，而似然估计则是根据原因推测该原因导致结果发生的概率。</strong></p>
+<h3 id="似然估计"><a class="markdownIt-Anchor" href="#似然估计"></a> 似然估计</h3>
+<p><strong>与后验分布相反，后验分布根据结果推测原因，而似然估计则是根据原因推测该原因导致结果发生的概率。</strong></p>
 <p>例子：</p>
 <p>老王决定步行过去，那么很大可能10公里的距离大约需要两个小时；较小可能是老王平时坚持锻炼，跑步过去用了一个小时；更小可能是老王是个猛人，40分钟就到了。老王决定骑车过去，很可能一个小时就能到；较小可能是老王那天精神不错加上单双号限行交通很通畅，40分钟就到了；还有一种较小可能是老王运气很差，连着坏了好几辆共享单车，花了一个半小时才到。老王决定开车过去，很大可能是20分钟就到了，较小可能是那天堵车很严重，磨磨唧唧花了一个小时才到。这种先确定原因，根据原因来估计结果的概率分布，p(时间|交通方式)，就是似然估计。</p>
 <p>补充：</p>
 <p>如果老王去了那个地方好多次，我们只搜集到了老王这么多次花费的时间的信息，那么关于花费时间的概率分布 p(时间) 就叫evidence.</p>
 <p><strong>先定下来原因</strong>，<strong>根据原因来估计结果</strong>的概率分布即似然估计。根据原因来统计各种可能结果的概率即似然函数</p>
 <p><code>P(果|因) -&gt; P(x|θ)</code></p>
-<h3 id="贝叶斯公式"><a href="#贝叶斯公式" class="headerlink" title="贝叶斯公式"></a>贝叶斯公式</h3><p>$P(A|B)=\frac{P(B | A) * P(A)}{P(B)}\ $</p>
-<p>即 $P(\theta | x)=\frac{P(x | \theta) * P(\theta)}{P(x)}$</p>
-<p>$后验概率=\frac{似然估计 * 先验概率} {evidence}$</p>
+<h3 id="贝叶斯公式"><a class="markdownIt-Anchor" href="#贝叶斯公式"></a> 贝叶斯公式</h3>
+<p>$P(A|B)=\frac{P(B | A) * P(A)}{P(B)}\ $</p>
+<p>即 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>θ</mi><mi mathvariant="normal">∣</mi><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mi mathvariant="normal">∣</mi><mi>θ</mi><mo stretchy="false">)</mo><mo>∗</mo><mi>P</mi><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">P(\theta | x)=\frac{P(x | \theta) * P(\theta)}{P(x)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="mord">∣</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.53em;vertical-align:-0.52em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">P</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight">x</span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">P</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight">x</span><span class="mord mtight">∣</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">θ</span><span class="mclose mtight">)</span><span class="mbin mtight">∗</span><span class="mord mathdefault mtight" style="margin-right:0.13889em;">P</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">θ</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">后</mi><mi mathvariant="normal">验</mi><mi mathvariant="normal">概</mi><mi mathvariant="normal">率</mi><mo>=</mo><mfrac><mrow><mi mathvariant="normal">似</mi><mi mathvariant="normal">然</mi><mi mathvariant="normal">估</mi><mi mathvariant="normal">计</mi><mo>∗</mo><mi mathvariant="normal">先</mi><mi mathvariant="normal">验</mi><mi mathvariant="normal">概</mi><mi mathvariant="normal">率</mi></mrow><mrow><mi>e</mi><mi>v</mi><mi>i</mi><mi>d</mi><mi>e</mi><mi>n</mi><mi>c</mi><mi>e</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">后验概率=\frac{似然估计 * 先验概率} {evidence}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mord cjk_fallback">后</span><span class="mord cjk_fallback">验</span><span class="mord cjk_fallback">概</span><span class="mord cjk_fallback">率</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.064696em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.719696em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">d</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight">c</span><span class="mord mathdefault mtight">e</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord cjk_fallback mtight">似</span><span class="mord cjk_fallback mtight">然</span><span class="mord cjk_fallback mtight">估</span><span class="mord cjk_fallback mtight">计</span><span class="mbin mtight">∗</span><span class="mord cjk_fallback mtight">先</span><span class="mord cjk_fallback mtight">验</span><span class="mord cjk_fallback mtight">概</span><span class="mord cjk_fallback mtight">率</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
 <p><code>注：P(x)即evidence。隔壁小哥去公园很多次，忽略交通方式是什么，只统计每次到达公园的时间x，于是得到了一组时间的概率分布。这种不考虑原因，值看到结果的概率分布即evidence，它也称为样本发生的概率分布的证据，即P(果)</code></p>
 
-      
     </div>
-    
-    
-    
 
     
-
+    
     
 
-    
+      <footer class="post-footer">
 
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/10/01/Lex-Learning/" rel="next" title="Lex Learning">
-                <i class="fa fa-chevron-left"></i> Lex Learning
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/10/06/2019-10-6/" rel="prev" title="2019.10.6">
-                2019.10.6 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-
-
-
-        </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/10/01/Lex-Learning/" rel="prev" title="Lex Learning">
+      <i class="fa fa-chevron-left"></i> Lex Learning
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/10/06/2019-10-6/" rel="next" title="2019.10.6">
+      2019.10.6 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
 
-  <aside id="sidebar" class="sidebar">
-    
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
-      
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Mariana</p>
-              <p class="site-description motion-element" itemprop="description">a study blog</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">124</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#后验分布"><span class="nav-number">1.</span> <span class="nav-text">后验分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先验分布"><span class="nav-number">2.</span> <span class="nav-text">先验分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#似然估计"><span class="nav-number">3.</span> <span class="nav-text">似然估计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贝叶斯公式"><span class="nav-number">4.</span> <span class="nav-text">贝叶斯公式</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#后验分布"><span class="nav-number">1.</span> <span class="nav-text"> 后验分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先验分布"><span class="nav-number">2.</span> <span class="nav-text"> 先验分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#似然估计"><span class="nav-number">3.</span> <span class="nav-text"> 似然估计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贝叶斯公式"><span class="nav-number">4.</span> <span class="nav-text"> 贝叶斯公式</span></a></li></ol></div>
+      </div>
       <!--/noindex-->
-      
 
-      
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Woojoo"
+      src="/uploads/logo.jpg">
+  <p class="site-author-name" itemprop="name">Woojoo</p>
+  <div class="site-description" itemprop="description">a study blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
 
     </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Mariana</span>
-
-  
+  <span class="author" itemprop="copyrightHolder">Woojoo</span>
 </div>
-
-
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
-
-
-
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
   <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
-
-
-
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
 
         
+
 
 
 
@@ -536,156 +403,67 @@
         
       </div>
     </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
   </div>
 
   
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'aKRj8pzPJm0LdONJb0Ci0U5L-gzGzoHsz',
+    appKey: 'vA8nbcq2HgWrqovGq6LwXRG1',
+    placeholder: "Just go go",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
 </script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
 
 </body>
 </html>

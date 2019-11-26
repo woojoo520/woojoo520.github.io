@@ -1,129 +1,77 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Celery Fairy" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
 
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hexo, NexT">
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="594. 超过5名学生的课有一个courses 表 ，有: student (学生) 和 class (课程)。 请列出所有超过或等于5名学生的课。 12345678910111213141516171819202122例如,表:+---------+------------+| student | class      |+---------+------------+| A       | M">
-<meta property="og:type" content="article">
-<meta property="og:title" content="SQLServer-Day2">
-<meta property="og:url" content="https://woojoo520.github.io/2019/10/11/SQLServer-Day2/index.html">
-<meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="594. 超过5名学生的课有一个courses 表 ，有: student (学生) 和 class (课程)。 请列出所有超过或等于5名学生的课。 12345678910111213141516171819202122例如,表:+---------+------------+| student | class      |+---------+------------+| A       | M">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-11T12:51:38.239Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SQLServer-Day2">
-<meta name="twitter:description" content="594. 超过5名学生的课有一个courses 表 ，有: student (学生) 和 class (课程)。 请列出所有超过或等于5名学生的课。 12345678910111213141516171819202122例如,表:+---------+------------+| student | class      |+---------+------------+| A       | M">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
+    hostname: new URL('https://woojoo520.github.io').hostname,
     root: '/',
-    scheme: 'Muse',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
     algolia: {
-      applicationID: '',
+      appID: '',
       apiKey: '',
       indexName: '',
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
   };
 </script>
 
+  <meta name="description" content="594. 超过5名学生的课 有一个courses 表 ，有: student (学生) 和 class (课程)。 请列出所有超过或等于5名学生的课。 12345678910111213141516171819202122例如,表:+---------+------------+| student | class      |+---------+------------+| A       |">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQLServer-Day2">
+<meta property="og:url" content="https://woojoo520.github.io/2019/10/11/SQLServer-Day2/index.html">
+<meta property="og:site_name" content="Celery Fairy">
+<meta property="og:description" content="594. 超过5名学生的课 有一个courses 表 ，有: student (学生) 和 class (课程)。 请列出所有超过或等于5名学生的课。 12345678910111213141516171819202122例如,表:+---------+------------+| student | class      |+---------+------------+| A       |">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-11T12:51:38.239Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SQLServer-Day2">
+<meta name="twitter:description" content="594. 超过5名学生的课 有一个courses 表 ，有: student (学生) 和 class (课程)。 请列出所有超过或等于5名学生的课。 12345678910111213141516171819202122例如,表:+---------+------------+| student | class      |+---------+------------+| A       |">
+
+<link rel="canonical" href="https://woojoo520.github.io/2019/10/11/SQLServer-Day2/">
 
 
-  <link rel="canonical" href="https://woojoo520.github.io/2019/10/11/SQLServer-Day2/">
-
-
-
-
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
 
   <title>SQLServer-Day2 | Celery Fairy</title>
   
@@ -133,171 +81,158 @@
 
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="default">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <a href="https://github.com/woojoo520" class="github-corner" aria-label="View source on GitHub">
-      <svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
-      </svg>
-    </a>
-    <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
+    <div>
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">Celery Fairy</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-      
         <p class="site-subtitle">Celery's Blog</p>
-      
   </div>
 
   <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
   </div>
 </div>
 
+
 <nav class="site-nav">
   
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            Home
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            Archives
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
 
-  
+  </li>
+  </ul>
+
 </nav>
-
-
-
- </div>
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-
+  <div class="posts-expand">
+      
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/11/SQLServer-Day2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/uploads/logo.jpg">
+      <meta itemprop="name" content="Woojoo">
+      <meta itemprop="description" content="a study blog">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Celery Fairy">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">SQLServer-Day2</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          SQLServer-Day2
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
+              <span class="post-meta-item-text">发表于</span>
               
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-11T15:30:13+08:00">
-                2019-10-11
-              </time>
-            
 
-            
-
-            
-          </span>
+              <time title="创建时间：2019-10-11 15:30:13 / 修改时间：20:51:38" itemprop="dateCreated datePublished" datetime="2019-10-11T15:30:13+08:00">2019-10-11</time>
+            </span>
 
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/10/11/SQLServer-Day2/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/11/SQLServer-Day2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
-    
 
     
     
@@ -305,35 +240,35 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <h3 id="594-超过5名学生的课"><a href="#594-超过5名学生的课" class="headerlink" title="594. 超过5名学生的课"></a>594. 超过5名学生的课</h3><p>有一个courses 表 ，有: student (学生) 和 class (课程)。</p>
+        <h3 id="594-超过5名学生的课"><a class="markdownIt-Anchor" href="#594-超过5名学生的课"></a> 594. 超过5名学生的课</h3>
+<p>有一个courses 表 ，有: student (学生) 和 class (课程)。</p>
 <p>请列出所有超过或等于5名学生的课。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">例如,表:</span><br><span class="line"></span><br><span class="line">+---------+------------+</span><br><span class="line">| student | class      |</span><br><span class="line">+---------+------------+</span><br><span class="line">| A       | Math       |</span><br><span class="line">| B       | English    |</span><br><span class="line">| C       | Math       |</span><br><span class="line">| D       | Biology    |</span><br><span class="line">| E       | Math       |</span><br><span class="line">| F       | Computer   |</span><br><span class="line">| G       | Math       |</span><br><span class="line">| H       | Math       |</span><br><span class="line">| I       | Math       |</span><br><span class="line">+---------+------------+</span><br><span class="line">应该输出:</span><br><span class="line"></span><br><span class="line">+---------+</span><br><span class="line">| class   |</span><br><span class="line">+---------+</span><br><span class="line">| Math    |</span><br><span class="line">+---------+</span><br></pre></td></tr></table></figure>
-
-<p>Note:<br>学生在每个课中不应被重复计算。</p>
+<p>Note:<br>
+学生在每个课中不应被重复计算。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">class</span> </span><br><span class="line"><span class="keyword">FROM</span> courses</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">class</span></span><br><span class="line"><span class="keyword">HAVING</span> <span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> student) &gt;= <span class="number">5</span></span><br></pre></td></tr></table></figure>
-
 <ul>
-<li><p><strong>SELECT DISTINCT 语句</strong></p>
+<li>
+<p><strong>SELECT DISTINCT 语句</strong></p>
 <p>在表中，可能会包含重复值。用关键词<strong>DISTINCT</strong>来返回唯一不同的值</p>
 <blockquote>
 <p>SELECT DISTINCT 列名称 FROM 表名称</p>
 </blockquote>
 </li>
-<li><p><strong>WHERE</strong>子句</p>
+<li>
+<p><strong>WHERE</strong>子句</p>
 <p>如需有条件地从表中选取数据，可将WHERE子句添加到SELECT语句</p>
 <blockquote>
 <p>SELECT 列名称 FROM 表名称 WHERE 列 运算符 值</p>
 </blockquote>
 <p>下面的运算符可以在<strong>WHERE</strong>子句中使用：</p>
-<p><code>=   &lt;&gt;   &gt;   &gt;=   &lt;=   BETWEEN   LIKE(搜索某种模式)</code></p>
+<p><code>= &lt;&gt; &gt; &gt;= &lt;= BETWEEN LIKE(搜索某种模式)</code></p>
 <p>在某些版本的SQL中，操作符<code>&lt;&gt;</code>可以写为<code>!=</code></p>
 <p><strong>引号的使用：</strong></p>
 <p>SQL使用单引号来环绕文本值（大部分数据库系统也接受双引号）。如果是数值，不能使用单引号</p>
 </li>
-<li><p><strong>ORDER BY 语句用于对结果进行排序</strong></p>
+<li>
+<p><strong>ORDER BY 语句用于对结果进行排序</strong></p>
 <p><code>ORDER BY</code>语句用于根据指定的列对结果进行排序</p>
 <p><code>ORDER BY</code>语句默认按照升序对记录进行排序</p>
 <p>如果希望降序对记录进行排序，可以使用<strong>DESC</strong>关键字</p>
@@ -345,7 +280,8 @@
 <th>OrderNumber</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>IBM</td>
 <td>3532</td>
 </tr>
@@ -361,10 +297,10 @@
 <td>W3School</td>
 <td>6953</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>例1：以字母顺序显示公司名称</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Company, OrderNumber <span class="keyword">FROM</span> Orders <span class="keyword">ORDER</span> <span class="keyword">BY</span> Company</span><br></pre></td></tr></table></figure>
-
 <p>结果：</p>
 <table>
 <thead>
@@ -373,7 +309,8 @@
 <th>OrderNumber</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Apple</td>
 <td>4698</td>
 </tr>
@@ -389,10 +326,10 @@
 <td>W3School</td>
 <td>2356</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>例2：以字母顺序显示公司名称（Company），并以数字顺序显示顺序号（OrderNumber）</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Company, OrderNumber <span class="keyword">FROM</span> Orders <span class="keyword">ORDER</span> <span class="keyword">BY</span> Company, OrderNumber</span><br></pre></td></tr></table></figure>
-
 <p>结果：</p>
 <table>
 <thead>
@@ -401,7 +338,8 @@
 <th>OrderNumber</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Apple</td>
 <td>4698</td>
 </tr>
@@ -417,10 +355,10 @@
 <td>W3School</td>
 <td>6953</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>例3：以逆字母顺序显示公司名称</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Company, OrderNUmber <span class="keyword">FROM</span> Orders <span class="keyword">ORDER</span> <span class="keyword">BY</span> Company <span class="keyword">DESC</span></span><br></pre></td></tr></table></figure>
-
 <p>结果：</p>
 <table>
 <thead>
@@ -429,7 +367,8 @@
 <th>OrderNumber</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>W3School</td>
 <td>6953</td>
 </tr>
@@ -445,10 +384,10 @@
 <td>Apple</td>
 <td>4698</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>例4：以逆字母顺序显示公司名称，并以数字顺序显示顺序号</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Company, OrderNumber <span class="keyword">FROM</span> Orders <span class="keyword">ORDER</span> <span class="keyword">BY</span> Company <span class="keyword">DESC</span>, OrderNumber <span class="keyword">ASC</span></span><br></pre></td></tr></table></figure>
-
 <p>结果：</p>
 <table>
 <thead>
@@ -457,7 +396,8 @@
 <th>OrderNumber</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>W3School</td>
 <td>2356</td>
 </tr>
@@ -473,9 +413,11 @@
 <td>Apple</td>
 <td>4698</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 </li>
-<li><p><strong>INSERT INTO语句</strong></p>
+<li>
+<p><strong>INSERT INTO语句</strong></p>
 <p>用于向表格中插入新的行</p>
 <blockquote>
 <p>INSERT INTO 表名称 VALUES(值1, 值2, …)</p>
@@ -494,15 +436,16 @@
 <th>City</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Carter</td>
 <td>Thomas</td>
 <td>Changan Street</td>
 <td>Beijing</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Persons <span class="keyword">VALUES</span> (<span class="string">'Gates'</span>, <span class="string">'Bill'</span>, <span class="string">'Xuanwumen 10'</span>, <span class="string">'Beijing'</span>)</span><br></pre></td></tr></table></figure>
-
 <p>结果：</p>
 <table>
 <thead>
@@ -513,7 +456,8 @@
 <th>City</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Carter</td>
 <td>Thomas</td>
 <td>Changan Street</td>
@@ -525,10 +469,10 @@
 <td>Xuanwumen 10</td>
 <td>Beijing</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p><strong>在指定的列中插入数据：</strong></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Persons (LastName, Address) <span class="keyword">VALUES</span> (<span class="string">'Wilsom'</span>, <span class="string">'Champs-Elysees'</span>)</span><br></pre></td></tr></table></figure>
-
 <p>结果：</p>
 <table>
 <thead>
@@ -539,7 +483,8 @@
 <th>City</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Carter</td>
 <td>Thomas</td>
 <td>Changan Street</td>
@@ -557,12 +502,14 @@
 <td>Champs-Elysees</td>
 <td></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 </li>
-<li><p><strong>UPDATE 语句</strong></p>
+<li>
+<p><strong>UPDATE 语句</strong></p>
 <p>用于修改表中的数据</p>
 <blockquote>
-<p>INSERT 表名称 SET 列名称 = 新值 WHERE 列名称 = 某值 </p>
+<p>INSERT 表名称 SET 列名称 = 新值 WHERE 列名称 = 某值</p>
 </blockquote>
 <p>例子：Persons</p>
 <table>
@@ -574,7 +521,8 @@
 <th>City</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Gates</td>
 <td>Bill</td>
 <td>Xuanwumen 10</td>
@@ -586,10 +534,10 @@
 <td>Champs-Elysees</td>
 <td></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p><strong>更新某一行中的一个列</strong>：为LastName 是 Wilson的人添加FirstName：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> Persons <span class="keyword">SET</span> FirstName = <span class="string">'Fred'</span> <span class="keyword">WHERE</span> LastName = <span class="string">'Wilson'</span></span><br></pre></td></tr></table></figure>
-
 <p>结果：</p>
 <table>
 <thead>
@@ -600,7 +548,8 @@
 <th>City</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Gates</td>
 <td>Bill</td>
 <td>Xuanwumen 10</td>
@@ -612,10 +561,10 @@
 <td>Champs-Elysees</td>
 <td></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p><strong>更新某一行中的若干列</strong>：我们会修改地址（address），并添加城市名称（city）：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> Persons <span class="keyword">SET</span> Address = <span class="string">'Zhongshan 23'</span>, City = <span class="string">'Nanjing'</span> <span class="keyword">WHERE</span> LastName = <span class="string">'Wilson'</span></span><br></pre></td></tr></table></figure>
-
 <p>结果：</p>
 <table>
 <thead>
@@ -626,7 +575,8 @@
 <th>City</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Gates</td>
 <td>Bill</td>
 <td>Xuanwumen 10</td>
@@ -638,16 +588,17 @@
 <td>Zhongshan 23</td>
 <td>Nanjing</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 </li>
-<li><p><strong>DELETE 语句</strong></p>
+<li>
+<p><strong>DELETE 语句</strong></p>
 <p>删除表中的行</p>
 <blockquote>
 <p>DELETE FROM 表名称 WHERE 列名称 = 值</p>
 </blockquote>
 <p><strong>删除某行</strong>：“Fred Wilson”会被删除。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> Persons <span class="keyword">WHERE</span> LastName = <span class="string">'Wilson'</span></span><br></pre></td></tr></table></figure>
-
 <p>结果：</p>
 <table>
 <thead>
@@ -658,13 +609,15 @@
 <th>City</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Gates</td>
 <td>Bill</td>
 <td>Xuanwumen 10</td>
 <td>Beijing</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p><strong>删除所有行：可以在不删除表的情况下删除所有行，这意味着表的结构、属性和索引都是完整的：</strong></p>
 <blockquote>
 <p>DELETE FROM tabel_name</p>
@@ -676,199 +629,130 @@
 </li>
 </ul>
 
-      
     </div>
-    
-    
-    
 
     
-
+    
     
 
-    
+      <footer class="post-footer">
 
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/10/10/Python-Day1/" rel="next" title="Python-Day1">
-                <i class="fa fa-chevron-left"></i> Python-Day1
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/10/12/SQLServer-Day3/" rel="prev" title="SQLServer-Day3">
-                SQLServer-Day3 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-
-
-
-        </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/10/10/Python-Day1/" rel="prev" title="Python-Day1">
+      <i class="fa fa-chevron-left"></i> Python-Day1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/10/12/SQLServer-Day3/" rel="next" title="SQLServer-Day3">
+      SQLServer-Day3 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
 
-  <aside id="sidebar" class="sidebar">
-    
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
-      
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Mariana</p>
-              <p class="site-description motion-element" itemprop="description">a study blog</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">124</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#594-超过5名学生的课"><span class="nav-number">1.</span> <span class="nav-text">594. 超过5名学生的课</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#594-超过5名学生的课"><span class="nav-number">1.</span> <span class="nav-text"> 594. 超过5名学生的课</span></a></li></ol></div>
+      </div>
       <!--/noindex-->
-      
 
-      
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Woojoo"
+      src="/uploads/logo.jpg">
+  <p class="site-author-name" itemprop="name">Woojoo</p>
+  <div class="site-description" itemprop="description">a study blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
 
     </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Mariana</span>
-
-  
+  <span class="author" itemprop="copyrightHolder">Woojoo</span>
 </div>
-
-
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
-
-
-
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
   <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
-
-
-
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
 
         
+
 
 
 
@@ -879,156 +763,67 @@
         
       </div>
     </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
   </div>
 
   
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'aKRj8pzPJm0LdONJb0Ci0U5L-gzGzoHsz',
+    appKey: 'vA8nbcq2HgWrqovGq6LwXRG1',
+    placeholder: "Just go go",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
 </script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
 
 </body>
 </html>

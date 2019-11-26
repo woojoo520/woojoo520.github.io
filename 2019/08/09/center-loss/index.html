@@ -1,91 +1,59 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Celery Fairy" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
 
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://woojoo520.github.io').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
 
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hexo, NexT">
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="Center Loss一. 简介论文链接：http://ydwen.github.io/papers/WenECCV16.pdf  二. 为什么要使用Center Loss？简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。 仅仅使用softmax作为监督信号的输出处理就只能做到sepe">
+  <meta name="description" content="Center Loss  一. 简介 论文链接：http://ydwen.github.io/papers/WenECCV16.pdf  二. 为什么要使用Center Loss？ 简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。 仅仅使用softmax作为监督信号的输出处理就只能做">
 <meta property="og:type" content="article">
 <meta property="og:title" content="center loss">
 <meta property="og:url" content="https://woojoo520.github.io/2019/08/09/center-loss/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="Center Loss一. 简介论文链接：http://ydwen.github.io/papers/WenECCV16.pdf  二. 为什么要使用Center Loss？简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。 仅仅使用softmax作为监督信号的输出处理就只能做到sepe">
-<meta property="og:locale" content="default">
+<meta property="og:description" content="Center Loss  一. 简介 论文链接：http://ydwen.github.io/papers/WenECCV16.pdf  二. 为什么要使用Center Loss？ 简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。 仅仅使用softmax作为监督信号的输出处理就只能做">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://img-blog.csdn.net/20180727140845416?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="https://img-blog.csdn.net/20180727150130651?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="https://img-blog.csdn.net/2018072715022915?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
@@ -97,42 +65,22 @@
 <meta property="og:updated_time" content="2019-08-09T06:59:02.033Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="center loss">
-<meta name="twitter:description" content="Center Loss一. 简介论文链接：http://ydwen.github.io/papers/WenECCV16.pdf  二. 为什么要使用Center Loss？简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。 仅仅使用softmax作为监督信号的输出处理就只能做到sepe">
+<meta name="twitter:description" content="Center Loss  一. 简介 论文链接：http://ydwen.github.io/papers/WenECCV16.pdf  二. 为什么要使用Center Loss？ 简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。 仅仅使用softmax作为监督信号的输出处理就只能做">
 <meta name="twitter:image" content="https://img-blog.csdn.net/20180727140845416?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 
+<link rel="canonical" href="https://woojoo520.github.io/2019/08/09/center-loss/">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
   };
 </script>
-
-
-
-  <link rel="canonical" href="https://woojoo520.github.io/2019/08/09/center-loss/">
-
-
-
-
 
   <title>center loss | Celery Fairy</title>
   
@@ -142,171 +90,158 @@
 
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="default">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <a href="https://github.com/woojoo520" class="github-corner" aria-label="View source on GitHub">
-      <svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
-      </svg>
-    </a>
-    <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
+    <div>
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">Celery Fairy</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-      
         <p class="site-subtitle">Celery's Blog</p>
-      
   </div>
 
   <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
   </div>
 </div>
 
+
 <nav class="site-nav">
   
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            Home
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            Archives
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
 
-  
+  </li>
+  </ul>
+
 </nav>
-
-
-
- </div>
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-
+  <div class="posts-expand">
+      
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/center-loss/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/uploads/logo.jpg">
+      <meta itemprop="name" content="Woojoo">
+      <meta itemprop="description" content="a study blog">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Celery Fairy">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">center loss</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          center loss
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
+              <span class="post-meta-item-text">发表于</span>
               
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-09T14:31:07+08:00">
-                2019-08-09
-              </time>
-            
 
-            
-
-            
-          </span>
+              <time title="创建时间：2019-08-09 14:31:07 / 修改时间：14:59:02" itemprop="dateCreated datePublished" datetime="2019-08-09T14:31:07+08:00">2019-08-09</time>
+            </span>
 
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/08/09/center-loss/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/09/center-loss/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
-    
 
     
     
@@ -314,39 +249,45 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <h2 id="Center-Loss"><a href="#Center-Loss" class="headerlink" title="Center Loss"></a>Center Loss</h2><h3 id="一-简介"><a href="#一-简介" class="headerlink" title="一. 简介"></a>一. 简介</h3><p>论文链接：<a href="http://ydwen.github.io/papers/WenECCV16.pdf" target="_blank" rel="noopener">http://ydwen.github.io/papers/WenECCV16.pdf</a> </p>
-<h3 id="二-为什么要使用Center-Loss？"><a href="#二-为什么要使用Center-Loss？" class="headerlink" title="二. 为什么要使用Center Loss？"></a>二. 为什么要使用Center Loss？</h3><p>简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。</p>
+        <h2 id="center-loss"><a class="markdownIt-Anchor" href="#center-loss"></a> Center Loss</h2>
+<h3 id="一-简介"><a class="markdownIt-Anchor" href="#一-简介"></a> 一. 简介</h3>
+<p>论文链接：<a href="http://ydwen.github.io/papers/WenECCV16.pdf" target="_blank" rel="noopener">http://ydwen.github.io/papers/WenECCV16.pdf</a></p>
+<h3 id="二-为什么要使用center-loss"><a class="markdownIt-Anchor" href="#二-为什么要使用center-loss"></a> 二. 为什么要使用Center Loss？</h3>
+<p>简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。</p>
 <p>仅仅使用softmax作为监督信号的输出处理就只能做到seperable而不是discriminative，如下图:</p>
 <p><img src="https://img-blog.csdn.net/20180727140845416?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<h3 id="三-如何使学到的特征差异化更大——Center-Loss"><a href="#三-如何使学到的特征差异化更大——Center-Loss" class="headerlink" title="三. 如何使学到的特征差异化更大——Center Loss"></a>三. 如何使学到的特征差异化更大——Center Loss</h3><p>融合Softmax Loss与Center loss</p>
+<h3 id="三-如何使学到的特征差异化更大center-loss"><a class="markdownIt-Anchor" href="#三-如何使学到的特征差异化更大center-loss"></a> 三. 如何使学到的特征差异化更大——Center Loss</h3>
+<p>融合Softmax Loss与Center loss</p>
 <p><strong>Softmax Loss（保证类之间的feature距离最大）与Center Loss（保证类内的feature距离最小，更接近于类中心）</strong></p>
 <p><img src="https://img-blog.csdn.net/20180727150130651?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
 <p><img src="https://img-blog.csdn.net/2018072715022915?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<p>m是mini-batch、n是class。在Lc公式中有一个缺陷，就是$C_{y_{i}}$是i这个样本对应的类别yi所属于的类中心C∈ Rd，d代表d维。</p>
+<p>m是mini-batch、n是class。在Lc公式中有一个缺陷，就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>C</mi><msub><mi>y</mi><mi>i</mi></msub></msub></mrow><annotation encoding="application/x-tex">C_{y_{i}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3280857142857143em;"><span style="top:-2.357em;margin-left:-0.03588em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>是i这个样本对应的类别yi所属于的类中心C∈ Rd，d代表d维。</p>
 <p>理想情况下，Cyi需要随着学到的feature变化而实时更新，也就是要在每一次迭代中用整个数据集的feature来算每个类的中心。</p>
 <p>但这显然不现实，做以下两个修改：</p>
-<p>1、由整个训练集更新center改为mini-batch更改center  </p>
-<p>2、避免错误分类的样本的干扰，使用scalar α 来控制center的学习率  </p>
+<p>1、由整个训练集更新center改为mini-batch更改center</p>
+<p>2、避免错误分类的样本的干扰，使用scalar α 来控制center的学习率</p>
 <p>因此求算梯度的公式如下：</p>
 <p><img src="https://img-blog.csdn.net/20180727153311160?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
 <p>即：当yi = j，也就是mini-batch中某一个sample是对应要更新的那一个类的center的时候就累加起来除以某类的个数+1。</p>
 <p><img src="https://img-blog.csdn.net/2018072715370270?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
 <p>最终loss联立起来如上图，λ用于平衡softmax loss与center loss，越大则区分度 越大，如下图效果：</p>
 <p><img src="https://img-blog.csdn.net/20180727150702547?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<h3 id="四-Center-Loss的实现"><a href="#四-Center-Loss的实现" class="headerlink" title="四. Center Loss的实现"></a>四. Center Loss的实现</h3><p>pytorch实现：<a href="https://github.com/jxgu1016/MNIST_center_loss_pytorch" target="_blank" rel="noopener">https://github.com/jxgu1016/MNIST_center_loss_pytorch</a></p>
+<h3 id="四-center-loss的实现"><a class="markdownIt-Anchor" href="#四-center-loss的实现"></a> 四. Center Loss的实现</h3>
+<p>pytorch实现：<a href="https://github.com/jxgu1016/MNIST_center_loss_pytorch" target="_blank" rel="noopener">https://github.com/jxgu1016/MNIST_center_loss_pytorch</a></p>
 <ul>
 <li>网络结构</li>
 </ul>
 <p><img src="https://img-blog.csdn.net/20180727162522989?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
 <p>即在特征层输出（classification前最后一层）引入center loss：</p>
 <p><img src="https://img-blog.csdn.net/20180727162755579?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<h4 id="fully-connected-和-local-connected"><a href="#fully-connected-和-local-connected" class="headerlink" title="fully-connected 和 local-connected"></a>fully-connected 和 local-connected</h4><h5 id="判断fully-connected的方法："><a href="#判断fully-connected的方法：" class="headerlink" title="判断fully-connected的方法："></a>判断fully-connected的方法：</h5><ul>
-<li><p>对于neuron的链接（点对点的链接）都是fully connected（这里其实就是MLP）</p>
+<h4 id="fully-connected-和-local-connected"><a class="markdownIt-Anchor" href="#fully-connected-和-local-connected"></a> fully-connected 和 local-connected</h4>
+<h5 id="判断fully-connected的方法"><a class="markdownIt-Anchor" href="#判断fully-connected的方法"></a> 判断fully-connected的方法：</h5>
+<ul>
+<li>
+<p>对于neuron的链接（点对点的链接）都是fully connected（这里其实就是MLP）</p>
 </li>
-<li><p>对于有filter的network，不是看filter的size，而是看output的feature map的size。如果output feature map的size还是1 * 1 * N的话，这个layer就是fully connected layer</p>
+<li>
+<p>对于有filter的network，不是看filter的size，而是看output的feature map的size。如果output feature map的size还是1 * 1 * N的话，这个layer就是fully connected layer</p>
 <p><strong>解释第二个判断方法：</strong></p>
 <ul>
 <li>1 * 1的filter size不一定是fully connected。比如input size是10 * 10 * 100， filter size是1 * 1 * 100， 重复50次，则该layer的总weights是：1 * 1 * 100 * 50</li>
@@ -364,199 +305,130 @@
 <li>当1 *1不等于input size时，1 * 1一样具备weights share的能力。</li>
 </ul>
 
-      
     </div>
-    
-    
-    
 
     
-
+    
     
 
-    
+      <footer class="post-footer">
 
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/08/09/softmax-and-softmax-loss-and-BP/" rel="next" title="softmax and softmax-loss and BP">
-                <i class="fa fa-chevron-left"></i> softmax and softmax-loss and BP
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/09/卷积/" rel="prev" title="卷积在图像处理中的应用">
-                卷积在图像处理中的应用 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-
-
-
-        </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/08/09/softmax-and-softmax-loss-and-BP/" rel="prev" title="softmax and softmax-loss and BP">
+      <i class="fa fa-chevron-left"></i> softmax and softmax-loss and BP
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/08/09/卷积/" rel="next" title="卷积在图像处理中的应用">
+      卷积在图像处理中的应用 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
 
-  <aside id="sidebar" class="sidebar">
-    
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
-      
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Mariana</p>
-              <p class="site-description motion-element" itemprop="description">a study blog</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">124</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Center-Loss"><span class="nav-number">1.</span> <span class="nav-text">Center Loss</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-简介"><span class="nav-number">1.1.</span> <span class="nav-text">一. 简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-为什么要使用Center-Loss？"><span class="nav-number">1.2.</span> <span class="nav-text">二. 为什么要使用Center Loss？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-如何使学到的特征差异化更大——Center-Loss"><span class="nav-number">1.3.</span> <span class="nav-text">三. 如何使学到的特征差异化更大——Center Loss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-Center-Loss的实现"><span class="nav-number">1.4.</span> <span class="nav-text">四. Center Loss的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fully-connected-和-local-connected"><span class="nav-number">1.4.1.</span> <span class="nav-text">fully-connected 和 local-connected</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#判断fully-connected的方法："><span class="nav-number">1.4.1.1.</span> <span class="nav-text">判断fully-connected的方法：</span></a></li></ol></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#center-loss"><span class="nav-number">1.</span> <span class="nav-text"> Center Loss</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-简介"><span class="nav-number">1.1.</span> <span class="nav-text"> 一. 简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-为什么要使用center-loss"><span class="nav-number">1.2.</span> <span class="nav-text"> 二. 为什么要使用Center Loss？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-如何使学到的特征差异化更大center-loss"><span class="nav-number">1.3.</span> <span class="nav-text"> 三. 如何使学到的特征差异化更大——Center Loss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-center-loss的实现"><span class="nav-number">1.4.</span> <span class="nav-text"> 四. Center Loss的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fully-connected-和-local-connected"><span class="nav-number">1.4.1.</span> <span class="nav-text"> fully-connected 和 local-connected</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#判断fully-connected的方法"><span class="nav-number">1.4.1.1.</span> <span class="nav-text"> 判断fully-connected的方法：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
       <!--/noindex-->
-      
 
-      
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Woojoo"
+      src="/uploads/logo.jpg">
+  <p class="site-author-name" itemprop="name">Woojoo</p>
+  <div class="site-description" itemprop="description">a study blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
 
     </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Mariana</span>
-
-  
+  <span class="author" itemprop="copyrightHolder">Woojoo</span>
 </div>
-
-
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
-
-
-
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
   <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
-
-
-
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
 
         
+
 
 
 
@@ -567,156 +439,67 @@
         
       </div>
     </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
   </div>
 
   
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'aKRj8pzPJm0LdONJb0Ci0U5L-gzGzoHsz',
+    appKey: 'vA8nbcq2HgWrqovGq6LwXRG1',
+    placeholder: "Just go go",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
 </script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
 
 </body>
 </html>

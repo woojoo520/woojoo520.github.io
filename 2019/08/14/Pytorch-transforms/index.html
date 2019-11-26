@@ -1,129 +1,77 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Celery Fairy" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
 
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hexo, NexT">
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="Transfroms1. 裁剪——Crop1.1 随机裁剪：transforms.RandomCrop() torchvision.transforms.RandomCrop(size, padding=None, pad_if_needed=False, fill=0, padding_mode=&amp;#39;constant&amp;#39;)  功能：依据给定的size随机裁剪  参数：  size-(">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Pytorch transforms">
-<meta property="og:url" content="https://woojoo520.github.io/2019/08/14/Pytorch-transforms/index.html">
-<meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="Transfroms1. 裁剪——Crop1.1 随机裁剪：transforms.RandomCrop() torchvision.transforms.RandomCrop(size, padding=None, pad_if_needed=False, fill=0, padding_mode=&amp;#39;constant&amp;#39;)  功能：依据给定的size随机裁剪  参数：  size-(">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-15T02:05:14.339Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Pytorch transforms">
-<meta name="twitter:description" content="Transfroms1. 裁剪——Crop1.1 随机裁剪：transforms.RandomCrop() torchvision.transforms.RandomCrop(size, padding=None, pad_if_needed=False, fill=0, padding_mode=&amp;#39;constant&amp;#39;)  功能：依据给定的size随机裁剪  参数：  size-(">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
+    hostname: new URL('https://woojoo520.github.io').hostname,
     root: '/',
-    scheme: 'Muse',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
     algolia: {
-      applicationID: '',
+      appID: '',
       apiKey: '',
       indexName: '',
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
   };
 </script>
 
+  <meta name="description" content="Transfroms  1. 裁剪——Crop  1.1 随机裁剪：transforms.RandomCrop()   torchvision.transforms.RandomCrop(size, padding=None, pad_if_needed=False, fill=0, padding_mode=&apos;constant&apos;)   功能：依据给定的size随机裁剪   参数：   size">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pytorch transforms">
+<meta property="og:url" content="https://woojoo520.github.io/2019/08/14/Pytorch-transforms/index.html">
+<meta property="og:site_name" content="Celery Fairy">
+<meta property="og:description" content="Transfroms  1. 裁剪——Crop  1.1 随机裁剪：transforms.RandomCrop()   torchvision.transforms.RandomCrop(size, padding=None, pad_if_needed=False, fill=0, padding_mode=&apos;constant&apos;)   功能：依据给定的size随机裁剪   参数：   size">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-15T02:05:14.339Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pytorch transforms">
+<meta name="twitter:description" content="Transfroms  1. 裁剪——Crop  1.1 随机裁剪：transforms.RandomCrop()   torchvision.transforms.RandomCrop(size, padding=None, pad_if_needed=False, fill=0, padding_mode=&apos;constant&apos;)   功能：依据给定的size随机裁剪   参数：   size">
+
+<link rel="canonical" href="https://woojoo520.github.io/2019/08/14/Pytorch-transforms/">
 
 
-  <link rel="canonical" href="https://woojoo520.github.io/2019/08/14/Pytorch-transforms/">
-
-
-
-
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
 
   <title>Pytorch transforms | Celery Fairy</title>
   
@@ -133,171 +81,164 @@
 
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="default">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <a href="https://github.com/woojoo520" class="github-corner" aria-label="View source on GitHub">
-      <svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
-      </svg>
-    </a>
-    <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
+    <div>
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">Celery Fairy</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-      
         <p class="site-subtitle">Celery's Blog</p>
-      
   </div>
 
   <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
   </div>
 </div>
 
+
 <nav class="site-nav">
   
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            Home
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            Archives
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
 
-  
+  </li>
+  </ul>
+
 </nav>
-
-
-
- </div>
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-
+  <div class="posts-expand">
+      
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/14/Pytorch-transforms/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/uploads/logo.jpg">
+      <meta itemprop="name" content="Woojoo">
+      <meta itemprop="description" content="a study blog">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Celery Fairy">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Pytorch transforms</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          Pytorch transforms
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-14T14:59:19+08:00">
-                2019-08-14
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
+              <time title="创建时间：2019-08-14 14:59:19" itemprop="dateCreated datePublished" datetime="2019-08-14T14:59:19+08:00">2019-08-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-08-15 10:05:14" itemprop="dateModified" datetime="2019-08-15T10:05:14+08:00">2019-08-15</time>
+              </span>
 
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/08/14/Pytorch-transforms/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/14/Pytorch-transforms/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
-    
 
     
     
@@ -305,223 +246,186 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <h2 id="Transfroms"><a href="#Transfroms" class="headerlink" title="Transfroms"></a>Transfroms</h2><h3 id="1-裁剪——Crop"><a href="#1-裁剪——Crop" class="headerlink" title="1. 裁剪——Crop"></a>1. 裁剪——Crop</h3><h4 id="1-1-随机裁剪：transforms-RandomCrop"><a href="#1-1-随机裁剪：transforms-RandomCrop" class="headerlink" title="1.1 随机裁剪：transforms.RandomCrop()"></a>1.1 随机裁剪：transforms.RandomCrop()</h4><ul>
-<li><p><code>torchvision.transforms.RandomCrop(size, padding=None, pad_if_needed=False, fill=0, padding_mode=&#39;constant&#39;)</code></p>
+        <h2 id="transfroms"><a class="markdownIt-Anchor" href="#transfroms"></a> Transfroms</h2>
+<h3 id="1-裁剪crop"><a class="markdownIt-Anchor" href="#1-裁剪crop"></a> 1. 裁剪——Crop</h3>
+<h4 id="11-随机裁剪transformsrandomcrop"><a class="markdownIt-Anchor" href="#11-随机裁剪transformsrandomcrop"></a> 1.1 随机裁剪：transforms.RandomCrop()</h4>
 <ul>
-<li><p>功能：依据给定的size随机裁剪</p>
-</li>
-<li><p>参数：</p>
+<li>
+<p><code>torchvision.transforms.RandomCrop(size, padding=None, pad_if_needed=False, fill=0, padding_mode='constant')</code></p>
 <ul>
-<li><p><code>size-(sequence or int),若为sequence， 则为(h, w),若为int， 则(size, size)</code></p>
+<li>
+<p>功能：依据给定的size随机裁剪</p>
 </li>
-<li><p><code>padding-(sequence or int, optional)</code>,此参数是设置为多少个pixel，当为int时，图像上下左右均填充int个，例如<code>padding=4</code>，则上下左右均填充4个padding， 若为32 * 32，则会变成40 * 40；当为sequence时，若有两个数，则第一个数表示左右扩充多少，第二个数表示上下的，当有4个数是，则为左、上、右、下</p>
+<li>
+<p>参数：</p>
+<ul>
+<li>
+<p><code>size-(sequence or int),若为sequence， 则为(h, w),若为int， 则(size, size)</code></p>
 </li>
-<li><p><code>fill-(int or tuple)</code>，填充的值是什么（仅当填充模式为constant时有用）。int时，各通道均填充该值，当长度为3的tuple时，表示RGB通道需要填充的值</p>
+<li>
+<p><code>padding-(sequence or int, optional)</code>,此参数是设置为多少个pixel，当为int时，图像上下左右均填充int个，例如<code>padding=4</code>，则上下左右均填充4个padding， 若为32 * 32，则会变成40 * 40；当为sequence时，若有两个数，则第一个数表示左右扩充多少，第二个数表示上下的，当有4个数是，则为左、上、右、下</p>
 </li>
-<li><p><code>padding-mode</code>,填充模式（constant（常量）， edge（按照图片边缘的像素值来填充），reflect， symmetric）</p>
+<li>
+<p><code>fill-(int or tuple)</code>，填充的值是什么（仅当填充模式为constant时有用）。int时，各通道均填充该值，当长度为3的tuple时，表示RGB通道需要填充的值</p>
+</li>
+<li>
+<p><code>padding-mode</code>,填充模式（constant（常量）， edge（按照图片边缘的像素值来填充），reflect， symmetric）</p>
 </li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<h4 id="1-2-中心裁剪：transforms-CenterCrop"><a href="#1-2-中心裁剪：transforms-CenterCrop" class="headerlink" title="1.2 中心裁剪：transforms.CenterCrop()"></a>1.2 中心裁剪：transforms.CenterCrop()</h4><h4 id="1-3-随机长宽比裁剪-transforms-RandomResizedCrop"><a href="#1-3-随机长宽比裁剪-transforms-RandomResizedCrop" class="headerlink" title="1.3 随机长宽比裁剪 transforms.RandomResizedCrop()"></a>1.3 随机长宽比裁剪 transforms.RandomResizedCrop()</h4><h4 id="1-4-上下左右中心裁剪：transforms-FiveCrop"><a href="#1-4-上下左右中心裁剪：transforms-FiveCrop" class="headerlink" title="1.4 上下左右中心裁剪：transforms.FiveCrop()"></a>1.4 上下左右中心裁剪：transforms.FiveCrop()</h4><h4 id="1-5-上下左右中心裁剪后翻转：transform-TenCrop"><a href="#1-5-上下左右中心裁剪后翻转：transform-TenCrop" class="headerlink" title="1.5 上下左右中心裁剪后翻转：transform.TenCrop()"></a>1.5 上下左右中心裁剪后翻转：transform.TenCrop()</h4><h3 id="2-翻转和旋转——Flip-and-Rotation"><a href="#2-翻转和旋转——Flip-and-Rotation" class="headerlink" title="2. 翻转和旋转——Flip and Rotation"></a>2. 翻转和旋转——Flip and Rotation</h3><h4 id="2-1-依概率p水平翻转-transfroms-RandomHorizontalFlip"><a href="#2-1-依概率p水平翻转-transfroms-RandomHorizontalFlip" class="headerlink" title="2.1 依概率p水平翻转 transfroms. RandomHorizontalFlip()"></a>2.1 依概率p水平翻转 transfroms. RandomHorizontalFlip()</h4><h4 id="2-2-依概率p垂直翻转-transforms-RandomVerticalFlip"><a href="#2-2-依概率p垂直翻转-transforms-RandomVerticalFlip" class="headerlink" title="2.2 依概率p垂直翻转 transforms.RandomVerticalFlip()"></a>2.2 依概率p垂直翻转 transforms.RandomVerticalFlip()</h4><h4 id="2-3-随机旋转-transforms-RandomRotation"><a href="#2-3-随机旋转-transforms-RandomRotation" class="headerlink" title="2.3 随机旋转 transforms.RandomRotation()"></a>2.3 随机旋转 transforms.RandomRotation()</h4><h3 id="3-图像变换"><a href="#3-图像变换" class="headerlink" title="3. 图像变换"></a>3. 图像变换</h3><h4 id="3-1-resize-transform-Resize"><a href="#3-1-resize-transform-Resize" class="headerlink" title="3.1 resize  transform.Resize"></a>3.1 resize  transform.Resize</h4><h4 id="3-2-标准化-transform-Normalize"><a href="#3-2-标准化-transform-Normalize" class="headerlink" title="3.2 标准化 transform.Normalize"></a>3.2 标准化 transform.Normalize</h4><h4 id="3-3-转为tensor-transforms-ToTensor"><a href="#3-3-转为tensor-transforms-ToTensor" class="headerlink" title="3.3 转为tensor transforms.ToTensor"></a>3.3 转为tensor transforms.ToTensor</h4><h4 id="3-4-填充-transforms-Pad"><a href="#3-4-填充-transforms-Pad" class="headerlink" title="3.4 填充 transforms.Pad"></a>3.4 填充 transforms.Pad</h4><h4 id="3-5-修改亮度、对比度和饱和度-transforms-ColorJitter"><a href="#3-5-修改亮度、对比度和饱和度-transforms-ColorJitter" class="headerlink" title="3.5 修改亮度、对比度和饱和度 transforms.ColorJitter()"></a>3.5 修改亮度、对比度和饱和度 transforms.ColorJitter()</h4><h4 id="3-6-转灰度图-transforms-GrayScale"><a href="#3-6-转灰度图-transforms-GrayScale" class="headerlink" title="3.6 转灰度图 transforms.GrayScale"></a>3.6 转灰度图 transforms.GrayScale</h4><h4 id="3-7-线性变换-transforms-LinearTransformation"><a href="#3-7-线性变换-transforms-LinearTransformation" class="headerlink" title="3.7 线性变换 transforms.LinearTransformation()"></a>3.7 线性变换 transforms.LinearTransformation()</h4><h4 id="3-8-放射变换-transform-RandomAffine"><a href="#3-8-放射变换-transform-RandomAffine" class="headerlink" title="3.8 放射变换 transform.RandomAffine"></a>3.8 放射变换 transform.RandomAffine</h4><h4 id="3-9-依概率p转为灰度图-transforms-RandomGrayScale"><a href="#3-9-依概率p转为灰度图-transforms-RandomGrayScale" class="headerlink" title="3.9 依概率p转为灰度图 transforms.RandomGrayScale"></a>3.9 依概率p转为灰度图 transforms.RandomGrayScale</h4><h4 id="3-10-将数据转换为PILImage-transforms-ToPILImage"><a href="#3-10-将数据转换为PILImage-transforms-ToPILImage" class="headerlink" title="3.10 将数据转换为PILImage transforms.ToPILImage"></a>3.10 将数据转换为PILImage transforms.ToPILImage</h4><h4 id="3-11-transforms-Lambda"><a href="#3-11-transforms-Lambda" class="headerlink" title="3.11 transforms.Lambda"></a>3.11 transforms.Lambda</h4><h3 id="4-对transforms操作，使数据增强更灵活"><a href="#4-对transforms操作，使数据增强更灵活" class="headerlink" title="4. 对transforms操作，使数据增强更灵活"></a>4. 对transforms操作，使数据增强更灵活</h3><h4 id="4-1-transforms-RandomChoice-transfroms"><a href="#4-1-transforms-RandomChoice-transfroms" class="headerlink" title="4.1 transforms.RandomChoice(transfroms)"></a>4.1 transforms.RandomChoice(transfroms)</h4><h4 id="4-2-transforms-RandomApply-transforms-p-0-5"><a href="#4-2-transforms-RandomApply-transforms-p-0-5" class="headerlink" title="4.2 transforms.RandomApply(transforms, p=0.5)"></a>4.2 transforms.RandomApply(transforms, p=0.5)</h4><h4 id="4-3-transforms-RandomOrder"><a href="#4-3-transforms-RandomOrder" class="headerlink" title="4.3 transforms.RandomOrder"></a>4.3 transforms.RandomOrder</h4><h4 id><a href="#" class="headerlink" title=" "></a> </h4>
-      
+<h4 id="12-中心裁剪transformscentercrop"><a class="markdownIt-Anchor" href="#12-中心裁剪transformscentercrop"></a> 1.2 中心裁剪：transforms.CenterCrop()</h4>
+<h4 id="13-随机长宽比裁剪-transformsrandomresizedcrop"><a class="markdownIt-Anchor" href="#13-随机长宽比裁剪-transformsrandomresizedcrop"></a> 1.3 随机长宽比裁剪 transforms.RandomResizedCrop()</h4>
+<h4 id="14-上下左右中心裁剪transformsfivecrop"><a class="markdownIt-Anchor" href="#14-上下左右中心裁剪transformsfivecrop"></a> 1.4 上下左右中心裁剪：transforms.FiveCrop()</h4>
+<h4 id="15-上下左右中心裁剪后翻转transformtencrop"><a class="markdownIt-Anchor" href="#15-上下左右中心裁剪后翻转transformtencrop"></a> 1.5 上下左右中心裁剪后翻转：transform.TenCrop()</h4>
+<h3 id="2-翻转和旋转flip-and-rotation"><a class="markdownIt-Anchor" href="#2-翻转和旋转flip-and-rotation"></a> 2. 翻转和旋转——Flip and Rotation</h3>
+<h4 id="21-依概率p水平翻转-transfroms-randomhorizontalflip"><a class="markdownIt-Anchor" href="#21-依概率p水平翻转-transfroms-randomhorizontalflip"></a> 2.1 依概率p水平翻转 transfroms. RandomHorizontalFlip()</h4>
+<h4 id="22-依概率p垂直翻转-transformsrandomverticalflip"><a class="markdownIt-Anchor" href="#22-依概率p垂直翻转-transformsrandomverticalflip"></a> 2.2 依概率p垂直翻转 transforms.RandomVerticalFlip()</h4>
+<h4 id="23-随机旋转-transformsrandomrotation"><a class="markdownIt-Anchor" href="#23-随机旋转-transformsrandomrotation"></a> 2.3 随机旋转 transforms.RandomRotation()</h4>
+<h3 id="3-图像变换"><a class="markdownIt-Anchor" href="#3-图像变换"></a> 3. 图像变换</h3>
+<h4 id="31-resize-transformresize"><a class="markdownIt-Anchor" href="#31-resize-transformresize"></a> 3.1 resize  transform.Resize</h4>
+<h4 id="32-标准化-transformnormalize"><a class="markdownIt-Anchor" href="#32-标准化-transformnormalize"></a> 3.2 标准化 transform.Normalize</h4>
+<h4 id="33-转为tensor-transformstotensor"><a class="markdownIt-Anchor" href="#33-转为tensor-transformstotensor"></a> 3.3 转为tensor transforms.ToTensor</h4>
+<h4 id="34-填充-transformspad"><a class="markdownIt-Anchor" href="#34-填充-transformspad"></a> 3.4 填充 transforms.Pad</h4>
+<h4 id="35-修改亮度-对比度和饱和度-transformscolorjitter"><a class="markdownIt-Anchor" href="#35-修改亮度-对比度和饱和度-transformscolorjitter"></a> 3.5 修改亮度、对比度和饱和度 transforms.ColorJitter()</h4>
+<h4 id="36-转灰度图-transformsgrayscale"><a class="markdownIt-Anchor" href="#36-转灰度图-transformsgrayscale"></a> 3.6 转灰度图 transforms.GrayScale</h4>
+<h4 id="37-线性变换-transformslineartransformation"><a class="markdownIt-Anchor" href="#37-线性变换-transformslineartransformation"></a> 3.7 线性变换 transforms.LinearTransformation()</h4>
+<h4 id="38-放射变换-transformrandomaffine"><a class="markdownIt-Anchor" href="#38-放射变换-transformrandomaffine"></a> 3.8 放射变换 transform.RandomAffine</h4>
+<h4 id="39-依概率p转为灰度图-transformsrandomgrayscale"><a class="markdownIt-Anchor" href="#39-依概率p转为灰度图-transformsrandomgrayscale"></a> 3.9 依概率p转为灰度图 transforms.RandomGrayScale</h4>
+<h4 id="310-将数据转换为pilimage-transformstopilimage"><a class="markdownIt-Anchor" href="#310-将数据转换为pilimage-transformstopilimage"></a> 3.10 将数据转换为PILImage transforms.ToPILImage</h4>
+<h4 id="311-transformslambda"><a class="markdownIt-Anchor" href="#311-transformslambda"></a> 3.11 transforms.Lambda</h4>
+<h3 id="4-对transforms操作使数据增强更灵活"><a class="markdownIt-Anchor" href="#4-对transforms操作使数据增强更灵活"></a> 4. 对transforms操作，使数据增强更灵活</h3>
+<h4 id="41-transformsrandomchoicetransfroms"><a class="markdownIt-Anchor" href="#41-transformsrandomchoicetransfroms"></a> 4.1 transforms.RandomChoice(transfroms)</h4>
+<h4 id="42-transformsrandomapplytransforms-p05"><a class="markdownIt-Anchor" href="#42-transformsrandomapplytransforms-p05"></a> 4.2 transforms.RandomApply(transforms, p=0.5)</h4>
+<h4 id="43-transformsrandomorder"><a class="markdownIt-Anchor" href="#43-transformsrandomorder"></a> 4.3 transforms.RandomOrder</h4>
+<h4 id><a class="markdownIt-Anchor" href="#"></a> </h4>
+
     </div>
-    
-    
-    
 
     
-
+    
     
 
-    
+      <footer class="post-footer">
 
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/08/14/Something-about-PyTorch/" rel="next" title="Something about PyTorch">
-                <i class="fa fa-chevron-left"></i> Something about PyTorch
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/15/常见的loss函数-TV-Loss/" rel="prev" title="常见的loss函数-TV_Loss">
-                常见的loss函数-TV_Loss <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-
-
-
-        </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/08/14/Something-about-PyTorch/" rel="prev" title="Something about PyTorch">
+      <i class="fa fa-chevron-left"></i> Something about PyTorch
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/08/15/常见的loss函数-TV-Loss/" rel="next" title="常见的loss函数-TV_Loss">
+      常见的loss函数-TV_Loss <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
 
-  <aside id="sidebar" class="sidebar">
-    
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
-      
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Mariana</p>
-              <p class="site-description motion-element" itemprop="description">a study blog</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">124</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Transfroms"><span class="nav-number">1.</span> <span class="nav-text">Transfroms</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-裁剪——Crop"><span class="nav-number">1.1.</span> <span class="nav-text">1. 裁剪——Crop</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-随机裁剪：transforms-RandomCrop"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 随机裁剪：transforms.RandomCrop()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-中心裁剪：transforms-CenterCrop"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 中心裁剪：transforms.CenterCrop()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-随机长宽比裁剪-transforms-RandomResizedCrop"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 随机长宽比裁剪 transforms.RandomResizedCrop()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-上下左右中心裁剪：transforms-FiveCrop"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4 上下左右中心裁剪：transforms.FiveCrop()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-上下左右中心裁剪后翻转：transform-TenCrop"><span class="nav-number">1.1.5.</span> <span class="nav-text">1.5 上下左右中心裁剪后翻转：transform.TenCrop()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-翻转和旋转——Flip-and-Rotation"><span class="nav-number">1.2.</span> <span class="nav-text">2. 翻转和旋转——Flip and Rotation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-依概率p水平翻转-transfroms-RandomHorizontalFlip"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 依概率p水平翻转 transfroms. RandomHorizontalFlip()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-依概率p垂直翻转-transforms-RandomVerticalFlip"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 依概率p垂直翻转 transforms.RandomVerticalFlip()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-随机旋转-transforms-RandomRotation"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 随机旋转 transforms.RandomRotation()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-图像变换"><span class="nav-number">1.3.</span> <span class="nav-text">3. 图像变换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-resize-transform-Resize"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 resize  transform.Resize</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-标准化-transform-Normalize"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 标准化 transform.Normalize</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-转为tensor-transforms-ToTensor"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 转为tensor transforms.ToTensor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-填充-transforms-Pad"><span class="nav-number">1.3.4.</span> <span class="nav-text">3.4 填充 transforms.Pad</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-修改亮度、对比度和饱和度-transforms-ColorJitter"><span class="nav-number">1.3.5.</span> <span class="nav-text">3.5 修改亮度、对比度和饱和度 transforms.ColorJitter()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-6-转灰度图-transforms-GrayScale"><span class="nav-number">1.3.6.</span> <span class="nav-text">3.6 转灰度图 transforms.GrayScale</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-7-线性变换-transforms-LinearTransformation"><span class="nav-number">1.3.7.</span> <span class="nav-text">3.7 线性变换 transforms.LinearTransformation()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-8-放射变换-transform-RandomAffine"><span class="nav-number">1.3.8.</span> <span class="nav-text">3.8 放射变换 transform.RandomAffine</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-9-依概率p转为灰度图-transforms-RandomGrayScale"><span class="nav-number">1.3.9.</span> <span class="nav-text">3.9 依概率p转为灰度图 transforms.RandomGrayScale</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-10-将数据转换为PILImage-transforms-ToPILImage"><span class="nav-number">1.3.10.</span> <span class="nav-text">3.10 将数据转换为PILImage transforms.ToPILImage</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-11-transforms-Lambda"><span class="nav-number">1.3.11.</span> <span class="nav-text">3.11 transforms.Lambda</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-对transforms操作，使数据增强更灵活"><span class="nav-number">1.4.</span> <span class="nav-text">4. 对transforms操作，使数据增强更灵活</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-transforms-RandomChoice-transfroms"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 transforms.RandomChoice(transfroms)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-transforms-RandomApply-transforms-p-0-5"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2 transforms.RandomApply(transforms, p=0.5)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-transforms-RandomOrder"><span class="nav-number">1.4.3.</span> <span class="nav-text">4.3 transforms.RandomOrder</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#null"><span class="nav-number">1.4.4.</span> <span class="nav-text"> </span></a></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#transfroms"><span class="nav-number">1.</span> <span class="nav-text"> Transfroms</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-裁剪crop"><span class="nav-number">1.1.</span> <span class="nav-text"> 1. 裁剪——Crop</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#11-随机裁剪transformsrandomcrop"><span class="nav-number">1.1.1.</span> <span class="nav-text"> 1.1 随机裁剪：transforms.RandomCrop()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-中心裁剪transformscentercrop"><span class="nav-number">1.1.2.</span> <span class="nav-text"> 1.2 中心裁剪：transforms.CenterCrop()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-随机长宽比裁剪-transformsrandomresizedcrop"><span class="nav-number">1.1.3.</span> <span class="nav-text"> 1.3 随机长宽比裁剪 transforms.RandomResizedCrop()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-上下左右中心裁剪transformsfivecrop"><span class="nav-number">1.1.4.</span> <span class="nav-text"> 1.4 上下左右中心裁剪：transforms.FiveCrop()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-上下左右中心裁剪后翻转transformtencrop"><span class="nav-number">1.1.5.</span> <span class="nav-text"> 1.5 上下左右中心裁剪后翻转：transform.TenCrop()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-翻转和旋转flip-and-rotation"><span class="nav-number">1.2.</span> <span class="nav-text"> 2. 翻转和旋转——Flip and Rotation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#21-依概率p水平翻转-transfroms-randomhorizontalflip"><span class="nav-number">1.2.1.</span> <span class="nav-text"> 2.1 依概率p水平翻转 transfroms. RandomHorizontalFlip()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#22-依概率p垂直翻转-transformsrandomverticalflip"><span class="nav-number">1.2.2.</span> <span class="nav-text"> 2.2 依概率p垂直翻转 transforms.RandomVerticalFlip()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#23-随机旋转-transformsrandomrotation"><span class="nav-number">1.2.3.</span> <span class="nav-text"> 2.3 随机旋转 transforms.RandomRotation()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-图像变换"><span class="nav-number">1.3.</span> <span class="nav-text"> 3. 图像变换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#31-resize-transformresize"><span class="nav-number">1.3.1.</span> <span class="nav-text"> 3.1 resize  transform.Resize</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#32-标准化-transformnormalize"><span class="nav-number">1.3.2.</span> <span class="nav-text"> 3.2 标准化 transform.Normalize</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#33-转为tensor-transformstotensor"><span class="nav-number">1.3.3.</span> <span class="nav-text"> 3.3 转为tensor transforms.ToTensor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#34-填充-transformspad"><span class="nav-number">1.3.4.</span> <span class="nav-text"> 3.4 填充 transforms.Pad</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#35-修改亮度-对比度和饱和度-transformscolorjitter"><span class="nav-number">1.3.5.</span> <span class="nav-text"> 3.5 修改亮度、对比度和饱和度 transforms.ColorJitter()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#36-转灰度图-transformsgrayscale"><span class="nav-number">1.3.6.</span> <span class="nav-text"> 3.6 转灰度图 transforms.GrayScale</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#37-线性变换-transformslineartransformation"><span class="nav-number">1.3.7.</span> <span class="nav-text"> 3.7 线性变换 transforms.LinearTransformation()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#38-放射变换-transformrandomaffine"><span class="nav-number">1.3.8.</span> <span class="nav-text"> 3.8 放射变换 transform.RandomAffine</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#39-依概率p转为灰度图-transformsrandomgrayscale"><span class="nav-number">1.3.9.</span> <span class="nav-text"> 3.9 依概率p转为灰度图 transforms.RandomGrayScale</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#310-将数据转换为pilimage-transformstopilimage"><span class="nav-number">1.3.10.</span> <span class="nav-text"> 3.10 将数据转换为PILImage transforms.ToPILImage</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#311-transformslambda"><span class="nav-number">1.3.11.</span> <span class="nav-text"> 3.11 transforms.Lambda</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-对transforms操作使数据增强更灵活"><span class="nav-number">1.4.</span> <span class="nav-text"> 4. 对transforms操作，使数据增强更灵活</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#41-transformsrandomchoicetransfroms"><span class="nav-number">1.4.1.</span> <span class="nav-text"> 4.1 transforms.RandomChoice(transfroms)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#42-transformsrandomapplytransforms-p05"><span class="nav-number">1.4.2.</span> <span class="nav-text"> 4.2 transforms.RandomApply(transforms, p=0.5)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#43-transformsrandomorder"><span class="nav-number">1.4.3.</span> <span class="nav-text"> 4.3 transforms.RandomOrder</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#null"><span class="nav-number">1.4.4.</span> <span class="nav-text"> </span></a></li></ol></li></ol></li></ol></div>
+      </div>
       <!--/noindex-->
-      
 
-      
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Woojoo"
+      src="/uploads/logo.jpg">
+  <p class="site-author-name" itemprop="name">Woojoo</p>
+  <div class="site-description" itemprop="description">a study blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
 
     </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Mariana</span>
-
-  
+  <span class="author" itemprop="copyrightHolder">Woojoo</span>
 </div>
-
-
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
-
-
-
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
   <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
-
-
-
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
 
         
+
 
 
 
@@ -532,156 +436,67 @@
         
       </div>
     </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
   </div>
 
   
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'aKRj8pzPJm0LdONJb0Ci0U5L-gzGzoHsz',
+    appKey: 'vA8nbcq2HgWrqovGq6LwXRG1',
+    placeholder: "Just go go",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
 </script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
 
 </body>
 </html>

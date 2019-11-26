@@ -1,91 +1,59 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Celery Fairy" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
 
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://woojoo520.github.io').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
 
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hexo, NexT">
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="cGAN为什么要有cGAN？首先，GAN虽然厉害，但有个问题，其生成模型生成的样本完全是随机的，也就是完全取决于输入的噪声z，根本无法预测会生成数字1还是数字2.因此偶人提出了条件GAN，其思想也很简单，就是想要生成哪个数字，你输入的时候告诉我你想要的标签即可。为了达到这个目标，在训练的时候，就要加上标签。也就是G想要伪造数字1，就要在原本的z向量后面加十维的one-hot向量，在D那里也是，要判">
+  <meta name="description" content="cGAN  为什么要有cGAN？ 首先，GAN虽然厉害，但有个问题，其生成模型生成的样本完全是随机的，也就是完全取决于输入的噪声z，根本无法预测会生成数字1还是数字2.因此偶人提出了条件GAN，其思想也很简单，就是想要生成哪个数字，你输入的时候告诉我你想要的标签即可。为了达到这个目标，在训练的时候，就要加上标签。也就是G想要伪造数字1，就要在原本的z向量后面加十维的one-hot向量，在D那里也">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cGAN">
 <meta property="og:url" content="https://woojoo520.github.io/2019/09/25/cGAN/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="cGAN为什么要有cGAN？首先，GAN虽然厉害，但有个问题，其生成模型生成的样本完全是随机的，也就是完全取决于输入的噪声z，根本无法预测会生成数字1还是数字2.因此偶人提出了条件GAN，其思想也很简单，就是想要生成哪个数字，你输入的时候告诉我你想要的标签即可。为了达到这个目标，在训练的时候，就要加上标签。也就是G想要伪造数字1，就要在原本的z向量后面加十维的one-hot向量，在D那里也是，要判">
-<meta property="og:locale" content="default">
+<meta property="og:description" content="cGAN  为什么要有cGAN？ 首先，GAN虽然厉害，但有个问题，其生成模型生成的样本完全是随机的，也就是完全取决于输入的噪声z，根本无法预测会生成数字1还是数字2.因此偶人提出了条件GAN，其思想也很简单，就是想要生成哪个数字，你输入的时候告诉我你想要的标签即可。为了达到这个目标，在训练的时候，就要加上标签。也就是G想要伪造数字1，就要在原本的z向量后面加十维的one-hot向量，在D那里也">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://pic4.zhimg.com/v2-b112245a817b2e813a65cdb3fe4620eb_b.jpg">
 <meta property="og:image" content="https://pic1.zhimg.com/v2-ec6da03ab4ea2b7eb4cb7b32bb81b428_b.jpg">
 <meta property="og:image" content="https://pic4.zhimg.com/v2-2e71198971ecf978048df60d6862dfef_b.jpg">
@@ -93,42 +61,22 @@
 <meta property="og:updated_time" content="2019-09-26T23:30:54.558Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cGAN">
-<meta name="twitter:description" content="cGAN为什么要有cGAN？首先，GAN虽然厉害，但有个问题，其生成模型生成的样本完全是随机的，也就是完全取决于输入的噪声z，根本无法预测会生成数字1还是数字2.因此偶人提出了条件GAN，其思想也很简单，就是想要生成哪个数字，你输入的时候告诉我你想要的标签即可。为了达到这个目标，在训练的时候，就要加上标签。也就是G想要伪造数字1，就要在原本的z向量后面加十维的one-hot向量，在D那里也是，要判">
+<meta name="twitter:description" content="cGAN  为什么要有cGAN？ 首先，GAN虽然厉害，但有个问题，其生成模型生成的样本完全是随机的，也就是完全取决于输入的噪声z，根本无法预测会生成数字1还是数字2.因此偶人提出了条件GAN，其思想也很简单，就是想要生成哪个数字，你输入的时候告诉我你想要的标签即可。为了达到这个目标，在训练的时候，就要加上标签。也就是G想要伪造数字1，就要在原本的z向量后面加十维的one-hot向量，在D那里也">
 <meta name="twitter:image" content="https://pic4.zhimg.com/v2-b112245a817b2e813a65cdb3fe4620eb_b.jpg">
 
+<link rel="canonical" href="https://woojoo520.github.io/2019/09/25/cGAN/">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
   };
 </script>
-
-
-
-  <link rel="canonical" href="https://woojoo520.github.io/2019/09/25/cGAN/">
-
-
-
-
 
   <title>cGAN | Celery Fairy</title>
   
@@ -138,171 +86,164 @@
 
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="default">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <a href="https://github.com/woojoo520" class="github-corner" aria-label="View source on GitHub">
-      <svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
-      </svg>
-    </a>
-    <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
+    <div>
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">Celery Fairy</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-      
         <p class="site-subtitle">Celery's Blog</p>
-      
   </div>
 
   <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
   </div>
 </div>
 
+
 <nav class="site-nav">
   
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            Home
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            Archives
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
 
-  
+  </li>
+  </ul>
+
 </nav>
-
-
-
- </div>
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-
+  <div class="posts-expand">
+      
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/25/cGAN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/uploads/logo.jpg">
+      <meta itemprop="name" content="Woojoo">
+      <meta itemprop="description" content="a study blog">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Celery Fairy">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">cGAN</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          cGAN
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-25T21:17:11+08:00">
-                2019-09-25
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
+              <time title="创建时间：2019-09-25 21:17:11" itemprop="dateCreated datePublished" datetime="2019-09-25T21:17:11+08:00">2019-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-09-27 07:30:54" itemprop="dateModified" datetime="2019-09-27T07:30:54+08:00">2019-09-27</time>
+              </span>
 
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/09/25/cGAN/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/25/cGAN/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
-    
 
     
     
@@ -310,17 +251,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <h2 id="cGAN"><a href="#cGAN" class="headerlink" title="cGAN"></a>cGAN</h2><h3 id="为什么要有cGAN？"><a href="#为什么要有cGAN？" class="headerlink" title="为什么要有cGAN？"></a>为什么要有cGAN？</h3><p>首先，GAN虽然厉害，但有个问题，其生成模型生成的样本完全是随机的，也就是完全取决于输入的噪声z，根本无法预测会生成数字1还是数字2.因此偶人提出了条件GAN，其思想也很简单，就是想要生成哪个数字，你输入的时候告诉我你想要的标签即可。为了达到这个目标，在训练的时候，就要加上标签。也就是G想要伪造数字1，就要在原本的z向量后面加十维的one-hot向量，在D那里也是，要判别什么，也要在尾部加上十维的one-hot向量</p>
+        <h2 id="cgan"><a class="markdownIt-Anchor" href="#cgan"></a> cGAN</h2>
+<h3 id="为什么要有cgan"><a class="markdownIt-Anchor" href="#为什么要有cgan"></a> 为什么要有cGAN？</h3>
+<p>首先，GAN虽然厉害，但有个问题，其生成模型生成的样本完全是随机的，也就是完全取决于输入的噪声z，根本无法预测会生成数字1还是数字2.因此偶人提出了条件GAN，其思想也很简单，就是想要生成哪个数字，你输入的时候告诉我你想要的标签即可。为了达到这个目标，在训练的时候，就要加上标签。也就是G想要伪造数字1，就要在原本的z向量后面加十维的one-hot向量，在D那里也是，要判别什么，也要在尾部加上十维的one-hot向量</p>
 <p><img src="https://pic4.zhimg.com/v2-b112245a817b2e813a65cdb3fe4620eb_b.jpg" alt="img"></p>
 <p>以上图为例，如果迷行的输入是文字，输出是图片，使用传统的做法会产生模糊的问题。比如输入火车，希望得到一张火车的图片，可是火车有侧面，有不同的形态，如果不加约束，则可能产生一张包含各种样式的火车的平均（模糊）图。</p>
-<p>​    GAN的机制是只要识别器能分辨得出一张图是人工生成的还是原图就行，所以不能确保输入火车就回生成火车图片，比如输入火车生成一张很逼真的猫图，生成器也会被认为是一个成功的生成器（GAN容易钻空子，即如果某种特定形式可以骗过生成器，生成器会倾向于生成这种模式）</p>
+<p>​	GAN的机制是只要识别器能分辨得出一张图是人工生成的还是原图就行，所以不能确保输入火车就回生成火车图片，比如输入火车生成一张很逼真的猫图，生成器也会被认为是一个成功的生成器（GAN容易钻空子，即如果某种特定形式可以骗过生成器，生成器会倾向于生成这种模式）</p>
 <p>生成器输出一张图片，然后将同样的语句（条件）和生成的图片一起输入识别器，关键是，识别器不仅需要分辨真假，还需要分辨出语句（条件）和图片是否匹配。总的来说有三种情况：</p>
-<p>原图 + 图和条件匹配   —-&gt;     高分</p>
-<p>原图 + 图和条件不匹配   —-&gt;     低分</p>
-<p>人工图      —-&gt;     低分</p>
+<p>原图 + 图和条件匹配   ----&gt; 	高分</p>
+<p>原图 + 图和条件不匹配   ----&gt; 	低分</p>
+<p>人工图      ----&gt; 	低分</p>
 <p><img src="https://pic1.zhimg.com/v2-ec6da03ab4ea2b7eb4cb7b32bb81b428_b.jpg" alt="img"></p>
 <p>通过这样的操作，可以确保输出样本和条件是匹配的</p>
 <p>CGAN有两种比较常用的结构：</p>
@@ -337,219 +277,146 @@
 <p>一些用到的函数的详解：</p>
 <p><code>torch.nn.Embedding(num_embeddings, emcedding_dim, padding_idx = None, max_norm = None, norm_type = 2, scale_grad_by_freq = False, sparse = False)</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Pytorch官网的解释是：一个保存了固定字典的带下和简单查找表。这个模块常用来保存字典嵌入和用下标检索它们。模块的输入是一个下标的列表，输出是对应的词嵌入</span></span><br><span class="line"><span class="comment"># 个人理解：这是一个矩阵类，里面初始化了一个随机矩阵，矩阵的长是字典的大小，宽是用来表示字典中每个元素的属性向量，向量的维度根据你想要的元素的复杂度而定。类实例化之后可以根据字典中元素的下标来查找元素对应的向量。例如输入下标0， 输出就是embeds矩阵中的第0行</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> torch</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>label = nn.Embedding(<span class="number">10</span>, <span class="number">10</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>label(Variable(torch.LongTensor([<span class="number">4</span>])))</span><br><span class="line">tensor([[<span class="number">-0.6134</span>,  <span class="number">0.0528</span>,  <span class="number">2.4490</span>, <span class="number">-0.0294</span>,  <span class="number">1.2371</span>,  <span class="number">0.5792</span>, <span class="number">-1.2843</span>,  <span class="number">0.6881</span>,</span><br><span class="line">         <span class="number">-0.9275</span>,  <span class="number">1.2503</span>]], grad_fn=&lt;EmbeddingBackward&gt;)</span><br></pre></td></tr></table></figure>
-
-<p><code>nn.prod()</code>        连乘函数</p>
-<p><code>torch.cat()</code>    连接函数</p>
+<p><code>nn.prod()</code>		连乘函数</p>
+<p><code>torch.cat()</code>	连接函数</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = torch.randn(<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y = torch.randn(<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x</span><br><span class="line">tensor([[ <span class="number">2.2045</span>,  <span class="number">1.0283</span>,  <span class="number">0.7637</span>],</span><br><span class="line">        [ <span class="number">0.8578</span>, <span class="number">-0.8376</span>, <span class="number">-0.3780</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y</span><br><span class="line">tensor([[<span class="number">-0.5941</span>, <span class="number">-0.8588</span>,  <span class="number">0.9540</span>],</span><br><span class="line">        [<span class="number">-1.1115</span>,  <span class="number">0.3655</span>,  <span class="number">0.2471</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>torch.cat((x, y), <span class="number">0</span>)</span><br><span class="line">tensor([[ <span class="number">2.2045</span>,  <span class="number">1.0283</span>,  <span class="number">0.7637</span>],</span><br><span class="line">        [ <span class="number">0.8578</span>, <span class="number">-0.8376</span>, <span class="number">-0.3780</span>],</span><br><span class="line">        [<span class="number">-0.5941</span>, <span class="number">-0.8588</span>,  <span class="number">0.9540</span>],</span><br><span class="line">        [<span class="number">-1.1115</span>,  <span class="number">0.3655</span>,  <span class="number">0.2471</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>torch.cat((x, y), <span class="number">1</span>)</span><br><span class="line">tensor([[ <span class="number">2.2045</span>,  <span class="number">1.0283</span>,  <span class="number">0.7637</span>, <span class="number">-0.5941</span>, <span class="number">-0.8588</span>,  <span class="number">0.9540</span>],</span><br><span class="line">        [ <span class="number">0.8578</span>, <span class="number">-0.8376</span>, <span class="number">-0.3780</span>, <span class="number">-1.1115</span>,  <span class="number">0.3655</span>,  <span class="number">0.2471</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>torch.cat((x, y), <span class="number">-1</span>)</span><br><span class="line">tensor([[ <span class="number">2.2045</span>,  <span class="number">1.0283</span>,  <span class="number">0.7637</span>, <span class="number">-0.5941</span>, <span class="number">-0.8588</span>,  <span class="number">0.9540</span>],</span><br><span class="line">        [ <span class="number">0.8578</span>, <span class="number">-0.8376</span>, <span class="number">-0.3780</span>, <span class="number">-1.1115</span>,  <span class="number">0.3655</span>,  <span class="number">0.2471</span>]])</span><br><span class="line"><span class="comment"># torch.cat((), 0)	竖着连接</span></span><br><span class="line"><span class="comment"># torch.cat((), 1 or -1)	横着连接</span></span><br></pre></td></tr></table></figure>
-
 <p><code>numpy.random.randint(low, high, size)</code></p>
 <p>low、high、size三个参数。默认high是None，如果只有low，那范围就是<code>[0, low)</code>。如果有high，范围就是<code>[low, high)</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.random.randint(<span class="number">5</span>, <span class="number">16</span>, <span class="number">64</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">array([<span class="number">13</span>, <span class="number">14</span>, <span class="number">12</span>, <span class="number">15</span>,  <span class="number">8</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">11</span>, <span class="number">11</span>, <span class="number">10</span>, <span class="number">14</span>, <span class="number">15</span>,  <span class="number">8</span>, <span class="number">15</span>,  <span class="number">5</span>, <span class="number">12</span>,  <span class="number">6</span>,</span><br><span class="line">       <span class="number">15</span>,  <span class="number">9</span>,  <span class="number">5</span>,  <span class="number">5</span>, <span class="number">13</span>, <span class="number">13</span>,  <span class="number">8</span>, <span class="number">15</span>, <span class="number">10</span>, <span class="number">11</span>,  <span class="number">6</span>,  <span class="number">8</span>, <span class="number">15</span>,  <span class="number">9</span>,  <span class="number">9</span>,  <span class="number">9</span>,  <span class="number">5</span>,</span><br><span class="line">       <span class="number">13</span>, <span class="number">12</span>, <span class="number">12</span>,  <span class="number">8</span>,  <span class="number">5</span>, <span class="number">14</span>,  <span class="number">7</span>, <span class="number">15</span>, <span class="number">11</span>,  <span class="number">6</span>,  <span class="number">7</span>, <span class="number">12</span>, <span class="number">10</span>,  <span class="number">8</span>, <span class="number">10</span>,  <span class="number">5</span>, <span class="number">13</span>,</span><br><span class="line">        <span class="number">9</span>, <span class="number">14</span>,  <span class="number">8</span>,  <span class="number">7</span>,  <span class="number">6</span>,  <span class="number">7</span>,  <span class="number">6</span>,  <span class="number">6</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">15</span>, <span class="number">14</span>, <span class="number">10</span>])</span><br></pre></td></tr></table></figure>
-
 <p><code>np.random.normal(loc=0.0, scale=1.0, siez=None)</code></p>
 <p>loc：float，此概率分布的均值（对应整个分布的重心center）</p>
 <p>scale：float，此概率分布的标准差（对应于分布的宽度，scale越大越矮胖。scale越小，越瘦高）</p>
 <p>size：int or tuple of ints</p>
 <p>输出的shape，默认为None， 值输出一个值</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.random.normal(<span class="number">5</span>, <span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line"><span class="number">4.687275350809846</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.random.normal(<span class="number">5</span>, <span class="number">1</span>, [<span class="number">2</span>, <span class="number">2</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">array([[<span class="number">5.18009118</span>, <span class="number">4.91448971</span>],</span><br><span class="line">       [<span class="number">6.2771917</span> , <span class="number">5.15529855</span>]])</span><br></pre></td></tr></table></figure>
-
-<p>$IS(G) = exp(E_{x \sim p_g}D_{KL}(p(y|x)||p(y)))$</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mi>S</mi><mo stretchy="false">(</mo><mi>G</mi><mo stretchy="false">)</mo><mo>=</mo><mi>e</mi><mi>x</mi><mi>p</mi><mo stretchy="false">(</mo><msub><mi>E</mi><mrow><mi>x</mi><mo>∼</mo><msub><mi>p</mi><mi>g</mi></msub></mrow></msub><msub><mi>D</mi><mrow><mi>K</mi><mi>L</mi></mrow></msub><mo stretchy="false">(</mo><mi>p</mi><mo stretchy="false">(</mo><mi>y</mi><mi mathvariant="normal">∣</mi><mi>x</mi><mo stretchy="false">)</mo><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mi>p</mi><mo stretchy="false">(</mo><mi>y</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">IS(G) = exp(E_{x \sim p_g}D_{KL}(p(y|x)||p(y)))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mopen">(</span><span class="mord mathdefault">G</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.0973199999999999em;vertical-align:-0.34731999999999996em;"></span><span class="mord mathdefault">e</span><span class="mord mathdefault">x</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">x</span><span class="mrel mtight">∼</span><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285716em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">g</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2818857142857143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.34731999999999996em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.07153em;">K</span><span class="mord mathdefault mtight">L</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">∣</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mord">∣</span><span class="mord">∣</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></p>
 <p>$D(p||q) = \sum p(x) log \frac{p(x)} {q(x)} $</p>
-<p>$FID = ||u_r - u_g||^2 + T_r(\sum_r + \sum_g - 2(\sum_r - \sum_g)^{\frac{1} {2}})$</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mi>I</mi><mi>D</mi><mo>=</mo><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><msub><mi>u</mi><mi>r</mi></msub><mo>−</mo><msub><mi>u</mi><mi>g</mi></msub><mi mathvariant="normal">∣</mi><msup><mi mathvariant="normal">∣</mi><mn>2</mn></msup><mo>+</mo><msub><mi>T</mi><mi>r</mi></msub><mo stretchy="false">(</mo><msub><mo>∑</mo><mi>r</mi></msub><mo>+</mo><msub><mo>∑</mo><mi>g</mi></msub><mo>−</mo><mn>2</mn><mo stretchy="false">(</mo><msub><mo>∑</mo><mi>r</mi></msub><mo>−</mo><msub><mo>∑</mo><mi>g</mi></msub><msup><mo stretchy="false">)</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">FID = ||u_r - u_g||^2 + T_r(\sum_r + \sum_g - 2(\sum_r - \sum_g)^{\frac{1} {2}})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord">∣</span><span class="mord"><span class="mord mathdefault">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.1002159999999999em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">g</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord"><span class="mord">∣</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.3898380000000001em;vertical-align:-0.43581800000000004em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.0016819999999999613em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">+</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.0016819999999999613em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">g</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.43581800000000004em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">−</span><span class="mord">2</span><span class="mopen">(</span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.0016819999999999613em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">−</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.0016819999999999613em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">g</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.43581800000000004em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9540200000000001em;"><span style="top:-3.363em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8443142857142858em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
 
-      
     </div>
-    
-    
-    
 
     
-
+    
     
 
-    
+      <footer class="post-footer">
 
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/09/25/交叉熵/" rel="next" title="交叉熵">
-                <i class="fa fa-chevron-left"></i> 交叉熵
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/09/27/LeetCode-Day41/" rel="prev" title="LeetCode-Day41">
-                LeetCode-Day41 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-
-
-
-        </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/09/25/交叉熵/" rel="prev" title="交叉熵">
+      <i class="fa fa-chevron-left"></i> 交叉熵
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/09/27/LeetCode-Day41/" rel="next" title="LeetCode-Day41">
+      LeetCode-Day41 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
 
-  <aside id="sidebar" class="sidebar">
-    
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
-      
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Mariana</p>
-              <p class="site-description motion-element" itemprop="description">a study blog</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">124</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#cGAN"><span class="nav-number">1.</span> <span class="nav-text">cGAN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要有cGAN？"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要有cGAN？</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#cgan"><span class="nav-number">1.</span> <span class="nav-text"> cGAN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要有cgan"><span class="nav-number">1.1.</span> <span class="nav-text"> 为什么要有cGAN？</span></a></li></ol></li></ol></div>
+      </div>
       <!--/noindex-->
-      
 
-      
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Woojoo"
+      src="/uploads/logo.jpg">
+  <p class="site-author-name" itemprop="name">Woojoo</p>
+  <div class="site-description" itemprop="description">a study blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
 
     </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Mariana</span>
-
-  
+  <span class="author" itemprop="copyrightHolder">Woojoo</span>
 </div>
-
-
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
-
-
-
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
   <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
-
-
-
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
 
         
+
 
 
 
@@ -560,156 +427,67 @@
         
       </div>
     </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
   </div>
 
   
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'aKRj8pzPJm0LdONJb0Ci0U5L-gzGzoHsz',
+    appKey: 'vA8nbcq2HgWrqovGq6LwXRG1',
+    placeholder: "Just go go",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
 </script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
 
 </body>
 </html>

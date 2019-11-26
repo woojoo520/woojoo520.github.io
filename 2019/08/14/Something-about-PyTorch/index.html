@@ -1,91 +1,59 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Celery Fairy" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
 
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://woojoo520.github.io').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
 
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hexo, NexT">
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="Something about PyTorch torchvision.transfroms.Compose(trandforms) 将多个transform组合起来使用 例子： 1234transforms.Compose([	transfroms.CenterCrop(10), 	transforms.ToTensor(),])  OrderedDict 是dict的子类，其最大特征是，它可以">
+  <meta name="description" content="Something about PyTorch   torchvision.transfroms.Compose(trandforms) 将多个transform组合起来使用 例子： 1234transforms.Compose([	transfroms.CenterCrop(10), 	transforms.ToTensor(),])   OrderedDict 是dict的子类，其最大特征是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Something about PyTorch">
 <meta property="og:url" content="https://woojoo520.github.io/2019/08/14/Something-about-PyTorch/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="Something about PyTorch torchvision.transfroms.Compose(trandforms) 将多个transform组合起来使用 例子： 1234transforms.Compose([	transfroms.CenterCrop(10), 	transforms.ToTensor(),])  OrderedDict 是dict的子类，其最大特征是，它可以">
-<meta property="og:locale" content="default">
+<meta property="og:description" content="Something about PyTorch   torchvision.transfroms.Compose(trandforms) 将多个transform组合起来使用 例子： 1234transforms.Compose([	transfroms.CenterCrop(10), 	transforms.ToTensor(),])   OrderedDict 是dict的子类，其最大特征是">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="c:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565911499478.png">
 <meta property="og:image" content="c:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566006916935.png">
 <meta property="og:image" content="c:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566007285866.png">
@@ -94,42 +62,22 @@
 <meta property="og:updated_time" content="2019-08-17T05:56:57.748Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Something about PyTorch">
-<meta name="twitter:description" content="Something about PyTorch torchvision.transfroms.Compose(trandforms) 将多个transform组合起来使用 例子： 1234transforms.Compose([	transfroms.CenterCrop(10), 	transforms.ToTensor(),])  OrderedDict 是dict的子类，其最大特征是，它可以">
+<meta name="twitter:description" content="Something about PyTorch   torchvision.transfroms.Compose(trandforms) 将多个transform组合起来使用 例子： 1234transforms.Compose([	transfroms.CenterCrop(10), 	transforms.ToTensor(),])   OrderedDict 是dict的子类，其最大特征是">
 <meta name="twitter:image" content="c:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565911499478.png">
 
+<link rel="canonical" href="https://woojoo520.github.io/2019/08/14/Something-about-PyTorch/">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
   };
 </script>
-
-
-
-  <link rel="canonical" href="https://woojoo520.github.io/2019/08/14/Something-about-PyTorch/">
-
-
-
-
 
   <title>Something about PyTorch | Celery Fairy</title>
   
@@ -139,171 +87,164 @@
 
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="default">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <a href="https://github.com/woojoo520" class="github-corner" aria-label="View source on GitHub">
-      <svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
-      </svg>
-    </a>
-    <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
+    <div>
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">Celery Fairy</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-      
         <p class="site-subtitle">Celery's Blog</p>
-      
   </div>
 
   <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
   </div>
 </div>
 
+
 <nav class="site-nav">
   
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            Home
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            Archives
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
 
-  
+  </li>
+  </ul>
+
 </nav>
-
-
-
- </div>
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-
+  <div class="posts-expand">
+      
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/14/Something-about-PyTorch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mariana">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/uploads/logo.jpg">
+      <meta itemprop="name" content="Woojoo">
+      <meta itemprop="description" content="a study blog">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Celery Fairy">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Something about PyTorch</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          Something about PyTorch
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-14T14:50:32+08:00">
-                2019-08-14
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
+              <time title="创建时间：2019-08-14 14:50:32" itemprop="dateCreated datePublished" datetime="2019-08-14T14:50:32+08:00">2019-08-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-08-17 13:56:57" itemprop="dateModified" datetime="2019-08-17T13:56:57+08:00">2019-08-17</time>
+              </span>
 
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/08/14/Something-about-PyTorch/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/14/Something-about-PyTorch/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
-    
 
     
     
@@ -311,51 +252,55 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <h2 id="Something-about-PyTorch"><a href="#Something-about-PyTorch" class="headerlink" title="Something about PyTorch"></a>Something about PyTorch</h2><ul>
-<li><p><code>torchvision.transfroms.Compose(trandforms)</code></p>
+        <h2 id="something-about-pytorch"><a class="markdownIt-Anchor" href="#something-about-pytorch"></a> Something about PyTorch</h2>
+<ul>
+<li>
+<p><code>torchvision.transfroms.Compose(trandforms)</code></p>
 <p>将多个transform组合起来使用</p>
 <p>例子：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">transforms.Compose([</span><br><span class="line">	transfroms.CenterCrop(<span class="number">10</span>), </span><br><span class="line">	transforms.ToTensor(),</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><code>OrderedDict</code></p>
+<li>
+<p><code>OrderedDict</code></p>
 <p>是dict的子类，其最大特征是，它可以“维护”添加key-value对的额顺序。简单的来说，就是先添加的key-value对排在前面，后添加的key-value对排在后面</p>
 <p>由于OrderedDict能维护key-value对的添加顺序，因此即使两个OrderedDict照中的key-value对完全相同，但只要他们的顺序不同，程序在判断他们是否相等时也依然会返回false。</p>
 </li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> OrderedDict</span><br><span class="line">dx = OrderedDict(b=<span class="number">5</span>, c=<span class="number">2</span>, a=<span class="number">7</span>)</span><br><span class="line">print(dx)</span><br><span class="line">d = OrderedDict()</span><br><span class="line">d[<span class="string">'Python'</span>] = <span class="number">89</span></span><br><span class="line">d[<span class="string">'Swift'</span>] = <span class="number">92</span></span><br><span class="line">d[<span class="string">'Kotlin'</span>] = <span class="number">97</span></span><br><span class="line">d[<span class="string">'Go'</span>] = <span class="number">87</span></span><br><span class="line">print(d)</span><br><span class="line"><span class="keyword">for</span> k,v <span class="keyword">in</span> d.items():</span><br><span class="line">    print(k, v)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">OrderedDict([('b', 5), ('c', 2), ('a', 7)])</span></span><br><span class="line"><span class="string">OrderedDict([('Python', 89), ('Swift', 92), ('Kotlin', 97), ('Go', 87)])</span></span><br><span class="line"><span class="string">Python 89</span></span><br><span class="line"><span class="string">Swift 92</span></span><br><span class="line"><span class="string">Kotlin 97</span></span><br><span class="line"><span class="string">Go 87</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-
 <ul>
-<li><p><code>nn.LeakyReLU(inplace=True)</code></p>
+<li>
+<p><code>nn.LeakyReLU(inplace=True)</code></p>
 <p><code>inplace=True</code>的意思是进行原地操作，例如<code>x=x+5</code>对于x就是一个原地操作，<code>y=x+5; x=y</code>完成了与<code>x=x+5</code>同样的功能但不是原地操作，与上面的<code>inplace=True</code>的含义是一样的，是对于Conv2d这样的上层网络传递下来的tensor直接进行修改，好处就是可以节省运算内存</p>
 </li>
-</ul>
-<ul>
-<li><p><code>batch normalization层的实现机理：</code></p>
+<li>
+<p><code>batch normalization层的实现机理：</code></p>
 <p>假设我们在网络中间经过某些卷积操作之后输出的feature map的尺寸为4 * 3 * 2 * 2</p>
 <p>4为batch的大小， 3为channel的数目，2 * 2为feature map的长宽</p>
 <p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565911499478.png" alt="1565911499478"></p>
 <p>所以对于一个batch Normalization层而言，去求均值与方差是对于所有batch中的同一个channel进行求取，batch normalization中的batch体现在这个地方</p>
 <p>batch normalization层能够学习到的参数，对于一个特定的channel而言实际上是两个参数，gamma与beta，对于total的channel而言实际上是channel数目的两倍</p>
 </li>
-<li><p><code>meshgrid()</code></p>
+<li>
+<p><code>meshgrid()</code></p>
 <p>引入创建网格点的矩阵</p>
 <p>示例一：创建一个2行3列的网格点矩阵。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt </span><br><span class="line"></span><br><span class="line">X = np.array([[<span class="number">0</span>, <span class="number">0.5</span>, <span class="number">1</span>], [<span class="number">0</span>, <span class="number">0.5</span>, <span class="number">1</span>]])</span><br><span class="line">print(<span class="string">"X的维度: &#123;&#125;, shape: &#123;&#125;"</span>.format(X.ndim, X.shape))</span><br><span class="line">Y = np.array([[<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>], [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>]])</span><br><span class="line">print(<span class="string">"Y的维度: &#123;&#125;, shape: &#123;&#125;"</span>.format(Y.ndim, Y.shape))</span><br><span class="line"></span><br><span class="line">plt.plot(X, Y, <span class="string">'o--'</span>)</span><br><span class="line">plt.grid(<span class="literal">True</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
 <p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566006916935.png" alt="1566006916935"></p>
+<pre><code>  当要描绘的 矩阵网格点的数据量小的时候，可以用上述方法构造网格点坐标数据;
+</code></pre>
 </li>
 </ul>
-<pre><code>当要描绘的 矩阵网格点的数据量小的时候，可以用上述方法构造网格点坐标数据;</code></pre><p>但是如果是一个(256, 100)的整数矩阵网格,要怎样构造数据呢?<br>方法1:将x轴上的100个整数点组成的行向量，重复256次，构成shape(256,100)的X矩阵;将y轴上的256个整数点组成列向量,重复100次构成shape(256,100)的Y矩阵<br>显然方法1的数据构造过程很繁琐,也不方便调用,那么有没有更好的办法呢?of course!!!<br>那么meshgrid()就显示出它的作用了<br>使用meshgrid方法，你只需要构造一个表示x轴上的坐标的向量和一个表示y轴上的坐标的向量;然后作为参数给到meshgrid(),该函数就会返回相应维度的两个矩阵;<br>例如,你想构造一个2行3列的矩阵网格点,那么x生成一个shape(3,)的向量,y生成一个shape(2,)的向量,将x,y传入meshgrid(),最后返回的X,Y矩阵的shape(2,3)</p>
+<p>但是如果是一个(256, 100)的整数矩阵网格,要怎样构造数据呢?<br>
+方法1:将x轴上的100个整数点组成的行向量，重复256次，构成shape(256,100)的X矩阵;将y轴上的256个整数点组成列向量,重复100次构成shape(256,100)的Y矩阵<br>
+显然方法1的数据构造过程很繁琐,也不方便调用,那么有没有更好的办法呢?of course!!!<br>
+那么meshgrid()就显示出它的作用了<br>
+使用meshgrid方法，你只需要构造一个表示x轴上的坐标的向量和一个表示y轴上的坐标的向量;然后作为参数给到meshgrid(),该函数就会返回相应维度的两个矩阵;<br>
+例如,你想构造一个2行3列的矩阵网格点,那么x生成一个shape(3,)的向量,y生成一个shape(2,)的向量,将x,y传入meshgrid(),最后返回的X,Y矩阵的shape(2,3)</p>
 <p>示例二：使用<code>meshgrid()</code>生成示例一种的网格点矩阵</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt </span><br><span class="line"></span><br><span class="line">x = np.array([<span class="number">0</span>, <span class="number">0.5</span>, <span class="number">1</span>])</span><br><span class="line">y = np.array([<span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">xv, yv = np.meshgrid(x, y)</span><br><span class="line">print(<span class="string">"xv的维度: &#123;&#125;, shape: &#123;&#125;"</span>.format(xv.ndim, xv.shape))</span><br><span class="line">print(<span class="string">"yv的维度: &#123;&#125;, shape: &#123;&#125;"</span>.format(yv.ndim, yv.shape))</span><br><span class="line"></span><br><span class="line">plt.plot(xv, yv, <span class="string">'o--'</span>)</span><br><span class="line">plt.grid(<span class="literal">True</span>)</span><br><span class="line">plt.show()</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">xv的维度: 2, shape: (2, 3)</span></span><br><span class="line"><span class="string">yv的维度: 2, shape: (2, 3)</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-
 <p>示例三：生成20行30列的网格点矩阵</p>
 <p>只需要改变:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="number">0</span>, <span class="number">500</span>, <span class="number">30</span>)</span><br><span class="line">y = np.linspace(<span class="number">0</span>, <span class="number">500</span>, <span class="number">20</span>)</span><br></pre></td></tr></table></figure>
-
 <p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566007285866.png" alt="1566007285866"></p>
 <ul>
 <li><code>repeat()</code>和<code>expand()</code>的区别</li>
@@ -364,33 +309,25 @@
 <p><code>expand()</code></p>
 <p>返回当前张量在某维扩展更大后的张量， 扩展(expand)张量<strong>不会分配新的内存</strong>，只是在存在的张量上创建一个新的视图(view)，一个大小(size)等于1的维度扩展到更大的尺寸。示例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line"></span><br><span class="line">x = torch.tensor([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">x = x.expand(<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">print(x)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[1, 2, 3],</span></span><br><span class="line"><span class="string">        [1, 2, 3]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line"></span><br><span class="line">x = torch.randn(<span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">4</span>)</span><br><span class="line">print(x)</span><br><span class="line">x = x.expand(<span class="number">-1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">-1</span>)</span><br><span class="line">print(x.size())</span><br><span class="line">print(x)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[[[ 0.6288, -0.3688,  1.0322,  0.8450]]],</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        [[[-1.5189, -0.6984, -1.0931,  0.0894]]]])</span></span><br><span class="line"><span class="string">torch.Size([2, 2, 3, 4])</span></span><br><span class="line"><span class="string">tensor([[[[ 0.6288, -0.3688,  1.0322,  0.8450],</span></span><br><span class="line"><span class="string">          [ 0.6288, -0.3688,  1.0322,  0.8450],</span></span><br><span class="line"><span class="string">          [ 0.6288, -0.3688,  1.0322,  0.8450]],</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">         [[ 0.6288, -0.3688,  1.0322,  0.8450],</span></span><br><span class="line"><span class="string">          [ 0.6288, -0.3688,  1.0322,  0.8450],</span></span><br><span class="line"><span class="string">          [ 0.6288, -0.3688,  1.0322,  0.8450]]],</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        [[[-1.5189, -0.6984, -1.0931,  0.0894],</span></span><br><span class="line"><span class="string">          [-1.5189, -0.6984, -1.0931,  0.0894],</span></span><br><span class="line"><span class="string">          [-1.5189, -0.6984, -1.0931,  0.0894]],</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">         [[-1.5189, -0.6984, -1.0931,  0.0894],</span></span><br><span class="line"><span class="string">          [-1.5189, -0.6984, -1.0931,  0.0894],</span></span><br><span class="line"><span class="string">          [-1.5189, -0.6984, -1.0931,  0.0894]]]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-
 <p><code>repeat()</code></p>
 <p>沿着特定的维度重复这个张量，和expand()不同的是，这个函数<strong>拷贝</strong>张量的数据。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line">x = torch.tensor([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">x = x.repeat(<span class="number">3</span>, <span class="number">2</span>)</span><br><span class="line">print(x)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[1, 2, 3, 1, 2, 3],</span></span><br><span class="line"><span class="string">        [1, 2, 3, 1, 2, 3],</span></span><br><span class="line"><span class="string">        [1, 2, 3, 1, 2, 3]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">x = torch.randn(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">print(x)</span><br><span class="line">x = x.repeat(<span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">print(x)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[[-0.6915, -2.3975,  1.2687, -1.1976],</span></span><br><span class="line"><span class="string">         [ 0.5424,  0.9949,  0.8677, -0.2078],</span></span><br><span class="line"><span class="string">         [-1.5410, -0.0281,  1.4717, -0.7021]],</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        [[ 1.3378, -2.0375,  0.2226,  0.8865],</span></span><br><span class="line"><span class="string">         [ 0.0319,  0.2902,  0.0647,  0.5396],</span></span><br><span class="line"><span class="string">         [-1.0962, -2.3473, -0.2049, -0.2524]]])</span></span><br><span class="line"><span class="string">tensor([[[-0.6915, -2.3975,  1.2687, -1.1976, -0.6915, -2.3975,  1.2687,</span></span><br><span class="line"><span class="string">          -1.1976, -0.6915, -2.3975,  1.2687, -1.1976],</span></span><br><span class="line"><span class="string">         [ 0.5424,  0.9949,  0.8677, -0.2078,  0.5424,  0.9949,  0.8677,</span></span><br><span class="line"><span class="string">          -0.2078,  0.5424,  0.9949,  0.8677, -0.2078],</span></span><br><span class="line"><span class="string">         [-1.5410, -0.0281,  1.4717, -0.7021, -1.5410, -0.0281,  1.4717,</span></span><br><span class="line"><span class="string">          -0.7021, -1.5410, -0.0281,  1.4717, -0.7021]],</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        [[ 1.3378, -2.0375,  0.2226,  0.8865,  1.3378, -2.0375,  0.2226,</span></span><br><span class="line"><span class="string">           0.8865,  1.3378, -2.0375,  0.2226,  0.8865],</span></span><br><span class="line"><span class="string">         [ 0.0319,  0.2902,  0.0647,  0.5396,  0.0319,  0.2902,  0.0647,</span></span><br><span class="line"><span class="string">           0.5396,  0.0319,  0.2902,  0.0647,  0.5396],</span></span><br><span class="line"><span class="string">         [-1.0962, -2.3473, -0.2049, -0.2524, -1.0962, -2.3473, -0.2049,</span></span><br><span class="line"><span class="string">          -0.2524, -1.0962, -2.3473, -0.2049, -0.2524]],</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        [[-0.6915, -2.3975,  1.2687, -1.1976, -0.6915, -2.3975,  1.2687,</span></span><br><span class="line"><span class="string">          -1.1976, -0.6915, -2.3975,  1.2687, -1.1976],</span></span><br><span class="line"><span class="string">         [ 0.5424,  0.9949,  0.8677, -0.2078,  0.5424,  0.9949,  0.8677,</span></span><br><span class="line"><span class="string">          -0.2078,  0.5424,  0.9949,  0.8677, -0.2078],</span></span><br><span class="line"><span class="string">         [-1.5410, -0.0281,  1.4717, -0.7021, -1.5410, -0.0281,  1.4717,</span></span><br><span class="line"><span class="string">          -0.7021, -1.5410, -0.0281,  1.4717, -0.7021]],</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        [[ 1.3378, -2.0375,  0.2226,  0.8865,  1.3378, -2.0375,  0.2226,</span></span><br><span class="line"><span class="string">           0.8865,  1.3378, -2.0375,  0.2226,  0.8865],</span></span><br><span class="line"><span class="string">         [ 0.0319,  0.2902,  0.0647,  0.5396,  0.0319,  0.2902,  0.0647,</span></span><br><span class="line"><span class="string">           0.5396,  0.0319,  0.2902,  0.0647,  0.5396],</span></span><br><span class="line"><span class="string">         [-1.0962, -2.3473, -0.2049, -0.2524, -1.0962, -2.3473, -0.2049,</span></span><br><span class="line"><span class="string">          -0.2524, -1.0962, -2.3473, -0.2049, -0.2524]]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-
 <ul>
 <li><code>squeeze()</code>  和<code>unsqueeze()</code></li>
 </ul>
 <p><code>unsqueeze()函数</code></p>
 <p>首先初始化一个a</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> torch</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = torch.arange(<span class="number">0</span>, <span class="number">6</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = a.view(<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">tensor([[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>],</span><br><span class="line">        [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]])</span><br></pre></td></tr></table></figure>
-
 <p>可以看到a的维度是(2, 3)</p>
 <p>在第二维增加一个维度，使其维度变为(2, 1, 3)</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = a.unsqueeze(<span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">tensor([[[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]],</span><br><span class="line"></span><br><span class="line">        [[<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]]])</span><br></pre></td></tr></table></figure>
-
 <p>可以看到维度已经变为(2, 1, 3)了，同样如果需要在倒数第二个维度上增加一个维度，可以用<code>a.unsqueeze(-2)</code></p>
 <p><code>squeeze()函数</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = a.squeeze(<span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">tensor([[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>],</span><br><span class="line">        [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]])</span><br></pre></td></tr></table></figure>
-
 <p>另外，</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">tensor([[[[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]]],</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        [[[<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]]]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.squeeze(<span class="number">-1</span>)</span><br><span class="line">tensor([[[[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]]],</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        [[[<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]]]])</span><br></pre></td></tr></table></figure>
-
 <p>此时可以看到维度没有发生变化，这是因为只有维度为1时才会去掉</p>
 <ul>
 <li><code>permute()</code></li>
@@ -398,7 +335,6 @@
 <p>将tensor的维度换位</p>
 <p><strong>参数</strong>：参数是一系列的整数，代表原来张量的维度</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.array([[[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = torch.tensor(a)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.size()</span><br><span class="line">torch.Size([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = a.permute(<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b</span><br><span class="line">tensor([[[<span class="number">1</span>, <span class="number">4</span>]],</span><br><span class="line"></span><br><span class="line">        [[<span class="number">2</span>, <span class="number">5</span>]],</span><br><span class="line"></span><br><span class="line">        [[<span class="number">3</span>, <span class="number">6</span>]]], dtype=torch.int32)</span><br></pre></td></tr></table></figure>
-
 <p>再比如，图片img的size比如是(28, 28, 3)，就可以利用<code>img.permute(2, 0, 1)</code>得到一个size为(3, 28, 28)的tensor</p>
 <ul>
 <li><code>contiguous()</code></li>
@@ -408,7 +344,8 @@
 <p>例如在执行<code>view()</code>操作之后，不会开辟新的内存空间才存放处理之后的数据，实际上新数据与原始数据共享同一块内存</p>
 <p>而在调用<code>contiguous()</code>之后，PyTorch会开辟出一块新的内存空间存放变换之后的数据，并会真正改变Tensor的内容，按照变换之后的顺序存放数据。</p>
 <ul>
-<li><p><code>grid_sample(input, frig, mode=&#39;linear&#39;, padding_mode=&#39;zeros&#39;)</code></p>
+<li>
+<p><code>grid_sample(input, frig, mode='linear', padding_mode='zeros')</code></p>
 <p>用于图像的恢复</p>
 <p>input (N, C, H_in, W_in)</p>
 <p>output (N, H_out, W_out, 2)</p>
@@ -424,203 +361,134 @@
 <li><code>nn.Upsample()</code></li>
 </ul>
 <p>所用：上采样</p>
-<p>定义：<code>CLASS torch.nn.Upsample(size=None, scale_factor=None, mode=&#39;nearest&#39;, align_corners=None)</code></p>
+<p>定义：<code>CLASS torch.nn.Upsample(size=None, scale_factor=None, mode='nearest', align_corners=None)</code></p>
 <p>计算shape</p>
 <p><img src="https://img-blog.csdnimg.cn/20190711163324219.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lhbmd3YW5nbm5kZA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 
-      
     </div>
-    
-    
-    
 
     
-
+    
     
 
-    
+      <footer class="post-footer">
 
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/08/14/parser-action/" rel="next" title="parser-action">
-                <i class="fa fa-chevron-left"></i> parser-action
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/14/Pytorch-transforms/" rel="prev" title="Pytorch transforms">
-                Pytorch transforms <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-
-
-
-        </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/08/14/parser-action/" rel="prev" title="parser-action">
+      <i class="fa fa-chevron-left"></i> parser-action
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/08/14/Pytorch-transforms/" rel="next" title="Pytorch transforms">
+      Pytorch transforms <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
 
-  <aside id="sidebar" class="sidebar">
-    
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
-      
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Mariana</p>
-              <p class="site-description motion-element" itemprop="description">a study blog</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">124</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Something-about-PyTorch"><span class="nav-number">1.</span> <span class="nav-text">Something about PyTorch</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#something-about-pytorch"><span class="nav-number">1.</span> <span class="nav-text"> Something about PyTorch</span></a></li></ol></div>
+      </div>
       <!--/noindex-->
-      
 
-      
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Woojoo"
+      src="/uploads/logo.jpg">
+  <p class="site-author-name" itemprop="name">Woojoo</p>
+  <div class="site-description" itemprop="description">a study blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
 
     </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Mariana</span>
-
-  
+  <span class="author" itemprop="copyrightHolder">Woojoo</span>
 </div>
-
-
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
-
-
-
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
   <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
-
-
-
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
 
         
+
 
 
 
@@ -631,156 +499,67 @@
         
       </div>
     </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
   </div>
 
   
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'aKRj8pzPJm0LdONJb0Ci0U5L-gzGzoHsz',
+    appKey: 'vA8nbcq2HgWrqovGq6LwXRG1',
+    placeholder: "Just go go",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
 </script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
 
 </body>
 </html>
