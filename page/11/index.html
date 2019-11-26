@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 3.9.0">
@@ -101,12 +101,12 @@
   .use-motion .logo-line-before i { left: initial; }
   .use-motion .logo-line-after i { right: initial; }
   </style>
-</noscript>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/center-loss/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/14/LaTeX-Day2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/logo.jpg">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/08/09/center-loss/" class="post-title-link" itemprop="url">center loss</a>
+            <a href="/2019/11/14/LaTeX-Day2/" class="post-title-link" itemprop="url">LaTeX-Day2</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-08-09 14:31:07 / 修改时间：14:59:02" itemprop="dateCreated datePublished" datetime="2019-08-09T14:31:07+08:00">2019-08-09</time>
+              <time title="创建时间：2019-11-14 07:09:31 / 修改时间：09:50:34" itemprop="dateCreated datePublished" datetime="2019-11-14T07:09:31+08:00">2019-11-14</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/08/09/center-loss/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/09/center-loss/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/11/14/LaTeX-Day2/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/14/LaTeX-Day2/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,987 +240,140 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="center-loss"><a class="markdownIt-Anchor" href="#center-loss"></a> Center Loss</h2>
-<h3 id="一-简介"><a class="markdownIt-Anchor" href="#一-简介"></a> 一. 简介</h3>
-<p>论文链接：<a href="http://ydwen.github.io/papers/WenECCV16.pdf" target="_blank" rel="noopener">http://ydwen.github.io/papers/WenECCV16.pdf</a></p>
-<h3 id="二-为什么要使用center-loss"><a class="markdownIt-Anchor" href="#二-为什么要使用center-loss"></a> 二. 为什么要使用Center Loss？</h3>
-<p>简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。</p>
-<p>仅仅使用softmax作为监督信号的输出处理就只能做到seperable而不是discriminative，如下图:</p>
-<p><img src="https://img-blog.csdn.net/20180727140845416?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<h3 id="三-如何使学到的特征差异化更大center-loss"><a class="markdownIt-Anchor" href="#三-如何使学到的特征差异化更大center-loss"></a> 三. 如何使学到的特征差异化更大——Center Loss</h3>
-<p>融合Softmax Loss与Center loss</p>
-<p><strong>Softmax Loss（保证类之间的feature距离最大）与Center Loss（保证类内的feature距离最小，更接近于类中心）</strong></p>
-<p><img src="https://img-blog.csdn.net/20180727150130651?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<p><img src="https://img-blog.csdn.net/2018072715022915?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<p>m是mini-batch、n是class。在Lc公式中有一个缺陷，就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>C</mi><msub><mi>y</mi><mi>i</mi></msub></msub></mrow><annotation encoding="application/x-tex">C_{y_{i}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3280857142857143em;"><span style="top:-2.357em;margin-left:-0.03588em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>是i这个样本对应的类别yi所属于的类中心C∈ Rd，d代表d维。</p>
-<p>理想情况下，Cyi需要随着学到的feature变化而实时更新，也就是要在每一次迭代中用整个数据集的feature来算每个类的中心。</p>
-<p>但这显然不现实，做以下两个修改：</p>
-<p>1、由整个训练集更新center改为mini-batch更改center</p>
-<p>2、避免错误分类的样本的干扰，使用scalar α 来控制center的学习率</p>
-<p>因此求算梯度的公式如下：</p>
-<p><img src="https://img-blog.csdn.net/20180727153311160?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<p>即：当yi = j，也就是mini-batch中某一个sample是对应要更新的那一个类的center的时候就累加起来除以某类的个数+1。</p>
-<p><img src="https://img-blog.csdn.net/2018072715370270?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<p>最终loss联立起来如上图，λ用于平衡softmax loss与center loss，越大则区分度 越大，如下图效果：</p>
-<p><img src="https://img-blog.csdn.net/20180727150702547?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<h3 id="四-center-loss的实现"><a class="markdownIt-Anchor" href="#四-center-loss的实现"></a> 四. Center Loss的实现</h3>
-<p>pytorch实现：<a href="https://github.com/jxgu1016/MNIST_center_loss_pytorch" target="_blank" rel="noopener">https://github.com/jxgu1016/MNIST_center_loss_pytorch</a></p>
-<ul>
-<li>网络结构</li>
-</ul>
-<p><img src="https://img-blog.csdn.net/20180727162522989?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<p>即在特征层输出（classification前最后一层）引入center loss：</p>
-<p><img src="https://img-blog.csdn.net/20180727162755579?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<h4 id="fully-connected-和-local-connected"><a class="markdownIt-Anchor" href="#fully-connected-和-local-connected"></a> fully-connected 和 local-connected</h4>
-<h5 id="判断fully-connected的方法"><a class="markdownIt-Anchor" href="#判断fully-connected的方法"></a> 判断fully-connected的方法：</h5>
-<ul>
-<li>
-<p>对于neuron的链接（点对点的链接）都是fully connected（这里其实就是MLP）</p>
-</li>
-<li>
-<p>对于有filter的network，不是看filter的size，而是看output的feature map的size。如果output feature map的size还是1 * 1 * N的话，这个layer就是fully connected layer</p>
-<p><strong>解释第二个判断方法：</strong></p>
-<ul>
-<li>1 * 1的filter size不一定是fully connected。比如input size是10 * 10 * 100， filter size是1 * 1 * 100， 重复50次，则该layer的总weights是：1 * 1 * 100 * 50</li>
-<li>1 * 1的filter size如果要是 fully connected， 则input size必须是1 * 1</li>
-<li>input size是10x10的时候却是fully connected的情况：这里我们的output size肯定是1x1，且我们的filter size肯定是10x10。</li>
-</ul>
-<p><strong>总结：filter size等于input size则是fully connected</strong></p>
-</li>
-</ul>
-<p>综上：</p>
-<ul>
-<li>fully connected没有weight share</li>
-<li>对于neuron的连接（点对点的链接）都是fully connected（MLP——多层感知器）</li>
-<li>Convolution中当filter size等于input size时，就是fully connected，此时的output size为1 * 1 * N</li>
-<li>当1 *1不等于input size时，1 * 1一样具备weights share的能力。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/softmax-and-softmax-loss-and-BP/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/logo.jpg">
-      <meta itemprop="name" content="Woojoo">
-      <meta itemprop="description" content="a study blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/09/softmax-and-softmax-loss-and-BP/" class="post-title-link" itemprop="url">softmax and softmax-loss and BP</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-08-09 13:57:43 / 修改时间：14:17:12" itemprop="dateCreated datePublished" datetime="2019-08-09T13:57:43+08:00">2019-08-09</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/08/09/softmax-and-softmax-loss-and-BP/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/09/softmax-and-softmax-loss-and-BP/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a href="http://freemind.pluskid.org/machine-learning/softmax-vs-softmax-loss-numerical-stability/" target="_blank" rel="noopener">http://freemind.pluskid.org/machine-learning/softmax-vs-softmax-loss-numerical-stability/</a></p>
-<p><img src="https://img-blog.csdn.net/20170504203817251?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDM4MDE2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
-<p>联想逻辑回归的重要公式就是<img src="https://img-blog.csdn.net/20170504203942767?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDM4MDE2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img">，得到预测结果，然后再经过sigmoid转换成0到1的概率值，而在softmax中则通过取exponential的方式并进行归一化得到某个样本属于某类的概率。非负的意义不用说，就是避免正负值抵消。</p>
-<p><img src="https://img-blog.csdn.net/20170504204409994?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDM4MDE2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
-<p>逻辑回归的推导可以用最大似然或最小损失函数，本质是一样的，可以简单理解成加了一个负号，这里的y指的是真实类别。注意下softmax-loss可以看做是softmax和multinomial logistic loss两步，正如上述所写公式，把变量展开即softmax-loss。</p>
-<p><img src="https://img-blog.csdn.net/20170504204847454?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDM4MDE2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
-<p>原博客的重点在于介绍softmax-loss是分成两步还是一步到位比较好，而我这则重点说下BP。上面这个神经网络的图应该不陌生，这个公式也是在逻辑回归的核心（通过迭代得到w，然后在测试时按照上面这个公式计算类别概率）</p>
-<p><img src="https://img-blog.csdn.net/20170504205237865?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDM4MDE2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
-<p>这里第一个公式是损失函数对权重w求导，其实就是梯度，红色那部分可以看前面O是怎么算出来的，就知道其导数的形式非常简单，就是输入I。蓝色部分就是BP的核心，回传就是通过这个达到的，回传的东西就是损失函数对该层输出的导数，只有把这个往前回传，才能计算前面的梯度。所以回传的不是对权重的求导，对每层权重的求导的结果会保留在该层，等待权重更新时候使用。具体看上面最后一个公式。</p>
-<p><img src="https://img-blog.csdn.net/20170504210106340?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDM4MDE2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
-<p>这部分的求导：l(y,z)函数是log函数，log（x）函数求导是取1/x，后面的那个数是zy对zk的导数，当k=y时，那就是1，k不等于y时就是两个不同的常数求导，就是0。</p>
-<p><img src="https://img-blog.csdn.net/20170504210625060?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDM4MDE2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
-<p>这一部分就是把softmax-loss分成两步来做，第一个求导可以先找到最前面l(y,o)的公式，也是log函数，所以求导比较简单。第二个求导也是查看前面Oi的公式，分母取平方的那种求导。最后链式相乘的结果和原来合并算的结果一样。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/PyTorch-中的-dim/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/logo.jpg">
-      <meta itemprop="name" content="Woojoo">
-      <meta itemprop="description" content="a study blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/09/PyTorch-中的-dim/" class="post-title-link" itemprop="url">PyTorch 中的 dim</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-08-09 10:24:23 / 修改时间：11:27:32" itemprop="dateCreated datePublished" datetime="2019-08-09T10:24:23+08:00">2019-08-09</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/08/09/PyTorch-中的-dim/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/09/PyTorch-中的-dim/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="pytorch中的dim"><a class="markdownIt-Anchor" href="#pytorch中的dim"></a> PyTorch中的dim</h2>
-<h3 id="dim概念"><a class="markdownIt-Anchor" href="#dim概念"></a> dim概念</h3>
-<p>dim的不同值表示不同维度。特别的在dim=0表示二维中的行，dim=1在二维矩阵中表示行。广泛的来说，我们不管一个矩阵是几维的，比如一个矩阵维度如下：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>d</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>d</mi><mn>1</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>d</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">{d_{0},d_{1},...,d_{n-1}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.902771em;vertical-align:-0.208331em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span></span></span></span></span>，那么dim=0就表示对应到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>d</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">d_{0}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>也就是第一个维度，dim=1,表示对应到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>d</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">d_{1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>也就是第二个维度，以此类推</p>
-<h3 id="dim在函数中的作用"><a class="markdownIt-Anchor" href="#dim在函数中的作用"></a> dim在函数中的作用</h3>
-<h4 id="例一-torchargmax"><a class="markdownIt-Anchor" href="#例一-torchargmax"></a> 例一. torch.argmax()</h4>
-<p>函数中dim表示该维度会消失。</p>
-<p>这个消失是什么意思？官方英文解释是：dim (int) – the dimension to reduce.</p>
-<p>我们知道argmax就是得到最大值的序号索引，对于一个维度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">(</mo><msub><mi>d</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>d</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(d_0,d_1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>的矩阵来说，我们想要求每一行中最大数的在该行中的列号，最后我们得到的就是一个维度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">(</mo><msub><mi>d</mi><mn>0</mn></msub><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(d_0,1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>的一矩阵。这时候，列就要消失了。</p>
-<p>因此，我们想要求每一行最大的列标号，我们就要指定dim=1，表示我们不要列了，保留行的size就可以了。<br>
-假如我们想求每一列的最大行标，就可以指定dim=0，表示我们不要行了。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line">a = torch.rand(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">print(a.size())</span><br><span class="line">print(a)</span><br><span class="line"></span><br><span class="line">b = torch.argmax(a, dim=<span class="number">1</span>)</span><br><span class="line">print(b)</span><br><span class="line">print(b.size())</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">torch.Size([3, 4])</span></span><br><span class="line"><span class="string">tensor([[0.9120, 0.4805, 0.6701, 0.5446],</span></span><br><span class="line"><span class="string">        [0.6273, 0.1295, 0.3416, 0.2213],</span></span><br><span class="line"><span class="string">        [0.6068, 0.8448, 0.8452, 0.4931]])</span></span><br><span class="line"><span class="string">tensor([0, 0, 2])</span></span><br><span class="line"><span class="string">torch.Size([3])</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="comment"># 可以看到，指定dim=1时，列的size没有了</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.argmax(input, dim=<span class="literal">None</span>, keepdim=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-<p>返回指定维度最大的序号</p>
-<p>dim给定的定义是：the dimention to reduce.也就是吧dim这个维度的，变成这个维度的最大值</p>
-<p>如果上面的代码改成：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">b = torch.argmax(a, dim=<span class="number">1</span>, keepdim=<span class="literal">True</span>)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output：</span></span><br><span class="line"><span class="string">tensor([[0],</span></span><br><span class="line"><span class="string">		[0],</span></span><br><span class="line"><span class="string">        [2]])</span></span><br><span class="line"><span class="string">torch.Size([3, 1])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/BN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/logo.jpg">
-      <meta itemprop="name" content="Woojoo">
-      <meta itemprop="description" content="a study blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/09/BN/" class="post-title-link" itemprop="url">BN</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-08-09 09:57:45" itemprop="dateCreated datePublished" datetime="2019-08-09T09:57:45+08:00">2019-08-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-26 17:25:56" itemprop="dateModified" datetime="2019-11-26T17:25:56+08:00">2019-11-26</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/08/09/BN/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/09/BN/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="bn的理解"><a class="markdownIt-Anchor" href="#bn的理解"></a> BN的理解</h2>
-<h3 id="0问题"><a class="markdownIt-Anchor" href="#0问题"></a> 0.问题</h3>
-<p>​	机器学习领域有个很重要的假设：<strong>IID独立同分布假设，就是假设训练数据和测试数据是满足相同分布的</strong>，这是通过训练数据获得的模型能够在测试集获得好的效果的一个基本保障。那BatchNorm的作用是什么呢？<strong>BatchNorm就是在深度神经网络训练过程中使得每一层神经网络的输入保持相同分布的。</strong></p>
-<p>​	思考一个问题：为什么传统的神经网络在训练开始之前，要对输入的数据做Normalization?原因在于神经网络学习过程<strong>本质上是为了学习数据的分布</strong>，一旦训练数据与测试数据的分布不同，那么网络的泛化能力也大大降低；另一方面，一旦在mini-batch梯度下降训练的时候，每批训练数据的分布不相同，那么网络就要在每次迭代的时候去学习以适应不同的分布，这样将会大大降低网络的训练速度，这也正是为什么我们需要对所有训练数据做一个Normalization预处理的原因。</p>
-<p>为什么深度神经网络随着网络深度加深，训练起来越困难，收敛越来越慢？这是个在DL领域很接近本质的好问题。很多论文都是解决这个问题的，比如ReLU激活函数，再比如Residual Network，<strong>BN本质上也是解释并从某个不同的角度来解决这个问题的。</strong></p>
-<p><strong>1、“Internal Covariate Shift”问题</strong></p>
-<p>从论文名字可以看出，BN是用来解决“Internal Covariate Shift”问题的，那么首先得理解什么是“Internal Covariate Shift”？</p>
-<p>论文首先说明Mini-Batch SGD相对于One Example SGD的两个优势：<strong>梯度更新方向更准确；并行计算速度快；</strong>（为什么要说这些？因为BatchNorm是基于Mini-Batch SGD的，所以先夸下Mini-Batch SGD，当然也是大实话）；然后吐槽下SGD训练的缺点：<strong>超参数调起来很麻烦</strong>。（作者隐含意思是用BN就能解决很多SGD的缺点）</p>
-<p>接着<strong>引入covariate shift的概念</strong>：如果ML系统实例集合&lt;X,Y&gt;中的输入值X的分布老是变，这不符合IID假设，网络模型很难稳定的学规律，这不得引入迁移学习才能搞定吗，我们的ML系统还得去学习怎么迎合这种分布变化啊。对于深度学习这种包含很多隐层的网络结构，在训练过程中，因为各层参数不停在变化，所以每个隐层都会面临covariate shift的问题，也就是<strong>在训练过程中，隐层的输入分布老是变来变去，这就是所谓的“Internal Covariate Shift”，Internal指的是深层网络的隐层，是发生在网络内部的事情，而不是covariate shift问题只发生在输入层。</strong></p>
-<p>然后提出了BatchNorm的基本思想：能不能让每个隐层节点的激活输入分布固定下来呢？这样就避免了“Internal Covariate Shift”问题了，顺带解决反向传播中梯度消失问题。BN 其实就是在做 feature scaling，而且它的目的也是为了在训练的时候避免这种 Internal Covariate Shift 的问题，只是刚好也解决了 sigmoid 函数梯度消失的问题。</p>
-<p>BN不是凭空拍脑袋拍出来的好点子，它是有启发来源的：之前的研究表明如果在图像处理中对输入图像进行白化（Whiten）操作的话——所谓<strong>白化，就是对输入数据分布变换到0均值，单位方差的正态分布——那么神经网络会较快收敛</strong>，那么BN作者就开始推论了：图像是深度神经网络的输入层，做白化能加快收敛，那么其实对于深度网络来说，其中某个隐层的神经元是下一层的输入，意思是其实<strong>深度神经网络的每一个隐层都是输入层，不过是相对下一层来说而已</strong>，那么能不能对每个隐层都做白化呢？这就是启发BN产生的原初想法，而BN也确实就是这么做的，<strong>可以理解为对深层神经网络每个隐层神经元的激活值做简化版本的白化操作。</strong></p>
-<h3 id="2-batchnorm的本质思想"><a class="markdownIt-Anchor" href="#2-batchnorm的本质思想"></a> <strong>2、BatchNorm的本质思想</strong></h3>
-<p>BN的基本思想其实相当直观：因为深层神经网络在做非线性变换前的激活输入值（就是那个x=WU+B，U是输入）随着网络深度加深或者在训练过程中，其分布逐渐发生偏移或者变动，<strong>之所以训练收敛慢，一般是整体分布逐渐往非线性函数的取值区间的上下限两端靠近（对于Sigmoid函数来说，意味着激活输入值WU+B是大的负值或正值），所以这导致反向传播时低层神经网络的梯度消失，这是训练深层神经网络收敛越来越慢的本质原因</strong>，而BN就是通过一定的规范化手段，把每层神经网络任意神经元这个输入值的分布强行拉回到均值为0方差为1的标准正态分布，其实<strong>就是把越来越偏的分布强制拉回比较标准的分布，这样使得激活输入值落在非线性函数对输入比较敏感的区域，这样输入的小变化就会导致损失函数较大的变化，意思是这样让梯度变大，避免梯度消失问题产生，而且梯度变大意味着学习收敛速度快，能大大加快训练速度。</strong></p>
-<p>THAT’S IT。其实一句话就是：<strong>对于每个隐层神经元，把逐渐向非线性函数映射后向取值区间极限饱和区靠拢的输入分布强制拉回到均值为0方差为1的比较标准的正态分布，使得非线性变换函数的输入值落入对输入比较敏感的区域，以此避免梯度消失问题</strong>。因为梯度一直都能保持比较大的状态，所以很明显对神经网络的参数调整效率比较高，就是变动大，就是说向损失函数最优值迈动的步子大，也就是说收敛地快。BN说到底就是这么个机制，方法很简单，道理很深刻。</p>
-<p>从上面几个图应该看出来BN在干什么了吧？其实就是把隐层神经元激活输入x=WU+B从变化不拘一格的正态分布通过BN操作拉回到了均值为0，方差为1的正态分布，即原始正态分布中心左移或者右移到以0为均值，拉伸或者缩减形态形成以1为方差的图形。什么意思？<strong>就是说经过BN后，目前大部分Activation的值落入非线性函数的线性区内，其对应的导数远离导数饱和区，这样来加速训练收敛过程。</strong></p>
-<p>但是很明显，看到这里，稍微了解神经网络的读者一般会提出一个疑问：如果都通过BN，那么不就跟把非线性函数替换成线性函数效果相同了？这意味着什么？我们知道，如果是多层的线性函数变换其实这个深层是没有意义的，因为多层线性网络跟一层线性网络是等价的。这意味着网络的表达能力下降了，这也意味着深度的意义就没有了。所以BN<strong>为了保证非线性的获得，对变换后的满足均值为0方差为1的x又进行了scale加上shift操作(y=scale*x+shift)，每个神经元增加了两个参数scale和shift参数，这两个参数是通过训练学习到的，意思是通过scale和shift把这个值从标准正态分布左移或者右移一点并长胖一点或者变瘦一点，每个实例挪动的程度不一样，这样等价于非线性函数的值从正中心周围的线性区往非线性区动了动。</strong></p>
-<p>**核心思想应该是想找到一个线性和非线性的较好平衡点，既能享受非线性的较强表达能力的好处，又避免太靠非线性区两头使得网络收敛速度太慢。**当然，这是我的理解，论文作者并未明确这样说。但是很明显这里的scale和shift操作是会有争议的，因为按照论文作者论文里写的理想状态，就会又通过scale和shift操作把变换后的x调整回未变换的状态，那不是饶了一圈又绕回去原始的“Internal Covariate Shift”问题里去了吗，感觉论文作者并未能够清楚地解释scale和shift操作的理论原因。</p>
-<h3 id="3-训练阶段如何做batchnorm"><a class="markdownIt-Anchor" href="#3-训练阶段如何做batchnorm"></a> <strong>3、训练阶段如何做BatchNorm</strong></h3>
-<p><img src="https://img2018.cnblogs.com/blog/1393464/201810/1393464-20181012200545466-1938722586.png" alt="img"></p>
-<p>对于Mini-Batch SGD来说，一次训练过程里面包含m个训练实例，其具体BN操作就是对于隐层内每个神经元的激活值来说，进行如下变换：</p>
-<p><img src="https://img2018.cnblogs.com/blog/1393464/201810/1393464-20181012200638763-60126435.png" alt="img"></p>
-<p>要注意，这里t层某个神经元的x(k)不是指原始输入，就是说不是t-1层每个神经元的输出，而是t层这个神经元的线性激活x=WU+B，这里的U才是t-1层神经元的输出。变换的意思是：某个神经元对应的原始的激活x通过减去mini-Batch内m个实例获得的m个激活x求得的均值E(x)并除以求得的方差Var(x)来进行转换。</p>
-<p>上文说过**经过这个变换后某个神经元的激活x形成了均值为0，方差为1的正态分布，目的是把值往后续要进行的非线性变换的线性区拉动，增大导数值，增强反向传播信息流动性，加快训练收敛速度。**但是这样会导致网络表达能力下降，为了防止这一点，<strong>每个神经元增加两个调节参数（scale和shift），这两个参数是通过训练来学习到的，用来对变换后的激活反变换，使得网络表达能力增强，即对变换后的激活进行如下的scale和shift操作</strong>，这其实是变换的反操作：</p>
-<p><img src="https://img2018.cnblogs.com/blog/1393464/201810/1393464-20181012200847123-286502102.png" alt="img"></p>
-<p>BN其具体操作流程，如论文中描述的一样：</p>
-<p><img src="https://img2018.cnblogs.com/blog/1393464/201810/1393464-20181012200911290-1256604003.png" alt="img"></p>
-<p>走一遍Batch Normalization网络层的前向传播过程。</p>
-<p><img src="https://img2018.cnblogs.com/blog/1393464/201810/1393464-20181012204510101-2110717569.jpg" alt="img"></p>
-<h3 id="4-batchnorm的推理inference过程"><a class="markdownIt-Anchor" href="#4-batchnorm的推理inference过程"></a> <strong>4、BatchNorm的推理(Inference)过程</strong></h3>
-<p>BN在训练的时候可以根据Mini-Batch里的若干训练实例进行激活数值调整，但是在推理（inference）的过程中，很明显输入就只有一个实例，看不到Mini-Batch其它实例，那么这时候怎么对输入做BN呢？因为很明显一个实例是没法算实例集合求出的均值和方差的。这可如何是好？既然没有从Mini-Batch数据里可以得到的统计量，那就想其它办法来获得这个统计量，就是均值和方差。<strong>可以用从所有训练实例中获得的统计量来代替Mini-Batch里面m个训练实例获得的均值和方差统计量</strong>，因为本来就打算用全局的统计量，只是因为计算量等太大所以才会用Mini-Batch这种简化方式的，那么在推理的时候直接用全局统计量即可。</p>
-<p>决定了获得统计量的数据范围，那么接下来的问题是如何获得均值和方差的问题。很简单，因为每次做Mini-Batch训练时，都会有那个Mini-Batch里m个训练实例获得的均值和方差，现在要全局统计量，只要把每个Mini-Batch的均值和方差统计量记住，然后对这些均值和方差求其对应的数学期望即可得出全局统计量</p>
-<h3 id="5-batchnorm的好处"><a class="markdownIt-Anchor" href="#5-batchnorm的好处"></a> <strong>5、BatchNorm的好处</strong></h3>
-<p>BatchNorm为什么NB呢，关键还是效果好。</p>
-<p>①不仅仅极大提升了训练速度，收敛过程大大加快；</p>
-<p>②还能增加分类效果，一种解释是这是类似于Dropout的一种防止过拟合的正则化表达方式，所以不用Dropout也能达到相当的效果；</p>
-<p>③另外调参过程也简单多了，对于初始化要求没那么高，而且可以使用大的学习率等。</p>
-<p>总而言之，经过这么简单的变换，带来的好处多得很，这也是为何现在BN这么快流行起来的原因。</p>
-<h3 id="6-tensorflow中的bn"><a class="markdownIt-Anchor" href="#6-tensorflow中的bn"></a> <strong>6、tensorflow中的BN</strong></h3>
-<p>为了activation能更有效地使用输入信息，所以一般BN放在激活函数之前。</p>
-<p>一个batch里的128个图，经过一个64 kernels卷积层处理，得到了128×64个图，再<strong>针对每一个kernel所对应的128个图，求它们所有像素的mean和variance</strong>，因为总共有64个kernels，输出的结果就是一个<strong>一维长度64的数组</strong>啦！最后输出是（64，）的数组向量。</p>
-<p><img src="https://images2018.cnblogs.com/blog/1393464/201805/1393464-20180528103414148-1206065150.png" alt="img"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/model-train-and-model-eval/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/logo.jpg">
-      <meta itemprop="name" content="Woojoo">
-      <meta itemprop="description" content="a study blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/09/model-train-and-model-eval/" class="post-title-link" itemprop="url">model.train() and model.eval()</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-08-09 09:46:19 / 修改时间：11:27:30" itemprop="dateCreated datePublished" datetime="2019-08-09T09:46:19+08:00">2019-08-09</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/08/09/model-train-and-model-eval/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/09/model-train-and-model-eval/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>model.train() 	model.eval()</p>
-<p>一般在模型训练和评价的时候会加上这两句</p>
-<p>主要是针对model在训练时和评价时不同的 <strong>Batch Normalization</strong> 和 <strong>Dropout</strong> 方法模式</p>
-<p>**注意：**使用PyTorch进行训练和测试时一定注意要把实例化的model指定train/eval， eval()时， 框架会自动把BN和DropOut固定住，不会取平均，而是用训练好的值，不然的话，一旦test的batch_size过小，很容易就会被BN层导致生成图片颜色失真极大！</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/Python格式化输出/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/logo.jpg">
-      <meta itemprop="name" content="Woojoo">
-      <meta itemprop="description" content="a study blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/09/Python格式化输出/" class="post-title-link" itemprop="url">Python格式化输出</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-08-09 09:25:45 / 修改时间：09:42:16" itemprop="dateCreated datePublished" datetime="2019-08-09T09:25:45+08:00">2019-08-09</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/08/09/Python格式化输出/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/09/Python格式化输出/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="python格式化输出"><a class="markdownIt-Anchor" href="#python格式化输出"></a> Python格式化输出</h2>
-<h3 id="格式化输出字符串"><a class="markdownIt-Anchor" href="#格式化输出字符串"></a> 格式化输出字符串</h3>
-<h4 id="用法一"><a class="markdownIt-Anchor" href="#用法一"></a> 用法一：</h4>
-<p>与%s类似，不同指出是将<code>%s</code>换乘了<code>‘{ }’</code>大括号，调用时依然需要按照顺序对应</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"My name is &#123;&#125;, &#123;&#125; years old, and my hobby is &#123;&#125;"</span></span><br><span class="line">s1 = s.format(<span class="string">'MMMMMQ'</span>, <span class="string">'25'</span>, <span class="string">'watching TV'</span>)</span><br><span class="line">print(s1)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">My name is MMMMMQ, 25 years old, My hobby is watching TV</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<h4 id="用法二"><a class="markdownIt-Anchor" href="#用法二"></a> 用法二：</h4>
-<p>通过<code>{n}</code>方式来指定接收参数的位置，将调用时传入的参数按照位置进行传入。相比%s可以减少参数的个数，实现了参数的复用</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"My name is &#123;0&#125;, &#123;1&#125; years old, and my name is still &#123;0&#125;"</span></span><br><span class="line">s1 = s.format(<span class="string">'MMMMQ'</span>, <span class="string">'25'</span>, <span class="string">'watching TV'</span>)</span><br><span class="line">print(s1)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">My name is MMMMQ, 25 years old, and my name is still MMMMQ</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<h4 id="用法三"><a class="markdownIt-Anchor" href="#用法三"></a> 用法三：</h4>
-<p>通过<code>str{}</code>方式来指定名字，调用时使用<code>str='xxx'</code>，确定参数传入</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"My name is &#123;name&#125;, &#123;age&#125; years old, and my hobby is &#123;hobby&#125;"</span></span><br><span class="line">s1 = s.format(age=<span class="number">25</span>, hobby=<span class="string">'watching TV'</span>, name=<span class="string">'MMMMQ'</span>)</span><br><span class="line">print(s1)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">My name is MMMMQ, 25 years old, and my hobby is watching TV</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<h3 id="保留n位小数"><a class="markdownIt-Anchor" href="#保留n位小数"></a> 保留n位小数：</h3>
-<h4 id="保留一个数字"><a class="markdownIt-Anchor" href="#保留一个数字"></a> 保留一个数字</h4>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'This is a float number &#123;:.2f&#125;'</span>.format(<span class="number">123.432423432</span>))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">This is a float number 123.43</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<h4 id="保留两个数字"><a class="markdownIt-Anchor" href="#保留两个数字"></a> 保留两个数字</h4>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'This are two float numbers &#123;:.2f&#125; and &#123;:.4f&#125;'</span>.format(<span class="number">123.432423432</span>, <span class="number">0.321423423</span>))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">This are two float numbers 123.43 and 0.3214</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<h4 id="保留数字和文字"><a class="markdownIt-Anchor" href="#保留数字和文字"></a> 保留数字和文字</h4>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'This are two float numbers and a string &#123;:.2f&#125; , &#123;:.4f&#125; and &#123;&#125; '</span>.format(<span class="number">123.432423432</span>, <span class="number">0.321423423</span>, <span class="string">'MMMMQ'</span>))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">This are two float numbers and a string 123.43 , 0.3214 and MMMMQ </span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/08/Neural-Network/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/logo.jpg">
-      <meta itemprop="name" content="Woojoo">
-      <meta itemprop="description" content="a study blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/08/Neural-Network/" class="post-title-link" itemprop="url">Neural Network</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-08-08 15:45:06 / 修改时间：20:19:28" itemprop="dateCreated datePublished" datetime="2019-08-08T15:45:06+08:00">2019-08-08</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/08/08/Neural-Network/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/08/Neural-Network/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="neural-network"><a class="markdownIt-Anchor" href="#neural-network"></a> Neural Network</h2>
-<p>可以使用<code>torch.nn</code>包构造神经网络</p>
-<p>nn取决于autograd定义的模型并区分它们。一个<code>nn.Module</code>包含层和一种方法<code>forward(input)</code>，它返回output</p>
-<p>例如，查看对数字图像进行分类的网络</p>
-<p><img src="https://pytorch.org/tutorials/_images/mnist.png" alt="convnet"></p>
-<p>它是一个简单的前馈网络。它接受输入，一个接一个地通过及各层输入，然后最终给出输出</p>
-<p><strong>神经网络的典型训练程序如下：</strong></p>
-<ul>
-<li>
-<p>定义一些具有可学习参数（或权重）的神经网络</p>
-</li>
-<li>
-<p>迭代输入数据集</p>
-</li>
-<li>
-<p>通过网络处理输入</p>
-</li>
-<li>
-<p>计算损失（输出距离正确多远）</p>
-</li>
-<li>
-<p>将渐变传播回网络参数</p>
-</li>
-<li>
-<p>通常使用简单的更新规则更新网络权重</p>
-<p><code>weight = weight - learning_rate * gradient</code></p>
-</li>
-</ul>
-<h3 id="定义网络"><a class="markdownIt-Anchor" href="#定义网络"></a> 定义网络</h3>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/08/Autograd-自动微分/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/logo.jpg">
-      <meta itemprop="name" content="Woojoo">
-      <meta itemprop="description" content="a study blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/08/Autograd-自动微分/" class="post-title-link" itemprop="url">Autograd 自动微分</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-08-08 11:45:28" itemprop="dateCreated datePublished" datetime="2019-08-08T11:45:28+08:00">2019-08-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-26 17:24:57" itemprop="dateModified" datetime="2019-11-26T17:24:57+08:00">2019-11-26</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/08/08/Autograd-自动微分/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/08/Autograd-自动微分/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="autograd-自动微分"><a class="markdownIt-Anchor" href="#autograd-自动微分"></a> Autograd： 自动微分</h2>
-<p>autograd包中是PyTorch中所有神经网络的核心。</p>
-<p>该autograd软件包为Tensors上的所有操作提供自动区分。它是一个逐个运行的框架，这意味着backprop由自己的代码运行方式定义，并且每个迭代都可以不同</p>
-<h3 id="张量"><a class="markdownIt-Anchor" href="#张量"></a> 张量</h3>
-<p><code>torch.Tensor</code>是包的核心类。如果将其属性设置<code>.requires_grad</code>为<code>True</code>，则会开始跟踪其上的所有操作。完成计算后，可以调用<code>.backward()</code>并自动计算所有渐变。该张量的梯度将累计到<code>.grad()</code>属性中。</p>
-<p>要阻止张量跟踪历史记录，可以调用<code>.detach()</code>将它从计算历史记录中分离出来，并防止将来的计算被跟踪</p>
-<p>要防止跟踪历史记录（和使用内存），还可以将代码块包装在其中。这在评估模型时尤其有用，因为模型可能具有可训练的参数，但我们不需要梯度。<code>with torch.no_grad():requires_grad=True</code></p>
-<p>还有一个类对于autograd实现非常重要 <code>-a Function</code></p>
-<p>Tensor和Function互相连接并构建一个非循环图，它编码完整的计算历史。每一个张量都有<code>.grad_fn</code>属性，该属性引用Function已创建的属性Tensor。<code>.grad_fn is None</code></p>
-<p>如果你想计算任何导数，可以调用<code>.backward</code> a Tensor。如果Tensor是标量（即它包含一个元素数据），则不需要指定任何参数<code>backward()</code>，但是如果他有更多的额元素，则需要指定一个<code>gradient</code>匹配形状的张量的参数。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">x = torch.ones(<span class="number">2</span>, <span class="number">2</span>, requires_grad=<span class="literal">True</span>)    <span class="comment"># 创建一个张量并设置requires_grad为跟踪计算</span></span><br><span class="line">print(x)</span><br><span class="line">y = x + <span class="number">2</span>   <span class="comment"># 做一个张量操作</span></span><br><span class="line">print(y)</span><br><span class="line">print(y.grad_fn)    <span class="comment"># y是作为一个操作的结果创建的，所以它有一个grad_fn</span></span><br><span class="line">z = y * y * <span class="number">3</span></span><br><span class="line">out = z.mean()</span><br><span class="line">print(z, out)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[1., 1.],</span></span><br><span class="line"><span class="string">        [1., 1.]], requires_grad=True)</span></span><br><span class="line"><span class="string">tensor([[3., 3.],</span></span><br><span class="line"><span class="string">        [3., 3.]], grad_fn=&lt;AddBackward0&gt;)</span></span><br><span class="line"><span class="string">&lt;AddBackward0 object at 0x000002508C5D4128&gt;</span></span><br><span class="line"><span class="string">tensor([[27., 27.],</span></span><br><span class="line"><span class="string">        [27., 27.]], grad_fn=&lt;MulBackward0&gt;) tensor(27., grad_fn=&lt;MeanBackward0&gt;)</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<p><strong>注意：</strong> <code>requires_grad_(...)</code> <code>requires_grad</code>就地改变现有的Tensor旗帜。如果没有的话，就默认为False。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">a = torch.randn(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">a = ((a * <span class="number">3</span>) / (a - <span class="number">1</span>))</span><br><span class="line">print(a.requires_grad)</span><br><span class="line">a.requires_grad_(<span class="literal">True</span>)</span><br><span class="line">print(a.requires_grad)</span><br><span class="line">b = (a * a).sum()</span><br><span class="line">print(a * a)</span><br><span class="line">print(b)</span><br><span class="line">print(b.grad_fn)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">False</span></span><br><span class="line"><span class="string">True</span></span><br><span class="line"><span class="string">tensor([[-0.1373,  1.9251],</span></span><br><span class="line"><span class="string">        [ 1.0700,  5.3293]], requires_grad=True)</span></span><br><span class="line"><span class="string">tensor(33.2711, grad_fn=&lt;SumBackward0&gt;)</span></span><br><span class="line"><span class="string">&lt;SumBackward0 object at 0x000002CBCFFC7A58&gt;</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<h4 id="gradient"><a class="markdownIt-Anchor" href="#gradient"></a> Gradient</h4>
-<p>Let’s backprop now! 因为out包含的是一个标量，所以<code>out.backward()</code> 和<code>out.backward(torch.tensor(1.))</code>是等价的</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">out.backward()</span><br><span class="line">print(x.grad)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[4.5000, 4.5000],</span></span><br><span class="line"><span class="string">        [4.5000, 4.5000]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<p><code>torch.autograd.backgrad(variables, grad_variables=None, retain_graph = None, create_graph=None, retain_variables=None)</code></p>
-<ul>
-<li>
-<p><code>grad_variable</code>：形状与variable一致，对于<code>y.backward()</code>，<code>grad_variable</code>相当于链式法则：</p>
-<p><code>dz/dx = dz/dy * dy/dx</code>中的<code>dz/dy</code>。grad_variables也可以是tensor或序列</p>
-</li>
-<li>
-<p><code>retain_graph</code>：反向传播需要缓存一些中间结果，反向传播之后，这些缓存就会被清空，可通过指定这个参数不清空缓存，用来多次反向传播。</p>
-</li>
-<li>
-<p>create_graph：对反向传播过程再次构建计算图，可通过backward of backward实现求高阶导数</p>
-</li>
-</ul>
-<p><strong>注意：<strong>variables和grad_variables都可以是sequence。对于scalar（标量，一维向量）来说可以不用填写grad_variables参数，若填写的话就相当于</strong>系数</strong>。若variables非标量则必须填写grad_variables参数。</p>
-<p><strong>通式：</strong> <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mi mathvariant="normal">.</mi><mi>b</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi>w</mi><mi>a</mi><mi>r</mi><mi>d</mi><mo stretchy="false">(</mo><mi>p</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">k.backward(p)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">.</span><span class="mord mathdefault">b</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">d</span><span class="mopen">(</span><span class="mord mathdefault">p</span><span class="mclose">)</span></span></span></span> 对于此式，x的梯度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mi mathvariant="normal">.</mi><mi>g</mi><mi>r</mi><mi>a</mi><mi>d</mi><mo>=</mo><mi>p</mi><mo>∗</mo><mfrac><msub><mi>d</mi><mi>k</mi></msub><msub><mi>d</mi><mi>x</mi></msub></mfrac></mrow><annotation encoding="application/x-tex">x.grad = p * \frac {d_{k}}  {d_{x}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">x</span><span class="mord">.</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">a</span><span class="mord mathdefault">d</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.6597200000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.3470679999999997em;vertical-align:-0.44509999999999994em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9019679999999999em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.41586em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3487714285714287em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15122857142857138em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.44509999999999994em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
-<ul>
-<li>
-<p>scalar标量：注意参数requires_grad=True让其成为一个叶子节点，具有求导功能。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch <span class="keyword">as</span> t</span><br><span class="line"><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable <span class="keyword">as</span> v </span><br><span class="line">a = v(t.FloatTensor([<span class="number">2</span>, <span class="number">3</span>]), requires_grad=<span class="literal">True</span>)</span><br><span class="line">b = a + <span class="number">3</span></span><br><span class="line">c = b * b * <span class="number">3</span></span><br><span class="line">out = c.mean()</span><br><span class="line">out.backward(retain_graph=<span class="literal">True</span>)</span><br><span class="line">print(a.grad.data)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output：</span></span><br><span class="line"><span class="string">tensor([15., 18.])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<p>手工求解过程</p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>=</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>x</mi><mn>2</mn></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">a = (x_{1}, x_{2})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> 	<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi><mo>=</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><mn>3</mn><mo separator="true">,</mo><msub><mi>x</mi><mn>2</mn></msub><mo>+</mo><mn>3</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">b = (x_{1} + 3, x_{2} + 3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">3</span><span class="mclose">)</span></span></span></span> 	<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mo>=</mo><mo stretchy="false">(</mo><mn>3</mn><mo>∗</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><mn>3</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo separator="true">,</mo><mn>3</mn><mo>∗</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo>+</mo><mn>3</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">c = (3 * (x_{1} + 3)^2 , 3 * (x_{2} + 3)^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">3</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">3</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext>out</mtext><mo>=</mo><mfrac><mrow><mn>3</mn><mo>∗</mo><mrow><mo fence="true">(</mo><msup><mrow><mo fence="true">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><mn>3</mn><mo fence="true">)</mo></mrow><mn>2</mn></msup><mo>+</mo><msup><mrow><mo fence="true">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo>+</mo><mn>3</mn><mo fence="true">)</mo></mrow><mn>2</mn></msup><mo fence="true">)</mo></mrow></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\text {out}=\frac{3 *\left(\left(x_{1}+3\right)^{2}+\left(x_{2}+3\right)^{2}\right)}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord text"><span class="mord">out</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.655em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.31em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.6125em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mbin mtight">∗</span><span class="minner mtight"><span class="mopen sizing reset-size3 size6 mtight delimcenter" style="top:0.07500000000000001em;"><span class="mtight">(</span></span><span class="minner mtight"><span class="minner mtight"><span class="mopen mtight delimcenter" style="top:0em;"><span class="mtight">(</span></span><span class="mord mtight"><span class="mord mathdefault mtight">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mbin mtight">+</span><span class="mord mtight">3</span><span class="mclose mtight delimcenter" style="top:0em;"><span class="mtight">)</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913142857142857em;"><span style="top:-2.931em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="mbin mtight">+</span><span class="minner mtight"><span class="minner mtight"><span class="mopen mtight delimcenter" style="top:0em;"><span class="mtight">(</span></span><span class="mord mtight"><span class="mord mathdefault mtight">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mbin mtight">+</span><span class="mord mtight">3</span><span class="mclose mtight delimcenter" style="top:0em;"><span class="mtight">)</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913142857142857em;"><span style="top:-2.931em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="mclose sizing reset-size3 size6 mtight delimcenter" style="top:0.07500000000000001em;"><span class="mtight">)</span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
-<p>我们对其求导也很简单：</p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>o</mi><mi>u</mi><mi>t</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msub><mi>x</mi><mn>1</mn></msub></mrow></mfrac><mo>=</mo><msub><mrow><mn>3</mn><mrow><mo fence="true">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><mn>3</mn><mo fence="true">)</mo></mrow><mo fence="true">∣</mo></mrow><mrow><msub><mi>x</mi><mn>1</mn></msub><mo>=</mo><mn>2</mn></mrow></msub><mo>=</mo><mn>15</mn></mrow><annotation encoding="application/x-tex">\frac{\partial o u t}{\partial x_{1}}=\left.3\left(x_{1}+3\right)\right|_{x_{1}=2}=15</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.325208em;vertical-align:-0.44509999999999994em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mtight"><span class="mord mathdefault mtight">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight">u</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.44509999999999994em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.1498em;vertical-align:-0.39979999999999993em;"></span><span class="minner"><span class="minner"><span class="mopen nulldelimiter"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">3</span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mclose delimcenter" style="top:0em;">∣</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151408em;"><span style="top:-2.4003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mrel mtight">=</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.39979999999999993em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">5</span></span></span></span></p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>o</mi><mi>u</mi><mi>t</mi></mrow><mrow><mi mathvariant="normal">∂</mi><msub><mi>x</mi><mn>2</mn></msub></mrow></mfrac><mo>=</mo><msub><mrow><mn>3</mn><mrow><mo fence="true">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo>+</mo><mn>3</mn><mo fence="true">)</mo></mrow><mo fence="true">∣</mo></mrow><mrow><msub><mi>x</mi><mn>2</mn></msub><mo>=</mo><mn>3</mn></mrow></msub><mo>=</mo><mn>18</mn></mrow><annotation encoding="application/x-tex">\frac{\partial o u t}{\partial x_{2}}=\left.3\left(x_{2}+3\right)\right|_{x_{2}=3}=18</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.325208em;vertical-align:-0.44509999999999994em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mtight"><span class="mord mathdefault mtight">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight">u</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.44509999999999994em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.1498em;vertical-align:-0.39979999999999993em;"></span><span class="minner"><span class="minner"><span class="mopen nulldelimiter"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">3</span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mclose delimcenter" style="top:0em;">∣</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151408em;"><span style="top:-2.4003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mrel mtight">=</span><span class="mord mtight">3</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.39979999999999993em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">8</span></span></span></span></p>
-<p>和上面的求解一致</p>
-</li>
-<li></li>
-</ul>
-<p>还可以通过<code>.requires_grad=True</code>  <code>with torch.no_grad()</code>包装代码来停止在Tensor上跟踪历史记录的autograd。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">print(x.requires_grad)</span><br><span class="line">print((x ** <span class="number">2</span>).requires_grad)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    print((x ** <span class="number">2</span>).requires_grad)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">True</span></span><br><span class="line"><span class="string">False</span></span><br><span class="line"><span class="string">False</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<p>例：</p>
-<p>y =w * x + b</p>
-<p>y.backgrad()</p>
-<p>如果需要计算dy / dw</p>
-<p>w.grad()</p>
-<p>**注意：**torch.normal()</p>
-<p>返回一个张量，张量里面的随机数是从相互独立的正态分布中随机产生的。神经网络中的初始weight用normal生成可能效果会比较好。</p>
-<p>nn.CrossEntropyLoss() 和 NLLLoss()</p>
-<p>NLLLoss的输入时一个对数概率向量和一个目标标签，他不会为我们计算对数概率，适合网络的最后一层时log_softmax，损失函数nn.CrossEntropyLoss()与NLLLoss()相同，唯一的不同是他为我们去做softmax</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/07/什么是PyTorch/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/logo.jpg">
-      <meta itemprop="name" content="Woojoo">
-      <meta itemprop="description" content="a study blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/07/什么是PyTorch/" class="post-title-link" itemprop="url">什么是PyTorch?</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-08-07 16:37:37" itemprop="dateCreated datePublished" datetime="2019-08-07T16:37:37+08:00">2019-08-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-14 14:48:52" itemprop="dateModified" datetime="2019-08-14T14:48:52+08:00">2019-08-14</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/08/07/什么是PyTorch/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/07/什么是PyTorch/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="什么是pytorch"><a class="markdownIt-Anchor" href="#什么是pytorch"></a> 什么是PyTorch？</h3>
-<p>这是一个基于Python的科学计算软件包，针对两组受众：</p>
-<ul>
-<li>Numpy的替代品，可以使用GPU的强大功能</li>
-<li>深入学习研究平台，提供最大的灵活性和速度</li>
-</ul>
-<h3 id="入门"><a class="markdownIt-Anchor" href="#入门"></a> 入门</h3>
-<h4 id="张量"><a class="markdownIt-Anchor" href="#张量"></a> 张量</h4>
-<p>张量与Numpy的ndarray类似，另外还有Tensor也可用于GPU以加速计算</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">import</span> torch</span><br></pre></td></tr></table></figure>
-<p>构造一个未初始化的5 * 3矩阵：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">x = torch.empty(<span class="number">5</span>, <span class="number">3</span>)</span><br><span class="line">print(x)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[1.0561e-38, 1.0653e-38, 4.1327e-39],</span></span><br><span class="line"><span class="string">        [8.9082e-39, 9.8265e-39, 9.4592e-39],</span></span><br><span class="line"><span class="string">        [1.0561e-38, 1.0653e-38, 1.0469e-38],</span></span><br><span class="line"><span class="string">        [9.5510e-39, 1.0378e-38, 8.9082e-39],</span></span><br><span class="line"><span class="string">        [9.6429e-39, 8.9082e-39, 9.1837e-39]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<p>构造一个随机初始化的矩阵：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">x = torch.rand(<span class="number">5</span>, <span class="number">3</span>)</span><br><span class="line">print(x)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[0.4904, 0.0543, 0.2698],</span></span><br><span class="line"><span class="string">        [0.4626, 0.9494, 0.6573],</span></span><br><span class="line"><span class="string">        [0.2933, 0.7157, 0.5195],</span></span><br><span class="line"><span class="string">        [0.3329, 0.3446, 0.3271],</span></span><br><span class="line"><span class="string">        [0.3962, 0.9864, 0.2137]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<p>构造一个0填充的矩阵 of dtype long：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">x = torch.zeros(<span class="number">5</span>, <span class="number">3</span>, dtype=torch.long)</span><br><span class="line">print(x)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[0, 0, 0],</span></span><br><span class="line"><span class="string">        [0, 0, 0],</span></span><br><span class="line"><span class="string">        [0, 0, 0],</span></span><br><span class="line"><span class="string">        [0, 0, 0],</span></span><br><span class="line"><span class="string">        [0, 0, 0]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<p>直接从数据构造Tensor：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x = torch.tensor([<span class="number">5.5</span>, <span class="number">3</span>])</span><br><span class="line">print(x)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([5.5000, 3.0000])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<p>或者根据现有的张量创建张量。除非用户提供新值，否则这些方法将重用与输入张量的属性，例如dtype</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">x = torch.tensor([<span class="number">5.5</span>, <span class="number">3</span>])</span><br><span class="line"></span><br><span class="line">x = x.new_ones(<span class="number">5</span>, <span class="number">3</span>, dtype=torch.double)	<span class="comment"># new method take in size</span></span><br><span class="line">print(x)</span><br><span class="line"></span><br><span class="line">x = torch.randn_like(x, dtype=torch.float)	<span class="comment"># override dtype!</span></span><br><span class="line">print(x)	<span class="comment"># result has the same size</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[1., 1., 1.],</span></span><br><span class="line"><span class="string">        [1., 1., 1.],</span></span><br><span class="line"><span class="string">        [1., 1., 1.],</span></span><br><span class="line"><span class="string">        [1., 1., 1.],</span></span><br><span class="line"><span class="string">        [1., 1., 1.]], dtype=torch.float64)</span></span><br><span class="line"><span class="string">tensor([[-1.5400,  0.6350,  1.6990],</span></span><br><span class="line"><span class="string">        [ 0.0767,  0.3982, -0.0827],</span></span><br><span class="line"><span class="string">        [ 0.1511,  0.8096,  0.0600],</span></span><br><span class="line"><span class="string">        [ 0.2931,  0.8122, -0.3534],</span></span><br><span class="line"><span class="string">        [ 0.7164, -0.0334,  0.2272]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<p>得到它的大小</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(x, size())</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">torch.Size([5, 3])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<p><strong>注意：</strong><code>torch.Size()</code>实际上是一个元组，因此它支持所有元组操作</p>
-<h4 id="操作"><a class="markdownIt-Anchor" href="#操作"></a> 操作</h4>
-<p>操作有多种语法。下面的示例中，我们将查看添加操作：</p>
-<p>增加：语法1</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">y = torch.rand(<span class="number">5</span>, <span class="number">3</span>)</span><br><span class="line">print(x + y)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[ 0.9977,  0.2656,  2.2842],</span></span><br><span class="line"><span class="string">        [ 0.5430, -0.5758,  1.1323],</span></span><br><span class="line"><span class="string">        [ 0.5859,  2.5553, -0.9625],</span></span><br><span class="line"><span class="string">        [-0.2265,  1.2381,  0.8061],</span></span><br><span class="line"><span class="string">        [-0.2200, -0.0597,  0.8266]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<p>增加：语法2</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">print(torch.add(x, y))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[ 0.9977,  0.2656,  2.2842],</span></span><br><span class="line"><span class="string">        [ 0.5430, -0.5758,  1.1323],</span></span><br><span class="line"><span class="string">        [ 0.5859,  2.5553, -0.9625],</span></span><br><span class="line"><span class="string">        [-0.2265,  1.2381,  0.8061],</span></span><br><span class="line"><span class="string">        [-0.2200, -0.0597,  0.8266]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<p>增加：提供输出张量作为参数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">result = torch.empty(<span class="number">5</span>, <span class="number">3</span>)</span><br><span class="line">torch.add(x, y, out=result)</span><br><span class="line">print(result)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[ 0.9977,  0.2656,  2.2842],</span></span><br><span class="line"><span class="string">        [ 0.5430, -0.5758,  1.1323],</span></span><br><span class="line"><span class="string">        [ 0.5859,  2.5553, -0.9625],</span></span><br><span class="line"><span class="string">        [-0.2265,  1.2381,  0.8061],</span></span><br><span class="line"><span class="string">        [-0.2200, -0.0597,  0.8266]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<p>增加：就地</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># add x to y</span></span><br><span class="line">y.add_(x)</span><br><span class="line">print(y)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[ 0.9977,  0.2656,  2.2842],</span></span><br><span class="line"><span class="string">        [ 0.5430, -0.5758,  1.1323],</span></span><br><span class="line"><span class="string">        [ 0.5859,  2.5553, -0.9625],</span></span><br><span class="line"><span class="string">        [-0.2265,  1.2381,  0.8061],</span></span><br><span class="line"><span class="string">        [-0.2200, -0.0597,  0.8266]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<p><strong>注意：</strong></p>
-<p>任何使原张量变形的操作都是用 _ 后固定的。例如：x.copy_(y), x.t_(), 将改变x。</p>
-<p>可以使用标准的NumPy索引与所有bells和whistles</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">x = torch.rand(<span class="number">5</span>, <span class="number">3</span>)</span><br><span class="line">print(x)</span><br><span class="line">print(x[:, <span class="number">1</span>])</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[0.3356, 0.3659, 0.7898],</span></span><br><span class="line"><span class="string">        [0.3474, 0.4648, 0.2795],</span></span><br><span class="line"><span class="string">        [0.0268, 0.8986, 0.5615],</span></span><br><span class="line"><span class="string">        [0.8278, 0.4778, 0.0131],</span></span><br><span class="line"><span class="string">        [0.2451, 0.6178, 0.0125]])</span></span><br><span class="line"><span class="string">tensor([0.3659, 0.4648, 0.8986, 0.4778, 0.6178])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<p>调整大小：如果要调整tensor/重塑tensor，可以使用<code>torch.view</code>：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">x = torch.rand(<span class="number">4</span>, <span class="number">4</span>)</span><br><span class="line">y = x.view(<span class="number">16</span>)</span><br><span class="line">z = x.view(<span class="number">-1</span>, <span class="number">8</span>)	<span class="comment"># the size of -1 is inferred from other dimensions</span></span><br><span class="line">print(x.size(), y.size(), z.size())</span><br><span class="line">print(x)</span><br><span class="line">print(y)</span><br><span class="line">print(z)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">torch.Size([4, 4]) torch.Size([16]) torch.Size([2, 8])</span></span><br><span class="line"><span class="string">tensor([[0.3415, 0.9245, 0.5641, 0.9463],</span></span><br><span class="line"><span class="string">        [0.5833, 0.5632, 0.3456, 0.6338],</span></span><br><span class="line"><span class="string">        [0.2562, 0.6854, 0.1495, 0.0351],</span></span><br><span class="line"><span class="string">        [0.6777, 0.8511, 0.9998, 0.7963]])</span></span><br><span class="line"><span class="string">tensor([0.3415, 0.9245, 0.5641, 0.9463, 0.5833, 0.5632, 0.3456, 0.6338, 0.2562,</span></span><br><span class="line"><span class="string">        0.6854, 0.1495, 0.0351, 0.6777, 0.8511, 0.9998, 0.7963])</span></span><br><span class="line"><span class="string">tensor([[0.3415, 0.9245, 0.5641, 0.9463, 0.5833, 0.5632, 0.3456, 0.6338],</span></span><br><span class="line"><span class="string">        [0.2562, 0.6854, 0.1495, 0.0351, 0.6777, 0.8511, 0.9998, 0.7963]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<p>假如你有一个元素张量，可以用item()获取值作为python数字</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = torch.randn(<span class="number">1</span>)</span><br><span class="line">print(x)</span><br><span class="line">print(x.item())</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([-0.2729])</span></span><br><span class="line"><span class="string">-0.2729296088218689</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<p>torch包含用于多维张量的数据结构，并且定义了浙西额数学运算。此外还提供了徐国使用程序，用于搞笑序列化Tensor和任意类型，以及其他有用的实用程序。</p>
-<p>它有一个CUDA对应物，能够在计算能力 &gt;= 3.0的NVIDIA GPU上运行张量计算</p>
-<p>关于张量的操作：</p>
-<h3 id="numpy-bridge"><a class="markdownIt-Anchor" href="#numpy-bridge"></a> NumPy Bridge：</h3>
-<p>将Torch Tensor转换为NumPy阵列（反之亦然）是一件轻而易举的事</p>
-<p>Torch Tensor和NumPy阵列将共享其底层内存位置（如果Torch Tensor在CPU上），更改一个将改变另一个。</p>
-<h4 id="将torch-tensor转换为numpy数组"><a class="markdownIt-Anchor" href="#将torch-tensor转换为numpy数组"></a> 将Torch Tensor转换为NumPy数组</h4>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a = torch.ones(<span class="number">5</span>)</span><br><span class="line">print(a)</span><br><span class="line">b = a.numpy()</span><br><span class="line">print(b)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([1., 1., 1., 1., 1.])</span></span><br><span class="line"><span class="string">[1. 1. 1. 1. 1.]</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<p>了解numpy数组的值如何变化</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a.add_(<span class="number">1</span>)</span><br><span class="line">print(a)</span><br><span class="line">print(b)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([2., 2., 2., 2., 2.])</span></span><br><span class="line"><span class="string">[2. 2. 2. 2. 2.]</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<h4 id="将numpy数组转换为torch-tensor"><a class="markdownIt-Anchor" href="#将numpy数组转换为torch-tensor"></a> 将NumPy数组转换为Torch Tensor</h4>
-<p>了解更改np阵列如何自动更改Torch Tensor</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.ones(<span class="number">5</span>)</span><br><span class="line">b = torch.from_numpy(a)</span><br><span class="line">torch.add(a, <span class="number">1</span>, out=a)</span><br><span class="line">print(a)</span><br><span class="line">print(b)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">[2. 2. 2. 2. 2.]</span></span><br><span class="line"><span class="string">tensor([2., 2., 2., 2., 2.], dtype=torch.float64)</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<p>**注意：**除了CharTensor之外，CPU上的所有Tensor都支持转换为NumPy并返回</p>
-<h4 id="cuda-tensors"><a class="markdownIt-Anchor" href="#cuda-tensors"></a> CUDA Tensors</h4>
-<p>可以使用<code>.to</code>方法将张量移动到任何设备上</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">x = torch.randn(<span class="number">5</span>, <span class="number">3</span>)</span><br><span class="line">print(x)</span><br><span class="line"><span class="keyword">if</span> torch.cuda.is_available():</span><br><span class="line">    device = torch.device(<span class="string">"cuda"</span>)			<span class="comment"># a CUDA device object </span></span><br><span class="line">   	y = torch.ones_like(x, device=device)	<span class="comment"># directly create a tensor on GPU</span></span><br><span class="line">    x = x.to(device)						<span class="comment"># or just use strings ``.to("cuda")``</span></span><br><span class="line">    z = x + y</span><br><span class="line">    print(z)</span><br><span class="line">    print(z.to(<span class="string">"cpu"</span>, torch.double))		<span class="comment"># ``.to`` can also change dtype together!</span></span><br><span class="line"> <span class="string">"""</span></span><br><span class="line"><span class="string"> output:</span></span><br><span class="line"><span class="string"> tensor([[-0.6816,  0.2219, -0.4269],</span></span><br><span class="line"><span class="string">        [-1.1169, -1.7020,  0.6161],</span></span><br><span class="line"><span class="string">        [-0.2312, -0.8429,  0.9232],</span></span><br><span class="line"><span class="string">        [ 0.8789, -0.4840,  0.8420],</span></span><br><span class="line"><span class="string">        [-1.4957, -0.8483,  0.0130]])</span></span><br><span class="line"><span class="string">tensor([[ 0.3184,  1.2219,  0.5731],</span></span><br><span class="line"><span class="string">        [-0.1169, -0.7020,  1.6161],</span></span><br><span class="line"><span class="string">        [ 0.7688,  0.1571,  1.9232],</span></span><br><span class="line"><span class="string">        [ 1.8789,  0.5160,  1.8420],</span></span><br><span class="line"><span class="string">        [-0.4957,  0.1517,  1.0130]], device='cuda:0')</span></span><br><span class="line"><span class="string">tensor([[ 0.3184,  1.2219,  0.5731],</span></span><br><span class="line"><span class="string">        [-0.1169, -0.7020,  1.6161],</span></span><br><span class="line"><span class="string">        [ 0.7688,  0.1571,  1.9232],</span></span><br><span class="line"><span class="string">        [ 1.8789,  0.5160,  1.8420],</span></span><br><span class="line"><span class="string">        [-0.4957,  0.1517,  1.0130]], dtype=torch.float64)</span></span><br><span class="line"><span class="string"> """</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/07/PyTorch-Study/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/logo.jpg">
-      <meta itemprop="name" content="Woojoo">
-      <meta itemprop="description" content="a study blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Celery Fairy">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/07/PyTorch-Study/" class="post-title-link" itemprop="url">PyTorch Study</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-08-07 14:57:07 / 修改时间：16:36:12" itemprop="dateCreated datePublished" datetime="2019-08-07T14:57:07+08:00">2019-08-07</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/08/07/PyTorch-Study/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/07/PyTorch-Study/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="pytorch搭建神经网络"><a class="markdownIt-Anchor" href="#pytorch搭建神经网络"></a> PyTorch搭建神经网络</h3>
-<h4 id="1-导入库"><a class="markdownIt-Anchor" href="#1-导入库"></a> 1. 导入库</h4>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br></pre></td></tr></table></figure>
-<h4 id="2-搭建卷积神经网络"><a class="markdownIt-Anchor" href="#2-搭建卷积神经网络"></a> 2. 搭建卷积神经网络</h4>
-<p>网络定义一般由两部分组成：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span>		<span class="comment"># 用来定义网络节点参数</span></span><br></pre></td></tr></table></figure>
-<p>将节点连接成图</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br></pre></td></tr></table></figure>
-<p>卷积计算规则：</p>
-<p>对我们输入形状1， 1， 64， 64.四个维度分别是<code>(batch, channel, height, width)</code></p>
-<p><code>new_height = (height - kernel_size) + s * padding / (stride[0]) + 1</code></p>
-<p>即在周围补一圈0， stride默认为1.因此</p>
-<p><code>new_height = new_width = (64 - 3) / 1 + 1 = 62</code></p>
-<p>由于输出通道是6，所以通过卷积层后维度为<code>(1, 6, 62, 62)</code></p>
-<p>经过pooling后，<code>(1, 6, 31, 31)</code></p>
-<p><code>x.view(1, -1)</code>把x伸缩为(1 : ?)的维度。这样整个网络其实输入<code>(1, 1, 64, 64)</code>，输出为(1, 10)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(Net, self).__init__()</span><br><span class="line">        self.conv = nn.Conv2d(in_channels=<span class="number">1</span>, out_channels=<span class="number">6</span>, kernel_size=<span class="number">3</span>)</span><br><span class="line">        self.linear = nn.Leaner(<span class="number">5766</span>, <span class="number">10</span>)</span><br><span class="line">        self.relu = nn.ReLU(inplace=<span class="literal">True</span>)</span><br><span class="line">        self.maxpooling = nn.MaxPool2d((<span class="number">2</span>, <span class="number">2</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        x = self.conv(x)</span><br><span class="line">        <span class="comment"># print (x.shape)</span></span><br><span class="line">        x = self.maxpooling(x)</span><br><span class="line">        <span class="comment"># print(x.shape)</span></span><br><span class="line">        x = self.relu(x)</span><br><span class="line">        x = view(<span class="number">1</span>, <span class="number">-1</span>)</span><br><span class="line">        <span class="comment"># print (x.shape)</span></span><br><span class="line">        x = self.linear(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
-<h4 id="3-添加训练数据"><a class="markdownIt-Anchor" href="#3-添加训练数据"></a> 3. 添加训练数据</h4>
-<p>optimizer：是优化器，即所谓的反向传播算法。<code>criterion = nn.MSELoss()</code>定义损失函数。</p>
-<p><code>input = torch.randn(1， 1， 64， 64).cuda()</code></p>
-<p><code>output = torch.ones(1, 10).cuda()</code></p>
-<p>定义训练样本，注意如果实在gpu中训练，在pytorch中需要.cuda()把数据从cpu中导入到gpu中</p>
-<p>网络的功能是给定随机噪声向量，输出是逼近1的单位向量</p>
-<h4 id="4-训练"><a class="markdownIt-Anchor" href="#4-训练"></a> 4. 训练</h4>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> step <span class="keyword">in</span> range(epoch):</span><br><span class="line">    prediction = net(input)</span><br><span class="line">    loss = creterion(prediction, output)</span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    <span class="comment"># 消除优化器梯度</span></span><br><span class="line">    loss.backward()</span><br><span class="line">    <span class="comment"># 指自动求导</span></span><br><span class="line">    optimizer.step()</span><br><span class="line">    <span class="comment"># 根据自动求导反向传播优化参数</span></span><br><span class="line">    <span class="keyword">if</span> step % <span class="number">10</span> == <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">"EPOCH: &#123;&#125;, Loss:&#123;:4f&#125;"</span>).format(step, loss))</span><br></pre></td></tr></table></figure>
+          <h3 id="latex源文件的结构"><a class="markdownIt-Anchor" href="#latex源文件的结构"></a> LaTeX源文件的结构</h3>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 导言区，用于全局设置</span></span><br><span class="line"><span class="tag">\<span class="name">documentclass</span><span class="string">[UTF8]</span><span class="string">&#123;ctexart&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">title</span><span class="string">&#123;杂谈爱情&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">author</span><span class="string">&#123;MYQ&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">date</span><span class="string">&#123;\today&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 正文区域</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;document&#125;</span></span></span><br><span class="line">	<span class="tag">\<span class="name">maketitle</span></span></span><br><span class="line">	Hello World!</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;document&#125;</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="基础语法"><a class="markdownIt-Anchor" href="#基础语法"></a> 基础语法</h3>
+<h4 id="注释"><a class="markdownIt-Anchor" href="#注释"></a> 注释</h4>
+<blockquote>
+<p>% 用于注释</p>
+</blockquote>
+<h4 id="空行"><a class="markdownIt-Anchor" href="#空行"></a> 空行</h4>
+<blockquote>
+<p>可以在输出时换行效果，同时使结构更加清晰，不过在源文件的多个换行效果，在输出文件，只有一个换行效果</p>
+</blockquote>
+<h4 id="document"><a class="markdownIt-Anchor" href="#document"></a> document</h4>
+<blockquote>
+<p>每一个LaTeX文件，只有一个document环境</p>
+</blockquote>
+<h4 id="数学公式"><a class="markdownIt-Anchor" href="#数学公式"></a> 数学公式</h4>
+<blockquote>
+<p>行内数学公式$$</p>
+</blockquote>
+<blockquote>
+<p>行间数学公式 $$$$</p>
+</blockquote>
+<h4 id="latex的文件格式分类"><a class="markdownIt-Anchor" href="#latex的文件格式分类"></a> LaTeX的文件格式分类</h4>
+<blockquote>
+<p>使用$符号，数学格式，不使用，则是文本格式</p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">% 导言区，用于全局设置</span><br><span class="line">\documentclass[UTF8]&#123;ctexart&#125;</span><br><span class="line">% 导入中文宏</span><br><span class="line">\usepackage&#123;ctex&#125;</span><br><span class="line">% 构建命令，取别名，使用degree代替^ circ</span><br><span class="line">\newcommand\degree&#123;^\circ&#125;</span><br><span class="line"></span><br><span class="line">\title&#123;杂谈爱情&#125;</span><br><span class="line">\author&#123;MYQ&#125;</span><br><span class="line">\date&#123;\today&#125;</span><br><span class="line"></span><br><span class="line">% 正文区域</span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line">	\maketitle</span><br><span class="line">	\kaishu</span><br><span class="line">	\par\noindent 我们的开始始于北邮图书馆\\</span><br><span class="line">	那里不是我们最开始相遇的地方\\</span><br><span class="line">	却是我们相识，了解的地方</span><br><span class="line">	\begin&#123;equation&#125;</span><br><span class="line">		A_B^2 = BC^2 +AC^2</span><br><span class="line">	\end&#123;equation&#125;</span><br><span class="line">\end&#123;document&#125;</span><br></pre></td></tr></table></figure>
+<p>显示：</p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1573689463711.png" alt="1573689463711"></p>
+<h4 id="其他命令"><a class="markdownIt-Anchor" href="#其他命令"></a> 其他命令</h4>
+<h5 id="字体的设置"><a class="markdownIt-Anchor" href="#字体的设置"></a> 字体的设置</h5>
+<blockquote>
+<p>黑体： \heiti</p>
+<p>楷书： \kaishu</p>
+</blockquote>
+<h5 id="产生序号的行间数学公式equation环境"><a class="markdownIt-Anchor" href="#产生序号的行间数学公式equation环境"></a> 产生序号的行间数学公式：<code>equation</code>环境</h5>
+<blockquote>
+<p>\begin{equation}</p>
+<p>AB^2 = BC<sup>2+AC</sup>2</p>
+<p>\end{equation}</p>
+</blockquote>
+<h5 id="构建新命令newcommand新命令操作"><a class="markdownIt-Anchor" href="#构建新命令newcommand新命令操作"></a> 构建新命令：<code>\newcommand\新命令{操作}</code></h5>
+<blockquote>
+<p>\newcommand\degree{^\circ}</p>
+</blockquote>
+<h3 id="字体设置"><a class="markdownIt-Anchor" href="#字体设置"></a> 字体设置</h3>
+<h4 id="字体族的设置"><a class="markdownIt-Anchor" href="#字体族的设置"></a> 字体族的设置</h4>
+<h5 id="字体命令"><a class="markdownIt-Anchor" href="#字体命令"></a> 字体命令</h5>
+<blockquote>
+<p>\textrm{Roman Family} 在花括号内的字体都是Roman Family字体</p>
+</blockquote>
+<h5 id="字体声明"><a class="markdownIt-Anchor" href="#字体声明"></a> 字体声明</h5>
+<blockquote>
+<p>\rmfamily Roman Family该命令下面的字体都是Roman Family字体，直到新的声明出现覆盖该声明</p>
+</blockquote>
+<p>示例</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;document&#125;</span></span></span><br><span class="line">	<span class="tag">\<span class="name">maketitle</span></span></span><br><span class="line">	<span class="comment">% \kaishu</span></span><br><span class="line">	<span class="comment">% 字体命令</span></span><br><span class="line">	<span class="tag">\<span class="name">textrm</span><span class="string">&#123;Roman Family&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">textsf</span><span class="string">&#123;Sans Serif Family&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">texttt</span><span class="string">&#123;Typewriter Family&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">% 字体</span></span><br><span class="line">	&#123;<span class="tag">\<span class="name">songti</span></span> 宋体&#125;</span><br><span class="line">	</span><br><span class="line">	&#123;<span class="tag">\<span class="name">heiti</span></span> 黑体&#125;</span><br><span class="line">	</span><br><span class="line">	&#123;<span class="tag">\<span class="name">kaishu</span></span> 楷书&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">% 字体声明</span></span><br><span class="line">	<span class="tag">\<span class="name">rmfamily</span></span> Roman Family</span><br><span class="line">	<span class="tag">\<span class="name">sffamily</span></span> Sans Serif Family</span><br><span class="line">	<span class="tag">\<span class="name">ttfamily</span></span> Typewriter Family</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;document&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>显示：</p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1573690059972.png" alt="1573690059972"></p>
+<h4 id="字体系列的设置"><a class="markdownIt-Anchor" href="#字体系列的设置"></a> 字体系列的设置</h4>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 字体系列的设置（粗细，宽度）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 字体命令</span></span><br><span class="line"><span class="tag">\<span class="name">textmd</span><span class="string">&#123;Medium Series&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">textbf</span><span class="string">&#123;Boldface Series&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 字系列</span></span><br><span class="line"><span class="tag">\<span class="name">textbf</span><span class="string">&#123;粗体&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">textit</span><span class="string">&#123;斜体&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 字体声明</span></span><br><span class="line"><span class="tag">\<span class="name">mdseries</span><span class="string">&#123;Medium Series&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">bfseries</span><span class="string">&#123;Boldface Series&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>显示：</p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1573690497433.png" alt="1573690497433"></p>
+<h4 id="字体形状的设置"><a class="markdownIt-Anchor" href="#字体形状的设置"></a> 字体形状的设置</h4>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 字体命令</span></span><br><span class="line">	<span class="tag">\<span class="name">textup</span><span class="string">&#123;Upright Shape&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">textit</span><span class="string">&#123;Italic Shape&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">textsl</span><span class="string">&#123;Slanted Shape&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">textsc</span><span class="string">&#123;Samll Caps Shape&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">% 字体声明</span></span><br><span class="line">	<span class="tag">\<span class="name">upshape</span><span class="string">&#123;Upright Sshape&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">itshape</span><span class="string">&#123;Italic Shape&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">slshape</span><span class="string">&#123;Slanted Shape&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">scshape</span><span class="string">&#123;Samll Caps Shape&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>显示：</p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1573690825286.png" alt="1573690825286"></p>
+<h4 id="字体大小的设置"><a class="markdownIt-Anchor" href="#字体大小的设置"></a> 字体大小的设置</h4>
+<p>在<code>\documentclass[可选项]{article}</code>可选项：10pt, 11pt, 12pt</p>
+<h5 id="标准字体"><a class="markdownIt-Anchor" href="#标准字体"></a> 标准字体</h5>
+<p><img src="https://upload-images.jianshu.io/upload_images/14032224-92a41bd9f5ae8d0c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/926/format/webp" alt="img"></p>
+<h5 id="中文字号"><a class="markdownIt-Anchor" href="#中文字号"></a> 中文字号</h5>
+<p><img src="https://upload-images.jianshu.io/upload_images/14032224-40678f49169abb91.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/753/format/webp" alt="img"></p>
+<h3 id="函数式编写文档"><a class="markdownIt-Anchor" href="#函数式编写文档"></a> 函数式编写文档</h3>
+<h4 id="说明"><a class="markdownIt-Anchor" href="#说明"></a> 说明</h4>
+<p>在LaTeX文档里，我们不可能满篇文章的设置字体，我们可以用：</p>
+<p><code>\newcommend{cmd}{def}</code>来定义一个新的命令，把字体的整体设置放在def里，减少代码量，也利于修改</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">newcommand</span><span class="string">&#123;\myfont&#125;</span><span class="string">&#123;\textit&#123;\textbf&#123;\textrm&#123;Fancy Family&#125;</span></span>&#125;&#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">myfont</span><span class="string">&#123;Fancy Family&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>显示：</p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1573691557272.png" alt="1573691557272"></p>
+<h4 id="latex的文档结构"><a class="markdownIt-Anchor" href="#latex的文档结构"></a> LaTeX的文档结构</h4>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\section{}</td>
+<td>一级标题</td>
+</tr>
+<tr>
+<td>\subsection{}</td>
+<td>二级标题</td>
+</tr>
+<tr>
+<td>\subsubsection{}</td>
+<td>三级标题</td>
+</tr>
+<tr>
+<td>空行</td>
+<td>用于分割段落（同时使源文档结构清晰）</td>
+</tr>
+<tr>
+<td>空行</td>
+<td>用于分割命令与结构</td>
+</tr>
+<tr>
+<td>\</td>
+<td>用于换行</td>
+</tr>
+<tr>
+<td>\par</td>
+<td>也用于换行</td>
+</tr>
+<tr>
+<td>\chapter{}</td>
+<td>章节大纲</td>
+</tr>
+<tr>
+<td>\tableofcontents</td>
+<td>生成目录</td>
+</tr>
+</tbody>
+</table>
+<p>第一篇文章就这样完成了！</p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1573696187883.png" alt="1573696187883"></p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1573696200304.png" alt="1573696200304"></p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1573696212143.png" alt="1573696212143"></p>
+<p>源代码：</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 导言区，用于全局设置</span></span><br><span class="line"><span class="tag">\<span class="name">documentclass</span><span class="string">[UTF8]</span><span class="string">&#123;ctexart&#125;</span></span></span><br><span class="line"><span class="comment">% 导入中文宏</span></span><br><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;ctex&#125;</span></span></span><br><span class="line"><span class="comment">% 默认情况下，目录连接是带红色的边框，如果不想这样，可以 进行以下设置</span></span><br><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">[bookmarks=true,colorlinks,linkcolor=black]</span><span class="string">&#123;hyperref&#125;</span></span></span><br><span class="line"><span class="comment">% 添加图片</span></span><br><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;graphicx&#125;</span></span></span><br><span class="line"><span class="comment">% 定义存放图片的位置</span></span><br><span class="line"><span class="tag">\<span class="name">graphicspath</span><span class="string">&#123;&#123;figure/&#125;</span></span>&#125;</span><br><span class="line"><span class="comment">% 模块式编程</span></span><br><span class="line"><span class="comment">% \newcommand&#123;\myfont&#125;&#123;\textit&#123;\textbf&#123;\textsf&#123;Fancy Family&#125;&#125;&#125;&#125;</span></span><br><span class="line"><span class="tag">\<span class="name">newcommand</span><span class="string">&#123;\myfont&#125;</span><span class="string">&#123;\textit&#123;\textbf&#123;\textrm&#123;Fancy Family&#125;</span></span>&#125;&#125;&#125;</span><br><span class="line"><span class="tag">\<span class="name">title</span><span class="string">&#123;杂谈爱情&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">author</span><span class="string">&#123;MYQ&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">date</span><span class="string">&#123;\today&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 正文区域</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;document&#125;</span></span></span><br><span class="line">	<span class="tag">\<span class="name">maketitle</span></span></span><br><span class="line">	<span class="tag">\<span class="name">section</span><span class="string">&#123;开始&#125;</span></span></span><br><span class="line">	我们的故事始于北邮沙河的图书馆，虽然这不是我们相遇的地方，但却是我们相识、了解的地方</span><br><span class="line">	</span><br><span class="line">	这个故事的主人公是MYQ<span class="tag">\<span class="name">footnote</span><span class="string">&#123;MYQ,一名北京邮电大学小仙女，来自浙江绍兴&#125;</span></span>和YJZ<span class="tag">\<span class="name">footnote</span><span class="string">&#123;YJZ,一名北京邮电大学的傻子，来自河北石家庄&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	你告白的勇气也来源于一场美丽的误会（我来搞笑的）</span><br><span class="line">	<span class="tag">\<span class="name">begin</span><span class="string">&#123;center&#125;</span></span></span><br><span class="line">		——我以为那个在北邮微生活发消息的人是你<span class="tag">\<span class="name">\</span></span></span><br><span class="line">		——其实我根本就没有关注北邮微生活</span><br><span class="line">	<span class="tag">\<span class="name">end</span><span class="string">&#123;center&#125;</span></span></span><br><span class="line">	<span class="tag">\<span class="name">par</span></span> 误打误撞，我们就这样在一起了...对我来说，就像开启了一场新的生活，从没想过我也会有这样的一天，二十年来习惯了一个人生活的我，突然多了一个可以关心的人，也突然成为了住在别人心里的一个人<span class="tag">\<span class="name">ref</span><span class="string">&#123;fig:1&#125;</span></span><span class="tag">\<span class="name">\</span></span></span><br><span class="line"></span><br><span class="line">	<span class="tag">\<span class="name">par</span></span> 我曾写下这样三行情诗:</span><br><span class="line">	<span class="tag">\<span class="name">begin</span><span class="string">&#123;center&#125;</span></span></span><br><span class="line">		<span class="tag">\<span class="name">kaishu</span></span></span><br><span class="line">		土豆和马铃薯<span class="tag">\<span class="name">\</span></span></span><br><span class="line">		番茄和西红柿<span class="tag">\<span class="name">\</span></span></span><br><span class="line">		我喜欢的人和你<span class="tag">\<span class="name">\</span></span></span><br><span class="line">	<span class="tag">\<span class="name">end</span><span class="string">&#123;center&#125;</span></span></span><br><span class="line">	<span class="tag">\<span class="name">par</span></span> 今天我也想把它送给你</span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">pagebreak</span></span></span><br><span class="line">	<span class="tag">\<span class="name">section</span><span class="string">&#123;后来&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">par</span></span> 在一起之后，我们一起做了很多很多的事情，完成了好多好多的第一次。第一次牵手，第一次拥抱，第一次约会，第一次旅行，第一次看演唱会...</span><br><span class="line">	<span class="tag">\<span class="name">par</span></span> 最棒的第一次是 第一次和你在一起</span><br><span class="line">	<span class="tag">\<span class="name">begin</span><span class="string">&#123;figure&#125;</span></span><span class="tag">\<span class="name">centering</span></span></span><br><span class="line">		<span class="tag">\<span class="name">includegraphics</span><span class="string">[scale=0.25]</span><span class="string">&#123;1.jpg&#125;</span></span></span><br><span class="line">		<span class="tag">\<span class="name">caption</span><span class="string">&#123;这之间还有一个大功臣——小辉（图片来源于小辉之手）&#125;</span></span></span><br><span class="line">		<span class="tag">\<span class="name">label</span><span class="string">&#123;fig:1&#125;</span></span></span><br><span class="line">	<span class="tag">\<span class="name">end</span><span class="string">&#123;figure&#125;</span></span></span><br><span class="line"></span><br><span class="line">	<span class="tag">\<span class="name">begin</span><span class="string">&#123;center&#125;</span></span></span><br><span class="line">		<span class="tag">\<span class="name">begin</span><span class="string">&#123;tabular&#125;</span><span class="string">&#123;|c|c|c|&#125;</span></span><span class="tag">\<span class="name">hline</span></span></span><br><span class="line">			<span class="tag">\<span class="name">small</span></span> 时间&amp;事件&amp;好感度<span class="tag">\<span class="name">\</span></span> <span class="tag">\<span class="name">hline</span></span></span><br><span class="line">			2019.1.24&amp;在一起&amp;100<span class="tag">\<span class="name">\</span></span><span class="tag">\<span class="name">hline</span></span></span><br><span class="line">			2019.2.14&amp;第一次过情人节&amp;120<span class="tag">\<span class="name">\</span></span><span class="tag">\<span class="name">hline</span></span></span><br><span class="line">			2019.5.4&amp;大傻过生日&amp;200<span class="tag">\<span class="name">\</span></span><span class="tag">\<span class="name">hline</span></span></span><br><span class="line">		<span class="tag">\<span class="name">end</span><span class="string">&#123;tabular&#125;</span></span></span><br><span class="line">	<span class="tag">\<span class="name">end</span><span class="string">&#123;center&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">par</span></span>  这不仅仅是练习LaTeX的第一篇文章，更是写给你的一封<span class="tag">\<span class="name">emph</span><span class="string">&#123;小情书&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">pagebreak</span></span></span><br><span class="line">	<span class="tag">\<span class="name">begin</span><span class="string">&#123;thebibliography&#125;</span><span class="string">&#123;参考文献&#125;</span></span></span><br><span class="line">		<span class="tag">\<span class="name">bibitem</span><span class="string">&#123;MYQ&#125;</span></span> MYQ,著作《咱们俩》，北京邮电大学大三学生</span><br><span class="line">		<span class="tag">\<span class="name">bibitem</span><span class="string">&#123;YJZ&#125;</span></span> YJZ,著作《恋爱手册》，脑子里只有竞赛和大傻的三傻</span><br><span class="line">	<span class="tag">\<span class="name">end</span><span class="string">&#123;thebibliography&#125;</span></span></span><br><span class="line">	<span class="tag">\<span class="name">addcontentsline</span><span class="string">&#123;toc&#125;</span><span class="string">&#123;section&#125;</span><span class="string">&#123;参考文献&#125;</span></span></span><br><span class="line">	<span class="tag">\<span class="name">begin</span><span class="string">&#123;appendix&#125;</span></span></span><br><span class="line">		<span class="tag">\<span class="name">small</span></span> 今天是他们在一起的294天，大火花的第352天</span><br><span class="line">	<span class="tag">\<span class="name">end</span><span class="string">&#123;appendix&#125;</span></span></span><br><span class="line">	</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;document&#125;</span></span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1240,7 +393,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/128/">128</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1405,7 +558,7 @@ NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
     serverURLs: ''
   });
 }, window.Valine);
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </body>
 </html>
