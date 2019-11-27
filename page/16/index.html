@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/19/SQLServer-Day9/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/20/Transfer-Learning/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/10/19/SQLServer-Day9/" class="post-title-link" itemprop="url">SQLServer-Day9</a>
+            <a href="/2019/10/20/Transfer-Learning/" class="post-title-link" itemprop="url">Transfer Learning</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-10-19 10:18:58 / 修改时间：11:26:15" itemprop="dateCreated datePublished" datetime="2019-10-19T10:18:58+08:00">2019-10-19</time>
+              <time title="创建时间：2019-10-20 00:06:59 / 修改时间：02:18:25" itemprop="dateCreated datePublished" datetime="2019-10-20T00:06:59+08:00">2019-10-20</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/10/19/SQLServer-Day9/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/19/SQLServer-Day9/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/10/20/Transfer-Learning/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/20/Transfer-Learning/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,37 +240,52 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="sqlserver-day9"><a class="markdownIt-Anchor" href="#sqlserver-day9"></a> SQLServer-Day9</h2>
-<h3 id="178-分数排名"><a class="markdownIt-Anchor" href="#178-分数排名"></a> 178. 分数排名</h3>
-<p>编写一个 SQL 查询来实现分数排名。如果两个分数相同，则两个分数排名（Rank）相同。请注意，平分后的下一个名次应该是下一个连续的整数值。换句话说，名次之间不应该有“间隔”。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">+----+-------+</span><br><span class="line">| Id | Score |</span><br><span class="line">+----+-------+</span><br><span class="line">| 1  | 3.50  |</span><br><span class="line">| 2  | 3.65  |</span><br><span class="line">| 3  | 4.00  |</span><br><span class="line">| 4  | 3.85  |</span><br><span class="line">| 5  | 4.00  |</span><br><span class="line">| 6  | 3.65  |</span><br><span class="line">+----+-------+</span><br></pre></td></tr></table></figure>
-<p>例如，根据上述给定的 Scores 表，你的查询应该返回（按分数从高到低排列）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">+-------+------+</span><br><span class="line">| Score | Rank |</span><br><span class="line">+-------+------+</span><br><span class="line">| 4.00  | 1    |</span><br><span class="line">| 4.00  | 1    |</span><br><span class="line">| 3.85  | 2    |</span><br><span class="line">| 3.65  | 3    |</span><br><span class="line">| 3.65  | 3    |</span><br><span class="line">| 3.50  | 4    |</span><br><span class="line">+-------+------+</span><br></pre></td></tr></table></figure>
-<p>Code：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Score, <span class="keyword">dense_rank</span>() <span class="keyword">over</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> Score <span class="keyword">DESC</span>) <span class="keyword">as</span> <span class="keyword">Rank</span></span><br><span class="line"><span class="keyword">FROM</span> Scores</span><br></pre></td></tr></table></figure>
-<p>**Tips：**SQL Server中<code>ROW_NUMBER()</code> 和 <code>RANK()</code> 和 <code>DENSE_RANK()</code>这三个函数都是对分过组的数据排序，凡是又各有区别：</p>
-<blockquote>
-<p>ROWNUMBER() OVER ([PARTITION BY Columns1 ORDER BY columns2)</p>
-</blockquote>
-<blockquote>
-<p>DENSE_RANK() OVER ([PARTITION BY Columns1] ORDER BY columns2)</p>
-</blockquote>
-<blockquote>
-<p>RANK() OVER ([PARTITION BY Columns1] ORDER BY columns2)</p>
-</blockquote>
-<p>这三个函数都是按照column1分组从1开始排序</p>
-<p>其中，<code>ROW_NUMBER()</code>是没有重复值的排序（即使两条记录仙童，序号也不重复），不会有同名次</p>
-<p><code>DENSE_RANK()</code>是连续的排序，两个第二名仍然跟着第三名</p>
-<p><code>RANK()</code>是跳跃排序，两个第二名下来就是第四名</p>
-<h3 id="184-部门工资最高的员工"><a class="markdownIt-Anchor" href="#184-部门工资最高的员工"></a> 184. 部门工资最高的员工</h3>
-<p>Employee 表包含所有员工信息，每个员工有其对应的 Id, salary 和 department Id。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+----+-------+--------+--------------+</span><br><span class="line">| Id | Name  | Salary | DepartmentId |</span><br><span class="line">+----+-------+--------+--------------+</span><br><span class="line">| 1  | Joe   | 70000  | 1            |</span><br><span class="line">| 2  | Henry | 80000  | 2            |</span><br><span class="line">| 3  | Sam   | 60000  | 2            |</span><br><span class="line">| 4  | Max   | 90000  | 1            |</span><br><span class="line">+----+-------+--------+--------------+</span><br></pre></td></tr></table></figure>
-<p>Department 表包含公司所有部门的信息。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+----+----------+</span><br><span class="line">| Id | Name     |</span><br><span class="line">+----+----------+</span><br><span class="line">| 1  | IT       |</span><br><span class="line">| 2  | Sales    |</span><br><span class="line">+----+----------+</span><br></pre></td></tr></table></figure>
-<p>编写一个 SQL 查询，找出每个部门工资最高的员工。例如，根据上述给定的表格，Max 在 IT 部门有最高工资，Henry 在 Sales 部门有最高工资。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+------------+----------+--------+</span><br><span class="line">| Department | Employee | Salary |</span><br><span class="line">+------------+----------+--------+</span><br><span class="line">| IT         | Max      | 90000  |</span><br><span class="line">| Sales      | Henry    | 80000  |</span><br><span class="line">+------------+----------+--------+</span><br></pre></td></tr></table></figure>
-<p>Code：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> d.Name <span class="keyword">as</span> Department,e.Name <span class="keyword">as</span> Employee, e.Salary <span class="keyword">from</span></span><br><span class="line">(<span class="keyword">select</span> <span class="keyword">max</span>(Salary) <span class="keyword">as</span> Salary,DepartmentId <span class="keyword">from</span> Employee </span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> DepartmentId) t </span><br><span class="line"><span class="keyword">join</span> Employee e <span class="keyword">on</span> e.Salary = t.Salary <span class="keyword">and</span> e.DepartmentId = t.DepartmentId</span><br><span class="line"><span class="keyword">join</span> Department d <span class="keyword">on</span> d.Id = e.DepartmentId</span><br></pre></td></tr></table></figure>
+          <h2 id="transfer-learning"><a class="markdownIt-Anchor" href="#transfer-learning"></a> Transfer Learning</h2>
+<h3 id="初步了解transfer-learning"><a class="markdownIt-Anchor" href="#初步了解transfer-learning"></a> 初步了解Transfer Learning</h3>
+<p>Matthew D. Zeiler和Rob Fergus发表了一片著名的论文， 阐述卷积神经网络到底“看”到了什么：[<a href="https://www.zhihu.com/topic/20079475/intro#ref_2" target="_blank" rel="noopener">2]</a></p>
+<p><img src="https://pic1.zhimg.com/v2-8aaa5f69e139f987bb53538bd212da58_b.jpg" alt="img"></p>
+<p>和对卷积层进行简单的成像不同，他们尝试把不同的内容输入到训练好的神经网络，并观察记录卷积核的激活值。并把造成相同卷积核较大激活的内容分组比较。上面的图片中每个九宫格为同一个卷积核对不同图片的聚类。</p>
+<p>在上面图片中可以看出，较浅层的卷积层将较为几何抽象的内容归纳到了一起。例如第一层的卷积中，基本就是边缘检测。而第二层的卷积中，聚类了相似的几何形状，尽管这些几何形状的内容相差甚远。</p>
+<p>随着卷积层越来越深，所聚类的内容也越来越具体。</p>
+<p>其实有个最简单易行的方式已经摆在我们面前了：如果我们把卷积神经网络的前n层保留下来，剩下不想要的砍掉怎么样？就像是我们可以不需要ct能识别狗，识别猫，但是轮廓的对我们还是很有帮助的</p>
+<p><img src="https://pic4.zhimg.com/v2-486d24854876bb536978e32e801eee23_b.jpg" alt="img"></p>
+<h3 id="迁移学习的三个主要研究问题"><a class="markdownIt-Anchor" href="#迁移学习的三个主要研究问题"></a> 迁移学习的三个主要研究问题</h3>
+<ul>
+<li>迁移什么</li>
+<li>如何迁移</li>
+<li>何时迁移</li>
+</ul>
+<h5 id="迁移什么"><a class="markdownIt-Anchor" href="#迁移什么"></a> 迁移什么</h5>
+<p>指的是跨域或跨任务迁移哪一部分知识。目前，迁移学习的内容可以分为四类：实例迁移、特征表示迁移、参数迁移、关系知识迁移</p>
+<h5 id="如何迁移"><a class="markdownIt-Anchor" href="#如何迁移"></a> 如何迁移</h5>
+<p>开发学习算法</p>
+<h5 id="何时迁移"><a class="markdownIt-Anchor" href="#何时迁移"></a> 何时迁移</h5>
+<p>指得是在什么情况下可以迁移，在哪些情况下不应该迁移。在某些情况下，当源域和目标域彼此不相关时，强行迁移可能会失败。而在最坏的情况下它甚至可能损害目标域的学习表现，这种情况下通常被称为负迁移。</p>
+<h3 id="迁移学习方法划分"><a class="markdownIt-Anchor" href="#迁移学习方法划分"></a> 迁移学习方法划分</h3>
+<p>根据源域和目标域与任务之间的不同情况，将迁移学习分为三个类别：</p>
+<ul>
+<li>
+<p><strong>归纳式迁移学习（Inductive Transfer Learning）</strong></p>
+<p>在归纳式迁移学习中，无论源域和目标域是否相同，目标任务都与源任务不同。算法利用来自源域的归纳假设和归纳偏差帮助改进目标任务。根据源域中数据的不同情况，归纳式迁移学习进一步分为两种情况：</p>
+<ul>
+<li>源域中有很多带标签的数据。在这种情况下，归纳迁移学习设置类似于多任务学习设置。但是，归纳式迁移学习设置仅旨在通过迁移源任务中的只是来实现目标任务中的高性能，而多任务学习则尝试同时学习目标任务和源任务</li>
+<li>源域中没有标签数据。在这种情况下归纳学习类似于自学习。在自学习设置中，源域和目标域之间的标签空间可能不同，这意味着不能直接使用源域的信息。</li>
+</ul>
+</li>
+<li>
+<p><strong>无监督迁移学习（Unsupervised Transfer Learning）</strong></p>
+<p>在无监督迁移学习设置中，与归纳迁移学习设置类似，目标任务不同于源任务，但与源任务有关。然而，无监督学习侧重于解决目标域中的无监督学习任务，例如聚类，降维和密度估计。在这种情况下，源域和目标域中都没有可用的标签数据。</p>
+</li>
+<li>
+<p><strong>直推式迁移学习（Transductive Transfer Learning）</strong></p>
+<p>在直推式迁移学习设置中，源任务和目标任务是相同的，而源域和目标域是不同的。在这种情况下，目标域没有可用的标签数据，而源域中有许多可用的标签数据，另外，根据源域和目标域之间的不同情况，我们可以进一步将直推式学习设置分为两种情况：</p>
+<ul>
+<li>源域和目标域之间的特征空间不同</li>
+<li>源域和目标域之间的特征空间相同，但输入数据的边际概率分布不同</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://pic4.zhimg.com/80/v2-fcaf713f373f3f993829249c1041059f_hd.png" alt="img"></p>
 
       
     </div>
@@ -290,7 +305,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/128/">128</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/129/">129</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -336,7 +351,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-count">129</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

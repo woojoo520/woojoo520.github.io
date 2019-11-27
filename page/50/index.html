@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/16/LeetCode-Day32/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/17/LeetCode-Day33/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/09/16/LeetCode-Day32/" class="post-title-link" itemprop="url">LeetCode-Day32</a>
+            <a href="/2019/09/17/LeetCode-Day33/" class="post-title-link" itemprop="url">LeetCode-Day33</a>
         </h1>
 
         <div class="post-meta">
@@ -210,16 +210,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2019-09-16 17:47:27" itemprop="dateCreated datePublished" datetime="2019-09-16T17:47:27+08:00">2019-09-16</time>
+              <time title="创建时间：2019-09-17 17:12:52 / 修改时间：21:52:47" itemprop="dateCreated datePublished" datetime="2019-09-17T17:12:52+08:00">2019-09-17</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-09-17 17:11:46" itemprop="dateModified" datetime="2019-09-17T17:11:46+08:00">2019-09-17</time>
-              </span>
 
           
   
@@ -230,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/09/16/LeetCode-Day32/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/16/LeetCode-Day32/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/09/17/LeetCode-Day33/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/17/LeetCode-Day33/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -246,32 +240,41 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="leetcode-day32依旧贪心"><a class="markdownIt-Anchor" href="#leetcode-day32依旧贪心"></a> LeetCode-Day32——依旧贪心</h2>
-<h3 id="630-课程表iii"><a class="markdownIt-Anchor" href="#630-课程表iii"></a> 630. 课程表III</h3>
-<p>这里有 n 门不同的在线课程，他们按从 1 到 n 编号。每一门课程有一定的持续上课时间（课程时间）t 以及关闭时间第 d 天。一门课要持续学习 t 天直到第 d 天时要完成，你将会从第 1 天开始。</p>
-<p>给出 n 个在线课程用 (t, d) 对表示。你的任务是找出最多可以修几门课。</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入: [[100, 200], [200, 1300], [1000, 1250], [2000, 3200]]</span><br><span class="line">输出: 3</span><br><span class="line">解释: </span><br><span class="line">这里一共有 4 门课程, 但是你最多可以修 3 门:</span><br><span class="line">首先, 修第一门课时, 它要耗费 100 天，你会在第 100 天完成, 在第 101 天准备下门课。</span><br><span class="line">第二, 修第三门课时, 它会耗费 1000 天，所以你将在第 1100 天的时候完成它, 以及在第 1101 天开始准备下门课程。</span><br><span class="line">第三, 修第二门课时, 它会耗时 200 天，所以你将会在第 1300 天时完成它。</span><br><span class="line">第四门课现在不能修，因为你将会在第 3300 天完成它，这已经超出了关闭日期。</span><br></pre></td></tr></table></figure>
-<p>提示:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">整数 1 &lt;= d, t, n &lt;= 10,000 。</span><br><span class="line">你不能同时修两门课程。</span><br></pre></td></tr></table></figure>
+          <h2 id="leetcode-day33继续贪心"><a class="markdownIt-Anchor" href="#leetcode-day33继续贪心"></a> LeetCode-Day33——继续贪心</h2>
+<h3 id="757-设置交集大小至少为2"><a class="markdownIt-Anchor" href="#757-设置交集大小至少为2"></a> 757. 设置交集大小至少为2</h3>
+<p>一个整数区间 [a, b]  ( a &lt; b ) 代表着从 a 到 b 的所有连续整数，包括 a 和 b。</p>
+<p>给你一组整数区间intervals，请找到一个最小的集合 S，使得 S 里的元素与区间intervals中的每一个整数区间都至少有2个元素相交。</p>
+<p>输出这个最小集合S的大小。</p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入: intervals = [[1, 3], [1, 4], [2, 5], [3, 5]]</span><br><span class="line">输出: 3</span><br><span class="line">解释:</span><br><span class="line">考虑集合 S = &#123;2, 3, 4&#125;. S与intervals中的四个区间都有至少2个相交的元素。</span><br><span class="line">且这是S最小的情况，故我们输出3。</span><br></pre></td></tr></table></figure>
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: intervals = [[1, 2], [2, 3], [2, 4], [4, 5]]</span><br><span class="line">输出: 5</span><br><span class="line">解释:</span><br><span class="line">最小的集合S = &#123;1, 2, 3, 4, 5&#125;.</span><br></pre></td></tr></table></figure>
+<p>注意:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">intervals 的长度范围为[1, 3000]。</span><br><span class="line">intervals[i] 长度为 2，分别代表左、右边界。</span><br><span class="line">intervals[i][j] 的值是 [0, 10^8]范围内的整数。</span><br></pre></td></tr></table></figure>
 <p>思路：</p>
+<p>为了使集合S中的数字尽可能的少，我们希望处理区间的时候从小区间开始，如果区间b完全覆盖了区间a，那么和区间a有两个相同数字的集合一定也和区间b有两个相同的数字。同样，我们不希望一会儿处理一个前面的区间，一会儿处理后面一个区间，我们希望区间是有序的。如何排序？</p>
+<p>我们按照结束位置从小往大排，当两个结束位置相同时，起始位置大的排前面处理，这也符合我们先处理小区间的原则。那么遍历区间的时候，当前区间就和我们维护的集合S有三种情况：</p>
 <ul>
-<li>首先，按照以往的思路，先按照结束时间对课程进行排序</li>
-<li>使用一个<strong>大顶堆</strong>来储存已经选择的课程的长度</li>
-<li>一旦发现安排了当前课程之后，其结束时间超过了最晚结束时间，那么就从已经安排的课程汇总，取消掉一门最耗时的课程。</li>
+<li>二者完全没有交集，这时候我们就需要从当前区间中取出两个数字加入集合S，那么取哪两个数呢？为了尽可能少使用数字，我们取当前区间中的最大两个数字，因为我们区间位置不断变大，所以取大的数字有更高的概率能和后面的区间有交集。</li>
+<li>二者有一个数字的交集，那么这个交集数字一定是区间的起始位置，那么我们需要再取一个数字加入集合S，根据上面的分析，我们取最大的那个数，即区间的结束位置。</li>
+<li>二者有两个以及两个数字以上的交集，我们不用做任何处理。</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">scheduleCourse</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; courses)</span> </span>&#123;</span><br><span class="line">        sort(courses.begin(), courses.end(), [](<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; a, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; b) &#123;</span><br><span class="line">            <span class="keyword">return</span> a[<span class="number">1</span>] &lt; b[<span class="number">1</span>];</span><br><span class="line">        &#125;);</span><br><span class="line">        priority_queue&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">        <span class="keyword">int</span> dur = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; courses.size();i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(dur + courses[i][<span class="number">0</span>] &lt;= courses[i][<span class="number">1</span>]) &#123;</span><br><span class="line">                dur += courses[i][<span class="number">0</span>];</span><br><span class="line">                q.push(courses[i][<span class="number">0</span>]);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(!q.empty() &amp;&amp; q.top() &gt; courses[i][<span class="number">0</span>]) &#123;</span><br><span class="line">                dur += (courses[i][<span class="number">0</span>] - q.top());</span><br><span class="line">                q.pop();</span><br><span class="line">                q.push(courses[i][<span class="number">0</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> q.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><code>Tips</code></p>
-<p>今日的小提示就是大顶堆，可以利用C++中已有的数据结构<code>qriority_queue</code>，基本操作也就是<code>push(),pop()</code></p>
-<h3 id="714-买卖股票的最佳时期含手续费"><a class="markdownIt-Anchor" href="#714-买卖股票的最佳时期含手续费"></a> 714. 买卖股票的最佳时期含手续费</h3>
-<p><strong>方法：动态规划</strong></p>
-<p>我们维护两个变量<code>cash</code> 和<code>hold</code>，前者表示当我们不持有股票时的最大利润（即卖出），后者表示当我们持有股票时的最大利润。</p>
-<p>在第<code>i</code>天是，我们需要根据第<code>i - 1</code>天的装啊提来更新<code>cash</code>和<code>hold</code>的值。对于<code>cash</code>，我们可以保持不变，或者将手上的股票卖出，状态转移方程为：</p>
-<p><code>cash = max(cash, hold + prices[i] - fee)</code></p>
-<p>对于<code>hold</code>，我们可以保持不变，或者买入这一天的股票，状态转移方程为:</p>
-<p><code>hold = max(hold, cash - prices[i])</code></p>
-<p>在计算这两个状态转移方程时，我们可以不使用临时变量来存储<code>cash</code>和<code>hold</code>的值，而是可以先计算<code>cash</code>再计算<code>hold</code>，原因是在同一天卖出在买入（亏了一比手续费）一定不会比不进行任何操作好</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices, <span class="keyword">int</span> fee)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> cash = <span class="number">0</span>, hold = -prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; prices.size();i++) &#123;</span><br><span class="line">            cash = max(cash, hold + prices[i] - fee);</span><br><span class="line">            hold = max(hold, cash - prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cash;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>所以，Code如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">intersectionSizeTwo</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; intervals)</span> </span>&#123;</span><br><span class="line">        sort(intervals.begin(), intervals.end(), [](<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; a, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; b) &#123;</span><br><span class="line">        <span class="keyword">return</span> a[<span class="number">1</span>] &lt; b[<span class="number">1</span>] || (a[<span class="number">1</span>] == b[<span class="number">1</span>] &amp;&amp; a[<span class="number">0</span>] &gt; b[<span class="number">0</span>]);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v&#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; intervals.size();i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> len = v.size();</span><br><span class="line">        <span class="keyword">if</span>(intervals[i][<span class="number">0</span>] &lt;= v[len - <span class="number">2</span>]) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(intervals[i][<span class="number">0</span>] &gt; v.back()) &#123;</span><br><span class="line">            v.push_back(intervals[i][<span class="number">1</span>] - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        v.push_back(intervals[i][<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> v.size() - <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="763-划分字母区间"><a class="markdownIt-Anchor" href="#763-划分字母区间"></a> 763. 划分字母区间</h3>
+<p>字符串 S 由小写字母组成。我们要把这个字符串划分为尽可能多的片段，同一个字母只会出现在其中的一个片段。返回一个表示每个字符串片段的长度的列表。</p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入: S = &quot;ababcbacadefegdehijhklij&quot;</span><br><span class="line">输出: [9,7,8]</span><br><span class="line">解释:</span><br><span class="line">划分结果为 &quot;ababcbaca&quot;, &quot;defegde&quot;, &quot;hijhklij&quot;。</span><br><span class="line">每个字母最多出现在一个片段中。</span><br><span class="line">像 &quot;ababcbacadefegde&quot;, &quot;hijhklij&quot; 的划分是错误的，因为划分的片段数较少。</span><br></pre></td></tr></table></figure>
+<p>注意:</p>
+<p>S的长度在[1, 500]之间。<br>
+S只包含小写字母’a’到’z’。</p>
+<p>思路：其实这道题是map的一个应用。</p>
+<p>首先遍历统计每个字母出现的最后的位置。</p>
+<p>然后再遍历一遍，设置变量right用于表示分隔开的字符串的末尾在S里面的小标，变量left表示子字符串的开头在S里的下标</p>
+<p>如果当前扫描的元素的最后一次出现的下标比right大，就说明字符串还需要延长，就刷新right</p>
+<p>如果当前扫描的元素已经达到了right，就说明这个字符串已经完全找到了，就可以把答案添加到res中了。</p>
+<p>Code如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt; <span class="built_in">map</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; S.length();i++) &#123;</span><br><span class="line">        <span class="built_in">map</span>[S[i]] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> start = <span class="number">0</span>, end = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; S.size();i++) &#123;</span><br><span class="line">        end = max(end, <span class="built_in">map</span>[S[i]]);</span><br><span class="line">        <span class="keyword">if</span>(i == end) &#123;</span><br><span class="line">            result.push_back(end - start + <span class="number">1</span>);</span><br><span class="line">            start = i + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -291,7 +294,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/49/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><span class="page-number current">50</span><a class="page-number" href="/page/51/">51</a><span class="space">&hellip;</span><a class="page-number" href="/page/128/">128</a><a class="extend next" rel="next" href="/page/51/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/49/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><span class="page-number current">50</span><a class="page-number" href="/page/51/">51</a><span class="space">&hellip;</span><a class="page-number" href="/page/129/">129</a><a class="extend next" rel="next" href="/page/51/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -337,7 +340,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-count">129</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
