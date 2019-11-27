@@ -47,17 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="CPU affinity（亲和性）1. 基本概念CPU affinity是一种调度属性，它可以将一个进程“绑定”到一个或一组CPU上 在SMP（Symmetric Multi-Processing对称多处理器）架构下，Linux调度器（scheduler）会根据CPU affinity的设置让指定的进程运行在“绑定”的CPU上，而不会在别的CPU上运行。 Linux调度器同样支持自然CPU亲和性；">
+  <meta name="description" content="CPU affinity（亲和性）  1. 基本概念 CPU affinity是一种调度属性，它可以将一个进程“绑定”到一个或一组CPU上 在SMP（Symmetric Multi-Processing对称多处理器）架构下，Linux调度器（scheduler）会根据CPU affinity的设置让指定的进程运行在“绑定”的CPU上，而不会在别的CPU上运行。 Linux调度器同样支持自然CPU">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CPU affinity">
 <meta property="og:url" content="https://woojoo520.github.io/2019/10/09/CPU-affinity/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="CPU affinity（亲和性）1. 基本概念CPU affinity是一种调度属性，它可以将一个进程“绑定”到一个或一组CPU上 在SMP（Symmetric Multi-Processing对称多处理器）架构下，Linux调度器（scheduler）会根据CPU affinity的设置让指定的进程运行在“绑定”的CPU上，而不会在别的CPU上运行。 Linux调度器同样支持自然CPU亲和性；">
+<meta property="og:description" content="CPU affinity（亲和性）  1. 基本概念 CPU affinity是一种调度属性，它可以将一个进程“绑定”到一个或一组CPU上 在SMP（Symmetric Multi-Processing对称多处理器）架构下，Linux调度器（scheduler）会根据CPU affinity的设置让指定的进程运行在“绑定”的CPU上，而不会在别的CPU上运行。 Linux调度器同样支持自然CPU">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-10-09T03:02:42.257Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CPU affinity">
-<meta name="twitter:description" content="CPU affinity（亲和性）1. 基本概念CPU affinity是一种调度属性，它可以将一个进程“绑定”到一个或一组CPU上 在SMP（Symmetric Multi-Processing对称多处理器）架构下，Linux调度器（scheduler）会根据CPU affinity的设置让指定的进程运行在“绑定”的CPU上，而不会在别的CPU上运行。 Linux调度器同样支持自然CPU亲和性；">
+<meta name="twitter:description" content="CPU affinity（亲和性）  1. 基本概念 CPU affinity是一种调度属性，它可以将一个进程“绑定”到一个或一组CPU上 在SMP（Symmetric Multi-Processing对称多处理器）架构下，Linux调度器（scheduler）会根据CPU affinity的设置让指定的进程运行在“绑定”的CPU上，而不会在别的CPU上运行。 Linux调度器同样支持自然CPU">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/10/09/CPU-affinity/">
 
@@ -240,14 +240,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="CPU-affinity（亲和性）"><a href="#CPU-affinity（亲和性）" class="headerlink" title="CPU affinity（亲和性）"></a>CPU affinity（亲和性）</h2><h3 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1. 基本概念"></a>1. 基本概念</h3><p>CPU affinity是一种调度属性，它可以将一个进程“绑定”到一个或一组CPU上</p>
+        <h2 id="cpu-affinity亲和性"><a class="markdownIt-Anchor" href="#cpu-affinity亲和性"></a> CPU affinity（亲和性）</h2>
+<h3 id="1-基本概念"><a class="markdownIt-Anchor" href="#1-基本概念"></a> 1. 基本概念</h3>
+<p>CPU affinity是一种调度属性，它可以将一个进程“绑定”到一个或一组CPU上</p>
 <p>在SMP（Symmetric Multi-Processing对称多处理器）架构下，Linux调度器（scheduler）会根据CPU affinity的设置让指定的进程运行在“绑定”的CPU上，而不会在别的CPU上运行。</p>
 <p>Linux调度器同样支持自然CPU亲和性；调度器会试图保持进程在相同的CPU上运行，这意味着进程通常不会在处理器之间频繁迁移，进程迁移的频率小意味着产生的负载小</p>
 <p>因为程序的坐着比调度器更了解程序，所以我们可以手动地为其分配CPU核，而不会过多的占用CPU0，或者让我们关键进程和一对别的进程挤在一起，所有设置CPU亲和性可以是某些程序提高性能</p>
-<h3 id="2-表示方法"><a href="#2-表示方法" class="headerlink" title="2. 表示方法"></a>2. 表示方法</h3><p>CPU affinity 使用位掩码（bitmask）表示，每一位都表示一个CPU，置1表示“绑定”</p>
+<h3 id="2-表示方法"><a class="markdownIt-Anchor" href="#2-表示方法"></a> 2. 表示方法</h3>
+<p>CPU affinity 使用位掩码（bitmask）表示，每一位都表示一个CPU，置1表示“绑定”</p>
 <p>最低位表示第一个逻辑CPU，最高位表示最后一个逻辑CPU</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">0x00000001</span><br><span class="line">    is processor #0</span><br><span class="line">0x00000003</span><br><span class="line">    is processors #0 and #1</span><br><span class="line">0xFFFFFFFF</span><br><span class="line">    is all processors (#0 through #31)</span><br></pre></td></tr></table></figure>
-<h3 id="3-taskset-命令"><a href="#3-taskset-命令" class="headerlink" title="3. taskset 命令"></a>3. taskset 命令</h3><p>taskset命令用于获取或设定CPU亲和性</p>
+<h3 id="3-taskset-命令"><a class="markdownIt-Anchor" href="#3-taskset-命令"></a> 3. taskset 命令</h3>
+<p>taskset命令用于获取或设定CPU亲和性</p>
 
     </div>
 
@@ -308,7 +312,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU-affinity（亲和性）"><span class="nav-number">1.</span> <span class="nav-text">CPU affinity（亲和性）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-基本概念"><span class="nav-number">1.1.</span> <span class="nav-text">1. 基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-表示方法"><span class="nav-number">1.2.</span> <span class="nav-text">2. 表示方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-taskset-命令"><span class="nav-number">1.3.</span> <span class="nav-text">3. taskset 命令</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#cpu-affinity亲和性"><span class="nav-number">1.</span> <span class="nav-text"> CPU affinity（亲和性）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-基本概念"><span class="nav-number">1.1.</span> <span class="nav-text"> 1. 基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-表示方法"><span class="nav-number">1.2.</span> <span class="nav-text"> 2. 表示方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-taskset-命令"><span class="nav-number">1.3.</span> <span class="nav-text"> 3. taskset 命令</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -324,7 +328,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

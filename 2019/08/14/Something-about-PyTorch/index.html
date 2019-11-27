@@ -47,23 +47,23 @@
   };
 </script>
 
-  <meta name="description" content="Something about PyTorch torchvision.transfroms.Compose(trandforms) 将多个transform组合起来使用 例子： 1234transforms.Compose([	transfroms.CenterCrop(10), 	transforms.ToTensor(),])  OrderedDict 是dict的子类，其最大特征是，它可以">
+  <meta name="description" content="Something about PyTorch   torchvision.transfroms.Compose(trandforms) 将多个transform组合起来使用 例子： 1234transforms.Compose([	transfroms.CenterCrop(10), 	transforms.ToTensor(),])   OrderedDict 是dict的子类，其最大特征是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Something about PyTorch">
 <meta property="og:url" content="https://woojoo520.github.io/2019/08/14/Something-about-PyTorch/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="Something about PyTorch torchvision.transfroms.Compose(trandforms) 将多个transform组合起来使用 例子： 1234transforms.Compose([	transfroms.CenterCrop(10), 	transforms.ToTensor(),])  OrderedDict 是dict的子类，其最大特征是，它可以">
+<meta property="og:description" content="Something about PyTorch   torchvision.transfroms.Compose(trandforms) 将多个transform组合起来使用 例子： 1234transforms.Compose([	transfroms.CenterCrop(10), 	transforms.ToTensor(),])   OrderedDict 是dict的子类，其最大特征是">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="c:/Users/12751/AppData/Roaming/Typora/typora-user-images/1565911499478.png">
-<meta property="og:image" content="c:/Users/12751/AppData/Roaming/Typora/typora-user-images/1566006916935.png">
-<meta property="og:image" content="c:/Users/12751/AppData/Roaming/Typora/typora-user-images/1566007285866.png">
+<meta property="og:image" content="c:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565911499478.png">
+<meta property="og:image" content="c:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566006916935.png">
+<meta property="og:image" content="c:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566007285866.png">
 <meta property="og:image" content="http://www.pianshen.com/images/289/6741fcf9e3022aa5e1b3f57d3d1cc261.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190711163324219.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lhbmd3YW5nbm5kZA==,size_16,color_FFFFFF,t_70">
 <meta property="og:updated_time" content="2019-08-17T05:56:57.748Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Something about PyTorch">
-<meta name="twitter:description" content="Something about PyTorch torchvision.transfroms.Compose(trandforms) 将多个transform组合起来使用 例子： 1234transforms.Compose([	transfroms.CenterCrop(10), 	transforms.ToTensor(),])  OrderedDict 是dict的子类，其最大特征是，它可以">
-<meta name="twitter:image" content="c:/Users/12751/AppData/Roaming/Typora/typora-user-images/1565911499478.png">
+<meta name="twitter:description" content="Something about PyTorch   torchvision.transfroms.Compose(trandforms) 将多个transform组合起来使用 例子： 1234transforms.Compose([	transfroms.CenterCrop(10), 	transforms.ToTensor(),])   OrderedDict 是dict的子类，其最大特征是">
+<meta name="twitter:image" content="c:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565911499478.png">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/08/14/Something-about-PyTorch/">
 
@@ -252,46 +252,56 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Something-about-PyTorch"><a href="#Something-about-PyTorch" class="headerlink" title="Something about PyTorch"></a>Something about PyTorch</h2><ul>
-<li><p><code>torchvision.transfroms.Compose(trandforms)</code></p>
+        <h2 id="something-about-pytorch"><a class="markdownIt-Anchor" href="#something-about-pytorch"></a> Something about PyTorch</h2>
+<ul>
+<li>
+<p><code>torchvision.transfroms.Compose(trandforms)</code></p>
 <p>将多个transform组合起来使用</p>
 <p>例子：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">transforms.Compose([</span><br><span class="line">	transfroms.CenterCrop(<span class="number">10</span>), </span><br><span class="line">	transforms.ToTensor(),</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><code>OrderedDict</code></p>
+<li>
+<p><code>OrderedDict</code></p>
 <p>是dict的子类，其最大特征是，它可以“维护”添加key-value对的额顺序。简单的来说，就是先添加的key-value对排在前面，后添加的key-value对排在后面</p>
 <p>由于OrderedDict能维护key-value对的添加顺序，因此即使两个OrderedDict照中的key-value对完全相同，但只要他们的顺序不同，程序在判断他们是否相等时也依然会返回false。</p>
 </li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> OrderedDict</span><br><span class="line">dx = OrderedDict(b=<span class="number">5</span>, c=<span class="number">2</span>, a=<span class="number">7</span>)</span><br><span class="line">print(dx)</span><br><span class="line">d = OrderedDict()</span><br><span class="line">d[<span class="string">'Python'</span>] = <span class="number">89</span></span><br><span class="line">d[<span class="string">'Swift'</span>] = <span class="number">92</span></span><br><span class="line">d[<span class="string">'Kotlin'</span>] = <span class="number">97</span></span><br><span class="line">d[<span class="string">'Go'</span>] = <span class="number">87</span></span><br><span class="line">print(d)</span><br><span class="line"><span class="keyword">for</span> k,v <span class="keyword">in</span> d.items():</span><br><span class="line">    print(k, v)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">OrderedDict([('b', 5), ('c', 2), ('a', 7)])</span></span><br><span class="line"><span class="string">OrderedDict([('Python', 89), ('Swift', 92), ('Kotlin', 97), ('Go', 87)])</span></span><br><span class="line"><span class="string">Python 89</span></span><br><span class="line"><span class="string">Swift 92</span></span><br><span class="line"><span class="string">Kotlin 97</span></span><br><span class="line"><span class="string">Go 87</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li><p><code>nn.LeakyReLU(inplace=True)</code></p>
+<li>
+<p><code>nn.LeakyReLU(inplace=True)</code></p>
 <p><code>inplace=True</code>的意思是进行原地操作，例如<code>x=x+5</code>对于x就是一个原地操作，<code>y=x+5; x=y</code>完成了与<code>x=x+5</code>同样的功能但不是原地操作，与上面的<code>inplace=True</code>的含义是一样的，是对于Conv2d这样的上层网络传递下来的tensor直接进行修改，好处就是可以节省运算内存</p>
 </li>
-</ul>
-<ul>
-<li><p><code>batch normalization层的实现机理：</code></p>
-<p>假设我们在网络中间经过某些卷积操作之后输出的feature map的尺寸为4 <em> 3 </em> 2 * 2</p>
+<li>
+<p><code>batch normalization层的实现机理：</code></p>
+<p>假设我们在网络中间经过某些卷积操作之后输出的feature map的尺寸为4 * 3 * 2 * 2</p>
 <p>4为batch的大小， 3为channel的数目，2 * 2为feature map的长宽</p>
-<p><img src="C:\Users\12751\AppData\Roaming\Typora\typora-user-images\1565911499478.png" alt="1565911499478"></p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565911499478.png" alt="1565911499478"></p>
 <p>所以对于一个batch Normalization层而言，去求均值与方差是对于所有batch中的同一个channel进行求取，batch normalization中的batch体现在这个地方</p>
 <p>batch normalization层能够学习到的参数，对于一个特定的channel而言实际上是两个参数，gamma与beta，对于total的channel而言实际上是channel数目的两倍</p>
 </li>
-<li><p><code>meshgrid()</code></p>
+<li>
+<p><code>meshgrid()</code></p>
 <p>引入创建网格点的矩阵</p>
 <p>示例一：创建一个2行3列的网格点矩阵。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt </span><br><span class="line"></span><br><span class="line">X = np.array([[<span class="number">0</span>, <span class="number">0.5</span>, <span class="number">1</span>], [<span class="number">0</span>, <span class="number">0.5</span>, <span class="number">1</span>]])</span><br><span class="line">print(<span class="string">"X的维度: &#123;&#125;, shape: &#123;&#125;"</span>.format(X.ndim, X.shape))</span><br><span class="line">Y = np.array([[<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>], [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>]])</span><br><span class="line">print(<span class="string">"Y的维度: &#123;&#125;, shape: &#123;&#125;"</span>.format(Y.ndim, Y.shape))</span><br><span class="line"></span><br><span class="line">plt.plot(X, Y, <span class="string">'o--'</span>)</span><br><span class="line">plt.grid(<span class="literal">True</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="C:\Users\12751\AppData\Roaming\Typora\typora-user-images\1566006916935.png" alt="1566006916935"></p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566006916935.png" alt="1566006916935"></p>
+<pre><code>  当要描绘的 矩阵网格点的数据量小的时候，可以用上述方法构造网格点坐标数据;
+</code></pre>
 </li>
 </ul>
-<pre><code>    当要描绘的 矩阵网格点的数据量小的时候，可以用上述方法构造网格点坐标数据;
-</code></pre><p>但是如果是一个(256, 100)的整数矩阵网格,要怎样构造数据呢?<br>方法1:将x轴上的100个整数点组成的行向量，重复256次，构成shape(256,100)的X矩阵;将y轴上的256个整数点组成列向量,重复100次构成shape(256,100)的Y矩阵<br>显然方法1的数据构造过程很繁琐,也不方便调用,那么有没有更好的办法呢?of course!!!<br>那么meshgrid()就显示出它的作用了<br>使用meshgrid方法，你只需要构造一个表示x轴上的坐标的向量和一个表示y轴上的坐标的向量;然后作为参数给到meshgrid(),该函数就会返回相应维度的两个矩阵;<br>例如,你想构造一个2行3列的矩阵网格点,那么x生成一个shape(3,)的向量,y生成一个shape(2,)的向量,将x,y传入meshgrid(),最后返回的X,Y矩阵的shape(2,3)</p>
+<p>但是如果是一个(256, 100)的整数矩阵网格,要怎样构造数据呢?<br>
+方法1:将x轴上的100个整数点组成的行向量，重复256次，构成shape(256,100)的X矩阵;将y轴上的256个整数点组成列向量,重复100次构成shape(256,100)的Y矩阵<br>
+显然方法1的数据构造过程很繁琐,也不方便调用,那么有没有更好的办法呢?of course!!!<br>
+那么meshgrid()就显示出它的作用了<br>
+使用meshgrid方法，你只需要构造一个表示x轴上的坐标的向量和一个表示y轴上的坐标的向量;然后作为参数给到meshgrid(),该函数就会返回相应维度的两个矩阵;<br>
+例如,你想构造一个2行3列的矩阵网格点,那么x生成一个shape(3,)的向量,y生成一个shape(2,)的向量,将x,y传入meshgrid(),最后返回的X,Y矩阵的shape(2,3)</p>
 <p>示例二：使用<code>meshgrid()</code>生成示例一种的网格点矩阵</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt </span><br><span class="line"></span><br><span class="line">x = np.array([<span class="number">0</span>, <span class="number">0.5</span>, <span class="number">1</span>])</span><br><span class="line">y = np.array([<span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">xv, yv = np.meshgrid(x, y)</span><br><span class="line">print(<span class="string">"xv的维度: &#123;&#125;, shape: &#123;&#125;"</span>.format(xv.ndim, xv.shape))</span><br><span class="line">print(<span class="string">"yv的维度: &#123;&#125;, shape: &#123;&#125;"</span>.format(yv.ndim, yv.shape))</span><br><span class="line"></span><br><span class="line">plt.plot(xv, yv, <span class="string">'o--'</span>)</span><br><span class="line">plt.grid(<span class="literal">True</span>)</span><br><span class="line">plt.show()</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">xv的维度: 2, shape: (2, 3)</span></span><br><span class="line"><span class="string">yv的维度: 2, shape: (2, 3)</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
 <p>示例三：生成20行30列的网格点矩阵</p>
 <p>只需要改变:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="number">0</span>, <span class="number">500</span>, <span class="number">30</span>)</span><br><span class="line">y = np.linspace(<span class="number">0</span>, <span class="number">500</span>, <span class="number">20</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="C:\Users\12751\AppData\Roaming\Typora\typora-user-images\1566007285866.png" alt="1566007285866"></p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1566007285866.png" alt="1566007285866"></p>
 <ul>
 <li><code>repeat()</code>和<code>expand()</code>的区别</li>
 </ul>
@@ -334,7 +344,8 @@
 <p>例如在执行<code>view()</code>操作之后，不会开辟新的内存空间才存放处理之后的数据，实际上新数据与原始数据共享同一块内存</p>
 <p>而在调用<code>contiguous()</code>之后，PyTorch会开辟出一块新的内存空间存放变换之后的数据，并会真正改变Tensor的内容，按照变换之后的顺序存放数据。</p>
 <ul>
-<li><p><code>grid_sample(input, frig, mode=&#39;linear&#39;, padding_mode=&#39;zeros&#39;)</code></p>
+<li>
+<p><code>grid_sample(input, frig, mode='linear', padding_mode='zeros')</code></p>
 <p>用于图像的恢复</p>
 <p>input (N, C, H_in, W_in)</p>
 <p>output (N, H_out, W_out, 2)</p>
@@ -350,7 +361,7 @@
 <li><code>nn.Upsample()</code></li>
 </ul>
 <p>所用：上采样</p>
-<p>定义：<code>CLASS torch.nn.Upsample(size=None, scale_factor=None, mode=&#39;nearest&#39;, align_corners=None)</code></p>
+<p>定义：<code>CLASS torch.nn.Upsample(size=None, scale_factor=None, mode='nearest', align_corners=None)</code></p>
 <p>计算shape</p>
 <p><img src="https://img-blog.csdnimg.cn/20190711163324219.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lhbmd3YW5nbm5kZA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 
@@ -413,7 +424,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Something-about-PyTorch"><span class="nav-number">1.</span> <span class="nav-text">Something about PyTorch</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#something-about-pytorch"><span class="nav-number">1.</span> <span class="nav-text"> Something about PyTorch</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -429,7 +440,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

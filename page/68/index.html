@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/04/LeetCode-Day20/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/05/About-paper/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/09/04/LeetCode-Day20/" class="post-title-link" itemprop="url">LeetCode-Day20</a>
+            <a href="/2019/09/05/About-paper/" class="post-title-link" itemprop="url">About paper</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-09-04 15:57:36 / 修改时间：20:32:22" itemprop="dateCreated datePublished" datetime="2019-09-04T15:57:36+08:00">2019-09-04</time>
+              <time title="创建时间：2019-09-05 08:34:31 / 修改时间：08:53:36" itemprop="dateCreated datePublished" datetime="2019-09-05T08:34:31+08:00">2019-09-05</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/09/04/LeetCode-Day20/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/04/LeetCode-Day20/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/09/05/About-paper/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/05/About-paper/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,57 +240,35 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="85-最大矩形"><a href="#85-最大矩形" class="headerlink" title="85. 最大矩形"></a>85. 最大矩形</h3><p>给定一个仅包含 0 和 1 的二维二进制矩阵，找出只包含 1 的最大矩形，并返回其面积。</p>
-<p>示例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">[</span><br><span class="line">  [&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;],</span><br><span class="line">  [&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],</span><br><span class="line">  [&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],</span><br><span class="line">  [&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;]</span><br><span class="line">]</span><br><span class="line">输出: 6</span><br></pre></td></tr></table></figure>
-<h4 id="方法一-动态规划——使用柱状图的优化暴力算法"><a href="#方法一-动态规划——使用柱状图的优化暴力算法" class="headerlink" title="方法一. 动态规划——使用柱状图的优化暴力算法"></a>方法一. 动态规划——使用柱状图的优化暴力算法</h4><p>算法</p>
-<p>我们可以以常数时间计算出在给定的坐标结束的矩形的最大宽度。我们可以通过记录每一行中每一个方块连续的“1”的数量来实现这一点。每遍历完一行，就更新该点的最大可能宽度。通过以下代码即可实现。 <code>row[i] = row[i - 1] + 1 if row[i] == &#39;1&#39;</code>.</p>
-<p><img src="https://pic.leetcode-cn.com/9c2cbf02a9a8495cbc0179c6faed52db37ca20ba616fa33801a27d37ef0fa5c3-image.png" alt="img"></p>
-<p>一旦我们知道了每个点对应的最大宽度，我们就可以在线性时间内计算出以该点为右下角的最大矩形。当我们遍历列时，可知从初始点到当前点矩形的最大宽度，就是我们遇到的每个最大宽度的最小值。<br>我们定义:</p>
-<p>$maxWidth=min(maxWidth,widthHere)$</p>
-<p>$curArea = maxWidth <em> (curre**</em>ow - originalRow + 1)</p>
-<p>$$curArea=maxWidth∗(curre∗∗∗ow−originalRow+1)$</p>
-<p>$maxArea = max(maxArea, curArea)</p>
-<p>$$maxArea=max(maxArea,curArea)$</p>
-<p>下面的动画有助于理解。给定每个点的最大宽度，可计算出底端黄色方块的最大矩形面积。</p>
-<p><img src="https://pic.leetcode-cn.com/bb40b26be66a20c49bf797b908fd00589c1df90c27c1e4789323e1d0a983b8e6-image.png" alt="img"></p>
-<p><img src="https://pic.leetcode-cn.com/14a6767d8e49b00e351b6e052143dfa826148c22a7e13c3a05c55ea401d05f18-image.png" alt="img"></p>
-<p><img src="https://pic.leetcode-cn.com/d553e8ea8ba5f36a01dadd3530a31cadc2a98aa5b7d8f591fcb36b6c2604784a-image.png" alt="img"></p>
-<p><img src="https://pic.leetcode-cn.com/31d96446efe7b2f759b5caefb262310b6807219b7f9974ebfb00b6b905a84adb-image.png" alt="img"></p>
-<p><img src="https://pic.leetcode-cn.com/c63ef207b988b004efc6fc7c2755a1653f62f9a09ccb4210169f692fc1c7cebf-image.png" alt="img"></p>
-<p>对每个点重复这一过程，就可以得到全局最大。</p>
-<p>注意，我们预计算最大宽度的方法事实上将输入转化成了一系列的柱状图，每一栏是一个新的柱状图。我们在针对每个柱状图计算最大面积。</p>
-<p><img src="https://pic.leetcode-cn.com/ffba9c5b4b0799150e5b798a73d96c8313522362e9b5290dcff7d9a43f46ba14-image.png" alt="image.png"></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maximalRectangle</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(matrix.size() == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; dp(matrix.size(), <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(matrix[<span class="number">0</span>].size(), <span class="number">0</span>));</span><br><span class="line">    <span class="keyword">int</span> maxArea = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; matrix.size();i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; matrix[<span class="number">0</span>].size();j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(matrix[i][j] == <span class="string">'0'</span>) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            dp[i][j] = j == <span class="number">0</span> ? <span class="number">1</span> : dp[i][j - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> width = dp[i][j];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = i;k &gt;= i;k--) &#123;</span><br><span class="line">                width = min(width, dp[k][j]);</span><br><span class="line">                maxArea = max(maxArea, width * (i - k + <span class="number">1</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">    <span class="keyword">return</span> maxArea;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="方法二：动态规划——每个点的最大高度"><a href="#方法二：动态规划——每个点的最大高度" class="headerlink" title="方法二：动态规划——每个点的最大高度"></a>方法二：动态规划——每个点的最大高度</h4><p>个人理解：</p>
-<p><code>height</code>用于储存当前位置列的最大高度，即向上可以延伸多少高度</p>
-<p><code>left</code>用于存储当前位置上<code>max{前面积累的最左边界, 当前行向左扩展的最左边界}</code></p>
-<p><code>right</code>用于存储当前位置上<code>max{前面积累的最右边界, 当前行向右扩展的最右边界}</code> </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maximalRectangle</span> <span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(matrix.size() == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> m = matrix.size(), n = matrix[<span class="number">0</span>].size();</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; left(n, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; right(n, n);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; height(n, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> maxArea = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> cur_left = <span class="number">0</span>, cur_right = n;</span><br><span class="line">            <span class="comment">// update height</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(matrix[i][j] == <span class="string">'1'</span>) height[j]++;</span><br><span class="line">                <span class="keyword">else</span> height[j] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// update left</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(matrix[i][j]==<span class="string">'1'</span>) left[j]=max(left[j],cur_left);</span><br><span class="line">                <span class="keyword">else</span> &#123;left[j]=<span class="number">0</span>; cur_left=j+<span class="number">1</span>;&#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// update right</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = n - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">                <span class="keyword">if</span>(matrix[i][j] == <span class="string">'1'</span>) right[j] = min(right[j], cur_right);</span><br><span class="line">                <span class="keyword">else</span> &#123;right[j] = n; cur_right = j;&#125;    </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// update area</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                maxArea = max(maxArea, (right[j] - left[j]) * height[j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">return</span> maxArea;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="88-合并两个有序数组"><a href="#88-合并两个有序数组" class="headerlink" title="88. 合并两个有序数组"></a>88. 合并两个有序数组</h3><p>给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。</p>
-<p>说明:</p>
-<p>初始化 nums1 和 nums2 的元素数量分别为 m 和 n。<br>你可以假设 nums1 有足够的空间（空间大小大于或等于 m + n）来保存 nums2 中的元素。<br>示例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">nums1 = [1,2,3,0,0,0], m = 3</span><br><span class="line">nums2 = [2,5,6],       n = 3</span><br><span class="line"></span><br><span class="line">输出: [1,2,2,3,5,6]</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="keyword">int</span> m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = m - <span class="number">1</span>, j = n - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> pos = m + n - <span class="number">1</span>; pos &gt;= <span class="number">0</span>; pos--) &#123;</span><br><span class="line">            <span class="keyword">if</span>(i &gt;= <span class="number">0</span> &amp;&amp; (j &lt; <span class="number">0</span> || nums1[i] &gt;= nums2[j])) &#123;</span><br><span class="line">                nums1[pos] = nums1[i--];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                nums1[pos] = nums2[j--];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>这里的重点就是<strong>从后往前</strong>填写nums1，而不要从前往后遍历。</p>
-<h3 id="89-格雷编码"><a href="#89-格雷编码" class="headerlink" title="89. 格雷编码"></a>89. 格雷编码</h3><p>格雷编码是一个二进制数字系统，在该系统中，两个连续的数值仅有一个位数的差异。</p>
-<p>给定一个代表编码总位数的非负整数 n，打印其格雷编码序列。格雷编码序列必须以 0 开头。</p>
-<p><strong>示例 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">输入: 2</span><br><span class="line">输出: [0,1,3,2]</span><br><span class="line">解释:</span><br><span class="line">00 - 0</span><br><span class="line">01 - 1</span><br><span class="line">11 - 3</span><br><span class="line">10 - 2</span><br><span class="line"></span><br><span class="line">对于给定的 n，其格雷编码序列并不唯一。</span><br><span class="line">例如，[0,2,3,1] 也是一个有效的格雷编码序列。</span><br><span class="line"></span><br><span class="line">00 - 0</span><br><span class="line">10 - 2</span><br><span class="line">11 - 3</span><br><span class="line">01 - 1</span><br></pre></td></tr></table></figure>
-<p><strong>示例 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入: 0</span><br><span class="line">输出: [0]</span><br><span class="line">解释: 我们定义格雷编码序列必须以 0 开头。</span><br><span class="line">     给定编码总位数为 n 的格雷编码序列，其长度为 2n。当 n = 0 时，长度为 20 = 1。</span><br><span class="line">     因此，当 n = 0 时，其格雷编码序列为 [0]</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; grayCode(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ans;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>) &#123;</span><br><span class="line">            ans.push_back(<span class="number">0</span>);</span><br><span class="line">            <span class="keyword">return</span> ans;</span><br><span class="line">        &#125;</span><br><span class="line">        ans.push_back(<span class="number">0</span>);</span><br><span class="line">        ans.push_back(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; n;i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> num = <span class="number">1</span> &lt;&lt; i;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = ans.size() - <span class="number">1</span>;j &gt;= <span class="number">0</span>;j--) &#123;</span><br><span class="line">                ans.push_back(ans[j] + num);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;        </span><br><span class="line">        <span class="keyword">return</span> ans;  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>解释：这一道题也是突然就想到怎么做的了…</p>
-<p>在原先就是格雷码的基础之上，从后往前遍历，依次往前面添加一个1，即如下图：</p>
-<p>0    <code>--&gt;</code>     10     </p>
-<p>1    <code>--&gt;</code>     11     </p>
-<p>所以第一次得到 00     01    11    10</p>
-<p>00    <code>--&gt;</code>     100</p>
-<p>01    <code>--&gt;</code>     101</p>
-<p>11    <code>--&gt;</code>     111</p>
-<p>10    <code>--&gt;</code>     110</p>
-<p>所以第二次得到  000    001    011    010    110    111    101    100</p>
-<p>以此类推，每一轮遍历都从vector的末尾开始，然后向上在最前面加1，在数值上的体现就是加上$2^n$</p>
+          <h2 id="about-paper"><a class="markdownIt-Anchor" href="#about-paper"></a> About Paper</h2>
+<h4 id="论文搜索"><a class="markdownIt-Anchor" href="#论文搜索"></a> 论文搜索</h4>
+<p>40合一的学术搜索引擎： <a href="https://scholar.chongbuluo.com/" target="_blank" rel="noopener">https://scholar.chongbuluo.com/</a></p>
+<p>这个网站还有资源搜索、图片搜索、数据搜索等等</p>
+<h4 id="数据查找"><a class="markdownIt-Anchor" href="#数据查找"></a> 数据查找</h4>
+<ul>
+<li>国家数据：<a href="http://data.stats.gov.cn/index.htm" target="_blank" rel="noopener">http://data.stats.gov.cn/index.htm</a>	（可以对图表进行编辑等强大操作）</li>
+<li>互联网数据资讯中心：<a href="http://www.199it.com/%EF%BC%88%E6%9C%89%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AF%BC%E8%88%AA%EF%BC%89" target="_blank" rel="noopener">http://www.199it.com/（有大数据导航）</a></li>
+</ul>
+<h4 id="公式图表等制作"><a class="markdownIt-Anchor" href="#公式图表等制作"></a> 公式图表等制作</h4>
+<ul>
+<li>MathType和Viso（但是比较难用）</li>
+<li>webdemo：<a href="https://webdemo.myscript.com/%EF%BC%88%E6%AF%94%E8%BE%83%E5%A5%BD%E7%94%A8%EF%BC%89" target="_blank" rel="noopener">https://webdemo.myscript.com/（比较好用）</a></li>
+<li>图表在线制作：<a href="https://datavizcatalogue.com/ZH/index.html" target="_blank" rel="noopener">https://datavizcatalogue.com/ZH/index.html</a></li>
+<li><a href="http://xn--Draw-9n6f34mpxdg8h1r2hl6ya.io" target="_blank" rel="noopener">制作各类图表Draw.io</a>：<a href="https://www.draw.io/" target="_blank" rel="noopener">https://www.draw.io/</a></li>
+</ul>
+<h4 id="学术翻译"><a class="markdownIt-Anchor" href="#学术翻译"></a> 学术翻译</h4>
+<ul>
+<li>Google翻译</li>
+<li>CNKI翻译助手：<a href="http://dict.cnki.net/" target="_blank" rel="noopener">http://dict.cnki.net/</a></li>
+</ul>
+<h4 id="答辩ppt制作"><a class="markdownIt-Anchor" href="#答辩ppt制作"></a> 答辩PPT制作</h4>
+<ul>
+<li>一键生成完整的PPT：<a href="http://www.itbour.com/" target="_blank" rel="noopener">http://www.itbour.com/</a></li>
+</ul>
+<p>计算机方面的论文收集：</p>
+<p>Computer Vision Foundation open access：<a href="http://openaccess.thecvf.com/menu.py" target="_blank" rel="noopener">http://openaccess.thecvf.com/menu.py</a></p>
+<p>论文收集下载：<a href="https://arxiv.org/" target="_blank" rel="noopener">https://arxiv.org/</a></p>
+<p>NeurlPS： <a href="https://nips.cc/Conferences/" target="_blank" rel="noopener">https://nips.cc/Conferences/</a></p>
 
       
     </div>
@@ -310,7 +288,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/67/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/67/">67</a><span class="page-number current">68</span><a class="page-number" href="/page/69/">69</a><span class="space">&hellip;</span><a class="page-number" href="/page/129/">129</a><a class="extend next" rel="next" href="/page/69/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/67/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/67/">67</a><span class="page-number current">68</span><a class="page-number" href="/page/69/">69</a><span class="space">&hellip;</span><a class="page-number" href="/page/130/">130</a><a class="extend next" rel="next" href="/page/69/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -356,7 +334,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

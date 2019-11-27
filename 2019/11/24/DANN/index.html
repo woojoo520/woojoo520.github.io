@@ -47,12 +47,12 @@
   };
 </script>
 
-  <meta name="description" content="DANNDomain Adaption主要目的： 想想一个分类任务，假设现在我们手中有源域数据和目标域数据。其中源域数据是丰富并且有标记的，而目标域数据是充足的但是没有标记的，但是源域和目标域的特征空间和标记空间相同。很显然，我们可以利用源域数据建立一个分类器，但是由于目标域数据本身没有标记，那么我们无法通过常规方法为目标域构建分类器，这时候就需要用到Domain Adaption了：  Doma">
+  <meta name="description" content="DANN  Domain Adaption 主要目的： 想想一个分类任务，假设现在我们手中有源域数据和目标域数据。其中源域数据是丰富并且有标记的，而目标域数据是充足的但是没有标记的，但是源域和目标域的特征空间和标记空间相同。很显然，我们可以利用源域数据建立一个分类器，但是由于目标域数据本身没有标记，那么我们无法通过常规方法为目标域构建分类器，这时候就需要用到Domain Adaption了：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DANN">
 <meta property="og:url" content="https://woojoo520.github.io/2019/11/24/DANN/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="DANNDomain Adaption主要目的： 想想一个分类任务，假设现在我们手中有源域数据和目标域数据。其中源域数据是丰富并且有标记的，而目标域数据是充足的但是没有标记的，但是源域和目标域的特征空间和标记空间相同。很显然，我们可以利用源域数据建立一个分类器，但是由于目标域数据本身没有标记，那么我们无法通过常规方法为目标域构建分类器，这时候就需要用到Domain Adaption了：  Doma">
+<meta property="og:description" content="DANN  Domain Adaption 主要目的： 想想一个分类任务，假设现在我们手中有源域数据和目标域数据。其中源域数据是丰富并且有标记的，而目标域数据是充足的但是没有标记的，但是源域和目标域的特征空间和标记空间相同。很显然，我们可以利用源域数据建立一个分类器，但是由于目标域数据本身没有标记，那么我们无法通过常规方法为目标域构建分类器，这时候就需要用到Domain Adaption了：">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-0975878ddcedfaf101b10358317b8691_hd.jpg">
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-4fc596dfbc7f7ff56b32df7d0f7c0c71_hd.jpg">
@@ -61,7 +61,7 @@
 <meta property="og:updated_time" content="2019-11-27T01:38:33.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DANN">
-<meta name="twitter:description" content="DANNDomain Adaption主要目的： 想想一个分类任务，假设现在我们手中有源域数据和目标域数据。其中源域数据是丰富并且有标记的，而目标域数据是充足的但是没有标记的，但是源域和目标域的特征空间和标记空间相同。很显然，我们可以利用源域数据建立一个分类器，但是由于目标域数据本身没有标记，那么我们无法通过常规方法为目标域构建分类器，这时候就需要用到Domain Adaption了：  Doma">
+<meta name="twitter:description" content="DANN  Domain Adaption 主要目的： 想想一个分类任务，假设现在我们手中有源域数据和目标域数据。其中源域数据是丰富并且有标记的，而目标域数据是充足的但是没有标记的，但是源域和目标域的特征空间和标记空间相同。很显然，我们可以利用源域数据建立一个分类器，但是由于目标域数据本身没有标记，那么我们无法通过常规方法为目标域构建分类器，这时候就需要用到Domain Adaption了：">
 <meta name="twitter:image" content="https://pic2.zhimg.com/80/v2-0975878ddcedfaf101b10358317b8691_hd.jpg">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/11/24/DANN/">
@@ -251,26 +251,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="DANN"><a href="#DANN" class="headerlink" title="DANN"></a>DANN</h2><h3 id="Domain-Adaption"><a href="#Domain-Adaption" class="headerlink" title="Domain Adaption"></a>Domain Adaption</h3><p>主要目的：</p>
+        <h2 id="dann"><a class="markdownIt-Anchor" href="#dann"></a> DANN</h2>
+<h3 id="domain-adaption"><a class="markdownIt-Anchor" href="#domain-adaption"></a> Domain Adaption</h3>
+<p>主要目的：</p>
 <p>想想一个分类任务，假设现在我们手中有源域数据和目标域数据。其中源域数据是丰富并且有标记的，而目标域数据是充足的但是没有标记的，但是源域和目标域的特征空间和标记空间相同。很显然，我们可以利用源域数据建立一个分类器，但是由于目标域数据本身没有标记，那么我们无法通过常规方法为目标域构建分类器，这时候就需要用到Domain Adaption了：</p>
 <p><img src="https://pic2.zhimg.com/80/v2-0975878ddcedfaf101b10358317b8691_hd.jpg" alt="img"></p>
 <p>Domain Adaptation的思想就是通过消除源域和目标域的分布差异，使得源域数据和目标域数据能同时被分开。</p>
-<h3 id="DANN（Domain-Adaptation-Training-of-Neural-Networks）"><a href="#DANN（Domain-Adaptation-Training-of-Neural-Networks）" class="headerlink" title="DANN（Domain-Adaptation Training of Neural Networks）"></a>DANN（Domain-Adaptation Training of Neural Networks）</h3><p>DANN的应用背景：</p>
+<h3 id="danndomain-adaptation-training-of-neural-networks"><a class="markdownIt-Anchor" href="#danndomain-adaptation-training-of-neural-networks"></a> DANN（Domain-Adaptation Training of Neural Networks）</h3>
+<p>DANN的应用背景：</p>
 <p>源域数据充足并且有标记，目标域数据充足但是无标记，源域和目标域的特征空间和标记空间相同，任务是借助源域数据对目标域数据进行分类</p>
 <p>DANN结构：</p>
 <p><img src="https://pic2.zhimg.com/80/v2-4fc596dfbc7f7ff56b32df7d0f7c0c71_hd.jpg" alt="img"></p>
 <p>网络分为三部分：</p>
 <ul>
-<li>Feature extractor（特征提取器）<ul>
+<li>Feature extractor（特征提取器）
+<ul>
 <li>提取后续网络后续完成任务所需要的特征</li>
 <li>将源域样本和目标域样本进行映射和混合</li>
 </ul>
 </li>
-<li>Label extractoe（域分类器）<ul>
+<li>Label extractoe（域分类器）
+<ul>
 <li>利用Feature extractor提取的信息对样本进行分类</li>
 </ul>
 </li>
-<li>Domain classifier（域分类器）<ul>
+<li>Domain classifier（域分类器）
+<ul>
 <li>判断feature extractor提取的信息来自源域还是目标域</li>
 </ul>
 </li>
@@ -284,7 +290,7 @@
 <p><img src="https://www.zhihu.com/equation?tex=%5Cell%3D%5Cell_C+%2B+%5Clambda+%5Cell_D" alt="[公式]"></p>
 <p>那么怎么理解这个损失函数呢？</p>
 <p>实际上前半部分就是label predictor的损失函数，因为我们需要实现迁移之后，仍然能够提取出能区分不同类之间的特征，所以需要最小化label predictor的损失</p>
-<p>后半部分就是domain classifier的损失，但是前面有一个$\lambda$的超参数，因为我们实际上需要这个特征提取器提取出来的特征是与对领域特征不敏感的特征，所以需要最大化这个损失，即使这个domain classifier分辨不出来是属于哪一个域的。为了使这两个损失函数同一，所以，我们需要添加一个梯度翻转层，用来取反</p>
+<p>后半部分就是domain classifier的损失，但是前面有一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>λ</mi></mrow><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">λ</span></span></span></span>的超参数，因为我们实际上需要这个特征提取器提取出来的特征是与对领域特征不敏感的特征，所以需要最大化这个损失，即使这个domain classifier分辨不出来是属于哪一个域的。为了使这两个损失函数同一，所以，我们需要添加一个梯度翻转层，用来取反</p>
 <p>最后，将这两项参数相加，最后取最小值就是我们的目标啦！❤</p>
 
     </div>
@@ -346,7 +352,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DANN"><span class="nav-number">1.</span> <span class="nav-text">DANN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Domain-Adaption"><span class="nav-number">1.1.</span> <span class="nav-text">Domain Adaption</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DANN（Domain-Adaptation-Training-of-Neural-Networks）"><span class="nav-number">1.2.</span> <span class="nav-text">DANN（Domain-Adaptation Training of Neural Networks）</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#dann"><span class="nav-number">1.</span> <span class="nav-text"> DANN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#domain-adaption"><span class="nav-number">1.1.</span> <span class="nav-text"> Domain Adaption</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#danndomain-adaptation-training-of-neural-networks"><span class="nav-number">1.2.</span> <span class="nav-text"> DANN（Domain-Adaptation Training of Neural Networks）</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -362,7 +368,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

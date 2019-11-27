@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/07/Inception/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/07/PyTorch-Study/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/08/07/Inception/" class="post-title-link" itemprop="url">Inception</a>
+            <a href="/2019/08/07/PyTorch-Study/" class="post-title-link" itemprop="url">PyTorch Study</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-08-07 12:55:01 / 修改时间：16:00:30" itemprop="dateCreated datePublished" datetime="2019-08-07T12:55:01+08:00">2019-08-07</time>
+              <time title="创建时间：2019-08-07 14:57:07 / 修改时间：16:36:12" itemprop="dateCreated datePublished" datetime="2019-08-07T14:57:07+08:00">2019-08-07</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/08/07/Inception/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/07/Inception/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/08/07/PyTorch-Study/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/07/PyTorch-Study/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,28 +240,31 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="Inception-v1"><a href="#Inception-v1" class="headerlink" title="Inception-v1"></a>Inception-v1</h3><p>在这篇论文之前，卷积神经网络的性能高都是依赖于提高网络的深度和宽度，而这篇论文是从网络结构上入手，改变了网络结构</p>
-<h4 id="为什么提出Inception？"><a href="#为什么提出Inception？" class="headerlink" title="为什么提出Inception？"></a>为什么提出Inception？</h4><p>提高网络最简单粗暴的方法就是提高网络的深度和宽度，即增加隐层以及各层神经元数目。但这种简单粗暴的方法存在一些问题：</p>
-<ul>
-<li>会导致更大的参数空间，更容易过拟合</li>
-<li>需要更多的计算资源</li>
-<li>网络越深，梯度容易消失，优化困难（这时还没有提出BN，网络优化极其困难）</li>
-</ul>
-<p>基于此，我们的目标就是，提高网络计算资源的利用率，在计算率不变的情况下，提高网络的宽度和深度</p>
-<p>作者认为，解决这种困难的方法就是，把全连接改成稀疏连接，卷积层也是稀疏连接，但是不对称稀疏数据数值计算效率低下，因为硬件全是针对密集矩阵优化的，所以，我们要找到卷积网络可以近似优化的最优局部稀疏结构，并且该结构下可以用现有的密度矩阵计算硬件实现，产生的结果就是Inception</p>
-<h4 id="Inception结构"><a href="#Inception结构" class="headerlink" title="Inception结构"></a>Inception结构</h4><p><img src="https://img-blog.csdn.net/20180709151519421?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zOTk1MzUwMg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<p>首先看第一个结构，有四个通道，有1 <em> 1、3 </em> 3、5 * 5卷积核，该结构有几个特点：</p>
-<ul>
-<li>使用这些大小卷积核，没有什么特殊含义，主要方便对齐，只要padding = 0、1、2，就可以得到相同大小的特征图，可以顺利concat</li>
-<li>采用大小不同的卷积核，以为着感受野的大小不同，就可以得到不同尺度的特征</li>
-<li>采用比较大的卷积核，即5 * 5，意味着有些相关性可能隔得比较远，用大的卷积核才能学到此特征</li>
-</ul>
-<p>当时，这个结构有个缺点，5 <em> 5的卷积核的计算量太大。那么作者想到的第二个结构，用1 </em> 1的卷积核进行降维。</p>
-<p>这个1 * 1的卷积核，它的作用就是：</p>
-<ul>
-<li>降低维度，减少计算瓶颈</li>
-<li>增加网络层数，提高网络的表达能力。</li>
-</ul>
+          <h3 id="pytorch搭建神经网络"><a class="markdownIt-Anchor" href="#pytorch搭建神经网络"></a> PyTorch搭建神经网络</h3>
+<h4 id="1-导入库"><a class="markdownIt-Anchor" href="#1-导入库"></a> 1. 导入库</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br></pre></td></tr></table></figure>
+<h4 id="2-搭建卷积神经网络"><a class="markdownIt-Anchor" href="#2-搭建卷积神经网络"></a> 2. 搭建卷积神经网络</h4>
+<p>网络定义一般由两部分组成：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span>		<span class="comment"># 用来定义网络节点参数</span></span><br></pre></td></tr></table></figure>
+<p>将节点连接成图</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br></pre></td></tr></table></figure>
+<p>卷积计算规则：</p>
+<p>对我们输入形状1， 1， 64， 64.四个维度分别是<code>(batch, channel, height, width)</code></p>
+<p><code>new_height = (height - kernel_size) + s * padding / (stride[0]) + 1</code></p>
+<p>即在周围补一圈0， stride默认为1.因此</p>
+<p><code>new_height = new_width = (64 - 3) / 1 + 1 = 62</code></p>
+<p>由于输出通道是6，所以通过卷积层后维度为<code>(1, 6, 62, 62)</code></p>
+<p>经过pooling后，<code>(1, 6, 31, 31)</code></p>
+<p><code>x.view(1, -1)</code>把x伸缩为(1 : ?)的维度。这样整个网络其实输入<code>(1, 1, 64, 64)</code>，输出为(1, 10)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(Net, self).__init__()</span><br><span class="line">        self.conv = nn.Conv2d(in_channels=<span class="number">1</span>, out_channels=<span class="number">6</span>, kernel_size=<span class="number">3</span>)</span><br><span class="line">        self.linear = nn.Leaner(<span class="number">5766</span>, <span class="number">10</span>)</span><br><span class="line">        self.relu = nn.ReLU(inplace=<span class="literal">True</span>)</span><br><span class="line">        self.maxpooling = nn.MaxPool2d((<span class="number">2</span>, <span class="number">2</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        x = self.conv(x)</span><br><span class="line">        <span class="comment"># print (x.shape)</span></span><br><span class="line">        x = self.maxpooling(x)</span><br><span class="line">        <span class="comment"># print(x.shape)</span></span><br><span class="line">        x = self.relu(x)</span><br><span class="line">        x = view(<span class="number">1</span>, <span class="number">-1</span>)</span><br><span class="line">        <span class="comment"># print (x.shape)</span></span><br><span class="line">        x = self.linear(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<h4 id="3-添加训练数据"><a class="markdownIt-Anchor" href="#3-添加训练数据"></a> 3. 添加训练数据</h4>
+<p>optimizer：是优化器，即所谓的反向传播算法。<code>criterion = nn.MSELoss()</code>定义损失函数。</p>
+<p><code>input = torch.randn(1， 1， 64， 64).cuda()</code></p>
+<p><code>output = torch.ones(1, 10).cuda()</code></p>
+<p>定义训练样本，注意如果实在gpu中训练，在pytorch中需要.cuda()把数据从cpu中导入到gpu中</p>
+<p>网络的功能是给定随机噪声向量，输出是逼近1的单位向量</p>
+<h4 id="4-训练"><a class="markdownIt-Anchor" href="#4-训练"></a> 4. 训练</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> step <span class="keyword">in</span> range(epoch):</span><br><span class="line">    prediction = net(input)</span><br><span class="line">    loss = creterion(prediction, output)</span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    <span class="comment"># 消除优化器梯度</span></span><br><span class="line">    loss.backward()</span><br><span class="line">    <span class="comment"># 指自动求导</span></span><br><span class="line">    optimizer.step()</span><br><span class="line">    <span class="comment"># 根据自动求导反向传播优化参数</span></span><br><span class="line">    <span class="keyword">if</span> step % <span class="number">10</span> == <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">"EPOCH: &#123;&#125;, Loss:&#123;:4f&#125;"</span>).format(step, loss))</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -281,7 +284,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/111/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/111/">111</a><span class="page-number current">112</span><a class="page-number" href="/page/113/">113</a><span class="space">&hellip;</span><a class="page-number" href="/page/129/">129</a><a class="extend next" rel="next" href="/page/113/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/111/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/111/">111</a><span class="page-number current">112</span><a class="page-number" href="/page/113/">113</a><span class="space">&hellip;</span><a class="page-number" href="/page/130/">130</a><a class="extend next" rel="next" href="/page/113/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -327,7 +330,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

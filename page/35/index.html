@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/01/Regular-expression/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/01/LeetCode-Day43/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/10/01/Regular-expression/" class="post-title-link" itemprop="url">Regular expression</a>
+            <a href="/2019/10/01/LeetCode-Day43/" class="post-title-link" itemprop="url">LeetCode-Day43</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-10-01 09:31:19 / 修改时间：13:45:26" itemprop="dateCreated datePublished" datetime="2019-10-01T09:31:19+08:00">2019-10-01</time>
+              <time title="创建时间：2019-10-01 09:31:44 / 修改时间：20:07:42" itemprop="dateCreated datePublished" datetime="2019-10-01T09:31:44+08:00">2019-10-01</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/10/01/Regular-expression/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/01/Regular-expression/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/10/01/LeetCode-Day43/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/01/LeetCode-Day43/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,193 +240,55 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Regular-Expression——正则表达式"><a href="#Regular-Expression——正则表达式" class="headerlink" title="Regular Expression——正则表达式"></a>Regular Expression——正则表达式</h2><p>正则表达式描述了一种字符串匹配的模式，可以用来检查一个串是否含有某种子串，将匹配的子串替换或者从某个子串中取出某个符合条件的子串等</p>
-<h3 id="普通字符"><a href="#普通字符" class="headerlink" title="普通字符"></a>普通字符</h3><p>普通字符包括没有显示指定为元字符的所有可打印和不可打印字符。这包括所有大写字母和小写字母，所有数字，所有标点符号和一些其他符号</p>
-<h3 id="非打印字符"><a href="#非打印字符" class="headerlink" title="非打印字符"></a>非打印字符</h3><p>非打印字符也可以是正则表达式的组成部分。下标列出了表示非打印字符的转义序列</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>字符</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>\cx</td>
-<td>匹配由x指明的而控制字符。例如\cM控制一个Control-M或回车符。x的值必须为A-Z或a-z之一。否则，将c视为一个原义的‘c’字符</td>
-</tr>
-<tr>
-<td>\f</td>
-<td>匹配一个换页符</td>
-</tr>
-<tr>
-<td>\n</td>
-<td>匹配一个换行符</td>
-</tr>
-<tr>
-<td>\r</td>
-<td>匹配一个回车符</td>
-</tr>
-<tr>
-<td>\s</td>
-<td>匹配任何空白字符，包括空格、制表符、换页符等等。等价于[ \f\n\r\t\v]。注意Unicode正则表达式会匹配全角空格符</td>
-</tr>
-<tr>
-<td>\S</td>
-<td>匹配任何非空白字符。等价于[^ \f\n\r\t\v ]</td>
-</tr>
-<tr>
-<td>\t</td>
-<td>匹配一个制表符</td>
-</tr>
-<tr>
-<td>\v</td>
-<td>匹配一个垂直制表符</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h3><p>许多元字符要求在试图匹配他们时特别对待。托要匹配他们，必须首先使字符“转义”，即，将反斜杠\放在他们前面。下标列出了正则表达式中的特殊字符</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>特殊字符</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$</td>
-<td>匹配输入字符串的结尾位置。如果设置了RegExp对象的Multiline属性，则 $ 也匹配‘\n’或‘\r’。要匹配\$本身需要使用 \ $</td>
-</tr>
-<tr>
-<td>()</td>
-<td>标记一个子表达式的开始和结束位置。字表达式可以获取供以后使用</td>
-</tr>
-<tr>
-<td>*</td>
-<td>匹配前面的子表达式零次或多次。</td>
-</tr>
-<tr>
-<td>+</td>
-<td>匹配前面的子表达式一次或多次。</td>
-</tr>
-<tr>
-<td>.</td>
-<td>匹配除换行符\n以外的任何单字符</td>
-</tr>
-<tr>
-<td>[</td>
-<td>标记一个中括号表达式的开始</td>
-</tr>
-<tr>
-<td>?</td>
-<td>匹配前面的子表达式零次或一次，或指明一个非贪婪限定符</td>
-</tr>
-<tr>
-<td>\</td>
-<td>将下一个字符标记为或特殊字符，或原义字符，或向后引用，或八进制转义符</td>
-</tr>
-<tr>
-<td>^</td>
-<td>匹配输入字符串的开始位置，除非在方括号表达式中使用，此时它表示不接受该字符集合。</td>
-</tr>
-<tr>
-<td>{</td>
-<td>标记限定符表达式的开始</td>
-</tr>
-<tr>
-<td>\</td>
-<td></td>
-<td>指明两项之间的一个选择</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="限定符"><a href="#限定符" class="headerlink" title="限定符"></a>限定符</h3><p>限定符用来指定正则表达式的一个给定组件必须要出现多少次才能满足匹配。有<code>*</code>或<code>+</code>或<code>?</code>或<code>{n}</code>或<code>{n,}</code>或<code>{n,m}</code>6种。</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>字符</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>*</td>
-<td>匹配前面的子表达式零次或多次</td>
-</tr>
-<tr>
-<td>+</td>
-<td>匹配前面的子表达式一次或多次</td>
-</tr>
-<tr>
-<td>？</td>
-<td>匹配前面的子表达式零次或一次</td>
-</tr>
-<tr>
-<td>{n}</td>
-<td>n是一个非负整数。匹配确定的n次。例如, ‘o{2}‘’不能匹配“Bob”中的‘o’,但是能匹配“food”中的两个o</td>
-</tr>
-<tr>
-<td>{n,}</td>
-<td>n是一个非负整数。至少匹配n次</td>
-</tr>
-<tr>
-<td>{n,m}</td>
-<td>m和n均为非负整数，其中n &lt;= m。最少匹配n次且最多匹配m次。<strong>注意在逗号和两个数之间不能有空格</strong></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>注意：</p>
-<p><strong>*、+限定符都是贪婪的，因为他们会尽可能多的匹配文字，只有在他们后面加上一个？就可以实现非贪婪或最小匹配。</strong></p>
-<p>例如，当我们在搜索HTML文档，以查找括在H1标记内的章节标题。该文本在文档中如下：</p>
-<p><code>&lt;H1&gt;Chapter 1 - 介绍正则表达式&lt;/H1&gt;</code></p>
-<p><strong>贪婪</strong>：下面的表达式匹配从开始小于符号(&lt;)到关闭H1标记的大于符号(&gt;)之间的所有内容</p>
-<p><code>/&lt;.*&gt;/</code></p>
-<p><strong>非贪婪</strong>：如果您只需要匹配开始和结束H1标签，下面的非贪婪表达式只匹配 \</p><h1><p></p>
-<p><code>/&lt;.*?&gt;/</code></p>
-<p>如果指向匹配开始的H1标签，表达式则是：</p>
-<p><code>/&lt;\w+?&gt;/</code></p>
-<p>通过在* 、+ 或 ？限定符之后放置？，该表达式从“贪心”表达式转换为“非贪心”表达式或者最小匹配。</p>
-<h3 id="定位符"><a href="#定位符" class="headerlink" title="定位符"></a>定位符</h3><p>定位符能够将正则表达式固定到行首或行尾。还能够创建这样的表达式：这些正则表达式出现在一个单词内、在一个单词的开头或者一个单词的结尾</p>
-<p>定位符用来描述字符串或单词的边界，<code>^</code>和<code>$</code>分贝指字符串的开始与结束，<code>\b</code>描述单词的前或后边界，<code>\B</code>表示非单词边界</p>
-<p>正则表达式的定位符有：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>字符</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>^</td>
-<td>匹配输入字符串开始的位置。如果设置了 RegExp 对象的 Multiline 属性，^ 还会与 \n 或 \r 之后的位置匹配。</td>
-</tr>
-<tr>
-<td>$</td>
-<td>匹配输入字符串结尾的位置。如果设置了 RegExp 对象的 Multiline 属性，^ 还会与 \n 或 \r 之后的位置匹配。</td>
-</tr>
-<tr>
-<td>\b</td>
-<td>匹配一个单词边界，即字与空格间的位置</td>
-</tr>
-<tr>
-<td>\B</td>
-<td>非单词边界匹配</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p><strong>注意：</strong></p>
-<p>不能将限定符与定位符一起使用。而且在紧靠换行或者单词边界的前面或后面不能有一个以上位置，因此不允许注入<code>^*</code>之类的表达式</p>
-</h1>
+          <h2 id="leetcode-day43背包问题实战"><a class="markdownIt-Anchor" href="#leetcode-day43背包问题实战"></a> LeetCode-Day43——背包问题实战</h2>
+<h3 id="416-分割等和子集"><a class="markdownIt-Anchor" href="#416-分割等和子集"></a> 416. 分割等和子集</h3>
+<p>给定一个只包含正整数的非空数组。是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。</p>
+<p>注意:</p>
+<p>每个数组中的元素不会超过 100<br>
+数组的大小不会超过 200<br>
+示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [1, 5, 11, 5]</span><br><span class="line">输出: true</span><br><span class="line">解释: 数组可以分割成 [1, 5, 5] 和 [11].</span><br></pre></td></tr></table></figure>
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [1, 2, 3, 5]</span><br><span class="line">输出: false</span><br><span class="line">解释: 数组不能分割成两个元素和相等的子集.</span><br></pre></td></tr></table></figure>
+<p>思路：</p>
+<p>这就是一个01背包准确值的问题</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">canPartition</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; nums.size();i++) &#123;</span><br><span class="line">            sum += nums[i];</span><br><span class="line">        &#125;        </span><br><span class="line">        <span class="keyword">if</span>(sum % <span class="number">2</span> != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> target = sum / <span class="number">2</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dp(target + <span class="number">1</span>, INT_MIN);</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = target;i &gt;= num;i--) &#123;</span><br><span class="line">                dp[i] = max(dp[i], dp[i - num] + num);</span><br><span class="line">                dp[i] = dp[i] &lt; <span class="number">0</span> ? INT_MIN : dp[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> dp[target] == target;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="494-目标和"><a class="markdownIt-Anchor" href="#494-目标和"></a> 494. 目标和</h3>
+<p>给定一个非负整数数组，a1, a2, …, an, 和一个目标数，S。现在你有两个符号 + 和 -。对于数组中的任意一个整数，你都可以从 + 或 -中选择一个符号添加在前面。</p>
+<p>返回可以使最终数组和为目标数 S 的所有添加符号的方法数。</p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">输入: nums: [1, 1, 1, 1, 1], S: 3</span><br><span class="line">输出: 5</span><br><span class="line">解释: </span><br><span class="line"></span><br><span class="line">-1+1+1+1+1 = 3</span><br><span class="line">+1-1+1+1+1 = 3</span><br><span class="line">+1+1-1+1+1 = 3</span><br><span class="line">+1+1+1-1+1 = 3</span><br><span class="line">+1+1+1+1-1 = 3</span><br><span class="line"></span><br><span class="line">一共有5种方法让最终目标和为3。</span><br></pre></td></tr></table></figure>
+<p>注意:</p>
+<p>数组非空，且长度不会超过20。<br>
+初始的数组的和不会超过1000。<br>
+保证返回的最终结果能被32位整数存下。</p>
+<p>思路：</p>
+<p>这道题实际上就是01背包问题，假设取加号部分的和为<code>x</code>，取减号部分的和为<code>y</code>，则有</p>
+<p><code>x + y = sum(nums)</code></p>
+<p><code>x - y = S</code></p>
+<p>则直接可以求解	<code>x = (sum + S) / 2</code></p>
+<p>所以这道题本质上就是在问你，从这些数当中取出哪些数，可以让和为<code>x</code>，这样我们就将问题转换为01背包问题了</p>
+<p>上Code：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findTargetSumWays</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> S)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            sum += num;</span><br><span class="line">        &#125;           </span><br><span class="line">        <span class="keyword">if</span>(sum &lt; S || (sum + S) % <span class="number">2</span> != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> target = (sum + S) / <span class="number">2</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt; dp(target + <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = target;i &gt;= num;i--) &#123;</span><br><span class="line">                dp[i] += dp[i - num];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[target];  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这里需要注意一件事情，就是这里的<code>dp</code>数组表示的是方法的种数。</p>
+<h3 id="474-一和零"><a class="markdownIt-Anchor" href="#474-一和零"></a> 474. 一和零</h3>
+<p>在计算机界中，我们总是追求用有限的资源获取最大的收益。</p>
+<p>现在，假设你分别支配着 m 个 0 和 n 个 1。另外，还有一个仅包含 0 和 1 字符串的数组。</p>
+<p>你的任务是使用给定的 m 个 0 和 n 个 1 ，找到能拼出存在于数组中的字符串的最大数量。每个 0 和 1 至多被使用一次。</p>
+<p>注意:</p>
+<p>给定 0 和 1 的数量都不会超过 100。<br>
+给定字符串数组的长度不会超过 600。<br>
+示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: Array = &#123;&quot;10&quot;, &quot;0001&quot;, &quot;111001&quot;, &quot;1&quot;, &quot;0&quot;&#125;, m = 5, n = 3</span><br><span class="line">输出: 4</span><br><span class="line">解释: 总共 4 个字符串可以通过 5 个 0 和 3 个 1 拼出，即 &quot;10&quot;,&quot;0001&quot;,&quot;1&quot;,&quot;0&quot; 。</span><br></pre></td></tr></table></figure>
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: Array = &#123;&quot;10&quot;, &quot;0&quot;, &quot;1&quot;&#125;, m = 1, n = 1</span><br><span class="line">输出: 2</span><br><span class="line">解释: 你可以拼出 &quot;10&quot;，但之后就没有剩余数字了。更好的选择是拼出 &quot;0&quot; 和 &quot;1&quot; 。</span><br></pre></td></tr></table></figure>
+<p>思路：</p>
+<p>就把这个问题想象成有两个约束条件的多维背包问题，状态转换方程为：</p>
+<p><code>f[i, u, v] = max(f[i - 1, u, v], f[u - 1][u - Di][v - Ci] + Wi)</code></p>
+<p>然后优化空间和时间的方法，就是变成二维数组，加上倒着遍历！</p>
+<p>上Code：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; countZO(<span class="built_in">string</span> str) &#123;</span><br><span class="line">        pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; ans(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> c : str) &#123;</span><br><span class="line">            <span class="keyword">if</span>(c == <span class="string">'0'</span>) &#123;</span><br><span class="line">                ans.first++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                ans.second++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findMaxForm</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; strs, <span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; dp(m + <span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n + <span class="number">1</span>, <span class="number">0</span>));</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">string</span> str : strs) &#123;</span><br><span class="line">            pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; zo = countZO(str);</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = m;i &gt;= zo.first;i--) &#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = n;j &gt;= zo.second;j--) &#123;</span><br><span class="line">                    dp[i][j] = max(dp[i][j], dp[i - zo.first][j - zo.second] + <span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[m][n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -445,7 +307,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/34/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/">34</a><span class="page-number current">35</span><a class="page-number" href="/page/36/">36</a><span class="space">&hellip;</span><a class="page-number" href="/page/129/">129</a><a class="extend next" rel="next" href="/page/36/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/34/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/">34</a><span class="page-number current">35</span><a class="page-number" href="/page/36/">36</a><span class="space">&hellip;</span><a class="page-number" href="/page/130/">130</a><a class="extend next" rel="next" href="/page/36/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -491,7 +353,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

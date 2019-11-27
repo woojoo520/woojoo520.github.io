@@ -47,17 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="np.random.permutation()permutation:返回一个新的，打乱顺序的数组，与shuffle的不同之处在于shuffle是直接在原数组上进行操作，没有返回值。而permutation不直接在原来的数组上进行操作，而是返回一个新的打乱顺序的数组，并不改变原来的数组 12345678910&amp;gt;&amp;gt;&amp;gt; import numpy as np&amp;gt;&amp;gt;&amp;gt; a">
+  <meta name="description" content="np.random.permutation() permutation:返回一个新的，打乱顺序的数组，与shuffle的不同之处在于shuffle是直接在原数组上进行操作，没有返回值。而permutation不直接在原来的数组上进行操作，而是返回一个新的打乱顺序的数组，并不改变原来的数组 12345678910&amp;gt;&amp;gt;&amp;gt; import numpy as np&amp;gt;&amp;gt;&amp;gt;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2019.10.6">
 <meta property="og:url" content="https://woojoo520.github.io/2019/10/06/2019-10-6/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="np.random.permutation()permutation:返回一个新的，打乱顺序的数组，与shuffle的不同之处在于shuffle是直接在原数组上进行操作，没有返回值。而permutation不直接在原来的数组上进行操作，而是返回一个新的打乱顺序的数组，并不改变原来的数组 12345678910&amp;gt;&amp;gt;&amp;gt; import numpy as np&amp;gt;&amp;gt;&amp;gt; a">
+<meta property="og:description" content="np.random.permutation() permutation:返回一个新的，打乱顺序的数组，与shuffle的不同之处在于shuffle是直接在原数组上进行操作，没有返回值。而permutation不直接在原来的数组上进行操作，而是返回一个新的打乱顺序的数组，并不改变原来的数组 12345678910&amp;gt;&amp;gt;&amp;gt; import numpy as np&amp;gt;&amp;gt;&amp;gt;">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-10-06T10:39:55.770Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2019.10.6">
-<meta name="twitter:description" content="np.random.permutation()permutation:返回一个新的，打乱顺序的数组，与shuffle的不同之处在于shuffle是直接在原数组上进行操作，没有返回值。而permutation不直接在原来的数组上进行操作，而是返回一个新的打乱顺序的数组，并不改变原来的数组 12345678910&amp;gt;&amp;gt;&amp;gt; import numpy as np&amp;gt;&amp;gt;&amp;gt; a">
+<meta name="twitter:description" content="np.random.permutation() permutation:返回一个新的，打乱顺序的数组，与shuffle的不同之处在于shuffle是直接在原数组上进行操作，没有返回值。而permutation不直接在原来的数组上进行操作，而是返回一个新的打乱顺序的数组，并不改变原来的数组 12345678910&amp;gt;&amp;gt;&amp;gt; import numpy as np&amp;gt;&amp;gt;&amp;gt;">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/10/06/2019-10-6/">
 
@@ -240,7 +240,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="np-random-permutation"><a href="#np-random-permutation" class="headerlink" title="np.random.permutation()"></a>np.random.permutation()</h4><p><code>permutation:</code>返回一个新的，打乱顺序的数组，与shuffle的不同之处在于shuffle是直接在原数组上进行操作，没有返回值。而permutation不直接在原来的数组上进行操作，而是返回一个新的打乱顺序的数组，并不改变原来的数组</p>
+        <h4 id="nprandompermutation"><a class="markdownIt-Anchor" href="#nprandompermutation"></a> np.random.permutation()</h4>
+<p><code>permutation:</code>返回一个新的，打乱顺序的数组，与shuffle的不同之处在于shuffle是直接在原数组上进行操作，没有返回值。而permutation不直接在原来的数组上进行操作，而是返回一个新的打乱顺序的数组，并不改变原来的数组</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = np.random.permutation(a)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b</span><br><span class="line">array([<span class="number">3</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">9</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">2</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.random.shuffle(a)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="number">6</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">7</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br></pre></td></tr></table></figure>
 
     </div>
@@ -302,7 +303,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#np-random-permutation"><span class="nav-number">1.</span> <span class="nav-text">np.random.permutation()</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#nprandompermutation"><span class="nav-number">1.</span> <span class="nav-text"> np.random.permutation()</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -318,7 +319,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

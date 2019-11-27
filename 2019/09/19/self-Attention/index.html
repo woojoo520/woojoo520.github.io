@@ -47,12 +47,12 @@
   };
 </script>
 
-  <meta name="description" content="self-Attention参考链接：https://zhuanlan.zhihu.com/p/48508221 前言注意力（Attention）机制[2]由Bengio团队与2014年提出并在近年广泛的应用在深度学习中的各个领域，例如在计算机视觉方向用于捕捉图像上的感受野，或者NLP中用于定位关键token或者特征。谷歌团队近期提出的用于生成词向量的BERT[3]算法在NLP的11项任务中取得了">
+  <meta name="description" content="self-Attention 参考链接：https://zhuanlan.zhihu.com/p/48508221  前言 注意力（Attention）机制[2]由Bengio团队与2014年提出并在近年广泛的应用在深度学习中的各个领域，例如在计算机视觉方向用于捕捉图像上的感受野，或者NLP中用于定位关键token或者特征。谷歌团队近期提出的用于生成词向量的BERT[3]算法在NLP的11项任务">
 <meta property="og:type" content="article">
 <meta property="og:title" content="self-Attention">
 <meta property="og:url" content="https://woojoo520.github.io/2019/09/19/self-Attention/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="self-Attention参考链接：https://zhuanlan.zhihu.com/p/48508221 前言注意力（Attention）机制[2]由Bengio团队与2014年提出并在近年广泛的应用在深度学习中的各个领域，例如在计算机视觉方向用于捕捉图像上的感受野，或者NLP中用于定位关键token或者特征。谷歌团队近期提出的用于生成词向量的BERT[3]算法在NLP的11项任务中取得了">
+<meta property="og:description" content="self-Attention 参考链接：https://zhuanlan.zhihu.com/p/48508221  前言 注意力（Attention）机制[2]由Bengio团队与2014年提出并在近年广泛的应用在深度学习中的各个领域，例如在计算机视觉方向用于捕捉图像上的感受野，或者NLP中用于定位关键token或者特征。谷歌团队近期提出的用于生成词向量的BERT[3]算法在NLP的11项任务">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=t">
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=t-1">
@@ -126,7 +126,7 @@
 <meta property="og:updated_time" content="2019-09-19T03:19:48.510Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="self-Attention">
-<meta name="twitter:description" content="self-Attention参考链接：https://zhuanlan.zhihu.com/p/48508221 前言注意力（Attention）机制[2]由Bengio团队与2014年提出并在近年广泛的应用在深度学习中的各个领域，例如在计算机视觉方向用于捕捉图像上的感受野，或者NLP中用于定位关键token或者特征。谷歌团队近期提出的用于生成词向量的BERT[3]算法在NLP的11项任务中取得了">
+<meta name="twitter:description" content="self-Attention 参考链接：https://zhuanlan.zhihu.com/p/48508221  前言 注意力（Attention）机制[2]由Bengio团队与2014年提出并在近年广泛的应用在深度学习中的各个领域，例如在计算机视觉方向用于捕捉图像上的感受野，或者NLP中用于定位关键token或者特征。谷歌团队近期提出的用于生成词向量的BERT[3]算法在NLP的11项任务">
 <meta name="twitter:image" content="https://www.zhihu.com/equation?tex=t">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/09/19/self-Attention/">
@@ -310,8 +310,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="self-Attention"><a href="#self-Attention" class="headerlink" title="self-Attention"></a>self-Attention</h2><p>参考链接：<a href="https://zhuanlan.zhihu.com/p/48508221" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/48508221</a></p>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><a href="https://zhuanlan.zhihu.com/p/42724582" target="_blank" rel="noopener">注意力（Attention）机制</a>[2]由Bengio团队与2014年提出并在近年广泛的应用在深度学习中的各个领域，例如在计算机视觉方向用于捕捉图像上的感受野，或者NLP中用于定位关键token或者特征。谷歌团队近期提出的用于生成词向量的BERT[3]算法在NLP的11项任务中取得了效果的大幅提升，堪称2018年深度学习领域最振奋人心的消息。而BERT算法的最重要的部分便是本文中提出的Transformer的概念。</p>
+        <h2 id="self-attention"><a class="markdownIt-Anchor" href="#self-attention"></a> self-Attention</h2>
+<p>参考链接：<a href="https://zhuanlan.zhihu.com/p/48508221" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/48508221</a></p>
+<h3 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/42724582" target="_blank" rel="noopener">注意力（Attention）机制</a>[2]由Bengio团队与2014年提出并在近年广泛的应用在深度学习中的各个领域，例如在计算机视觉方向用于捕捉图像上的感受野，或者NLP中用于定位关键token或者特征。谷歌团队近期提出的用于生成词向量的BERT[3]算法在NLP的11项任务中取得了效果的大幅提升，堪称2018年深度学习领域最振奋人心的消息。而BERT算法的最重要的部分便是本文中提出的Transformer的概念。</p>
 <p>正如论文的题目所说的，Transformer中抛弃了传统的CNN和RNN，整个网络结构完全是由Attention机制组成。更准确地讲，Transformer由且仅由self-Attenion和Feed Forward Neural Network组成。一个基于Transformer的可训练的神经网络可以通过堆叠Transformer的形式进行搭建，作者的实验是通过搭建编码器和解码器各6层，总共12层的Encoder-Decoder，并在机器翻译中取得了BLEU值得新高。</p>
 <p>作者采用Attention机制的原因是考虑到RNN（或者LSTM，GRU等）的计算限制为是顺序的，也就是说RNN相关算法只能从左向右依次计算或者从右向左依次计算，这种机制带来了两个问题：</p>
 <ol>
@@ -319,14 +321,16 @@
 <li>顺序计算的过程中信息会丢失，尽管LSTM等门机制的结构一定程度上缓解了长期依赖的问题，但是对于特别长期的依赖现象,LSTM依旧无能为力。</li>
 </ol>
 <p>Transformer的提出解决了上面两个问题，首先它使用了Attention机制，将<strong>序列中的任意两个位置之间的距离是缩小为一个常量</strong>；其次它<strong>不是类似RNN的顺序结构，因此具有更好的并行性</strong>，符合现有的GPU框架。论文中给出Transformer的定义是：<strong>Transformer is the first transduction model relying entirely on self-attention to compute representations of its input and output without using sequence aligned RNNs or convolution</strong>。</p>
-<h3 id="1-Transformer详解"><a href="#1-Transformer详解" class="headerlink" title="1. Transformer详解"></a>1. Transformer详解</h3><h4 id="1-1-高层Transformer"><a href="#1-1-高层Transformer" class="headerlink" title="1.1 高层Transformer"></a>1.1 高层Transformer</h4><p>论文中的验证Transformer的实验室基于机器翻译的，下面我们就以机器翻译为例子详细剖析Transformer的结构，在机器翻译中，Transformer可概括为如图1：</p>
+<h3 id="1-transformer详解"><a class="markdownIt-Anchor" href="#1-transformer详解"></a> 1. Transformer详解</h3>
+<h4 id="11-高层transformer"><a class="markdownIt-Anchor" href="#11-高层transformer"></a> 1.1 高层Transformer</h4>
+<p>论文中的验证Transformer的实验室基于机器翻译的，下面我们就以机器翻译为例子详细剖析Transformer的结构，在机器翻译中，Transformer可概括为如图1：</p>
 <p><img src="https://pic4.zhimg.com/80/v2-1f6085e214b62d8293b2122a52489bff_hd.jpg" alt="img"></p>
 <p>Transformer的本质上是一个Encoder-Decoder的结构，那么图1可以表示为图2的结构：</p>
 <p><img src="https://pic1.zhimg.com/80/v2-5a252caa82f87920eadea2a2e93dc528_hd.jpg" alt="img"></p>
 <p>如论文中所设置的，编码器由6个编码block组成，同样解码器是6个解码block组成。与所有的生成模型相同的是，编码器的输出会作为解码器的输入，如图3所示：</p>
 <p><img src="https://pic3.zhimg.com/80/v2-c14a98dbcb1a7f6f2d18cf9a1f591be6_hd.jpg" alt="img"></p>
 <p>我们继续分析每个encoder的详细结构：在Transformer的encoder中，数据首先会经过一个叫做‘self-attention’的模块得到一个加权之后的特征向量 <img src="https://www.zhihu.com/equation?tex=Z" alt="[公式]"> ，这个 <img src="https://www.zhihu.com/equation?tex=Z" alt="[公式]"> 便是论文公式1中的 <img src="https://www.zhihu.com/equation?tex=%5Ctext%7BAttention%7D%28Q%2CK%2CV%29" alt="[公式]"> ：</p>
-<p><img src="https://www.zhihu.com/equation?tex=%5Ctext%7BAttention%7D%28Q%2CK%2CV%29%3D%5Ctext%7Bsoftmax%7D%28%5Cfrac%7BQK%5ET%7D%7B%5Csqrt%7Bd_k%7D%7D%29V+%5Ctag1" alt="[å¬å¼]"></p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Ctext%7BAttention%7D%28Q%2CK%2CV%29%3D%5Ctext%7Bsoftmax%7D%28%5Cfrac%7BQK%5ET%7D%7B%5Csqrt%7Bd_k%7D%7D%29V+%5Ctag1" alt="[å¬å¼]"></p>
 <p>第一次看到这个公式你可能会一头雾水，在后面的文章中我们会揭开这个公式背后的实际含义，在这一段暂时将其叫做 <img src="https://www.zhihu.com/equation?tex=Z" alt="[公式]"> 。</p>
 <p>得到 <img src="https://www.zhihu.com/equation?tex=Z" alt="[公式]"> 之后，它会被送到encoder的下一个模块，即Feed Forward Neural Network。这个全连接有两层，第一层的激活函数是ReLU，第二层是一个线性激活函数，可以表示为：</p>
 <p><img src="https://www.zhihu.com/equation?tex=%5Ctext%7BFFN%7D%28Z%29+%3D+max%280%2C+ZW_1+%2Bb_1%29W_2+%2B+b_2+%5Ctag2" alt="[公式]"></p>
@@ -338,11 +342,13 @@
 <li>Encoder-Decnoder Attention：当前翻译和编码的特征向量之间的关系。</li>
 </ol>
 <p><img src="https://pic1.zhimg.com/80/v2-d5777da2a84e120846c825ff9ca95a68_hd.jpg" alt="img">图5：Transformer的解码器由self-attention，encoder-decoder attention以及FFNN组成</p>
-<h4 id="1-2-输入编码"><a href="#1-2-输入编码" class="headerlink" title="1.2 输入编码"></a>1.2 输入编码</h4><p>1.1节介绍的就是Transformer的主要框架，下面我们将介绍它的输入数据。如图6所示，首先通过Word2Vec等词嵌入方法将输入语料转化成特征向量，论文中使用的词嵌入的维度为 <img src="https://www.zhihu.com/equation?tex=d_%7Bmodel%7D%3D512" alt="[公式]"> 。</p>
+<h4 id="12-输入编码"><a class="markdownIt-Anchor" href="#12-输入编码"></a> 1.2 输入编码</h4>
+<p>1.1节介绍的就是Transformer的主要框架，下面我们将介绍它的输入数据。如图6所示，首先通过Word2Vec等词嵌入方法将输入语料转化成特征向量，论文中使用的词嵌入的维度为 <img src="https://www.zhihu.com/equation?tex=d_%7Bmodel%7D%3D512" alt="[公式]"> 。</p>
 <p><img src="https://pic1.zhimg.com/80/v2-408fcd9ca9a65fdbf9d971cfd9227904_hd.jpg" alt="img">图6：单词的输入编码</p>
 <p>在最底层的block中， <img src="https://www.zhihu.com/equation?tex=x" alt="[公式]"> 将直接作为Transformer的输入，而在其他层中，输入则是上一个block的输出。为了画图更简单，我们使用更简单的例子来表示接下来的过程，如图7所示：</p>
 <p><img src="https://pic2.zhimg.com/80/v2-ff0f90ebee18dd909999bd3bee38fa45_hd.jpg" alt="img">图7：输入编码作为一个tensor输入到encoder中</p>
-<h4 id="1-3-Self-Attention"><a href="#1-3-Self-Attention" class="headerlink" title="1.3 Self-Attention"></a>1.3 Self-Attention</h4><p>Self-Attention是Transformer最核心的内容，然而作者并没有详细讲解，下面我们来补充一下作者遗漏的地方。回想Bahdanau等人提出的用Attention[2]，其核心内容是为输入向量的每个单词学习一个权重，例如在下面的例子中我们判断it代指的内容，</p>
+<h4 id="13-self-attention"><a class="markdownIt-Anchor" href="#13-self-attention"></a> 1.3 Self-Attention</h4>
+<p>Self-Attention是Transformer最核心的内容，然而作者并没有详细讲解，下面我们来补充一下作者遗漏的地方。回想Bahdanau等人提出的用Attention[2]，其核心内容是为输入向量的每个单词学习一个权重，例如在下面的例子中我们判断it代指的内容，</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The animal didn&apos;t cross the street because it was too tired</span><br></pre></td></tr></table></figure>
 <p>通过加权之后可以得到类似图8的加权情况，在讲解self-attention的时候我们也会使用图8类似的表示方式</p>
 <p><img src="https://pic2.zhimg.com/80/v2-d2129d06290744ebc12b6f220866b2a5_hd.jpg" alt="img">图8：经典Attention可视化示例图</p>
@@ -367,7 +373,8 @@
 <p>这里也就是公式1的计算方式。</p>
 <p>在self-attention需要强调的最后一点是其采用了<a href="https://zhuanlan.zhihu.com/p/42706477" target="_blank" rel="noopener">残差网络</a> [5]中的short-cut结构，目的当然是解决深度学习中的退化问题，得到的最终结果如图13。</p>
 <p><img src="https://pic1.zhimg.com/80/v2-2f06746893477aec8af0c9c3ca1c6c14_hd.jpg" alt="img">图13：Self-Attention中的short-cut连接</p>
-<h4 id="1-3-Multi-Head-Attention"><a href="#1-3-Multi-Head-Attention" class="headerlink" title="1.3 Multi-Head Attention"></a>1.3 Multi-Head Attention</h4><p>Multi-Head Attention相当于 <img src="https://www.zhihu.com/equation?tex=h" alt="[公式]"> 个不同的self-attention的集成（ensemble），在这里我们以 <img src="https://www.zhihu.com/equation?tex=h%3D8" alt="[公式]"> 举例说明。Multi-Head Attention的输出分成3步：</p>
+<h4 id="13-multi-head-attention"><a class="markdownIt-Anchor" href="#13-multi-head-attention"></a> 1.3 Multi-Head Attention</h4>
+<p>Multi-Head Attention相当于 <img src="https://www.zhihu.com/equation?tex=h" alt="[公式]"> 个不同的self-attention的集成（ensemble），在这里我们以 <img src="https://www.zhihu.com/equation?tex=h%3D8" alt="[公式]"> 举例说明。Multi-Head Attention的输出分成3步：</p>
 <ol>
 <li>将数据 <img src="https://www.zhihu.com/equation?tex=X+" alt="[公式]"> 分别输入到图13所示的8个self-attention中，得到8个加权后的特征矩阵 <img src="https://www.zhihu.com/equation?tex=Z_i%2C+i%5Cin%5C%7B1%2C2%2C...%2C8%5C%7D" alt="[公式]"> 。</li>
 <li>将8个 <img src="https://www.zhihu.com/equation?tex=Z_i" alt="[公式]"> 按列拼成一个大的特征矩阵；</li>
@@ -376,12 +383,15 @@
 <p>整个过程如图14所示：</p>
 <p><img src="https://pic3.zhimg.com/80/v2-c2a91ac08b34e73c7f4b415ce823840e_hd.jpg" alt="img">图14：Multi-Head Attention</p>
 <p>同self-attention一样，multi-head attention也加入了short-cut机制。</p>
-<h4 id="1-4-Encoder-Decoder-Attention"><a href="#1-4-Encoder-Decoder-Attention" class="headerlink" title="1.4 Encoder-Decoder Attention"></a>1.4 Encoder-Decoder Attention</h4><p>在解码器中，Transformer block比编码器中多了个encoder-cecoder attention。在encoder-decoder attention中， <img src="https://www.zhihu.com/equation?tex=Q" alt="[公式]"> 来之与解码器的上一个输出， <img src="https://www.zhihu.com/equation?tex=K" alt="[公式]"> 和 <img src="https://www.zhihu.com/equation?tex=V" alt="[公式]"> 则来自于与编码器的输出。其计算方式完全和图10的过程相同。</p>
+<h4 id="14-encoder-decoder-attention"><a class="markdownIt-Anchor" href="#14-encoder-decoder-attention"></a> 1.4 Encoder-Decoder Attention</h4>
+<p>在解码器中，Transformer block比编码器中多了个encoder-cecoder attention。在encoder-decoder attention中， <img src="https://www.zhihu.com/equation?tex=Q" alt="[公式]"> 来之与解码器的上一个输出， <img src="https://www.zhihu.com/equation?tex=K" alt="[公式]"> 和 <img src="https://www.zhihu.com/equation?tex=V" alt="[公式]"> 则来自于与编码器的输出。其计算方式完全和图10的过程相同。</p>
 <p>由于在机器翻译中，解码过程是一个顺序操作的过程，也就是当解码第 <img src="https://www.zhihu.com/equation?tex=k" alt="[公式]"> 个特征向量时，我们只能看到第 <img src="https://www.zhihu.com/equation?tex=k-1" alt="[公式]"> 及其之前的解码结果，论文中把这种情况下的multi-head attention叫做masked multi-head attention。</p>
-<h4 id="1-5-损失层"><a href="#1-5-损失层" class="headerlink" title="1.5 损失层"></a>1.5 损失层</h4><p>解码器解码之后，解码的特征向量经过一层激活函数为softmax的全连接层之后得到反映每个单词概率的输出向量。此时我们便可以通过CTC等损失函数训练模型了。</p>
+<h4 id="15-损失层"><a class="markdownIt-Anchor" href="#15-损失层"></a> 1.5 损失层</h4>
+<p>解码器解码之后，解码的特征向量经过一层激活函数为softmax的全连接层之后得到反映每个单词概率的输出向量。此时我们便可以通过CTC等损失函数训练模型了。</p>
 <p>而一个完整可训练的网络结构便是encoder和decoder的堆叠（各 <img src="https://www.zhihu.com/equation?tex=N+" alt="[公式]"> 个， <img src="https://www.zhihu.com/equation?tex=N%3D6" alt="[公式]"> ），我们可以得到图15中的完整的Transformer的结构（即论文中的图1）：</p>
 <p><img src="https://pic1.zhimg.com/80/v2-9fb280eb2a69baf5ceafcfa3581aa580_hd.jpg" alt="img">图15：Transformer的完整结构图</p>
-<h3 id="2-位置编码"><a href="#2-位置编码" class="headerlink" title="2. 位置编码"></a>2. 位置编码</h3><p>截止目前为止，我们介绍的Transformer模型并没有捕捉顺序序列的能力，也就是说无论句子的结构怎么打乱，Transformer都会得到类似的结果。换句话说，Transformer只是一个功能更强大的词袋模型而已。</p>
+<h3 id="2-位置编码"><a class="markdownIt-Anchor" href="#2-位置编码"></a> 2. 位置编码</h3>
+<p>截止目前为止，我们介绍的Transformer模型并没有捕捉顺序序列的能力，也就是说无论句子的结构怎么打乱，Transformer都会得到类似的结果。换句话说，Transformer只是一个功能更强大的词袋模型而已。</p>
 <p>为了解决这个问题，论文中在编码词向量时引入了位置编码（Position Embedding）的特征。具体地说，位置编码会在词向量中加入了单词的位置信息，这样Transformer就能区分不同位置的单词了。</p>
 <p>那么怎么编码这个位置信息呢？常见的模式有：a. 根据数据学习；b. 自己设计编码规则。在这里作者采用了第二种方式。那么这个位置编码该是什么样子呢？通常位置编码是一个长度为 <img src="https://www.zhihu.com/equation?tex=d_%7Bmodel%7D" alt="[公式]"> 的特征向量，这样便于和词向量进行单位加的操作，如图16。</p>
 <p><img src="https://pic3.zhimg.com/80/v2-3e1304e3f8da6cf23cc43ab3927d700e_hd.jpg" alt="img">图16：Position Embedding</p>
@@ -390,7 +400,8 @@
 <p><img src="https://www.zhihu.com/equation?tex=PE%28pos%2C+2i%2B1%29+%3D+cos%28%5Cfrac%7Bpos%7D%7B10000%5E%7B%5Cfrac%7B2i%7D%7Bd_%7Bmodel%7D%7D%7D%7D%29+%5Ctag4" alt="[公式]"></p>
 <p>在上式中， <img src="https://www.zhihu.com/equation?tex=pos" alt="[公式]"> 表示单词的位置， <img src="https://www.zhihu.com/equation?tex=i" alt="[公式]"> 表示单词的维度。关于位置编码的实现可在Google开源的算法中<code>get_timing_signal_1d()</code>函数找到对应的代码。</p>
 <p>作者这么设计的原因是考虑到在NLP任务重，除了单词的绝对位置，单词的相对位置也非常重要。根据公式 <img src="https://www.zhihu.com/equation?tex=sin%28%5Calpha%2B%5Cbeta%29+%3D+sin+%5Calpha+cos+%5Cbeta+%2B+cos+%5Calpha+sin%5Cbeta+" alt="[公式]"> 以及<img src="https://www.zhihu.com/equation?tex=cos%28%5Calpha+%2B+%5Cbeta%29+%3D+cos+%5Calpha+cos+%5Cbeta+-+sin+%5Calpha+sin%5Cbeta" alt="[公式]"> ，这表明位置 <img src="https://www.zhihu.com/equation?tex=k%2Bp" alt="[公式]"> 的位置向量可以表示为位置 <img src="https://www.zhihu.com/equation?tex=k" alt="[公式]"> 的特征向量的线性变化，这为模型捕捉单词之间的相对位置关系提供了非常大的便利。</p>
-<h3 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h3><p><strong>优点</strong>：（1）虽然Transformer最终也没有逃脱传统学习的套路，Transformer也只是一个全连接（或者是一维卷积）加Attention的结合体。但是其设计已经足够有创新，因为其抛弃了在NLP中最根本的RNN或者CNN并且取得了非常不错的效果，算法的设计非常精彩，值得每个深度学习的相关人员仔细研究和品位。（2）Transformer的设计最大的带来性能提升的关键是将任意两个单词的距离是1，这对解决NLP中棘手的长期依赖问题是非常有效的。（3）Transformer不仅仅可以应用在NLP的机器翻译领域，甚至可以不局限于NLP领域，是非常有科研潜力的一个方向。（4）算法的并行性非常好，符合目前的硬件（主要指GPU）环境。</p>
+<h3 id="3-总结"><a class="markdownIt-Anchor" href="#3-总结"></a> 3. 总结</h3>
+<p><strong>优点</strong>：（1）虽然Transformer最终也没有逃脱传统学习的套路，Transformer也只是一个全连接（或者是一维卷积）加Attention的结合体。但是其设计已经足够有创新，因为其抛弃了在NLP中最根本的RNN或者CNN并且取得了非常不错的效果，算法的设计非常精彩，值得每个深度学习的相关人员仔细研究和品位。（2）Transformer的设计最大的带来性能提升的关键是将任意两个单词的距离是1，这对解决NLP中棘手的长期依赖问题是非常有效的。（3）Transformer不仅仅可以应用在NLP的机器翻译领域，甚至可以不局限于NLP领域，是非常有科研潜力的一个方向。（4）算法的并行性非常好，符合目前的硬件（主要指GPU）环境。</p>
 <p><strong>缺点</strong>：（1）粗暴的抛弃RNN和CNN虽然非常炫技，但是它也使模型丧失了捕捉局部特征的能力，RNN + CNN + Transformer的结合可能会带来更好的效果。（2）Transformer失去的位置信息其实在NLP中非常重要，而论文中在特征向量中加入Position Embedding也只是一个权宜之计，并没有改变Transformer结构上的固有缺陷。</p>
 
     </div>
@@ -452,7 +463,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#self-Attention"><span class="nav-number">1.</span> <span class="nav-text">self-Attention</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Transformer详解"><span class="nav-number">1.2.</span> <span class="nav-text">1. Transformer详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-高层Transformer"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.1 高层Transformer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-输入编码"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2 输入编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-Self-Attention"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.3 Self-Attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-Multi-Head-Attention"><span class="nav-number">1.2.4.</span> <span class="nav-text">1.3 Multi-Head Attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-Encoder-Decoder-Attention"><span class="nav-number">1.2.5.</span> <span class="nav-text">1.4 Encoder-Decoder Attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-损失层"><span class="nav-number">1.2.6.</span> <span class="nav-text">1.5 损失层</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-位置编码"><span class="nav-number">1.3.</span> <span class="nav-text">2. 位置编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-总结"><span class="nav-number">1.4.</span> <span class="nav-text">3. 总结</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#self-attention"><span class="nav-number">1.</span> <span class="nav-text"> self-Attention</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-transformer详解"><span class="nav-number">1.2.</span> <span class="nav-text"> 1. Transformer详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#11-高层transformer"><span class="nav-number">1.2.1.</span> <span class="nav-text"> 1.1 高层Transformer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-输入编码"><span class="nav-number">1.2.2.</span> <span class="nav-text"> 1.2 输入编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-self-attention"><span class="nav-number">1.2.3.</span> <span class="nav-text"> 1.3 Self-Attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-multi-head-attention"><span class="nav-number">1.2.4.</span> <span class="nav-text"> 1.3 Multi-Head Attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-encoder-decoder-attention"><span class="nav-number">1.2.5.</span> <span class="nav-text"> 1.4 Encoder-Decoder Attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-损失层"><span class="nav-number">1.2.6.</span> <span class="nav-text"> 1.5 损失层</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-位置编码"><span class="nav-number">1.3.</span> <span class="nav-text"> 2. 位置编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-总结"><span class="nav-number">1.4.</span> <span class="nav-text"> 3. 总结</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -468,7 +479,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

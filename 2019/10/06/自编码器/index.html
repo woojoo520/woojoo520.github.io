@@ -47,19 +47,19 @@
   };
 </script>
 
-  <meta name="description" content="自编码器（Autoencoder）介绍 从上图可以看出，自编码器模型主要有编码器（encoder）和解码器（decoder）组成，其主要目的是将输入x转换成中间变量y，然后再将y转换成 $\widetilde x$，然后对比输入x和输出 $\widetilde x$ 使得他们两个无限接近 神经网络自编码模型 神经网络自编码器的三大特点 自编码器是数据相关的，这意味着自动编码器只能压缩那些与训练数据">
+  <meta name="description" content="自编码器（Autoencoder）介绍  从上图可以看出，自编码器模型主要有编码器（encoder）和解码器（decoder）组成，其主要目的是将输入x转换成中间变量y，然后再将y转换成 x~\widetilde xx，然后对比输入x和输出 x~\widetilde xx 使得他们两个无限接近  神经网络自编码模型   神经网络自编码器的三大特点  自编码器是数据相关的，这意味着自动编码器只能压">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自编码器">
 <meta property="og:url" content="https://woojoo520.github.io/2019/10/06/自编码器/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="自编码器（Autoencoder）介绍 从上图可以看出，自编码器模型主要有编码器（encoder）和解码器（decoder）组成，其主要目的是将输入x转换成中间变量y，然后再将y转换成 $\widetilde x$，然后对比输入x和输出 $\widetilde x$ 使得他们两个无限接近 神经网络自编码模型 神经网络自编码器的三大特点 自编码器是数据相关的，这意味着自动编码器只能压缩那些与训练数据">
+<meta property="og:description" content="自编码器（Autoencoder）介绍  从上图可以看出，自编码器模型主要有编码器（encoder）和解码器（decoder）组成，其主要目的是将输入x转换成中间变量y，然后再将y转换成 x~\widetilde xx，然后对比输入x和输出 x~\widetilde xx 使得他们两个无限接近  神经网络自编码模型   神经网络自编码器的三大特点  自编码器是数据相关的，这意味着自动编码器只能压">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://pic4.zhimg.com/v2-f4444b7343ef311fd04f0dc0dc1db3b7_b.jpg">
 <meta property="og:image" content="https://pic1.zhimg.com/v2-79a703718a568bbbe19a5cf6dfe1dc88_b.jpg">
 <meta property="og:updated_time" content="2019-10-06T14:00:59.947Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自编码器">
-<meta name="twitter:description" content="自编码器（Autoencoder）介绍 从上图可以看出，自编码器模型主要有编码器（encoder）和解码器（decoder）组成，其主要目的是将输入x转换成中间变量y，然后再将y转换成 $\widetilde x$，然后对比输入x和输出 $\widetilde x$ 使得他们两个无限接近 神经网络自编码模型 神经网络自编码器的三大特点 自编码器是数据相关的，这意味着自动编码器只能压缩那些与训练数据">
+<meta name="twitter:description" content="自编码器（Autoencoder）介绍  从上图可以看出，自编码器模型主要有编码器（encoder）和解码器（decoder）组成，其主要目的是将输入x转换成中间变量y，然后再将y转换成 x~\widetilde xx，然后对比输入x和输出 x~\widetilde xx 使得他们两个无限接近  神经网络自编码模型   神经网络自编码器的三大特点  自编码器是数据相关的，这意味着自动编码器只能压">
 <meta name="twitter:image" content="https://pic4.zhimg.com/v2-f4444b7343ef311fd04f0dc0dc1db3b7_b.jpg">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/10/06/自编码器/">
@@ -243,24 +243,39 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="自编码器（Autoencoder）介绍"><a href="#自编码器（Autoencoder）介绍" class="headerlink" title="自编码器（Autoencoder）介绍"></a>自编码器（Autoencoder）介绍</h3><p><img src="https://pic4.zhimg.com/v2-f4444b7343ef311fd04f0dc0dc1db3b7_b.jpg" alt="img"></p>
-<p>从上图可以看出，自编码器模型主要有编码器（encoder）和解码器（decoder）组成，其主要目的是将输入x转换成中间变量y，然后再将y转换成 $\widetilde x$，然后对比输入x和输出 $\widetilde x$ 使得他们两个无限接近</p>
-<h3 id="神经网络自编码模型"><a href="#神经网络自编码模型" class="headerlink" title="神经网络自编码模型"></a>神经网络自编码模型</h3><p><img src="https://pic1.zhimg.com/v2-79a703718a568bbbe19a5cf6dfe1dc88_b.jpg" alt="img"></p>
-<h4 id="神经网络自编码器的三大特点"><a href="#神经网络自编码器的三大特点" class="headerlink" title="神经网络自编码器的三大特点"></a>神经网络自编码器的三大特点</h4><ul>
+        <h3 id="自编码器autoencoder介绍"><a class="markdownIt-Anchor" href="#自编码器autoencoder介绍"></a> 自编码器（Autoencoder）介绍</h3>
+<p><img src="https://pic4.zhimg.com/v2-f4444b7343ef311fd04f0dc0dc1db3b7_b.jpg" alt="img"></p>
+<p>从上图可以看出，自编码器模型主要有编码器（encoder）和解码器（decoder）组成，其主要目的是将输入x转换成中间变量y，然后再将y转换成 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>x</mi><mo stretchy="true">~</mo></mover></mrow><annotation encoding="application/x-tex">\widetilde x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6905600000000001em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6905600000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault">x</span></span><span class="svg-align" style="width:calc(100% - 0.05556em);margin-left:0.05556em;top:-3.43056em;"><span class="pstrut" style="height:3em;"></span><span style="height:0.26em;"><svg width="100%" height="0.26em" viewbox="0 0 600 260" preserveaspectratio="none"><path d="M200 55.538c-77 0-168 73.953-177 73.953-3 0-7
+-2.175-9-5.437L2 97c-1-2-2-4-2-6 0-4 2-7 5-9l20-12C116 12 171 0 207 0c86 0
+ 114 68 191 68 78 0 168-68 177-68 4 0 7 2 9 5l12 19c1 2.175 2 4.35 2 6.525 0
+ 4.35-2 7.613-5 9.788l-19 13.05c-92 63.077-116.937 75.308-183 76.128
+-68.267.847-113-73.952-191-73.952z"/></svg></span></span></span></span></span></span></span></span></span>，然后对比输入x和输出 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>x</mi><mo stretchy="true">~</mo></mover></mrow><annotation encoding="application/x-tex">\widetilde x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6905600000000001em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6905600000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault">x</span></span><span class="svg-align" style="width:calc(100% - 0.05556em);margin-left:0.05556em;top:-3.43056em;"><span class="pstrut" style="height:3em;"></span><span style="height:0.26em;"><svg width="100%" height="0.26em" viewbox="0 0 600 260" preserveaspectratio="none"><path d="M200 55.538c-77 0-168 73.953-177 73.953-3 0-7
+-2.175-9-5.437L2 97c-1-2-2-4-2-6 0-4 2-7 5-9l20-12C116 12 171 0 207 0c86 0
+ 114 68 191 68 78 0 168-68 177-68 4 0 7 2 9 5l12 19c1 2.175 2 4.35 2 6.525 0
+ 4.35-2 7.613-5 9.788l-19 13.05c-92 63.077-116.937 75.308-183 76.128
+-68.267.847-113-73.952-191-73.952z"/></svg></span></span></span></span></span></span></span></span></span> 使得他们两个无限接近</p>
+<h3 id="神经网络自编码模型"><a class="markdownIt-Anchor" href="#神经网络自编码模型"></a> 神经网络自编码模型</h3>
+<p><img src="https://pic1.zhimg.com/v2-79a703718a568bbbe19a5cf6dfe1dc88_b.jpg" alt="img"></p>
+<h4 id="神经网络自编码器的三大特点"><a class="markdownIt-Anchor" href="#神经网络自编码器的三大特点"></a> 神经网络自编码器的三大特点</h4>
+<ul>
 <li>自编码器是数据相关的，这意味着自动编码器只能压缩那些与训练数据类似的数据，比如，使用人脸训练出来的自动编码器在压缩别的别的图片，比如树木，时性能很差，因为它学习到的特征是与人脸相关的</li>
 <li>自动编码器是有损的，意思是解压缩的输出与原来的输入相比是退化的</li>
 <li>自编码器是从数据样本中自动学习的，这意味着很容易对指定类的输入训练出一种特定的编码器，而不需要完成任何新工作</li>
 </ul>
-<h4 id="自编码器（Autoencode）搭建"><a href="#自编码器（Autoencode）搭建" class="headerlink" title="自编码器（Autoencode）搭建"></a>自编码器（Autoencode）搭建</h4><p>三洋工作：搭建编码器，搭建解码器，设定一个损失函数（用以衡量由于压缩而损失掉的信息）</p>
+<h4 id="自编码器autoencode搭建"><a class="markdownIt-Anchor" href="#自编码器autoencode搭建"></a> 自编码器（Autoencode）搭建</h4>
+<p>三洋工作：搭建编码器，搭建解码器，设定一个损失函数（用以衡量由于压缩而损失掉的信息）</p>
 <p>编码器和解码器一般都是参数化的方程，并关于损失函数可导，典型的情况是使用神经网络。编码器和解码器的参数可以通过最小化损失函数而优化，根据上面介绍，自动编码器可看做由两个级联网络组成</p>
 <ul>
-<li><p>第一个网络是编码器，负责接收输入x，并将输入通过函数h变换为信号y：</p>
-<p>$y = h(x)$</p>
+<li>
+<p>第一个网络是编码器，负责接收输入x，并将输入通过函数h变换为信号y：</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>=</mo><mi>h</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">y = h(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span></p>
 </li>
-<li><p>第二个网络将编码的信号y作为输入，通过函数f得到重构的信号r：</p>
-<p>$r = f(y) = f(h(x))$</p>
+<li>
+<p>第二个网络将编码的信号y作为输入，通过函数f得到重构的信号r：</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mo>=</mo><mi>f</mi><mo stretchy="false">(</mo><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mi>f</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">r = f(y) = f(h(x))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></p>
 </li>
-<li><p>定义误差e为原始输入x与重构信号r之差，即$e = x - r$，网络训练的目标是减少均方误差（MSE），误差被反向传播回隐藏层</p>
+<li>
+<p>定义误差e为原始输入x与重构信号r之差，即<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>e</mi><mo>=</mo><mi>x</mi><mo>−</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">e = x - r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>，网络训练的目标是减少均方误差（MSE），误差被反向传播回隐藏层</p>
 </li>
 </ul>
 
@@ -323,7 +338,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#自编码器（Autoencoder）介绍"><span class="nav-number">1.</span> <span class="nav-text">自编码器（Autoencoder）介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#神经网络自编码模型"><span class="nav-number">2.</span> <span class="nav-text">神经网络自编码模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#神经网络自编码器的三大特点"><span class="nav-number">2.1.</span> <span class="nav-text">神经网络自编码器的三大特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自编码器（Autoencode）搭建"><span class="nav-number">2.2.</span> <span class="nav-text">自编码器（Autoencode）搭建</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#自编码器autoencoder介绍"><span class="nav-number">1.</span> <span class="nav-text"> 自编码器（Autoencoder）介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#神经网络自编码模型"><span class="nav-number">2.</span> <span class="nav-text"> 神经网络自编码模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#神经网络自编码器的三大特点"><span class="nav-number">2.1.</span> <span class="nav-text"> 神经网络自编码器的三大特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自编码器autoencode搭建"><span class="nav-number">2.2.</span> <span class="nav-text"> 自编码器（Autoencode）搭建</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -339,7 +354,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

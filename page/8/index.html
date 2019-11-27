@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/22/AutoEncoder/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/22/选择合适的激活函数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/11/22/AutoEncoder/" class="post-title-link" itemprop="url">AutoEncoder</a>
+            <a href="/2019/11/22/选择合适的激活函数/" class="post-title-link" itemprop="url">选择合适的激活函数</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-11-22 14:25:00 / 修改时间：14:36:17" itemprop="dateCreated datePublished" datetime="2019-11-22T14:25:00+08:00">2019-11-22</time>
+              <time title="创建时间：2019-11-22 14:44:37 / 修改时间：15:15:22" itemprop="dateCreated datePublished" datetime="2019-11-22T14:44:37+08:00">2019-11-22</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/11/22/AutoEncoder/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/22/AutoEncoder/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/11/22/选择合适的激活函数/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/22/选择合适的激活函数/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,19 +240,58 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="AutoEncoder"><a href="#AutoEncoder" class="headerlink" title="AutoEncoder"></a>AutoEncoder</h2><h3 id="压缩与解压"><a href="#压缩与解压" class="headerlink" title="压缩与解压"></a>压缩与解压</h3><p>有一个神经网络，他在做的事情是：接受一张图片，然后给他打码，最后再从打码的图片中还原。</p>
-<p><img src="https://pic3.zhimg.com/v2-7370f2fd8e6dabe4b24b71118ebf3b52_b.png" alt="img"></p>
-<p>假设刚刚的神经网络是这样，对应上刚刚的图片，可以看出，图片实际上是经过了压缩，再解压的这一道工序，原有的图片质量被缩减，解压时用信息量小却包含了所有关键信息的文件恢复出原本的图片。</p>
-<p>为什么要这样做呢？</p>
-<p><img src="https://pic2.zhimg.com/v2-948d5ede26f9e6c0e484640b92c1dcad_b.png" alt="img"></p>
-<p>有的时候神经网路偶要接受大量的输入信息，比如输入信息是高清图片时。输入信息可能达到上千万，让神经网络直接从上千万个信息源中学习是一件很吃力的事情，所以，何不压缩一下，提取出原图片中的最具代表性的信息，缩减信息量，再把缩减过后的信息放进神经网络学习，这样学习起来就简单轻松很多了，所以，自编码就能在这时发挥作用。</p>
-<p>通过将元数据白色的X压缩，解压成黑色的X，然后通过对比黑白，求出预测误差，进行反向传递，逐步提升自编码的准确性，训练好的自编码中间这一部分就是元数据的精髓，可以看出，从头到尾，我们只用到了输入数据X，并没有用到X对应的数据标签，所以也可以说自编码是一种非监督学习</p>
-<p>到了真正使用自编码的时候，通常只会用到自编码的前半部分。</p>
-<h3 id="编码器Encoder"><a href="#编码器Encoder" class="headerlink" title="编码器Encoder"></a>编码器Encoder</h3><p><img src="https://pic2.zhimg.com/v2-948d5ede26f9e6c0e484640b92c1dcad_b.png" alt="img"></p>
-<p>编码器得到原数据的精髓，然后我们只需要再创建一个小的神经网络学习这个精髓的数据，不仅减少了神经网络的负担，而且同样能达到很好的效果</p>
-<p><img src="https://pic1.zhimg.com/v2-9032ff2d01cdb7310245c7f397289550_b.png" alt="img"></p>
-<p>这是通过一个自编码整理出来的数据，他能从原数据中总结出每种类型数据的特征，如果把这些特征全部放在一张二维的图片上，每种类型都已经被很好的用原数据的精髓区分开来。</p>
-<p>PCA主成分分析，在提取主要特征时，自编码和PCA一样，甚至超越了PCA。换句话说自编码可以像PCA一样给特征属性降维。</p>
+          <h2 id="选择合适的激活函数"><a class="markdownIt-Anchor" href="#选择合适的激活函数"></a> 选择合适的激活函数</h2>
+<h3 id="sigmoid"><a class="markdownIt-Anchor" href="#sigmoid"></a> sigmoid</h3>
+<h4 id="图像"><a class="markdownIt-Anchor" href="#图像"></a> 图像</h4>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1574406136071.png" alt="1574406136071"></p>
+<h4 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h4>
+<p>他会将输入的数字挤压到0到1区间的范围内。是最先使用的激活函数，以为可以将它解释为一个神经元的激活率，其中0表示没激活，1表示完全激活</p>
+<h4 id="存在的问题"><a class="markdownIt-Anchor" href="#存在的问题"></a> 存在的问题</h4>
+<ul>
+<li>
+<p>会导致模型的梯度消失</p>
+<ul>
+<li>
+<p>当神经元的激活状态接近于0或1时，这些区域的梯度会非常接近于0</p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1574406306081.png" alt="1574406306081"></p>
+<p>在反向传播期间，该局部梯度会和此处输出的梯度相乘以实现整体的目标。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Sigmoid函数的输出并不是以0为基准，而是从0开始，到1结束。意味着函数的值会为正。因而权重的梯度会全部为正或全部为负，这会造成梯度往完全不同的方向更新，使得优化更困难</p>
+</li>
+</ul>
+<h3 id="tanh"><a class="markdownIt-Anchor" href="#tanh"></a> Tanh</h3>
+<h4 id="图像-2"><a class="markdownIt-Anchor" href="#图像-2"></a> 图像</h4>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1574406487079.png" alt="1574406487079"></p>
+<h4 id="特点-2"><a class="markdownIt-Anchor" href="#特点-2"></a> 特点</h4>
+<p>他会将数字压缩到-1到1区间内。所以他的输出以0为基准，使优化更加容易</p>
+<h4 id="问题"><a class="markdownIt-Anchor" href="#问题"></a> 问题</h4>
+<p>梯度消失</p>
+<h3 id="relu"><a class="markdownIt-Anchor" href="#relu"></a> ReLU</h3>
+<h4 id="图像-3"><a class="markdownIt-Anchor" href="#图像-3"></a> 图像</h4>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1574406572298.png" alt="1574406572298"></p>
+<h4 id="特点-3"><a class="markdownIt-Anchor" href="#特点-3"></a> 特点</h4>
+<p>max（input， 0）</p>
+<p>不会涉及大量运算，因此它能更快的学习，也避免了梯度消失的问题</p>
+<p>但是他<strong>只用在隐藏层</strong>中，<strong>输出层应该用Softmax函数用于分类，因为它能生成不同类别的概率</strong>。在<strong>回归问题中使用线性函数</strong>，因为通过它的数据信号不会变</p>
+<h4 id="问题-2"><a class="markdownIt-Anchor" href="#问题-2"></a> 问题</h4>
+<p>部分神经元在训练中会很脆弱，甚至会死掉。这就意味着较大的梯度通过ReLU函数时会导致梯度更新，使得无法再次激活任何数据点</p>
+<p>解决方法：Leaky ReLU</p>
+<h3 id="经验"><a class="markdownIt-Anchor" href="#经验"></a> 经验</h3>
+<ul>
+<li>深度学习往往需要大量时间来处理大量数据，模型的收敛速度是尤为重要的。所以，总体上来讲，训练深度学习网络尽量使用zero-centered数据（可以经过数据预处理实现）和zero-cintered输出。所以要尽量选择输出具有zero-centered特点的激活函数以加快模型的收敛速度</li>
+<li>如果使用ReLU，那么一定要小心设置learning rate，而且注意不要让网络出现很多“dead”神经元，如果这个问题不好解决，可以试试Leaky-ReLU、PReLU或者Maxout</li>
+<li>最好不要使用sigmoid，可以试试tanh，不过可以预期他的效果会比不上ReLU和Maxout</li>
+</ul>
+<h3 id="神经网络的输入为什么要0均值化"><a class="markdownIt-Anchor" href="#神经网络的输入为什么要0均值化"></a> 神经网络的输入为什么要0均值化</h3>
+<p>这样做的优点是为了在反向传播中加快网络中每一层权重参数的收敛。</p>
+<p>为什么0均值化就会加快收敛呢？</p>
+<p><img src="https://pic4.zhimg.com/v2-bc1465b4377a5c1f7762514093a43be7_b.jpg" alt="img"></p>
+<p>在梯度下降的时候，假设途中蓝色箭头方向为理想最优向量，根据公式，可以想到：</p>
+<p>当x全为正或者全为负时，每次返回的梯度都只会沿着一个方向发生变化，这样就回使得权重收敛效率很低</p>
+<p>当正负数量“差不多”时，那么梯度的变化方向就会不确定，这样就能达到上图中的变化效果，加速了权重的收敛</p>
 
       
     </div>
@@ -272,7 +311,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/129/">129</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/130/">130</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -318,7 +357,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
