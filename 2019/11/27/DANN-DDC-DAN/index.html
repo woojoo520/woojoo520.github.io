@@ -47,32 +47,36 @@
   };
 </script>
 
-  <meta name="description" content="a study blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Celery Fairy">
-<meta property="og:url" content="https://woojoo520.github.io/index.html">
+  <meta name="description" content="DANN&amp;amp;DDC&amp;amp;DAN 在前一篇文章中简述了DANN，那今天就继续往下面看吧~~  DDC   DDC采用的网络结构 如图：  网络包括两个流向：第一条流向的输入为源数据，是带标签的；另一条流向的输入是目标数据，包含少量的带数据标签或不包含带数据标签，两个流向的卷积神经网络共享权值。和以往不同的是，作者在两个流向的网络的特征层之间增加了一个适应层，并通过适应层的输出计算出一个d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DANN&amp;DDC&amp;DAN">
+<meta property="og:url" content="https://woojoo520.github.io/2019/11/27/DANN-DDC-DAN/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="a study blog">
+<meta property="og:description" content="DANN&amp;amp;DDC&amp;amp;DAN 在前一篇文章中简述了DANN，那今天就继续往下面看吧~~  DDC   DDC采用的网络结构 如图：  网络包括两个流向：第一条流向的输入为源数据，是带标签的；另一条流向的输入是目标数据，包含少量的带数据标签或不包含带数据标签，两个流向的卷积神经网络共享权值。和以往不同的是，作者在两个流向的网络的特征层之间增加了一个适应层，并通过适应层的输出计算出一个d">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://woojoo520.github.io/2019/source/images/$(filename)/1574823120408.png">
+<meta property="og:image" content="https://woojoo520.github.io/2019/11/images/$(filename)/20180508161618474.png">
+<meta property="og:updated_time" content="2019-11-27T02:52:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Celery Fairy">
-<meta name="twitter:description" content="a study blog">
+<meta name="twitter:title" content="DANN&amp;DDC&amp;DAN">
+<meta name="twitter:description" content="DANN&amp;amp;DDC&amp;amp;DAN 在前一篇文章中简述了DANN，那今天就继续往下面看吧~~  DDC   DDC采用的网络结构 如图：  网络包括两个流向：第一条流向的输入为源数据，是带标签的；另一条流向的输入是目标数据，包含少量的带数据标签或不包含带数据标签，两个流向的卷积神经网络共享权值。和以往不同的是，作者在两个流向的网络的特征层之间增加了一个适应层，并通过适应层的输出计算出一个d">
+<meta name="twitter:image" content="https://woojoo520.github.io/2019/source/images/$(filename)/1574823120408.png">
 
-<link rel="canonical" href="https://woojoo520.github.io/">
+<link rel="canonical" href="https://woojoo520.github.io/2019/11/27/DANN-DDC-DAN/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false,
+    isHome: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>Celery Fairy</title>
+  <title>DANN&DDC&DAN | Celery Fairy</title>
   
 
 
@@ -183,10 +187,10 @@
             
 
   <div class="posts-expand">
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/27/DANN-DDC-DAN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -200,8 +204,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/27/DANN-DDC-DAN/" class="post-title-link" itemprop="url">DANN&DDC&DAN</a>
+          DANN&DDC&DAN
         </h1>
 
         <div class="post-meta">
@@ -240,7 +243,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="dannddcdan"><a class="markdownIt-Anchor" href="#dannddcdan"></a> DANN&amp;DDC&amp;DAN</h2>
+        <h2 id="dannddcdan"><a class="markdownIt-Anchor" href="#dannddcdan"></a> DANN&amp;DDC&amp;DAN</h2>
 <p>在前一篇文章中简述了DANN，那今天就继续往下面看吧~~</p>
 <h3 id="ddc"><a class="markdownIt-Anchor" href="#ddc"></a> DDC</h3>
 <p><img src="../../../source/images/$(filename)/1574823120408.png" alt="1574823120408"></p>
@@ -261,15 +264,27 @@
 <p><a href="https://blog.csdn.net/qq_24305433/article/details/80239412" target="_blank" rel="noopener">https://blog.csdn.net/qq_24305433/article/details/80239412</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/27657910" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/27657910</a></p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/26/认识数据/" rel="prev" title="认识数据">
+      <i class="fa fa-chevron-left"></i> 认识数据
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
+    
   </article>
   
   
@@ -277,15 +292,10 @@
 
   </div>
 
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/129/">129</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
-
-
 
           </div>
           
+    <div class="comments" id="comments"></div>
 
         </div>
           
@@ -310,6 +320,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#dannddcdan"><span class="nav-number">1.</span> <span class="nav-text"> DANN&amp;DDC&amp;DAN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ddc"><span class="nav-number">1.1.</span> <span class="nav-text"> DDC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ddc采用的网络结构"><span class="nav-number">1.1.1.</span> <span class="nav-text"> DDC采用的网络结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#适应层adaption-layer位置的选取及大小的设定"><span class="nav-number">1.1.2.</span> <span class="nav-text"> 适应层(Adaption layer)位置的选取及大小的设定</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dan"><span class="nav-number">1.2.</span> <span class="nav-text"> DAN</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
