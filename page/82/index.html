@@ -240,19 +240,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="gan"><a class="markdownIt-Anchor" href="#gan"></a> GAN</h3>
-<p>解决的问题：</p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mo><mi>min</mi><mo>⁡</mo></mo><mi>G</mi></msub><msub><mo><mi>max</mi><mo>⁡</mo></mo><mi>D</mi></msub><mi mathvariant="double-struck">E</mi><mo stretchy="false">[</mo><mi>log</mi><mo>⁡</mo><mi>D</mi><mo stretchy="false">(</mo><mi>G</mi><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>+</mo><mi>log</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>D</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">\min _{G} \max _{D} \mathbb{E}[\log D(G(z))+\log (1-D(x))]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop"><span class="mop">min</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">G</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop"><span class="mop">max</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">D</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathbb">E</span></span><span class="mopen">[</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mopen">(</span><span class="mord mathdefault">G</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mclose">)</span><span class="mclose">]</span></span></span></span></p>
+          <h3 id="GAN"><a href="#GAN" class="headerlink" title="GAN"></a>GAN</h3><p>解决的问题：</p>
+<p>$\min _{G} \max _{D} \mathbb{E}[\log D(G(z))+\log (1-D(x))]$</p>
 <p>传统的GAN的不足：</p>
 <ul>
-<li>
-<p>没有<strong>用户控制</strong>能力</p>
+<li><p>没有<strong>用户控制</strong>能力</p>
 <p>在传统的GAN里，输入一个随机噪声，就回输出一幅随机图像</p>
 <p>但是，用户想输出的图像是和输入<strong>有对应的、有关联的</strong>。比如输入一只猫的草图，输出同一形态的猫的真实图片（这里对形态的要求就是一种用户控制）</p>
 <p><img src="https://img-blog.csdn.net/20180914044453345?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
 </li>
-<li>
-<p>低分辨率（Low resolution）和低质量（Low quality）问题</p>
+<li><p>低分辨率（Low resolution）和低质量（Low quality）问题</p>
 <p>尽管生成的图片看起来很不错，但是如果放大看，就会发现细节相当模糊</p>
 <p><img src="https://img-blog.csdn.net/20180914044507384?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
 </li>
@@ -260,15 +257,13 @@
 <p>改善的目的就是（1）提高GAN的用户控制能力（2）提高GAN生成图片的分辨率和质量</p>
 <p><strong>步骤：</strong></p>
 <p><strong>pix2pix</strong>：有条件地使用用户输入，它使用<strong>成对的数据</strong>进行训练</p>
-<p><strong>CycleGAN：<strong>使用</strong>不成对的数据</strong>就能训练</p>
-<p><strong>pix2pixHD：<strong>生成</strong>高分辨率、高质量</strong>的图片</p>
+<p><strong>CycleGAN：</strong>使用<strong>不成对的数据</strong>就能训练</p>
+<p><strong>pix2pixHD：</strong>生成<strong>高分辨率、高质量</strong>的图片</p>
 <p><img src="https://img-blog.csdn.net/20180914044518280?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
-<h3 id="pix2pix"><a class="markdownIt-Anchor" href="#pix2pix"></a> pix2pix</h3>
-<p>对传统的GAN做了一个小改动，它不再输入随机噪声，而是输入用户给的图片：</p>
+<h3 id="pix2pix"><a href="#pix2pix" class="headerlink" title="pix2pix"></a>pix2pix</h3><p>对传统的GAN做了一个小改动，它不再输入随机噪声，而是输入用户给的图片：</p>
 <p>然后建立输入和输出的对应关系：<strong>将G的输入和输出一起作为D的输入</strong></p>
 <p><img src="https://img-blog.csdn.net/20180914044620941?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
-<h3 id="cyclegan"><a class="markdownIt-Anchor" href="#cyclegan"></a> CycleGAN</h3>
-<p>pix2pix必须使用成对的数据进行训练</p>
+<h3 id="CycleGAN"><a href="#CycleGAN" class="headerlink" title="CycleGAN"></a>CycleGAN</h3><p>pix2pix必须使用成对的数据进行训练</p>
 <p>而CycleGAN值需要输入数据的一个集合（比如一堆马的照片）和输出数据的一个集合（一如一堆斑马的照片）就可以了</p>
 <p><img src="https://img-blog.csdn.net/20180914044822913?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
 <p>pix2pix</p>
@@ -282,11 +277,9 @@
 <p><img src="https://img-blog.csdn.net/20180914044947503?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
 <p>翻过来，斑马变成马再变回斑马也需要满足要求，注意这一步最好不要省略。</p>
 <p>然后同时优化G和F，最后就能拿到一个想要的网络G</p>
-<h4 id="cyclegan为什么有效"><a class="markdownIt-Anchor" href="#cyclegan为什么有效"></a> CycleGAN为什么有效</h4>
-<p>CycleGAN成功的原因在于它分离了<strong>风格（Style）和内容（content）</strong>。人工设计这种分离的算法是很难的，但有了神经网络，我们很容易让它学习者去自动<strong>保持内容而改变风格</strong></p>
+<h4 id="CycleGAN为什么有效"><a href="#CycleGAN为什么有效" class="headerlink" title="CycleGAN为什么有效"></a>CycleGAN为什么有效</h4><p>CycleGAN成功的原因在于它分离了<strong>风格（Style）和内容（content）</strong>。人工设计这种分离的算法是很难的，但有了神经网络，我们很容易让它学习者去自动<strong>保持内容而改变风格</strong></p>
 <p>存在的问题：CycleGAN只能输出256p/512p的低分辨率图片</p>
-<h3 id="pix2pixhd"><a class="markdownIt-Anchor" href="#pix2pixhd"></a> pix2pixHD</h3>
-<p>pix2pixHD采取了金字塔的方式</p>
+<h3 id="pix2pixHD"><a href="#pix2pixHD" class="headerlink" title="pix2pixHD"></a>pix2pixHD</h3><p>pix2pixHD采取了金字塔的方式</p>
 <ul>
 <li>先输出低分辨率的图片</li>
 <li>将之前输出的低分辨率图片作为另一个网络的输入，然后生成分辨率更高的图片</li>

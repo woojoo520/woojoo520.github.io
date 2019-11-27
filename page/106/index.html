@@ -240,10 +240,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>model.train() 	model.eval()</p>
+          <p>model.train()     model.eval()</p>
 <p>一般在模型训练和评价的时候会加上这两句</p>
 <p>主要是针对model在训练时和评价时不同的 <strong>Batch Normalization</strong> 和 <strong>Dropout</strong> 方法模式</p>
-<p>**注意：**使用PyTorch进行训练和测试时一定注意要把实例化的model指定train/eval， eval()时， 框架会自动把BN和DropOut固定住，不会取平均，而是用训练好的值，不然的话，一旦test的batch_size过小，很容易就会被BN层导致生成图片颜色失真极大！</p>
+<p><strong>注意：</strong>使用PyTorch进行训练和测试时一定注意要把实例化的model指定train/eval， eval()时， 框架会自动把BN和DropOut固定住，不会取平均，而是用训练好的值，不然的话，一旦test的batch_size过小，很容易就会被BN层导致生成图片颜色失真极大！</p>
 
       
     </div>

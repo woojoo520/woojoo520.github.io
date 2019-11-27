@@ -47,17 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="LeetCode-Day32——依旧贪心  630. 课程表III 这里有 n 门不同的在线课程，他们按从 1 到 n 编号。每一门课程有一定的持续上课时间（课程时间）t 以及关闭时间第 d 天。一门课要持续学习 t 天直到第 d 天时要完成，你将会从第 1 天开始。 给出 n 个在线课程用 (t, d) 对表示。你的任务是找出最多可以修几门课。 示例： 12345678输入: [[100, 2">
+  <meta name="description" content="LeetCode-Day32——依旧贪心630. 课程表III这里有 n 门不同的在线课程，他们按从 1 到 n 编号。每一门课程有一定的持续上课时间（课程时间）t 以及关闭时间第 d 天。一门课要持续学习 t 天直到第 d 天时要完成，你将会从第 1 天开始。 给出 n 个在线课程用 (t, d) 对表示。你的任务是找出最多可以修几门课。 示例： 12345678输入: [[100, 200],">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode-Day32">
 <meta property="og:url" content="https://woojoo520.github.io/2019/09/16/LeetCode-Day32/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="LeetCode-Day32——依旧贪心  630. 课程表III 这里有 n 门不同的在线课程，他们按从 1 到 n 编号。每一门课程有一定的持续上课时间（课程时间）t 以及关闭时间第 d 天。一门课要持续学习 t 天直到第 d 天时要完成，你将会从第 1 天开始。 给出 n 个在线课程用 (t, d) 对表示。你的任务是找出最多可以修几门课。 示例： 12345678输入: [[100, 2">
+<meta property="og:description" content="LeetCode-Day32——依旧贪心630. 课程表III这里有 n 门不同的在线课程，他们按从 1 到 n 编号。每一门课程有一定的持续上课时间（课程时间）t 以及关闭时间第 d 天。一门课要持续学习 t 天直到第 d 天时要完成，你将会从第 1 天开始。 给出 n 个在线课程用 (t, d) 对表示。你的任务是找出最多可以修几门课。 示例： 12345678输入: [[100, 200],">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-09-17T09:11:46.181Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode-Day32">
-<meta name="twitter:description" content="LeetCode-Day32——依旧贪心  630. 课程表III 这里有 n 门不同的在线课程，他们按从 1 到 n 编号。每一门课程有一定的持续上课时间（课程时间）t 以及关闭时间第 d 天。一门课要持续学习 t 天直到第 d 天时要完成，你将会从第 1 天开始。 给出 n 个在线课程用 (t, d) 对表示。你的任务是找出最多可以修几门课。 示例： 12345678输入: [[100, 2">
+<meta name="twitter:description" content="LeetCode-Day32——依旧贪心630. 课程表III这里有 n 门不同的在线课程，他们按从 1 到 n 编号。每一门课程有一定的持续上课时间（课程时间）t 以及关闭时间第 d 天。一门课要持续学习 t 天直到第 d 天时要完成，你将会从第 1 天开始。 给出 n 个在线课程用 (t, d) 对表示。你的任务是找出最多可以修几门课。 示例： 12345678输入: [[100, 200],">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/09/16/LeetCode-Day32/">
 
@@ -246,9 +246,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="leetcode-day32依旧贪心"><a class="markdownIt-Anchor" href="#leetcode-day32依旧贪心"></a> LeetCode-Day32——依旧贪心</h2>
-<h3 id="630-课程表iii"><a class="markdownIt-Anchor" href="#630-课程表iii"></a> 630. 课程表III</h3>
-<p>这里有 n 门不同的在线课程，他们按从 1 到 n 编号。每一门课程有一定的持续上课时间（课程时间）t 以及关闭时间第 d 天。一门课要持续学习 t 天直到第 d 天时要完成，你将会从第 1 天开始。</p>
+        <h2 id="LeetCode-Day32——依旧贪心"><a href="#LeetCode-Day32——依旧贪心" class="headerlink" title="LeetCode-Day32——依旧贪心"></a>LeetCode-Day32——依旧贪心</h2><h3 id="630-课程表III"><a href="#630-课程表III" class="headerlink" title="630. 课程表III"></a>630. 课程表III</h3><p>这里有 n 门不同的在线课程，他们按从 1 到 n 编号。每一门课程有一定的持续上课时间（课程时间）t 以及关闭时间第 d 天。一门课要持续学习 t 天直到第 d 天时要完成，你将会从第 1 天开始。</p>
 <p>给出 n 个在线课程用 (t, d) 对表示。你的任务是找出最多可以修几门课。</p>
 <p>示例：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入: [[100, 200], [200, 1300], [1000, 1250], [2000, 3200]]</span><br><span class="line">输出: 3</span><br><span class="line">解释: </span><br><span class="line">这里一共有 4 门课程, 但是你最多可以修 3 门:</span><br><span class="line">首先, 修第一门课时, 它要耗费 100 天，你会在第 100 天完成, 在第 101 天准备下门课。</span><br><span class="line">第二, 修第三门课时, 它会耗费 1000 天，所以你将在第 1100 天的时候完成它, 以及在第 1101 天开始准备下门课程。</span><br><span class="line">第三, 修第二门课时, 它会耗时 200 天，所以你将会在第 1300 天时完成它。</span><br><span class="line">第四门课现在不能修，因为你将会在第 3300 天完成它，这已经超出了关闭日期。</span><br></pre></td></tr></table></figure>
@@ -263,8 +261,7 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">scheduleCourse</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; courses)</span> </span>&#123;</span><br><span class="line">        sort(courses.begin(), courses.end(), [](<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; a, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; b) &#123;</span><br><span class="line">            <span class="keyword">return</span> a[<span class="number">1</span>] &lt; b[<span class="number">1</span>];</span><br><span class="line">        &#125;);</span><br><span class="line">        priority_queue&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">        <span class="keyword">int</span> dur = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; courses.size();i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(dur + courses[i][<span class="number">0</span>] &lt;= courses[i][<span class="number">1</span>]) &#123;</span><br><span class="line">                dur += courses[i][<span class="number">0</span>];</span><br><span class="line">                q.push(courses[i][<span class="number">0</span>]);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(!q.empty() &amp;&amp; q.top() &gt; courses[i][<span class="number">0</span>]) &#123;</span><br><span class="line">                dur += (courses[i][<span class="number">0</span>] - q.top());</span><br><span class="line">                q.pop();</span><br><span class="line">                q.push(courses[i][<span class="number">0</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> q.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p><code>Tips</code></p>
 <p>今日的小提示就是大顶堆，可以利用C++中已有的数据结构<code>qriority_queue</code>，基本操作也就是<code>push(),pop()</code></p>
-<h3 id="714-买卖股票的最佳时期含手续费"><a class="markdownIt-Anchor" href="#714-买卖股票的最佳时期含手续费"></a> 714. 买卖股票的最佳时期含手续费</h3>
-<p><strong>方法：动态规划</strong></p>
+<h3 id="714-买卖股票的最佳时期含手续费"><a href="#714-买卖股票的最佳时期含手续费" class="headerlink" title="714. 买卖股票的最佳时期含手续费"></a>714. 买卖股票的最佳时期含手续费</h3><p><strong>方法：动态规划</strong></p>
 <p>我们维护两个变量<code>cash</code> 和<code>hold</code>，前者表示当我们不持有股票时的最大利润（即卖出），后者表示当我们持有股票时的最大利润。</p>
 <p>在第<code>i</code>天是，我们需要根据第<code>i - 1</code>天的装啊提来更新<code>cash</code>和<code>hold</code>的值。对于<code>cash</code>，我们可以保持不变，或者将手上的股票卖出，状态转移方程为：</p>
 <p><code>cash = max(cash, hold + prices[i] - fee)</code></p>
@@ -332,7 +329,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#leetcode-day32依旧贪心"><span class="nav-number">1.</span> <span class="nav-text"> LeetCode-Day32——依旧贪心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#630-课程表iii"><span class="nav-number">1.1.</span> <span class="nav-text"> 630. 课程表III</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#714-买卖股票的最佳时期含手续费"><span class="nav-number">1.2.</span> <span class="nav-text"> 714. 买卖股票的最佳时期含手续费</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-Day32——依旧贪心"><span class="nav-number">1.</span> <span class="nav-text">LeetCode-Day32——依旧贪心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#630-课程表III"><span class="nav-number">1.1.</span> <span class="nav-text">630. 课程表III</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#714-买卖股票的最佳时期含手续费"><span class="nav-number">1.2.</span> <span class="nav-text">714. 买卖股票的最佳时期含手续费</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

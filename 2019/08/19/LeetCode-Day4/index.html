@@ -47,17 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="14. 最长公共前缀 编写一个函数来查找字符串数组中的最长公共前缀。 如果不存在公共前缀，返回空字符串 “”。 示例 1: 12输入: [&amp;quot;flower&amp;quot;,&amp;quot;flow&amp;quot;,&amp;quot;flight&amp;quot;]输出: &amp;quot;fl&amp;quot; 示例 2: 123输入: [&amp;quot;dog&amp;quot;,&amp;quot;racecar&amp;quot;,&amp;quot;">
+  <meta name="description" content="14. 最长公共前缀编写一个函数来查找字符串数组中的最长公共前缀。 如果不存在公共前缀，返回空字符串 “”。 示例 1: 12输入: [&amp;quot;flower&amp;quot;,&amp;quot;flow&amp;quot;,&amp;quot;flight&amp;quot;]输出: &amp;quot;fl&amp;quot; 示例 2: 123输入: [&amp;quot;dog&amp;quot;,&amp;quot;racecar&amp;quot;,&amp;quot;ca">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode-Day4">
 <meta property="og:url" content="https://woojoo520.github.io/2019/08/19/LeetCode-Day4/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="14. 最长公共前缀 编写一个函数来查找字符串数组中的最长公共前缀。 如果不存在公共前缀，返回空字符串 “”。 示例 1: 12输入: [&amp;quot;flower&amp;quot;,&amp;quot;flow&amp;quot;,&amp;quot;flight&amp;quot;]输出: &amp;quot;fl&amp;quot; 示例 2: 123输入: [&amp;quot;dog&amp;quot;,&amp;quot;racecar&amp;quot;,&amp;quot;">
+<meta property="og:description" content="14. 最长公共前缀编写一个函数来查找字符串数组中的最长公共前缀。 如果不存在公共前缀，返回空字符串 “”。 示例 1: 12输入: [&amp;quot;flower&amp;quot;,&amp;quot;flow&amp;quot;,&amp;quot;flight&amp;quot;]输出: &amp;quot;fl&amp;quot; 示例 2: 123输入: [&amp;quot;dog&amp;quot;,&amp;quot;racecar&amp;quot;,&amp;quot;ca">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-08-19T01:45:43.847Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode-Day4">
-<meta name="twitter:description" content="14. 最长公共前缀 编写一个函数来查找字符串数组中的最长公共前缀。 如果不存在公共前缀，返回空字符串 “”。 示例 1: 12输入: [&amp;quot;flower&amp;quot;,&amp;quot;flow&amp;quot;,&amp;quot;flight&amp;quot;]输出: &amp;quot;fl&amp;quot; 示例 2: 123输入: [&amp;quot;dog&amp;quot;,&amp;quot;racecar&amp;quot;,&amp;quot;">
+<meta name="twitter:description" content="14. 最长公共前缀编写一个函数来查找字符串数组中的最长公共前缀。 如果不存在公共前缀，返回空字符串 “”。 示例 1: 12输入: [&amp;quot;flower&amp;quot;,&amp;quot;flow&amp;quot;,&amp;quot;flight&amp;quot;]输出: &amp;quot;fl&amp;quot; 示例 2: 123输入: [&amp;quot;dog&amp;quot;,&amp;quot;racecar&amp;quot;,&amp;quot;ca">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/08/19/LeetCode-Day4/">
 
@@ -240,8 +240,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="14-最长公共前缀"><a class="markdownIt-Anchor" href="#14-最长公共前缀"></a> 14. 最长公共前缀</h3>
-<p>编写一个函数来查找字符串数组中的最长公共前缀。</p>
+        <h3 id="14-最长公共前缀"><a href="#14-最长公共前缀" class="headerlink" title="14. 最长公共前缀"></a>14. 最长公共前缀</h3><p>编写一个函数来查找字符串数组中的最长公共前缀。</p>
 <p>如果不存在公共前缀，返回空字符串 “”。</p>
 <p>示例 1:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;]</span><br><span class="line">输出: &quot;fl&quot;</span><br></pre></td></tr></table></figure>
@@ -253,8 +252,7 @@
 <p>解释：</p>
 <p>如果strs的长度为0，直接返回“”</p>
 <p>然后同时遍历每个字母的第一个字符，第二个字符…直到遇到不相等的就直接返回。</p>
-<h3 id="15-三数之和"><a class="markdownIt-Anchor" href="#15-三数之和"></a> 15. 三数之和</h3>
-<p>给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。</p>
+<h3 id="15-三数之和"><a href="#15-三数之和" class="headerlink" title="15. 三数之和"></a>15. 三数之和</h3><p>给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。</p>
 <p>注意：答案中不可以包含重复的三元组。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，</span><br><span class="line"></span><br><span class="line">满足要求的三元组集合为：</span><br><span class="line">[</span><br><span class="line">  [-1, 0, 1],</span><br><span class="line">  [-1, -1, 2]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 <p><strong>解题方案：</strong></p>
@@ -263,7 +261,7 @@
 <li>如果nums[i] 大于0，则三数之和必然无法等于0，结束循环</li>
 <li>如果nums[i] == nums[i - 1]，则说明该数字重复，会导致结果重复，所以应该跳过</li>
 <li>当sum == 0时，nums[L] == nums[L + 1]则会导致结果重复，应该跳过,L++</li>
-<li>当sum == 0时，nums[R] == nums[R - 1]时会导致结果重复，应该跳过，R–</li>
+<li>当sum == 0时，nums[R] == nums[R - 1]时会导致结果重复，应该跳过，R—</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; threeSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        sort(nums.begin(), nums.end());</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; ans;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; nums.size() &amp;&amp; nums[i] &lt;= <span class="number">0</span>;i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(i == <span class="number">0</span> || nums[i] &gt; nums[i - <span class="number">1</span>]) &#123;</span><br><span class="line">                <span class="keyword">int</span> l = i + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">int</span> r = nums.size() - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span>(l &lt; r) &#123;</span><br><span class="line">                    <span class="keyword">int</span> sum = nums[i] + nums[l] + nums[r];</span><br><span class="line">                    <span class="keyword">if</span>(sum == <span class="number">0</span>) &#123;</span><br><span class="line">                        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; temp;</span><br><span class="line">                        temp.push_back(nums[i]);</span><br><span class="line">                        temp.push_back(nums[l]);</span><br><span class="line">                        temp.push_back(nums[r]);</span><br><span class="line">                        ans.push_back(temp);</span><br><span class="line">                        l += <span class="number">1</span>;</span><br><span class="line">                        r -= <span class="number">1</span>;</span><br><span class="line">                        <span class="keyword">while</span>(l &lt; r &amp;&amp; nums[l] == nums[l - <span class="number">1</span>]) &#123;</span><br><span class="line">                            l++;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">while</span>(l &lt; r &amp;&amp; nums[r] == nums[r + <span class="number">1</span>]) &#123;</span><br><span class="line">                            r--;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(sum &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                        l++;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        r--;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
@@ -326,7 +324,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#14-最长公共前缀"><span class="nav-number">1.</span> <span class="nav-text"> 14. 最长公共前缀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-三数之和"><span class="nav-number">2.</span> <span class="nav-text"> 15. 三数之和</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#14-最长公共前缀"><span class="nav-number">1.</span> <span class="nav-text">14. 最长公共前缀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-三数之和"><span class="nav-number">2.</span> <span class="nav-text">15. 三数之和</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

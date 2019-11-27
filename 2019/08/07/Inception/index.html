@@ -47,18 +47,18 @@
   };
 </script>
 
-  <meta name="description" content="Inception-v1 在这篇论文之前，卷积神经网络的性能高都是依赖于提高网络的深度和宽度，而这篇论文是从网络结构上入手，改变了网络结构  为什么提出Inception？ 提高网络最简单粗暴的方法就是提高网络的深度和宽度，即增加隐层以及各层神经元数目。但这种简单粗暴的方法存在一些问题：  会导致更大的参数空间，更容易过拟合 需要更多的计算资源 网络越深，梯度容易消失，优化困难（这时还没有提出B">
+  <meta name="description" content="Inception-v1在这篇论文之前，卷积神经网络的性能高都是依赖于提高网络的深度和宽度，而这篇论文是从网络结构上入手，改变了网络结构 为什么提出Inception？提高网络最简单粗暴的方法就是提高网络的深度和宽度，即增加隐层以及各层神经元数目。但这种简单粗暴的方法存在一些问题：  会导致更大的参数空间，更容易过拟合 需要更多的计算资源 网络越深，梯度容易消失，优化困难（这时还没有提出BN，网络">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Inception">
 <meta property="og:url" content="https://woojoo520.github.io/2019/08/07/Inception/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="Inception-v1 在这篇论文之前，卷积神经网络的性能高都是依赖于提高网络的深度和宽度，而这篇论文是从网络结构上入手，改变了网络结构  为什么提出Inception？ 提高网络最简单粗暴的方法就是提高网络的深度和宽度，即增加隐层以及各层神经元数目。但这种简单粗暴的方法存在一些问题：  会导致更大的参数空间，更容易过拟合 需要更多的计算资源 网络越深，梯度容易消失，优化困难（这时还没有提出B">
+<meta property="og:description" content="Inception-v1在这篇论文之前，卷积神经网络的性能高都是依赖于提高网络的深度和宽度，而这篇论文是从网络结构上入手，改变了网络结构 为什么提出Inception？提高网络最简单粗暴的方法就是提高网络的深度和宽度，即增加隐层以及各层神经元数目。但这种简单粗暴的方法存在一些问题：  会导致更大的参数空间，更容易过拟合 需要更多的计算资源 网络越深，梯度容易消失，优化困难（这时还没有提出BN，网络">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://img-blog.csdn.net/20180709151519421?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zOTk1MzUwMg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:updated_time" content="2019-08-07T08:00:30.387Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Inception">
-<meta name="twitter:description" content="Inception-v1 在这篇论文之前，卷积神经网络的性能高都是依赖于提高网络的深度和宽度，而这篇论文是从网络结构上入手，改变了网络结构  为什么提出Inception？ 提高网络最简单粗暴的方法就是提高网络的深度和宽度，即增加隐层以及各层神经元数目。但这种简单粗暴的方法存在一些问题：  会导致更大的参数空间，更容易过拟合 需要更多的计算资源 网络越深，梯度容易消失，优化困难（这时还没有提出B">
+<meta name="twitter:description" content="Inception-v1在这篇论文之前，卷积神经网络的性能高都是依赖于提高网络的深度和宽度，而这篇论文是从网络结构上入手，改变了网络结构 为什么提出Inception？提高网络最简单粗暴的方法就是提高网络的深度和宽度，即增加隐层以及各层神经元数目。但这种简单粗暴的方法存在一些问题：  会导致更大的参数空间，更容易过拟合 需要更多的计算资源 网络越深，梯度容易消失，优化困难（这时还没有提出BN，网络">
 <meta name="twitter:image" content="https://img-blog.csdn.net/20180709151519421?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zOTk1MzUwMg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/08/07/Inception/">
@@ -242,10 +242,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="inception-v1"><a class="markdownIt-Anchor" href="#inception-v1"></a> Inception-v1</h3>
-<p>在这篇论文之前，卷积神经网络的性能高都是依赖于提高网络的深度和宽度，而这篇论文是从网络结构上入手，改变了网络结构</p>
-<h4 id="为什么提出inception"><a class="markdownIt-Anchor" href="#为什么提出inception"></a> 为什么提出Inception？</h4>
-<p>提高网络最简单粗暴的方法就是提高网络的深度和宽度，即增加隐层以及各层神经元数目。但这种简单粗暴的方法存在一些问题：</p>
+        <h3 id="Inception-v1"><a href="#Inception-v1" class="headerlink" title="Inception-v1"></a>Inception-v1</h3><p>在这篇论文之前，卷积神经网络的性能高都是依赖于提高网络的深度和宽度，而这篇论文是从网络结构上入手，改变了网络结构</p>
+<h4 id="为什么提出Inception？"><a href="#为什么提出Inception？" class="headerlink" title="为什么提出Inception？"></a>为什么提出Inception？</h4><p>提高网络最简单粗暴的方法就是提高网络的深度和宽度，即增加隐层以及各层神经元数目。但这种简单粗暴的方法存在一些问题：</p>
 <ul>
 <li>会导致更大的参数空间，更容易过拟合</li>
 <li>需要更多的计算资源</li>
@@ -253,15 +251,14 @@
 </ul>
 <p>基于此，我们的目标就是，提高网络计算资源的利用率，在计算率不变的情况下，提高网络的宽度和深度</p>
 <p>作者认为，解决这种困难的方法就是，把全连接改成稀疏连接，卷积层也是稀疏连接，但是不对称稀疏数据数值计算效率低下，因为硬件全是针对密集矩阵优化的，所以，我们要找到卷积网络可以近似优化的最优局部稀疏结构，并且该结构下可以用现有的密度矩阵计算硬件实现，产生的结果就是Inception</p>
-<h4 id="inception结构"><a class="markdownIt-Anchor" href="#inception结构"></a> Inception结构</h4>
-<p><img src="https://img-blog.csdn.net/20180709151519421?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zOTk1MzUwMg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<p>首先看第一个结构，有四个通道，有1 * 1、3 * 3、5 * 5卷积核，该结构有几个特点：</p>
+<h4 id="Inception结构"><a href="#Inception结构" class="headerlink" title="Inception结构"></a>Inception结构</h4><p><img src="https://img-blog.csdn.net/20180709151519421?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zOTk1MzUwMg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p>首先看第一个结构，有四个通道，有1 <em> 1、3 </em> 3、5 * 5卷积核，该结构有几个特点：</p>
 <ul>
 <li>使用这些大小卷积核，没有什么特殊含义，主要方便对齐，只要padding = 0、1、2，就可以得到相同大小的特征图，可以顺利concat</li>
 <li>采用大小不同的卷积核，以为着感受野的大小不同，就可以得到不同尺度的特征</li>
 <li>采用比较大的卷积核，即5 * 5，意味着有些相关性可能隔得比较远，用大的卷积核才能学到此特征</li>
 </ul>
-<p>当时，这个结构有个缺点，5 * 5的卷积核的计算量太大。那么作者想到的第二个结构，用1 * 1的卷积核进行降维。</p>
+<p>当时，这个结构有个缺点，5 <em> 5的卷积核的计算量太大。那么作者想到的第二个结构，用1 </em> 1的卷积核进行降维。</p>
 <p>这个1 * 1的卷积核，它的作用就是：</p>
 <ul>
 <li>降低维度，减少计算瓶颈</li>
@@ -327,7 +324,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#inception-v1"><span class="nav-number">1.</span> <span class="nav-text"> Inception-v1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么提出inception"><span class="nav-number">1.1.</span> <span class="nav-text"> 为什么提出Inception？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#inception结构"><span class="nav-number">1.2.</span> <span class="nav-text"> Inception结构</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Inception-v1"><span class="nav-number">1.</span> <span class="nav-text">Inception-v1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么提出Inception？"><span class="nav-number">1.1.</span> <span class="nav-text">为什么提出Inception？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Inception结构"><span class="nav-number">1.2.</span> <span class="nav-text">Inception结构</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

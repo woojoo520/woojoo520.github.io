@@ -240,23 +240,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="c中map的使用"><a class="markdownIt-Anchor" href="#c中map的使用"></a> C++中map的使用</h3>
-<h4 id="1-基本构造函数"><a class="markdownIt-Anchor" href="#1-基本构造函数"></a> 1. 基本构造函数</h4>
-<p>标准的STL map是以红黑树为底层机制完成的，每一个节点的内容是一个pair</p>
+          <h3 id="C-中map的使用"><a href="#C-中map的使用" class="headerlink" title="C++中map的使用"></a>C++中map的使用</h3><h4 id="1-基本构造函数"><a href="#1-基本构造函数" class="headerlink" title="1. 基本构造函数"></a>1. 基本构造函数</h4><p>标准的STL map是以红黑树为底层机制完成的，每一个节点的内容是一个pair</p>
 <p><code>map&lt;string, int&gt; strMap</code></p>
 <p><code>map&lt;int, string&gt; intMap</code></p>
-<h4 id="2-map添加数据"><a class="markdownIt-Anchor" href="#2-map添加数据"></a> 2. map添加数据</h4>
-<p><code>map&lt;int, string&gt; maplive</code></p>
+<h4 id="2-map添加数据"><a href="#2-map添加数据" class="headerlink" title="2. map添加数据"></a>2. map添加数据</h4><p><code>map&lt;int, string&gt; maplive</code></p>
 <ul>
-<li><code>pair&lt;int, string&gt; value(1, &quot;a&quot;);</code></li>
-</ul>
+<li><p><code>pair&lt;int, string&gt; value(1, &quot;a&quot;);</code></p>
 <p><code>maplive.insert(value);</code></p>
-<ul>
-<li><code>maplive.insert(pair&lt;int, string&gt;(1,&quot;a&quot;));</code></li>
+</li>
+<li><p><code>maplive.insert(pair&lt;int, string&gt;(1,&quot;a&quot;));</code></p>
+</li>
 <li><code>maplive[1] = “a”</code>    (map中最简单最常用的插入添加)</li>
 </ul>
-<h4 id="3-map的基本操作函数"><a class="markdownIt-Anchor" href="#3-map的基本操作函数"></a> 3. map的基本操作函数</h4>
-<p><code>begin()</code> 返回指向map头部的迭代器</p>
+<h4 id="3-map的基本操作函数"><a href="#3-map的基本操作函数" class="headerlink" title="3. map的基本操作函数"></a>3. map的基本操作函数</h4><p><code>begin()</code> 返回指向map头部的迭代器</p>
 <p><code>clear()</code> 删除所有元素</p>
 <p><code>count()</code> 返回指定元素出现的次数</p>
 <p><code>empty()</code> 如果map为空则返回true</p>

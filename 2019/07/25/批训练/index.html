@@ -47,17 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="要点： Torch中提供了一种帮你整理你的数据结构的好东西，叫做DataLoader，我们能用它来包装自己的数据，进行批训练，而且批训练可以有很多种途径  DataLoader DataLoader是torch给你用来包装你的数据的工具，所以你要将自己的（numpy array或其他）数据形式装换成Tensor，然后再放进这个包装器中，使用DataLoader可以帮你有效地迭代数据 举例： 12">
+  <meta name="description" content="要点：Torch中提供了一种帮你整理你的数据结构的好东西，叫做DataLoader，我们能用它来包装自己的数据，进行批训练，而且批训练可以有很多种途径 DataLoaderDataLoader是torch给你用来包装你的数据的工具，所以你要将自己的（numpy array或其他）数据形式装换成Tensor，然后再放进这个包装器中，使用DataLoader可以帮你有效地迭代数据 举例： 123456">
 <meta property="og:type" content="article">
 <meta property="og:title" content="批训练">
 <meta property="og:url" content="https://woojoo520.github.io/2019/07/25/批训练/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="要点： Torch中提供了一种帮你整理你的数据结构的好东西，叫做DataLoader，我们能用它来包装自己的数据，进行批训练，而且批训练可以有很多种途径  DataLoader DataLoader是torch给你用来包装你的数据的工具，所以你要将自己的（numpy array或其他）数据形式装换成Tensor，然后再放进这个包装器中，使用DataLoader可以帮你有效地迭代数据 举例： 12">
+<meta property="og:description" content="要点：Torch中提供了一种帮你整理你的数据结构的好东西，叫做DataLoader，我们能用它来包装自己的数据，进行批训练，而且批训练可以有很多种途径 DataLoaderDataLoader是torch给你用来包装你的数据的工具，所以你要将自己的（numpy array或其他）数据形式装换成Tensor，然后再放进这个包装器中，使用DataLoader可以帮你有效地迭代数据 举例： 123456">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-07-25T00:52:53.116Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="批训练">
-<meta name="twitter:description" content="要点： Torch中提供了一种帮你整理你的数据结构的好东西，叫做DataLoader，我们能用它来包装自己的数据，进行批训练，而且批训练可以有很多种途径  DataLoader DataLoader是torch给你用来包装你的数据的工具，所以你要将自己的（numpy array或其他）数据形式装换成Tensor，然后再放进这个包装器中，使用DataLoader可以帮你有效地迭代数据 举例： 12">
+<meta name="twitter:description" content="要点：Torch中提供了一种帮你整理你的数据结构的好东西，叫做DataLoader，我们能用它来包装自己的数据，进行批训练，而且批训练可以有很多种途径 DataLoaderDataLoader是torch给你用来包装你的数据的工具，所以你要将自己的（numpy array或其他）数据形式装换成Tensor，然后再放进这个包装器中，使用DataLoader可以帮你有效地迭代数据 举例： 123456">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/07/25/批训练/">
 
@@ -240,10 +240,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="要点"><a class="markdownIt-Anchor" href="#要点"></a> 要点：</h4>
-<p>Torch中提供了一种帮你整理你的数据结构的好东西，叫做DataLoader，我们能用它来包装自己的数据，进行批训练，而且批训练可以有很多种途径</p>
-<h4 id="dataloader"><a class="markdownIt-Anchor" href="#dataloader"></a> DataLoader</h4>
-<p><strong>DataLoader</strong>是torch给你用来包装你的数据的工具，所以你要将自己的（numpy array或其他）数据形式装换成Tensor，然后再放进这个包装器中，使用DataLoader可以帮你有效地迭代数据</p>
+        <h4 id="要点："><a href="#要点：" class="headerlink" title="要点："></a>要点：</h4><p>Torch中提供了一种帮你整理你的数据结构的好东西，叫做DataLoader，我们能用它来包装自己的数据，进行批训练，而且批训练可以有很多种途径</p>
+<h4 id="DataLoader"><a href="#DataLoader" class="headerlink" title="DataLoader"></a>DataLoader</h4><p><strong>DataLoader</strong>是torch给你用来包装你的数据的工具，所以你要将自己的（numpy array或其他）数据形式装换成Tensor，然后再放进这个包装器中，使用DataLoader可以帮你有效地迭代数据</p>
 <p>举例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line"><span class="keyword">import</span> torch.utils.data <span class="keyword">as</span> Data</span><br><span class="line"></span><br><span class="line">torch.manual_seed(<span class="number">1</span>)    <span class="comment">#reproducible</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 批训练的数据个数</span></span><br><span class="line">BATCH_SIZE = <span class="number">5</span></span><br><span class="line"></span><br><span class="line">x = torch.linspace(<span class="number">1</span>, <span class="number">10</span>, <span class="number">10</span>)       <span class="comment"># this is x data (torch tensor)</span></span><br><span class="line">y = torch.linspace(<span class="number">10</span>, <span class="number">1</span>, <span class="number">10</span>)       <span class="comment"># this is y data (torch tensor)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 先转换成torch能识别的Dataset</span></span><br><span class="line">torch_dataset = Data.TensorDataset(x, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 把dataset 放入 DataLoader</span></span><br><span class="line">loader = Data.DataLoader(</span><br><span class="line">    dataset=torch_dataset,          <span class="comment"># torch TensorDataset format</span></span><br><span class="line">    batch_size=BATCH_SIZE,          <span class="comment"># mini batch size</span></span><br><span class="line">    shuffle=<span class="literal">True</span>,                   <span class="comment"># 要不要打乱数据(打乱比较好)</span></span><br><span class="line">    num_workers=<span class="number">2</span>,                  <span class="comment"># 多线程来读取数据</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_batch</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># train entire dataset 3 times</span></span><br><span class="line">    <span class="keyword">for</span> eopch <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">        <span class="comment"># 每一步loader释放一小批数据用来学习</span></span><br><span class="line">        <span class="keyword">for</span> step, (batch_x, batch_y) <span class="keyword">in</span> enumerate(loader):</span><br><span class="line">            <span class="comment"># training your data...</span></span><br><span class="line">            print(<span class="string">'Epoch: '</span>, eopch, <span class="string">'| Step: '</span>, step, <span class="string">'| batch x: '</span>, batch_x.numpy(), <span class="string">'| batch y: '</span>, batch_y.numpy())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    show_batch()</span><br></pre></td></tr></table></figure>
 <p>得到的结果</p>
@@ -328,7 +326,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#要点"><span class="nav-number">1.</span> <span class="nav-text"> 要点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dataloader"><span class="nav-number">2.</span> <span class="nav-text"> DataLoader</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#要点："><span class="nav-number">1.</span> <span class="nav-text">要点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DataLoader"><span class="nav-number">2.</span> <span class="nav-text">DataLoader</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -47,17 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="关于vector的初始化 vector&amp;lt;vector&amp;lt;int&amp;gt; &amp;gt; ans(n, vector&amp;lt;int&amp;gt; n(n, 0));初始化二维的vector，大小为[n][n]，0填充，否则不能直接用ans[i][j]  60. 第k个排列 给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。 按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所">
+  <meta name="description" content="关于vector的初始化 vector&amp;lt;vector&amp;lt;int&amp;gt; &amp;gt; ans(n, vector&amp;lt;int&amp;gt; n(n, 0));初始化二维的vector，大小为[n][n]，0填充，否则不能直接用ans[i][j] 60. 第k个排列给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。 按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode-Day16">
 <meta property="og:url" content="https://woojoo520.github.io/2019/08/31/LeetCode-Day16/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="关于vector的初始化 vector&amp;lt;vector&amp;lt;int&amp;gt; &amp;gt; ans(n, vector&amp;lt;int&amp;gt; n(n, 0));初始化二维的vector，大小为[n][n]，0填充，否则不能直接用ans[i][j]  60. 第k个排列 给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。 按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所">
+<meta property="og:description" content="关于vector的初始化 vector&amp;lt;vector&amp;lt;int&amp;gt; &amp;gt; ans(n, vector&amp;lt;int&amp;gt; n(n, 0));初始化二维的vector，大小为[n][n]，0填充，否则不能直接用ans[i][j] 60. 第k个排列给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。 按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-08-31T13:41:01.628Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode-Day16">
-<meta name="twitter:description" content="关于vector的初始化 vector&amp;lt;vector&amp;lt;int&amp;gt; &amp;gt; ans(n, vector&amp;lt;int&amp;gt; n(n, 0));初始化二维的vector，大小为[n][n]，0填充，否则不能直接用ans[i][j]  60. 第k个排列 给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。 按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所">
+<meta name="twitter:description" content="关于vector的初始化 vector&amp;lt;vector&amp;lt;int&amp;gt; &amp;gt; ans(n, vector&amp;lt;int&amp;gt; n(n, 0));初始化二维的vector，大小为[n][n]，0填充，否则不能直接用ans[i][j] 60. 第k个排列给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。 按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/08/31/LeetCode-Day16/">
 
@@ -242,15 +242,12 @@
       
         <p><strong>关于vector的初始化</strong></p>
 <p><code>vector&lt;vector&lt;int&gt; &gt; ans(n, vector&lt;int&gt; n(n, 0));</code>初始化二维的vector，大小为<code>[n][n]</code>，0填充，否则不能直接用<code>ans[i][j]</code></p>
-<h3 id="60-第k个排列"><a class="markdownIt-Anchor" href="#60-第k个排列"></a> 60. 第k个排列</h3>
-<p>给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。</p>
+<h3 id="60-第k个排列"><a href="#60-第k个排列" class="headerlink" title="60. 第k个排列"></a>60. 第k个排列</h3><p>给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。</p>
 <p>按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;123&quot;</span><br><span class="line">&quot;132&quot;</span><br><span class="line">&quot;213&quot;</span><br><span class="line">&quot;231&quot;</span><br><span class="line">&quot;312&quot;</span><br><span class="line">&quot;321&quot;</span><br></pre></td></tr></table></figure>
 <p>给定 n 和 k，返回第 k 个排列。</p>
 <p><strong>说明：</strong></p>
-<p>给定 n 的范围是 [1, 9]。<br>
-给定 k 的范围是[1,  n!]。<br>
-示例 1:</p>
+<p>给定 n 的范围是 [1, 9]。<br>给定 k 的范围是[1,  n!]。<br>示例 1:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: n = 3, k = 3</span><br><span class="line">输出: &quot;213&quot;</span><br></pre></td></tr></table></figure>
 <p>示例 2:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: n = 4, k = 9</span><br><span class="line">输出: &quot;2314&quot;</span><br></pre></td></tr></table></figure>
@@ -324,7 +321,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#60-第k个排列"><span class="nav-number">1.</span> <span class="nav-text"> 60. 第k个排列</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#60-第k个排列"><span class="nav-number">1.</span> <span class="nav-text">60. 第k个排列</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

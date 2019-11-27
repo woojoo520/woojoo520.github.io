@@ -47,17 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="model.train() 	model.eval() 一般在模型训练和评价的时候会加上这两句 主要是针对model在训练时和评价时不同的 Batch Normalization 和 Dropout 方法模式 **注意：**使用PyTorch进行训练和测试时一定注意要把实例化的model指定train/eval， eval()时， 框架会自动把BN和DropOut固定住，不会取平均，而是用训练好的">
+  <meta name="description" content="model.train()     model.eval() 一般在模型训练和评价的时候会加上这两句 主要是针对model在训练时和评价时不同的 Batch Normalization 和 Dropout 方法模式 注意：使用PyTorch进行训练和测试时一定注意要把实例化的model指定train/eval， eval()时， 框架会自动把BN和DropOut固定住，不会取平均，而是用训练好的值">
 <meta property="og:type" content="article">
 <meta property="og:title" content="model.train() and model.eval()">
 <meta property="og:url" content="https://woojoo520.github.io/2019/08/09/model-train-and-model-eval/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="model.train() 	model.eval() 一般在模型训练和评价的时候会加上这两句 主要是针对model在训练时和评价时不同的 Batch Normalization 和 Dropout 方法模式 **注意：**使用PyTorch进行训练和测试时一定注意要把实例化的model指定train/eval， eval()时， 框架会自动把BN和DropOut固定住，不会取平均，而是用训练好的">
+<meta property="og:description" content="model.train()     model.eval() 一般在模型训练和评价的时候会加上这两句 主要是针对model在训练时和评价时不同的 Batch Normalization 和 Dropout 方法模式 注意：使用PyTorch进行训练和测试时一定注意要把实例化的model指定train/eval， eval()时， 框架会自动把BN和DropOut固定住，不会取平均，而是用训练好的值">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-08-09T03:27:30.971Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="model.train() and model.eval()">
-<meta name="twitter:description" content="model.train() 	model.eval() 一般在模型训练和评价的时候会加上这两句 主要是针对model在训练时和评价时不同的 Batch Normalization 和 Dropout 方法模式 **注意：**使用PyTorch进行训练和测试时一定注意要把实例化的model指定train/eval， eval()时， 框架会自动把BN和DropOut固定住，不会取平均，而是用训练好的">
+<meta name="twitter:description" content="model.train()     model.eval() 一般在模型训练和评价的时候会加上这两句 主要是针对model在训练时和评价时不同的 Batch Normalization 和 Dropout 方法模式 注意：使用PyTorch进行训练和测试时一定注意要把实例化的model指定train/eval， eval()时， 框架会自动把BN和DropOut固定住，不会取平均，而是用训练好的值">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/08/09/model-train-and-model-eval/">
 
@@ -240,10 +240,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>model.train() 	model.eval()</p>
+        <p>model.train()     model.eval()</p>
 <p>一般在模型训练和评价的时候会加上这两句</p>
 <p>主要是针对model在训练时和评价时不同的 <strong>Batch Normalization</strong> 和 <strong>Dropout</strong> 方法模式</p>
-<p>**注意：**使用PyTorch进行训练和测试时一定注意要把实例化的model指定train/eval， eval()时， 框架会自动把BN和DropOut固定住，不会取平均，而是用训练好的值，不然的话，一旦test的batch_size过小，很容易就会被BN层导致生成图片颜色失真极大！</p>
+<p><strong>注意：</strong>使用PyTorch进行训练和测试时一定注意要把实例化的model指定train/eval， eval()时， 框架会自动把BN和DropOut固定住，不会取平均，而是用训练好的值，不然的话，一旦test的batch_size过小，很容易就会被BN层导致生成图片颜色失真极大！</p>
 
     </div>
 

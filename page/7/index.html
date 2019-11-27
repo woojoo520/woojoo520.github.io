@@ -240,53 +240,35 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="选择合适的激活函数"><a class="markdownIt-Anchor" href="#选择合适的激活函数"></a> 选择合适的激活函数</h2>
-<h3 id="sigmoid"><a class="markdownIt-Anchor" href="#sigmoid"></a> sigmoid</h3>
-<h4 id="图像"><a class="markdownIt-Anchor" href="#图像"></a> 图像</h4>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1574406136071.png" alt="1574406136071"></p>
-<h4 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h4>
-<p>他会将输入的数字挤压到0到1区间的范围内。是最先使用的激活函数，以为可以将它解释为一个神经元的激活率，其中0表示没激活，1表示完全激活</p>
-<h4 id="存在的问题"><a class="markdownIt-Anchor" href="#存在的问题"></a> 存在的问题</h4>
+          <h2 id="选择合适的激活函数"><a href="#选择合适的激活函数" class="headerlink" title="选择合适的激活函数"></a>选择合适的激活函数</h2><h3 id="sigmoid"><a href="#sigmoid" class="headerlink" title="sigmoid"></a>sigmoid</h3><h4 id="图像"><a href="#图像" class="headerlink" title="图像"></a>图像</h4><p><img src="C:\Users\12751\AppData\Roaming\Typora\typora-user-images\1574406136071.png" alt="1574406136071"></p>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><p>他会将输入的数字挤压到0到1区间的范围内。是最先使用的激活函数，以为可以将它解释为一个神经元的激活率，其中0表示没激活，1表示完全激活</p>
+<h4 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h4><ul>
+<li><p>会导致模型的梯度消失</p>
 <ul>
-<li>
-<p>会导致模型的梯度消失</p>
-<ul>
-<li>
-<p>当神经元的激活状态接近于0或1时，这些区域的梯度会非常接近于0</p>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1574406306081.png" alt="1574406306081"></p>
+<li><p>当神经元的激活状态接近于0或1时，这些区域的梯度会非常接近于0</p>
+<p><img src="C:\Users\12751\AppData\Roaming\Typora\typora-user-images\1574406306081.png" alt="1574406306081"></p>
 <p>在反向传播期间，该局部梯度会和此处输出的梯度相乘以实现整体的目标。</p>
 </li>
 </ul>
 </li>
-<li>
-<p>Sigmoid函数的输出并不是以0为基准，而是从0开始，到1结束。意味着函数的值会为正。因而权重的梯度会全部为正或全部为负，这会造成梯度往完全不同的方向更新，使得优化更困难</p>
+<li><p>Sigmoid函数的输出并不是以0为基准，而是从0开始，到1结束。意味着函数的值会为正。因而权重的梯度会全部为正或全部为负，这会造成梯度往完全不同的方向更新，使得优化更困难</p>
 </li>
 </ul>
-<h3 id="tanh"><a class="markdownIt-Anchor" href="#tanh"></a> Tanh</h3>
-<h4 id="图像-2"><a class="markdownIt-Anchor" href="#图像-2"></a> 图像</h4>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1574406487079.png" alt="1574406487079"></p>
-<h4 id="特点-2"><a class="markdownIt-Anchor" href="#特点-2"></a> 特点</h4>
-<p>他会将数字压缩到-1到1区间内。所以他的输出以0为基准，使优化更加容易</p>
-<h4 id="问题"><a class="markdownIt-Anchor" href="#问题"></a> 问题</h4>
-<p>梯度消失</p>
-<h3 id="relu"><a class="markdownIt-Anchor" href="#relu"></a> ReLU</h3>
-<h4 id="图像-3"><a class="markdownIt-Anchor" href="#图像-3"></a> 图像</h4>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1574406572298.png" alt="1574406572298"></p>
-<h4 id="特点-3"><a class="markdownIt-Anchor" href="#特点-3"></a> 特点</h4>
-<p>max（input， 0）</p>
+<h3 id="Tanh"><a href="#Tanh" class="headerlink" title="Tanh"></a>Tanh</h3><h4 id="图像-1"><a href="#图像-1" class="headerlink" title="图像"></a>图像</h4><p><img src="C:\Users\12751\AppData\Roaming\Typora\typora-user-images\1574406487079.png" alt="1574406487079"></p>
+<h4 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h4><p>他会将数字压缩到-1到1区间内。所以他的输出以0为基准，使优化更加容易</p>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>梯度消失</p>
+<h3 id="ReLU"><a href="#ReLU" class="headerlink" title="ReLU"></a>ReLU</h3><h4 id="图像-2"><a href="#图像-2" class="headerlink" title="图像"></a>图像</h4><p><img src="C:\Users\12751\AppData\Roaming\Typora\typora-user-images\1574406572298.png" alt="1574406572298"></p>
+<h4 id="特点-2"><a href="#特点-2" class="headerlink" title="特点"></a>特点</h4><p>max（input， 0）</p>
 <p>不会涉及大量运算，因此它能更快的学习，也避免了梯度消失的问题</p>
 <p>但是他<strong>只用在隐藏层</strong>中，<strong>输出层应该用Softmax函数用于分类，因为它能生成不同类别的概率</strong>。在<strong>回归问题中使用线性函数</strong>，因为通过它的数据信号不会变</p>
-<h4 id="问题-2"><a class="markdownIt-Anchor" href="#问题-2"></a> 问题</h4>
-<p>部分神经元在训练中会很脆弱，甚至会死掉。这就意味着较大的梯度通过ReLU函数时会导致梯度更新，使得无法再次激活任何数据点</p>
+<h4 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h4><p>部分神经元在训练中会很脆弱，甚至会死掉。这就意味着较大的梯度通过ReLU函数时会导致梯度更新，使得无法再次激活任何数据点</p>
 <p>解决方法：Leaky ReLU</p>
-<h3 id="经验"><a class="markdownIt-Anchor" href="#经验"></a> 经验</h3>
-<ul>
+<h3 id="经验"><a href="#经验" class="headerlink" title="经验"></a>经验</h3><ul>
 <li>深度学习往往需要大量时间来处理大量数据，模型的收敛速度是尤为重要的。所以，总体上来讲，训练深度学习网络尽量使用zero-centered数据（可以经过数据预处理实现）和zero-cintered输出。所以要尽量选择输出具有zero-centered特点的激活函数以加快模型的收敛速度</li>
 <li>如果使用ReLU，那么一定要小心设置learning rate，而且注意不要让网络出现很多“dead”神经元，如果这个问题不好解决，可以试试Leaky-ReLU、PReLU或者Maxout</li>
 <li>最好不要使用sigmoid，可以试试tanh，不过可以预期他的效果会比不上ReLU和Maxout</li>
 </ul>
-<h3 id="神经网络的输入为什么要0均值化"><a class="markdownIt-Anchor" href="#神经网络的输入为什么要0均值化"></a> 神经网络的输入为什么要0均值化</h3>
-<p>这样做的优点是为了在反向传播中加快网络中每一层权重参数的收敛。</p>
+<h3 id="神经网络的输入为什么要0均值化"><a href="#神经网络的输入为什么要0均值化" class="headerlink" title="神经网络的输入为什么要0均值化"></a>神经网络的输入为什么要0均值化</h3><p>这样做的优点是为了在反向传播中加快网络中每一层权重参数的收敛。</p>
 <p>为什么0均值化就会加快收敛呢？</p>
 <p><img src="https://pic4.zhimg.com/v2-bc1465b4377a5c1f7762514093a43be7_b.jpg" alt="img"></p>
 <p>在梯度下降的时候，假设途中蓝色箭头方向为理想最优向量，根据公式，可以想到：</p>

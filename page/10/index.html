@@ -240,30 +240,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="scrapy"><a class="markdownIt-Anchor" href="#scrapy"></a> Scrapy</h2>
-<p>在安装完Scrapy<code>(pip install scrapy)</code>之后，创建一个scrapy项目</p>
+          <h2 id="Scrapy"><a href="#Scrapy" class="headerlink" title="Scrapy"></a>Scrapy</h2><p>在安装完Scrapy<code>(pip install scrapy)</code>之后，创建一个scrapy项目</p>
 <blockquote>
 <p>scrapy startproject tutorial</p>
 </blockquote>
 <p>该Scrapy项目下都包含了以下内容</p>
 <blockquote>
-<p>|-tutorial		该项目的python模块。在此放入代码（核心）</p>
-<p>|-scrapy.cfg	项目的配置文件</p>
-<p>|-<strong>init</strong>.py</p>
-<p>|-items.py	项目中的item文件（这是创建容器的地方，爬取的信息分别放到不同的容器里面）</p>
-<p>|-middlewares.py</p>
-<p>|-pipelines.py	项目中的设置文件（设置一些基础参数，比如加头文件，设置编码等等）</p>
-<p>|-settings.py</p>
-<p>|-spiders	放置spider的目录（放爬虫的地方）</p>
+<p>|-tutorial        该项目的python模块。在此放入代码（核心）</p>
+<p>|-scrapy.cfg    项目的配置文件</p>
+<p>  |-<strong>init</strong>.py</p>
+<p>  |-items.py    项目中的item文件（这是创建容器的地方，爬取的信息分别放到不同的容器里面）</p>
+<p>  |-middlewares.py</p>
+<p>  |-pipelines.py    项目中的设置文件（设置一些基础参数，比如加头文件，设置编码等等）</p>
+<p>  |-settings.py</p>
+<p>  |-spiders    放置spider的目录（放爬虫的地方）</p>
 <p>​    |-<strong>init</strong>.py</p>
 </blockquote>
 <p>里面的parse方法，有两个作用</p>
 <ul>
-<li>
-<p>负责解析start_url下载的Response对象，根据item提取数据（解析item数据的前提是parse里全部requests请求都被加入了爬取队列）</p>
+<li><p>负责解析start_url下载的Response对象，根据item提取数据（解析item数据的前提是parse里全部requests请求都被加入了爬取队列）</p>
 </li>
-<li>
-<p>如果有新的url则加入爬取队列，负责进一步处理，URL的request对象</p>
+<li><p>如果有新的url则加入爬取队列，负责进一步处理，URL的request对象</p>
 </li>
 </ul>
 <p>启动爬虫</p>

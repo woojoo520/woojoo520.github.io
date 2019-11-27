@@ -47,12 +47,12 @@
   };
 </script>
 
-  <meta name="description" content="Transfer Learning  初步了解Transfer Learning Matthew D. Zeiler和Rob Fergus发表了一片著名的论文， 阐述卷积神经网络到底“看”到了什么：[2]  和对卷积层进行简单的成像不同，他们尝试把不同的内容输入到训练好的神经网络，并观察记录卷积核的激活值。并把造成相同卷积核较大激活的内容分组比较。上面的图片中每个九宫格为同一个卷积核对不同图片的">
+  <meta name="description" content="Transfer Learning初步了解Transfer LearningMatthew D. Zeiler和Rob Fergus发表了一片著名的论文， 阐述卷积神经网络到底“看”到了什么：[2]  和对卷积层进行简单的成像不同，他们尝试把不同的内容输入到训练好的神经网络，并观察记录卷积核的激活值。并把造成相同卷积核较大激活的内容分组比较。上面的图片中每个九宫格为同一个卷积核对不同图片的聚类。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Transfer Learning">
 <meta property="og:url" content="https://woojoo520.github.io/2019/10/20/Transfer-Learning/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="Transfer Learning  初步了解Transfer Learning Matthew D. Zeiler和Rob Fergus发表了一片著名的论文， 阐述卷积神经网络到底“看”到了什么：[2]  和对卷积层进行简单的成像不同，他们尝试把不同的内容输入到训练好的神经网络，并观察记录卷积核的激活值。并把造成相同卷积核较大激活的内容分组比较。上面的图片中每个九宫格为同一个卷积核对不同图片的">
+<meta property="og:description" content="Transfer Learning初步了解Transfer LearningMatthew D. Zeiler和Rob Fergus发表了一片著名的论文， 阐述卷积神经网络到底“看”到了什么：[2]  和对卷积层进行简单的成像不同，他们尝试把不同的内容输入到训练好的神经网络，并观察记录卷积核的激活值。并把造成相同卷积核较大激活的内容分组比较。上面的图片中每个九宫格为同一个卷积核对不同图片的聚类。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://pic1.zhimg.com/v2-8aaa5f69e139f987bb53538bd212da58_b.jpg">
 <meta property="og:image" content="https://pic4.zhimg.com/v2-486d24854876bb536978e32e801eee23_b.jpg">
@@ -60,7 +60,7 @@
 <meta property="og:updated_time" content="2019-10-19T18:18:25.236Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Transfer Learning">
-<meta name="twitter:description" content="Transfer Learning  初步了解Transfer Learning Matthew D. Zeiler和Rob Fergus发表了一片著名的论文， 阐述卷积神经网络到底“看”到了什么：[2]  和对卷积层进行简单的成像不同，他们尝试把不同的内容输入到训练好的神经网络，并观察记录卷积核的激活值。并把造成相同卷积核较大激活的内容分组比较。上面的图片中每个九宫格为同一个卷积核对不同图片的">
+<meta name="twitter:description" content="Transfer Learning初步了解Transfer LearningMatthew D. Zeiler和Rob Fergus发表了一片著名的论文， 阐述卷积神经网络到底“看”到了什么：[2]  和对卷积层进行简单的成像不同，他们尝试把不同的内容输入到训练好的神经网络，并观察记录卷积核的激活值。并把造成相同卷积核较大激活的内容分组比较。上面的图片中每个九宫格为同一个卷积核对不同图片的聚类。">
 <meta name="twitter:image" content="https://pic1.zhimg.com/v2-8aaa5f69e139f987bb53538bd212da58_b.jpg">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/10/20/Transfer-Learning/">
@@ -244,44 +244,34 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="transfer-learning"><a class="markdownIt-Anchor" href="#transfer-learning"></a> Transfer Learning</h2>
-<h3 id="初步了解transfer-learning"><a class="markdownIt-Anchor" href="#初步了解transfer-learning"></a> 初步了解Transfer Learning</h3>
-<p>Matthew D. Zeiler和Rob Fergus发表了一片著名的论文， 阐述卷积神经网络到底“看”到了什么：[<a href="https://www.zhihu.com/topic/20079475/intro#ref_2" target="_blank" rel="noopener">2]</a></p>
+        <h2 id="Transfer-Learning"><a href="#Transfer-Learning" class="headerlink" title="Transfer Learning"></a>Transfer Learning</h2><h3 id="初步了解Transfer-Learning"><a href="#初步了解Transfer-Learning" class="headerlink" title="初步了解Transfer Learning"></a>初步了解Transfer Learning</h3><p>Matthew D. Zeiler和Rob Fergus发表了一片著名的论文， 阐述卷积神经网络到底“看”到了什么：<a href="https://www.zhihu.com/topic/20079475/intro#ref_2" target="_blank" rel="noopener">[2]</a></p>
 <p><img src="https://pic1.zhimg.com/v2-8aaa5f69e139f987bb53538bd212da58_b.jpg" alt="img"></p>
 <p>和对卷积层进行简单的成像不同，他们尝试把不同的内容输入到训练好的神经网络，并观察记录卷积核的激活值。并把造成相同卷积核较大激活的内容分组比较。上面的图片中每个九宫格为同一个卷积核对不同图片的聚类。</p>
 <p>在上面图片中可以看出，较浅层的卷积层将较为几何抽象的内容归纳到了一起。例如第一层的卷积中，基本就是边缘检测。而第二层的卷积中，聚类了相似的几何形状，尽管这些几何形状的内容相差甚远。</p>
 <p>随着卷积层越来越深，所聚类的内容也越来越具体。</p>
 <p>其实有个最简单易行的方式已经摆在我们面前了：如果我们把卷积神经网络的前n层保留下来，剩下不想要的砍掉怎么样？就像是我们可以不需要ct能识别狗，识别猫，但是轮廓的对我们还是很有帮助的</p>
 <p><img src="https://pic4.zhimg.com/v2-486d24854876bb536978e32e801eee23_b.jpg" alt="img"></p>
-<h3 id="迁移学习的三个主要研究问题"><a class="markdownIt-Anchor" href="#迁移学习的三个主要研究问题"></a> 迁移学习的三个主要研究问题</h3>
-<ul>
+<h3 id="迁移学习的三个主要研究问题"><a href="#迁移学习的三个主要研究问题" class="headerlink" title="迁移学习的三个主要研究问题"></a>迁移学习的三个主要研究问题</h3><ul>
 <li>迁移什么</li>
 <li>如何迁移</li>
 <li>何时迁移</li>
 </ul>
-<h5 id="迁移什么"><a class="markdownIt-Anchor" href="#迁移什么"></a> 迁移什么</h5>
-<p>指的是跨域或跨任务迁移哪一部分知识。目前，迁移学习的内容可以分为四类：实例迁移、特征表示迁移、参数迁移、关系知识迁移</p>
-<h5 id="如何迁移"><a class="markdownIt-Anchor" href="#如何迁移"></a> 如何迁移</h5>
-<p>开发学习算法</p>
-<h5 id="何时迁移"><a class="markdownIt-Anchor" href="#何时迁移"></a> 何时迁移</h5>
-<p>指得是在什么情况下可以迁移，在哪些情况下不应该迁移。在某些情况下，当源域和目标域彼此不相关时，强行迁移可能会失败。而在最坏的情况下它甚至可能损害目标域的学习表现，这种情况下通常被称为负迁移。</p>
-<h3 id="迁移学习方法划分"><a class="markdownIt-Anchor" href="#迁移学习方法划分"></a> 迁移学习方法划分</h3>
-<p>根据源域和目标域与任务之间的不同情况，将迁移学习分为三个类别：</p>
+<h5 id="迁移什么"><a href="#迁移什么" class="headerlink" title="迁移什么"></a>迁移什么</h5><p>指的是跨域或跨任务迁移哪一部分知识。目前，迁移学习的内容可以分为四类：实例迁移、特征表示迁移、参数迁移、关系知识迁移</p>
+<h5 id="如何迁移"><a href="#如何迁移" class="headerlink" title="如何迁移"></a>如何迁移</h5><p>开发学习算法</p>
+<h5 id="何时迁移"><a href="#何时迁移" class="headerlink" title="何时迁移"></a>何时迁移</h5><p>指得是在什么情况下可以迁移，在哪些情况下不应该迁移。在某些情况下，当源域和目标域彼此不相关时，强行迁移可能会失败。而在最坏的情况下它甚至可能损害目标域的学习表现，这种情况下通常被称为负迁移。</p>
+<h3 id="迁移学习方法划分"><a href="#迁移学习方法划分" class="headerlink" title="迁移学习方法划分"></a>迁移学习方法划分</h3><p>根据源域和目标域与任务之间的不同情况，将迁移学习分为三个类别：</p>
 <ul>
-<li>
-<p><strong>归纳式迁移学习（Inductive Transfer Learning）</strong></p>
+<li><p><strong>归纳式迁移学习（Inductive Transfer Learning）</strong></p>
 <p>在归纳式迁移学习中，无论源域和目标域是否相同，目标任务都与源任务不同。算法利用来自源域的归纳假设和归纳偏差帮助改进目标任务。根据源域中数据的不同情况，归纳式迁移学习进一步分为两种情况：</p>
 <ul>
 <li>源域中有很多带标签的数据。在这种情况下，归纳迁移学习设置类似于多任务学习设置。但是，归纳式迁移学习设置仅旨在通过迁移源任务中的只是来实现目标任务中的高性能，而多任务学习则尝试同时学习目标任务和源任务</li>
 <li>源域中没有标签数据。在这种情况下归纳学习类似于自学习。在自学习设置中，源域和目标域之间的标签空间可能不同，这意味着不能直接使用源域的信息。</li>
 </ul>
 </li>
-<li>
-<p><strong>无监督迁移学习（Unsupervised Transfer Learning）</strong></p>
+<li><p><strong>无监督迁移学习（Unsupervised Transfer Learning）</strong></p>
 <p>在无监督迁移学习设置中，与归纳迁移学习设置类似，目标任务不同于源任务，但与源任务有关。然而，无监督学习侧重于解决目标域中的无监督学习任务，例如聚类，降维和密度估计。在这种情况下，源域和目标域中都没有可用的标签数据。</p>
 </li>
-<li>
-<p><strong>直推式迁移学习（Transductive Transfer Learning）</strong></p>
+<li><p><strong>直推式迁移学习（Transductive Transfer Learning）</strong></p>
 <p>在直推式迁移学习设置中，源任务和目标任务是相同的，而源域和目标域是不同的。在这种情况下，目标域没有可用的标签数据，而源域中有许多可用的标签数据，另外，根据源域和目标域之间的不同情况，我们可以进一步将直推式学习设置分为两种情况：</p>
 <ul>
 <li>源域和目标域之间的特征空间不同</li>
@@ -350,7 +340,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#transfer-learning"><span class="nav-number">1.</span> <span class="nav-text"> Transfer Learning</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初步了解transfer-learning"><span class="nav-number">1.1.</span> <span class="nav-text"> 初步了解Transfer Learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迁移学习的三个主要研究问题"><span class="nav-number">1.2.</span> <span class="nav-text"> 迁移学习的三个主要研究问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#迁移什么"><span class="nav-number">1.2.0.1.</span> <span class="nav-text"> 迁移什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如何迁移"><span class="nav-number">1.2.0.2.</span> <span class="nav-text"> 如何迁移</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#何时迁移"><span class="nav-number">1.2.0.3.</span> <span class="nav-text"> 何时迁移</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迁移学习方法划分"><span class="nav-number">1.3.</span> <span class="nav-text"> 迁移学习方法划分</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Transfer-Learning"><span class="nav-number">1.</span> <span class="nav-text">Transfer Learning</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初步了解Transfer-Learning"><span class="nav-number">1.1.</span> <span class="nav-text">初步了解Transfer Learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迁移学习的三个主要研究问题"><span class="nav-number">1.2.</span> <span class="nav-text">迁移学习的三个主要研究问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#迁移什么"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">迁移什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如何迁移"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">如何迁移</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#何时迁移"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">何时迁移</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迁移学习方法划分"><span class="nav-number">1.3.</span> <span class="nav-text">迁移学习方法划分</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

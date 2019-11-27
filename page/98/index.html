@@ -240,11 +240,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="action"><a class="markdownIt-Anchor" href="#action"></a> Action</h2>
-<p>举例1：</p>
-<p><code>self.parser.add_argument(--'lr_use', action='store_true', default=False, help='if or not use lr_loss')</code></p>
+          <h2 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h2><p>举例1：</p>
+<p><code>self.parser.add_argument(--&#39;lr_use&#39;, action=&#39;store_true&#39;, default=False, help=&#39;if or not use lr_loss&#39;)</code></p>
 <p>当在终端运行的时候，如果不加入<code>--lr_use</code>， 那么程序running的时候，<code>lr_use</code>的值为<code>default:False</code></p>
-<p><code>self.parser.add_argument('--no_flip', action='store_false', help='....')</code></p>
+<p><code>self.parser.add_argument(&#39;--no_flip&#39;, action=&#39;store_false&#39;, help=&#39;....&#39;)</code></p>
 <p>当在终端运行的时候，并没有加入<code>no_flip</code>，数据集中的图片并不会翻转，打印出来看到<code>no_flip</code>的值为True</p>
 <p><strong>Note:</strong></p>
 <p>有default值的时候，running时不声明就为默认值</p>
