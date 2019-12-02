@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/09/NAS/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/10/LeetCode-Day26/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/09/09/NAS/" class="post-title-link" itemprop="url">NAS</a>
+            <a href="/2019/09/10/LeetCode-Day26/" class="post-title-link" itemprop="url">LeetCode-Day26</a>
         </h1>
 
         <div class="post-meta">
@@ -210,10 +210,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-09-09 13:53:08 / 修改时间：15:13:01" itemprop="dateCreated datePublished" datetime="2019-09-09T13:53:08+08:00">2019-09-09</time>
+              <time title="创建时间：2019-09-10 19:01:20" itemprop="dateCreated datePublished" datetime="2019-09-10T19:01:20+08:00">2019-09-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-09-11 08:00:58" itemprop="dateModified" datetime="2019-09-11T08:00:58+08:00">2019-09-11</time>
+              </span>
 
           
   
@@ -224,8 +230,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/09/09/NAS/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/09/NAS/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/09/10/LeetCode-Day26/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/10/LeetCode-Day26/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,119 +246,25 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="nas综述"><a class="markdownIt-Anchor" href="#nas综述"></a> NAS综述</h2>
-<h3 id="1nas综述"><a class="markdownIt-Anchor" href="#1nas综述"></a> 1.NAS综述</h3>
-<p>AutoML（automated machine learning）是模型选择、特征提取和超参数调优的一系列自动化方法，可以实现自动训练有价值的模型。</p>
-<p>深度学习可以自动学习出有用的特征，脱离了对特征工程的依赖，在图像、语音等任务上取得了超越其他算法的结果。这种成功很大程度上得益于新神经网络结构的出现，如ResNet、Inception、DenseNet等。但设计出高性能的神经网络需要大量的专业知识与反复实验，成本极高，限制了神经网络在很多问题上的应用。神经结构搜索（Neural Architecture Search ，简称NAS）是<strong>一种自动设计神经网络的技术</strong>，可以通过算法根据样本集自动设计出高性能的网络结构，在某些任务上甚至可以媲美人类专家的水准，甚至发现某些人类之前未曾提出过的网络结构，这可以有效的降低神经网络的使用和实现成本。</p>
-<p>NAS的<strong>原理</strong>是给定一个称为<strong>搜索空间</strong>的候选神经网络结构集合，用某种策略从中<strong>搜索出最优网络结构</strong>。神经网络结构的优劣即性能用某些指标如精度、速度来度量，称为<strong>性能评估</strong>。</p>
-<p><img src="https://pic2.zhimg.com/80/v2-261f4e89d5c60e5d336052e7fc6d116d_hd.png" alt="img"></p>
-<p>在搜索的每次迭代中，从<strong>搜索空间产生“样本”<strong>即得到一个神经网络结构，称为“子网络”。在</strong>训练样本集上训练子网络</strong>，然后<strong>在验证集上评估其性能</strong>。逐步优化网络结构，知道找到最优子结构。</p>
-<p><strong>搜索空间</strong>、<strong>搜索策略</strong>、<strong>性能评估</strong>策略是<code>NAS算法</code>的核心要素。搜索空间定义了可以搜索的神经网络结构的集合，即解的空间。搜索策略定义了如何在搜索空间中寻找最有网络结构。性能评估策略定义了如何评估搜索出的网络结构的性能。对这些要素的不同实现得到了各种不同的NAS算法。</p>
-<h3 id="空间"><a class="markdownIt-Anchor" href="#空间"></a> 空间</h3>
-<p>搜索空间定义了NAS算法可以搜索的神经网络的类型，同时也定义了如何描述神经网络。神经网络所实现的计算可以抽象成一个无孤立节点的有向无环图（DAG），图的节点代表神经网络的层，边代表数据的流动。每个节点从其前驱节点（有边射入）接收数据，经过计算之后将数据输出到后续节点（有边射出）。理论上说，只要是无孤立节点的DAG，都是合法的神经网络结构。按照不同的尺度，神经网络的结构定义包含如下层次的信息：</p>
-<ul>
-<li>
-<p><strong>网络的拓扑结构</strong></p>
-<p>网络有多少个层，这些层的连接关系。从简单的图结构到任意的DAG也反映了整个神经网络结构的发展历程。最简单的神经网络是线性链式结构，其对应的图的每个节点最多只有一个前驱，一个后续，类似于数据结构中的链表。早期的全连接神经网络，卷积神经网络都是这种拓扑结构。Inception、ResNet、DenseNet中的节点允许有多个前驱，多个后续，从而形成了多分支、跨层连接结构，它们是更复杂的图。这些典型的拓扑结构如下图所示。</p>
-<p><img src="https://pic3.zhimg.com/80/v2-0e574807c1ef41d73e80d67eb6dbe5d2_hd.png" alt="img"></p>
-<p>在描述网络的拓扑结构时，一般采用前驱节点来定义，即定义每个节点的前驱节点，一旦该信息确定，则网络拓扑结构确定。</p>
-</li>
-<li>
-<p><strong>每个层的类型。</strong></p>
-<p>除了第一个层必须为输入层，最后一个层必须为输出之外，中间的层的类型是可选的，它们代表了各种不同的运算即层的类型。典型有<code>全连接，卷积，反卷积，空洞卷积，池化，激活函数</code>等。但这些层的组合使用一般要符合某些规则。</p>
-</li>
-<li>
-<p><strong>每个层内部的超参数</strong></p>
-<p><code>卷积层</code>的超参数有<code>卷积核的数量，卷积核的通道数，高度，宽度，水平方向的步长，垂直方向的步长</code>等。<code>全连接层</code>的超参数有<code>神经元的数量</code>。<code>激活函数层</code>的超参数有<code>激活函数的类型，函数的参数（如果有）</code>等。各种典型层的超参数如下表所示</p>
-<p><img src="https://pic1.zhimg.com/80/v2-926c10c9ca9f9a5feff26ad0cd1b10f8_hd.png" alt="img"></p>
-</li>
-</ul>
-<p>​        如果一个节点的前驱节点只有一个，则直接以前驱节点的输出值作为本节点的输入。如果<code>前驱节点有多个</code>，需要将前驱节点的值汇总后输入本节点，这里有两种策略：<strong>相加和拼接</strong>，前者的典型代表是<code>ResNet</code>，后者的典型代表是<code>DenseNet</code>。由于神经网络的层数不固定，每层的超参数数量也不固定，因此描述网络结构的参数是变长的。</p>
-<p>​        为了提高搜索效率，有时候会<strong>对搜索空间进行限定或简化</strong>。在某些NAS实现中会<code>把网络切分成基本单元</code>（cell，或block），通过这些单元的堆叠形成更复杂的网络。基本单元由多个节点（神经网络的层）组成，它们在整个网络中重复出现多次，但具有不同的权重参数。另外一种做法是<strong>限定神经网络的整体拓扑结构</strong>，借鉴于人类设计神经网络的经验。这些做法虽然减少了NAS算法的计算量，但也限定了算法能够寻找的神经网络的类型。</p>
-<p>​        由于描述神经网络结构的参数含有离散数据（如拓扑结构的定义，层的类型，层内的离散型超参数），因此<strong>网络结构搜索是一个离散优化问题</strong>。定义结构的参数数量一般比较大，因此<strong>属于高维优化问题</strong>。另外，对于该问题，<strong>算法不知道优化目标函数的具体形式</strong>（每种网络结构与该网络的性能的函数关系），因此属于<strong>黑盒优化</strong>问题。这些特点为NAS带来了巨大的挑战。</p>
-<h3 id="搜索策略"><a class="markdownIt-Anchor" href="#搜索策略"></a> 搜索策略</h3>
-<p><strong>搜索策略定义了如何找到最优的网络结构</strong>，通常是一个<strong>迭代优化</strong>过程，<strong>本质上是超参数优化问题</strong>。目前已知的搜索方法有随机搜索，贝叶斯优化，遗传算法，强化学习，基于梯度的算法。其中强化学习，遗传学习，基于梯度的优化是目前的主流算法，也是本章介绍的重点。</p>
-<h4 id="强化学习"><a class="markdownIt-Anchor" href="#强化学习"></a> 强化学习</h4>
-<p>​        基于强化学习的NAS算法[4-6]将神经网络结构设计看作一个强化学习问题，学习得到一个产生网络结构的最优策略。这里的智能体是设计神经网络结构的算法，用于输出神经网络结构描述，强化学习算法使得生成的神经网络的性能最优化。为了用强化学习求解，可以<strong>将神经网络的设计看做一个动作序列</strong>，每次执行动作确定网络的一部分结构如层。神经网络在验证集上的性能值是强化学习中的奖励值。</p>
-<p>​        由于神经网络的结构参数长度不固定，因此需要用一个可变长度的串描述网络结构，算法需要输出这种不定长的串。循环神经网络可以输出不固定长度是数据，因此可以用它来生成网络结构的描述，文献[2]提出的NAS采用了这种方案。</p>
-<p>​        算法用一个称为<strong>控制器</strong>的<strong>循环神经网络</strong>生成描述子网络结构的串，从而确定子网络的结构。然后在训练集上训练子网络，在验证集上计算其精度值。以精度值作为反馈信号，采用策略梯度算法更新控制器网络的参数。在迭代时，控制器会以给予那些有更高精度值的神经网络以更高的概率值，从而确保策略函数能够输出最优网络结构。这一过程如下图所示。</p>
-<p><img src="https://pic2.zhimg.com/80/v2-b4040b08e683800e815365184d6f6025_hd.png" alt="img"></p>
-<p>​       算法的<strong>输出限定为分层的网络结构</strong>，第n个网络层以第n-1个网络层为基础。网络结构生成可抽象为<strong>序列生成问题</strong>，按层逐次预测网络结构。在RNN中，每5个输出值定义一个神经网络层。上一时刻的输出是本时刻的输入，确保RNN基于前面n-1层所有的结构信息来预测第n层的结构。<strong>RNN的输出层是softmax回归，根据它确定结构参数</strong>。对于卷积核高度，可以限定输出值为[ 1,3,5,7]四个数，RNN的softmax输出是取这4个数的概率值。</p>
-<p>​        控制器每一时刻的输出包括：卷积核的数量，卷积核的高度，卷积核的宽度，卷积操作在水平方向的步长，卷积操作在垂直方向的步长。这一过程如下图所示</p>
-<p><img src="https://pic4.zhimg.com/80/v2-6d1a397e485909024f33a6989cbd1ccb_hd.png" alt="img"></p>
-<p>​         实现时考虑典型的网络结构。对于卷积核的数量，取值范围为[ 24,36,48,64]，卷积核的高度取值范围为[ 1,3,5,7]，卷积核宽度的取值范围与高度相同。卷积步长可以固定为1，也可以按照 [ 1,2,3]取值。</p>
-<p>​        这里需要考虑的一个问题是<strong>何时终止预测</strong>，实现时限定了神经网络的层数，达到一定的层之后，停止输出。<strong>在训练过程中这个值会逐步增加</strong>。</p>
-<p>​        控制器生成该描述串之后，接下来在训练集上训练该子网络，这里采用了<strong>REINFORCE算法</strong>。<strong>目标函数为子网络在验证集上的精度的数学期望</strong></p>
-<p><img src="https://www.zhihu.com/equation?tex=L%28%5Ctheta+%29%3DE_%7B%5CDelta+%5Csim+p_%7B%5Ctheta+%28%5Ccdot+%29%7D%7D%5Cleft+%5B+R%28%5CDelta+%29+%5Cright+%5D" alt="[å¬å¼]"></p>
-<p>其中 <img src="https://www.zhihu.com/equation?tex=%5Ctheta+" alt="[公式]"> 是控制器的参数， <img src="https://www.zhihu.com/equation?tex=%5CDelta+" alt="[公式]"> 是子网络， <img src="https://www.zhihu.com/equation?tex=P_%7B%5Ctheta+%7D%28%5CDelta+%29" alt="[公式]"> 是控制器输出的子网络所服从的概率分布， <img src="https://www.zhihu.com/equation?tex=R%28%5CDelta+%29" alt="[公式]"> 是子网络在验证集上的精度值。<strong>直观的目标是某种结构的子网络准确率越高，则控制器生成该网络结构的概率越大</strong>。因此可以按照下式计算控制器的参数</p>
-<p><img src="https://www.zhihu.com/equation?tex=%5Cbigtriangledown+_%7B%5Ctheta+%7DL%28%5Ctheta+%29%3D+%5Csum_%7B1%7D%5E%7BT%7DE_%7Bp%28a_%7B1%3AT%7D%3B%5Ctheta+%29%7D%5Cleft+%5B+%5Cbigtriangledown+_%7B%5Ctheta+%7D%5Cln+p%28a_%7Bt%7D%5Cmid+a_%7Bt-1%3A1%7D%3B%5Ctheta+%29+R%5Cright+%5D" alt="[公式]"></p>
-<p>其中R为子网络的准确率，p为生成该子网络结构的概率。实现时使用采样来近似数学期望值<br>
-<img src="https://www.zhihu.com/equation?tex=%5Cfrac%7B1%7D%7Bm%7D%5Csum_%7Bk%3D1%7D%5E%7Bm%7D%5Csum_%7Bt%3D1%7D%5E%7BT%7D%5Cbigtriangledown+_%7B%5Ctheta+%7D%5Cln+p%28a_%7Bt%7D%5Cmid+a_%7Bt-1%3A1%7D%3B%5Ctheta+%29R_%7Bk%7D" alt="[公式]"></p>
-<p>其中m为mini-batch的样本数，T为神经网络的层数。为了解决REINFORCE算法计算出的梯度值偏差问题，在计算梯度时减掉了均值b</p>
-<p><img src="https://www.zhihu.com/equation?tex=%5Cfrac%7B1%7D%7Bm%7D%5Csum_%7Bk%3D1%7D%5E%7Bm%7D%5Csum_%7Bt%3D1%7D%5E%7BT%7D%5Cbigtriangledown+_%7B%5Ctheta+%7D%5Cln+p%28a_%7Bt%7D%5Cmid+a_%7Bt-1%3A1%7D%3B%5Ctheta+%29%28R_%7Bk%7D-b%29" alt="[公式]"></p>
-<p>其中b为所有奖励的均值。前面介绍的方法只能生成标准的线性结构网络，通过改进可以生成跨层连接的卷积神经网络以及循环神经网络，通过在控制器softmax输出中增加相关信息而实现。</p>
-<p>​       文献[2]奠定了用强化学习解决NAS问题的基础，但面临计算量大的问题。一种解决方案是对搜索空间进行简化，限定网络结构为某些类型。回顾卷积网络的发展历史，<strong>各种典型卷积神经网络一般都具有某些重复、规整的结构</strong>，如ResNet中的跨层连接块，GoogLeNet中的Inception块等。<strong>如果能预测出这种基本块结构，然后将其堆叠形成网络，既可以降低搜索成本，又能使得网络随着输入数据的尺寸动态扩展，对于大尺寸的输入图像，只需要增加堆叠的块数即可。</strong></p>
-<p>​        文献[3]采用了这种思想，提出了一种称为NASNet的方法。NASNet预测出基本块（building block），在小规模的CIFAR-10数据集上训练，然后将学习得到的网络结构迁移到更大规模的ImageNet数据集上。<strong>控制器预测的是基本两种网络单元，分别称为普通单元（Normal Cell）和约简单元（Reduction Cell）</strong>。前者不改变输入图像的尺寸，后者将图像的高度和宽度减半。根据这种设计，<strong>搜索整个神经网络结构的任务被简化为搜索最优基本块结构</strong>。除了降低搜索空间的大小，这种做法还使得在一个数据集上搜索得到的网络结构更容易泛化到其他数据集上。</p>
-<p>​        完整的神经网络通过这些相同结构的基本单元堆叠形成，但各个基本单元有不同的权重参数。对于不同尺寸和规模的数据集，使用了不同数量的基本块。下图为用于CIFAR-10和ImageNet数据集的网络结构。</p>
-<p><img src="https://pic3.zhimg.com/80/v2-3f15a91ff3431a49e87c4b515e326d46_hd.png" alt="img"></p>
-<p>​       上图中的乘以N表示这种基本块堆叠N次。<strong>算法的核心是如何生成基本块</strong>。控制器网络用RNN实现，其输出层为softmax，用于生成描述神经网络结构的决策。每个基本单元由B个块构成，每个块有两个输入，执行某一运算后产生输出。下图为生成每个块的方法，包含5个步骤：</p>
-<ul>
-<li>选择一个隐含状态作为第一个输入</li>
-<li>选择一个隐含状态作为第二个输入</li>
-<li>为第一个隐含状态选择一个运算</li>
-<li>为第二个隐含状态选择一个运算</li>
-<li>为两个运算的结果选择一个合并方式，执行合并</li>
-</ul>
-<p>隐含状态即神经网络前面的层的输出结果，如CNN中的卷积特征图像，或RNN中的隐含状态。然后对两个输入各选择一个运算，再将两个运算的结果合并。这一过程如下图所示。</p>
-<p><img src="https://pic1.zhimg.com/80/v2-cb5e1634ec0e10ff10b3c64801f39a1c_hd.png" alt="img"></p>
-<p>作用于隐含状态上的<strong>运算包括各种卷积，池化等操作</strong>。<strong>运算结果的合并方式有相加，拼接两种选择</strong>。</p>
-<p>下图为生成一个基本单元的过程。图中上方为候选隐含状态集合，第1次选择H1和H2作为输入，分别执行池化和卷积运算，然后相加，得到H3，并将其加入候选隐含状态集合。接下来生成第2个块，选择H2和H3作为输入，分布执行卷积和恒等运算，将结果进行拼接，产生H4。其他的以此类推。在这里B的值由人工设定。</p>
-<p><img src="https://pic4.zhimg.com/80/v2-57e5e32c98acc4675afc6c45a79584d7_hd.png" alt="img"></p>
-<p>下图是典型的约简块，同样的B=4，这里将4个临时结果拼接，形成 <img src="https://www.zhihu.com/equation?tex=h_%7Bt%7D" alt="[公式]"> 作为本单元的输出值。</p>
-<p><img src="https://pic1.zhimg.com/80/v2-9457ff0a3ac4a0d9f262616f6d7ece08_hd.png" alt="img"></p>
-<p>​       在生成网络结构描述之后，训练子网络和控制器网络的方法与文献[2]相同，不同的是策略梯度算法采用了<strong>PPO算法</strong>（Proximal Policy Optimization）。</p>
-<p>​        NASNet虽然在速度上有提升，但计算量还是太大。作为这一系列方法的改进，文献[4]提出了一种称为ENAS（Efficient Neural Architecture Search）的算法，<strong>通过在各个网络之间共享权重来减少计算量</strong>。由于各个子网络共享权重，因此每个子网络不需要从头开始训练，这极大的提高了搜索速度。</p>
-<p>​        ENAS将NAS看做是寻找最优子图的问题，问题的解是一张大的图的子图。图23-1展示了这一概念。在这种图表示中，图的顶点为某种计算（如卷积，池化，相加），边表示数据的流动。下图的图有6个顶点，<strong>任意两个节点之间都可能有边连接，但边的方向只能是从编号较小的节点指向编号较大的节点，以防止环的出现</strong>。各个顶点可以对应于神经网络中的层，数据只能从编号小的层流向编号大的层。这个图的最优子图包含全部6个顶点，边为图中红色的边。</p>
-<p><img src="https://pic2.zhimg.com/80/v2-fb009a576bba7f77afd1b012672892a9_hd.png" alt="img"></p>
-<p>​       使用这种表示，可以将NAS限定为在一个固定顶点数的图中寻找最优子图。神经网络的结构描述同样由RNN实现的控制器生成。对于卷积神经网络和循环神经网络采用了不同的描述，控制器生成这两种神经网络单元的方法也不同，下面分别介绍。</p>
-<p>​        循环神经网络中可以选择的操作为激活函数，包括ReLU和tanh两种类型。下图为一个子图以及对应的循环神经网络。</p>
-<p><img src="https://pic3.zhimg.com/80/v2-d937276289ee331c8315dab46fac8e16_hd.png" alt="img"></p>
-<p>该图有4个顶点，红色的边表示信息的流动，黑色的边无效即没有使用。右图为对应的循环神经网络单元，运算节点的编号与左图中图的顶点编号对应。节点1接收 <img src="https://www.zhihu.com/equation?tex=x_%7Bt%7D" alt="[公式]"> 和 <img src="https://www.zhihu.com/equation?tex=h_%7Bt-1%7D" alt="[公式]"> 作为输入，执行下面的运算</p>
-<p><img src="https://www.zhihu.com/equation?tex=h_%7B1%7D%3Dtanh%28x_%7Bt%7D%5Ccdot+W%5E%7B%28x%29%7D%2Bh_%7Bt-1%7D%5Ccdot+W_%7B1%7D%5E%7B%28h%29%7D%29" alt="[公式]"></p>
-<p>这里的激活函数选用tanh，权重矩阵为本节点的参数。节点2以节点1的输出值为输入，选择ReLU作为激活函数，执行下面的运算</p>
-<p><img src="https://www.zhihu.com/equation?tex=h_%7B2%7D%3DReLU%28h_%7B1%7D%5Ccdot+W_%7B2%2C1%7D%5E%7B%28h%29%7D%29" alt="[公式]"></p>
-<p>该节点同样有权重矩阵。节点3以节点2的输出值为输入，选择ReLU作为激活函数，执行下面的运算</p>
-<p><img src="https://www.zhihu.com/equation?tex=h_%7B3%7D%3DReLU%28h_%7B2%7D%5Ccdot+W_%7B3%2C2%7D%5E%7B%28h%29%7D%29" alt="[公式]"></p>
-<p>节点4以节点1的输出值作为输入，选择tanh作为激活函数，执行下面运算</p>
-<p><img src="https://www.zhihu.com/equation?tex=h_%7B4%7D%3DReLU%28h_%7B1%7D%5Ccdot+W_%7B4%2C1%7D%5E%7B%28h%29%7D%29" alt="[公式]"></p>
-<p>节点3和4没有后续节点，因此根据它们计算输出值。输出值为它们的均值</p>
-<p><img src="https://www.zhihu.com/equation?tex=h_%7Bt%7D%3D%28h_%7B3%7D%2Bh_%7B4%7D%29%2F2" alt="[公式]"></p>
-<p>对每个 <img src="https://www.zhihu.com/equation?tex=j%3C+l" alt="[公式]"> 的节点对，<strong>都有一个独立的权重矩阵</strong> <img src="https://www.zhihu.com/equation?tex=W_%7Bl%2Cj%7D%5E%7B%28h%29%7D" alt="[公式]"> ，<strong>为每个节点l一旦确定其前驱节点j，则使用该矩阵</strong>。在ENAS中，所有循环单元共用一组相同的权重参数。</p>
-<p>​       下面介绍控制器如何生成该网络结构。控制器在每次预测时需要做两个决策：确定以哪个节点的输出值作为输入即作为当前节点的前驱，为当前节点选用哪种激活函数。对于第1个节点，输入值是确定的，为 <img src="https://www.zhihu.com/equation?tex=x_%7Bt%7D" alt="[公式]"> 和 <img src="https://www.zhihu.com/equation?tex=h_%7Bt-1%7D" alt="[公式]"> ，控制器只用为其选择激活函数。接下来生成节点2，首先选择一个节点作为输入即作为节点2的前驱节点，然后为节点2选择激活函数。其他节点依次类推，这一过程如下图所示。</p>
-<p><img src="https://pic4.zhimg.com/80/v2-b0153571a7b252d0ebf1ca80445ee8d3_hd.png" alt="img"></p>
-<p>​       假设循环神经网络的单元有N个节点，在生成第i个节点时，可以选择的前驱节点为[0,i-1]之间的整数，有i种情况，因此网络的拓扑结构有N!种。对于每种网络拓扑，每个节点的激活函数有4种选择，分别为tanh，sigmoid，identity，ReLU。因此可以搜索的网络结构总共有 <img src="https://www.zhihu.com/equation?tex=4%5E%7BN%7D%5Ctimes+N%21" alt="[公式]"> 种情况。</p>
-<p>​        下面介绍卷积神经网络的生成方式。下图给4个节点的卷积神经网络，同样的，红色的边表示有效边，黑色的未激活。这个图对应的网络结构如右图所示。</p>
-<p><img src="https://pic2.zhimg.com/80/v2-25b74be6615d7c472de50487c0729a01_hd.png" alt="img"></p>
-<pre><code>	与循环神经网络不同的是，**这里每个节点可以允许有多个前驱节点**。例如节点3有两个前驱，分别为1和2。
-</code></pre>
-<p>​		生成卷积神经网络结构的方法与循环神经网络类似：为当前节点选择前驱节点，为当前节点选择要使用的运算。这两个决策结果形成卷积神经网络的一个层。这一过程如上图所示。</p>
-<p>​		<strong>对于第k层，小于等于k-1的不同层都可以用来作为它的输入</strong>，因此有 <img src="https://www.zhihu.com/equation?tex=2%5E%7Bk-1%7D" alt="[公式]"> 种连接关系。对于上图中的卷积神经网络，在k=4时选择{1,3}作为它的前驱，导致第1、3个层都与第4个层连接。这种做法可以形成任意的跨层连接。</p>
-<p>​		在每个节点处允许的运算有6种情况，分别是： <img src="https://www.zhihu.com/equation?tex=3%5Ctimes+3" alt="[公式]"> 卷积， <img src="https://www.zhihu.com/equation?tex=5%5Ctimes+5" alt="[公式]"> 卷积， <img src="https://www.zhihu.com/equation?tex=3%5Ctimes+3" alt="[公式]"> 深度可分离卷积， <img src="https://www.zhihu.com/equation?tex=5%5Ctimes+5" alt="[公式]"> 深度可分离卷积， <img src="https://www.zhihu.com/equation?tex=3%5Ctimes+3" alt="[公式]"> 均值池化， <img src="https://www.zhihu.com/equation?tex=3%5Ctimes+3" alt="[公式]"> 最大值池化。与循环神经网络相同，每个节点处都有所有运算的参数，并被所有网络结构共享。生成卷积神经网络结构的过程如下图所示。</p>
-<p><img src="https://pic1.zhimg.com/80/v2-1b54654c641c486000a35ab5a1eb4abc_hd.png" alt="img"></p>
-<p>如果一个卷积神经网络有L个层，则在第k层处有 <img src="https://www.zhihu.com/equation?tex=2%5E%7Bk-1%7D" alt="[公式]"> 种连接关系，由于各个层之间的连接关系是单独确定即相互独立的，因此网络的连接关系及拓扑结构有</p>
-<p><img src="https://www.zhihu.com/equation?tex=2%5E%7B1%2B2%2B...%2BL-1%7D%3D2%5E%7BL%28L-1%29%2F2%7D" alt="[公式]"></p>
-<p>种情况，对于每种网络结构，在每个层有6种可供选择的运算，因此所有可能的网络结构有</p>
-<p><img src="https://www.zhihu.com/equation?tex=6%5E%7BL%7D%5Ctimes+2%5E%7BL%28L-1%29%2F2%7D" alt="[公式]"></p>
-<p>种情况。如果L=12，则所有可能的网络结构数为 <img src="https://www.zhihu.com/equation?tex=1.6%5Ctimes+10%5E%7B29%7D" alt="[公式]">。</p>
-<p>​		除了生成整个卷积网络，还可以生成卷积网络额单元然后将其堆叠形成完整的网络，具体做法与NASNet类似，不再重复介绍。</p>
-<p>​		生成网络结构之后，接下来的核心任务是训练子网络和控制器网络。假设控制器网络的参数为 <img src="https://www.zhihu.com/equation?tex=%5Ctheta" alt="[公式]"> ，子网络的参数为W，后者被所有子网络共享。这两组参数交替训练，在每次迭代时分两个阶段，首先训练W，然后训练 <img src="https://www.zhihu.com/equation?tex=%5Ctheta" alt="[公式]"> 。</p>
-<p>​		<strong>第一阶段先固定住控制器的参数</strong>，控制器的输出策略为 <img src="https://www.zhihu.com/equation?tex=%5Cpi+%28m%3B%5Ctheta+%29" alt="[公式]">，<strong>从中采样出网络结构</strong>。以交叉熵作为损失函数，计算损失函数对w的梯度并更新。<strong>第二阶段固定住w</strong>，用 REINFORCE算法更新控制器的参数 <img src="https://www.zhihu.com/equation?tex=%5Ctheta" alt="[公式]"> ，<strong>最大化奖励值的数学期望</strong></p>
-<p><img src="https://www.zhihu.com/equation?tex=E_%7Bm-%5Cpi+%28m%3B%5Ctheta+%29%7D%5Cleft+%5B+R%28m%2Cw%29+%5Cright+%5D" alt="[公式]"></p>
-<p>奖励值 <img src="https://www.zhihu.com/equation?tex=R%28m%2Cw%29" alt="[公式]"> 为子网络m在验证集上的<strong>精度值</strong>。训练完成之后，根据控制器的策略 <img src="https://www.zhihu.com/equation?tex=%5Cpi+%28m%3B%5Ctheta+%29" alt="[公式]"> 采样出多个子网络并训练，计算它们在验证集上的表现，选择表现最好的网络作为最终生成的网络。</p>
-<p>​		除上述方法之外，用强化学习实现NAS还有其他方案，具体可以阅读参考文献[11-13]。</p>
-<h3 id="性能评估策略"><a class="markdownIt-Anchor" href="#性能评估策略"></a> 性能评估策略</h3>
-<p>​		对于搜索策略搜索出的神经网络结构，首先在一个训练集上训练，然后在验证集上测试精度值。训练和验证过程非常耗时，因此有必要采取措施以降低性能评估的成本。<strong>降低训练成本的简单做法有减少训练时间（迭代次数）</strong>，在训练样本的一个子集上进行训练，在低分辨率的图像上进行训练，或者在训练时减少某些层的卷积核的数量。这些做法在降低计算成本的同时可能会导致性能评估值的偏差。虽然搜索策略只需对各种网络结构的优劣进行排序，无需知道它们准确的性能指标，但这种近似可能还是会导致排序结果的偏差。</p>
-<p>​		更复杂的做法是<strong>对神经网络的性能进行预测（外推），即通过训练时前面若干次迭代时的性能表现推断其最终的性能，或者用搜索出的单元（块）的特性预测整个网络的性能</strong>。<strong>权值共享</strong>也是一种方案。以之前训练过的子网络的权重作为当前要评估的子网络的初始权重可以有效的提高训练速度，加速收敛，避免从头开始训练。<strong>ENAS和DARTS则直接让各个子网络共享同一套权重参数</strong>。</p>
+          <h3 id="164-最大间距"><a class="markdownIt-Anchor" href="#164-最大间距"></a> 164. 最大间距</h3>
+<p>给定一个无序的数组，找出数组在排序之后，相邻元素之间最大的差值。</p>
+<p>如果数组元素个数小于 2，则返回 0。</p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [3,6,9,1]</span><br><span class="line">输出: 3</span><br><span class="line">解释: 排序后的数组是 [1,3,6,9], 其中相邻元素 (3,6) 和 (6,9) 之间都存在最大差值 3。</span><br></pre></td></tr></table></figure>
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [10]</span><br><span class="line">输出: 0</span><br><span class="line">解释: 数组元素个数小于 2，因此返回 0。</span><br></pre></td></tr></table></figure>
+<p>说明:</p>
+<p>你可以假设数组中所有元素都是非负整数，且数值在 32 位有符号整数范围内。<br>
+请尝试在线性时间复杂度和空间复杂度的条件下解决此问题。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 保存最大位数</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxbit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> d = <span class="number">1</span>, p = <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++) &#123;</span><br><span class="line">            <span class="keyword">while</span>(nums[i] &gt;= p) &#123;</span><br><span class="line">                d++;</span><br><span class="line">                p *= <span class="number">10</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> d;</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// 基数排序</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">radixSort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> d = maxbit(nums, n);</span><br><span class="line">        <span class="keyword">int</span> size = nums.size();</span><br><span class="line">        <span class="keyword">int</span> temp[size];</span><br><span class="line">        <span class="keyword">int</span> count[<span class="number">10</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> radix = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 进行d次排序</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; d;i++) &#123;</span><br><span class="line">            <span class="comment">// 每次排序前清空计算器</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; <span class="number">10</span>;j++) &#123;</span><br><span class="line">                count[j] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 统计每个桶中的计数器</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; n;j++) &#123;</span><br><span class="line">                count[(nums[j] / radix) % <span class="number">10</span>]++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 将temp中的位置一次分配给每个桶</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>;j &lt; <span class="number">10</span>;j++) &#123;</span><br><span class="line">                count[j] += count[j - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 先按照个位上的数字大小放到相应的桶中，注意这边是倒着来的！！</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = n - <span class="number">1</span>;j &gt;= <span class="number">0</span>;j--) &#123;</span><br><span class="line">                temp[--count[(nums[j] / radix) % <span class="number">10</span>]] = nums[j];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 收集数据</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; n;j++) &#123;</span><br><span class="line">                nums[j] = temp[j];</span><br><span class="line">            &#125;</span><br><span class="line">            radix *= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maximumGap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125; </span><br><span class="line">        radixSort(nums, nums.size());</span><br><span class="line">        <span class="keyword">int</span> maxGap = nums[<span class="number">1</span>] - nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>;i &lt; nums.size();i++) &#123;</span><br><span class="line">            maxGap = max(maxGap, nums[i] - nums[i - <span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxGap;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>解释：这里采用的是<strong>桶排序</strong>（<strong>基数排序</strong>）</p>
+<h4 id="基数排序详解"><a class="markdownIt-Anchor" href="#基数排序详解"></a> 基数排序详解：</h4>
+<p>假设我们有输入数组A {53, 3, 542, 748, 14, 214, 154, 63, 616}. 这里数组位数比较小，所以我们采用LSD 的基数排序。</p>
+<p>我们这里先在数位较短的数前面的位数上补上零，比如53补上至053，3补上至003，14补上至014，63补上至063。现在的数组表现形式为{053, 003, 542, 748, 014, 214, 154, 063, 616}。我们将它们放置至一个个单独的桶中。</p>
+<p>现在我们首先按照“个位”上数字大小对数组中的数进行排序，排序后结果是{542, 053, 003, 063, 014, 214, 154, 616, 748}.</p>
+<p>接着按照“十位”上数字大小对数组中的数进行排序，排序后结果是{003, 014, 214, 616, 542, 748, 053, 154, 063}.</p>
+<p>最后按照“百位”上数字大小对数组中的数进行排序，排序后结果是{003, 014, 053, 063, 154, 214, 542, 616, 748}. 这也是我们的最终输出数组B。</p>
+<p><img src="https://pic1.zhimg.com/v2-61e73d035ee3f330a60c615569f7b310_b.jpg" alt="img"></p>
 
       
     </div>
@@ -372,7 +284,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/60/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/60/">60</a><span class="page-number current">61</span><a class="page-number" href="/page/62/">62</a><span class="space">&hellip;</span><a class="page-number" href="/page/130/">130</a><a class="extend next" rel="next" href="/page/62/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/60/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/60/">60</a><span class="page-number current">61</span><a class="page-number" href="/page/62/">62</a><span class="space">&hellip;</span><a class="page-number" href="/page/131/">131</a><a class="extend next" rel="next" href="/page/62/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -418,7 +330,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">131</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

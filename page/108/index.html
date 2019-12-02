@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/Python格式化输出/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/model-train-and-model-eval/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/08/09/Python格式化输出/" class="post-title-link" itemprop="url">Python格式化输出</a>
+            <a href="/2019/08/09/model-train-and-model-eval/" class="post-title-link" itemprop="url">model.train() and model.eval()</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-08-09 09:25:45 / 修改时间：09:42:16" itemprop="dateCreated datePublished" datetime="2019-08-09T09:25:45+08:00">2019-08-09</time>
+              <time title="创建时间：2019-08-09 09:46:19 / 修改时间：11:27:30" itemprop="dateCreated datePublished" datetime="2019-08-09T09:46:19+08:00">2019-08-09</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/08/09/Python格式化输出/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/09/Python格式化输出/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/08/09/model-train-and-model-eval/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/09/model-train-and-model-eval/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,24 +240,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="python格式化输出"><a class="markdownIt-Anchor" href="#python格式化输出"></a> Python格式化输出</h2>
-<h3 id="格式化输出字符串"><a class="markdownIt-Anchor" href="#格式化输出字符串"></a> 格式化输出字符串</h3>
-<h4 id="用法一"><a class="markdownIt-Anchor" href="#用法一"></a> 用法一：</h4>
-<p>与%s类似，不同指出是将<code>%s</code>换乘了<code>‘{ }’</code>大括号，调用时依然需要按照顺序对应</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"My name is &#123;&#125;, &#123;&#125; years old, and my hobby is &#123;&#125;"</span></span><br><span class="line">s1 = s.format(<span class="string">'MMMMMQ'</span>, <span class="string">'25'</span>, <span class="string">'watching TV'</span>)</span><br><span class="line">print(s1)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">My name is MMMMMQ, 25 years old, My hobby is watching TV</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<h4 id="用法二"><a class="markdownIt-Anchor" href="#用法二"></a> 用法二：</h4>
-<p>通过<code>{n}</code>方式来指定接收参数的位置，将调用时传入的参数按照位置进行传入。相比%s可以减少参数的个数，实现了参数的复用</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"My name is &#123;0&#125;, &#123;1&#125; years old, and my name is still &#123;0&#125;"</span></span><br><span class="line">s1 = s.format(<span class="string">'MMMMQ'</span>, <span class="string">'25'</span>, <span class="string">'watching TV'</span>)</span><br><span class="line">print(s1)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">My name is MMMMQ, 25 years old, and my name is still MMMMQ</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<h4 id="用法三"><a class="markdownIt-Anchor" href="#用法三"></a> 用法三：</h4>
-<p>通过<code>str{}</code>方式来指定名字，调用时使用<code>str='xxx'</code>，确定参数传入</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"My name is &#123;name&#125;, &#123;age&#125; years old, and my hobby is &#123;hobby&#125;"</span></span><br><span class="line">s1 = s.format(age=<span class="number">25</span>, hobby=<span class="string">'watching TV'</span>, name=<span class="string">'MMMMQ'</span>)</span><br><span class="line">print(s1)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">My name is MMMMQ, 25 years old, and my hobby is watching TV</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<h3 id="保留n位小数"><a class="markdownIt-Anchor" href="#保留n位小数"></a> 保留n位小数：</h3>
-<h4 id="保留一个数字"><a class="markdownIt-Anchor" href="#保留一个数字"></a> 保留一个数字</h4>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'This is a float number &#123;:.2f&#125;'</span>.format(<span class="number">123.432423432</span>))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">This is a float number 123.43</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<h4 id="保留两个数字"><a class="markdownIt-Anchor" href="#保留两个数字"></a> 保留两个数字</h4>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'This are two float numbers &#123;:.2f&#125; and &#123;:.4f&#125;'</span>.format(<span class="number">123.432423432</span>, <span class="number">0.321423423</span>))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">This are two float numbers 123.43 and 0.3214</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<h4 id="保留数字和文字"><a class="markdownIt-Anchor" href="#保留数字和文字"></a> 保留数字和文字</h4>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'This are two float numbers and a string &#123;:.2f&#125; , &#123;:.4f&#125; and &#123;&#125; '</span>.format(<span class="number">123.432423432</span>, <span class="number">0.321423423</span>, <span class="string">'MMMMQ'</span>))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">This are two float numbers and a string 123.43 , 0.3214 and MMMMQ </span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+          <p>model.train() 	model.eval()</p>
+<p>一般在模型训练和评价的时候会加上这两句</p>
+<p>主要是针对model在训练时和评价时不同的 <strong>Batch Normalization</strong> 和 <strong>Dropout</strong> 方法模式</p>
+<p>**注意：**使用PyTorch进行训练和测试时一定注意要把实例化的model指定train/eval， eval()时， 框架会自动把BN和DropOut固定住，不会取平均，而是用训练好的值，不然的话，一旦test的batch_size过小，很容易就会被BN层导致生成图片颜色失真极大！</p>
 
       
     </div>
@@ -277,7 +263,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/107/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><span class="page-number current">108</span><a class="page-number" href="/page/109/">109</a><span class="space">&hellip;</span><a class="page-number" href="/page/130/">130</a><a class="extend next" rel="next" href="/page/109/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/107/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><span class="page-number current">108</span><a class="page-number" href="/page/109/">109</a><span class="space">&hellip;</span><a class="page-number" href="/page/131/">131</a><a class="extend next" rel="next" href="/page/109/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -323,7 +309,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">131</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
