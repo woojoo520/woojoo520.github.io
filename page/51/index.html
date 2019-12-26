@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/18/LeetCode-Day34/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/19/StyleGAN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/09/18/LeetCode-Day34/" class="post-title-link" itemprop="url">LeetCode-Day34</a>
+            <a href="/2019/09/19/StyleGAN/" class="post-title-link" itemprop="url">StyleGAN</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-09-18 10:23:50 / 修改时间：14:56:08" itemprop="dateCreated datePublished" datetime="2019-09-18T10:23:50+08:00">2019-09-18</time>
+              <time title="创建时间：2019-09-19 12:21:42 / 修改时间：20:39:09" itemprop="dateCreated datePublished" datetime="2019-09-19T12:21:42+08:00">2019-09-19</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/09/18/LeetCode-Day34/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/18/LeetCode-Day34/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/09/19/StyleGAN/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/19/StyleGAN/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,77 +240,131 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="300-最长上升子序列"><a class="markdownIt-Anchor" href="#300-最长上升子序列"></a> 300. 最长上升子序列</h3>
-<p>给定一个无序的整数数组，找到其中最长上升子序列的长度。</p>
-<p>示例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [10,9,2,5,3,7,101,18]</span><br><span class="line">输出: 4 </span><br><span class="line">解释: 最长的上升子序列是 [2,3,7,101]，它的长度是 4。</span><br></pre></td></tr></table></figure>
-<p>说明:</p>
-<p>可能会有多种最长上升子序列的组合，你只需要输出对应的长度即可。</p>
-<p><strong>方法一.</strong> <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
-<p>思路：</p>
-<p>令<code>dp[i]</code>数组为以第<code>i</code>个元素结尾的最长上升子序列的长度。</p>
-<p><code>dp[j]</code>可以从<code>0-j - 1</code>遍历，然后分别检验<code>nums[j]</code>可以附加到哪个子序列上面，记录maxSum</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(nums.size() &lt; <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> nums.size();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> n = nums.size(), maxSum = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> dp[n];</span><br><span class="line">    dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; n;i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> Max = dp[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; i;j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i] &gt; nums[j]) &#123;</span><br><span class="line">                Max = max(dp[i] + <span class="number">1</span>, Max);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        dp[i] = Max;</span><br><span class="line">        maxSum = max(maxSum, dp[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> maxSum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>方法二.  动态规划+二分查找</strong> <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
-<p>思路：</p>
+          <p>**原有GAN出现的问题：**与多数GAN一样，proGAN控制生成图像的特定特征的能力非常有限。这些属性相互纠缠，即使略微调整输入，也会同时影响生成图像的多个属性。所以如何将ProGAN该位条件生成模型，或者增强其微调单个属性的能力，是一个可以研究的方向。</p>
+<p><strong>解决的方法：</strong></p>
+<p>StyleGAN是NVIDIA继ProGAN之后提出的新的生成网络，其主要通过修改每一层级的输入，在不影响其它层级的情况下，开控制该层级所表示的视觉特征。这些特征可以使粗的特征（如姿势、脸型等），也可以是一些细节特征（如瞳色、发色等）</p>
+<p>本文的工作及贡献：</p>
 <ul>
 <li>
-<p>新的状态定义：我们考虑维护一个列表<code>tails</code>，其中每个元素<code>tails[k]</code>的值代表<strong>长度为k + 1的子序列尾部元素的值</strong></p>
+<p>借鉴风格迁移，提出基于样式的生成器（style-based generator）</p>
+<ul>
+<li>实现了无监督地分离高级属性（人脸姿势、身份）和随机变化（例如雀斑，头发）</li>
+<li>实现对生成图像中特定尺度的属性的控制</li>
+<li>生成器从一个科学系的常量输入开始，隐码在每个卷积层调整图像的“样式”，从而直接控制不同尺度下图像特征的强度。</li>
+</ul>
 </li>
 <li>
-<p>状态转移设计：遍历计算每个<code>tails[k]</code>，不断更新长度为<code>[1, k]</code>的子序列尾部元素值，<strong>始终保持每个尾部元素值最小</strong>（例如 [1,5,3]， 遍历到元素 55 时，长度为 22 的子序列尾部元素值为 55；当遍历到元素 33 时，尾部元素值应更新至 33，因为 33 遇到比它大的数字的几率更大）。</p>
+<p>实现了对**隐空间（latent space）**较好的解耦</p>
+<ul>
+<li>生成器将输入的隐码z嵌入一个中间的隐空间。因为输入的隐空间Z必须服从训练数据的概率密度，这在一定程度上导致了不可避免的纠缠，而嵌入的中间的隐空间W不受这个控制，因此可以被解耦</li>
+</ul>
 </li>
 <li>
-<p><code>tails</code>列表一定是严格递增的：即当尽可能使每个子序列尾部元素值最小的前提下，子序列越长，其序列尾部元素值一定更大</p>
+<p>提出了两个新的<strong>量化隐空间解耦程度</strong>的方法</p>
+<ul>
+<li>感知路径长度和线性可分性。与传统的生成器相比，新的生成器允许更线性、更解耦地表示不同的变化因素</li>
+</ul>
+</li>
+<li>
+<p>提出了新的高质量的人脸数据集（FFHQ,7万张1024 * 1024的人脸图片）</p>
+<p>![img](file:///C:\Users\12751\Documents\Tencent Files\1275121799\Image\C2C{255CC7E5-BCDA-210F-8F43-B410432DFEB2}.png)</p>
 </li>
 </ul>
-<p>举个例子：</p>
-<p><code>nums = [10, 9, 2, 5, 3, 7, 21, 18]</code></p>
-<p><code>1. tails = [10]</code></p>
-<p><code>2. tails = [9]</code></p>
-<p><code>3. tails = [2]</code></p>
-<p><code>4. tails = [2, 5]</code></p>
-<p><code>5. tails = [2, 3]</code></p>
-<p><code>6. tails = [2, 3, 7]</code></p>
-<p><code>7. tails = [2, 3, 7, 21]</code></p>
-<p><code>8. tails = [2, 3, 7, 18]</code></p>
-<p>所以最终长度为4</p>
-<p>最后，上Code然后理解一下吧：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(nums.size() &lt; <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> nums.size();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> tails[nums.size()] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = res;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; j) &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (i + j) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(tails[mid] &lt; num) &#123;</span><br><span class="line">                i = mid + <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                j = mid;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        tails[i] = num;</span><br><span class="line">        <span class="keyword">if</span>(j == res) &#123;</span><br><span class="line">            res++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="股票问题整理这里主要介绍动态转移方程没有进行空间优化"><a class="markdownIt-Anchor" href="#股票问题整理这里主要介绍动态转移方程没有进行空间优化"></a> 股票问题整理（这里主要介绍动态转移方程，没有进行空间优化）</h3>
-<h5 id="1-最多只允许完成一笔交易即买入和卖出一支股票设计一个算法来计算你所能获得的最大利润"><a class="markdownIt-Anchor" href="#1-最多只允许完成一笔交易即买入和卖出一支股票设计一个算法来计算你所能获得的最大利润"></a> 1. 最多只允许完成一笔交易（即买入和卖出一支股票），设计一个算法来计算你所能获得的最大利润。</h5>
-<p>所以，动态转移方程为：</p>
-<p><code>dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] + prices[i]);</code></p>
-<p><code>dp[i][1] = max(dp[i - 1][1], -prices[i]);</code></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(prices.size() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="keyword">int</span> dp[n][<span class="number">2</span>];</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>, dp[<span class="number">0</span>][<span class="number">1</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; n;i++) &#123;</span><br><span class="line">            dp[i][<span class="number">0</span>] = max(dp[i - <span class="number">1</span>][<span class="number">0</span>], dp[i - <span class="number">1</span>][<span class="number">1</span>] + prices[i]);</span><br><span class="line">            dp[i][<span class="number">1</span>] = max(dp[i - <span class="number">1</span>][<span class="number">1</span>], -prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n - <span class="number">1</span>][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h5 id="2-尽可能地完成更多的交易获取最大的利润其实就是不限制交易次数"><a class="markdownIt-Anchor" href="#2-尽可能地完成更多的交易获取最大的利润其实就是不限制交易次数"></a> 2. 尽可能地完成更多的交易获取最大的利润（其实就是不限制交易次数）</h5>
-<p>所以，动态转移方程为：</p>
-<p><code>dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] + prices[i]);</code></p>
-<p><code>dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] - prices[i]);</code></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(prices.size() == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> n = prices.size();</span><br><span class="line">    <span class="keyword">int</span> dp[n][<span class="number">2</span>];</span><br><span class="line">    dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    dp[<span class="number">0</span>][<span class="number">1</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++) &#123;</span><br><span class="line">        dp[i][<span class="number">0</span>] = max(dp[i - <span class="number">1</span>][<span class="number">0</span>], dp[i - <span class="number">1</span>][<span class="number">1</span>] + prices[i]);</span><br><span class="line">        dp[i][<span class="number">1</span>] = max(dp[i - <span class="number">1</span>][<span class="number">1</span>], dp[i - <span class="number">1</span>][<span class="number">0</span>] - prices[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n - <span class="number">1</span>][<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="3-最多只能完成两笔交易"><a class="markdownIt-Anchor" href="#3-最多只能完成两笔交易"></a> 3. 最多只能完成两笔交易</h5>
-<p>这里需要注意的是枚举k</p>
-<p>所以，动态转移方程为：</p>
-<p><code>dp[i][k][0] = max(dp[i - 1][k][0], dp[i - 1][k][1] + prices[i])</code></p>
-<p><code>dp[i][k][1] = max(dp[i - 1][k][1], dp[i - 1][k - 1][0] - prices[i])</code></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(prices.size() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> n = prices.size(), max_k = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> dp[n][max_k + <span class="number">1</span>][<span class="number">2</span>] = &#123;&#123;&#123;<span class="number">0</span>&#125;&#125;&#125;; </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = max_k; k &gt;= <span class="number">1</span>;k--) &#123;</span><br><span class="line">                <span class="keyword">if</span>(i == <span class="number">0</span>) &#123;</span><br><span class="line">                    dp[i][k][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">                    dp[i][k][<span class="number">1</span>] = -prices[i];</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                dp[i][k][<span class="number">0</span>] = max(dp[i - <span class="number">1</span>][k][<span class="number">0</span>], dp[i - <span class="number">1</span>][k][<span class="number">1</span>] + prices[i]);</span><br><span class="line">                dp[i][k][<span class="number">1</span>] = max(dp[i - <span class="number">1</span>][k][<span class="number">1</span>], dp[i - <span class="number">1</span>][k - <span class="number">1</span>][<span class="number">0</span>] - prices[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n - <span class="number">1</span>][max_k][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h5 id="4-含冷冻期即卖完股票的下一天不能买股票必须过一天之后才能买股票"><a class="markdownIt-Anchor" href="#4-含冷冻期即卖完股票的下一天不能买股票必须过一天之后才能买股票"></a> 4. 含冷冻期（即卖完股票的下一天不能买股票，必须过一天之后才能买股票）</h5>
-<p>注意，这里画一个状态机会比较好解释</p>
-<p>0状态表示可以买股票状态，1状态表示手上有股票，2表示刚刚卖出股票</p>
-<p>所以0状态可以通过买股票到达1状态，也可以啥都不干仍停留在原状态</p>
-<p>1状态可以啥也不干留在原状态，也可以卖掉股票到达2状态</p>
-<p>2状态只能选择射也不做达到0状态（表示冷冻期）</p>
-<p>所以，动态规划方程如下：</p>
-<p><code>dp[i][0] = max(dp[i - 1][0], dp[i - 1][2]);</code></p>
-<p><code>dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] - prices[i]);</code></p>
-<p><code>dp[i][2] = dp[i - 1][1] + prices[i];</code></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> dp[n][<span class="number">3</span>] = &#123;&#123;<span class="number">0</span>&#125;&#125;;</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>, dp[<span class="number">0</span>][<span class="number">1</span>] = -prices[<span class="number">0</span>], dp[<span class="number">0</span>][<span class="number">2</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; n;i++) &#123;</span><br><span class="line">            dp[i][<span class="number">0</span>] = max(dp[i - <span class="number">1</span>][<span class="number">0</span>], dp[i - <span class="number">1</span>][<span class="number">2</span>]);</span><br><span class="line">            dp[i][<span class="number">1</span>] = max(dp[i - <span class="number">1</span>][<span class="number">1</span>], dp[i - <span class="number">1</span>][<span class="number">0</span>] - prices[i]);</span><br><span class="line">            dp[i][<span class="number">2</span>] = dp[i - <span class="number">1</span>][<span class="number">1</span>] + prices[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max(dp[n - <span class="number">1</span>][<span class="number">2</span>], dp[n - <span class="number">1</span>][<span class="number">0</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h5 id="5-指定完成k笔交易"><a class="markdownIt-Anchor" href="#5-指定完成k笔交易"></a> 5. 指定完成k笔交易</h5>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit_k</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices, <span class="keyword">int</span> max_k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = prices.size();</span><br><span class="line">    <span class="keyword">if</span>(max_k &gt; n / <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> dp[n][max_k + <span class="number">1</span>][<span class="number">2</span>] = &#123;&#123;&#123;<span class="number">0</span>&#125;&#125;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = max_k;k &gt;= <span class="number">1</span>;k--) &#123;</span><br><span class="line">            <span class="keyword">if</span>(i == <span class="number">0</span>) &#123;</span><br><span class="line">                dp[i][k][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">                dp[i][k][<span class="number">1</span>] = -prices[i];</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            dp[i][k][<span class="number">0</span>] = max(dp[i - <span class="number">1</span>][k][<span class="number">0</span>], dp[i - <span class="number">1</span>][k][<span class="number">1</span>] + prices[i]);</span><br><span class="line">            dp[i][k][<span class="number">1</span>] = max(dp[i - <span class="number">1</span>][k][<span class="number">1</span>], dp[i - <span class="number">1</span>][k - <span class="number">1</span>][<span class="number">0</span>] - prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n - <span class="number">1</span>][max_k][<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="6-含手续费"><a class="markdownIt-Anchor" href="#6-含手续费"></a> 6. 含手续费</h5>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices, <span class="keyword">int</span> fee)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> dp[n][<span class="number">2</span>];</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>, dp[<span class="number">0</span>][<span class="number">1</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; n;i++) &#123;</span><br><span class="line">            dp[i][<span class="number">0</span>] = max(dp[i - <span class="number">1</span>][<span class="number">0</span>], dp[i - <span class="number">1</span>][<span class="number">1</span>] + prices[i] - fee);</span><br><span class="line">            dp[i][<span class="number">1</span>] = max(dp[i - <span class="number">1</span>][<span class="number">1</span>], dp[i - <span class="number">1</span>][<span class="number">0</span>] - prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n - <span class="number">1</span>][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>然后滚去看论文了…</p>
-<p>没去实验室还被批斗了…惨兮兮.jpg</p>
+<h3 id="2-模型和方法"><a class="markdownIt-Anchor" href="#2-模型和方法"></a> 2. 模型和方法</h3>
+<h4 id="21-基于样式的生成器结构"><a class="markdownIt-Anchor" href="#21-基于样式的生成器结构"></a> 2.1 基于样式的生成器结构</h4>
+<p><img src="https://pic2.zhimg.com/v2-452bcc62544bdd83d4eb6e108f977a45_b.jpg" alt="img"></p>
+<p>总共有18层，每个分辨率有两个卷积层（4， 8， 16， …1024）</p>
+<ul>
+<li>
+<p>1.移除了传统的输入</p>
+</li>
+<li>
+<p>2.映射网络</p>
+</li>
+<li>
+<p>3.样式模块（AdaIN，自适应实例归一化）</p>
+</li>
+<li>
+<p>4.随机变化（通过加入噪声为生成器生成随机细节）</p>
+</li>
+</ul>
+<p><strong>移除传统输入</strong></p>
+<p><img src="https://pic4.zhimg.com/v2-026759c4449b86d41d7b85b62c0868bb_b.jpg" alt="img"></p>
+<p>传统的生成器使用latent code（随机输入）作为生成器的初始输入；StyleGAN抛弃了这种设计，将一个可学习的常数作为生成器的初始输入。一个假设是它减少了特征纠缠——对于网络来说，只使用w而不依赖纠缠的输入向量更容易学习</p>
+<p><strong>映射网络（Mapping Network）</strong></p>
+<p><img src="https://pic1.zhimg.com/v2-23b95580269d527ac1be9ccdf19fb030_b.jpg" alt="img"></p>
+<p>映射网络由8个全连接层组成，其输出w与输入z大小相同（512 * 1）。<strong>映射网络的目标是将输入向量编码为中间向量，中间向量W的不同元素控制不同的视觉特征。</strong></p>
+<p>使用输入向量z控制视觉特征的能力是有限的，它必须遵循训练数据的概率密度。例如，如果黑色头发的人的图像在数据集中更加常见，那么更多的输入值将映射到该特性。因此该模型无法将输入向量z的一部分（向量中的元素）映射到特征，这种向量称为特征纠缠。</p>
+<p>但是，通过映射网络，该模型可以生成一个不需要跟随训练数据分布的向量w，并且可以减少特征之间的相关性（解耦，特征分离）</p>
+<p><strong>样式模块（AdalN）</strong></p>
+<p><img src="https://pic4.zhimg.com/v2-99f307a8cde4d1b0dfde84f2893a3ff7_b.jpg" alt="img"></p>
+<p>W通过每个卷积层的AdaIN输入到生成器的每一层中。</p>
+<p>计算方法：</p>
+<ul>
+<li>计算每个特征图xi（feature map）独立进行归一化<img src="https://www.zhihu.com/equation?tex=%28x_i-%CE%BC%28x_i%29%29+%2F%CF%83%28x_i%29" alt="[å¬å¼]">特征图中的每个值减去该特征值的均值然后除以方差。</li>
+<li>一个可学习的仿射变换（全连接层）将w转换为style中AdaIN的平移和缩放因子 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>=</mo><mo stretchy="false">(</mo><msub><mi>y</mi><mi>s</mi></msub><mo separator="true">,</mo><mi>i</mi><mo separator="true">,</mo><msub><mi>y</mi><mi>b</mi></msub><mo separator="true">,</mo><mi>i</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">y = (y_s, i, y_b, i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">i</span><span class="mclose">)</span></span></span></span></li>
+<li>然后对每个特征图分别使用style中学习到的平移和缩放因子进行尺度和平移变换</li>
+</ul>
+<p>这里的不同之处在于这里的缩放和平移是用隐码w计算得到，而不是用一个图像计算得到的。</p>
+<p><strong>随机变化（通过引入噪声为生成器生成随机细节）</strong></p>
+<p><img src="https://pic4.zhimg.com/v2-9fb97d3991e3ceb6f45cf177cca76fd7_b.jpg" alt="img"></p>
+<p>人的连有很多可以看做是随机的，比如头发的精确位置，使特向更真实，增加了输出的多样性。将这些小特征插入GAN图像的<strong>常用方法是向输入向量添加随机噪声，然后通过输入层输入生成器</strong>。然而，在很多情况下，控制噪声效果是很棘手的，因为特征纠缠现象，略微改变噪声会导致<strong>图像的其他特征收到影响</strong>。</p>
+<p>该框架通过<strong>在合成网络的每个分辨率级上增加尺度化的噪声</strong>来回避这些问题。噪声是由高斯噪声组成的单通道图像，将一个噪声图像提供给合成网络的一个特征图。在卷积之后、AdaIN之前将高斯噪声加入生成器网络中。B使用可学习的缩放参数对输入的高斯噪声进行变换，然后将噪声广播到所有的特征图中（分别加到每个特征图上，每个特征图对应一个可学习的scale参数）</p>
+<h4 id="22-正则化-混合正则化mixing-regularization"><a class="markdownIt-Anchor" href="#22-正则化-混合正则化mixing-regularization"></a> 2.2 正则化-混合正则化（mixing regularization）</h4>
+<p>为了进一步距离styles的局部化（<strong>减少不同层之间样式的相关性</strong>），本文对生成器使用混合正则化。</p>
+<p>方法：对<strong>给定的训练样本（随机选取）<strong>使用</strong>样式混合</strong>的方式生成图像。在训练过程中，使用两个随机隐码z（latent code）而不是一个，生成图像时，<strong>在合成网络中随机选择一个点（某层），从一个隐码切换到另一个隐码（称之为样式混合）</strong>。具体来说，通过映射网络运行两个潜码z1、z2，并让对应的w1、w2控制样式，使w1在交点前应用，w2在交点后应用</p>
+<p>这种正则化技术<strong>防止网络假设相邻样式是相关的</strong>，随机切换确保网络不会学习和依赖级别之间的相关性。</p>
+<h4 id="23-两种新的量化隐空间latent-space耦合度的方法"><a class="markdownIt-Anchor" href="#23-两种新的量化隐空间latent-space耦合度的方法"></a> 2.3 两种新的量化隐空间（latent space）耦合度的方法</h4>
+<ul>
+<li>
+<p><strong>解耦的目标</strong>是使隐空间（latent space）由线性子空间组成，即每个子空间（每个维度）控制一个变异因子（特征）</p>
+</li>
+<li>
+<p>但是<strong>隐空间Z</strong>中的各个因子的采样概率<strong>需要与训练数据中响应的密度匹配，就会产生纠缠</strong>。而中间隐藏空间W不需要根据任何固定分布进行采样，<strong>他的采样密度是由可学习的映射网络f(z)得到的，使变化的因素变得更加线性</strong>。</p>
+</li>
+<li>
+<p>本文假设，生成器基于解耦的表示比基于纠缠的表示应该更容易产生真实的图像（若在FID变小的同时，隐空间耦合度变小，则可以得证）。因此，我们期望训练在无监督的情况下（即，当不预先知道变异的因素时）产生较少纠缠的W</p>
+</li>
+<li>
+<p>**最近提出的用于量化解耦的指标，需要将一个输入图像映射到隐码的编码器网络。**但是不适合本文，因为baseline GAN缺乏这样的编码器</p>
+</li>
+<li>
+<p>所以本文提出了两种新的量化解耦的方法，他们都不需要编码器，所以对于任何数据集和生成器都是可计算的</p>
+<ul>
+<li>感知路径长度（Perceptual path length）</li>
+<li>线性可分性（Linear separability）</li>
+</ul>
+</li>
+</ul>
+<h5 id="感知路径长度"><a class="markdownIt-Anchor" href="#感知路径长度"></a> 感知路径长度</h5>
+<p>为什么这种量化纠缠的方法是可行的？</p>
+<ul>
+<li>对隐空间向量进行插值会在图像中产生非线性变化。比如，在所有断点中缺失的特征可能会出现在线性插值路径的中间。这表明隐空间是耦合的，变化因子没有被恰当的分开。所以通过测量当在两个隐空间之间进行插值时图像的剧烈变化程度，可以反映隐空间的纠缠程度（特征分离程度）</li>
+</ul>
+<p>感知路径长度计算，使用10000个样本计算</p>
+<ul>
+<li>将两个隐空间之间的插值路径细分为小段，感知总长度定义为每段感知差异的总和。感知路径长度的定义是这个和在无限细的细分下的极限，实际上是用一个小的细分<img src="https://www.zhihu.com/equation?tex=%5Cepsilon%3D10%5E%7B-4%7D" alt="[å¬å¼]">来近似它。隐空间Z中所有可能端点（在路径中的位置）的平均感知路径长度，计算如下：<img src="https://www.zhihu.com/equation?tex=l_%7BZ%7D%3D%5Cmathbb%7BE%7D%5B%5Cfrac%7B1%7D%7B%5Cepsilon%5E%7B2%7D%7Dd%28G%28slerp%28z_1%2Cz_2%3Bt%29%29%2CG%28slerp%28z_1%2Cz_2%3Bt%2B%5Cepsilon%29%29%29%5D" alt="[å¬å¼]"></li>
+<li>其中<img src="https://www.zhihu.com/equation?tex=t%5Csim+U%280%2C1%29" alt="[å¬å¼]">。t服从0， 1分布，slerp表示球面插值操作，这是在归一化的输入隐空间中最合适的插值方式。</li>
+<li>G是生成器，d计算得到生成图像之间的感知距离。因为d是二次的，所以除以<img src="https://www.zhihu.com/equation?tex=%5Cepsilon%5E%7B2%7D" alt="[å¬å¼]">而不是<img src="https://www.zhihu.com/equation?tex=%5Cepsilon" alt="[å¬å¼]">来消除对细分粒度的依赖</li>
+<li>d的具体计算方式：使用基于感知的成对距离图像，测量连续图像之间的差异（两个VGG16 embeddings之间的差异，利用VGG16提取出图像的特征，在特征层面上计算距离）</li>
+</ul>
+<p>计算隐空间W的感知路径的长度与z的唯一不同时采用lerp线性插值，因为w向量没有进行归一化</p>
+<p><img src="https://www.zhihu.com/equation?tex=l_%7BW%7D%3D%5Cmathbb%7BE%7D%5B%5Cfrac%7B1%7D%7B%5Cepsilon%5E%7B2%7D%7Dd%28g%28lerp%28f%28z_1%29%2Cf%28z_2%29%3Bt%29%29%2Cg%28lerp%28f%28z_1%29%2Cf%28z_2%29%3Bt%2B%5Cepsilon%29%29%29%5D" alt="[å¬å¼]"></p>
+<p><strong>线性可分性（linear separability）</strong></p>
+<p>为什么这种量化纠缠的方法是可行的？</p>
+<p>**如果一个隐空间是充分解耦的，应该能够找到与每个变化因子对应的方向向量。**我们提出了另一种度量方法来量化这种效果，<strong>测量通过线性超平面将隐空间点分割成两个不同集合的程度</strong>，使每个集合对应于图像的特定的二元属性（比如男、女）</p>
+<p>计算方法：</p>
+<ul>
+<li>训练40个辅助分类器，分别对40个二元属性进行区分（每个分类器区分一个属性）。分类器与StyleGAN判别器结构相同，使用CelebA-HQ数据集训练得到（保留原始CelebA的40个属性，150000个训练样本),学习率10-3，批次大小8，Adam优化器。</li>
+<li>使用生成器生成的200,000个图像，并使用辅助分类器进行分类，根据分类器的置信度对样本进行排序，去掉置信度最低的一般，得到100,000个一直类别的隐空间向量（latent code）</li>
+<li>对于每个属性，拟合一个线性SVM来预测标签——基于传统的隐空间点或基于样式的隐空间点w—并且根据这个超平面对这些隐空间点（512维，100,0000个点）进行分类</li>
+<li>用<strong>条件熵H(Y |X)度量超平面将点划分为正确类别的能力</strong>，X是SVM预测的类别，Y是预先训练好的辅助分类器确定的类（作为真实类别）；因此，根据SVM确定样本在超平面的哪一边，条件熵告诉我们需要多少额外的信息来确定样本的真实类别。直觉上，如果隐空间中的变化因子是耦合的（非线性的），那么用超平面来分离样本点将会更加困难（需要更多的额外信息），产生高的条件熵。较低的值表示易于分离（可分性好），因此解耦程度更大</li>
+</ul>
+<p>可分性计算公式 <img src="https://www.zhihu.com/equation?tex=%5Cexp+%5Cleft%28%5Csum_%7Bi%7D+%5Cmathrm%7BH%7D%5Cleft%28Y_%7Bi%7D+%7C+X_%7Bi%7D%5Cright%29%5Cright%29" alt="[公式]"> ，其中i列举了40个属性。取幂是为了将值从对数域变换为线性域，便于进行比较</p>
+<p>截断技巧</p>
+<p>考虑到训练数据的分布，低密度区域很少被表示，因此生成器很难学习该区域。通过对隐空间进行阶段可以提升生成影响的平均质量，虽然会损失一些变化。对中间隐码W进行阶段，迫使W接近平均值</p>
+<p>经过试验：<strong>噪声只会影响随机方面，而保留了整体结构和身份、面部等高级特征。</strong></p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ϵ</mi></mrow><annotation encoding="application/x-tex">\epsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">ϵ</span></span></span></span></p>
 
       
     </div>
@@ -330,7 +384,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/50/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><span class="page-number current">51</span><a class="page-number" href="/page/52/">52</a><span class="space">&hellip;</span><a class="page-number" href="/page/131/">131</a><a class="extend next" rel="next" href="/page/52/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/50/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><span class="page-number current">51</span><a class="page-number" href="/page/52/">52</a><span class="space">&hellip;</span><a class="page-number" href="/page/133/">133</a><a class="extend next" rel="next" href="/page/52/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -376,7 +430,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

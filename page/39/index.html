@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/27/LeetCode-Day41/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/01/Regular-expression/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/09/27/LeetCode-Day41/" class="post-title-link" itemprop="url">LeetCode-Day41</a>
+            <a href="/2019/10/01/Regular-expression/" class="post-title-link" itemprop="url">Regular expression</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-09-27 10:01:32 / 修改时间：13:36:03" itemprop="dateCreated datePublished" datetime="2019-09-27T10:01:32+08:00">2019-09-27</time>
+              <time title="创建时间：2019-10-01 09:31:19 / 修改时间：13:45:26" itemprop="dateCreated datePublished" datetime="2019-10-01T09:31:19+08:00">2019-10-01</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/09/27/LeetCode-Day41/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/27/LeetCode-Day41/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/10/01/Regular-expression/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/01/Regular-expression/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,60 +240,189 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="172-阶乘后的零"><a class="markdownIt-Anchor" href="#172-阶乘后的零"></a> 172. 阶乘后的零</h3>
-<p>给定一个整数 n，返回 n! 结果尾数中零的数量。</p>
-<p>示例 1:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: 3</span><br><span class="line">输出: 0</span><br><span class="line">解释: 3! = 6, 尾数中没有零。</span><br></pre></td></tr></table></figure>
-<p>示例 2:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: 5</span><br><span class="line">输出: 1</span><br><span class="line">解释: 5! = 120, 尾数中有 1 个零.</span><br></pre></td></tr></table></figure>
-<p>思路：能产生0的情况只有<code>5 * 2 = 10</code>，其他情况分解后也是这个，2的数目要远多于5，所以问题就转变为求5的个数</p>
-<p>比如<code>25! = 1 * 2 * 3 * ... * 24 * 25</code></p>
-<ul>
-<li>去掉无法产生0的，<code>5 * 10 * 15 * 20 * 25</code></li>
-<li>再分解，<code>1*5 * 2*5 * 3*5 * 4*5 * 5*5</code></li>
-<li>那些5的倍数的都能构造出<code>2*5</code>，而25有两层5</li>
-<li>所以只要<code>n /= 5</code>就能得到第一层的5的个数，剩下<code>1 * 2 * 3 * 4 * 5</code></li>
-<li>上面的结果再除以5就是下一层的5的个数</li>
-<li>最终<code>5 + 1 = 6</code></li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">trailingZeroes</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(n &gt;= <span class="number">5</span>) &#123;</span><br><span class="line">            n /= <span class="number">5</span>;</span><br><span class="line">            ans += n;</span><br><span class="line">        &#125;    </span><br><span class="line">        <span class="keyword">return</span> ans;     </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="179-最大数"><a class="markdownIt-Anchor" href="#179-最大数"></a> 179. 最大数</h3>
-<p>给定一组非负整数，重新排列它们的顺序使之组成一个最大的整数。</p>
-<p>示例 1:</p>
-<p>输入: [10,2]<br>
-输出: 210<br>
-示例 2:</p>
-<p>输入: [3,30,34,5,9]<br>
-输出: 9534330<br>
-说明: 输出结果可能非常大，所以你需要返回一个字符串而不是整数。</p>
-<p>思路：</p>
-<p>其实想了好久才突然明白一件事情…</p>
-<p>就是在作为排序条件的时候，如何判断<code>a &gt; b</code></p>
-<p>一开始一直在想长度不相等的话怎么办，后来才发现自己的判断依据其实一直是<code>a + b 是否大于 b + a</code>(这里的相加指的是字符串的相加)</p>
-<p>所以判断依据就是上面这个，然后排个序穿起来就行了，但是要注意全零的情况，此时只需要返回0</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">largestNumber</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"0"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(index &lt; nums.size()) &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[index] != <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            index++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(index == nums.size()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"0"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        sort(nums.begin(), nums.end(), [](<span class="keyword">int</span>&amp; a, <span class="keyword">int</span>&amp; b) &#123;</span><br><span class="line">            <span class="built_in">string</span> stra = to_string(a), strb = to_string(b);</span><br><span class="line">            <span class="built_in">string</span> str1 = stra + strb, str2 = strb + stra;</span><br><span class="line">            <span class="keyword">return</span> str1 &gt; str2;  </span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="built_in">string</span> res = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            res += to_string(num);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="130-被围绕的区域"><a class="markdownIt-Anchor" href="#130-被围绕的区域"></a> 130. 被围绕的区域</h3>
-<p>给定一个二维的矩阵，包含 ‘X’ 和 ‘O’（字母 O）。</p>
-<p>找到所有被 ‘X’ 围绕的区域，并将这些区域里所有的 ‘O’ 用 ‘X’ 填充。</p>
-<p>示例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">X X X X</span><br><span class="line">X O O X</span><br><span class="line">X X O X</span><br><span class="line">X O X X</span><br><span class="line">运行你的函数后，矩阵变为：</span><br><span class="line"></span><br><span class="line">X X X X</span><br><span class="line">X X X X</span><br><span class="line">X X X X</span><br><span class="line">X O X X</span><br><span class="line">解释:</span><br><span class="line"></span><br><span class="line">被围绕的区间不会存在于边界上，换句话说，任何边界上的 &apos;O&apos; 都不会被填充为 &apos;X&apos;。 任何不在边界上，或不与边界上的 &apos;O&apos; 相连的 &apos;O&apos; 最终都会被填充为 &apos;X&apos;。如果两个元素在水平或垂直方向相邻，则称它们是“相连”的。</span><br></pre></td></tr></table></figure>
-<p>思路：这个问题很容易就能想到DFS，所以照着思路写代码就可以了</p>
-<p><strong>简单总结dfs和bfs：</strong></p>
-<ul>
-<li><code>bfs:递归。可以想象二叉树中如何递归进行层序遍历</code></li>
-<li><code>bfs:非递归，一般用队列存储</code></li>
-<li><code>dfs:递归，最常用，如二叉树的先序遍历</code></li>
-<li><code>dfs:非递归，一般用stack</code></li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; board)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(board.size() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> m = board.size(), n = board[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; m;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; n;j++) &#123;</span><br><span class="line">                <span class="comment">// 从边缘第一个是O开始搜索</span></span><br><span class="line">                <span class="keyword">bool</span> isEdge = (i == <span class="number">0</span> || i == m - <span class="number">1</span> || j == <span class="number">0</span> || j == n - <span class="number">1</span>);</span><br><span class="line">                <span class="keyword">if</span>(isEdge &amp;&amp; board[i][j] == <span class="string">'O'</span>) &#123;</span><br><span class="line">                    dfs(board, i, j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; m;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; n;j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(board[i][j] == <span class="string">'O'</span>) &#123;</span><br><span class="line">                    board[i][j] = <span class="string">'X'</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span>(board[i][j] == <span class="string">'#'</span>) &#123;</span><br><span class="line">                    board[i][j] = <span class="string">'O'</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; board, <span class="keyword">int</span> i,<span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = board.size(), n = board[<span class="number">0</span>].size();</span><br><span class="line">        <span class="built_in">stack</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; st;</span><br><span class="line">        st.push(&#123;i, j&#125;);</span><br><span class="line">        board[i][j] = <span class="string">'#'</span>;</span><br><span class="line">        <span class="keyword">while</span>(!st.empty()) &#123;</span><br><span class="line">            pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; current = st.top();</span><br><span class="line">            <span class="keyword">if</span>(current.first &gt;= <span class="number">1</span> &amp;&amp; board[current.first - <span class="number">1</span>][current.second] == <span class="string">'O'</span>) &#123;</span><br><span class="line">                st.push(&#123;current.first - <span class="number">1</span>, current.second&#125;);</span><br><span class="line">                board[current.first - <span class="number">1</span>][current.second] = <span class="string">'#'</span>;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125; </span><br><span class="line">            <span class="keyword">if</span>(current.first + <span class="number">1</span> &lt; m &amp;&amp; board[current.first + <span class="number">1</span>][current.second] == <span class="string">'O'</span>) &#123;</span><br><span class="line">                st.push(&#123;current.first + <span class="number">1</span>, current.second&#125;);</span><br><span class="line">                board[current.first + <span class="number">1</span>][current.second] = <span class="string">'#'</span>;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125; </span><br><span class="line">            <span class="keyword">if</span>(current.second &gt;= <span class="number">1</span> &amp;&amp; board[current.first][current.second - <span class="number">1</span>] == <span class="string">'O'</span>) &#123;</span><br><span class="line">                st.push(&#123;current.first, current.second - <span class="number">1</span>&#125;);</span><br><span class="line">                board[current.first][current.second - <span class="number">1</span>] = <span class="string">'#'</span>;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125; </span><br><span class="line">            <span class="keyword">if</span>(current.second + <span class="number">1</span> &lt; n &amp;&amp; board[current.first][current.second + <span class="number">1</span>] == <span class="string">'O'</span>) &#123;</span><br><span class="line">                st.push(&#123;current.first, current.second + <span class="number">1</span>&#125;);</span><br><span class="line">                board[current.first][current.second + <span class="number">1</span>] = <span class="string">'#'</span>;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125; </span><br><span class="line">            st.pop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="200-岛屿数量"><a class="markdownIt-Anchor" href="#200-岛屿数量"></a> 200. 岛屿数量</h3>
-<p>给定一个由 ‘1’（陆地）和 ‘0’（水）组成的的二维网格，计算岛屿的数量。一个岛被水包围，并且它是通过水平方向或垂直方向上相邻的陆地连接而成的。你可以假设网格的四个边均被水包围。</p>
-<p>示例 1:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">11110</span><br><span class="line">11010</span><br><span class="line">11000</span><br><span class="line">00000</span><br><span class="line">输出: 1</span><br></pre></td></tr></table></figure>
-<p>示例 2:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">11000</span><br><span class="line">11000</span><br><span class="line">00100</span><br><span class="line">00011</span><br><span class="line">输出: 3</span><br></pre></td></tr></table></figure>
-<p>思路：与上一题很类似</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">numIslands</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(grid.size() == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> m = grid.size(), n = grid[<span class="number">0</span>].size();</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; m;i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; n;j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(grid[i][j] == <span class="string">'1'</span>) &#123;</span><br><span class="line">                DFS(grid, i, j);</span><br><span class="line">                sum += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; grid, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = grid.size(), n = grid[<span class="number">0</span>].size();</span><br><span class="line">    <span class="built_in">stack</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; st;</span><br><span class="line">    st.push(&#123;i, j&#125;);</span><br><span class="line">    grid[i][j] = <span class="string">'#'</span>;</span><br><span class="line">    <span class="keyword">while</span>(!st.empty()) &#123;</span><br><span class="line">        pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; current = st.top();</span><br><span class="line">        <span class="keyword">if</span>(current.first &gt;= <span class="number">1</span> &amp;&amp; grid[current.first - <span class="number">1</span>][current.second] == <span class="string">'1'</span>) &#123;</span><br><span class="line">            st.push(&#123;current.first - <span class="number">1</span>, current.second&#125;);</span><br><span class="line">            grid[current.first - <span class="number">1</span>][current.second] = <span class="string">'#'</span>;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(current.first + <span class="number">1</span> &lt; m &amp;&amp; grid[current.first + <span class="number">1</span>][current.second] == <span class="string">'1'</span>) &#123;</span><br><span class="line">            st.push(&#123;current.first + <span class="number">1</span>, current.second&#125;);</span><br><span class="line">            grid[current.first + <span class="number">1</span>][current.second] = <span class="string">'#'</span>;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(current.second &gt;= <span class="number">1</span> &amp;&amp; grid[current.first][current.second - <span class="number">1</span>] == <span class="string">'1'</span>) &#123;</span><br><span class="line">            st.push(&#123;current.first, current.second - <span class="number">1</span>&#125;);</span><br><span class="line">            grid[current.first][current.second - <span class="number">1</span>] = <span class="string">'#'</span>;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(current.second + <span class="number">1</span> &lt; n &amp;&amp; grid[current.first][current.second + <span class="number">1</span>] == <span class="string">'1'</span>) &#123;</span><br><span class="line">            st.push(&#123;current.first, current.second + <span class="number">1</span>&#125;);</span><br><span class="line">            grid[current.first][current.second + <span class="number">1</span>] = <span class="string">'#'</span>;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        st.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          <h2 id="regular-expression正则表达式"><a class="markdownIt-Anchor" href="#regular-expression正则表达式"></a> Regular Expression——正则表达式</h2>
+<p>正则表达式描述了一种字符串匹配的模式，可以用来检查一个串是否含有某种子串，将匹配的子串替换或者从某个子串中取出某个符合条件的子串等</p>
+<h3 id="普通字符"><a class="markdownIt-Anchor" href="#普通字符"></a> 普通字符</h3>
+<p>普通字符包括没有显示指定为元字符的所有可打印和不可打印字符。这包括所有大写字母和小写字母，所有数字，所有标点符号和一些其他符号</p>
+<h3 id="非打印字符"><a class="markdownIt-Anchor" href="#非打印字符"></a> 非打印字符</h3>
+<p>非打印字符也可以是正则表达式的组成部分。下标列出了表示非打印字符的转义序列</p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\cx</td>
+<td>匹配由x指明的而控制字符。例如\cM控制一个Control-M或回车符。x的值必须为A-Z或a-z之一。否则，将c视为一个原义的‘c’字符</td>
+</tr>
+<tr>
+<td>\f</td>
+<td>匹配一个换页符</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>匹配一个换行符</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>匹配一个回车符</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配任何空白字符，包括空格、制表符、换页符等等。等价于[ \f\n\r\t\v]。注意Unicode正则表达式会匹配全角空格符</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配任何非空白字符。等价于[^ \f\n\r\t\v ]</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>匹配一个制表符</td>
+</tr>
+<tr>
+<td>\v</td>
+<td>匹配一个垂直制表符</td>
+</tr>
+</tbody>
+</table>
+<h3 id="特殊字符"><a class="markdownIt-Anchor" href="#特殊字符"></a> 特殊字符</h3>
+<p>许多元字符要求在试图匹配他们时特别对待。托要匹配他们，必须首先使字符“转义”，即，将反斜杠\放在他们前面。下标列出了正则表达式中的特殊字符</p>
+<table>
+<thead>
+<tr>
+<th>特殊字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$</td>
+<td>匹配输入字符串的结尾位置。如果设置了RegExp对象的Multiline属性，则 $ 也匹配‘\n’或‘\r’。要匹配\$本身需要使用 \ $</td>
+</tr>
+<tr>
+<td>()</td>
+<td>标记一个子表达式的开始和结束位置。字表达式可以获取供以后使用</td>
+</tr>
+<tr>
+<td>*</td>
+<td>匹配前面的子表达式零次或多次。</td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配前面的子表达式一次或多次。</td>
+</tr>
+<tr>
+<td>.</td>
+<td>匹配除换行符\n以外的任何单字符</td>
+</tr>
+<tr>
+<td>[</td>
+<td>标记一个中括号表达式的开始</td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配前面的子表达式零次或一次，或指明一个非贪婪限定符</td>
+</tr>
+<tr>
+<td>\</td>
+<td>将下一个字符标记为或特殊字符，或原义字符，或向后引用，或八进制转义符</td>
+</tr>
+<tr>
+<td>^</td>
+<td>匹配输入字符串的开始位置，除非在方括号表达式中使用，此时它表示不接受该字符集合。</td>
+</tr>
+<tr>
+<td>{</td>
+<td>标记限定符表达式的开始</td>
+</tr>
+<tr>
+<td>|</td>
+<td>指明两项之间的一个选择</td>
+</tr>
+</tbody>
+</table>
+<h3 id="限定符"><a class="markdownIt-Anchor" href="#限定符"></a> 限定符</h3>
+<p>限定符用来指定正则表达式的一个给定组件必须要出现多少次才能满足匹配。有<code>*</code>或<code>+</code>或<code>?</code>或<code>{n}</code>或<code>{n,}</code>或<code>{n,m}</code>6种。</p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*</td>
+<td>匹配前面的子表达式零次或多次</td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配前面的子表达式一次或多次</td>
+</tr>
+<tr>
+<td>？</td>
+<td>匹配前面的子表达式零次或一次</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>n是一个非负整数。匹配确定的n次。例如, ‘o{2}‘’不能匹配“Bob”中的‘o’,但是能匹配“food”中的两个o</td>
+</tr>
+<tr>
+<td>{n,}</td>
+<td>n是一个非负整数。至少匹配n次</td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>m和n均为非负整数，其中n &lt;= m。最少匹配n次且最多匹配m次。<strong>注意在逗号和两个数之间不能有空格</strong></td>
+</tr>
+</tbody>
+</table>
+<p>注意：</p>
+<p>*<strong>、+限定符都是贪婪的，因为他们会尽可能多的匹配文字，只有在他们后面加上一个？就可以实现非贪婪或最小匹配。</strong></p>
+<p>例如，当我们在搜索HTML文档，以查找括在H1标记内的章节标题。该文本在文档中如下：</p>
+<p><code>&lt;H1&gt;Chapter 1 - 介绍正则表达式&lt;/H1&gt;</code></p>
+<p><strong>贪婪</strong>：下面的表达式匹配从开始小于符号(&lt;)到关闭H1标记的大于符号(&gt;)之间的所有内容</p>
+<p><code>/&lt;.*&gt;/</code></p>
+<p><strong>非贪婪</strong>：如果您只需要匹配开始和结束H1标签，下面的非贪婪表达式只匹配 &lt;H1&gt;</p>
+<p><code>/&lt;.*?&gt;/</code></p>
+<p>如果指向匹配开始的H1标签，表达式则是：</p>
+<p><code>/&lt;\w+?&gt;/</code></p>
+<p>通过在* 、+ 或 ？限定符之后放置？，该表达式从“贪心”表达式转换为“非贪心”表达式或者最小匹配。</p>
+<h3 id="定位符"><a class="markdownIt-Anchor" href="#定位符"></a> 定位符</h3>
+<p>定位符能够将正则表达式固定到行首或行尾。还能够创建这样的表达式：这些正则表达式出现在一个单词内、在一个单词的开头或者一个单词的结尾</p>
+<p>定位符用来描述字符串或单词的边界，<code>^</code>和<code>$</code>分贝指字符串的开始与结束，<code>\b</code>描述单词的前或后边界，<code>\B</code>表示非单词边界</p>
+<p>正则表达式的定位符有：</p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>^</td>
+<td>匹配输入字符串开始的位置。如果设置了 RegExp 对象的 Multiline 属性，^ 还会与 \n 或 \r 之后的位置匹配。</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配输入字符串结尾的位置。如果设置了 RegExp 对象的 Multiline 属性，^ 还会与 \n 或 \r 之后的位置匹配。</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配一个单词边界，即字与空格间的位置</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>非单词边界匹配</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意：</strong></p>
+<p>不能将限定符与定位符一起使用。而且在紧靠换行或者单词边界的前面或后面不能有一个以上位置，因此不允许注入<code>^*</code>之类的表达式</p>
 
       
     </div>
@@ -313,7 +442,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/38/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><span class="page-number current">39</span><a class="page-number" href="/page/40/">40</a><span class="space">&hellip;</span><a class="page-number" href="/page/131/">131</a><a class="extend next" rel="next" href="/page/40/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/38/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><span class="page-number current">39</span><a class="page-number" href="/page/40/">40</a><span class="space">&hellip;</span><a class="page-number" href="/page/133/">133</a><a class="extend next" rel="next" href="/page/40/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -359,7 +488,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

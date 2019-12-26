@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/20/Transfer-Learning/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/13/初识LaTex/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/10/20/Transfer-Learning/" class="post-title-link" itemprop="url">Transfer Learning</a>
+            <a href="/2019/11/13/初识LaTex/" class="post-title-link" itemprop="url">初识LaTex</a>
         </h1>
 
         <div class="post-meta">
@@ -210,10 +210,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-10-20 00:06:59 / 修改时间：02:18:25" itemprop="dateCreated datePublished" datetime="2019-10-20T00:06:59+08:00">2019-10-20</time>
+              <time title="创建时间：2019-11-13 14:30:53" itemprop="dateCreated datePublished" datetime="2019-11-13T14:30:53+08:00">2019-11-13</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-14 09:13:04" itemprop="dateModified" datetime="2019-11-14T09:13:04+08:00">2019-11-14</time>
+              </span>
 
           
   
@@ -224,8 +230,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/10/20/Transfer-Learning/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/20/Transfer-Learning/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/11/13/初识LaTex/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/13/初识LaTex/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,52 +246,116 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="transfer-learning"><a class="markdownIt-Anchor" href="#transfer-learning"></a> Transfer Learning</h2>
-<h3 id="初步了解transfer-learning"><a class="markdownIt-Anchor" href="#初步了解transfer-learning"></a> 初步了解Transfer Learning</h3>
-<p>Matthew D. Zeiler和Rob Fergus发表了一片著名的论文， 阐述卷积神经网络到底“看”到了什么：[<a href="https://www.zhihu.com/topic/20079475/intro#ref_2" target="_blank" rel="noopener">2]</a></p>
-<p><img src="https://pic1.zhimg.com/v2-8aaa5f69e139f987bb53538bd212da58_b.jpg" alt="img"></p>
-<p>和对卷积层进行简单的成像不同，他们尝试把不同的内容输入到训练好的神经网络，并观察记录卷积核的激活值。并把造成相同卷积核较大激活的内容分组比较。上面的图片中每个九宫格为同一个卷积核对不同图片的聚类。</p>
-<p>在上面图片中可以看出，较浅层的卷积层将较为几何抽象的内容归纳到了一起。例如第一层的卷积中，基本就是边缘检测。而第二层的卷积中，聚类了相似的几何形状，尽管这些几何形状的内容相差甚远。</p>
-<p>随着卷积层越来越深，所聚类的内容也越来越具体。</p>
-<p>其实有个最简单易行的方式已经摆在我们面前了：如果我们把卷积神经网络的前n层保留下来，剩下不想要的砍掉怎么样？就像是我们可以不需要ct能识别狗，识别猫，但是轮廓的对我们还是很有帮助的</p>
-<p><img src="https://pic4.zhimg.com/v2-486d24854876bb536978e32e801eee23_b.jpg" alt="img"></p>
-<h3 id="迁移学习的三个主要研究问题"><a class="markdownIt-Anchor" href="#迁移学习的三个主要研究问题"></a> 迁移学习的三个主要研究问题</h3>
+          <h3 id="基本内容"><a class="markdownIt-Anchor" href="#基本内容"></a> 基本内容</h3>
 <ul>
-<li>迁移什么</li>
-<li>如何迁移</li>
-<li>何时迁移</li>
+<li>LaTeX的基本语法</li>
+<li>完成一篇LaTeX创建的简单论文</li>
 </ul>
-<h5 id="迁移什么"><a class="markdownIt-Anchor" href="#迁移什么"></a> 迁移什么</h5>
-<p>指的是跨域或跨任务迁移哪一部分知识。目前，迁移学习的内容可以分为四类：实例迁移、特征表示迁移、参数迁移、关系知识迁移</p>
-<h5 id="如何迁移"><a class="markdownIt-Anchor" href="#如何迁移"></a> 如何迁移</h5>
-<p>开发学习算法</p>
-<h5 id="何时迁移"><a class="markdownIt-Anchor" href="#何时迁移"></a> 何时迁移</h5>
-<p>指得是在什么情况下可以迁移，在哪些情况下不应该迁移。在某些情况下，当源域和目标域彼此不相关时，强行迁移可能会失败。而在最坏的情况下它甚至可能损害目标域的学习表现，这种情况下通常被称为负迁移。</p>
-<h3 id="迁移学习方法划分"><a class="markdownIt-Anchor" href="#迁移学习方法划分"></a> 迁移学习方法划分</h3>
-<p>根据源域和目标域与任务之间的不同情况，将迁移学习分为三个类别：</p>
+<h3 id="latex的基本语法"><a class="markdownIt-Anchor" href="#latex的基本语法"></a> LaTeX的基本语法</h3>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">documentclass</span><span class="string">[UTF8]</span><span class="string">&#123;ctexart&#125;</span></span>	<span class="comment">% 使用中文版的artical文档类型排版，并选择UTF8编码格式</span></span><br><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;amsmath&#125;</span></span>	<span class="comment">% 使用宏包，这里使用的是调用公式宏包，可以调用多个宏包</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;document&#125;</span></span>	<span class="comment">% 开始写文章</span></span><br><span class="line">文章内容</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;document&#125;</span></span>	<span class="comment">% 结束写文章</span></span><br></pre></td></tr></table></figure>
+<p>以上就是完成一篇LaTeX文档的基本格式。LaTeX是使用各种各样的命令来操作文档格式以及文档内容的。</p>
+<h3 id="标准文类"><a class="markdownIt-Anchor" href="#标准文类"></a> 标准文类</h3>
+<ul>
+<li><code>artical</code>：短文，评论，学术论文；无左右页区分，无章设置。对应中文类ctexart</li>
+<li><code>book</code>：著作，学位论文；默认有左右页区分，章起右页，对应中文类ctexbook</li>
+<li><code>report</code>：商业，科技，实验报告，默认无左右页区分，章起新页。对应中文类：ctexrep</li>
+<li><code>beamer</code>：论文陈述幻灯片；提供多种主题式样，可方便更改幻灯片的整体风格</li>
+</ul>
+<h3 id="常用宏包"><a class="markdownIt-Anchor" href="#常用宏包"></a> 常用宏包</h3>
 <ul>
 <li>
-<p><strong>归纳式迁移学习（Inductive Transfer Learning）</strong></p>
-<p>在归纳式迁移学习中，无论源域和目标域是否相同，目标任务都与源任务不同。算法利用来自源域的归纳假设和归纳偏差帮助改进目标任务。根据源域中数据的不同情况，归纳式迁移学习进一步分为两种情况：</p>
-<ul>
-<li>源域中有很多带标签的数据。在这种情况下，归纳迁移学习设置类似于多任务学习设置。但是，归纳式迁移学习设置仅旨在通过迁移源任务中的只是来实现目标任务中的高性能，而多任务学习则尝试同时学习目标任务和源任务</li>
-<li>源域中没有标签数据。在这种情况下归纳学习类似于自学习。在自学习设置中，源域和目标域之间的标签空间可能不同，这意味着不能直接使用源域的信息。</li>
-</ul>
+<p>amsmath 公式环境和数学命令</p>
 </li>
 <li>
-<p><strong>无监督迁移学习（Unsupervised Transfer Learning）</strong></p>
-<p>在无监督迁移学习设置中，与归纳迁移学习设置类似，目标任务不同于源任务，但与源任务有关。然而，无监督学习侧重于解决目标域中的无监督学习任务，例如聚类，降维和密度估计。在这种情况下，源域和目标域中都没有可用的标签数据。</p>
+<p>amssymb 数学符号生成命令</p>
 </li>
 <li>
-<p><strong>直推式迁移学习（Transductive Transfer Learning）</strong></p>
-<p>在直推式迁移学习设置中，源任务和目标任务是相同的，而源域和目标域是不同的。在这种情况下，目标域没有可用的标签数据，而源域中有许多可用的标签数据，另外，根据源域和目标域之间的不同情况，我们可以进一步将直推式学习设置分为两种情况：</p>
-<ul>
-<li>源域和目标域之间的特征空间不同</li>
-<li>源域和目标域之间的特征空间相同，但输入数据的边际概率分布不同</li>
-</ul>
+<p>array 数组和表格制作</p>
+</li>
+<li>
+<p>calc 四则运算</p>
+</li>
+<li>
+<p>caption 插图和表格标题格式设置</p>
+</li>
+<li>
+<p>fancyhdr 页眉页脚设置</p>
+</li>
+<li>
+<p>fancyvrb 抄录格式设置</p>
+</li>
+<li>
+<p>fontspec 字体选择</p>
+</li>
+<li>
+<p>geometry 版面尺寸设置</p>
+</li>
+<li>
+<p>graphicx 插图处理</p>
+</li>
+<li>
+<p>hyperref 创建超文本链接和PDF书签</p>
+</li>
+<li>
+<p>longtable 制作跨页表格</p>
+</li>
+<li>
+<p>multicol 多栏排版</p>
+</li>
+<li>
+<p>ntheorem 定理设置</p>
+</li>
+<li>
+<p>paralist 多种列表环境</p>
+</li>
+<li>
+<p>tabularx 自动设置表格列宽</p>
+</li>
+<li>
+<p>titlesec 章节标题格式设置</p>
+</li>
+<li>
+<p>titletoc 目录格式设置</p>
+</li>
+<li>
+<p>xcolor 颜色处理</p>
+</li>
+<li>
+<p>xeCJK 中日朝文字处理和字体选择</p>
 </li>
 </ul>
-<p><img src="https://pic4.zhimg.com/80/v2-fcaf713f373f3f993829249c1041059f_hd.png" alt="img"></p>
+<h3 id="完成一篇简单的论文"><a class="markdownIt-Anchor" href="#完成一篇简单的论文"></a> 完成一篇简单的论文</h3>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">documentclass</span><span class="string">[UTF8]</span><span class="string">&#123;ctexart&#125;</span></span>	<span class="comment">% 使用中文版的artical文档类型排版，并选择UTF8编码格式</span></span><br><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;amsmath&#125;</span></span>	<span class="comment">% 使用宏包，这里使用的是调用公式宏包，可以调用多个宏包</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;document&#125;</span></span>	<span class="comment">% 开始写文章</span></span><br><span class="line">文章内容</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;document&#125;</span></span>	<span class="comment">% 结束写文章</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>设置作者名字，论文名字以及创作时间</li>
+</ul>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">title</span><span class="string">&#123;杂谈关于爱情&#125;</span></span> <span class="comment">% 大括号例填写标题</span></span><br><span class="line"><span class="tag">\<span class="name">author</span><span class="string">&#123;张三&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">date</span><span class="string">&#123;\today&#125;</span></span>	<span class="comment">% 大括号里填写\today会自动生成当前的日期</span></span><br><span class="line"><span class="tag">\<span class="name">maketitle</span></span>	<span class="comment">% 写了以上内容之后一定要添加这个，制作标题，否则上面的内容都是无效的</span></span><br></pre></td></tr></table></figure>
+<p>组合上述两块以内容：</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">documentclass</span><span class="string">[UTF8]</span><span class="string">&#123;ctexart&#125;</span></span>	<span class="comment">% 使用中文版的artical文档类型排版，并选择UTF8编码格式</span></span><br><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;amsmath&#125;</span></span>	<span class="comment">% 使用宏包，这里使用的是调用公式宏包，可以调用多个宏包</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;document&#125;</span></span>	<span class="comment">% 开始写文章</span></span><br><span class="line"><span class="tag">\<span class="name">title</span><span class="string">&#123;杂谈LaTex&#125;</span></span> <span class="comment">% 大括号例填写标题</span></span><br><span class="line"><span class="tag">\<span class="name">author</span><span class="string">&#123;张三&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">date</span><span class="string">&#123;\today&#125;</span></span>	<span class="comment">% 大括号里填写\today会自动生成当前的日期</span></span><br><span class="line"><span class="tag">\<span class="name">maketitle</span></span>	<span class="comment">% 写了以上内容之后一定要添加这个，制作标题，否则上面的内容都是无效的</span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;document&#125;</span></span>	<span class="comment">% 结束写文章</span></span><br></pre></td></tr></table></figure>
+<p>也可以将姓名标题填到<code>\begin{document}</code>的上面，将<code>\maketitle</code>放在<code>\begin{document}</code>的下面，效果也是一样的</p>
+<ul>
+<li>添加摘要部分</li>
+</ul>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;abstract&#125;</span></span>	<span class="comment">% 摘要部分</span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span><span class="tag">\<span class="name">centering</span></span>这是一篇关于MYQ爱情史的小论文。&amp;<span class="tag">\<span class="name">small</span></span>是使用缩小字体，<span class="tag">\<span class="name">centering</span></span>是使内容居中</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;abstract&#125;</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>添加目录</li>
+</ul>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">tableofcontents</span></span>	<span class="comment">% 表示目录部分的开始</span></span><br><span class="line"><span class="tag">\<span class="name">section</span><span class="string">&#123;萌芽&#125;</span></span>	<span class="comment">% 目录的前缀页面都会自动排版不需要手动排版</span></span><br><span class="line"><span class="tag">\<span class="name">section</span><span class="string">&#123;发展&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">addcontentsline</span><span class="string">&#123;toc&#125;</span><span class="string">&#123;section&#125;</span><span class="string">&#123;参考文献&#125;</span></span>	<span class="comment">% 用来添加文献的标准方式</span></span><br><span class="line"><span class="tag">\<span class="name">section</span><span class="string">&#123;附录&#125;</span></span>	<span class="comment">% 要写的附录</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>填写每一个小结的内容</li>
+</ul>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;graphicx&#125;</span></span>	<span class="comment">% 先添加宏包插图，方便接下来添加图片</span></span><br><span class="line"><span class="tag">\<span class="name">label</span><span class="string">&#123;sec:ancient&#125;</span></span>		<span class="comment">% 这是添加书签的命令，一会儿要用到</span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> MYQ<span class="tag">\<span class="name">footnote</span><span class="string">&#123;MYQ，北京邮电大学学生&#125;</span></span>是一个没有谈过恋爱的小仙女<span class="tag">\<span class="name">cite</span><span class="string">&#123;Kline&#125;</span></span>	<span class="comment">% 这里的cite&#123;Kline&#125;是为了一会儿添加文献标记用的，\footnote是在文章下面自动添加注释的命令，换行可以使用空一行的方法</span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> YJZ<span class="tag">\<span class="name">footnote</span><span class="string">&#123;YJZ, 北京邮电大学学生&#125;</span></span>是一个有过恋爱经历的傻子</span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 他们的官宣是这样子的 <span class="tag">\<span class="name">ref</span><span class="string">&#123;fig:xiantu&#125;</span></span> 是令人非常羡慕的一对哈哈哈哈<span class="tag">\<span class="name">cite</span><span class="string">&#123;quanjing&#125;</span></span>	<span class="comment">% \ref&#123;fig:xiantu&#125;用于读取标签xiantu,cite用于引用参考文献quanjing</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;figure&#125;</span><span class="string">[!ht]</span></span><span class="tag">\<span class="name">centering</span></span> 	<span class="comment">% 添加图片，图片文件名为xiantu.jpg</span></span><br><span class="line"><span class="tag">\<span class="name">includegraphics</span><span class="string">[scale=0.5]</span><span class="string">&#123;xiantu.jpg&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">caption</span><span class="string">&#123;这是他们两个的官宣之作\label&#123;fig:xiantu&#125;</span></span>&#125;	<span class="comment">% 在图片下面的文字说明</span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;figure&#125;</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>编写第二节</li>
+</ul>
+<p>要在最开始添加</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">usepacka</span></span> ge&#123;amsmath&#125;	</span><br><span class="line"><span class="tag">\<span class="name">newtheorem</span><span class="string">&#123;thm&#125;</span><span class="string">&#123;定理&#125;</span></span>	<span class="comment">% 定义标题为定理的定理类环境thm</span></span><br><span class="line"><span class="tag">\<span class="name">newcommand</span></span><span class="tag">\<span class="name">degree</span><span class="string">&#123;^\circ&#125;</span></span>	<span class="comment">% 定义新命令degree</span></span><br></pre></td></tr></table></figure>
+<p>正文部分</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;thm&#125;</span><span class="string">[\small爱情故事]</span></span>	<span class="comment">% 开始定理环境</span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 他们的故事开始于北邮沙河图书馆</span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 开始于矩阵论，就是<span class="formula">$A=B-C^T, C = B^T$</span>(随便写写)，进一步于概率论</span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;equation&#125;</span></span><span class="tag">\<span class="name">label</span><span class="string">&#123;eq:gougu&#125;</span></span>	<span class="comment">% 开始的单行公式环境equation，并添加了书签gougu </span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 1 + 1 &gt; 2</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;equation&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;thm&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 满足 <span class="tag">\<span class="name">eqref</span><span class="string">&#123;eq: gougu&#125;</span></span> 的是<span class="tag">\<span class="name">emph</span><span class="string">&#123;我们&#125;</span></span>。<span class="tag">\<span class="name">ref</span><span class="string">&#123;sec:萌芽&#125;</span></span>所说的就是他们的开始。下面给出一些他们的经历；<span class="comment">% \eqref&#123;eq:gougu&#125;读入书签gougu, emph强调我们，ref读入书签 萌芽</span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">vsapce</span><span class="string">&#123;3mm&#125;</span></span>	<span class="comment">% 空一行</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;tabular&#125;</span><span class="string">&#123;|c|c|c|&#125;</span></span><span class="tag">\<span class="name">hline</span></span>	<span class="comment">% 开始表格环境&#123;|c|c|c&#125;表示文字居中的三列. \hline...\hline表述画两条并排的水平线。\hline必须用于首行之前或者换行命令之后</span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 时间&amp;事件&amp;好感度<span class="tag">\<span class="name">\</span></span><span class="tag">\<span class="name">hline</span></span>	<span class="comment">% &amp;是数据分割符号</span></span><br><span class="line">2019.1.24&amp;在一起&amp;100<span class="tag">\<span class="name">\</span></span><span class="tag">\<span class="name">hline</span></span></span><br><span class="line">2019.2.14&amp;第一次过情人节&amp;120<span class="tag">\<span class="name">\</span></span><span class="tag">\<span class="name">hline</span></span></span><br><span class="line">2019.5.4&amp;大傻过生日&amp;200<span class="tag">\<span class="name">\</span></span><span class="tag">\<span class="name">hline</span></span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;tabular&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">small</span><span class="string">&#123;heart❤&#125;</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>书写附录和文献</li>
+</ul>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;thebibliography&#125;</span><span class="string">&#123;99&#125;</span></span>	<span class="comment">% 参考文献开始</span></span><br><span class="line"><span class="tag">\<span class="name">bibitem</span><span class="string">&#123;1&#125;</span></span>	孟烨青.有名的爱情史.北京邮电大学,2019.</span><br><span class="line"><span class="tag">\<span class="name">bibitem</span><span class="string">&#123;quanjing&#125;</span></span> 于珺泽.爱吃醋的同学.北京邮电大学,2019</span><br><span class="line"><span class="tag">\<span class="name">bibitem</span><span class="string">&#123;Kline&#125;</span></span> 助攻.没有.2019</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;thebibliography&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">addcontentsline</span><span class="string">&#123;toc&#125;</span><span class="string">&#123;section&#125;</span><span class="string">&#123;参考文献&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;appendix&#125;</span></span>	<span class="comment">% 附录开始</span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 今天是他们在一起的293天，大火花的第351天</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;appendix&#125;</span></span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -305,7 +375,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/131/">131</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/133/">133</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -351,7 +421,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/17/HDR的简单介绍/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/17/LeetCode-Day3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/08/17/HDR的简单介绍/" class="post-title-link" itemprop="url">HDR的简单介绍</a>
+            <a href="/2019/08/17/LeetCode-Day3/" class="post-title-link" itemprop="url">LeetCode-Day3</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-08-17 08:57:27 / 修改时间：09:15:11" itemprop="dateCreated datePublished" datetime="2019-08-17T08:57:27+08:00">2019-08-17</time>
+              <time title="创建时间：2019-08-17 21:44:01 / 修改时间：21:52:08" itemprop="dateCreated datePublished" datetime="2019-08-17T21:44:01+08:00">2019-08-17</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/08/17/HDR的简单介绍/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/17/HDR的简单介绍/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/08/17/LeetCode-Day3/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/17/LeetCode-Day3/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,18 +240,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="hdr"><a class="markdownIt-Anchor" href="#hdr"></a> HDR</h2>
-<h3 id="hdr的简介"><a class="markdownIt-Anchor" href="#hdr的简介"></a> HDR的简介</h3>
-<p><strong>HDR——High-Dynamic Range（高动态光照渲染）</strong>，相比普通的图像，可以提供更多的动态范围和图像细节，根据不同的曝光时间的LDR(Low-Dynamic Range)图像，利用曝光时间相对应最佳细节的LDR图像来合成最终的HDR图像，能够更好的反映出真实环境中的视觉效果。</p>
-<p>说白了，就是一张图片尽可能得同时显示最亮和最暗的地方，或者说是让亮的地方更亮，让暗的地方更暗（或者理解为<strong>能够大幅提高画面细节的明暗对比度</strong>）。HDR显示下的色彩更接近人眼真实的感知，所以HDR提供更逼真，更身临其境的电影、游戏和内容创作体验。</p>
-<p>人眼的视觉是目前最强大的摄影器材跟显像设备，我们不断升级的摄影跟显示器设备都是为了还原人眼所见，以求达到所见即所得的效果。</p>
-<h3 id="hdr的组成"><a class="markdownIt-Anchor" href="#hdr的组成"></a> HDR的组成</h3>
-<p>HDR由两部分组成：<strong>动态曝光控制</strong>和<strong>光晕效果</strong>。</p>
-<h4 id="动态曝光控制"><a class="markdownIt-Anchor" href="#动态曝光控制"></a> 动态曝光控制</h4>
-<p>通常，显示器能够显示R、G、B分量在[0, 255]之间的像素值。而256个不同的亮度级别显然不能表示自然界中光线的亮度情况。举个例子，太阳的亮度是白炽灯亮度的几千倍或者被漫反射照亮的室内亮度的几万倍，这远远超出了显示器的亮度表示能力。HDR技术所要解决的问题就是在有限的亮度范围内表示出宽广的亮度范围。原理类似于照相机的曝光功能，通过算法调整光线亮度，将光线从高动态范围映射到低动态范围，从而得到令人信服的光照效果</p>
-<h4 id="光晕效果"><a class="markdownIt-Anchor" href="#光晕效果"></a> 光晕效果</h4>
-<p>人从暗处走到光亮的地方，瞳孔由于来不及收缩，眼睛会自己眯起来，以保护视网膜上的感光细胞。HDR通过对原始图像进行调整，可以模拟这种人眼自动适应光线变化的胜利反应，产生类似于光晕的效果</p>
-<p>图像经DHR处理后的理想效果是亮处足够耀眼，暗处能够分辨物体的轮廓与深度，而非原图的一团漆黑。</p>
+          <h3 id="11-盛最多水的容器"><a class="markdownIt-Anchor" href="#11-盛最多水的容器"></a> 11. 盛最多水的容器</h3>
+<p>给定 n 个非负整数 a1，a2，…，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。</p>
+<p>说明：你不能倾斜容器，且 n 的值至少为 2</p>
+<p><img src="https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/07/25/question_11.jpg" alt="img"></p>
+<p><strong>示例:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,8,6,2,5,4,8,3,7]</span><br><span class="line">输出: 49</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = height.size();</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = len - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>, temp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> minHeight;</span><br><span class="line">        <span class="keyword">while</span>(left != right) &#123;</span><br><span class="line">            minHeight = height[left] &lt; height[right] ? height[left++] : height[right--];</span><br><span class="line">            temp = minHeight * (right - left + <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(temp &gt; max) &#123;</span><br><span class="line">                max = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>解释：</p>
+<p>这里采用的是<strong>双指针法</strong></p>
+<p>这种方法背后的思路在于，两线段之间形成的区域总是会受到较短的那条长度的限制。此外，两条线段距离越远，得到的面积就会越大。</p>
+<p>所以，我们在由线段构成的数组中使用两个指针，一个放在开始，一个放在末尾。此外，我们会使用变量 max 来持续存储到目前为止所获得的最大面积。 在每一步中，我们会找出指针所指向的两条线段形成的区域，更新 max，并将指向较短线段的指针向较长线段那端移动一步。</p>
+<p><img src="https://pic.leetcode-cn.com/Figures/11_Container_WaterSlide1.PNG" alt="img"></p>
+<p>这种方法如何工作？</p>
+<p>最初我们考虑由最外围两条线段构成的区域。现在，为了使面积最大化，我们需要考虑更长的两条线段之间的区域。如果我们试图将指向较长线段的指针向内侧移动，矩形区域的面积将受限于较短的线段而不会获得任何增加。但是，在同样的条件下，移动指向较短线段的指针尽管造成了矩形宽度的减小，但却可能会有助于面积的增大。因为移动较短线段的指针会得到一条相对较长的线段，这可以克服由宽度减小而引起的面积减小。</p>
+<h3 id="12整数转罗马数字"><a class="markdownIt-Anchor" href="#12整数转罗马数字"></a> 12.整数转罗马数字</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">intToRoman</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> values[] = &#123;<span class="number">1000</span>, <span class="number">900</span>, <span class="number">500</span>, <span class="number">400</span>, <span class="number">100</span>, <span class="number">90</span>, <span class="number">50</span>, <span class="number">40</span>, <span class="number">10</span>, <span class="number">9</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">1</span>&#125;;</span><br><span class="line">        <span class="built_in">string</span> reps[] = &#123;<span class="string">"M"</span>, <span class="string">"CM"</span>, <span class="string">"D"</span>, <span class="string">"CD"</span>, <span class="string">"C"</span>, <span class="string">"XC"</span>, <span class="string">"L"</span>, <span class="string">"XL"</span>, <span class="string">"X"</span>, <span class="string">"IX"</span>, <span class="string">"V"</span>, <span class="string">"IV"</span>, <span class="string">"I"</span>&#125;;</span><br><span class="line">        <span class="built_in">string</span> res;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">13</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">while</span>(num &gt;= values[i]) &#123;</span><br><span class="line">                num -= values[i];</span><br><span class="line">                res += reps[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;        </span><br><span class="line">        <span class="keyword">return</span> res; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -271,7 +275,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/93/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/93/">93</a><span class="page-number current">94</span><a class="page-number" href="/page/95/">95</a><span class="space">&hellip;</span><a class="page-number" href="/page/131/">131</a><a class="extend next" rel="next" href="/page/95/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/93/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/93/">93</a><span class="page-number current">94</span><a class="page-number" href="/page/95/">95</a><span class="space">&hellip;</span><a class="page-number" href="/page/133/">133</a><a class="extend next" rel="next" href="/page/95/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -317,7 +321,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
