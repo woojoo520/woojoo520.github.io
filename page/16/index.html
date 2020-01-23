@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/22/选择合适的激活函数/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/24/DANN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/11/22/选择合适的激活函数/" class="post-title-link" itemprop="url">选择合适的激活函数</a>
+            <a href="/2019/11/24/DANN/" class="post-title-link" itemprop="url">DANN</a>
         </h1>
 
         <div class="post-meta">
@@ -210,10 +210,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-11-22 14:44:37 / 修改时间：15:15:22" itemprop="dateCreated datePublished" datetime="2019-11-22T14:44:37+08:00">2019-11-22</time>
+              <time title="创建时间：2019-11-24 12:37:33" itemprop="dateCreated datePublished" datetime="2019-11-24T12:37:33+08:00">2019-11-24</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-27 09:38:33" itemprop="dateModified" datetime="2019-11-27T09:38:33+08:00">2019-11-27</time>
+              </span>
 
           
   
@@ -224,8 +230,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/11/22/选择合适的激活函数/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/22/选择合适的激活函数/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/11/24/DANN/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/24/DANN/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,58 +246,47 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="选择合适的激活函数"><a class="markdownIt-Anchor" href="#选择合适的激活函数"></a> 选择合适的激活函数</h2>
-<h3 id="sigmoid"><a class="markdownIt-Anchor" href="#sigmoid"></a> sigmoid</h3>
-<h4 id="图像"><a class="markdownIt-Anchor" href="#图像"></a> 图像</h4>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1574406136071.png" alt="1574406136071"></p>
-<h4 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h4>
-<p>他会将输入的数字挤压到0到1区间的范围内。是最先使用的激活函数，以为可以将它解释为一个神经元的激活率，其中0表示没激活，1表示完全激活</p>
-<h4 id="存在的问题"><a class="markdownIt-Anchor" href="#存在的问题"></a> 存在的问题</h4>
+          <h2 id="dann"><a class="markdownIt-Anchor" href="#dann"></a> DANN</h2>
+<h3 id="domain-adaption"><a class="markdownIt-Anchor" href="#domain-adaption"></a> Domain Adaption</h3>
+<p>主要目的：</p>
+<p>想想一个分类任务，假设现在我们手中有源域数据和目标域数据。其中源域数据是丰富并且有标记的，而目标域数据是充足的但是没有标记的，但是源域和目标域的特征空间和标记空间相同。很显然，我们可以利用源域数据建立一个分类器，但是由于目标域数据本身没有标记，那么我们无法通过常规方法为目标域构建分类器，这时候就需要用到Domain Adaption了：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-0975878ddcedfaf101b10358317b8691_hd.jpg" alt="img"></p>
+<p>Domain Adaptation的思想就是通过消除源域和目标域的分布差异，使得源域数据和目标域数据能同时被分开。</p>
+<h3 id="danndomain-adaptation-training-of-neural-networks"><a class="markdownIt-Anchor" href="#danndomain-adaptation-training-of-neural-networks"></a> DANN（Domain-Adaptation Training of Neural Networks）</h3>
+<p>DANN的应用背景：</p>
+<p>源域数据充足并且有标记，目标域数据充足但是无标记，源域和目标域的特征空间和标记空间相同，任务是借助源域数据对目标域数据进行分类</p>
+<p>DANN结构：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-4fc596dfbc7f7ff56b32df7d0f7c0c71_hd.jpg" alt="img"></p>
+<p>网络分为三部分：</p>
 <ul>
-<li>
-<p>会导致模型的梯度消失</p>
+<li>Feature extractor（特征提取器）
 <ul>
-<li>
-<p>当神经元的激活状态接近于0或1时，这些区域的梯度会非常接近于0</p>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1574406306081.png" alt="1574406306081"></p>
-<p>在反向传播期间，该局部梯度会和此处输出的梯度相乘以实现整体的目标。</p>
-</li>
+<li>提取后续网络后续完成任务所需要的特征</li>
+<li>将源域样本和目标域样本进行映射和混合</li>
 </ul>
 </li>
-<li>
-<p>Sigmoid函数的输出并不是以0为基准，而是从0开始，到1结束。意味着函数的值会为正。因而权重的梯度会全部为正或全部为负，这会造成梯度往完全不同的方向更新，使得优化更困难</p>
+<li>Label extractoe（域分类器）
+<ul>
+<li>利用Feature extractor提取的信息对样本进行分类</li>
+</ul>
+</li>
+<li>Domain classifier（域分类器）
+<ul>
+<li>判断feature extractor提取的信息来自源域还是目标域</li>
+</ul>
 </li>
 </ul>
-<h3 id="tanh"><a class="markdownIt-Anchor" href="#tanh"></a> Tanh</h3>
-<h4 id="图像-2"><a class="markdownIt-Anchor" href="#图像-2"></a> 图像</h4>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1574406487079.png" alt="1574406487079"></p>
-<h4 id="特点-2"><a class="markdownIt-Anchor" href="#特点-2"></a> 特点</h4>
-<p>他会将数字压缩到-1到1区间内。所以他的输出以0为基准，使优化更加容易</p>
-<h4 id="问题"><a class="markdownIt-Anchor" href="#问题"></a> 问题</h4>
-<p>梯度消失</p>
-<h3 id="relu"><a class="markdownIt-Anchor" href="#relu"></a> ReLU</h3>
-<h4 id="图像-3"><a class="markdownIt-Anchor" href="#图像-3"></a> 图像</h4>
-<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1574406572298.png" alt="1574406572298"></p>
-<h4 id="特点-3"><a class="markdownIt-Anchor" href="#特点-3"></a> 特点</h4>
-<p>max（input， 0）</p>
-<p>不会涉及大量运算，因此它能更快的学习，也避免了梯度消失的问题</p>
-<p>但是他<strong>只用在隐藏层</strong>中，<strong>输出层应该用Softmax函数用于分类，因为它能生成不同类别的概率</strong>。在<strong>回归问题中使用线性函数</strong>，因为通过它的数据信号不会变</p>
-<h4 id="问题-2"><a class="markdownIt-Anchor" href="#问题-2"></a> 问题</h4>
-<p>部分神经元在训练中会很脆弱，甚至会死掉。这就意味着较大的梯度通过ReLU函数时会导致梯度更新，使得无法再次激活任何数据点</p>
-<p>解决方法：Leaky ReLU</p>
-<h3 id="经验"><a class="markdownIt-Anchor" href="#经验"></a> 经验</h3>
-<ul>
-<li>深度学习往往需要大量时间来处理大量数据，模型的收敛速度是尤为重要的。所以，总体上来讲，训练深度学习网络尽量使用zero-centered数据（可以经过数据预处理实现）和zero-cintered输出。所以要尽量选择输出具有zero-centered特点的激活函数以加快模型的收敛速度</li>
-<li>如果使用ReLU，那么一定要小心设置learning rate，而且注意不要让网络出现很多“dead”神经元，如果这个问题不好解决，可以试试Leaky-ReLU、PReLU或者Maxout</li>
-<li>最好不要使用sigmoid，可以试试tanh，不过可以预期他的效果会比不上ReLU和Maxout</li>
-</ul>
-<h3 id="神经网络的输入为什么要0均值化"><a class="markdownIt-Anchor" href="#神经网络的输入为什么要0均值化"></a> 神经网络的输入为什么要0均值化</h3>
-<p>这样做的优点是为了在反向传播中加快网络中每一层权重参数的收敛。</p>
-<p>为什么0均值化就会加快收敛呢？</p>
-<p><img src="https://pic4.zhimg.com/v2-bc1465b4377a5c1f7762514093a43be7_b.jpg" alt="img"></p>
-<p>在梯度下降的时候，假设途中蓝色箭头方向为理想最优向量，根据公式，可以想到：</p>
-<p>当x全为正或者全为负时，每次返回的梯度都只会沿着一个方向发生变化，这样就回使得权重收敛效率很低</p>
-<p>当正负数量“差不多”时，那么梯度的变化方向就会不确定，这样就能达到上图中的变化效果，加速了权重的收敛</p>
+<p>特征提取器提取的信息会传入域分类器，之后域分类器会判断传入的信息到底是来自于源域还是目标域，并计算损失。在反向传播更新参数的过程中，域分类器和特征提取器中间有一个梯度翻转层，也就是说域分类器的训练目标是尽量将输入的信息分到正确的域类别（源域还是目标域），而特征提取与的训练目的恰恰相反（由于梯度翻转层的存在），特征提取器所提取的特征（或者说映射的结果）目的是使域判别器不能正确的判断出信息是来自哪一个域，因此形成一种对抗关系。课件，当域分类器不能将接受的信息正确分为源域样本还是目标域样本时，特征提取器的任务就圆满完成了，因为此时源域样本和目标域样本在某个空间中已经被混合在一起不能分开了。</p>
+<p>但是，我们最终的目的是对目标域样本进行分类，那么我们如何保证特征提取器提取的信息是能够用来分类的呢？加入无论输入什么样本给特征提取器，它都输出一个单位向量，这样依旧可以”骗过“域分类器，但是却无法完成后续的分类工作。</p>
+<p>这个时候就需要靠Label predictor（类别预测期），因为源域样本是有标记的，所以在提取特征时不仅仅要考虑后面的域判别器的情况，还要利用源域的带标记样本进行有监督训练从而兼顾分类的准确性。</p>
+<p>综上，当把特征提取器、域分类器和类别预测器都训练完成后，就可以做到把源域和目标域混合在一起并进行分类了：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-fd13bf28230d5e4cacd26d2149a8dd30_hd.jpg" alt="img"></p>
+<p>所以，最后得到的损失函数是长介个样子的：</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cell%3D%5Cell_C+%2B+%5Clambda+%5Cell_D" alt="[公式]"></p>
+<p>那么怎么理解这个损失函数呢？</p>
+<p>实际上前半部分就是label predictor的损失函数，因为我们需要实现迁移之后，仍然能够提取出能区分不同类之间的特征，所以需要最小化label predictor的损失</p>
+<p>后半部分就是domain classifier的损失，但是前面有一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>λ</mi></mrow><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">λ</span></span></span></span>的超参数，因为我们实际上需要这个特征提取器提取出来的特征是与对领域特征不敏感的特征，所以需要最大化这个损失，即使这个domain classifier分辨不出来是属于哪一个域的。为了使这两个损失函数同一，所以，我们需要添加一个梯度翻转层，用来取反</p>
+<p>最后，将这两项参数相加，最后取最小值就是我们的目标啦！❤</p>
 
       
     </div>
@@ -311,7 +306,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/138/">138</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/139/">139</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -357,7 +352,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-count">139</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
