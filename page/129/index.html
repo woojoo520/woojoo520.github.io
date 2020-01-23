@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/批训练/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/YOLO/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/07/25/批训练/" class="post-title-link" itemprop="url">批训练</a>
+            <a href="/2019/07/25/YOLO/" class="post-title-link" itemprop="url">YOLO</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-07-25 07:43:09 / 修改时间：08:52:53" itemprop="dateCreated datePublished" datetime="2019-07-25T07:43:09+08:00">2019-07-25</time>
+              <time title="创建时间：2019-07-25 20:37:09 / 修改时间：22:17:28" itemprop="dateCreated datePublished" datetime="2019-07-25T20:37:09+08:00">2019-07-25</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/07/25/批训练/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/07/25/批训练/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/07/25/YOLO/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/07/25/YOLO/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,34 +240,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="要点"><a class="markdownIt-Anchor" href="#要点"></a> 要点：</h4>
-<p>Torch中提供了一种帮你整理你的数据结构的好东西，叫做DataLoader，我们能用它来包装自己的数据，进行批训练，而且批训练可以有很多种途径</p>
-<h4 id="dataloader"><a class="markdownIt-Anchor" href="#dataloader"></a> DataLoader</h4>
-<p><strong>DataLoader</strong>是torch给你用来包装你的数据的工具，所以你要将自己的（numpy array或其他）数据形式装换成Tensor，然后再放进这个包装器中，使用DataLoader可以帮你有效地迭代数据</p>
-<p>举例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line"><span class="keyword">import</span> torch.utils.data <span class="keyword">as</span> Data</span><br><span class="line"></span><br><span class="line">torch.manual_seed(<span class="number">1</span>)    <span class="comment">#reproducible</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 批训练的数据个数</span></span><br><span class="line">BATCH_SIZE = <span class="number">5</span></span><br><span class="line"></span><br><span class="line">x = torch.linspace(<span class="number">1</span>, <span class="number">10</span>, <span class="number">10</span>)       <span class="comment"># this is x data (torch tensor)</span></span><br><span class="line">y = torch.linspace(<span class="number">10</span>, <span class="number">1</span>, <span class="number">10</span>)       <span class="comment"># this is y data (torch tensor)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 先转换成torch能识别的Dataset</span></span><br><span class="line">torch_dataset = Data.TensorDataset(x, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 把dataset 放入 DataLoader</span></span><br><span class="line">loader = Data.DataLoader(</span><br><span class="line">    dataset=torch_dataset,          <span class="comment"># torch TensorDataset format</span></span><br><span class="line">    batch_size=BATCH_SIZE,          <span class="comment"># mini batch size</span></span><br><span class="line">    shuffle=<span class="literal">True</span>,                   <span class="comment"># 要不要打乱数据(打乱比较好)</span></span><br><span class="line">    num_workers=<span class="number">2</span>,                  <span class="comment"># 多线程来读取数据</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_batch</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># train entire dataset 3 times</span></span><br><span class="line">    <span class="keyword">for</span> eopch <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">        <span class="comment"># 每一步loader释放一小批数据用来学习</span></span><br><span class="line">        <span class="keyword">for</span> step, (batch_x, batch_y) <span class="keyword">in</span> enumerate(loader):</span><br><span class="line">            <span class="comment"># training your data...</span></span><br><span class="line">            print(<span class="string">'Epoch: '</span>, eopch, <span class="string">'| Step: '</span>, step, <span class="string">'| batch x: '</span>, batch_x.numpy(), <span class="string">'| batch y: '</span>, batch_y.numpy())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    show_batch()</span><br></pre></td></tr></table></figure>
-<p>得到的结果</p>
-<p>Epoch:  0 | Step:  0 | batch x:  [ 5.  7. 10.  3.  4.] | batch y:  [6. 4. 1. 8. 7.]</p>
-<p>Epoch:  0 | Step:  1 | batch x:  [2. 1. 8. 9. 6.] | batch y:  [ 9. 10.  3.  2.  5.]</p>
-<p>Epoch:  1 | Step:  0 | batch x:  [ 4.  6.  7. 10.  8.] | batch y:  [7. 5. 4. 1. 3.]</p>
-<p>Epoch:  1 | Step:  1 | batch x:  [5. 3. 2. 1. 9.] | batch y:  [ 6.  8.  9. 10.  2.]</p>
-<p>Epoch:  2 | Step:  0 | batch x:  [ 4.  2.  5.  6. 10.] | batch y:  [7. 9. 6. 5. 1.]</p>
-<p>Epoch:  2 | Step:  1 | batch x:  [3. 9. 1. 8. 7.] | batch y:  [ 8.  2. 10.  3.  4.]</p>
-<p>如果 <strong>shuffle = True</strong>，则导出的数据是</p>
-<p>Epoch:  0 | Step:  0 | batch x:  [1. 2. 3. 4. 5.] | batch y:  [10.  9.  8.  7.  6.]</p>
-<p>Epoch:  0 | Step:  1 | batch x:  [ 6.  7.  8.  9. 10.] | batch y:  [5. 4. 3. 2. 1.]</p>
-<p>Epoch:  1 | Step:  0 | batch x:  [1. 2. 3. 4. 5.] | batch y:  [10.  9.  8.  7.  6.]</p>
-<p>Epoch:  1 | Step:  1 | batch x:  [ 6.  7.  8.  9. 10.] | batch y:  [5. 4. 3. 2. 1.]</p>
-<p>Epoch:  2 | Step:  0 | batch x:  [1. 2. 3. 4. 5.] | batch y:  [10.  9.  8.  7.  6.]</p>
-<p>Epoch:  2 | Step:  1 | batch x:  [ 6.  7.  8.  9. 10.] | batch y:  [5. 4. 3. 2. 1.]</p>
-<p>可以看出来，每步都导出了5个数据进行学习，然后每个epoch的导出数据都是先打乱了以后再导出</p>
-<p>如果改变 <strong>BATCH_SIZE = 8</strong> ，这样 step = 0，就回导出8个数据 ，但是，step = 1 时数据库中的数据不够8个，则step1，只能给你返回epoch中剩下的数据了</p>
-<p>Epoch:  0 | Step:  0 | batch x:  [1. 2. 3. 4. 5. 6. 7. 8.] | batch y:  [10.  9.  8.  7.  6.  5.  4.  3.]</p>
-<p>Epoch:  0 | Step:  1 | batch x:  [ 9. 10.] | batch y:  [2. 1.]</p>
-<p>Epoch:  1 | Step:  0 | batch x:  [1. 2. 3. 4. 5. 6. 7. 8.] | batch y:  [10.  9.  8.  7.  6.  5.  4.  3.]</p>
-<p>Epoch:  1 | Step:  1 | batch x:  [ 9. 10.] | batch y:  [2. 1.]</p>
-<p>Epoch:  2 | Step:  0 | batch x:  [1. 2. 3. 4. 5. 6. 7. 8.] | batch y:  [10.  9.  8.  7.  6.  5.  4.  3.]</p>
-<p>Epoch:  2 | Step:  1 | batch x:  [ 9. 10.] | batch y:  [2. 1.]</p>
+          <h2 id="you-only-look-once-unified-real-time-object-detectionyolo"><a class="markdownIt-Anchor" href="#you-only-look-once-unified-real-time-object-detectionyolo"></a> 《You Only Look Once: Unified, Real-Time Object Detection》——YOLO</h2>
+<p>目前，基于深度学习算法的一系列目标检测算法大致可以分为两个流派：</p>
+<ol>
+<li>两步走（two-stage）算法：先生产候选区域然后再进行CNN分类（RCNN系列）</li>
+<li>一步走（one-stage）算法：直接对输入图像应用算法并输出类别和相应的定位（YOLO系列）</li>
+</ol>
+<p>之前的R-CNN系列虽然准确率比较高，但是即使是发展到Faster R-CNN，检测一张图片如下图所示也要7pfd（原文为5fps），为了使得检测的工作能够应用到实时的场景中，提出了YOLO</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6983308-92902dcbd7c8262d.png?imageMogr2/auto-orient/" alt="img"></p>
+<p>WOLO的检测思想不同于R-CNN系列的思想，它将目标检测作为回归任务来解决。</p>
+<p>YOLO的整体结构：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6983308-d54136f1eb0cd733.png?imageMogr2/auto-orient/" alt="img"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6983308-0d1e8d42480e1c1a.png?imageMogr2/auto-orient/" alt="img"></p>
 
       
     </div>
@@ -287,7 +271,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/128/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/128/">128</a><span class="page-number current">129</span><a class="page-number" href="/page/130/">130</a><span class="space">&hellip;</span><a class="page-number" href="/page/133/">133</a><a class="extend next" rel="next" href="/page/130/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/128/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/128/">128</a><span class="page-number current">129</span><a class="page-number" href="/page/130/">130</a><span class="space">&hellip;</span><a class="page-number" href="/page/138/">138</a><a class="extend next" rel="next" href="/page/130/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -333,7 +317,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

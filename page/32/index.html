@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/09/CPU-affinity/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/12/SQLServer-Day3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/10/09/CPU-affinity/" class="post-title-link" itemprop="url">CPU affinity</a>
+            <a href="/2019/10/12/SQLServer-Day3/" class="post-title-link" itemprop="url">SQLServer-Day3</a>
         </h1>
 
         <div class="post-meta">
@@ -210,10 +210,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-10-09 09:17:13 / 修改时间：11:02:42" itemprop="dateCreated datePublished" datetime="2019-10-09T09:17:13+08:00">2019-10-09</time>
+              <time title="创建时间：2019-10-12 13:11:24" itemprop="dateCreated datePublished" datetime="2019-10-12T13:11:24+08:00">2019-10-12</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-13 15:34:45" itemprop="dateModified" datetime="2019-10-13T15:34:45+08:00">2019-10-13</time>
+              </span>
 
           
   
@@ -224,8 +230,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/10/09/CPU-affinity/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/09/CPU-affinity/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/10/12/SQLServer-Day3/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/12/SQLServer-Day3/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,18 +246,345 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="cpu-affinity亲和性"><a class="markdownIt-Anchor" href="#cpu-affinity亲和性"></a> CPU affinity（亲和性）</h2>
-<h3 id="1-基本概念"><a class="markdownIt-Anchor" href="#1-基本概念"></a> 1. 基本概念</h3>
-<p>CPU affinity是一种调度属性，它可以将一个进程“绑定”到一个或一组CPU上</p>
-<p>在SMP（Symmetric Multi-Processing对称多处理器）架构下，Linux调度器（scheduler）会根据CPU affinity的设置让指定的进程运行在“绑定”的CPU上，而不会在别的CPU上运行。</p>
-<p>Linux调度器同样支持自然CPU亲和性；调度器会试图保持进程在相同的CPU上运行，这意味着进程通常不会在处理器之间频繁迁移，进程迁移的频率小意味着产生的负载小</p>
-<p>因为程序的坐着比调度器更了解程序，所以我们可以手动地为其分配CPU核，而不会过多的占用CPU0，或者让我们关键进程和一对别的进程挤在一起，所有设置CPU亲和性可以是某些程序提高性能</p>
-<h3 id="2-表示方法"><a class="markdownIt-Anchor" href="#2-表示方法"></a> 2. 表示方法</h3>
-<p>CPU affinity 使用位掩码（bitmask）表示，每一位都表示一个CPU，置1表示“绑定”</p>
-<p>最低位表示第一个逻辑CPU，最高位表示最后一个逻辑CPU</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">0x00000001</span><br><span class="line">    is processor #0</span><br><span class="line">0x00000003</span><br><span class="line">    is processors #0 and #1</span><br><span class="line">0xFFFFFFFF</span><br><span class="line">    is all processors (#0 through #31)</span><br></pre></td></tr></table></figure>
-<h3 id="3-taskset-命令"><a class="markdownIt-Anchor" href="#3-taskset-命令"></a> 3. taskset 命令</h3>
-<p>taskset命令用于获取或设定CPU亲和性</p>
+          <h2 id="sqlserverday3"><a class="markdownIt-Anchor" href="#sqlserverday3"></a> SQLServer—Day3</h2>
+<h3 id="top子句"><a class="markdownIt-Anchor" href="#top子句"></a> TOP子句</h3>
+<p><code>TOP</code>子句用于规定要返回的记录的数目（并非所有的数据库系统都支持TOP子句）</p>
+<blockquote>
+<p>SELECT TOP number | percent column_name(s)</p>
+<p>FROM table_name</p>
+</blockquote>
+<p><code>MySQL</code>和<code>Oracle</code>中的SQL <code>SELECT TOP</code>是等价的</p>
+<p>MySQL语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT column_name(s)</span><br><span class="line">FROM table_name</span><br><span class="line">LIMIT number</span><br></pre></td></tr></table></figure>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT *</span><br><span class="line">FROM Persons</span><br><span class="line">LIMIT 5</span><br></pre></td></tr></table></figure>
+<p>Oracle语法</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_name(s)</span><br><span class="line"><span class="keyword">FROM</span> table_name </span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">ROWNUM</span> &lt;= <span class="built_in">number</span></span><br></pre></td></tr></table></figure>
+<p>例子：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">ROWNUM</span> &lt;= <span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p>原始表 Persons表：</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Adams</td>
+<td>John</td>
+<td>Oxford Street</td>
+<td>London</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bush</td>
+<td>George</td>
+<td>Fifth Avenue</td>
+<td>New York</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Carter</td>
+<td>Thomas</td>
+<td>Changan Street</td>
+<td>Beijing</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Obama</td>
+<td>Barack</td>
+<td>Pennsylvania Avenue</td>
+<td>Washington</td>
+</tr>
+</tbody>
+</table>
+<p>例1：从上面的Persons表中选取头两条记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> TOP <span class="number">2</span> * <span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Adams</td>
+<td>John</td>
+<td>Oxford Street</td>
+<td>London</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bush</td>
+<td>George</td>
+<td>Fifth Avenue</td>
+<td>New York</td>
+</tr>
+</tbody>
+</table>
+<p>例2：从Persons表中选取50%的记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> TOP <span class="number">50</span> <span class="keyword">PERCENT</span> * <span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
+<p>结果同上述</p>
+<h3 id="like操作符"><a class="markdownIt-Anchor" href="#like操作符"></a> LIKE操作符</h3>
+<p>用于在<code>WHERE</code>子句中搜索列中的指定模式</p>
+<blockquote>
+<p>SELECT column_name(s)</p>
+<p>FROM table_name</p>
+<p>WHERE column_name LIKE pattern</p>
+</blockquote>
+<p>Persons表：</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Adams</td>
+<td>John</td>
+<td>Oxford Street</td>
+<td>London</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bush</td>
+<td>George</td>
+<td>Fifth Avenue</td>
+<td>New York</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Carter</td>
+<td>Thomas</td>
+<td>Changan Street</td>
+<td>Beijing</td>
+</tr>
+</tbody>
+</table>
+<p>例1：从上面的Persons表中选取居住在以”N”开始的城市里的人</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">WHERE</span> City <span class="keyword">LIKE</span> <span class="string">'N%'</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Tips: “%”可用于定义通配符（模式中缺少的字母）</p>
+</blockquote>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>Bush</td>
+<td>George</td>
+<td>Fifth Avenue</td>
+<td>New York</td>
+</tr>
+</tbody>
+</table>
+<p>例2：从上面的Persons表中选取居住在以“g”结尾的城市里的人</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> City <span class="keyword">LIKE</span> <span class="string">'%g'</span></span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3</td>
+<td>Carter</td>
+<td>Thomas</td>
+<td>Changan Street</td>
+<td>Beijing</td>
+</tr>
+</tbody>
+</table>
+<p>例3：从上面的Persons表中选取居住在包含“lon”的城市里的人</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> City <span class="keyword">LIKE</span> <span class="string">'%lon%'</span></span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Adams</td>
+<td>John</td>
+<td>Oxford Street</td>
+<td>London</td>
+</tr>
+</tbody>
+</table>
+<p>例4：通过使用关键字 <code>NOT</code>，我们可以从Persons表中选取居住在不包含‘lon’的城市里的人：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">WHERE</span> City <span class="keyword">NOT</span> <span class="keyword">LIKE</span> <span class="string">'%lon%'</span></span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>Bush</td>
+<td>George</td>
+<td>Fifth Avenue</td>
+<td>New York</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Carter</td>
+<td>Thomas</td>
+<td>Changan Street</td>
+<td>Beijing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="通配符"><a class="markdownIt-Anchor" href="#通配符"></a> 通配符</h3>
+<p>在搜索数据库中的数据是，SQL通配符可以代替一个或多个字符。</p>
+<p>SQL通配符必须和<code>LIKE</code>运算符一起使用</p>
+<p>在SQL中，可使用一下通配符：</p>
+<table>
+<thead>
+<tr>
+<th>通配符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%</td>
+<td>代替一个或多个字符</td>
+</tr>
+<tr>
+<td>_</td>
+<td>仅代替一个字符</td>
+</tr>
+<tr>
+<td>[charlist]</td>
+<td>字符列中的任何单一字符</td>
+</tr>
+<tr>
+<td>[^charlist]  or [!charlist]</td>
+<td>不在字符列中的任何单一字符</td>
+</tr>
+</tbody>
+</table>
+<p>原始Persons表：</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Adams</td>
+<td>John</td>
+<td>Oxford Street</td>
+<td>London</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bush</td>
+<td>George</td>
+<td>Fifth Avenue</td>
+<td>New York</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Carter</td>
+<td>Thomas</td>
+<td>Changan Street</td>
+<td>Beijing</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>_</code>通配符：</strong></p>
+<p>例1：我们希望从Persons表中选取名字的第一个字符之后是“eorge”的人：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">WHERE</span> FirstName <span class="keyword">LIKE</span> <span class="string">'_eorge'</span></span><br></pre></td></tr></table></figure>
+<p>同理：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">WHERE</span> LastName <span class="keyword">LIKE</span> <span class="string">'C_r_er'</span></span><br></pre></td></tr></table></figure>
+<p>就是寻找名字的姓氏以‘C’开头，然后是任意一个字符，然后是‘r’,然后任意字符，最后是’er’的人</p>
+<p><code>[charlist]</code>字符集</p>
+<p>例1：我们希望从上面的“Persons”表中选取居住的城市以‘A’或‘L’或’N‘开头的人</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> City <span class="keyword">LIKE</span> <span class="string">'[ALN]%'</span></span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Adams</td>
+<td>John</td>
+<td>Oxford Street</td>
+<td>London</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bush</td>
+<td>George</td>
+<td>Fifth Avenue</td>
+<td>New York</td>
+</tr>
+</tbody>
+</table>
+<p>例2：从“Persons”表中选取居住城市不以‘A’或’L‘或’N‘开头的人：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> City <span class="keyword">LIKE</span> <span class="string">'[!ALN]%'</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -271,7 +604,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/31/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><span class="page-number current">32</span><a class="page-number" href="/page/33/">33</a><span class="space">&hellip;</span><a class="page-number" href="/page/133/">133</a><a class="extend next" rel="next" href="/page/33/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/31/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><span class="page-number current">32</span><a class="page-number" href="/page/33/">33</a><span class="space">&hellip;</span><a class="page-number" href="/page/138/">138</a><a class="extend next" rel="next" href="/page/33/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -317,7 +650,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

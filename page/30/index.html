@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/09/SQLServer-Day1/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/14/SQLServer-Day5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/10/09/SQLServer-Day1/" class="post-title-link" itemprop="url">SQLServer-Day1</a>
+            <a href="/2019/10/14/SQLServer-Day5/" class="post-title-link" itemprop="url">SQLServer-Day5</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-10-09 21:05:27 / 修改时间：21:44:01" itemprop="dateCreated datePublished" datetime="2019-10-09T21:05:27+08:00">2019-10-09</time>
+              <time title="创建时间：2019-10-14 20:17:37 / 修改时间：22:59:16" itemprop="dateCreated datePublished" datetime="2019-10-14T20:17:37+08:00">2019-10-14</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/10/09/SQLServer-Day1/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/09/SQLServer-Day1/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/10/14/SQLServer-Day5/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/14/SQLServer-Day5/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,30 +240,231 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">表1: Person</span><br><span class="line"></span><br><span class="line">+-------------+---------+</span><br><span class="line">| 列名         | 类型     |</span><br><span class="line">+-------------+---------+</span><br><span class="line">| PersonId    | int     |</span><br><span class="line">| FirstName   | varchar |</span><br><span class="line">| LastName    | varchar |</span><br><span class="line">+-------------+---------+</span><br><span class="line">PersonId 是上表主键</span><br><span class="line">表2: Address</span><br><span class="line"></span><br><span class="line">+-------------+---------+</span><br><span class="line">| 列名         | 类型    |</span><br><span class="line">+-------------+---------+</span><br><span class="line">| AddressId   | int     |</span><br><span class="line">| PersonId    | int     |</span><br><span class="line">| City        | varchar |</span><br><span class="line">| State       | varchar |</span><br><span class="line">+-------------+---------+</span><br><span class="line">AddressId 是上表主键</span><br></pre></td></tr></table></figure>
-<p>编写一个 SQL 查询，满足条件：无论 person 是否有地址信息，都需要基于上述两表提供 person 的以下信息：</p>
-<p><code>FirstName, LastName, City, State</code></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> FirstName, LastName, City, State</span><br><span class="line"><span class="keyword">FROM</span> Person <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> Address</span><br><span class="line"><span class="keyword">on</span> Person.PersonId = Address.PersonId;</span><br></pre></td></tr></table></figure>
-<p>数据库在连接两张或多张表来返回记录时，都会生成一张中间的临时表，然后再将这张临时表返回给用户。在使用<code>left join</code>时，<code>on</code>和<code>while</code>条件的区别如下：</p>
+          <h2 id="sqlserver-day5"><a class="markdownIt-Anchor" href="#sqlserver-day5"></a> SQLServer-Day5</h2>
+<h3 id="union-操作符"><a class="markdownIt-Anchor" href="#union-操作符"></a> UNION 操作符</h3>
+<p><code>UNION</code>操作符用于合并两个或多个SELECT语句的结果集</p>
+<p>请注意，<code>UNION</code>内部的<code>SELECT</code>语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每条<code>SELECT</code>语句中的列的顺序必须相同。</p>
+<blockquote>
+<p>SELECT column_name(s)  FROM table_name1</p>
+<p><strong>UNION</strong></p>
+<p>SELECT column_name(s) FROM table_name2</p>
+</blockquote>
+<p><strong>Tips</strong>：默认地，<code>UNION</code>操作符取不同的值，如果允许重复的值，需使用<code>UNION ALL</code></p>
+<blockquote>
+<p>SELECT column_name(s)  FROM table_name1</p>
+<p><strong>UNION ALL</strong></p>
+<p>SELECT column_name(s) FROM table_name2</p>
+</blockquote>
+<p>另外，<code>UNION</code>结果集中的列名总是等于<code>UNION中</code>第一个<code>SELECT</code>语句中的列名</p>
+<p>原始表：</p>
+<p>Employees_China：</p>
+<table>
+<thead>
+<tr>
+<th>E_ID</th>
+<th>E_Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td>Zhang, Hua</td>
+</tr>
+<tr>
+<td>02</td>
+<td>Wang, Wei</td>
+</tr>
+<tr>
+<td>03</td>
+<td>Carter, Thomas</td>
+</tr>
+<tr>
+<td>04</td>
+<td>Yang, Ming</td>
+</tr>
+</tbody>
+</table>
+<p>Employees_USA:</p>
+<table>
+<thead>
+<tr>
+<th>E_ID</th>
+<th>E_Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td>Adam, John</td>
+</tr>
+<tr>
+<td>02</td>
+<td>Bush, George</td>
+</tr>
+<tr>
+<td>03</td>
+<td>Carter, Thomas</td>
+</tr>
+<tr>
+<td>04</td>
+<td>Gates, Bill</td>
+</tr>
+</tbody>
+</table>
+<p>例：</p>
+<p>列出所有在中国和美国的不同的雇员名</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> E_Name</span><br><span class="line"><span class="keyword">FROM</span> Employees_China</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">FROM</span> Employees_USA</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>E_Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zhang, Hua</td>
+</tr>
+<tr>
+<td>Wang, Wei</td>
+</tr>
+<tr>
+<td>Carter, Thomas</td>
+</tr>
+<tr>
+<td>Yang, Ming</td>
+</tr>
+<tr>
+<td>Adam, John</td>
+</tr>
+<tr>
+<td>Bush, George</td>
+</tr>
+<tr>
+<td>Gates, Bill</td>
+</tr>
+</tbody>
+</table>
+<p>注释：这个命令无法列出在中国和美国的所有雇员，因为<code>UNION</code>命令只会选取不同的值。</p>
+<h3 id="select-into语句"><a class="markdownIt-Anchor" href="#select-into语句"></a> SELECT INTO语句</h3>
+<p>用于创建表的备份复件</p>
+<p><code>SELECT INTO</code> 语句从一个表中选取数据，然后把数据插入另一个表中</p>
+<p><code>SELECT INTO</code> 语句常用于创建表的备份文件或者用于对记录进行存档</p>
+<p>可以将所有的列插入列表：</p>
+<blockquote>
+<p>SELECT *</p>
+<p>INTO new_table_name [IN externaldatabase]</p>
+<p>FROM old_tablename</p>
+</blockquote>
+<p>或者只把希望的列插入列表：</p>
+<blockquote>
+<p>SELECT column_name(s)</p>
+<p>INTO new_table_name [IN externaldatabase]</p>
+<p>FROM old_tablename</p>
+</blockquote>
+<h5 id="例下面的例子会制作persons表的备份复件"><a class="markdownIt-Anchor" href="#例下面的例子会制作persons表的备份复件"></a> 例：下面的例子会制作“Persons”表的备份复件</h5>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">INTO</span> Persons_backup</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
+<h5 id="in子句可用于向另一个数据库中拷贝表"><a class="markdownIt-Anchor" href="#in子句可用于向另一个数据库中拷贝表"></a> IN子句可用于向另一个数据库中拷贝表：</h5>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">INTO</span> Persons <span class="keyword">IN</span> <span class="string">'Backup.mdb'</span></span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
+<h5 id="如果我们希望拷贝某些域可以在select语句后列出这些域"><a class="markdownIt-Anchor" href="#如果我们希望拷贝某些域可以在select语句后列出这些域"></a> 如果我们希望拷贝某些域，可以在SELECT语句后列出这些域：</h5>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  LastName, FIrstName</span><br><span class="line"><span class="keyword">INTO</span> Persons_backup</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
+<h5 id="带有where子句"><a class="markdownIt-Anchor" href="#带有where子句"></a> 带有WHERE子句：</h5>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> LastName, FirstName</span><br><span class="line"><span class="keyword">INTO</span> Persons_backup</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> City = <span class="string">'Beijing'</span></span><br></pre></td></tr></table></figure>
+<p>表示从“Pesons”表中提取居住在“Beijing”的人的信息，创建了一个带有两个列的名为“Persons_backup”的表</p>
+<h5 id="被连接的表"><a class="markdownIt-Anchor" href="#被连接的表"></a> 被连接的表</h5>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Orders.OrderNo</span><br><span class="line"><span class="keyword">INTO</span> Persons_Order_Backup</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br></pre></td></tr></table></figure>
+<p>表示创建一个名为“Persons_Order_Backup”的新表，其中包含了从Persons和Orders两个表中的内容。</p>
+<h3 id="create-database-语句"><a class="markdownIt-Anchor" href="#create-database-语句"></a> CREATE DATABASE 语句</h3>
+<p>用于创建数据库</p>
+<blockquote>
+<p>CREATE DATABASE database_name</p>
+</blockquote>
+<p>例：创建一个名为my_db的数据库</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> my_db</span><br></pre></td></tr></table></figure>
+<p>可以通过<code>CREATE TABLE</code>来添加数据库表</p>
+<h3 id="create-table-语句"><a class="markdownIt-Anchor" href="#create-table-语句"></a> CREATE TABLE 语句</h3>
+<p>用于创建数据库中的表</p>
+<blockquote>
+<p>CREATE TABLE 表名称</p>
+<p>(</p>
+<p>列名称1 数据类型，</p>
+<p>列名称2 数据类型，</p>
+<p>列名称3 数据类型，</p>
+<p>…</p>
+<p>)</p>
+</blockquote>
+<p>数据类型(data_type) 规定了列可容纳何种数据类型。下面的表格包含了SQL中最常用的数据类型</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>interger(size)  <br>int(size)<br>smallint(size)<br>tinyint(size)</td>
+<td>仅容纳整数，在括号内规定数字的最大位数</td>
+</tr>
+<tr>
+<td>decimal(size, d)<br>numeric(size, d)</td>
+<td>容纳带有小数的数字<br>“size”规定数字的最大位数。“d”规定小数点右侧的最大位数</td>
+</tr>
+<tr>
+<td>char(size)</td>
+<td>容纳固定长度的字符串（可容纳字母、数字以及特殊字符）<br>在括号中规定字符串的最大长度</td>
+</tr>
+<tr>
+<td>varchar(size)</td>
+<td>容纳可变长度的字符串（可容纳字母、数字以及特殊字符）<br>在括号中规定字符串的最大长度</td>
+</tr>
+<tr>
+<td>date（yyyymmdd）</td>
+<td>容纳日期</td>
+</tr>
+</tbody>
+</table>
+<p>例：</p>
+<p>创建”Persons”表，其中包含5个列，列明分别是“Id_P”, “LastName”, “FirstName”, “Address”以及“City”</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line">(</span><br><span class="line">Id_P <span class="built_in">int</span>, </span><br><span class="line">LastName <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">FirstName <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">Address <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">City <span class="built_in">varchar</span>(<span class="number">255</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>空的表类似这样</p>
+<table>
+<thead>
+<tr>
+<th>Id_P</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>可使用INSERT INTO语句向空表写入数据</p>
+<h3 id="sql-约束constraints"><a class="markdownIt-Anchor" href="#sql-约束constraints"></a> SQL 约束（Constraints）</h3>
+<p>约束用于限制加入表的数据的类型</p>
+<p>可以在创建表时规定约束（通过<code>CREATE TABLE</code>语句），或者在表创建之后也可以（通过<code>ALTER TABLE</code>语句）</p>
+<p>主要有以下几种约束：</p>
 <ul>
-<li><code>on</code>条件实在生成临时表时使用的条件，他不管on中的条件是否为真，都会返回左边表中的记录</li>
-<li><code>where</code>条件是在临时表生成好后，再对临时表进行过滤的条件。这时已经没有<code>left join</code>的含义（必须返回左边表的记录了），条件不为真的就全部过滤掉。</li>
+<li>NOT NULL</li>
+<li>UNIQUE</li>
+<li>PRIMARY KEY</li>
+<li>FOREIGN KEY</li>
+<li>CHECK</li>
+<li>DEFAULT</li>
 </ul>
-<h3 id="183-从不订购的客户"><a class="markdownIt-Anchor" href="#183-从不订购的客户"></a> 183. 从不订购的客户</h3>
-<p>某网站包含两个表，Customers 表和 Orders 表。编写一个 SQL 查询，找出所有从不订购任何东西的客户。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Customers 表：</span><br><span class="line">+----+-------+</span><br><span class="line">| Id | Name  |</span><br><span class="line">+----+-------+</span><br><span class="line">| 1  | Joe   |</span><br><span class="line">| 2  | Henry |</span><br><span class="line">| 3  | Sam   |</span><br><span class="line">| 4  | Max   |</span><br><span class="line">+----+-------+</span><br><span class="line">Orders 表：</span><br><span class="line">+----+------------+</span><br><span class="line">| Id | CustomerId |</span><br><span class="line">+----+------------+</span><br><span class="line">| 1  | 3          |</span><br><span class="line">| 2  | 1          |</span><br><span class="line">+----+------------+</span><br><span class="line">例如给定上述表格，你的查询应返回：</span><br><span class="line">+-----------+</span><br><span class="line">| Customers |</span><br><span class="line">+-----------+</span><br><span class="line">| Henry     |</span><br><span class="line">| Max       |</span><br><span class="line">+-----------+</span><br></pre></td></tr></table></figure>
-<p>可以使用 <code>not in</code> 来查询不在此列表中的客户</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> customers.name <span class="keyword">as</span> <span class="string">'Customers'</span></span><br><span class="line"><span class="keyword">FROM</span> customers</span><br><span class="line"><span class="keyword">where</span> customers.id <span class="keyword">not</span> <span class="keyword">in</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> customerid <span class="keyword">from</span> orders   </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<h3 id="196-删除重复的电子邮箱"><a class="markdownIt-Anchor" href="#196-删除重复的电子邮箱"></a> 196. 删除重复的电子邮箱</h3>
-<p>编写一个 SQL 查询，来删除 Person 表中所有重复的电子邮箱，重复的邮箱里只保留 Id 最小 的那个。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">+----+------------------+</span><br><span class="line">| Id | Email            |</span><br><span class="line">+----+------------------+</span><br><span class="line">| 1  | john@example.com |</span><br><span class="line">| 2  | bob@example.com  |</span><br><span class="line">| 3  | john@example.com |</span><br><span class="line">+----+------------------+</span><br><span class="line">Id 是这个表的主键。</span><br><span class="line">例如，在运行你的查询语句之后，上面的 Person 表应返回以下几行:</span><br><span class="line"></span><br><span class="line">+----+------------------+</span><br><span class="line">| Id | Email            |</span><br><span class="line">+----+------------------+</span><br><span class="line">| 1  | john@example.com |</span><br><span class="line">| 2  | bob@example.com  |</span><br><span class="line">+----+------------------+</span><br></pre></td></tr></table></figure>
-<p>先将词表与它自身在电子邮箱列中连接起来，然后我们需要找到其他记录中具有相同电子邮件地址的更大ID。所以在``WHERE`自自居中添加一个新的条件。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> p1 <span class="keyword">FROM</span> Person p1,</span><br><span class="line">    Person p2</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">    p1.Email = p2.Email <span class="keyword">AND</span> p1.Id &gt; p2.Id</span><br></pre></td></tr></table></figure>
-<h3 id="197-上升的温度"><a class="markdownIt-Anchor" href="#197-上升的温度"></a> 197. 上升的温度</h3>
-<p>给定一个 Weather 表，编写一个 SQL 查询，来查找与之前（昨天的）日期相比温度更高的所有日期的 Id。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">+---------+------------------+------------------+</span><br><span class="line">| Id(INT) | RecordDate(DATE) | Temperature(INT) |</span><br><span class="line">+---------+------------------+------------------+</span><br><span class="line">|       1 |       2015-01-01 |               10 |</span><br><span class="line">|       2 |       2015-01-02 |               25 |</span><br><span class="line">|       3 |       2015-01-03 |               20 |</span><br><span class="line">|       4 |       2015-01-04 |               30 |</span><br><span class="line">+---------+------------------+------------------+</span><br><span class="line">例如，根据上述给定的 Weather 表格，返回如下 Id:</span><br><span class="line"></span><br><span class="line">+----+</span><br><span class="line">| Id |</span><br><span class="line">+----+</span><br><span class="line">|  2 |</span><br><span class="line">|  4 |</span><br><span class="line">+----+</span><br></pre></td></tr></table></figure>
-<p>DATEIFF：计算DATA时间差</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> A.Id <span class="keyword">as</span> <span class="string">"Id"</span></span><br><span class="line"><span class="keyword">FROM</span> Weather <span class="keyword">as</span> A, Weather <span class="keyword">as</span> B </span><br><span class="line"><span class="keyword">where</span> <span class="keyword">DATEDIFF</span>(A.RecordDate, B.RecordDate) = <span class="number">1</span> <span class="keyword">AND</span> A.Temperature &gt; B.Temperature</span><br></pre></td></tr></table></figure>
+<h3 id="not-null约束"><a class="markdownIt-Anchor" href="#not-null约束"></a> NOT NULL约束</h3>
+<p><code>NOT NULL</code>约束强制列不接受<code>NULL</code>值</p>
+<p><code>NOT NULL</code>约束强制字段始终包含值。这意味着，如果不向字段添加值，就无法插入新记录或者更新记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line">(</span><br><span class="line">Id_P <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">LastName <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">FirstName <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">Address <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">City <span class="built_in">varchar</span>(<span class="number">255</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -283,7 +484,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/29/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><span class="page-number current">30</span><a class="page-number" href="/page/31/">31</a><span class="space">&hellip;</span><a class="page-number" href="/page/133/">133</a><a class="extend next" rel="next" href="/page/31/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/29/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><span class="page-number current">30</span><a class="page-number" href="/page/31/">31</a><span class="space">&hellip;</span><a class="page-number" href="/page/138/">138</a><a class="extend next" rel="next" href="/page/31/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -329,7 +530,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
