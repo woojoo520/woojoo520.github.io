@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/10/Python-Day1/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/11/SQLServer-Day2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/10/10/Python-Day1/" class="post-title-link" itemprop="url">Python-Day1</a>
+            <a href="/2019/10/11/SQLServer-Day2/" class="post-title-link" itemprop="url">SQLServer-Day2</a>
         </h1>
 
         <div class="post-meta">
@@ -210,8 +210,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2019-10-10 08:41:51" itemprop="dateCreated datePublished" datetime="2019-10-10T08:41:51+08:00">2019-10-10</time>
+              <time title="创建时间：2019-10-11 15:30:13 / 修改时间：20:51:38" itemprop="dateCreated datePublished" datetime="2019-10-11T15:30:13+08:00">2019-10-11</time>
             </span>
 
           
@@ -223,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/10/10/Python-Day1/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/10/Python-Day1/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/10/11/SQLServer-Day2/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/11/SQLServer-Day2/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -239,7 +240,395 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h3 id="594-超过5名学生的课"><a class="markdownIt-Anchor" href="#594-超过5名学生的课"></a> 594. 超过5名学生的课</h3>
+<p>有一个courses 表 ，有: student (学生) 和 class (课程)。</p>
+<p>请列出所有超过或等于5名学生的课。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">例如,表:</span><br><span class="line"></span><br><span class="line">+---------+------------+</span><br><span class="line">| student | class      |</span><br><span class="line">+---------+------------+</span><br><span class="line">| A       | Math       |</span><br><span class="line">| B       | English    |</span><br><span class="line">| C       | Math       |</span><br><span class="line">| D       | Biology    |</span><br><span class="line">| E       | Math       |</span><br><span class="line">| F       | Computer   |</span><br><span class="line">| G       | Math       |</span><br><span class="line">| H       | Math       |</span><br><span class="line">| I       | Math       |</span><br><span class="line">+---------+------------+</span><br><span class="line">应该输出:</span><br><span class="line"></span><br><span class="line">+---------+</span><br><span class="line">| class   |</span><br><span class="line">+---------+</span><br><span class="line">| Math    |</span><br><span class="line">+---------+</span><br></pre></td></tr></table></figure>
+<p>Note:<br>
+学生在每个课中不应被重复计算。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">class</span> </span><br><span class="line"><span class="keyword">FROM</span> courses</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">class</span></span><br><span class="line"><span class="keyword">HAVING</span> <span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> student) &gt;= <span class="number">5</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p><strong>SELECT DISTINCT 语句</strong></p>
+<p>在表中，可能会包含重复值。用关键词<strong>DISTINCT</strong>来返回唯一不同的值</p>
+<blockquote>
+<p>SELECT DISTINCT 列名称 FROM 表名称</p>
+</blockquote>
+</li>
+<li>
+<p><strong>WHERE</strong>子句</p>
+<p>如需有条件地从表中选取数据，可将WHERE子句添加到SELECT语句</p>
+<blockquote>
+<p>SELECT 列名称 FROM 表名称 WHERE 列 运算符 值</p>
+</blockquote>
+<p>下面的运算符可以在<strong>WHERE</strong>子句中使用：</p>
+<p><code>= &lt;&gt; &gt; &gt;= &lt;= BETWEEN LIKE(搜索某种模式)</code></p>
+<p>在某些版本的SQL中，操作符<code>&lt;&gt;</code>可以写为<code>!=</code></p>
+<p><strong>引号的使用：</strong></p>
+<p>SQL使用单引号来环绕文本值（大部分数据库系统也接受双引号）。如果是数值，不能使用单引号</p>
+</li>
+<li>
+<p><strong>ORDER BY 语句用于对结果进行排序</strong></p>
+<p><code>ORDER BY</code>语句用于根据指定的列对结果进行排序</p>
+<p><code>ORDER BY</code>语句默认按照升序对记录进行排序</p>
+<p>如果希望降序对记录进行排序，可以使用<strong>DESC</strong>关键字</p>
+<p>例如： Orders表</p>
+<table>
+<thead>
+<tr>
+<th>Company</th>
+<th>OrderNumber</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IBM</td>
+<td>3532</td>
+</tr>
+<tr>
+<td>W3School</td>
+<td>2356</td>
+</tr>
+<tr>
+<td>Apple</td>
+<td>4698</td>
+</tr>
+<tr>
+<td>W3School</td>
+<td>6953</td>
+</tr>
+</tbody>
+</table>
+<p>例1：以字母顺序显示公司名称</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Company, OrderNumber <span class="keyword">FROM</span> Orders <span class="keyword">ORDER</span> <span class="keyword">BY</span> Company</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>Company</th>
+<th>OrderNumber</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Apple</td>
+<td>4698</td>
+</tr>
+<tr>
+<td>IBM</td>
+<td>3532</td>
+</tr>
+<tr>
+<td>W3School</td>
+<td>6953</td>
+</tr>
+<tr>
+<td>W3School</td>
+<td>2356</td>
+</tr>
+</tbody>
+</table>
+<p>例2：以字母顺序显示公司名称（Company），并以数字顺序显示顺序号（OrderNumber）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Company, OrderNumber <span class="keyword">FROM</span> Orders <span class="keyword">ORDER</span> <span class="keyword">BY</span> Company, OrderNumber</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>Company</th>
+<th>OrderNumber</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Apple</td>
+<td>4698</td>
+</tr>
+<tr>
+<td>IBM</td>
+<td>3532</td>
+</tr>
+<tr>
+<td>W3School</td>
+<td>2356</td>
+</tr>
+<tr>
+<td>W3School</td>
+<td>6953</td>
+</tr>
+</tbody>
+</table>
+<p>例3：以逆字母顺序显示公司名称</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Company, OrderNUmber <span class="keyword">FROM</span> Orders <span class="keyword">ORDER</span> <span class="keyword">BY</span> Company <span class="keyword">DESC</span></span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>Company</th>
+<th>OrderNumber</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>W3School</td>
+<td>6953</td>
+</tr>
+<tr>
+<td>W3School</td>
+<td>2356</td>
+</tr>
+<tr>
+<td>IBM</td>
+<td>3532</td>
+</tr>
+<tr>
+<td>Apple</td>
+<td>4698</td>
+</tr>
+</tbody>
+</table>
+<p>例4：以逆字母顺序显示公司名称，并以数字顺序显示顺序号</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Company, OrderNumber <span class="keyword">FROM</span> Orders <span class="keyword">ORDER</span> <span class="keyword">BY</span> Company <span class="keyword">DESC</span>, OrderNumber <span class="keyword">ASC</span></span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>Company</th>
+<th>OrderNumber</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>W3School</td>
+<td>2356</td>
+</tr>
+<tr>
+<td>W3School</td>
+<td>6953</td>
+</tr>
+<tr>
+<td>IBM</td>
+<td>3532</td>
+</tr>
+<tr>
+<td>Apple</td>
+<td>4698</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>INSERT INTO语句</strong></p>
+<p>用于向表格中插入新的行</p>
+<blockquote>
+<p>INSERT INTO 表名称 VALUES(值1, 值2, …)</p>
+</blockquote>
+<p>我们也可以指定索要插入数据的列</p>
+<blockquote>
+<p>INSERT INTO table_name (列1, 列2, …) VALUES (值1, 值2, …)</p>
+</blockquote>
+<p>例：“Persons”表</p>
+<table>
+<thead>
+<tr>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>Changan Street</td>
+<td>Beijing</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Persons <span class="keyword">VALUES</span> (<span class="string">'Gates'</span>, <span class="string">'Bill'</span>, <span class="string">'Xuanwumen 10'</span>, <span class="string">'Beijing'</span>)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>Changan Street</td>
+<td>Beijing</td>
+</tr>
+<tr>
+<td>Gates</td>
+<td>Bill</td>
+<td>Xuanwumen 10</td>
+<td>Beijing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>在指定的列中插入数据：</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Persons (LastName, Address) <span class="keyword">VALUES</span> (<span class="string">'Wilsom'</span>, <span class="string">'Champs-Elysees'</span>)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>Changan Street</td>
+<td>Beijing</td>
+</tr>
+<tr>
+<td>Gates</td>
+<td>Bill</td>
+<td>Xuanwumen 10</td>
+<td>Beijing</td>
+</tr>
+<tr>
+<td>Wilson</td>
+<td></td>
+<td>Champs-Elysees</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>UPDATE 语句</strong></p>
+<p>用于修改表中的数据</p>
+<blockquote>
+<p>INSERT 表名称 SET 列名称 = 新值 WHERE 列名称 = 某值</p>
+</blockquote>
+<p>例子：Persons</p>
+<table>
+<thead>
+<tr>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gates</td>
+<td>Bill</td>
+<td>Xuanwumen 10</td>
+<td>Beijing</td>
+</tr>
+<tr>
+<td>Wilson</td>
+<td></td>
+<td>Champs-Elysees</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>更新某一行中的一个列</strong>：为LastName 是 Wilson的人添加FirstName：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> Persons <span class="keyword">SET</span> FirstName = <span class="string">'Fred'</span> <span class="keyword">WHERE</span> LastName = <span class="string">'Wilson'</span></span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gates</td>
+<td>Bill</td>
+<td>Xuanwumen 10</td>
+<td>Beijing</td>
+</tr>
+<tr>
+<td>Wilson</td>
+<td>Fred</td>
+<td>Champs-Elysees</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>更新某一行中的若干列</strong>：我们会修改地址（address），并添加城市名称（city）：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> Persons <span class="keyword">SET</span> Address = <span class="string">'Zhongshan 23'</span>, City = <span class="string">'Nanjing'</span> <span class="keyword">WHERE</span> LastName = <span class="string">'Wilson'</span></span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gates</td>
+<td>Bill</td>
+<td>Xuanwumen 10</td>
+<td>Beijing</td>
+</tr>
+<tr>
+<td>Wilson</td>
+<td>Fred</td>
+<td>Zhongshan 23</td>
+<td>Nanjing</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>DELETE 语句</strong></p>
+<p>删除表中的行</p>
+<blockquote>
+<p>DELETE FROM 表名称 WHERE 列名称 = 值</p>
+</blockquote>
+<p><strong>删除某行</strong>：“Fred Wilson”会被删除。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> Persons <span class="keyword">WHERE</span> LastName = <span class="string">'Wilson'</span></span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gates</td>
+<td>Bill</td>
+<td>Xuanwumen 10</td>
+<td>Beijing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>删除所有行：可以在不删除表的情况下删除所有行，这意味着表的结构、属性和索引都是完整的：</strong></p>
+<blockquote>
+<p>DELETE FROM tabel_name</p>
+</blockquote>
+<p>或者：</p>
+<blockquote>
+<p>DELETE * FROM tabel_name</p>
+</blockquote>
+</li>
+</ul>
+
       
     </div>
 
@@ -258,7 +647,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/34/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/">34</a><span class="page-number current">35</span><a class="page-number" href="/page/36/">36</a><span class="space">&hellip;</span><a class="page-number" href="/page/139/">139</a><a class="extend next" rel="next" href="/page/36/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/34/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/">34</a><span class="page-number current">35</span><a class="page-number" href="/page/36/">36</a><span class="space">&hellip;</span><a class="page-number" href="/page/140/">140</a><a class="extend next" rel="next" href="/page/36/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -304,7 +693,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-count">140</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

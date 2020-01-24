@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/13/初识LaTex/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/13/QQ通信原理分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/11/13/初识LaTex/" class="post-title-link" itemprop="url">初识LaTex</a>
+            <a href="/2019/11/13/QQ通信原理分析/" class="post-title-link" itemprop="url">QQ通信原理Fenix</a>
         </h1>
 
         <div class="post-meta">
@@ -210,16 +210,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2019-11-13 14:30:53" itemprop="dateCreated datePublished" datetime="2019-11-13T14:30:53+08:00">2019-11-13</time>
+              <time title="创建时间：2019-11-13 16:15:45 / 修改时间：20:08:34" itemprop="dateCreated datePublished" datetime="2019-11-13T16:15:45+08:00">2019-11-13</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-14 09:13:04" itemprop="dateModified" datetime="2019-11-14T09:13:04+08:00">2019-11-14</time>
-              </span>
 
           
   
@@ -230,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/11/13/初识LaTex/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/13/初识LaTex/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/11/13/QQ通信原理分析/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/13/QQ通信原理分析/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -246,116 +240,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="基本内容"><a class="markdownIt-Anchor" href="#基本内容"></a> 基本内容</h3>
-<ul>
-<li>LaTeX的基本语法</li>
-<li>完成一篇LaTeX创建的简单论文</li>
-</ul>
-<h3 id="latex的基本语法"><a class="markdownIt-Anchor" href="#latex的基本语法"></a> LaTeX的基本语法</h3>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">documentclass</span><span class="string">[UTF8]</span><span class="string">&#123;ctexart&#125;</span></span>	<span class="comment">% 使用中文版的artical文档类型排版，并选择UTF8编码格式</span></span><br><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;amsmath&#125;</span></span>	<span class="comment">% 使用宏包，这里使用的是调用公式宏包，可以调用多个宏包</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;document&#125;</span></span>	<span class="comment">% 开始写文章</span></span><br><span class="line">文章内容</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;document&#125;</span></span>	<span class="comment">% 结束写文章</span></span><br></pre></td></tr></table></figure>
-<p>以上就是完成一篇LaTeX文档的基本格式。LaTeX是使用各种各样的命令来操作文档格式以及文档内容的。</p>
-<h3 id="标准文类"><a class="markdownIt-Anchor" href="#标准文类"></a> 标准文类</h3>
-<ul>
-<li><code>artical</code>：短文，评论，学术论文；无左右页区分，无章设置。对应中文类ctexart</li>
-<li><code>book</code>：著作，学位论文；默认有左右页区分，章起右页，对应中文类ctexbook</li>
-<li><code>report</code>：商业，科技，实验报告，默认无左右页区分，章起新页。对应中文类：ctexrep</li>
-<li><code>beamer</code>：论文陈述幻灯片；提供多种主题式样，可方便更改幻灯片的整体风格</li>
-</ul>
-<h3 id="常用宏包"><a class="markdownIt-Anchor" href="#常用宏包"></a> 常用宏包</h3>
-<ul>
-<li>
-<p>amsmath 公式环境和数学命令</p>
-</li>
-<li>
-<p>amssymb 数学符号生成命令</p>
-</li>
-<li>
-<p>array 数组和表格制作</p>
-</li>
-<li>
-<p>calc 四则运算</p>
-</li>
-<li>
-<p>caption 插图和表格标题格式设置</p>
-</li>
-<li>
-<p>fancyhdr 页眉页脚设置</p>
-</li>
-<li>
-<p>fancyvrb 抄录格式设置</p>
-</li>
-<li>
-<p>fontspec 字体选择</p>
-</li>
-<li>
-<p>geometry 版面尺寸设置</p>
-</li>
-<li>
-<p>graphicx 插图处理</p>
-</li>
-<li>
-<p>hyperref 创建超文本链接和PDF书签</p>
-</li>
-<li>
-<p>longtable 制作跨页表格</p>
-</li>
-<li>
-<p>multicol 多栏排版</p>
-</li>
-<li>
-<p>ntheorem 定理设置</p>
-</li>
-<li>
-<p>paralist 多种列表环境</p>
-</li>
-<li>
-<p>tabularx 自动设置表格列宽</p>
-</li>
-<li>
-<p>titlesec 章节标题格式设置</p>
-</li>
-<li>
-<p>titletoc 目录格式设置</p>
-</li>
-<li>
-<p>xcolor 颜色处理</p>
-</li>
-<li>
-<p>xeCJK 中日朝文字处理和字体选择</p>
-</li>
-</ul>
-<h3 id="完成一篇简单的论文"><a class="markdownIt-Anchor" href="#完成一篇简单的论文"></a> 完成一篇简单的论文</h3>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">documentclass</span><span class="string">[UTF8]</span><span class="string">&#123;ctexart&#125;</span></span>	<span class="comment">% 使用中文版的artical文档类型排版，并选择UTF8编码格式</span></span><br><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;amsmath&#125;</span></span>	<span class="comment">% 使用宏包，这里使用的是调用公式宏包，可以调用多个宏包</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;document&#125;</span></span>	<span class="comment">% 开始写文章</span></span><br><span class="line">文章内容</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;document&#125;</span></span>	<span class="comment">% 结束写文章</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>设置作者名字，论文名字以及创作时间</li>
-</ul>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">title</span><span class="string">&#123;杂谈关于爱情&#125;</span></span> <span class="comment">% 大括号例填写标题</span></span><br><span class="line"><span class="tag">\<span class="name">author</span><span class="string">&#123;张三&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">date</span><span class="string">&#123;\today&#125;</span></span>	<span class="comment">% 大括号里填写\today会自动生成当前的日期</span></span><br><span class="line"><span class="tag">\<span class="name">maketitle</span></span>	<span class="comment">% 写了以上内容之后一定要添加这个，制作标题，否则上面的内容都是无效的</span></span><br></pre></td></tr></table></figure>
-<p>组合上述两块以内容：</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">documentclass</span><span class="string">[UTF8]</span><span class="string">&#123;ctexart&#125;</span></span>	<span class="comment">% 使用中文版的artical文档类型排版，并选择UTF8编码格式</span></span><br><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;amsmath&#125;</span></span>	<span class="comment">% 使用宏包，这里使用的是调用公式宏包，可以调用多个宏包</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;document&#125;</span></span>	<span class="comment">% 开始写文章</span></span><br><span class="line"><span class="tag">\<span class="name">title</span><span class="string">&#123;杂谈LaTex&#125;</span></span> <span class="comment">% 大括号例填写标题</span></span><br><span class="line"><span class="tag">\<span class="name">author</span><span class="string">&#123;张三&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">date</span><span class="string">&#123;\today&#125;</span></span>	<span class="comment">% 大括号里填写\today会自动生成当前的日期</span></span><br><span class="line"><span class="tag">\<span class="name">maketitle</span></span>	<span class="comment">% 写了以上内容之后一定要添加这个，制作标题，否则上面的内容都是无效的</span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;document&#125;</span></span>	<span class="comment">% 结束写文章</span></span><br></pre></td></tr></table></figure>
-<p>也可以将姓名标题填到<code>\begin{document}</code>的上面，将<code>\maketitle</code>放在<code>\begin{document}</code>的下面，效果也是一样的</p>
-<ul>
-<li>添加摘要部分</li>
-</ul>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;abstract&#125;</span></span>	<span class="comment">% 摘要部分</span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span><span class="tag">\<span class="name">centering</span></span>这是一篇关于MYQ爱情史的小论文。&amp;<span class="tag">\<span class="name">small</span></span>是使用缩小字体，<span class="tag">\<span class="name">centering</span></span>是使内容居中</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;abstract&#125;</span></span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>添加目录</li>
-</ul>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">tableofcontents</span></span>	<span class="comment">% 表示目录部分的开始</span></span><br><span class="line"><span class="tag">\<span class="name">section</span><span class="string">&#123;萌芽&#125;</span></span>	<span class="comment">% 目录的前缀页面都会自动排版不需要手动排版</span></span><br><span class="line"><span class="tag">\<span class="name">section</span><span class="string">&#123;发展&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">addcontentsline</span><span class="string">&#123;toc&#125;</span><span class="string">&#123;section&#125;</span><span class="string">&#123;参考文献&#125;</span></span>	<span class="comment">% 用来添加文献的标准方式</span></span><br><span class="line"><span class="tag">\<span class="name">section</span><span class="string">&#123;附录&#125;</span></span>	<span class="comment">% 要写的附录</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>填写每一个小结的内容</li>
-</ul>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;graphicx&#125;</span></span>	<span class="comment">% 先添加宏包插图，方便接下来添加图片</span></span><br><span class="line"><span class="tag">\<span class="name">label</span><span class="string">&#123;sec:ancient&#125;</span></span>		<span class="comment">% 这是添加书签的命令，一会儿要用到</span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> MYQ<span class="tag">\<span class="name">footnote</span><span class="string">&#123;MYQ，北京邮电大学学生&#125;</span></span>是一个没有谈过恋爱的小仙女<span class="tag">\<span class="name">cite</span><span class="string">&#123;Kline&#125;</span></span>	<span class="comment">% 这里的cite&#123;Kline&#125;是为了一会儿添加文献标记用的，\footnote是在文章下面自动添加注释的命令，换行可以使用空一行的方法</span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> YJZ<span class="tag">\<span class="name">footnote</span><span class="string">&#123;YJZ, 北京邮电大学学生&#125;</span></span>是一个有过恋爱经历的傻子</span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 他们的官宣是这样子的 <span class="tag">\<span class="name">ref</span><span class="string">&#123;fig:xiantu&#125;</span></span> 是令人非常羡慕的一对哈哈哈哈<span class="tag">\<span class="name">cite</span><span class="string">&#123;quanjing&#125;</span></span>	<span class="comment">% \ref&#123;fig:xiantu&#125;用于读取标签xiantu,cite用于引用参考文献quanjing</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;figure&#125;</span><span class="string">[!ht]</span></span><span class="tag">\<span class="name">centering</span></span> 	<span class="comment">% 添加图片，图片文件名为xiantu.jpg</span></span><br><span class="line"><span class="tag">\<span class="name">includegraphics</span><span class="string">[scale=0.5]</span><span class="string">&#123;xiantu.jpg&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">caption</span><span class="string">&#123;这是他们两个的官宣之作\label&#123;fig:xiantu&#125;</span></span>&#125;	<span class="comment">% 在图片下面的文字说明</span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;figure&#125;</span></span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>编写第二节</li>
-</ul>
-<p>要在最开始添加</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">usepacka</span></span> ge&#123;amsmath&#125;	</span><br><span class="line"><span class="tag">\<span class="name">newtheorem</span><span class="string">&#123;thm&#125;</span><span class="string">&#123;定理&#125;</span></span>	<span class="comment">% 定义标题为定理的定理类环境thm</span></span><br><span class="line"><span class="tag">\<span class="name">newcommand</span></span><span class="tag">\<span class="name">degree</span><span class="string">&#123;^\circ&#125;</span></span>	<span class="comment">% 定义新命令degree</span></span><br></pre></td></tr></table></figure>
-<p>正文部分</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;thm&#125;</span><span class="string">[\small爱情故事]</span></span>	<span class="comment">% 开始定理环境</span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 他们的故事开始于北邮沙河图书馆</span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 开始于矩阵论，就是<span class="formula">$A=B-C^T, C = B^T$</span>(随便写写)，进一步于概率论</span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;equation&#125;</span></span><span class="tag">\<span class="name">label</span><span class="string">&#123;eq:gougu&#125;</span></span>	<span class="comment">% 开始的单行公式环境equation，并添加了书签gougu </span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 1 + 1 &gt; 2</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;equation&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;thm&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 满足 <span class="tag">\<span class="name">eqref</span><span class="string">&#123;eq: gougu&#125;</span></span> 的是<span class="tag">\<span class="name">emph</span><span class="string">&#123;我们&#125;</span></span>。<span class="tag">\<span class="name">ref</span><span class="string">&#123;sec:萌芽&#125;</span></span>所说的就是他们的开始。下面给出一些他们的经历；<span class="comment">% \eqref&#123;eq:gougu&#125;读入书签gougu, emph强调我们，ref读入书签 萌芽</span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">vsapce</span><span class="string">&#123;3mm&#125;</span></span>	<span class="comment">% 空一行</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;tabular&#125;</span><span class="string">&#123;|c|c|c|&#125;</span></span><span class="tag">\<span class="name">hline</span></span>	<span class="comment">% 开始表格环境&#123;|c|c|c&#125;表示文字居中的三列. \hline...\hline表述画两条并排的水平线。\hline必须用于首行之前或者换行命令之后</span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 时间&amp;事件&amp;好感度<span class="tag">\<span class="name">\</span></span><span class="tag">\<span class="name">hline</span></span>	<span class="comment">% &amp;是数据分割符号</span></span><br><span class="line">2019.1.24&amp;在一起&amp;100<span class="tag">\<span class="name">\</span></span><span class="tag">\<span class="name">hline</span></span></span><br><span class="line">2019.2.14&amp;第一次过情人节&amp;120<span class="tag">\<span class="name">\</span></span><span class="tag">\<span class="name">hline</span></span></span><br><span class="line">2019.5.4&amp;大傻过生日&amp;200<span class="tag">\<span class="name">\</span></span><span class="tag">\<span class="name">hline</span></span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;tabular&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">small</span><span class="string">&#123;heart❤&#125;</span></span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>书写附录和文献</li>
-</ul>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;thebibliography&#125;</span><span class="string">&#123;99&#125;</span></span>	<span class="comment">% 参考文献开始</span></span><br><span class="line"><span class="tag">\<span class="name">bibitem</span><span class="string">&#123;1&#125;</span></span>	孟烨青.有名的爱情史.北京邮电大学,2019.</span><br><span class="line"><span class="tag">\<span class="name">bibitem</span><span class="string">&#123;quanjing&#125;</span></span> 于珺泽.爱吃醋的同学.北京邮电大学,2019</span><br><span class="line"><span class="tag">\<span class="name">bibitem</span><span class="string">&#123;Kline&#125;</span></span> 助攻.没有.2019</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;thebibliography&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">addcontentsline</span><span class="string">&#123;toc&#125;</span><span class="string">&#123;section&#125;</span><span class="string">&#123;参考文献&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;appendix&#125;</span></span>	<span class="comment">% 附录开始</span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 今天是他们在一起的293天，大火花的第351天</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;appendix&#125;</span></span></span><br></pre></td></tr></table></figure>
+          <h4 id="起源"><a class="markdownIt-Anchor" href="#起源"></a> 起源</h4>
+<p>为什么今天会些这样一片文章呢…</p>
+<p>因为在做程序设计大作业的时候突然发现不知道怎么实现QQ聊天</p>
+<p>在之前的C++大作业当中，我实现通信的方法是利用ip地址（当时好像写的是确定的ip地址），但是想到这个软件应该是在不同的地方都能够运行的，所以，用什么来表示用户，然后怎么实现通信呢？</p>
+<p>所以搜索了相应的资料之后得到以下几个问题的回答：</p>
+<p>参考：<a href="https://blog.csdn.net/li_xiao_ming/article/details/8106857" target="_blank" rel="noopener">https://blog.csdn.net/li_xiao_ming/article/details/8106857</a></p>
+<h5 id="1-为什么只要连上互联网的计算机都可以用qq互相建立通信需不需要固定ip"><a class="markdownIt-Anchor" href="#1-为什么只要连上互联网的计算机都可以用qq互相建立通信需不需要固定ip"></a> 1. 为什么只要连上互联网的计算机都可以用QQ互相建立通信，需不需要固定ip？</h5>
+<p>也就是说这个QQ用户端是怎样找到另一个QQ用户的，而用户在每次使用时他可能用的是不同的计算机，有着不同的IP地址。</p>
+<p>服务器端会以QQ账号作为唯一表示，一个账号登录时每次都可以有不同的IP地址，但账号却相同，当账号a登录服务器，服务器会记录下账号a的ip地址，去通知a的好友，告诉他们，a上线了和现在的ip地址，a的好友就可以和他们进行通信了</p>
+<h5 id="2-是不是qq在通信时根本不适用ipqq客户端先是访问qq服务器端然后qq服务器端再为要建立连接的qq客户端建立连接"><a class="markdownIt-Anchor" href="#2-是不是qq在通信时根本不适用ipqq客户端先是访问qq服务器端然后qq服务器端再为要建立连接的qq客户端建立连接"></a> 2. 是不是QQ在通信时根本不适用IP，QQ客户端先是访问QQ服务器端，然后QQ服务器端再为要建立连接的QQ客户端建立连接？</h5>
+<p>只要是网络层的通信，都会涉及到ip/tcp协议，就肯定需要ip，qq客户端登陆qq服务器，服务器只是记录登陆状态，不会一直和qq保持通信，只会每隔一段时间发送心跳数据包，来确实qq客户端是否还在网络上。当qq客户端a上线后，服务器会告诉a，目前a的在线好友的最新ip地址，当a需要与任意好友通信时，直接使用ip地址就ok了。qq客户端a与qq客户端b通信，可以两种方式，第一就是qq服务器有转发的服务器，第二是，a与b直接通信，不会告诉qq服务器</p>
+<h5 id="3-qq客户端可以访问qq服务器端然后服务器端获取qq客户端的ip建立通信是不是这样的过程如果是这个过程是怎么处理的呢"><a class="markdownIt-Anchor" href="#3-qq客户端可以访问qq服务器端然后服务器端获取qq客户端的ip建立通信是不是这样的过程如果是这个过程是怎么处理的呢"></a> 3. QQ客户端可以访问QQ服务器端，然后服务器端获取QQ客户端的IP建立通信，是不是这样的过程…如果是，这个过程是怎么处理的呢？</h5>
+<p>是这样的过程，qq客户端请求一个连接给服务器，服务器接收后，知道qq端a上线，把qq端a的账号跟目前的ip会记录下来，放在在线列表里或者其他的地方，然后每隔几分钟或者几秒钟给qq端a发送心跳包，问他是否还在线，来确保qq端a的最新状态。这里客户端与服务器的通信方式是udp。而不会时时刻刻都在用tcp连接。</p>
+<h5 id="4-qq客户端虽然ip地址不固定但是在建立与qq服务器端的通信时必须提供自己的ip被服务器获取然后才能建立他们之间的通信进而在建立客户端之间的通信-也就是只要能上网就有ip只不过客户端的ip是被qq客户端获取了然后才建立通信的-这是自己的猜测不知对否"><a class="markdownIt-Anchor" href="#4-qq客户端虽然ip地址不固定但是在建立与qq服务器端的通信时必须提供自己的ip被服务器获取然后才能建立他们之间的通信进而在建立客户端之间的通信-也就是只要能上网就有ip只不过客户端的ip是被qq客户端获取了然后才建立通信的-这是自己的猜测不知对否"></a> 4. QQ客户端虽然IP地址不固定，但是在建立与QQ服务器端的通信时，必须提供自己的IP被服务器获取，然后才能建立他们之间的通信，进而在建立客户端之间的通信。也就是，只要能上网就有IP，只不过客户端的IP，是被QQ客户端获取了，然后才建立通信的。（这是自己的猜测，不知对否…）</h5>
+<p>服务器不会以ip作为唯一标识，会以账号作为唯一标识，但与账号通信的时候会用到账号目前所对应的ip，客户端与客户端通信也如此</p>
 
       
     </div>
@@ -375,7 +274,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/23/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/page/25/">25</a><span class="space">&hellip;</span><a class="page-number" href="/page/139/">139</a><a class="extend next" rel="next" href="/page/25/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/23/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/page/25/">25</a><span class="space">&hellip;</span><a class="page-number" href="/page/140/">140</a><a class="extend next" rel="next" href="/page/25/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -421,7 +320,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-count">140</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
