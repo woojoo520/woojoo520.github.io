@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/20/Transfer-Learning/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/14/LaTeX-Day2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/10/20/Transfer-Learning/" class="post-title-link" itemprop="url">Transfer Learning</a>
+            <a href="/2019/11/14/LaTeX-Day2/" class="post-title-link" itemprop="url">LaTeX-Day2</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-10-20 00:06:59 / 修改时间：02:18:25" itemprop="dateCreated datePublished" datetime="2019-10-20T00:06:59+08:00">2019-10-20</time>
+              <time title="创建时间：2019-11-14 07:09:31 / 修改时间：09:50:34" itemprop="dateCreated datePublished" datetime="2019-11-14T07:09:31+08:00">2019-11-14</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/10/20/Transfer-Learning/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/20/Transfer-Learning/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/11/14/LaTeX-Day2/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/14/LaTeX-Day2/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,52 +240,140 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="transfer-learning"><a class="markdownIt-Anchor" href="#transfer-learning"></a> Transfer Learning</h2>
-<h3 id="初步了解transfer-learning"><a class="markdownIt-Anchor" href="#初步了解transfer-learning"></a> 初步了解Transfer Learning</h3>
-<p>Matthew D. Zeiler和Rob Fergus发表了一片著名的论文， 阐述卷积神经网络到底“看”到了什么：[<a href="https://www.zhihu.com/topic/20079475/intro#ref_2" target="_blank" rel="noopener">2]</a></p>
-<p><img src="https://pic1.zhimg.com/v2-8aaa5f69e139f987bb53538bd212da58_b.jpg" alt="img"></p>
-<p>和对卷积层进行简单的成像不同，他们尝试把不同的内容输入到训练好的神经网络，并观察记录卷积核的激活值。并把造成相同卷积核较大激活的内容分组比较。上面的图片中每个九宫格为同一个卷积核对不同图片的聚类。</p>
-<p>在上面图片中可以看出，较浅层的卷积层将较为几何抽象的内容归纳到了一起。例如第一层的卷积中，基本就是边缘检测。而第二层的卷积中，聚类了相似的几何形状，尽管这些几何形状的内容相差甚远。</p>
-<p>随着卷积层越来越深，所聚类的内容也越来越具体。</p>
-<p>其实有个最简单易行的方式已经摆在我们面前了：如果我们把卷积神经网络的前n层保留下来，剩下不想要的砍掉怎么样？就像是我们可以不需要ct能识别狗，识别猫，但是轮廓的对我们还是很有帮助的</p>
-<p><img src="https://pic4.zhimg.com/v2-486d24854876bb536978e32e801eee23_b.jpg" alt="img"></p>
-<h3 id="迁移学习的三个主要研究问题"><a class="markdownIt-Anchor" href="#迁移学习的三个主要研究问题"></a> 迁移学习的三个主要研究问题</h3>
-<ul>
-<li>迁移什么</li>
-<li>如何迁移</li>
-<li>何时迁移</li>
-</ul>
-<h5 id="迁移什么"><a class="markdownIt-Anchor" href="#迁移什么"></a> 迁移什么</h5>
-<p>指的是跨域或跨任务迁移哪一部分知识。目前，迁移学习的内容可以分为四类：实例迁移、特征表示迁移、参数迁移、关系知识迁移</p>
-<h5 id="如何迁移"><a class="markdownIt-Anchor" href="#如何迁移"></a> 如何迁移</h5>
-<p>开发学习算法</p>
-<h5 id="何时迁移"><a class="markdownIt-Anchor" href="#何时迁移"></a> 何时迁移</h5>
-<p>指得是在什么情况下可以迁移，在哪些情况下不应该迁移。在某些情况下，当源域和目标域彼此不相关时，强行迁移可能会失败。而在最坏的情况下它甚至可能损害目标域的学习表现，这种情况下通常被称为负迁移。</p>
-<h3 id="迁移学习方法划分"><a class="markdownIt-Anchor" href="#迁移学习方法划分"></a> 迁移学习方法划分</h3>
-<p>根据源域和目标域与任务之间的不同情况，将迁移学习分为三个类别：</p>
-<ul>
-<li>
-<p><strong>归纳式迁移学习（Inductive Transfer Learning）</strong></p>
-<p>在归纳式迁移学习中，无论源域和目标域是否相同，目标任务都与源任务不同。算法利用来自源域的归纳假设和归纳偏差帮助改进目标任务。根据源域中数据的不同情况，归纳式迁移学习进一步分为两种情况：</p>
-<ul>
-<li>源域中有很多带标签的数据。在这种情况下，归纳迁移学习设置类似于多任务学习设置。但是，归纳式迁移学习设置仅旨在通过迁移源任务中的只是来实现目标任务中的高性能，而多任务学习则尝试同时学习目标任务和源任务</li>
-<li>源域中没有标签数据。在这种情况下归纳学习类似于自学习。在自学习设置中，源域和目标域之间的标签空间可能不同，这意味着不能直接使用源域的信息。</li>
-</ul>
-</li>
-<li>
-<p><strong>无监督迁移学习（Unsupervised Transfer Learning）</strong></p>
-<p>在无监督迁移学习设置中，与归纳迁移学习设置类似，目标任务不同于源任务，但与源任务有关。然而，无监督学习侧重于解决目标域中的无监督学习任务，例如聚类，降维和密度估计。在这种情况下，源域和目标域中都没有可用的标签数据。</p>
-</li>
-<li>
-<p><strong>直推式迁移学习（Transductive Transfer Learning）</strong></p>
-<p>在直推式迁移学习设置中，源任务和目标任务是相同的，而源域和目标域是不同的。在这种情况下，目标域没有可用的标签数据，而源域中有许多可用的标签数据，另外，根据源域和目标域之间的不同情况，我们可以进一步将直推式学习设置分为两种情况：</p>
-<ul>
-<li>源域和目标域之间的特征空间不同</li>
-<li>源域和目标域之间的特征空间相同，但输入数据的边际概率分布不同</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://pic4.zhimg.com/80/v2-fcaf713f373f3f993829249c1041059f_hd.png" alt="img"></p>
+          <h3 id="latex源文件的结构"><a class="markdownIt-Anchor" href="#latex源文件的结构"></a> LaTeX源文件的结构</h3>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 导言区，用于全局设置</span></span><br><span class="line"><span class="tag">\<span class="name">documentclass</span><span class="string">[UTF8]</span><span class="string">&#123;ctexart&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">title</span><span class="string">&#123;杂谈爱情&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">author</span><span class="string">&#123;MYQ&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">date</span><span class="string">&#123;\today&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 正文区域</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;document&#125;</span></span></span><br><span class="line">	<span class="tag">\<span class="name">maketitle</span></span></span><br><span class="line">	Hello World!</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;document&#125;</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="基础语法"><a class="markdownIt-Anchor" href="#基础语法"></a> 基础语法</h3>
+<h4 id="注释"><a class="markdownIt-Anchor" href="#注释"></a> 注释</h4>
+<blockquote>
+<p>% 用于注释</p>
+</blockquote>
+<h4 id="空行"><a class="markdownIt-Anchor" href="#空行"></a> 空行</h4>
+<blockquote>
+<p>可以在输出时换行效果，同时使结构更加清晰，不过在源文件的多个换行效果，在输出文件，只有一个换行效果</p>
+</blockquote>
+<h4 id="document"><a class="markdownIt-Anchor" href="#document"></a> document</h4>
+<blockquote>
+<p>每一个LaTeX文件，只有一个document环境</p>
+</blockquote>
+<h4 id="数学公式"><a class="markdownIt-Anchor" href="#数学公式"></a> 数学公式</h4>
+<blockquote>
+<p>行内数学公式$$</p>
+</blockquote>
+<blockquote>
+<p>行间数学公式 $$$$</p>
+</blockquote>
+<h4 id="latex的文件格式分类"><a class="markdownIt-Anchor" href="#latex的文件格式分类"></a> LaTeX的文件格式分类</h4>
+<blockquote>
+<p>使用$符号，数学格式，不使用，则是文本格式</p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">% 导言区，用于全局设置</span><br><span class="line">\documentclass[UTF8]&#123;ctexart&#125;</span><br><span class="line">% 导入中文宏</span><br><span class="line">\usepackage&#123;ctex&#125;</span><br><span class="line">% 构建命令，取别名，使用degree代替^ circ</span><br><span class="line">\newcommand\degree&#123;^\circ&#125;</span><br><span class="line"></span><br><span class="line">\title&#123;杂谈爱情&#125;</span><br><span class="line">\author&#123;MYQ&#125;</span><br><span class="line">\date&#123;\today&#125;</span><br><span class="line"></span><br><span class="line">% 正文区域</span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line">	\maketitle</span><br><span class="line">	\kaishu</span><br><span class="line">	\par\noindent 我们的开始始于北邮图书馆\\</span><br><span class="line">	那里不是我们最开始相遇的地方\\</span><br><span class="line">	却是我们相识，了解的地方</span><br><span class="line">	\begin&#123;equation&#125;</span><br><span class="line">		A_B^2 = BC^2 +AC^2</span><br><span class="line">	\end&#123;equation&#125;</span><br><span class="line">\end&#123;document&#125;</span><br></pre></td></tr></table></figure>
+<p>显示：</p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1573689463711.png" alt="1573689463711"></p>
+<h4 id="其他命令"><a class="markdownIt-Anchor" href="#其他命令"></a> 其他命令</h4>
+<h5 id="字体的设置"><a class="markdownIt-Anchor" href="#字体的设置"></a> 字体的设置</h5>
+<blockquote>
+<p>黑体： \heiti</p>
+<p>楷书： \kaishu</p>
+</blockquote>
+<h5 id="产生序号的行间数学公式equation环境"><a class="markdownIt-Anchor" href="#产生序号的行间数学公式equation环境"></a> 产生序号的行间数学公式：<code>equation</code>环境</h5>
+<blockquote>
+<p>\begin{equation}</p>
+<p>AB^2 = BC<sup>2+AC</sup>2</p>
+<p>\end{equation}</p>
+</blockquote>
+<h5 id="构建新命令newcommand新命令操作"><a class="markdownIt-Anchor" href="#构建新命令newcommand新命令操作"></a> 构建新命令：<code>\newcommand\新命令{操作}</code></h5>
+<blockquote>
+<p>\newcommand\degree{^\circ}</p>
+</blockquote>
+<h3 id="字体设置"><a class="markdownIt-Anchor" href="#字体设置"></a> 字体设置</h3>
+<h4 id="字体族的设置"><a class="markdownIt-Anchor" href="#字体族的设置"></a> 字体族的设置</h4>
+<h5 id="字体命令"><a class="markdownIt-Anchor" href="#字体命令"></a> 字体命令</h5>
+<blockquote>
+<p>\textrm{Roman Family} 在花括号内的字体都是Roman Family字体</p>
+</blockquote>
+<h5 id="字体声明"><a class="markdownIt-Anchor" href="#字体声明"></a> 字体声明</h5>
+<blockquote>
+<p>\rmfamily Roman Family该命令下面的字体都是Roman Family字体，直到新的声明出现覆盖该声明</p>
+</blockquote>
+<p>示例</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;document&#125;</span></span></span><br><span class="line">	<span class="tag">\<span class="name">maketitle</span></span></span><br><span class="line">	<span class="comment">% \kaishu</span></span><br><span class="line">	<span class="comment">% 字体命令</span></span><br><span class="line">	<span class="tag">\<span class="name">textrm</span><span class="string">&#123;Roman Family&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">textsf</span><span class="string">&#123;Sans Serif Family&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">texttt</span><span class="string">&#123;Typewriter Family&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">% 字体</span></span><br><span class="line">	&#123;<span class="tag">\<span class="name">songti</span></span> 宋体&#125;</span><br><span class="line">	</span><br><span class="line">	&#123;<span class="tag">\<span class="name">heiti</span></span> 黑体&#125;</span><br><span class="line">	</span><br><span class="line">	&#123;<span class="tag">\<span class="name">kaishu</span></span> 楷书&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">% 字体声明</span></span><br><span class="line">	<span class="tag">\<span class="name">rmfamily</span></span> Roman Family</span><br><span class="line">	<span class="tag">\<span class="name">sffamily</span></span> Sans Serif Family</span><br><span class="line">	<span class="tag">\<span class="name">ttfamily</span></span> Typewriter Family</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;document&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>显示：</p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1573690059972.png" alt="1573690059972"></p>
+<h4 id="字体系列的设置"><a class="markdownIt-Anchor" href="#字体系列的设置"></a> 字体系列的设置</h4>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 字体系列的设置（粗细，宽度）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 字体命令</span></span><br><span class="line"><span class="tag">\<span class="name">textmd</span><span class="string">&#123;Medium Series&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">textbf</span><span class="string">&#123;Boldface Series&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 字系列</span></span><br><span class="line"><span class="tag">\<span class="name">textbf</span><span class="string">&#123;粗体&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">textit</span><span class="string">&#123;斜体&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 字体声明</span></span><br><span class="line"><span class="tag">\<span class="name">mdseries</span><span class="string">&#123;Medium Series&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">bfseries</span><span class="string">&#123;Boldface Series&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>显示：</p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1573690497433.png" alt="1573690497433"></p>
+<h4 id="字体形状的设置"><a class="markdownIt-Anchor" href="#字体形状的设置"></a> 字体形状的设置</h4>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 字体命令</span></span><br><span class="line">	<span class="tag">\<span class="name">textup</span><span class="string">&#123;Upright Shape&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">textit</span><span class="string">&#123;Italic Shape&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">textsl</span><span class="string">&#123;Slanted Shape&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">textsc</span><span class="string">&#123;Samll Caps Shape&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">% 字体声明</span></span><br><span class="line">	<span class="tag">\<span class="name">upshape</span><span class="string">&#123;Upright Sshape&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">itshape</span><span class="string">&#123;Italic Shape&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">slshape</span><span class="string">&#123;Slanted Shape&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">scshape</span><span class="string">&#123;Samll Caps Shape&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>显示：</p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1573690825286.png" alt="1573690825286"></p>
+<h4 id="字体大小的设置"><a class="markdownIt-Anchor" href="#字体大小的设置"></a> 字体大小的设置</h4>
+<p>在<code>\documentclass[可选项]{article}</code>可选项：10pt, 11pt, 12pt</p>
+<h5 id="标准字体"><a class="markdownIt-Anchor" href="#标准字体"></a> 标准字体</h5>
+<p><img src="https://upload-images.jianshu.io/upload_images/14032224-92a41bd9f5ae8d0c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/926/format/webp" alt="img"></p>
+<h5 id="中文字号"><a class="markdownIt-Anchor" href="#中文字号"></a> 中文字号</h5>
+<p><img src="https://upload-images.jianshu.io/upload_images/14032224-40678f49169abb91.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/753/format/webp" alt="img"></p>
+<h3 id="函数式编写文档"><a class="markdownIt-Anchor" href="#函数式编写文档"></a> 函数式编写文档</h3>
+<h4 id="说明"><a class="markdownIt-Anchor" href="#说明"></a> 说明</h4>
+<p>在LaTeX文档里，我们不可能满篇文章的设置字体，我们可以用：</p>
+<p><code>\newcommend{cmd}{def}</code>来定义一个新的命令，把字体的整体设置放在def里，减少代码量，也利于修改</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">newcommand</span><span class="string">&#123;\myfont&#125;</span><span class="string">&#123;\textit&#123;\textbf&#123;\textrm&#123;Fancy Family&#125;</span></span>&#125;&#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">myfont</span><span class="string">&#123;Fancy Family&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>显示：</p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1573691557272.png" alt="1573691557272"></p>
+<h4 id="latex的文档结构"><a class="markdownIt-Anchor" href="#latex的文档结构"></a> LaTeX的文档结构</h4>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\section{}</td>
+<td>一级标题</td>
+</tr>
+<tr>
+<td>\subsection{}</td>
+<td>二级标题</td>
+</tr>
+<tr>
+<td>\subsubsection{}</td>
+<td>三级标题</td>
+</tr>
+<tr>
+<td>空行</td>
+<td>用于分割段落（同时使源文档结构清晰）</td>
+</tr>
+<tr>
+<td>空行</td>
+<td>用于分割命令与结构</td>
+</tr>
+<tr>
+<td>\</td>
+<td>用于换行</td>
+</tr>
+<tr>
+<td>\par</td>
+<td>也用于换行</td>
+</tr>
+<tr>
+<td>\chapter{}</td>
+<td>章节大纲</td>
+</tr>
+<tr>
+<td>\tableofcontents</td>
+<td>生成目录</td>
+</tr>
+</tbody>
+</table>
+<p>第一篇文章就这样完成了！</p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1573696187883.png" alt="1573696187883"></p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1573696200304.png" alt="1573696200304"></p>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1573696212143.png" alt="1573696212143"></p>
+<p>源代码：</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 导言区，用于全局设置</span></span><br><span class="line"><span class="tag">\<span class="name">documentclass</span><span class="string">[UTF8]</span><span class="string">&#123;ctexart&#125;</span></span></span><br><span class="line"><span class="comment">% 导入中文宏</span></span><br><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;ctex&#125;</span></span></span><br><span class="line"><span class="comment">% 默认情况下，目录连接是带红色的边框，如果不想这样，可以 进行以下设置</span></span><br><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">[bookmarks=true,colorlinks,linkcolor=black]</span><span class="string">&#123;hyperref&#125;</span></span></span><br><span class="line"><span class="comment">% 添加图片</span></span><br><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;graphicx&#125;</span></span></span><br><span class="line"><span class="comment">% 定义存放图片的位置</span></span><br><span class="line"><span class="tag">\<span class="name">graphicspath</span><span class="string">&#123;&#123;figure/&#125;</span></span>&#125;</span><br><span class="line"><span class="comment">% 模块式编程</span></span><br><span class="line"><span class="comment">% \newcommand&#123;\myfont&#125;&#123;\textit&#123;\textbf&#123;\textsf&#123;Fancy Family&#125;&#125;&#125;&#125;</span></span><br><span class="line"><span class="tag">\<span class="name">newcommand</span><span class="string">&#123;\myfont&#125;</span><span class="string">&#123;\textit&#123;\textbf&#123;\textrm&#123;Fancy Family&#125;</span></span>&#125;&#125;&#125;</span><br><span class="line"><span class="tag">\<span class="name">title</span><span class="string">&#123;杂谈爱情&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">author</span><span class="string">&#123;MYQ&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">date</span><span class="string">&#123;\today&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 正文区域</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;document&#125;</span></span></span><br><span class="line">	<span class="tag">\<span class="name">maketitle</span></span></span><br><span class="line">	<span class="tag">\<span class="name">section</span><span class="string">&#123;开始&#125;</span></span></span><br><span class="line">	我们的故事始于北邮沙河的图书馆，虽然这不是我们相遇的地方，但却是我们相识、了解的地方</span><br><span class="line">	</span><br><span class="line">	这个故事的主人公是MYQ<span class="tag">\<span class="name">footnote</span><span class="string">&#123;MYQ,一名北京邮电大学小仙女，来自浙江绍兴&#125;</span></span>和YJZ<span class="tag">\<span class="name">footnote</span><span class="string">&#123;YJZ,一名北京邮电大学的傻子，来自河北石家庄&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	你告白的勇气也来源于一场美丽的误会（我来搞笑的）</span><br><span class="line">	<span class="tag">\<span class="name">begin</span><span class="string">&#123;center&#125;</span></span></span><br><span class="line">		——我以为那个在北邮微生活发消息的人是你<span class="tag">\<span class="name">\</span></span></span><br><span class="line">		——其实我根本就没有关注北邮微生活</span><br><span class="line">	<span class="tag">\<span class="name">end</span><span class="string">&#123;center&#125;</span></span></span><br><span class="line">	<span class="tag">\<span class="name">par</span></span> 误打误撞，我们就这样在一起了...对我来说，就像开启了一场新的生活，从没想过我也会有这样的一天，二十年来习惯了一个人生活的我，突然多了一个可以关心的人，也突然成为了住在别人心里的一个人<span class="tag">\<span class="name">ref</span><span class="string">&#123;fig:1&#125;</span></span><span class="tag">\<span class="name">\</span></span></span><br><span class="line"></span><br><span class="line">	<span class="tag">\<span class="name">par</span></span> 我曾写下这样三行情诗:</span><br><span class="line">	<span class="tag">\<span class="name">begin</span><span class="string">&#123;center&#125;</span></span></span><br><span class="line">		<span class="tag">\<span class="name">kaishu</span></span></span><br><span class="line">		土豆和马铃薯<span class="tag">\<span class="name">\</span></span></span><br><span class="line">		番茄和西红柿<span class="tag">\<span class="name">\</span></span></span><br><span class="line">		我喜欢的人和你<span class="tag">\<span class="name">\</span></span></span><br><span class="line">	<span class="tag">\<span class="name">end</span><span class="string">&#123;center&#125;</span></span></span><br><span class="line">	<span class="tag">\<span class="name">par</span></span> 今天我也想把它送给你</span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">pagebreak</span></span></span><br><span class="line">	<span class="tag">\<span class="name">section</span><span class="string">&#123;后来&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">par</span></span> 在一起之后，我们一起做了很多很多的事情，完成了好多好多的第一次。第一次牵手，第一次拥抱，第一次约会，第一次旅行，第一次看演唱会...</span><br><span class="line">	<span class="tag">\<span class="name">par</span></span> 最棒的第一次是 第一次和你在一起</span><br><span class="line">	<span class="tag">\<span class="name">begin</span><span class="string">&#123;figure&#125;</span></span><span class="tag">\<span class="name">centering</span></span></span><br><span class="line">		<span class="tag">\<span class="name">includegraphics</span><span class="string">[scale=0.25]</span><span class="string">&#123;1.jpg&#125;</span></span></span><br><span class="line">		<span class="tag">\<span class="name">caption</span><span class="string">&#123;这之间还有一个大功臣——小辉（图片来源于小辉之手）&#125;</span></span></span><br><span class="line">		<span class="tag">\<span class="name">label</span><span class="string">&#123;fig:1&#125;</span></span></span><br><span class="line">	<span class="tag">\<span class="name">end</span><span class="string">&#123;figure&#125;</span></span></span><br><span class="line"></span><br><span class="line">	<span class="tag">\<span class="name">begin</span><span class="string">&#123;center&#125;</span></span></span><br><span class="line">		<span class="tag">\<span class="name">begin</span><span class="string">&#123;tabular&#125;</span><span class="string">&#123;|c|c|c|&#125;</span></span><span class="tag">\<span class="name">hline</span></span></span><br><span class="line">			<span class="tag">\<span class="name">small</span></span> 时间&amp;事件&amp;好感度<span class="tag">\<span class="name">\</span></span> <span class="tag">\<span class="name">hline</span></span></span><br><span class="line">			2019.1.24&amp;在一起&amp;100<span class="tag">\<span class="name">\</span></span><span class="tag">\<span class="name">hline</span></span></span><br><span class="line">			2019.2.14&amp;第一次过情人节&amp;120<span class="tag">\<span class="name">\</span></span><span class="tag">\<span class="name">hline</span></span></span><br><span class="line">			2019.5.4&amp;大傻过生日&amp;200<span class="tag">\<span class="name">\</span></span><span class="tag">\<span class="name">hline</span></span></span><br><span class="line">		<span class="tag">\<span class="name">end</span><span class="string">&#123;tabular&#125;</span></span></span><br><span class="line">	<span class="tag">\<span class="name">end</span><span class="string">&#123;center&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">par</span></span>  这不仅仅是练习LaTeX的第一篇文章，更是写给你的一封<span class="tag">\<span class="name">emph</span><span class="string">&#123;小情书&#125;</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">\<span class="name">pagebreak</span></span></span><br><span class="line">	<span class="tag">\<span class="name">begin</span><span class="string">&#123;thebibliography&#125;</span><span class="string">&#123;参考文献&#125;</span></span></span><br><span class="line">		<span class="tag">\<span class="name">bibitem</span><span class="string">&#123;MYQ&#125;</span></span> MYQ,著作《咱们俩》，北京邮电大学大三学生</span><br><span class="line">		<span class="tag">\<span class="name">bibitem</span><span class="string">&#123;YJZ&#125;</span></span> YJZ,著作《恋爱手册》，脑子里只有竞赛和大傻的三傻</span><br><span class="line">	<span class="tag">\<span class="name">end</span><span class="string">&#123;thebibliography&#125;</span></span></span><br><span class="line">	<span class="tag">\<span class="name">addcontentsline</span><span class="string">&#123;toc&#125;</span><span class="string">&#123;section&#125;</span><span class="string">&#123;参考文献&#125;</span></span></span><br><span class="line">	<span class="tag">\<span class="name">begin</span><span class="string">&#123;appendix&#125;</span></span></span><br><span class="line">		<span class="tag">\<span class="name">small</span></span> 今天是他们在一起的294天，大火花的第352天</span><br><span class="line">	<span class="tag">\<span class="name">end</span><span class="string">&#123;appendix&#125;</span></span></span><br><span class="line">	</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;document&#125;</span></span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -305,7 +393,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/26/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/140/">140</a><a class="extend next" rel="next" href="/page/28/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/26/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/144/">144</a><a class="extend next" rel="next" href="/page/28/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -351,7 +439,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">140</span>
+          <span class="site-state-item-count">144</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

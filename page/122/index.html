@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/07/PyTorch-Study/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/Python格式化输出/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/08/07/PyTorch-Study/" class="post-title-link" itemprop="url">PyTorch Study</a>
+            <a href="/2019/08/09/Python格式化输出/" class="post-title-link" itemprop="url">Python格式化输出</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-08-07 14:57:07 / 修改时间：16:36:12" itemprop="dateCreated datePublished" datetime="2019-08-07T14:57:07+08:00">2019-08-07</time>
+              <time title="创建时间：2019-08-09 09:25:45 / 修改时间：09:42:16" itemprop="dateCreated datePublished" datetime="2019-08-09T09:25:45+08:00">2019-08-09</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/08/07/PyTorch-Study/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/07/PyTorch-Study/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/08/09/Python格式化输出/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/09/Python格式化输出/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,31 +240,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="pytorch搭建神经网络"><a class="markdownIt-Anchor" href="#pytorch搭建神经网络"></a> PyTorch搭建神经网络</h3>
-<h4 id="1-导入库"><a class="markdownIt-Anchor" href="#1-导入库"></a> 1. 导入库</h4>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br></pre></td></tr></table></figure>
-<h4 id="2-搭建卷积神经网络"><a class="markdownIt-Anchor" href="#2-搭建卷积神经网络"></a> 2. 搭建卷积神经网络</h4>
-<p>网络定义一般由两部分组成：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span>		<span class="comment"># 用来定义网络节点参数</span></span><br></pre></td></tr></table></figure>
-<p>将节点连接成图</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br></pre></td></tr></table></figure>
-<p>卷积计算规则：</p>
-<p>对我们输入形状1， 1， 64， 64.四个维度分别是<code>(batch, channel, height, width)</code></p>
-<p><code>new_height = (height - kernel_size) + s * padding / (stride[0]) + 1</code></p>
-<p>即在周围补一圈0， stride默认为1.因此</p>
-<p><code>new_height = new_width = (64 - 3) / 1 + 1 = 62</code></p>
-<p>由于输出通道是6，所以通过卷积层后维度为<code>(1, 6, 62, 62)</code></p>
-<p>经过pooling后，<code>(1, 6, 31, 31)</code></p>
-<p><code>x.view(1, -1)</code>把x伸缩为(1 : ?)的维度。这样整个网络其实输入<code>(1, 1, 64, 64)</code>，输出为(1, 10)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(Net, self).__init__()</span><br><span class="line">        self.conv = nn.Conv2d(in_channels=<span class="number">1</span>, out_channels=<span class="number">6</span>, kernel_size=<span class="number">3</span>)</span><br><span class="line">        self.linear = nn.Leaner(<span class="number">5766</span>, <span class="number">10</span>)</span><br><span class="line">        self.relu = nn.ReLU(inplace=<span class="literal">True</span>)</span><br><span class="line">        self.maxpooling = nn.MaxPool2d((<span class="number">2</span>, <span class="number">2</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        x = self.conv(x)</span><br><span class="line">        <span class="comment"># print (x.shape)</span></span><br><span class="line">        x = self.maxpooling(x)</span><br><span class="line">        <span class="comment"># print(x.shape)</span></span><br><span class="line">        x = self.relu(x)</span><br><span class="line">        x = view(<span class="number">1</span>, <span class="number">-1</span>)</span><br><span class="line">        <span class="comment"># print (x.shape)</span></span><br><span class="line">        x = self.linear(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
-<h4 id="3-添加训练数据"><a class="markdownIt-Anchor" href="#3-添加训练数据"></a> 3. 添加训练数据</h4>
-<p>optimizer：是优化器，即所谓的反向传播算法。<code>criterion = nn.MSELoss()</code>定义损失函数。</p>
-<p><code>input = torch.randn(1， 1， 64， 64).cuda()</code></p>
-<p><code>output = torch.ones(1, 10).cuda()</code></p>
-<p>定义训练样本，注意如果实在gpu中训练，在pytorch中需要.cuda()把数据从cpu中导入到gpu中</p>
-<p>网络的功能是给定随机噪声向量，输出是逼近1的单位向量</p>
-<h4 id="4-训练"><a class="markdownIt-Anchor" href="#4-训练"></a> 4. 训练</h4>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> step <span class="keyword">in</span> range(epoch):</span><br><span class="line">    prediction = net(input)</span><br><span class="line">    loss = creterion(prediction, output)</span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    <span class="comment"># 消除优化器梯度</span></span><br><span class="line">    loss.backward()</span><br><span class="line">    <span class="comment"># 指自动求导</span></span><br><span class="line">    optimizer.step()</span><br><span class="line">    <span class="comment"># 根据自动求导反向传播优化参数</span></span><br><span class="line">    <span class="keyword">if</span> step % <span class="number">10</span> == <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">"EPOCH: &#123;&#125;, Loss:&#123;:4f&#125;"</span>).format(step, loss))</span><br></pre></td></tr></table></figure>
+          <h2 id="python格式化输出"><a class="markdownIt-Anchor" href="#python格式化输出"></a> Python格式化输出</h2>
+<h3 id="格式化输出字符串"><a class="markdownIt-Anchor" href="#格式化输出字符串"></a> 格式化输出字符串</h3>
+<h4 id="用法一"><a class="markdownIt-Anchor" href="#用法一"></a> 用法一：</h4>
+<p>与%s类似，不同指出是将<code>%s</code>换乘了<code>‘{ }’</code>大括号，调用时依然需要按照顺序对应</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"My name is &#123;&#125;, &#123;&#125; years old, and my hobby is &#123;&#125;"</span></span><br><span class="line">s1 = s.format(<span class="string">'MMMMMQ'</span>, <span class="string">'25'</span>, <span class="string">'watching TV'</span>)</span><br><span class="line">print(s1)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">My name is MMMMMQ, 25 years old, My hobby is watching TV</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<h4 id="用法二"><a class="markdownIt-Anchor" href="#用法二"></a> 用法二：</h4>
+<p>通过<code>{n}</code>方式来指定接收参数的位置，将调用时传入的参数按照位置进行传入。相比%s可以减少参数的个数，实现了参数的复用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"My name is &#123;0&#125;, &#123;1&#125; years old, and my name is still &#123;0&#125;"</span></span><br><span class="line">s1 = s.format(<span class="string">'MMMMQ'</span>, <span class="string">'25'</span>, <span class="string">'watching TV'</span>)</span><br><span class="line">print(s1)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">My name is MMMMQ, 25 years old, and my name is still MMMMQ</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<h4 id="用法三"><a class="markdownIt-Anchor" href="#用法三"></a> 用法三：</h4>
+<p>通过<code>str{}</code>方式来指定名字，调用时使用<code>str='xxx'</code>，确定参数传入</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"My name is &#123;name&#125;, &#123;age&#125; years old, and my hobby is &#123;hobby&#125;"</span></span><br><span class="line">s1 = s.format(age=<span class="number">25</span>, hobby=<span class="string">'watching TV'</span>, name=<span class="string">'MMMMQ'</span>)</span><br><span class="line">print(s1)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">My name is MMMMQ, 25 years old, and my hobby is watching TV</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<h3 id="保留n位小数"><a class="markdownIt-Anchor" href="#保留n位小数"></a> 保留n位小数：</h3>
+<h4 id="保留一个数字"><a class="markdownIt-Anchor" href="#保留一个数字"></a> 保留一个数字</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'This is a float number &#123;:.2f&#125;'</span>.format(<span class="number">123.432423432</span>))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">This is a float number 123.43</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<h4 id="保留两个数字"><a class="markdownIt-Anchor" href="#保留两个数字"></a> 保留两个数字</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'This are two float numbers &#123;:.2f&#125; and &#123;:.4f&#125;'</span>.format(<span class="number">123.432423432</span>, <span class="number">0.321423423</span>))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">This are two float numbers 123.43 and 0.3214</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<h4 id="保留数字和文字"><a class="markdownIt-Anchor" href="#保留数字和文字"></a> 保留数字和文字</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'This are two float numbers and a string &#123;:.2f&#125; , &#123;:.4f&#125; and &#123;&#125; '</span>.format(<span class="number">123.432423432</span>, <span class="number">0.321423423</span>, <span class="string">'MMMMQ'</span>))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">This are two float numbers and a string 123.43 , 0.3214 and MMMMQ </span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -284,7 +277,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/121/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/121/">121</a><span class="page-number current">122</span><a class="page-number" href="/page/123/">123</a><span class="space">&hellip;</span><a class="page-number" href="/page/140/">140</a><a class="extend next" rel="next" href="/page/123/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/121/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/121/">121</a><span class="page-number current">122</span><a class="page-number" href="/page/123/">123</a><span class="space">&hellip;</span><a class="page-number" href="/page/144/">144</a><a class="extend next" rel="next" href="/page/123/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -330,7 +323,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">140</span>
+          <span class="site-state-item-count">144</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

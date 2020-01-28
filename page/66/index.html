@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/12/Dataloader的使用/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/16/LeetCode-Day32/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/09/12/Dataloader的使用/" class="post-title-link" itemprop="url">Dataloader的使用</a>
+            <a href="/2019/09/16/LeetCode-Day32/" class="post-title-link" itemprop="url">LeetCode-Day32</a>
         </h1>
 
         <div class="post-meta">
@@ -210,10 +210,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-09-12 10:09:58 / 修改时间：14:52:54" itemprop="dateCreated datePublished" datetime="2019-09-12T10:09:58+08:00">2019-09-12</time>
+              <time title="创建时间：2019-09-16 17:47:27" itemprop="dateCreated datePublished" datetime="2019-09-16T17:47:27+08:00">2019-09-16</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-09-17 17:11:46" itemprop="dateModified" datetime="2019-09-17T17:11:46+08:00">2019-09-17</time>
+              </span>
 
           
   
@@ -224,8 +230,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/09/12/Dataloader的使用/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/12/Dataloader的使用/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/09/16/LeetCode-Day32/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/16/LeetCode-Day32/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,19 +246,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="dataloader的使用"><a class="markdownIt-Anchor" href="#dataloader的使用"></a> DataLoader的使用</h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line"><span class="keyword">import</span> torch.utils.data.dataset <span class="keyword">as</span> Dataset </span><br><span class="line"><span class="keyword">import</span> torch.utils.data.dataloader <span class="keyword">as</span> Dataloader</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string"># CPU version</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 注意，这里如果只写了Dataset而不是Dataset.Dataset，则会报错，因为Dataset是module模块，而不是class类，所以需要调用module里的class才行，因此是Dataset.Dataset</span></span><br><span class="line"><span class="string">class subDataset(Dataset.Dataset):</span></span><br><span class="line"><span class="string">    def __init__(self, Data, Label):</span></span><br><span class="line"><span class="string">        self.Data = Data</span></span><br><span class="line"><span class="string">        self.Label = Label</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    def __len__(self):</span></span><br><span class="line"><span class="string">        return len(self.Data)</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    def __getitem__(self, index):</span></span><br><span class="line"><span class="string">        data = torch.Tensor(self.Data[index])</span></span><br><span class="line"><span class="string">        label = torch.Tensor(self.Label[index])</span></span><br><span class="line"><span class="string">        return data, label</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Data = np.asarray([[1, 2], [3, 4], [5, 6], [7, 8]])</span></span><br><span class="line"><span class="string">Label = np.asarray([[0], [1], [0], [2]])</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">if __name__ == '__main__':</span></span><br><span class="line"><span class="string">    dataset = subDataset(Data, Label)</span></span><br><span class="line"><span class="string">    print(dataset)</span></span><br><span class="line"><span class="string">    print('dataset.size = ', dataset.__len__())</span></span><br><span class="line"><span class="string">    print(dataset.__getitem__(0))</span></span><br><span class="line"><span class="string">    print(dataset[0])</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    dataloader = Dataloader.DataLoader(dataset, batch_size=2, shuffle=True, num_workers=4)</span></span><br><span class="line"><span class="string">    for index, item in enumerate(dataloader):</span></span><br><span class="line"><span class="string">        print('i', index)</span></span><br><span class="line"><span class="string">        data, label = item</span></span><br><span class="line"><span class="string">        print('data: &#123;&#125;, label: &#123;&#125;'.format(data, label))</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># GPU version  </span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">subDataset</span><span class="params">(Dataset.Dataset)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, Data, Label)</span>:</span></span><br><span class="line">        self.Data = Data</span><br><span class="line">        self.Label = Label</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> len(self.Data)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        data = torch.Tensor(self.Data[index])</span><br><span class="line">        label = torch.Tensor(self.Label[index])</span><br><span class="line">        <span class="keyword">return</span> data, label</span><br><span class="line"></span><br><span class="line">Data = np.asarray([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>], [<span class="number">5</span>, <span class="number">6</span>], [<span class="number">7</span>, <span class="number">8</span>]])</span><br><span class="line">Label = np.asarray([[<span class="number">0</span>], [<span class="number">1</span>], [<span class="number">0</span>], [<span class="number">2</span>]])</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    dataset = subDataset(Data, Label)</span><br><span class="line">    print(dataset)</span><br><span class="line">    print(<span class="string">'dataset.size = '</span>, dataset.__len__())</span><br><span class="line">    print(dataset.__getitem__(<span class="number">0</span>))</span><br><span class="line">    print(dataset[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">    dataloader = Dataloader.DataLoader(dataset, batch_size=<span class="number">2</span>, shuffle=<span class="literal">True</span>, num_workers=<span class="number">0</span>)</span><br><span class="line">    <span class="comment"># 这里需要质疑把num_workers改为0</span></span><br><span class="line">    <span class="keyword">for</span> index, item <span class="keyword">in</span> enumerate(dataloader):</span><br><span class="line">        print(<span class="string">'i'</span>, index)</span><br><span class="line">        data, label = item</span><br><span class="line">        <span class="keyword">if</span> torch.cuda.is_available():</span><br><span class="line">            data = data.cuda()</span><br><span class="line">            label = label.cuda()</span><br><span class="line">        print(<span class="string">'data: &#123;&#125;, label: &#123;&#125;'</span>.format(data, label))</span><br></pre></td></tr></table></figure>
-<h3 id="dataset和dataloader总结"><a class="markdownIt-Anchor" href="#dataset和dataloader总结"></a> Dataset和DataLoader总结：</h3>
+          <h2 id="leetcode-day32依旧贪心"><a class="markdownIt-Anchor" href="#leetcode-day32依旧贪心"></a> LeetCode-Day32——依旧贪心</h2>
+<h3 id="630-课程表iii"><a class="markdownIt-Anchor" href="#630-课程表iii"></a> 630. 课程表III</h3>
+<p>这里有 n 门不同的在线课程，他们按从 1 到 n 编号。每一门课程有一定的持续上课时间（课程时间）t 以及关闭时间第 d 天。一门课要持续学习 t 天直到第 d 天时要完成，你将会从第 1 天开始。</p>
+<p>给出 n 个在线课程用 (t, d) 对表示。你的任务是找出最多可以修几门课。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入: [[100, 200], [200, 1300], [1000, 1250], [2000, 3200]]</span><br><span class="line">输出: 3</span><br><span class="line">解释: </span><br><span class="line">这里一共有 4 门课程, 但是你最多可以修 3 门:</span><br><span class="line">首先, 修第一门课时, 它要耗费 100 天，你会在第 100 天完成, 在第 101 天准备下门课。</span><br><span class="line">第二, 修第三门课时, 它会耗费 1000 天，所以你将在第 1100 天的时候完成它, 以及在第 1101 天开始准备下门课程。</span><br><span class="line">第三, 修第二门课时, 它会耗时 200 天，所以你将会在第 1300 天时完成它。</span><br><span class="line">第四门课现在不能修，因为你将会在第 3300 天完成它，这已经超出了关闭日期。</span><br></pre></td></tr></table></figure>
+<p>提示:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">整数 1 &lt;= d, t, n &lt;= 10,000 。</span><br><span class="line">你不能同时修两门课程。</span><br></pre></td></tr></table></figure>
+<p>思路：</p>
 <ul>
-<li>Dataset是一个抽象类，需要<strong>派生一个子类构造数据集</strong>，需要改写的方法有<code>__init__, __getitem__, __len__</code>等等。</li>
-<li>DataLoader是一个迭代器，方便我们访问Dataset里的对象，值得注意的<code>num_workers</code>的参数设置：如果放在<strong>CPU</strong>上跑，<strong>可以不管</strong>，但是<strong>放在GPU上则需要设置为0</strong>；或者在DataLoader操作之后将Tensor放在GPU上</li>
-<li><strong>数据和标签是tuple元组的形式</strong>，使用DataLoader然后使用enumerate函数访问他们</li>
+<li>首先，按照以往的思路，先按照结束时间对课程进行排序</li>
+<li>使用一个<strong>大顶堆</strong>来储存已经选择的课程的长度</li>
+<li>一旦发现安排了当前课程之后，其结束时间超过了最晚结束时间，那么就从已经安排的课程汇总，取消掉一门最耗时的课程。</li>
 </ul>
-<p><strong>顺便带一下CIFAR-10数据集的说明</strong></p>
-<p>该数据集共有60000张彩色图像，这些图像时32 * 32，分为10个类，每类6000张图片。这里面有50000张用于训练，构成了5个训练批，每一批10000张图；另外10000张用于测试，单独构成一批。测试批的数据里，取自10类中的每一类，每一类随机取1000张。抽剩下的随机排列就组成了训练批。注意一个训练批中的各类图像并不一定数量相同，总的来看，每一类都有5000张图</p>
-<p>下面这幅图就是列举了10各类，每一类展示了随机的10张图片：</p>
-<p><img src="https://images2018.cnblogs.com/blog/1196151/201712/1196151-20171225161744462-2083152737.png" alt="img"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">scheduleCourse</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; courses)</span> </span>&#123;</span><br><span class="line">        sort(courses.begin(), courses.end(), [](<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; a, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; b) &#123;</span><br><span class="line">            <span class="keyword">return</span> a[<span class="number">1</span>] &lt; b[<span class="number">1</span>];</span><br><span class="line">        &#125;);</span><br><span class="line">        priority_queue&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">        <span class="keyword">int</span> dur = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; courses.size();i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(dur + courses[i][<span class="number">0</span>] &lt;= courses[i][<span class="number">1</span>]) &#123;</span><br><span class="line">                dur += courses[i][<span class="number">0</span>];</span><br><span class="line">                q.push(courses[i][<span class="number">0</span>]);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(!q.empty() &amp;&amp; q.top() &gt; courses[i][<span class="number">0</span>]) &#123;</span><br><span class="line">                dur += (courses[i][<span class="number">0</span>] - q.top());</span><br><span class="line">                q.pop();</span><br><span class="line">                q.push(courses[i][<span class="number">0</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> q.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><code>Tips</code></p>
+<p>今日的小提示就是大顶堆，可以利用C++中已有的数据结构<code>qriority_queue</code>，基本操作也就是<code>push(),pop()</code></p>
+<h3 id="714-买卖股票的最佳时期含手续费"><a class="markdownIt-Anchor" href="#714-买卖股票的最佳时期含手续费"></a> 714. 买卖股票的最佳时期含手续费</h3>
+<p><strong>方法：动态规划</strong></p>
+<p>我们维护两个变量<code>cash</code> 和<code>hold</code>，前者表示当我们不持有股票时的最大利润（即卖出），后者表示当我们持有股票时的最大利润。</p>
+<p>在第<code>i</code>天是，我们需要根据第<code>i - 1</code>天的装啊提来更新<code>cash</code>和<code>hold</code>的值。对于<code>cash</code>，我们可以保持不变，或者将手上的股票卖出，状态转移方程为：</p>
+<p><code>cash = max(cash, hold + prices[i] - fee)</code></p>
+<p>对于<code>hold</code>，我们可以保持不变，或者买入这一天的股票，状态转移方程为:</p>
+<p><code>hold = max(hold, cash - prices[i])</code></p>
+<p>在计算这两个状态转移方程时，我们可以不使用临时变量来存储<code>cash</code>和<code>hold</code>的值，而是可以先计算<code>cash</code>再计算<code>hold</code>，原因是在同一天卖出在买入（亏了一比手续费）一定不会比不进行任何操作好</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices, <span class="keyword">int</span> fee)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> cash = <span class="number">0</span>, hold = -prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; prices.size();i++) &#123;</span><br><span class="line">            cash = max(cash, hold + prices[i] - fee);</span><br><span class="line">            hold = max(hold, cash - prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cash;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -272,7 +291,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/65/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><span class="page-number current">66</span><a class="page-number" href="/page/67/">67</a><span class="space">&hellip;</span><a class="page-number" href="/page/140/">140</a><a class="extend next" rel="next" href="/page/67/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/65/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><span class="page-number current">66</span><a class="page-number" href="/page/67/">67</a><span class="space">&hellip;</span><a class="page-number" href="/page/144/">144</a><a class="extend next" rel="next" href="/page/67/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -318,7 +337,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">140</span>
+          <span class="site-state-item-count">144</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

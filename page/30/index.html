@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/17/SQLServer-Day7/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/04/semaphore/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/10/17/SQLServer-Day7/" class="post-title-link" itemprop="url">SQLServer-Day7</a>
+            <a href="/2019/11/04/semaphore/" class="post-title-link" itemprop="url">semaphore</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-10-17 19:42:29 / 修改时间：20:51:43" itemprop="dateCreated datePublished" datetime="2019-10-17T19:42:29+08:00">2019-10-17</time>
+              <time title="创建时间：2019-11-04 21:24:14 / 修改时间：21:24:42" itemprop="dateCreated datePublished" datetime="2019-11-04T21:24:14+08:00">2019-11-04</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/10/17/SQLServer-Day7/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/17/SQLServer-Day7/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/11/04/semaphore/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/04/semaphore/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,681 +240,142 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="sqlserver-day7"><a class="markdownIt-Anchor" href="#sqlserver-day7"></a> SQLServer-Day7</h2>
-<h3 id="drop-index语句"><a class="markdownIt-Anchor" href="#drop-index语句"></a> DROP INDEX语句</h3>
-<p>可以使用<code>DROP INDEX</code>命令删除表格中的索引</p>
-<p>用于 Microsoft SQLJet (以及 Microsoft Access) 的语法:</p>
-<blockquote>
-<p>DROP INDEX index_name ON table_name</p>
-</blockquote>
-<p>用于 MS SQL Server的语法</p>
-<blockquote>
-<p>DROP INDEX table_name.index_name</p>
-</blockquote>
-<p>用于IBM DB2 和 Oracle语法：</p>
-<blockquote>
-<p>DROP INDEX index_name</p>
-</blockquote>
-<p>用于MySQL的语法</p>
-<blockquote>
-<p>ALTER TABLE table_name DROP index_name</p>
-</blockquote>
-<h3 id="drop-table-语句"><a class="markdownIt-Anchor" href="#drop-table-语句"></a> DROP TABLE 语句</h3>
-<p>用于删除表（表的结构、属性以及索引也会被删除）</p>
-<blockquote>
-<p>DROP TABLE 表名称</p>
-</blockquote>
-<h3 id="drop-database语句"><a class="markdownIt-Anchor" href="#drop-database语句"></a> DROP DATABASE语句</h3>
-<p>用于删除数据库</p>
-<blockquote>
-<p>DROP DATABASE 数据库名称</p>
-</blockquote>
-<h3 id="truncate-table语句"><a class="markdownIt-Anchor" href="#truncate-table语句"></a> TRUNCATE TABLE语句</h3>
-<p>如果我们仅仅需要删除表内的数据，但并不删除表本身，可以使用<code>TRUNCATE TABLE</code>命令，仅仅删除表格中的数据</p>
-<blockquote>
-<p>TRUNCATE TABLE 表名称</p>
-</blockquote>
-<h3 id="alter-table语句"><a class="markdownIt-Anchor" href="#alter-table语句"></a> ALTER TABLE语句</h3>
-<p>用于在已有的表中添加、修改或删除列</p>
-<p>添加列：</p>
-<blockquote>
-<p>ALTER TABLE table_name</p>
-<p>ADD column_name datatype</p>
-</blockquote>
-<p>删除列：</p>
-<blockquote>
-<p>ALTER TABLE table_name</p>
-<p>DROP COLUMN column_name</p>
-</blockquote>
-<p>**Tips：**某些数据库系统不允许这种在数据库表中删除列的方式</p>
-<p>要更改表中列的数据类型：</p>
-<blockquote>
-<p>ALTER TABLE table_name</p>
-<p>ALTER COLUMN column_name datatype</p>
-</blockquote>
-<p>例1：</p>
-<p>原始的Persons表：</p>
-<table>
-<thead>
-<tr>
-<th>Id</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td>Oxford Street</td>
-<td>London</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Bush</td>
-<td>George</td>
-<td>Fifth Avenue</td>
-<td>New York</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Carter</td>
-<td>Thomas</td>
-<td>Changan Street</td>
-<td>Beijing</td>
-</tr>
-</tbody>
-</table>
-<p>现在，需要在表“Persons”中添加一个名为“Birthday”的新列</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line"><span class="keyword">ADD</span> Birthday <span class="built_in">date</span></span><br></pre></td></tr></table></figure>
-<p>请注意，新列 “Birthday” 的类型是 date，可以存放日期。数据类型规定列中可以存放的数据的类型。</p>
-<p>所以，新的表长这样：</p>
-<table>
-<thead>
-<tr>
-<th>Id</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
-<th>Birthday</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td>Oxford Street</td>
-<td>London</td>
-<td></td>
-</tr>
-<tr>
-<td>2</td>
-<td>Bush</td>
-<td>George</td>
-<td>Fifth Avenue</td>
-<td>New York</td>
-<td></td>
-</tr>
-<tr>
-<td>3</td>
-<td>Carter</td>
-<td>Thomas</td>
-<td>Changan Street</td>
-<td>Beijing</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>例2：改变数据类型实例</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">COLUMN</span> Birthday <span class="keyword">year</span></span><br></pre></td></tr></table></figure>
-<p>例3：删除Birthday列</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Persons </span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">COLUMN</span> Birthday</span><br></pre></td></tr></table></figure>
-<h3 id="auto-increment-字段"><a class="markdownIt-Anchor" href="#auto-increment-字段"></a> AUTO INCREMENT 字段</h3>
-<p>会在新纪录插入表示生成一个唯一的数字</p>
-<p>我们通常希望在每次插入记录时，自动创建主键字段的值，这时候，可以在表中创建一个auto-increament字段</p>
-<p>用于MySQL的语法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE</span><br><span class="line">(</span><br><span class="line">P_Id int NOT NULL AUTO_INCREAMENT, </span><br><span class="line">LastName varchar(255) NOT NULL, </span><br><span class="line">FirstName varcahr(255), </span><br><span class="line">Address varcahr(255), </span><br><span class="line">City varcahr(255), </span><br><span class="line">PRIMARY KEY (P_Id)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>上面的语句把“Persons”表中的P_Id列定义为auto-increament主键，默认的，AUTO_INCREAMENT的开始值是1，每条新纪录递增1</p>
-<p>要让AUTO_INCREAMENT序列以其他的值起始，需要这样使用SQL语句：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE Persons AUTO_INCREAMENT=100</span><br></pre></td></tr></table></figure>
-<p>要在“Persons”表中插入新纪录，我们不必为“P_Id”列规定值（会自动添加一个唯一的值）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO Persons (FirstName, LastName)</span><br><span class="line">VALUES (&apos;Bill&apos;, &apos;Gates&apos;)</span><br></pre></td></tr></table></figure>
-<p>用于SQL Serer的语法</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span></span><br><span class="line">(</span><br><span class="line">P_Id <span class="built_in">int</span> PRIMARY <span class="keyword">KEY</span> <span class="keyword">IDENTITY</span>, </span><br><span class="line">LastName <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">FirstName varcahr(<span class="number">255</span>), </span><br><span class="line">Address varcahr(<span class="number">255</span>), </span><br><span class="line">City varcahr(<span class="number">255</span>), </span><br><span class="line">PRIMARY <span class="keyword">KEY</span> (P_Id)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>若要规定“P_Id”列以20起始且递增10，请把identity改为<code>IDENTITY(20, 10)</code></p>
-<p>用于Access的语法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE</span><br><span class="line">(</span><br><span class="line">P_Id int PRIMARY KEY AUTOINCREAMENT, </span><br><span class="line">LastName varchar(255) NOT NULL, </span><br><span class="line">FirstName varcahr(255), </span><br><span class="line">Address varcahr(255), </span><br><span class="line">City varcahr(255), </span><br><span class="line">PRIMARY KEY (P_Id)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>修改起始值与增量，同SQL Server</p>
-<p>用于Oracle的语法：</p>
-<p>稍微复杂一点，必须通过sequence 对创建auto-increament字段(该对象生成数字序列)</p>
-<p>CREATE SEQUENCE</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE SEQUENCE seq_person</span><br><span class="line">MINVALUE 1</span><br><span class="line">START WITH 1</span><br><span class="line">INCREASE BY1</span><br><span class="line">CACHE 10</span><br></pre></td></tr></table></figure>
-<p>上面的代码创建名为seq_person的序列对象，它以1起始且以1递增。该对象缓存10个值以提高性能。CACHE选项规定了为了提高访问速度要储存多少个序列值</p>
-<p>要在“Persons”表中插入新纪录，必须使用nextval函数（该函数从seq_person）序列中取回下一个值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO Persons(P_Id, FirstName, LastName)</span><br><span class="line">VALUES (seq_person.nextval, &apos;Lars&apos;, &apos;Monsen&apos;)</span><br></pre></td></tr></table></figure>
-<p>“P_Id” 的赋值是来自 seq_person 序列的下一个数字</p>
-<h3 id="date函数"><a class="markdownIt-Anchor" href="#date函数"></a> Date函数</h3>
-<h4 id="sql日期"><a class="markdownIt-Anchor" href="#sql日期"></a> SQL日期</h4>
-<p>当我们处理日期时，最难的任务恐怕是确保所插入的日期的格式，与数据库中日期列的格式相匹配</p>
-<p>只要数据包含的只是日期部分，运行查询就不会出问题。但是，如果涉及时间，情况就有点复杂了</p>
-<p>在讨论日期查询的复杂性之前，先看看内置日期的处理函数</p>
-<h4 id="mysql-date函数"><a class="markdownIt-Anchor" href="#mysql-date函数"></a> MySQL Date函数</h4>
-<table>
-<thead>
-<tr>
-<th>函数</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>NOW()</td>
-<td>返回当前的时间和日期</td>
-</tr>
-<tr>
-<td>CURDATE()</td>
-<td>返回当前的日期</td>
-</tr>
-<tr>
-<td>CURTIME()</td>
-<td>返回当前的时间</td>
-</tr>
-<tr>
-<td>DATE()</td>
-<td>提取日期或日期/时间表达式的部分日期</td>
-</tr>
-<tr>
-<td>EXTRATE()</td>
-<td>返回日期/时间按的单独部分</td>
-</tr>
-<tr>
-<td>DATE_ADD()</td>
-<td>给日期添加指定的时间间隔</td>
-</tr>
-<tr>
-<td>DATE_SUB()</td>
-<td>从日期减去指定的时间间隔</td>
-</tr>
-<tr>
-<td>DATEDIFF()</td>
-<td>返回两个日期之间的天数</td>
-</tr>
-<tr>
-<td>DATE_FORMAT()</td>
-<td>用不同的格式显示日期/时间</td>
-</tr>
-</tbody>
-</table>
-<h4 id="sql-server-date函数"><a class="markdownIt-Anchor" href="#sql-server-date函数"></a> SQL Server Date函数</h4>
-<table>
-<thead>
-<tr>
-<th>函数</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>GETDATE()</td>
-<td>返回当前日期和时间</td>
-</tr>
-<tr>
-<td>DATEPART()</td>
-<td>返回日期/时间的单独部分</td>
-</tr>
-<tr>
-<td>DATEADD()</td>
-<td>在日期中添加或减去指定的时间间隔</td>
-</tr>
-<tr>
-<td>DATEDIFF()</td>
-<td>返回两个日期之间的时间</td>
-</tr>
-<tr>
-<td>CONVERT()</td>
-<td>用不同的格式显示日期/时间</td>
-</tr>
-</tbody>
-</table>
-<h4 id="sql-date-数据类型"><a class="markdownIt-Anchor" href="#sql-date-数据类型"></a> SQL Date 数据类型</h4>
-<p>MySQL 使用下列数据类型在数据库中存储日期或日期/时间值：</p>
+          <h2 id="信号量编程模板"><a class="markdownIt-Anchor" href="#信号量编程模板"></a> 信号量编程(模板)</h2>
 <ul>
-<li>DATE - 格式 YYYY-MM-DD</li>
-<li>DATETIME - 格式 YYYY-MM-DD HH:MM:SS</li>
-<li>TIMESTAMP - 格式 YYYY-MM-DD HH:MM:SS</li>
-<li>YEAR - 格式 YYYY 或 YY</li>
+<li>
+<p>试解释为什么在单处理器系统的用户进程中通过屏蔽中断来实现同步是不合理的？</p>
+<p>如果用户进程具有屏蔽中断的功能，那么它可以同样屏蔽计时器，没有时钟中断则分派程序无法进行，进程会无限执行</p>
+</li>
+<li>
+<p>试解释为什么在多处理器系统中无法通过屏蔽中断来实现同步</p>
+<p>屏蔽中断仅仅阻止其他进程在被屏蔽了中断的处理器上运行，其他进程可能在其他处理器上运行。</p>
+</li>
 </ul>
-<p>SQL Server 使用下列数据类型在数据库中存储日期或日期/时间值</p>
+<p>先记住<code>wait()</code>和<code>signal()</code>的定义</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">wait(semaphore *S) &#123;</span><br><span class="line">	S-&gt;value--;</span><br><span class="line">	<span class="keyword">if</span>(S-&gt;value &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        add <span class="keyword">this</span> process to S-&gt;<span class="built_in">list</span>;</span><br><span class="line">        block();</span><br><span class="line">    &#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">signal(semaphore *S) &#123;</span><br><span class="line">    S-&gt;value++;</span><br><span class="line">    <span class="keyword">if</span>(S-&gt;value &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        remove a process P from S-&gt;<span class="built_in">list</span>;</span><br><span class="line">        wakeup(P);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="经典同步问题"><a class="markdownIt-Anchor" href="#经典同步问题"></a> 经典同步问题</h3>
+<h4 id="有限缓冲区生产者-消费者问题"><a class="markdownIt-Anchor" href="#有限缓冲区生产者-消费者问题"></a> 有限缓冲区——生产者、消费者问题</h4>
 <ul>
-<li>DATE - 格式 YYYY-MM-DD</li>
-<li>DATETIME - 格式 YYYY-MM-DD HH:MM:SS</li>
-<li>SMALLDATETIME- 格式 YYYY-MM-DD HH:MM:SS</li>
-<li>TIMESTAMP - 格式 唯一的数字</li>
+<li><strong>进程互斥</strong>中的生产者-消费者问题可以通过三个信号量解决
+<ul>
+<li>二进制信号量<code>mutex</code>保证了对缓冲区访问的互斥</li>
+<li>计数信号量<code>empty</code>和<code>full</code>表示缓冲区中空余数量和已有数据数量</li>
 </ul>
-<h4 id="日期处理"><a class="markdownIt-Anchor" href="#日期处理"></a> 日期处理</h4>
-<p>如果不涉及时间部分，可以轻松的比较两个日期</p>
-<p>比如，有下面这个”Orders”表：</p>
-<table>
-<thead>
-<tr>
-<th>OrderId</th>
-<th>ProductName</th>
-<th>OrderDate</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>computer</td>
-<td>2008-12-26</td>
-</tr>
-<tr>
-<td>2</td>
-<td>printer</td>
-<td>2008-12-26</td>
-</tr>
-<tr>
-<td>3</td>
-<td>electrograph</td>
-<td>2008-11-12</td>
-</tr>
-<tr>
-<td>4</td>
-<td>telephone</td>
-<td>2008-10-19</td>
-</tr>
-</tbody>
-</table>
-<p>希望获取OrderDate为“2008-12-26”的记录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM Orders WHERE OrderDate = &apos;2008-12-16&apos;</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<table>
-<thead>
-<tr>
-<th>OrderId</th>
-<th>ProductName</th>
-<th>OrderDate</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>computer</td>
-<td>2008-12-26</td>
-</tr>
-<tr>
-<td>2</td>
-<td>printer</td>
-<td>2008-12-26</td>
-</tr>
-</tbody>
-</table>
-<p>如果Orders表长成这样：</p>
-<table>
-<thead>
-<tr>
-<th>OrderId</th>
-<th>ProductName</th>
-<th>OrderDate</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>computer</td>
-<td>2008-12-26 16:23:55</td>
-</tr>
-<tr>
-<td>2</td>
-<td>printer</td>
-<td>2008-12-26 10:45：26</td>
-</tr>
-<tr>
-<td>3</td>
-<td>electrograph</td>
-<td>2008-11-12 14:12:08</td>
-</tr>
-<tr>
-<td>4</td>
-<td>telephone</td>
-<td>2008-10-19 12:56:10</td>
-</tr>
-</tbody>
-</table>
-<p>依然使用上面的语句，将得不到结果，因为该查询不含有时间部分的日期</p>
-<p>**Tips：**如果希望使查询简单并且更容易维护，那么尽量不要使用时间部分</p>
-<h3 id="null值"><a class="markdownIt-Anchor" href="#null值"></a> NULL值</h3>
-<p>NULL值是一楼的位置数据</p>
-<p>默认的，表的列可以存放NULL值</p>
-<h4 id="sql-null值"><a class="markdownIt-Anchor" href="#sql-null值"></a> SQL NULL值</h4>
-<p>如果表中的某个列是可选的，那么可以在不向改列添加值的情况下插入新记录或更新已有记录，这意味着该字段将以NULL值保存</p>
-<p>NULL值的处理方式与其他值不同</p>
-<p>NULL用作为止的或不适用的值的占位符</p>
-<p>**Tips：**无法比较NULL 和 0，他们是不等价的</p>
-<p>无法使用比较运算符来测试NULL值，比如<code>=</code>， <code>&lt;</code>或者<code>&lt;&gt;</code></p>
-<p>必须使用 <code>IS NULL</code>和<code>IS NOT NULL</code>操作符</p>
-<h4 id="sql-is-null"><a class="markdownIt-Anchor" href="#sql-is-null"></a> SQL IS NULL</h4>
-<p>Persons表</p>
-<table>
-<thead>
-<tr>
-<th>Id</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td></td>
-<td>London</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Bush</td>
-<td>George</td>
-<td>Fifth Avenue</td>
-<td>New York</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Carter</td>
-<td>Thomas</td>
-<td></td>
-<td>Beijing</td>
-</tr>
-</tbody>
-</table>
-<p>仅仅选取在“Address”列中带有NULL值的记录</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> LastName, FirstName, Address <span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> Address <span class="keyword">IS</span> <span class="literal">NULL</span></span><br></pre></td></tr></table></figure>
-<p><strong>Tips:</strong> 只能使用<code>IS NULL</code>来查找NULL值</p>
-<h4 id="sql-is-not-null"><a class="markdownIt-Anchor" href="#sql-is-not-null"></a> SQL IS NOT NULL</h4>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> LastName, FirstName, Address <span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> Address <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span></span><br></pre></td></tr></table></figure>
-<h3 id="null函数"><a class="markdownIt-Anchor" href="#null函数"></a> NULL函数</h3>
-<p>Products表:</p>
-<table>
-<thead>
-<tr>
-<th>P_Id</th>
-<th>ProductName</th>
-<th>UnitPrice</th>
-<th>UnitsInStock</th>
-<th>UnitsOnOrder</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>computer</td>
-<td>699</td>
-<td>25</td>
-<td>15</td>
-</tr>
-<tr>
-<td>2</td>
-<td>printer</td>
-<td>365</td>
-<td>36</td>
-<td></td>
-</tr>
-<tr>
-<td>3</td>
-<td>telephone</td>
-<td>280</td>
-<td>159</td>
-<td>57</td>
-</tr>
-</tbody>
-</table>
-<p>假设“UnitsOnOrder”是可选的，而且可以包含NULL值</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ProductName, UnitPrices*(UnitsInStock+UnitsOnOrder)</span><br><span class="line"><span class="keyword">FROM</span> Products</span><br></pre></td></tr></table></figure>
-<p>在上面的例子中，如果有“UnitOnOrder”值是NULL，那么结果是NULL</p>
-<p>微软的<code>ISNULL()</code>函数用于规定如何处理NULL值</p>
-<p><code>NVL()</code>, <code>IFNULL()</code>和<code>COALESCE()</code>函数也可以达到相同的结果</p>
-<h4 id="sql-server-ms-access"><a class="markdownIt-Anchor" href="#sql-server-ms-access"></a> SQL Server / MS Access</h4>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ProductName, UnitPrice*(UnitsInStock+<span class="keyword">ISNULL</span>(UnitsOnOrder, <span class="number">0</span>))</span><br><span class="line"><span class="keyword">FROM</span> Products</span><br></pre></td></tr></table></figure>
-<h4 id="oracle"><a class="markdownIt-Anchor" href="#oracle"></a> Oracle</h4>
-<p>Oracle没有<code>ISNULL()</code>函数，但是可以使用<code>NVL()</code>函数达到相同的效果</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ProductName, UnitPrice*(UnitsInStock+NVL(UnitsOnOrder, <span class="number">0</span>))</span><br><span class="line"><span class="keyword">FROM</span> Products</span><br></pre></td></tr></table></figure>
-<h4 id="mysql"><a class="markdownIt-Anchor" href="#mysql"></a> MySQL</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT ProductName, UnitPrice*(UnitsInStock+IFNULL(UnitsOnOrder, 0))</span><br><span class="line">FROM Products</span><br></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT ProductName,UnitPrice*(UnitsInStock+COALESCE(UnitsOnOrder,0))</span><br><span class="line">FROM Products</span><br></pre></td></tr></table></figure>
-<h3 id="sql-server数据类型"><a class="markdownIt-Anchor" href="#sql-server数据类型"></a> SQL Server数据类型</h3>
-<h4 id="character字符串"><a class="markdownIt-Anchor" href="#character字符串"></a> Character字符串：</h4>
-<table>
-<thead>
-<tr>
-<th>数据类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>char(n)</td>
-<td>固定长度的字符串，最多8000个字符</td>
-</tr>
-<tr>
-<td>varchar(n)</td>
-<td>可变长度的字符串，最多8000个字符</td>
-</tr>
-<tr>
-<td>varchar(max)</td>
-<td>可变长度的字符串，最多1,073,741,824个字符</td>
-</tr>
-<tr>
-<td>text</td>
-<td>可变长度的字符串，最多2GB字符数据</td>
-</tr>
-</tbody>
-</table>
-<h4 id="unicode字符串"><a class="markdownIt-Anchor" href="#unicode字符串"></a> UniCode字符串</h4>
-<table>
-<thead>
-<tr>
-<th>数据类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>nchar(n)</td>
-<td>固定长度的Unicode 数据，最多4000个字符</td>
-</tr>
-<tr>
-<td>nvarchar(n)</td>
-<td>可变长度的Unicode 数据，最多4000个字符</td>
-</tr>
-<tr>
-<td>nvarchar(max)</td>
-<td>可变长度的Unicode 数据，最多536,870,912个字符</td>
-</tr>
-<tr>
-<td>ntext</td>
-<td>可变长度的Unicode 数据，最多2GB字符数据</td>
-</tr>
-</tbody>
-</table>
-<h4 id="binary类型"><a class="markdownIt-Anchor" href="#binary类型"></a> Binary类型</h4>
-<table>
-<thead>
-<tr>
-<th>数据类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>bit</td>
-<td>允许0、1或NULL</td>
-</tr>
-<tr>
-<td>binary(n)</td>
-<td>固定长度的二进制数据。最多 8,000 字节。</td>
-</tr>
-<tr>
-<td>varbinary(n)</td>
-<td>可变长度的二进制数据。最多 8,000 字节。</td>
-</tr>
-<tr>
-<td>varbinary(max)可变</td>
-<td>可变长度的二进制数据。最多 2GB字节。</td>
-</tr>
-<tr>
-<td>image</td>
-<td>可变长度的二进制数据。最多 2GB。</td>
-</tr>
-</tbody>
-</table>
-<h4 id="number类型"><a class="markdownIt-Anchor" href="#number类型"></a> Number类型</h4>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">数据类型</th>
-<th style="text-align:left">描述</th>
-<th style="text-align:left">存储</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">tinyint</td>
-<td style="text-align:left">允许从 0 到 255 的所有数字。</td>
-<td style="text-align:left">1 字节</td>
-</tr>
-<tr>
-<td style="text-align:left">smallint</td>
-<td style="text-align:left">允许从 -32,768 到 32,767 的所有数字。</td>
-<td style="text-align:left">2 字节</td>
-</tr>
-<tr>
-<td style="text-align:left">int</td>
-<td style="text-align:left">允许从 -2,147,483,648 到 2,147,483,647 的所有数字。</td>
-<td style="text-align:left">4 字节</td>
-</tr>
-<tr>
-<td style="text-align:left">bigint</td>
-<td style="text-align:left">允许介于 -9,223,372,036,854,775,808 和 9,223,372,036,854,775,807 之间的所有数字。</td>
-<td style="text-align:left">8 字节</td>
-</tr>
-<tr>
-<td style="text-align:left">decimal(p,s)</td>
-<td style="text-align:left">固定精度和比例的数字。允许从 -10^38 +1 到 10^38 -1 之间的数字。p 参数指示可以存储的最大位数（小数点左侧和右侧）。p 必须是 1 到 38 之间的值。默认是 18。s 参数指示小数点右侧存储的最大位数。s 必须是 0 到 p 之间的值。默认是 0。</td>
-<td style="text-align:left">5-17 字节</td>
-</tr>
-<tr>
-<td style="text-align:left">numeric(p,s)</td>
-<td style="text-align:left">固定精度和比例的数字。允许从 -10^38 +1 到 10^38 -1 之间的数字。p 参数指示可以存储的最大位数（小数点左侧和右侧）。p 必须是 1 到 38 之间的值。默认是 18。s 参数指示小数点右侧存储的最大位数。s 必须是 0 到 p 之间的值。默认是 0。</td>
-<td style="text-align:left">5-17 字节</td>
-</tr>
-<tr>
-<td style="text-align:left">smallmoney</td>
-<td style="text-align:left">介于 -214,748.3648 和 214,748.3647 之间的货币数据。</td>
-<td style="text-align:left">4 字节</td>
-</tr>
-<tr>
-<td style="text-align:left">money</td>
-<td style="text-align:left">介于 -922,337,203,685,477.5808 和 922,337,203,685,477.5807 之间的货币数据。</td>
-<td style="text-align:left">8 字节</td>
-</tr>
-<tr>
-<td style="text-align:left">float(n)</td>
-<td style="text-align:left">从 -1.79E + 308 到 1.79E + 308 的浮动精度数字数据。 参数 n 指示该字段保存 4 字节还是 8 字节。float(24) 保存 4 字节，而 float(53) 保存 8 字节。n 的默认值是 53。</td>
-<td style="text-align:left">4 或 8 字节</td>
-</tr>
-<tr>
-<td style="text-align:left">real</td>
-<td style="text-align:left">从 -3.40E + 38 到 3.40E + 38 的浮动精度数字数据。</td>
-<td style="text-align:left">4 字节</td>
-</tr>
-</tbody>
-</table>
-<h4 id="date-类型"><a class="markdownIt-Anchor" href="#date-类型"></a> Date 类型：</h4>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">数据类型</th>
-<th style="text-align:left">描述</th>
-<th style="text-align:left">存储</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">datetime</td>
-<td style="text-align:left">从 1753 年 1 月 1 日 到 9999 年 12 月 31 日，精度为 3.33 毫秒。</td>
-<td style="text-align:left">8 bytes</td>
-</tr>
-<tr>
-<td style="text-align:left">datetime2</td>
-<td style="text-align:left">从 1753 年 1 月 1 日 到 9999 年 12 月 31 日，精度为 100 纳秒。</td>
-<td style="text-align:left">6-8 bytes</td>
-</tr>
-<tr>
-<td style="text-align:left">smalldatetime</td>
-<td style="text-align:left">从 1900 年 1 月 1 日 到 2079 年 6 月 6 日，精度为 1 分钟。</td>
-<td style="text-align:left">4 bytes</td>
-</tr>
-<tr>
-<td style="text-align:left">date</td>
-<td style="text-align:left">仅存储日期。从 0001 年 1 月 1 日 到 9999 年 12 月 31 日。</td>
-<td style="text-align:left">3 bytes</td>
-</tr>
-<tr>
-<td style="text-align:left">time</td>
-<td style="text-align:left">仅存储时间。精度为 100 纳秒。</td>
-<td style="text-align:left">3-5 bytes</td>
-</tr>
-<tr>
-<td style="text-align:left">datetimeoffset</td>
-<td style="text-align:left">与 datetime2 相同，外加时区偏移。</td>
-<td style="text-align:left">8-10 bytes</td>
-</tr>
-<tr>
-<td style="text-align:left">timestamp</td>
-<td style="text-align:left">存储唯一的数字，每当创建或修改某行时，该数字会更新。timestamp 基于内部时钟，不对应真实时间。每个表只能有一个 timestamp 变量。</td>
-<td style="text-align:left"></td>
-</tr>
-</tbody>
-</table>
-<h4 id="其他数据类型"><a class="markdownIt-Anchor" href="#其他数据类型"></a> 其他数据类型：</h4>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">数据类型</th>
-<th style="text-align:left">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">sql_variant</td>
-<td style="text-align:left">存储最多 8,000 字节不同数据类型的数据，除了 text、ntext 以及 timestamp。</td>
-</tr>
-<tr>
-<td style="text-align:left">uniqueidentifier</td>
-<td style="text-align:left">存储全局标识符 (GUID)。</td>
-</tr>
-<tr>
-<td style="text-align:left">xml</td>
-<td style="text-align:left">存储 XML 格式化数据。最多 2GB。</td>
-</tr>
-<tr>
-<td style="text-align:left">cursor</td>
-<td style="text-align:left">存储对用于数据库操作的指针的引用。</td>
-</tr>
-<tr>
-<td style="text-align:left">table</td>
-<td style="text-align:left">存储结果集，供稍后处理。</td>
-</tr>
-</tbody>
-</table>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// procuder</span></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="comment">// produce an item</span></span><br><span class="line">    wait(empty);</span><br><span class="line">    wait(mutex);</span><br><span class="line">    <span class="comment">// put item into buffer</span></span><br><span class="line">    signal(mutex);</span><br><span class="line">    signal(empty);</span><br><span class="line">&#125; <span class="keyword">while</span>(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// customer </span></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    wait(full);</span><br><span class="line">    wait(mutex);</span><br><span class="line">    <span class="comment">// remove an item from buffer</span></span><br><span class="line">    signal(mutex);</span><br><span class="line">    signal(empty);</span><br><span class="line">&#125; <span class="keyword">while</span>(<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="读者-写者问题"><a class="markdownIt-Anchor" href="#读者-写者问题"></a> 读者-写者问题</h4>
+<ul>
+<li>读者优先，如果当前获得数据库权限的是读者进程，则其他读者进程无需等待，读者进程只有在当前操作数据库的进程是写者的情况下才需要阻塞</li>
+<li>写者有限，任何在等待获取数据库权限的写者进程都将比其他正在等待的读者进程先获得权限</li>
+<li>前两种策略回到这写者或者读者饿死的情况，第三种策略保证没有任何进程会被无限阻塞</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 读者优先</span></span><br><span class="line">semaphore mutex, wrt;</span><br><span class="line"><span class="keyword">int</span> readcount;</span><br><span class="line"><span class="comment">// 读者进程</span></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    wait(mutex);</span><br><span class="line">    readcount++;</span><br><span class="line">    <span class="keyword">if</span>(readcount == <span class="number">1</span>) &#123;</span><br><span class="line">        wait(wrt);</span><br><span class="line">    &#125;</span><br><span class="line">    signal(mutex);</span><br><span class="line">    <span class="comment">// 读者访问</span></span><br><span class="line">    wait(mutex);</span><br><span class="line">    readcount--;</span><br><span class="line">    <span class="keyword">if</span>(readcount == <span class="number">0</span>) &#123;</span><br><span class="line">        signal(wrt);</span><br><span class="line">    &#125;</span><br><span class="line">    signal(mutex);</span><br><span class="line">&#125; <span class="keyword">while</span>(<span class="literal">true</span>);</span><br><span class="line"><span class="comment">// 写者</span></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    wait(wrt);</span><br><span class="line">    <span class="comment">// 执行写操作</span></span><br><span class="line">    signal(wrt);</span><br><span class="line">&#125; <span class="keyword">while</span>(<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<p>读写公平</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> count = <span class="number">0</span>;			<span class="comment">// 用于记录当前的读者数量</span></span><br><span class="line">semaphore mutex = <span class="number">1</span>;	<span class="comment">// 用于保护更新count变量时的互斥</span></span><br><span class="line">semaphore rw = <span class="number">1</span>;		<span class="comment">// 用于保证读者和写者互斥地访问文件</span></span><br><span class="line">semaphore w = <span class="number">1</span>;		<span class="comment">// 用于实现"写优先" </span></span><br><span class="line"><span class="comment">// 读者</span></span><br><span class="line">wait(w)</span><br><span class="line">wait(mutex);</span><br><span class="line">count++;</span><br><span class="line"><span class="keyword">if</span>(count == <span class="number">0</span>) &#123;</span><br><span class="line">  	wait(rw); </span><br><span class="line">&#125;</span><br><span class="line">signal(mutex);</span><br><span class="line">signal(w);</span><br><span class="line">reading;</span><br><span class="line">wait(mutex);</span><br><span class="line">count--;</span><br><span class="line"><span class="keyword">if</span>(count == <span class="number">0</span>) &#123;</span><br><span class="line">    signal(rw);</span><br><span class="line">&#125;</span><br><span class="line">signal(mutex);</span><br><span class="line"><span class="comment">// 写者</span></span><br><span class="line">wait(w);</span><br><span class="line">wait(rw);</span><br><span class="line">writing;</span><br><span class="line">signal(rw);</span><br><span class="line">signal(w);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 写者有限</span></span><br><span class="line"><span class="keyword">int</span> readcount = <span class="number">0</span>, writecount = <span class="number">0</span>;	<span class="comment">// readcount记录当前正在等待读对象的读者数量，writecount记录当前正在等待写对象的写者数量，均初始化为0</span></span><br><span class="line">semaphore rmutex = <span class="number">1</span>, wmutex = <span class="number">1</span>;	<span class="comment">// 确保更新变量readcount和writecount时的互斥，均初始化为1</span></span><br><span class="line">semaphore readTry;	<span class="comment">// readTry信号量用于声明有读者加入等待队列，确保读者和写者之间的互斥</span></span><br><span class="line">remaphore resource; <span class="comment">//	resource信号量用于确保写者和写者之间的互斥</span></span><br><span class="line"><span class="comment">// 读者</span></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    wait(readTry);</span><br><span class="line">    wait(rmutex);</span><br><span class="line">    readcount++;</span><br><span class="line">    <span class="keyword">if</span>(readcount == <span class="number">1</span>) &#123;</span><br><span class="line">        wait(resource);	<span class="comment">// 第一个读者需要获取资源权限</span></span><br><span class="line">    &#125;</span><br><span class="line">    signal(rmutex);</span><br><span class="line">    signal(readTry);</span><br><span class="line">    <span class="comment">// 临界区</span></span><br><span class="line">    wait(rmutex);</span><br><span class="line">    readcount--;</span><br><span class="line">    <span class="keyword">if</span>(readcount == <span class="number">0</span>) &#123;</span><br><span class="line">        signal(resource);</span><br><span class="line">    &#125;</span><br><span class="line">    signal(rmutex);</span><br><span class="line">&#125; <span class="keyword">while</span>(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 写者</span></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    wait(wmutex);</span><br><span class="line">    writecount++;</span><br><span class="line">    <span class="keyword">if</span>(writecount == <span class="number">1</span>) &#123;	<span class="comment">// 第一个写者需要与读者竞争资源</span></span><br><span class="line">        wait(readTry);</span><br><span class="line">    &#125;</span><br><span class="line">    signal(wmutex);</span><br><span class="line">    <span class="comment">// 进入临界区</span></span><br><span class="line">    wait(resource);</span><br><span class="line">    <span class="comment">// 写操作</span></span><br><span class="line">    signal(resource);</span><br><span class="line">    <span class="comment">// 离开临界区</span></span><br><span class="line">    wait(wmutex);</span><br><span class="line">    writecount--;</span><br><span class="line">    <span class="keyword">if</span>(writecount == <span class="number">0</span>) &#123;</span><br><span class="line">        signal(readTry);</span><br><span class="line">    &#125;</span><br><span class="line">    signal(wmutex);</span><br><span class="line">&#125; <span class="keyword">while</span>(<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="哲学家就餐问题"><a class="markdownIt-Anchor" href="#哲学家就餐问题"></a> 哲学家就餐问题</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> &#123;thinking, hungry, eating&#125; state[<span class="number">5</span>];	<span class="comment">// 记录每个人的状态</span></span><br><span class="line">semaphore mutex = <span class="number">1</span>;	<span class="comment">// 临界区互斥，保证每个时刻最多只能有一个人执行从餐桌上取或者放两把叉子的动作</span></span><br><span class="line">semaphore self[<span class="number">5</span>] = &#123;<span class="number">0</span>&#125;;	<span class="comment">// 哲学家信号量，表明i是否已经获得2把刀叉并可以开始进餐</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">philosophere</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">        thinking();	<span class="comment">// 剩余段，思考</span></span><br><span class="line">        pickup(i);	<span class="comment">// 进入段，同时获取两把叉子或阻塞</span></span><br><span class="line">        eating();	<span class="comment">// 临界段：进餐</span></span><br><span class="line">        putdown(i);	<span class="comment">// 退出段，放下两把叉子   </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pickup</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    wait(mutex);	<span class="comment">// 申请访问餐桌，进入临界区</span></span><br><span class="line">    state[i] = hungry;</span><br><span class="line">    test[i];</span><br><span class="line">    signal(mutex);</span><br><span class="line">    wait(self[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>((state[(i + <span class="number">4</span>) % <span class="number">5</span>] != eating) &amp;&amp; (state[i] == hungry) &amp;&amp; (state[(i + <span class="number">1</span>) % <span class="number">5</span>] != eating)) &#123;</span><br><span class="line">        state[i] = eating;</span><br><span class="line">        signal(self[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">putdown</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    wait(mutex);</span><br><span class="line">    state[i] = thinking;</span><br><span class="line">    test[(i + <span class="number">1</span>) % <span class="number">5</span>];</span><br><span class="line">    test[(i + <span class="number">4</span>) % <span class="number">5</span>];</span><br><span class="line">    signal(mutex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另一种解法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">semaphore chopisticks[<span class="number">5</span>] = &#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;;	<span class="comment">// 初始化信号量</span></span><br><span class="line">semaphore mutex = <span class="number">1</span>;</span><br><span class="line">P(<span class="keyword">int</span> i) &#123;	<span class="comment">// 第i个哲学家的进程</span></span><br><span class="line">    wait(mutex);</span><br><span class="line">    wait(chopisticks[i]);</span><br><span class="line">    wait(chopisticks[(i + <span class="number">1</span>) % <span class="number">5</span>]);</span><br><span class="line">    signal(mutex);</span><br><span class="line">    eat;</span><br><span class="line">    signal(chopisticks[i]);</span><br><span class="line">    signal(chopisticks[(i + <span class="number">1</span>) % <span class="number">5</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="睡眠理发师问题"><a class="markdownIt-Anchor" href="#睡眠理发师问题"></a> 睡眠理发师问题</h4>
+<p>理发店有一位理发师，一把理发椅和n把供等待理发的顾客坐的椅子。如果没有顾客，理发师便在理发椅上睡觉，一个顾客到来时，顾客必须叫醒理发师，如果理发师正在理发时又有顾客到来，则如果有空椅子可坐，就坐下来等待，否则就离开</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> chairs = N;</span><br><span class="line"><span class="keyword">int</span> waitings = <span class="number">0</span>;</span><br><span class="line">semaphore mutex;	<span class="comment">// 对等待理发的人数的互斥修改</span></span><br><span class="line">semaphore customer;</span><br><span class="line">semaphore barber;</span><br><span class="line"><span class="comment">// 顾客</span></span><br><span class="line">wait(mutex);</span><br><span class="line"><span class="keyword">if</span>(waiting &lt; chairs) &#123;</span><br><span class="line">    waitings++;</span><br><span class="line">    signal(customer);</span><br><span class="line">    signal(mutex);</span><br><span class="line">    wait(barber);</span><br><span class="line">    理发;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    signal(mutex);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 理发师</span></span><br><span class="line">wait(customer);</span><br><span class="line">wait(mutex);</span><br><span class="line">waitings--;</span><br><span class="line">signal(mutex);</span><br><span class="line">signal(barber);	<span class="comment">// 开放临界区</span></span><br><span class="line">理发;</span><br></pre></td></tr></table></figure>
+<h3 id="考研题详解"><a class="markdownIt-Anchor" href="#考研题详解"></a> 考研题详解</h3>
+<h4 id="1-单向行驶问题"><a class="markdownIt-Anchor" href="#1-单向行驶问题"></a> 1. 单向行驶问题</h4>
+<div align="left" style="float: left">
+    <img src="E:\Study\学习\大三上学习资料\操作系统\桥.png" width="200">
+</div>
+<p>有桥如图所示，车辆方向如箭头所示，回答如下问题<br>
+(1) 假设该桥上每次只能有一辆车行驶，试用信号灯的wait(), signal()操作实现交通管理<br>
+(2) 假设该桥上不允许辆车交会，但允许同方向多个车一次通过(即桥上可由多个同方向行驶的车)。试用信号灯的wait(), signal()操作实现交通管理</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">semaphore bridge = <span class="number">1</span>; <span class="comment">// 对桥的控制权</span></span><br><span class="line">semaphore north_mutex = <span class="number">1</span>;	<span class="comment">// 北边的控制权</span></span><br><span class="line">semaphore south_mutex = <span class="number">1</span>;	<span class="comment">// 南边的控制权</span></span><br><span class="line"><span class="keyword">int</span> count1 = <span class="number">0</span>;	<span class="comment">// 记录从北边来的车辆的数量</span></span><br><span class="line"><span class="keyword">int</span> count2 = <span class="number">0</span>;	<span class="comment">// 记录从南边来的车辆的数量</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">car_from_north</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    wait(north_mutex);</span><br><span class="line">    count1++;</span><br><span class="line">    <span class="keyword">if</span>(count1 == <span class="number">1</span>) &#123;</span><br><span class="line">        wait(bridge);</span><br><span class="line">    &#125;</span><br><span class="line">    signal(north_mutex);</span><br><span class="line">    <span class="comment">// 过桥</span></span><br><span class="line">    wait(north_mutex);</span><br><span class="line">    count1--;</span><br><span class="line">    <span class="keyword">if</span>(count1 == <span class="number">0</span>) &#123;</span><br><span class="line">        signal(bridge);</span><br><span class="line">    &#125;</span><br><span class="line">    signal(north_mutex);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 南边与北边对称</span></span><br></pre></td></tr></table></figure>
+<h4 id="2士兵过桥问题"><a class="markdownIt-Anchor" href="#2士兵过桥问题"></a> 2.士兵过桥问题</h4>
+<p>独木桥的左右两端各停留一队士兵，左侧有 m 个，右侧有 n 个。两侧士兵均可上桥，但一旦有一侧士兵上桥，另一侧士兵必须等待已上桥一侧的士兵全部通过后才可上桥。试使用信号量描述此过程。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>;	<span class="comment">// 记录左右两侧已经通过的士兵数目</span></span><br><span class="line">semaphore left_mutex = right_mutex = <span class="number">1</span>;	<span class="comment">// 控制两队士兵数量的读写互斥</span></span><br><span class="line">semophore bridge = <span class="number">1</span>;	<span class="comment">// 控制桥的资源</span></span><br><span class="line"><span class="comment">// 左侧士兵</span></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    wait(left_mutex);</span><br><span class="line">    left++;</span><br><span class="line">    <span class="keyword">if</span>(left == <span class="number">1</span>) &#123;</span><br><span class="line">        wait(bridge);</span><br><span class="line">    &#125;</span><br><span class="line">    signal(left_mutex);</span><br><span class="line">    <span class="comment">// 过桥</span></span><br><span class="line">    <span class="keyword">if</span>(left == m) &#123;</span><br><span class="line">        signal(bridge);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">while</span>(<span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="3-双向有限行驶问题"><a class="markdownIt-Anchor" href="#3-双向有限行驶问题"></a> 3. 双向有限行驶问题</h4>
+<p>在南开大学和天津大学之间有一条小路 S -&gt; T，小路中间有一个安全岛 M，安全岛能够同时容纳两辆自行车，可供两个已经从两端进入小路的自行车错车用。整个地图如下图，S 到 K 段的小路和 T 到 L 段的小路同时都只能允许一辆自行车通过。试设计一个算法，使来往的自行车都能顺利通过。</p>
+<p><img src="http://qiniu.forec.cn/nankai-tianda.jpg" alt="img"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">semaphore S = T = <span class="number">1</span>;	<span class="comment">// 两端最多允许进入一辆</span></span><br><span class="line">semaphore SK = LT = <span class="number">1</span>;	<span class="comment">// 两段小路最多允许进入一辆</span></span><br><span class="line"><span class="comment">// 从S口进入的自行车</span></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    wait(S);</span><br><span class="line">    wait(Sk);</span><br><span class="line">    <span class="comment">// 通过S-K一段小路</span></span><br><span class="line">    signal(SK);</span><br><span class="line">    <span class="comment">// 进入安全岛</span></span><br><span class="line">    wait(LT);</span><br><span class="line">    <span class="comment">// 通过L-T一段小路</span></span><br><span class="line">    signal(LT);</span><br><span class="line">    signal(S);</span><br><span class="line">&#125; <span class="keyword">while</span>(<span class="literal">true</span>);</span><br><span class="line"><span class="comment">// T口进入的自行车与S口进入的自行车对称</span></span><br></pre></td></tr></table></figure>
+<h4 id="4-理发店问题"><a class="markdownIt-Anchor" href="#4-理发店问题"></a> 4. 理发店问题</h4>
+<p>一个理发店配有一个有 10 个椅子的休息室和一个有理发椅的理发室。如果没有顾客则理发师睡觉；如果顾客来了而休息室、理发椅都没有空则离开；如果理发师在忙而有空的椅子，则顾客选择一个坐下等待；如果理发师在睡觉则顾客摇醒他。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> count = <span class="number">11</span>;	<span class="comment">// 空闲的椅子数量</span></span><br><span class="line">semaphore mutex = <span class="number">1</span>;	<span class="comment">// 对椅子数量的修改互斥</span></span><br><span class="line">semaphore barber_chair = <span class="number">1</span>;	<span class="comment">// 理发师的互斥，同时只能给一个人理发</span></span><br><span class="line">semaphore customers = <span class="number">0</span>;	<span class="comment">// 顾客人数</span></span><br><span class="line"><span class="comment">// 顾客</span></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    wait(mutex);</span><br><span class="line">    <span class="keyword">if</span>(count == <span class="number">0</span>) &#123;</span><br><span class="line">        signal(mutex);</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(count == <span class="number">11</span>) &#123;</span><br><span class="line">        signal(customer);</span><br><span class="line">        <span class="comment">// 唤醒barber</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">while</span>(<span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="5-上机实习问题"><a class="markdownIt-Anchor" href="#5-上机实习问题"></a> 5. 上机实习问题</h4>
+<p>某高校计算机系安排学生上机实习，机房共 30 台机器，有超过 60 名学生选课。规定每两个学生一组，一组占一台机器，协同完成实习。只有凑够两个学生且机房仍有空闲机器的情况下，门卫才允许该组学生进入机房。每组上机实习结束时需要由一名固定的老师检查完毕后，该组学生才可离开。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> count = <span class="number">0</span>;	<span class="comment">// 开始时在机房等候的学生人数</span></span><br><span class="line">semaphore mutex = <span class="number">1</span>;	<span class="comment">// 修改学生人数的互斥信号量</span></span><br><span class="line">semaphore teacher = <span class="number">1</span>;	<span class="comment">// 验收的老师</span></span><br><span class="line">semaphore machine = <span class="number">30</span>;	<span class="comment">// 30台机器</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 学生进程</span></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    wait(mutex);</span><br><span class="line">    count++;</span><br><span class="line">    <span class="keyword">int</span> id = count;	<span class="comment">// 记录自己的序号</span></span><br><span class="line">    <span class="keyword">if</span>(count % <span class="number">2</span> == <span class="number">0</span>) &#123;	<span class="comment">// 偶数号的学生</span></span><br><span class="line">        wait(machine);</span><br><span class="line">    &#125;</span><br><span class="line">    signal(mutex);</span><br><span class="line">    <span class="comment">// 上机</span></span><br><span class="line">    <span class="comment">// 上机完成，等待验收</span></span><br><span class="line">    wait(teacher);</span><br><span class="line">    <span class="comment">// 验收</span></span><br><span class="line">    <span class="keyword">if</span>(temp % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">        signal(machine);	<span class="comment">// 由偶数号的学生释放机器</span></span><br><span class="line">        wait(mutex);</span><br><span class="line">        count -= <span class="number">2</span>;		<span class="comment">// 一组学生离开</span></span><br><span class="line">        signal(mutex);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">while</span>(<span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="6-吸烟者问题"><a class="markdownIt-Anchor" href="#6-吸烟者问题"></a> 6. 吸烟者问题</h4>
+<p>假设一个系统有 3 个吸烟者进程和一个供应商进程，制造一根香烟需要三种材料各一份。三个吸烟者分别无限量的拥有三种材料中的一种。供应商进程可以无限量的供应这三种材料，一旦一个吸烟者想吸烟，则他向供应商发出请求，供应商会为这个吸烟者提供另外两种材料。供货商同时只能为一个吸烟者提供服务，多个吸烟者同时发出请求时按固定顺序服务。如此循环往复，请用信号量编写程序控制四个进程同步执行。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> smoker1, smoker2, smoker3;	<span class="comment">// 分别表示1、2、3这三个吸烟者</span></span><br><span class="line">semaphore a = b = c = <span class="number">0</span>;	<span class="comment">// 初始供应的三种材料数量，1、2、3分别持有a、b、c类型的材料</span></span><br><span class="line">semaphore smoker_request = <span class="number">1</span>;	<span class="comment">// 吸烟者发出请求的权限</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 供应商</span></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(smoker1 == <span class="literal">true</span>) &#123;</span><br><span class="line">        signal(b);</span><br><span class="line">        signal(c);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(smoker2 == <span class="literal">true</span>) &#123;</span><br><span class="line">        signal(a);</span><br><span class="line">        signal(c);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(smoker3 == <span class="literal">true</span>) &#123;</span><br><span class="line">        signal(b);</span><br><span class="line">        signal(c);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">while</span>(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 吸烟者1</span></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    wait(smoker_request);</span><br><span class="line">    smoker1 = <span class="literal">true</span>;</span><br><span class="line">    wait(b);</span><br><span class="line">    wait(c);</span><br><span class="line">    signal(smoker_request);</span><br><span class="line">&#125; <span class="keyword">while</span>(<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="7-苹果-句子或老虎与猪"><a class="markdownIt-Anchor" href="#7-苹果-句子或老虎与猪"></a> 7. 苹果-句子或老虎与猪</h4>
+<p>有一个笼子可以容纳一只老虎或者两只猪，如果笼子中已经有猪，则老虎不能被放入。猎人 A 每次向笼子中放入一只老虎，猎人 B 每次向笼子中放入一只猪。饲养员每次会从笼子中取出一只老虎，厨师每次会从笼子中取出一只猪。对笼子的操作是互斥的。试用信号量描述此过程。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">semaphore pig = <span class="number">0</span>, tiger = <span class="number">0</span>;	<span class="comment">//  对猪和老虎的互斥访问</span></span><br><span class="line">semaphore coop = <span class="number">1</span>;	<span class="comment">// 对笼子的互斥读写</span></span><br><span class="line">semaphore pig_space = <span class="number">2</span>;	<span class="comment">// 用于限制可以放置猪的剩余空间</span></span><br><span class="line">semaphore pig_count_mutex = <span class="number">1</span>;	<span class="comment">// 用于限制对pig_count的互斥读写</span></span><br><span class="line"><span class="keyword">int</span> pig_count = <span class="number">0</span>;	<span class="comment">// 记录当前在笼子中的猪的数量</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 猎人A</span></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="comment">// 抓到一只老虎</span></span><br><span class="line">    wait(coop);</span><br><span class="line">    <span class="comment">// 将老虎放入笼子</span></span><br><span class="line">    signal(tiger);</span><br><span class="line">&#125; <span class="keyword">while</span>(<span class="literal">true</span>);</span><br><span class="line"><span class="comment">// 饲养员</span></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    wait(tiger);</span><br><span class="line">    <span class="comment">// 从笼子中取出老虎</span></span><br><span class="line">    signal(coop);</span><br><span class="line">&#125; <span class="keyword">while</span>(<span class="literal">true</span>);</span><br><span class="line"><span class="comment">// 猎人B</span></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="comment">// 抓到一只猪</span></span><br><span class="line"> 	wait(pig_space);</span><br><span class="line">    wait(pig_count_mutex);</span><br><span class="line">    pig_count++;</span><br><span class="line">    <span class="keyword">if</span>(pig_count == <span class="number">1</span>) &#123;</span><br><span class="line">        wait(coop);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 将猪放进笼子</span></span><br><span class="line">    signal(pig);</span><br><span class="line">    signal(pig_count_mutex);</span><br><span class="line">&#125; <span class="keyword">while</span>(<span class="literal">true</span>);</span><br><span class="line"><span class="comment">// 厨师</span></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    wait(pig);</span><br><span class="line">    wait(pig_count_mutex);</span><br><span class="line">    <span class="comment">// 从笼子中取出一只猪</span></span><br><span class="line">    pig_count--;</span><br><span class="line">    <span class="keyword">if</span>(pig_count == <span class="number">0</span>) &#123;</span><br><span class="line">        signal(coop);</span><br><span class="line">    &#125;</span><br><span class="line">    signal(pig_count_mutex);</span><br><span class="line">    signal(pig_space);</span><br><span class="line">&#125; <span class="keyword">while</span>(<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="8"><a class="markdownIt-Anchor" href="#8"></a> 8.</h4>
+<p>三个进程P1、P2、P3互斥使用一个包含N（N&gt;0）个单元的缓冲区。P1每次用produce()生成一个正整数并用put()送入缓冲区某一空单元。P2每次用getodd()从该缓冲区中取出一个奇数并用countodd()统计奇数个数。P3每次用geteven()从该缓冲区中取出一个偶数并用counteven()统计偶数个数。请用信号量机制实现这三个进程的同步与互斥活动，并说明定义的信号量的含义</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">semaphore mutex;	<span class="comment">// 用于对缓冲区的互斥读写</span></span><br><span class="line">semaphore odd, even;	<span class="comment">// 计数和偶数的计数信号量</span></span><br><span class="line">semaphore empty = N;	<span class="comment">// 空余的缓冲区的数量</span></span><br><span class="line"><span class="comment">// P1进程</span></span><br><span class="line">wait(empty);</span><br><span class="line">x = produce();</span><br><span class="line">wait(mutex);</span><br><span class="line">put();</span><br><span class="line">signal(mutex);</span><br><span class="line"><span class="keyword">if</span>(x % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">    signal(odd);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    signal(even);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// P2进程</span></span><br><span class="line">wait(odd);</span><br><span class="line">wait(mutex);</span><br><span class="line">getodd();</span><br><span class="line">signal(mutex);</span><br><span class="line">signal(empty);</span><br><span class="line">countodd();</span><br><span class="line"><span class="comment">// P3进程与P2同理</span></span><br></pre></td></tr></table></figure>
+<h4 id="9"><a class="markdownIt-Anchor" href="#9"></a> 9.</h4>
+<p>在一个仓库可以存放A和B两种产品，要求：</p>
+<ul>
+<li>每次只能存入一种产品</li>
+<li>A产品数量 - B产品数量 &lt; M</li>
+<li>B产品数量 - A产品数量  &lt; N</li>
+</ul>
+<p>描述产品A与产品B的入库过程</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">semaphore mutex;	<span class="comment">// 商品入库过程的互斥</span></span><br><span class="line">semaphore Sa = M - <span class="number">1</span>, Sb = N - <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> countA = <span class="number">0</span>, countB = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// A产品进仓库过程</span></span><br><span class="line">wait(Sa);</span><br><span class="line">wait(mutex);</span><br><span class="line">A产品入库;</span><br><span class="line">signal(mutex);</span><br><span class="line">signal(Sb);</span><br><span class="line"><span class="comment">// B产品入库</span></span><br><span class="line">wait(Sb);</span><br><span class="line">wait(mutex);</span><br><span class="line">B产品入库;</span><br><span class="line">signal(mutex);</span><br><span class="line">signal(Sa);</span><br></pre></td></tr></table></figure>
+<h4 id="10"><a class="markdownIt-Anchor" href="#10"></a> 10.</h4>
+<p>面包师有很多面包，由n个销售人员推销，每个顾客进店后取一个号，并且等待叫号，当一个销售人员空闲下来时，就叫下一个号，试设计一个使销售人员和顾客同步的算法</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;	<span class="comment">// i表示取号值，j表示叫号值</span></span><br><span class="line">semaphore mutex_i, mutex_j;</span><br><span class="line"><span class="comment">// 顾客进程</span></span><br><span class="line">wait(mutex_i);</span><br><span class="line">取号;</span><br><span class="line">i++;</span><br><span class="line">signal(mutex_i);</span><br><span class="line">等待叫号i并购买面包;</span><br><span class="line"><span class="comment">// 销售员进程</span></span><br><span class="line">wait(mutex_j);</span><br><span class="line"><span class="keyword">if</span>(j &lt; i) &#123;</span><br><span class="line">    叫号;</span><br><span class="line">    j++;</span><br><span class="line">    signal(mutex_j);</span><br><span class="line">    销售面包;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    signal(mutex_j);</span><br><span class="line">    休息片刻;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="11"><a class="markdownIt-Anchor" href="#11"></a> 11.</h4>
+<p>设自行车生产线上有一只箱子，其中有N个位置（N&gt;=3），每个位置可存放一个车架或一个车轮；又设有3个工人，其活动分别为：</p>
+<ul>
+<li>工人1：加工一个车架，车架放入箱中</li>
+<li>工人2：加工一个车轮，车轮放入箱中</li>
+<li>工人3：箱中取一个车架，取一个车轮，组装为一台车</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">semaphore empty = N;</span><br><span class="line">semaphore wheel = <span class="number">0</span>;	<span class="comment">// 车轮</span></span><br><span class="line">semaphore frame = <span class="number">0</span>;	<span class="comment">// 车架</span></span><br><span class="line">semaphore s1 = N - <span class="number">1</span>;	<span class="comment">// 车架最大数</span></span><br><span class="line">semaphore s2 = N - <span class="number">2</span>;	<span class="comment">// 车轮最大数</span></span><br><span class="line"><span class="comment">// 工人1活动</span></span><br><span class="line">加工一个车架;</span><br><span class="line">wait(s1);	<span class="comment">// 检查车架数是否已经达到最大值</span></span><br><span class="line">wait(empty);</span><br><span class="line">车架放入箱中;</span><br><span class="line">signal(frame);</span><br><span class="line"><span class="comment">// 工人2活动</span></span><br><span class="line">加工一个车轮;</span><br><span class="line">wait(s2);</span><br><span class="line">wait(empty);</span><br><span class="line">车轮放入箱中;</span><br><span class="line">signal(wheel);</span><br><span class="line"><span class="comment">// 工人3活动</span></span><br><span class="line">wait(frame);</span><br><span class="line">箱中取一个车轮;</span><br><span class="line">signal(empty);</span><br><span class="line">signal(s1);</span><br><span class="line">wait(wheel);</span><br><span class="line">wait(wheel);</span><br><span class="line">箱中取两个车轮;</span><br><span class="line">signal(empty);</span><br><span class="line">signal(empty);</span><br><span class="line">signal(s2);</span><br><span class="line">signal(s2);</span><br><span class="line">组装为一台车;</span><br></pre></td></tr></table></figure>
+<h4 id="12"><a class="markdownIt-Anchor" href="#12"></a> 12.</h4>
+<p>系统中有多个生产者进程和多个消费者进程，共享一个能存放1000件产品的环形缓冲区（初始为空），当缓冲区未满时，生产者进程可以放入其生产的一个产品，否则等待；当缓冲区未空时，消费者进程可以从缓冲区取走一件产品，否则等待。要求一个消费者进程从缓冲区连续取出10间产品后，其他消费者才可以取产品。</p>
+<p><code>这道题的解答感觉有问题，当产品的剩余数量不足10个的时候，消费者还控制着mutex1，但是有没有产品，生产者因为得不到mutex1，也不能生产，因此会造成死锁的问题</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">semophere mutex1 = <span class="number">1</span>, mutex2 = <span class="number">1</span>;</span><br><span class="line">semophere empty = n, full = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"><span class="comment">// 生产者</span></span><br><span class="line">wait(empty);</span><br><span class="line">wait(mutex1);</span><br><span class="line">放入一件产品;</span><br><span class="line">signal(mutex1);</span><br><span class="line">signal(full);</span><br><span class="line"><span class="comment">// 消费者</span></span><br><span class="line">wait(mutex1);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">10</span>;i++) &#123;</span><br><span class="line">    wait(full);</span><br><span class="line">    wait(mutex2);</span><br><span class="line">    把产品放入缓冲区;</span><br><span class="line">    signal(mutex2);</span><br><span class="line">    signal(empty);</span><br><span class="line">    消费这件产品;</span><br><span class="line">&#125;</span><br><span class="line">signal(mutex1);</span><br></pre></td></tr></table></figure>
+<h4 id="13-生产者-消费者问题扩展"><a class="markdownIt-Anchor" href="#13-生产者-消费者问题扩展"></a> 13. 生产者-消费者问题扩展</h4>
+<p>桌子上有一只盘子，每次只能向其中放入一个水果，爸爸专向盘子中放苹果，妈妈专向盘子中放橘子， 儿子专吃盘子中的橘子，女儿专吃盘子中的苹果，只有盘子为空时，爸爸或妈妈就可以向盘子中放一个水果，仅当盘子中有自己需要的水果时，儿子或女儿可以从盘子中取出。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">semaphore plate = <span class="number">1</span>;</span><br><span class="line">semaphore apple = <span class="number">0</span>, orange = <span class="number">0</span>;</span><br><span class="line"><span class="comment">// 爸爸</span></span><br><span class="line">wait(plate);</span><br><span class="line">put the apple;</span><br><span class="line">signal(apple);</span><br><span class="line"><span class="comment">// 妈妈</span></span><br><span class="line">wait(plate);</span><br><span class="line">put the orange;</span><br><span class="line">signal(orange);</span><br><span class="line"><span class="comment">// 女儿</span></span><br><span class="line">wait(apple);</span><br><span class="line">take an apple from the plate;</span><br><span class="line">signal(plate);</span><br><span class="line"><span class="comment">// 儿子</span></span><br><span class="line">wait(orange);</span><br><span class="line">take an orange from the plate;</span><br><span class="line">signal(plate);</span><br></pre></td></tr></table></figure>
+<ol start="9">
+<li></li>
+</ol>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1572779448179.png" alt="1572779448179"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">semaphore emptyA = <span class="number">10</span>, fullA = <span class="number">0</span>;</span><br><span class="line">semaphore emptyB = <span class="number">10</span>, fullB = <span class="number">0</span>;</span><br><span class="line">semaphore mutexA, mutexB;</span><br><span class="line"><span class="comment">// 生产A车间</span></span><br><span class="line">wait(emptyA);</span><br><span class="line">wait(mutexA);</span><br><span class="line">把A放入生产车间;</span><br><span class="line">signal(mutexA);</span><br><span class="line">signal(fullA);</span><br><span class="line"><span class="comment">// 生产B车间</span></span><br><span class="line">wait(emptyB);</span><br><span class="line">wait(mutexB);</span><br><span class="line">把B放入生产车间;</span><br><span class="line">signal(mutexB);</span><br><span class="line">signal(fullB);</span><br><span class="line"><span class="comment">// 装配车间</span></span><br><span class="line">wait(fullA);</span><br><span class="line">wait(mutexA);</span><br><span class="line">从车间取一个A;</span><br><span class="line">signal(mutexA);</span><br><span class="line">signal(emptyA);</span><br><span class="line"></span><br><span class="line">wait(fullB);</span><br><span class="line">wait(mutexB);</span><br><span class="line">从车间取一个B;</span><br><span class="line">signal(mutexB);</span><br><span class="line">signal(emptyB);</span><br></pre></td></tr></table></figure>
+<ol start="10">
+<li></li>
+</ol>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1572779434654.png" alt="1572779434654"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">semaphore mutex1, mutex2;	<span class="comment">// 分别表示互斥从井中取水和从水缸取水</span></span><br><span class="line">semaphore count = <span class="number">3</span>;	<span class="comment">// 表示水桶</span></span><br><span class="line">semaphore empty = <span class="number">10</span>, full = <span class="number">0</span>;	<span class="comment">// 表示水缸中的剩余容量</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 小和尚</span></span><br><span class="line">wait(empty);</span><br><span class="line">wait(count);</span><br><span class="line">wait(mutex1);</span><br><span class="line">取水;</span><br><span class="line">signal(mutex1);</span><br><span class="line"></span><br><span class="line">wait(mutex2);</span><br><span class="line">往水井倒水;</span><br><span class="line">signal(mutex2);</span><br><span class="line">signal(count);	<span class="comment">// 放弃桶</span></span><br><span class="line">signal(full);</span><br><span class="line"><span class="comment">// 老和尚</span></span><br><span class="line">wait(full);</span><br><span class="line">wait(count);</span><br><span class="line">wait(mutex2);</span><br><span class="line">取水;</span><br><span class="line">signal(mutex2);</span><br><span class="line">signal(empty);</span><br><span class="line">signal(count);</span><br></pre></td></tr></table></figure>
+<ol start="12">
+<li></li>
+</ol>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1572779424549.png" alt="1572779424549"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">semaphore mutex;	<span class="comment">// 取号的互斥访问</span></span><br><span class="line">semaphore empty = <span class="number">10</span>, full = <span class="number">0</span>;</span><br><span class="line">semaphore keeper = <span class="number">1</span>;</span><br><span class="line"><span class="comment">// 顾客</span></span><br><span class="line">wait(empty);</span><br><span class="line">wait(mutex);</span><br><span class="line">取号;</span><br><span class="line">signal(mutex);</span><br><span class="line">signal(full);</span><br><span class="line">等待叫号;</span><br><span class="line">wait(keeper);</span><br><span class="line">获取服务;</span><br><span class="line"><span class="comment">// 营业员</span></span><br><span class="line">wait(full);</span><br><span class="line">叫号;</span><br><span class="line">signal(empty);</span><br><span class="line">为客户服务;</span><br><span class="line">signal(keeper);</span><br></pre></td></tr></table></figure>
+<ol start="13">
+<li></li>
+</ol>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1572779408974.png" alt="1572779408974"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">semaphore bridge;</span><br><span class="line">semaphore mutexN, mutexS;</span><br><span class="line"><span class="keyword">int</span> northcount = <span class="number">0</span>, southcount = <span class="number">0</span>;</span><br><span class="line"><span class="comment">// 从北到南</span></span><br><span class="line">wait(mutexN);</span><br><span class="line">northcount++;</span><br><span class="line"><span class="keyword">if</span>(northcount == <span class="number">1</span>) &#123;</span><br><span class="line">    wait(bridge);</span><br><span class="line">&#125;</span><br><span class="line">signal(mutexN);</span><br><span class="line">过桥;</span><br><span class="line">wait(mutexN);</span><br><span class="line">northcount--;</span><br><span class="line"><span class="keyword">if</span>(northcount == <span class="number">0</span>) &#123;</span><br><span class="line">    signal(bridge);</span><br><span class="line">&#125;</span><br><span class="line">signal(mutexN); = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<ol start="18">
+<li></li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">semaphore movie1 = <span class="number">0</span>, movie2 = <span class="number">0</span>, movie3 = <span class="number">0</span>;</span><br><span class="line">semaphore mutex1, mutex2, mutex3;</span><br><span class="line"><span class="keyword">int</span> count1 = <span class="number">0</span>, count2 = <span class="number">0</span>, count3 = <span class="number">0</span>;</span><br><span class="line"><span class="comment">// 选择观看电影1的观众</span></span><br><span class="line">wait(movie1);</span><br><span class="line">wait(mutex1);</span><br><span class="line">count1++;</span><br><span class="line">signal(mutex1);</span><br><span class="line">观看电影;</span><br><span class="line">wait(mutex1);</span><br><span class="line">count1--;</span><br><span class="line"><span class="keyword">if</span>(count1 == <span class="number">0</span>) &#123;</span><br><span class="line">    signal(movie1);</span><br><span class="line">&#125;</span><br><span class="line">signal(mutex1);</span><br><span class="line"><span class="comment">// 选择观看电影2的观众</span></span><br><span class="line">wait(movie2);</span><br><span class="line">... 同理;</span><br><span class="line">最后signal(movie3);</span><br></pre></td></tr></table></figure>
+<ol start="21">
+<li></li>
+</ol>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1572779372327.png" alt="1572779372327"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 驾驶员</span></span><br><span class="line">wait(mutex1);</span><br><span class="line">...</span><br><span class="line">signal(mutex2);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 售票员</span></span><br><span class="line">wait(mutex2);</span><br><span class="line">开车门;</span><br><span class="line">...</span><br><span class="line">关车门;</span><br><span class="line">signal(mutex1);</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<ol start="22">
+<li></li>
+</ol>
+<p><img src="C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1572779358412.png" alt="1572779358412"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">semophere emptyA, fullA, emptyB, fullB;</span><br><span class="line">semophere mutexA, mutexB;</span><br><span class="line">wait(fullA);</span><br><span class="line">wait(mutexA);</span><br><span class="line">取邮件;</span><br><span class="line">signal(mutexA);</span><br><span class="line">signla(emptyA);</span><br><span class="line">回答&amp;提出问题;</span><br><span class="line">wait(emptyB);</span><br><span class="line">wait(mutexB);</span><br><span class="line">放入B的邮箱中;</span><br><span class="line">signal(mutexB);</span><br><span class="line">signal(fullB);</span><br></pre></td></tr></table></figure>
+<ol start="23">
+<li></li>
+</ol>
 
       
     </div>
@@ -934,7 +395,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/29/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><span class="page-number current">30</span><a class="page-number" href="/page/31/">31</a><span class="space">&hellip;</span><a class="page-number" href="/page/140/">140</a><a class="extend next" rel="next" href="/page/31/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/29/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><span class="page-number current">30</span><a class="page-number" href="/page/31/">31</a><span class="space">&hellip;</span><a class="page-number" href="/page/144/">144</a><a class="extend next" rel="next" href="/page/31/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -980,7 +441,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">140</span>
+          <span class="site-state-item-count">144</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

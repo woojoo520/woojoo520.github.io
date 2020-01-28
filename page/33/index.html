@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/13/SQLServer-Day4/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/18/SQLServer-Day8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/10/13/SQLServer-Day4/" class="post-title-link" itemprop="url">SQLServer-Day4</a>
+            <a href="/2019/10/18/SQLServer-Day8/" class="post-title-link" itemprop="url">SQLServer-Day8</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-10-13 15:22:53 / 修改时间：18:35:06" itemprop="dateCreated datePublished" datetime="2019-10-13T15:22:53+08:00">2019-10-13</time>
+              <time title="创建时间：2019-10-18 19:33:37 / 修改时间：21:02:36" itemprop="dateCreated datePublished" datetime="2019-10-18T19:33:37+08:00">2019-10-18</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/10/13/SQLServer-Day4/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/13/SQLServer-Day4/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/10/18/SQLServer-Day8/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/18/SQLServer-Day8/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,542 +240,742 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="sqlserver-day4"><a class="markdownIt-Anchor" href="#sqlserver-day4"></a> SQLServer-Day4</h2>
-<h3 id="in操作符"><a class="markdownIt-Anchor" href="#in操作符"></a> <code>IN</code>操作符</h3>
-<p>允许我们在<code>WHERE</code>子句中规定多个值</p>
+          <h2 id="sqlserver-day8"><a class="markdownIt-Anchor" href="#sqlserver-day8"></a> SQLServer-Day8</h2>
+<h3 id="avg-函数"><a class="markdownIt-Anchor" href="#avg-函数"></a> AVG 函数</h3>
+<p><code>AVG</code>函数但会数值列的平均值，<code>NULL</code></p>
+<p>值不包括在计算中</p>
 <blockquote>
-<p>SELECT column_name(s)</p>
-<p>FROM table_name</p>
-<p>WHERE column_name IN (value1, value2, …)</p>
+<p>SELECT AVG(column_name) FROM yable_name</p>
 </blockquote>
-<p>原始的Persons表：</p>
-<table>
-<thead>
-<tr>
-<th>Id</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td>Oxford Street</td>
-<td>London</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Bush</td>
-<td>George</td>
-<td>Fifth Avenue</td>
-<td>New York</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Carter</td>
-<td>Thomas</td>
-<td>Changan Street</td>
-<td>Beijing</td>
-</tr>
-</tbody>
-</table>
-<p>例：寻找姓氏为Adams和Carter的人</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> LastName <span class="keyword">IN</span> (<span class="string">'Adams'</span>, <span class="string">'Carter'</span>)</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<table>
-<thead>
-<tr>
-<th>Id</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td>Oxford Street</td>
-<td>London</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Carter</td>
-<td>Thomas</td>
-<td>Changan Street</td>
-<td>Beijing</td>
-</tr>
-</tbody>
-</table>
-<h3 id="between操作符"><a class="markdownIt-Anchor" href="#between操作符"></a> <code>BETWEEN</code>操作符</h3>
-<p>在<code>WHERE</code>子句中使用，作用是选取介于两个值之间的数据范围。</p>
-<p>操作符<code>BETWEEN ... AND</code>会选取介于两个值之间的数据范围。这些值可以是数据、文本或者日期。</p>
-<blockquote>
-<p><strong>SELECT</strong> column_name(s)</p>
-<p><strong>FROM</strong> table_name</p>
-<p><strong>WHERE</strong> column_name</p>
-<p><strong>BETWEEN</strong> value1 <strong>AND</strong> value2</p>
-</blockquote>
-<p>原始的Persons表：</p>
-<table>
-<thead>
-<tr>
-<th>Id</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td>Oxford Street</td>
-<td>London</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Bush</td>
-<td>George</td>
-<td>Fifth Avenue</td>
-<td>New York</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Carter</td>
-<td>Thomas</td>
-<td>Changan Street</td>
-<td>Beijing</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Gates</td>
-<td>Bill</td>
-<td>Xuanwumen 10</td>
-<td>Beijing</td>
-</tr>
-</tbody>
-</table>
-<p>例：寻找以字母顺序介于‘Adams’（包括）和‘Carter’（不包括）之间的人：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> LastName</span><br><span class="line"><span class="keyword">BETWEEN</span> <span class="string">'Adams'</span> <span class="keyword">AND</span> <span class="string">'Carter'</span></span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<table>
-<thead>
-<tr>
-<th>Id</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td>Oxford Street</td>
-<td>London</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Bush</td>
-<td>George</td>
-<td>Fifth Avenue</td>
-<td>New York</td>
-</tr>
-</tbody>
-</table>
-<p>**重要事项：**不同数据库对<code>BETWEEN...AND</code>操作符的处理方式是有差异的。某些数据库会列出介于‘Adams’和‘Carter’的人，但不包括‘Adams’和‘Carter’；某些数据库会列出介于 ‘Adams’和‘Carter’之间并包括‘Adams’和‘Carter’的人；而另一些数据库会列出介于‘Adams’和‘Carter’之间的人，包括‘Adams’，但不包括‘Carter’</p>
-<p>所以，需要检查自己的数据库是如何处理<code>BETWEEN...AND</code>操作符的</p>
-<p>例2：如果需要显示该范围之外的人，需要使用<code>NOT</code>操作符：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">WHERE</span> LastName</span><br><span class="line"><span class="keyword">NOT</span> <span class="keyword">BETWEEN</span> <span class="string">'Adams'</span> <span class="keyword">AND</span> <span class="string">'Carter'</span></span><br></pre></td></tr></table></figure>
-<h3 id="alias-别名"><a class="markdownIt-Anchor" href="#alias-别名"></a> Alias (别名)</h3>
-<p>可以为列名称和表名称指定别名（Alias）</p>
-<h4 id="表的sql-alias语法"><a class="markdownIt-Anchor" href="#表的sql-alias语法"></a> 表的SQL Alias语法</h4>
-<blockquote>
-<p>SELECT column_name(s)</p>
-<p>FROM table_name</p>
-<p><strong>AS</strong> alias_name</p>
-</blockquote>
-<h4 id="列的sql-alias语法"><a class="markdownIt-Anchor" href="#列的sql-alias语法"></a> 列的SQL Alias语法</h4>
-<blockquote>
-<p>SELECT column_name <strong>AS</strong> alias_name</p>
-<p>FROM table_name</p>
-</blockquote>
-<p>例：使用表名称别名</p>
-<p>假设我们有两个表分别是：“Persons” 和 “Product_Orders”。我们分别为它们指定别名 “p” 和 “po”。</p>
-<p>现在，我们希望列出 “John Adams” 的所有定单。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> po.OrderID, p.LastName, p.FirstName</span><br><span class="line"><span class="keyword">FROM</span> Persons, Product_Orders</span><br><span class="line"><span class="keyword">WHERE</span> p.LastName = <span class="string">'Adams'</span> <span class="keyword">AND</span> p.FirstName = <span class="string">'John'</span></span><br></pre></td></tr></table></figure>
-<p>如果不使用别名：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.OrderID, Product_Orders.LastName, Product_Orders.FirstName</span><br><span class="line"><span class="keyword">FROM</span> Persons, Product_Orders</span><br><span class="line"><span class="keyword">WHERE</span> Product_Orders.LastName = <span class="string">'Adams'</span> <span class="keyword">AND</span> Product_Orders.FirstName = <span class="string">'John'</span></span><br></pre></td></tr></table></figure>
-<p>例：</p>
-<p>Persons表：</p>
-<table>
-<thead>
-<tr>
-<th>Id</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td>Oxford Street</td>
-<td>London</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Bush</td>
-<td>George</td>
-<td>Fifth Avenue</td>
-<td>New York</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Carter</td>
-<td>Thomas</td>
-<td>Changan Street</td>
-<td>Beijing</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> LastName <span class="keyword">AS</span> Family, FirstName <span class="keyword">as</span> <span class="keyword">Name</span></span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<table>
-<thead>
-<tr>
-<th>Family</th>
-<th>FirstName</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Adams</td>
-<td>John</td>
-</tr>
-<tr>
-<td>Bush</td>
-<td>George</td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-</tr>
-</tbody>
-</table>
-<p><strong>注意：这里的列的名称也发生了改变！</strong></p>
-<h3 id="join"><a class="markdownIt-Anchor" href="#join"></a> JOIN</h3>
-<p><code>join</code>用于根据两个或多个表中的列之间的关系，从这些表中查询数据</p>
-<h4 id="join和key"><a class="markdownIt-Anchor" href="#join和key"></a> Join和Key</h4>
-<p>有时，为了得到完整的结果，我们需要从两个或更多的表中获取数据，我们就需要执行join</p>
-<p>数据库中的表可通过键值将彼此联系起来。主键（Primary Key）是一个列，在这个列中的每一行的值都是唯一的。在表中，每个主键的值都是唯一的。这样说的目的是在不重复每个表中的所有数据的情况下，把表间的数据交叉捆绑在一起。</p>
-<p>例如，Persons表</p>
-<table>
-<thead>
-<tr>
-<th>Id_P</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td>Oxford Street</td>
-<td>London</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Bush</td>
-<td>George</td>
-<td>Fifth Avenue</td>
-<td>New York</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Carter</td>
-<td>Thomas</td>
-<td>Changan Street</td>
-<td>Beijing</td>
-</tr>
-</tbody>
-</table>
-<p>这里：<strong>Id_P</strong>是Persons表中的主键，这意味着没有两行能够拥有相同的<code>Id_P</code></p>
 <p>Orders表：</p>
 <table>
 <thead>
 <tr>
-<th>Id_O</th>
-<th>OrderNo</th>
-<th>Id_P</th>
+<th style="text-align:left">O_Id</th>
+<th style="text-align:left">OrderDate</th>
+<th style="text-align:left">OrderPrice</th>
+<th style="text-align:left">Customer</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td>77895</td>
-<td>3</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">2008/12/29</td>
+<td style="text-align:left">1000</td>
+<td style="text-align:left">Bush</td>
 </tr>
 <tr>
-<td>2</td>
-<td>44678</td>
-<td>3</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">2008/11/23</td>
+<td style="text-align:left">1600</td>
+<td style="text-align:left">Carter</td>
 </tr>
 <tr>
-<td>3</td>
-<td>22456</td>
-<td>1</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">2008/10/05</td>
+<td style="text-align:left">700</td>
+<td style="text-align:left">Bush</td>
 </tr>
 <tr>
-<td>4</td>
-<td>24562</td>
-<td>1</td>
+<td style="text-align:left">4</td>
+<td style="text-align:left">2008/09/28</td>
+<td style="text-align:left">300</td>
+<td style="text-align:left">Bush</td>
 </tr>
 <tr>
-<td>5</td>
-<td>34764</td>
-<td>65</td>
+<td style="text-align:left">5</td>
+<td style="text-align:left">2008/08/06</td>
+<td style="text-align:left">2000</td>
+<td style="text-align:left">Adams</td>
+</tr>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:left">2008/07/21</td>
+<td style="text-align:left">100</td>
+<td style="text-align:left">Carter</td>
 </tr>
 </tbody>
 </table>
-<p>注意：“<strong>Id_O</strong>“列值Orders表中的主键，同时，”Orders“表中的”Id_P“列用于引用”Persons“表中的人，而无需使用他人的确切姓名</p>
-<p>这个时候“Id_P”列把上面两个表联系起来了</p>
-<p><strong>引用两个表</strong>，我们可以知道谁订购了什么产品？</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Persons.FirstName, Orders.No</span><br><span class="line"><span class="keyword">FROM</span> Persons, Orders</span><br><span class="line"><span class="keyword">WHERE</span> Persons.Id_P = Orders.Id_P</span><br></pre></td></tr></table></figure>
+<p>例1：计算OrderPrice字段的平均值：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">AVG</span>(OrderPrice) <span class="keyword">AS</span> OrderAverage <span class="keyword">FROM</span> Orders</span><br></pre></td></tr></table></figure>
 <p>结果：</p>
 <table>
 <thead>
 <tr>
-<th>LastName</th>
-<th>FirstName</th>
-<th>OrderNo</th>
+<th style="text-align:left">OrderAverage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Adams</td>
-<td>John</td>
-<td>22456</td>
-</tr>
-<tr>
-<td>Adams</td>
-<td>John</td>
-<td>24562</td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>77895</td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>44678</td>
+<td style="text-align:left">950</td>
 </tr>
 </tbody>
 </table>
-<p>除了上面的方法，我们还可以使用关键字<code>JOIN</code>来从两个表中获取数据</p>
-<p>如果我们希望列出所有人的订购，可以这样写：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Persons.FirstName, Orders.OrderNo</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Persons.LastName</span><br></pre></td></tr></table></figure>
-<p>不同的SQL JOIN</p>
-<p>除了上面使用的<code>INNER JOIN</code>（内连接），还有其他的连接方式</p>
-<ul>
-<li><code>JOIN</code>：如果表中至少有一个匹配，则返回</li>
-<li><code>LEFT JOIN</code>：即使右表中没有匹配，也从左表返回所有的行</li>
-<li><code>RIGHT JOIN</code>：即使左表中没有匹配，也从右表中返回所有的行</li>
-<li><code>FULL JOIN</code>：只要其中一个表中存在匹配，就返回行</li>
-</ul>
-<h3 id="inner-join-关键字"><a class="markdownIt-Anchor" href="#inner-join-关键字"></a> INNER JOIN 关键字</h3>
-<p>在表中至少存在一个匹配项时，INNER JOIN关键字返回行</p>
-<blockquote>
-<p>SELECT column_name(s)</p>
-<p>FROM table_name1</p>
-<p><strong>INNER JOIN</strong> table_name2</p>
-<p><strong>ON</strong> table_name1.column_name = table_name2.column_name</p>
-</blockquote>
-<p>注释：<code>INNER JOIN</code>和<code>JOIN</code>是相同的</p>
-<p>如果在”Persons“中的行在“Orders”中没有匹配，则不会返回</p>
-<h3 id="left-join关键字"><a class="markdownIt-Anchor" href="#left-join关键字"></a> LEFT JOIN关键字</h3>
-<p><code>LEFT JOIN</code>关键字会从左表（table_name1）那里返回所有的行，即使在右表（table_name2）中没有匹配</p>
-<blockquote>
-<p>SELECT column_name(s)</p>
-<p>FROM table_name1</p>
-<p><strong>LEFT JOIN</strong> table_name2</p>
-<p><strong>ON</strong> table_name1.column_name = table_name2.column_name</p>
-</blockquote>
-<p>注释：在某些数据库中，<code>LEFT JOIN</code> 称为 <code>LEFT OUTER JOIN</code></p>
-<p>如果在上述的Persons表和Orders表中采用左连接，即：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Persons.FirstName, Orders,OrderNo</span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Persons.LastName</span><br></pre></td></tr></table></figure>
+<p>例2：找到OrderPrice值高于OrderPrice平均值的客户</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Curstomer <span class="keyword">FROM</span> Orders </span><br><span class="line"><span class="keyword">WHERE</span> OrderPrice &gt; (<span class="keyword">SELECT</span> <span class="keyword">AVG</span>(OrderPrice) <span class="keyword">FROM</span> Orders)</span><br></pre></td></tr></table></figure>
 <p>结果：</p>
 <table>
 <thead>
 <tr>
-<th>LastName</th>
-<th>FirstName</th>
-<th>OrderNo</th>
+<th style="text-align:left">Customer</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Adams</td>
-<td>John</td>
-<td>22456</td>
+<td style="text-align:left">Bush</td>
 </tr>
 <tr>
-<td>Adams</td>
-<td>John</td>
-<td>24562</td>
+<td style="text-align:left">Carter</td>
 </tr>
 <tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>77895</td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>44678</td>
-</tr>
-<tr>
-<td>Bush</td>
-<td>George</td>
-<td></td>
+<td style="text-align:left">Adams</td>
 </tr>
 </tbody>
 </table>
-<h3 id="right-join-关键字"><a class="markdownIt-Anchor" href="#right-join-关键字"></a> RIGHT JOIN 关键字</h3>
-<p><code>RIGHT JOIN</code>关键字会在右表（table_name2）那里返回所有的行，即使在左表（table_name1）中没有匹配的行</p>
+<h3 id="count函数"><a class="markdownIt-Anchor" href="#count函数"></a> COUNT函数</h3>
+<p><code>COUNT()</code>函数返回匹配指定条件的行数</p>
+<h4 id="sql-countcolumn_name语法"><a class="markdownIt-Anchor" href="#sql-countcolumn_name语法"></a> SQL COUNT(column_name)语法</h4>
+<p>COUNT(column_name)函数返回指定列的值的数目（NULL不计入）：</p>
 <blockquote>
-<p>SELECT column_name(s)</p>
-<p>FROM table_name1</p>
-<p><strong>RIGHT JOIN</strong> table_name2</p>
-<p><strong>ON</strong> table_name1.column_name = table_name2.column_name</p>
+<p>SELECT COUNT(column_name) FROM table_name</p>
 </blockquote>
-<p>还是上面那两张表</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Persons.FirstName, Orders.OrderNo</span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Persons.LastName</span><br></pre></td></tr></table></figure>
+<h4 id="sql-count语法"><a class="markdownIt-Anchor" href="#sql-count语法"></a> SQL COUNT(*)语法</h4>
+<p>COUNT(*) 函数返回表中的记录数</p>
+<blockquote>
+<p>SELECT COUNT(*) FROM table_name</p>
+</blockquote>
+<h4 id="sql-countdistinct-column_name语法"><a class="markdownIt-Anchor" href="#sql-countdistinct-column_name语法"></a> SQL COUNT(DISTINCT column_name)语法</h4>
+<p>COUNT(DISTINCT column_name) 函数返回指定列的不同值的数目：</p>
+<blockquote>
+<p>SELECT COUNT(DISTINCT column_name) FROM table_name</p>
+</blockquote>
+<p>注释：<code>COUNT(DISTINCT)</code> 适用于ORACLE和Microsoft SQL Server,但是不能用于Microsoft Access</p>
+<p>Orders表：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">O_Id</th>
+<th style="text-align:left">OrderDate</th>
+<th style="text-align:left">OrderPrice</th>
+<th style="text-align:left">Customer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">2008/12/29</td>
+<td style="text-align:left">1000</td>
+<td style="text-align:left">Bush</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">2008/11/23</td>
+<td style="text-align:left">1600</td>
+<td style="text-align:left">Carter</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">2008/10/05</td>
+<td style="text-align:left">700</td>
+<td style="text-align:left">Bush</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">2008/09/28</td>
+<td style="text-align:left">300</td>
+<td style="text-align:left">Bush</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">2008/08/06</td>
+<td style="text-align:left">2000</td>
+<td style="text-align:left">Adams</td>
+</tr>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:left">2008/07/21</td>
+<td style="text-align:left">100</td>
+<td style="text-align:left">Carter</td>
+</tr>
+</tbody>
+</table>
+<p>例1：计算客户“Carter”的订单数。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(Customer) <span class="keyword">AS</span> CustimerNilsen <span class="keyword">FROM</span> Orders</span><br><span class="line"><span class="keyword">WHERE</span> Customer = <span class="string">'Carter'</span></span><br></pre></td></tr></table></figure>
+<p>以上SQL语句的返回结果是2，因为客户Carter共有2个订单。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">CustomerNilsen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">2</td>
+</tr>
+</tbody>
+</table>
+<p>例2：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> NumberOfOrders <span class="keyword">FROM</span> Orders</span><br></pre></td></tr></table></figure>
 <p>结果：</p>
 <table>
 <thead>
 <tr>
-<th>LastName</th>
-<th>FirstName</th>
-<th>OrderNo</th>
+<th style="text-align:left">NumberOfOrders</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Adams</td>
-<td>John</td>
-<td>22456</td>
-</tr>
-<tr>
-<td>Adams</td>
-<td>John</td>
-<td>24562</td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>77895</td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>44678</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>34764</td>
+<td style="text-align:left">6</td>
 </tr>
 </tbody>
 </table>
-<p><code>RIGHT JOIN</code>关键字会从右表（Orders）那里返回所有的行，即使在左表（Persons）中没有匹配的行</p>
-<h3 id="full-join-关键字"><a class="markdownIt-Anchor" href="#full-join-关键字"></a> FULL JOIN 关键字</h3>
-<p>只要其中某个表存在匹配，<code>FULL JOIN</code>关键字就回返回行</p>
-<blockquote>
-<p>SELECT column_name(s)</p>
-<p>FROM table_name1</p>
-<p><strong>FULL JOIN</strong> table_name2</p>
-<p><strong>ON</strong> table_name1.column_name = table_name2.column_name</p>
-</blockquote>
-<p>Persons表和Orders表同上</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Persons.FirstName, Orders.OrderNo</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">FULL</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Persons.LastName</span><br></pre></td></tr></table></figure>
-<p>结果</p>
+<p>这是表中的总行数。</p>
+<p>例3：计算”Orders”表中不同客户的数目</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> Customer) <span class="keyword">AS</span> NumberOdCustomers <span class="keyword">FROM</span> Orders</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
 <table>
 <thead>
 <tr>
-<th>LastName</th>
-<th>FirstName</th>
-<th>OrderNo</th>
-<th></th>
-<th></th>
+<th style="text-align:left">NumberOfCustomers</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Adams</td>
-<td>John</td>
-<td>22456</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Adams</td>
-<td>John</td>
-<td>24562</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>77895</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>44678</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Bush</td>
-<td>George</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>34764</td>
-<td></td>
-<td></td>
+<td style="text-align:left">3</td>
 </tr>
 </tbody>
 </table>
-<p><code>FLLL JOIN</code>关键字会从左表（Persons）和右表（Orders）那里返回所有的行。如果“Persons”中的行在表“Orders”中没有匹配，或者如果“Orders”中的行在表“Persons”中没有匹配，这些行同样会列出。</p>
+<h3 id="first函数"><a class="markdownIt-Anchor" href="#first函数"></a> FIRST()函数</h3>
+<p>FIRST()函数返回指定的字段中第一个记录的值。</p>
+<p>**Tips：**可使用ORDER BY 语句对记录进行排序</p>
+<blockquote>
+<p>SELECT FIRST(column_name) FROM table_name</p>
+</blockquote>
+<p>实例：Orders表同上，查找“OrderPrice”列的第一个值</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">FIRST</span>(OrderPrice) <span class="keyword">AS</span> FirstOrderPrice <span class="keyword">FROM</span> Orders</span><br></pre></td></tr></table></figure>
+<p>结果类似这样：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">FirstOrderPrice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1000</td>
+</tr>
+</tbody>
+</table>
+<h3 id="last函数"><a class="markdownIt-Anchor" href="#last函数"></a> LAST()函数</h3>
+<p>LAST()函数返回指定的字段中最后一个记录的值</p>
+<p>**Tips：**可使用<code>ORDER BY</code> 语句对记录进行排序</p>
+<blockquote>
+<p>SELECT LAST(column_name) FROM table_name</p>
+</blockquote>
+<p>例：查找”OrderPrice“列的最后一个值</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">LAST</span>(OrderPrices) <span class="keyword">AS</span> LastOrderPrice <span class="keyword">FROM</span> Orders</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">LastOrderPrice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">100</td>
+</tr>
+</tbody>
+</table>
+<h3 id="max-和-min-函数"><a class="markdownIt-Anchor" href="#max-和-min-函数"></a> MAX() 和 MIN() 函数</h3>
+<p><code>MAX</code>函数返回一列中的最大值，<code>MIN</code>函数返回一列中的最小值。<code>NULL</code>值不包括在计算中</p>
+<blockquote>
+<p>SELECT MAX(column_name) FROM table_name</p>
+</blockquote>
+<p>注释：<code>MIN</code>和<code>MAX</code>也可用于文本列，以获得按字母顺序排序的最高或者最低值</p>
+<p>Orders表：</p>
+<p>例：我们要查找”OrderPrice“列中的最大值</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">MAX</span>(OrderPrice) <span class="keyword">AS</span> LargestOrderPrice <span class="keyword">FROM</span> Orders</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">LargestOrderPrice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">2000</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">MIN</span>(OrderPrice) <span class="keyword">AS</span> LargestOrderPrice <span class="keyword">FROM</span> Orders</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">SmallestOrderPrice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">100</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sum-函数"><a class="markdownIt-Anchor" href="#sum-函数"></a> SUM() 函数</h3>
+<p><code>SUM</code>函数返回数值列的总数（总额）</p>
+<blockquote>
+<p>SELECT SUM(column_name) FROM table_name</p>
+</blockquote>
+<p>例：我们希望查找“OrderPrice”字段的总数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">SUM</span>(OrderPrice) <span class="keyword">AS</span> OrderTotal <span class="keyword">FROM</span> Orders</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">OrderTotal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">5700</td>
+</tr>
+</tbody>
+</table>
+<h3 id="group-by语句"><a class="markdownIt-Anchor" href="#group-by语句"></a> GROUP BY语句</h3>
+<p>合计函数（比如<code>SUM</code>）尝尝需要添加<code>GROUP BY</code>语句</p>
+<p><code>GROUP BY</code>语句用于结合合计函数，根据一个或多个列对结果集进行分组</p>
+<h4 id="sql-group-by语法"><a class="markdownIt-Anchor" href="#sql-group-by语法"></a> SQL GROUP BY语法</h4>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_name, aggregate_function(column_name)</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> column_name <span class="keyword">operator</span> <span class="keyword">value</span> </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> column_name</span><br></pre></td></tr></table></figure>
+<h4 id="sql-group-by示例"><a class="markdownIt-Anchor" href="#sql-group-by示例"></a> SQL GROUP BY示例</h4>
+<p>现在，我们希望查找每个客户的总金额（总订单）</p>
+<p>我们想要使用<code>GROUP BY</code>语句对客户进行组合。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Customer, <span class="keyword">SUM</span>(OrderPrice) <span class="keyword">FROM</span> Orders</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> Customer</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Customer</th>
+<th style="text-align:left">SUM(OrderPrice)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Bush</td>
+<td style="text-align:left">2000</td>
+</tr>
+<tr>
+<td style="text-align:left">Carter</td>
+<td style="text-align:left">1700</td>
+</tr>
+<tr>
+<td style="text-align:left">Adams</td>
+<td style="text-align:left">2000</td>
+</tr>
+</tbody>
+</table>
+<h4 id="group-by一个以上的列"><a class="markdownIt-Anchor" href="#group-by一个以上的列"></a> GROUP BY一个以上的列</h4>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Customer, OrderDate, <span class="keyword">SUM</span>(OrderPrice) <span class="keyword">FROM</span> Orders</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> Customer, OrderDate</span><br></pre></td></tr></table></figure>
+<h3 id="having子句"><a class="markdownIt-Anchor" href="#having子句"></a> HAVING子句</h3>
+<p>在SQL中增加HAVING子句原因是，<code>WHERE</code>关键字无法与合计函数一起使用</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_name, aggregate_function(column_name)</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> colum_name <span class="keyword">operator</span> <span class="keyword">value</span> </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> column_name</span><br><span class="line"><span class="keyword">HAVING</span> aggregate_function(column_name) <span class="keyword">operator</span> <span class="keyword">value</span></span><br></pre></td></tr></table></figure>
+<p>例1：我们希望查找订单总金额少于2000的客户</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Customer, <span class="keyword">SUM</span>(OrderPrice) <span class="keyword">FROM</span> Orders</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> Customer</span><br><span class="line"><span class="keyword">HAVING</span> <span class="keyword">SUM</span>(OrderPrice) &lt; <span class="number">2000</span></span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Customer</th>
+<th style="text-align:left">SUM(OrderPrice)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Carter</td>
+<td style="text-align:left">1700</td>
+</tr>
+</tbody>
+</table>
+<p>例2：我们希望查找客户“Bush”或“Adams”拥有超过1500的订单总金额</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Customer, <span class="keyword">SUM</span>(OrderPrice) <span class="keyword">FROM</span> Orders</span><br><span class="line"><span class="keyword">WHERE</span> Customer=<span class="string">'Bush'</span> <span class="keyword">OR</span> Customer=<span class="string">'Adams'</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> Customer</span><br><span class="line"><span class="keyword">HAVING</span> <span class="keyword">SUM</span>(OrderPrice) &gt; <span class="number">1500</span></span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Customer</th>
+<th style="text-align:left">SUM(OrderPrice)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Bush</td>
+<td style="text-align:left">2000</td>
+</tr>
+<tr>
+<td style="text-align:left">Adams</td>
+<td style="text-align:left">2000</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ucase和lcase函数"><a class="markdownIt-Anchor" href="#ucase和lcase函数"></a> UCASE()和LCASE()函数</h3>
+<p><code>UCASE</code>函数把字段的值转换为大写，<code>LCASE()</code>函数把字段的值转换为小写</p>
+<blockquote>
+<p>SELECT UCASE(column_name) FROM table_name</p>
+</blockquote>
+<p>”Persons“表</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Id</th>
+<th style="text-align:left">LastName</th>
+<th style="text-align:left">FirstName</th>
+<th style="text-align:left">Address</th>
+<th style="text-align:left">City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">Adams</td>
+<td style="text-align:left">John</td>
+<td style="text-align:left">Oxford Street</td>
+<td style="text-align:left">London</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">Bush</td>
+<td style="text-align:left">George</td>
+<td style="text-align:left">Fifth Avenue</td>
+<td style="text-align:left">New York</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">Carter</td>
+<td style="text-align:left">Thomas</td>
+<td style="text-align:left">Changan Street</td>
+<td style="text-align:left">Beijing</td>
+</tr>
+</tbody>
+</table>
+<p>现在，我们希望选取“LastName”和“FirstName”列的内容，然后把“LastName”列转换为大写</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">UCASE</span>(LastName) <span class="keyword">as</span> LastName, FirstName <span class="keyword">FROM</span>  Persons</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">LastName</th>
+<th style="text-align:left">FirstName</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ADAMS</td>
+<td style="text-align:left">John</td>
+</tr>
+<tr>
+<td style="text-align:left">BUSH</td>
+<td style="text-align:left">George</td>
+</tr>
+<tr>
+<td style="text-align:left">CARTER</td>
+<td style="text-align:left">Thomas</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">LCASE</span>(LastName) <span class="keyword">as</span> LastName, FirstName <span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">LastName</th>
+<th style="text-align:left">FirstName</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">adams</td>
+<td style="text-align:left">John</td>
+</tr>
+<tr>
+<td style="text-align:left">bush</td>
+<td style="text-align:left">George</td>
+</tr>
+<tr>
+<td style="text-align:left">carter</td>
+<td style="text-align:left">Thomas</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mid函数"><a class="markdownIt-Anchor" href="#mid函数"></a> MID()函数</h3>
+<p><code>MID</code>函数用于从文本字段中提取字符</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">MID</span>(column_name, <span class="keyword">start</span>[, <span class="keyword">length</span>] <span class="keyword">FROM</span> table_name)</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>column_name</td>
+<td>必需。要提取字符的字段</td>
+</tr>
+<tr>
+<td>start</td>
+<td>必需。规定开始位置（起始值是1）</td>
+</tr>
+<tr>
+<td>length</td>
+<td>可选。要返回的字符数。如果省略，则MID()函数返回剩余文本</td>
+</tr>
+</tbody>
+</table>
+<p>Persons表</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Id</th>
+<th style="text-align:left">LastName</th>
+<th style="text-align:left">FirstName</th>
+<th style="text-align:left">Address</th>
+<th style="text-align:left">City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">Adams</td>
+<td style="text-align:left">John</td>
+<td style="text-align:left">Oxford Street</td>
+<td style="text-align:left">London</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">Bush</td>
+<td style="text-align:left">George</td>
+<td style="text-align:left">Fifth Avenue</td>
+<td style="text-align:left">New York</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">Carter</td>
+<td style="text-align:left">Thomas</td>
+<td style="text-align:left">Changan Street</td>
+<td style="text-align:left">Beijing</td>
+</tr>
+</tbody>
+</table>
+<p>例1：我们希望从“City”列中提出前3个字符。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">MID</span>(City, <span class="number">1</span>, <span class="number">3</span>) <span class="keyword">as</span> SmallCity Persons</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">SmallCity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Lon</td>
+</tr>
+<tr>
+<td style="text-align:left">New</td>
+</tr>
+<tr>
+<td style="text-align:left">Bei</td>
+</tr>
+</tbody>
+</table>
+<h3 id="len函数"><a class="markdownIt-Anchor" href="#len函数"></a> LEN()函数</h3>
+<p><code>LEN</code>函数返回文本字段中值的长度</p>
+<blockquote>
+<p>SELECT LEN(column_name) FROM table_name</p>
+</blockquote>
+<p>Persons表同上：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">LEN</span>(City) <span class="keyword">AS</span> LengthOfCity <span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">LengthOfCity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">6</td>
+</tr>
+<tr>
+<td style="text-align:left">8</td>
+</tr>
+<tr>
+<td style="text-align:left">7</td>
+</tr>
+</tbody>
+</table>
+<h3 id="round函数"><a class="markdownIt-Anchor" href="#round函数"></a> ROUND()函数</h3>
+<p><code>ROUND</code>函数用于把数值字段舍入为指定的小数位数</p>
+<blockquote>
+<p>SELECT ROUND(column_name, decimals) FROM table_name</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>column_name</td>
+<td>必需。要舍入的字段</td>
+</tr>
+<tr>
+<td>decimals</td>
+<td>必需。规定要返回的小数位数</td>
+</tr>
+</tbody>
+</table>
+<p>Products表</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Prod_Id</th>
+<th style="text-align:left">ProductName</th>
+<th style="text-align:left">Unit</th>
+<th style="text-align:left">UnitPrice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">gold</td>
+<td style="text-align:left">1000 g</td>
+<td style="text-align:left">32.35</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">silver</td>
+<td style="text-align:left">1000 g</td>
+<td style="text-align:left">11.56</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">copper</td>
+<td style="text-align:left">1000 g</td>
+<td style="text-align:left">6.85</td>
+</tr>
+</tbody>
+</table>
+<p>例：把名称和价格舍入为最接近的整数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ProductName, <span class="keyword">ROUND</span>(UnitPrice, <span class="number">0</span>) <span class="keyword">AS</span> UnitPrice <span class="keyword">FROM</span> Products</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">ProductName</th>
+<th style="text-align:left">UnitPrice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">gold</td>
+<td style="text-align:left">32</td>
+</tr>
+<tr>
+<td style="text-align:left">silver</td>
+<td style="text-align:left">12</td>
+</tr>
+</tbody>
+</table>
+<h3 id="now函数"><a class="markdownIt-Anchor" href="#now函数"></a> NOW()函数</h3>
+<p>NOW函数返回当前的日期和时间</p>
+<p>**Tips：**如果您在使用SQL Server数据库，请使用getdate()函数来获得当前的日期时间。</p>
+<blockquote>
+<p>SELECT NOW() FROM table_name</p>
+</blockquote>
+<p>例：表格同上，要求显示当天的日期所对应的名称和价格</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ProfuctName, UnitPrice, <span class="keyword">NOW</span>() <span class="keyword">as</span> PerDate <span class="keyword">FROM</span> Products</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">ProductName</th>
+<th style="text-align:left">UnitPrice</th>
+<th style="text-align:left">PerDate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">gold</td>
+<td style="text-align:left">32.35</td>
+<td style="text-align:left">12/29/2008 11:36:05 AM</td>
+</tr>
+<tr>
+<td style="text-align:left">silver</td>
+<td style="text-align:left">11.56</td>
+<td style="text-align:left">12/29/2008 11:36:05 AM</td>
+</tr>
+<tr>
+<td style="text-align:left">copper</td>
+<td style="text-align:left">6.85</td>
+<td style="text-align:left">12/29/2008 11:36:05 AM</td>
+</tr>
+</tbody>
+</table>
+<h3 id="format函数"><a class="markdownIt-Anchor" href="#format函数"></a> FORMAT()函数</h3>
+<p>FORMAT()函数用于对字段的显示进行格式化</p>
+<blockquote>
+<p>SELECT FORMAT(column_name, format) FROM table_name</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>column_name</td>
+<td>必需。要规格式化的字段</td>
+</tr>
+<tr>
+<td>format</td>
+<td>必需。规定格式。</td>
+</tr>
+</tbody>
+</table>
+<p>表同上。</p>
+<p>例：需要实现每天日期所对应的名称和价格（日期显示的格式为“YYYY-MM-DD”）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ProductName, UnitPrice, <span class="keyword">FORMAT</span>(<span class="keyword">NOW</span>(), <span class="string">'YYYY-MM-DD'</span>) <span class="keyword">AS</span> PerDate </span><br><span class="line"><span class="keyword">FROM</span> Product</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">ProductName</th>
+<th style="text-align:left">UnitPrice</th>
+<th style="text-align:left">PerDate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">gold</td>
+<td style="text-align:left">32.35</td>
+<td style="text-align:left">12/29/2008</td>
+</tr>
+<tr>
+<td style="text-align:left">silver</td>
+<td style="text-align:left">11.56</td>
+<td style="text-align:left">12/29/2008</td>
+</tr>
+<tr>
+<td style="text-align:left">copper</td>
+<td style="text-align:left">6.85</td>
+<td style="text-align:left">12/29/2008</td>
+</tr>
+</tbody>
+</table>
 
       
     </div>
@@ -795,7 +995,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/32/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><span class="page-number current">33</span><a class="page-number" href="/page/34/">34</a><span class="space">&hellip;</span><a class="page-number" href="/page/140/">140</a><a class="extend next" rel="next" href="/page/34/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/32/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><span class="page-number current">33</span><a class="page-number" href="/page/34/">34</a><span class="space">&hellip;</span><a class="page-number" href="/page/144/">144</a><a class="extend next" rel="next" href="/page/34/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -841,7 +1041,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">140</span>
+          <span class="site-state-item-count">144</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

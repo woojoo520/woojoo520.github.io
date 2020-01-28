@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/14/Pytorch-transforms/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/17/HDR的简单介绍/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/08/14/Pytorch-transforms/" class="post-title-link" itemprop="url">Pytorch transforms</a>
+            <a href="/2019/08/17/HDR的简单介绍/" class="post-title-link" itemprop="url">HDR的简单介绍</a>
         </h1>
 
         <div class="post-meta">
@@ -210,16 +210,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2019-08-14 14:59:19" itemprop="dateCreated datePublished" datetime="2019-08-14T14:59:19+08:00">2019-08-14</time>
+              <time title="创建时间：2019-08-17 08:57:27 / 修改时间：09:15:11" itemprop="dateCreated datePublished" datetime="2019-08-17T08:57:27+08:00">2019-08-17</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-15 10:05:14" itemprop="dateModified" datetime="2019-08-15T10:05:14+08:00">2019-08-15</time>
-              </span>
 
           
   
@@ -230,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/08/14/Pytorch-transforms/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/14/Pytorch-transforms/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/08/17/HDR的简单介绍/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/17/HDR的简单介绍/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -246,61 +240,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="transfroms"><a class="markdownIt-Anchor" href="#transfroms"></a> Transfroms</h2>
-<h3 id="1-裁剪crop"><a class="markdownIt-Anchor" href="#1-裁剪crop"></a> 1. 裁剪——Crop</h3>
-<h4 id="11-随机裁剪transformsrandomcrop"><a class="markdownIt-Anchor" href="#11-随机裁剪transformsrandomcrop"></a> 1.1 随机裁剪：transforms.RandomCrop()</h4>
-<ul>
-<li>
-<p><code>torchvision.transforms.RandomCrop(size, padding=None, pad_if_needed=False, fill=0, padding_mode='constant')</code></p>
-<ul>
-<li>
-<p>功能：依据给定的size随机裁剪</p>
-</li>
-<li>
-<p>参数：</p>
-<ul>
-<li>
-<p><code>size-(sequence or int),若为sequence， 则为(h, w),若为int， 则(size, size)</code></p>
-</li>
-<li>
-<p><code>padding-(sequence or int, optional)</code>,此参数是设置为多少个pixel，当为int时，图像上下左右均填充int个，例如<code>padding=4</code>，则上下左右均填充4个padding， 若为32 * 32，则会变成40 * 40；当为sequence时，若有两个数，则第一个数表示左右扩充多少，第二个数表示上下的，当有4个数是，则为左、上、右、下</p>
-</li>
-<li>
-<p><code>fill-(int or tuple)</code>，填充的值是什么（仅当填充模式为constant时有用）。int时，各通道均填充该值，当长度为3的tuple时，表示RGB通道需要填充的值</p>
-</li>
-<li>
-<p><code>padding-mode</code>,填充模式（constant（常量）， edge（按照图片边缘的像素值来填充），reflect， symmetric）</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="12-中心裁剪transformscentercrop"><a class="markdownIt-Anchor" href="#12-中心裁剪transformscentercrop"></a> 1.2 中心裁剪：transforms.CenterCrop()</h4>
-<h4 id="13-随机长宽比裁剪-transformsrandomresizedcrop"><a class="markdownIt-Anchor" href="#13-随机长宽比裁剪-transformsrandomresizedcrop"></a> 1.3 随机长宽比裁剪 transforms.RandomResizedCrop()</h4>
-<h4 id="14-上下左右中心裁剪transformsfivecrop"><a class="markdownIt-Anchor" href="#14-上下左右中心裁剪transformsfivecrop"></a> 1.4 上下左右中心裁剪：transforms.FiveCrop()</h4>
-<h4 id="15-上下左右中心裁剪后翻转transformtencrop"><a class="markdownIt-Anchor" href="#15-上下左右中心裁剪后翻转transformtencrop"></a> 1.5 上下左右中心裁剪后翻转：transform.TenCrop()</h4>
-<h3 id="2-翻转和旋转flip-and-rotation"><a class="markdownIt-Anchor" href="#2-翻转和旋转flip-and-rotation"></a> 2. 翻转和旋转——Flip and Rotation</h3>
-<h4 id="21-依概率p水平翻转-transfroms-randomhorizontalflip"><a class="markdownIt-Anchor" href="#21-依概率p水平翻转-transfroms-randomhorizontalflip"></a> 2.1 依概率p水平翻转 transfroms. RandomHorizontalFlip()</h4>
-<h4 id="22-依概率p垂直翻转-transformsrandomverticalflip"><a class="markdownIt-Anchor" href="#22-依概率p垂直翻转-transformsrandomverticalflip"></a> 2.2 依概率p垂直翻转 transforms.RandomVerticalFlip()</h4>
-<h4 id="23-随机旋转-transformsrandomrotation"><a class="markdownIt-Anchor" href="#23-随机旋转-transformsrandomrotation"></a> 2.3 随机旋转 transforms.RandomRotation()</h4>
-<h3 id="3-图像变换"><a class="markdownIt-Anchor" href="#3-图像变换"></a> 3. 图像变换</h3>
-<h4 id="31-resize-transformresize"><a class="markdownIt-Anchor" href="#31-resize-transformresize"></a> 3.1 resize  transform.Resize</h4>
-<h4 id="32-标准化-transformnormalize"><a class="markdownIt-Anchor" href="#32-标准化-transformnormalize"></a> 3.2 标准化 transform.Normalize</h4>
-<h4 id="33-转为tensor-transformstotensor"><a class="markdownIt-Anchor" href="#33-转为tensor-transformstotensor"></a> 3.3 转为tensor transforms.ToTensor</h4>
-<h4 id="34-填充-transformspad"><a class="markdownIt-Anchor" href="#34-填充-transformspad"></a> 3.4 填充 transforms.Pad</h4>
-<h4 id="35-修改亮度-对比度和饱和度-transformscolorjitter"><a class="markdownIt-Anchor" href="#35-修改亮度-对比度和饱和度-transformscolorjitter"></a> 3.5 修改亮度、对比度和饱和度 transforms.ColorJitter()</h4>
-<h4 id="36-转灰度图-transformsgrayscale"><a class="markdownIt-Anchor" href="#36-转灰度图-transformsgrayscale"></a> 3.6 转灰度图 transforms.GrayScale</h4>
-<h4 id="37-线性变换-transformslineartransformation"><a class="markdownIt-Anchor" href="#37-线性变换-transformslineartransformation"></a> 3.7 线性变换 transforms.LinearTransformation()</h4>
-<h4 id="38-放射变换-transformrandomaffine"><a class="markdownIt-Anchor" href="#38-放射变换-transformrandomaffine"></a> 3.8 放射变换 transform.RandomAffine</h4>
-<h4 id="39-依概率p转为灰度图-transformsrandomgrayscale"><a class="markdownIt-Anchor" href="#39-依概率p转为灰度图-transformsrandomgrayscale"></a> 3.9 依概率p转为灰度图 transforms.RandomGrayScale</h4>
-<h4 id="310-将数据转换为pilimage-transformstopilimage"><a class="markdownIt-Anchor" href="#310-将数据转换为pilimage-transformstopilimage"></a> 3.10 将数据转换为PILImage transforms.ToPILImage</h4>
-<h4 id="311-transformslambda"><a class="markdownIt-Anchor" href="#311-transformslambda"></a> 3.11 transforms.Lambda</h4>
-<h3 id="4-对transforms操作使数据增强更灵活"><a class="markdownIt-Anchor" href="#4-对transforms操作使数据增强更灵活"></a> 4. 对transforms操作，使数据增强更灵活</h3>
-<h4 id="41-transformsrandomchoicetransfroms"><a class="markdownIt-Anchor" href="#41-transformsrandomchoicetransfroms"></a> 4.1 transforms.RandomChoice(transfroms)</h4>
-<h4 id="42-transformsrandomapplytransforms-p05"><a class="markdownIt-Anchor" href="#42-transformsrandomapplytransforms-p05"></a> 4.2 transforms.RandomApply(transforms, p=0.5)</h4>
-<h4 id="43-transformsrandomorder"><a class="markdownIt-Anchor" href="#43-transformsrandomorder"></a> 4.3 transforms.RandomOrder</h4>
-<h4 id><a class="markdownIt-Anchor" href="#"></a> </h4>
+          <h2 id="hdr"><a class="markdownIt-Anchor" href="#hdr"></a> HDR</h2>
+<h3 id="hdr的简介"><a class="markdownIt-Anchor" href="#hdr的简介"></a> HDR的简介</h3>
+<p><strong>HDR——High-Dynamic Range（高动态光照渲染）</strong>，相比普通的图像，可以提供更多的动态范围和图像细节，根据不同的曝光时间的LDR(Low-Dynamic Range)图像，利用曝光时间相对应最佳细节的LDR图像来合成最终的HDR图像，能够更好的反映出真实环境中的视觉效果。</p>
+<p>说白了，就是一张图片尽可能得同时显示最亮和最暗的地方，或者说是让亮的地方更亮，让暗的地方更暗（或者理解为<strong>能够大幅提高画面细节的明暗对比度</strong>）。HDR显示下的色彩更接近人眼真实的感知，所以HDR提供更逼真，更身临其境的电影、游戏和内容创作体验。</p>
+<p>人眼的视觉是目前最强大的摄影器材跟显像设备，我们不断升级的摄影跟显示器设备都是为了还原人眼所见，以求达到所见即所得的效果。</p>
+<h3 id="hdr的组成"><a class="markdownIt-Anchor" href="#hdr的组成"></a> HDR的组成</h3>
+<p>HDR由两部分组成：<strong>动态曝光控制</strong>和<strong>光晕效果</strong>。</p>
+<h4 id="动态曝光控制"><a class="markdownIt-Anchor" href="#动态曝光控制"></a> 动态曝光控制</h4>
+<p>通常，显示器能够显示R、G、B分量在[0, 255]之间的像素值。而256个不同的亮度级别显然不能表示自然界中光线的亮度情况。举个例子，太阳的亮度是白炽灯亮度的几千倍或者被漫反射照亮的室内亮度的几万倍，这远远超出了显示器的亮度表示能力。HDR技术所要解决的问题就是在有限的亮度范围内表示出宽广的亮度范围。原理类似于照相机的曝光功能，通过算法调整光线亮度，将光线从高动态范围映射到低动态范围，从而得到令人信服的光照效果</p>
+<h4 id="光晕效果"><a class="markdownIt-Anchor" href="#光晕效果"></a> 光晕效果</h4>
+<p>人从暗处走到光亮的地方，瞳孔由于来不及收缩，眼睛会自己眯起来，以保护视网膜上的感光细胞。HDR通过对原始图像进行调整，可以模拟这种人眼自动适应光线变化的胜利反应，产生类似于光晕的效果</p>
+<p>图像经DHR处理后的理想效果是亮处足够耀眼，暗处能够分辨物体的轮廓与深度，而非原图的一团漆黑。</p>
 
       
     </div>
@@ -320,7 +271,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/106/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/106/">106</a><span class="page-number current">107</span><a class="page-number" href="/page/108/">108</a><span class="space">&hellip;</span><a class="page-number" href="/page/140/">140</a><a class="extend next" rel="next" href="/page/108/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/106/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/106/">106</a><span class="page-number current">107</span><a class="page-number" href="/page/108/">108</a><span class="space">&hellip;</span><a class="page-number" href="/page/144/">144</a><a class="extend next" rel="next" href="/page/108/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -366,7 +317,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">140</span>
+          <span class="site-state-item-count">144</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

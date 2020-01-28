@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/19/SQLServer-Day9/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/13/QQ通信原理分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/10/19/SQLServer-Day9/" class="post-title-link" itemprop="url">SQLServer-Day9</a>
+            <a href="/2019/11/13/QQ通信原理分析/" class="post-title-link" itemprop="url">QQ通信原理Fenix</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-10-19 10:18:58 / 修改时间：11:26:15" itemprop="dateCreated datePublished" datetime="2019-10-19T10:18:58+08:00">2019-10-19</time>
+              <time title="创建时间：2019-11-13 16:15:45 / 修改时间：20:08:34" itemprop="dateCreated datePublished" datetime="2019-11-13T16:15:45+08:00">2019-11-13</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/10/19/SQLServer-Day9/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/19/SQLServer-Day9/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/11/13/QQ通信原理分析/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/13/QQ通信原理分析/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,37 +240,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="sqlserver-day9"><a class="markdownIt-Anchor" href="#sqlserver-day9"></a> SQLServer-Day9</h2>
-<h3 id="178-分数排名"><a class="markdownIt-Anchor" href="#178-分数排名"></a> 178. 分数排名</h3>
-<p>编写一个 SQL 查询来实现分数排名。如果两个分数相同，则两个分数排名（Rank）相同。请注意，平分后的下一个名次应该是下一个连续的整数值。换句话说，名次之间不应该有“间隔”。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">+----+-------+</span><br><span class="line">| Id | Score |</span><br><span class="line">+----+-------+</span><br><span class="line">| 1  | 3.50  |</span><br><span class="line">| 2  | 3.65  |</span><br><span class="line">| 3  | 4.00  |</span><br><span class="line">| 4  | 3.85  |</span><br><span class="line">| 5  | 4.00  |</span><br><span class="line">| 6  | 3.65  |</span><br><span class="line">+----+-------+</span><br></pre></td></tr></table></figure>
-<p>例如，根据上述给定的 Scores 表，你的查询应该返回（按分数从高到低排列）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">+-------+------+</span><br><span class="line">| Score | Rank |</span><br><span class="line">+-------+------+</span><br><span class="line">| 4.00  | 1    |</span><br><span class="line">| 4.00  | 1    |</span><br><span class="line">| 3.85  | 2    |</span><br><span class="line">| 3.65  | 3    |</span><br><span class="line">| 3.65  | 3    |</span><br><span class="line">| 3.50  | 4    |</span><br><span class="line">+-------+------+</span><br></pre></td></tr></table></figure>
-<p>Code：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Score, <span class="keyword">dense_rank</span>() <span class="keyword">over</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> Score <span class="keyword">DESC</span>) <span class="keyword">as</span> <span class="keyword">Rank</span></span><br><span class="line"><span class="keyword">FROM</span> Scores</span><br></pre></td></tr></table></figure>
-<p>**Tips：**SQL Server中<code>ROW_NUMBER()</code> 和 <code>RANK()</code> 和 <code>DENSE_RANK()</code>这三个函数都是对分过组的数据排序，凡是又各有区别：</p>
-<blockquote>
-<p>ROWNUMBER() OVER ([PARTITION BY Columns1 ORDER BY columns2)</p>
-</blockquote>
-<blockquote>
-<p>DENSE_RANK() OVER ([PARTITION BY Columns1] ORDER BY columns2)</p>
-</blockquote>
-<blockquote>
-<p>RANK() OVER ([PARTITION BY Columns1] ORDER BY columns2)</p>
-</blockquote>
-<p>这三个函数都是按照column1分组从1开始排序</p>
-<p>其中，<code>ROW_NUMBER()</code>是没有重复值的排序（即使两条记录仙童，序号也不重复），不会有同名次</p>
-<p><code>DENSE_RANK()</code>是连续的排序，两个第二名仍然跟着第三名</p>
-<p><code>RANK()</code>是跳跃排序，两个第二名下来就是第四名</p>
-<h3 id="184-部门工资最高的员工"><a class="markdownIt-Anchor" href="#184-部门工资最高的员工"></a> 184. 部门工资最高的员工</h3>
-<p>Employee 表包含所有员工信息，每个员工有其对应的 Id, salary 和 department Id。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+----+-------+--------+--------------+</span><br><span class="line">| Id | Name  | Salary | DepartmentId |</span><br><span class="line">+----+-------+--------+--------------+</span><br><span class="line">| 1  | Joe   | 70000  | 1            |</span><br><span class="line">| 2  | Henry | 80000  | 2            |</span><br><span class="line">| 3  | Sam   | 60000  | 2            |</span><br><span class="line">| 4  | Max   | 90000  | 1            |</span><br><span class="line">+----+-------+--------+--------------+</span><br></pre></td></tr></table></figure>
-<p>Department 表包含公司所有部门的信息。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+----+----------+</span><br><span class="line">| Id | Name     |</span><br><span class="line">+----+----------+</span><br><span class="line">| 1  | IT       |</span><br><span class="line">| 2  | Sales    |</span><br><span class="line">+----+----------+</span><br></pre></td></tr></table></figure>
-<p>编写一个 SQL 查询，找出每个部门工资最高的员工。例如，根据上述给定的表格，Max 在 IT 部门有最高工资，Henry 在 Sales 部门有最高工资。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+------------+----------+--------+</span><br><span class="line">| Department | Employee | Salary |</span><br><span class="line">+------------+----------+--------+</span><br><span class="line">| IT         | Max      | 90000  |</span><br><span class="line">| Sales      | Henry    | 80000  |</span><br><span class="line">+------------+----------+--------+</span><br></pre></td></tr></table></figure>
-<p>Code：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> d.Name <span class="keyword">as</span> Department,e.Name <span class="keyword">as</span> Employee, e.Salary <span class="keyword">from</span></span><br><span class="line">(<span class="keyword">select</span> <span class="keyword">max</span>(Salary) <span class="keyword">as</span> Salary,DepartmentId <span class="keyword">from</span> Employee </span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> DepartmentId) t </span><br><span class="line"><span class="keyword">join</span> Employee e <span class="keyword">on</span> e.Salary = t.Salary <span class="keyword">and</span> e.DepartmentId = t.DepartmentId</span><br><span class="line"><span class="keyword">join</span> Department d <span class="keyword">on</span> d.Id = e.DepartmentId</span><br></pre></td></tr></table></figure>
+          <h4 id="起源"><a class="markdownIt-Anchor" href="#起源"></a> 起源</h4>
+<p>为什么今天会些这样一片文章呢…</p>
+<p>因为在做程序设计大作业的时候突然发现不知道怎么实现QQ聊天</p>
+<p>在之前的C++大作业当中，我实现通信的方法是利用ip地址（当时好像写的是确定的ip地址），但是想到这个软件应该是在不同的地方都能够运行的，所以，用什么来表示用户，然后怎么实现通信呢？</p>
+<p>所以搜索了相应的资料之后得到以下几个问题的回答：</p>
+<p>参考：<a href="https://blog.csdn.net/li_xiao_ming/article/details/8106857" target="_blank" rel="noopener">https://blog.csdn.net/li_xiao_ming/article/details/8106857</a></p>
+<h5 id="1-为什么只要连上互联网的计算机都可以用qq互相建立通信需不需要固定ip"><a class="markdownIt-Anchor" href="#1-为什么只要连上互联网的计算机都可以用qq互相建立通信需不需要固定ip"></a> 1. 为什么只要连上互联网的计算机都可以用QQ互相建立通信，需不需要固定ip？</h5>
+<p>也就是说这个QQ用户端是怎样找到另一个QQ用户的，而用户在每次使用时他可能用的是不同的计算机，有着不同的IP地址。</p>
+<p>服务器端会以QQ账号作为唯一表示，一个账号登录时每次都可以有不同的IP地址，但账号却相同，当账号a登录服务器，服务器会记录下账号a的ip地址，去通知a的好友，告诉他们，a上线了和现在的ip地址，a的好友就可以和他们进行通信了</p>
+<h5 id="2-是不是qq在通信时根本不适用ipqq客户端先是访问qq服务器端然后qq服务器端再为要建立连接的qq客户端建立连接"><a class="markdownIt-Anchor" href="#2-是不是qq在通信时根本不适用ipqq客户端先是访问qq服务器端然后qq服务器端再为要建立连接的qq客户端建立连接"></a> 2. 是不是QQ在通信时根本不适用IP，QQ客户端先是访问QQ服务器端，然后QQ服务器端再为要建立连接的QQ客户端建立连接？</h5>
+<p>只要是网络层的通信，都会涉及到ip/tcp协议，就肯定需要ip，qq客户端登陆qq服务器，服务器只是记录登陆状态，不会一直和qq保持通信，只会每隔一段时间发送心跳数据包，来确实qq客户端是否还在网络上。当qq客户端a上线后，服务器会告诉a，目前a的在线好友的最新ip地址，当a需要与任意好友通信时，直接使用ip地址就ok了。qq客户端a与qq客户端b通信，可以两种方式，第一就是qq服务器有转发的服务器，第二是，a与b直接通信，不会告诉qq服务器</p>
+<h5 id="3-qq客户端可以访问qq服务器端然后服务器端获取qq客户端的ip建立通信是不是这样的过程如果是这个过程是怎么处理的呢"><a class="markdownIt-Anchor" href="#3-qq客户端可以访问qq服务器端然后服务器端获取qq客户端的ip建立通信是不是这样的过程如果是这个过程是怎么处理的呢"></a> 3. QQ客户端可以访问QQ服务器端，然后服务器端获取QQ客户端的IP建立通信，是不是这样的过程…如果是，这个过程是怎么处理的呢？</h5>
+<p>是这样的过程，qq客户端请求一个连接给服务器，服务器接收后，知道qq端a上线，把qq端a的账号跟目前的ip会记录下来，放在在线列表里或者其他的地方，然后每隔几分钟或者几秒钟给qq端a发送心跳包，问他是否还在线，来确保qq端a的最新状态。这里客户端与服务器的通信方式是udp。而不会时时刻刻都在用tcp连接。</p>
+<h5 id="4-qq客户端虽然ip地址不固定但是在建立与qq服务器端的通信时必须提供自己的ip被服务器获取然后才能建立他们之间的通信进而在建立客户端之间的通信-也就是只要能上网就有ip只不过客户端的ip是被qq客户端获取了然后才建立通信的-这是自己的猜测不知对否"><a class="markdownIt-Anchor" href="#4-qq客户端虽然ip地址不固定但是在建立与qq服务器端的通信时必须提供自己的ip被服务器获取然后才能建立他们之间的通信进而在建立客户端之间的通信-也就是只要能上网就有ip只不过客户端的ip是被qq客户端获取了然后才建立通信的-这是自己的猜测不知对否"></a> 4. QQ客户端虽然IP地址不固定，但是在建立与QQ服务器端的通信时，必须提供自己的IP被服务器获取，然后才能建立他们之间的通信，进而在建立客户端之间的通信。也就是，只要能上网就有IP，只不过客户端的IP，是被QQ客户端获取了，然后才建立通信的。（这是自己的猜测，不知对否…）</h5>
+<p>服务器不会以ip作为唯一标识，会以账号作为唯一标识，但与账号通信的时候会用到账号目前所对应的ip，客户端与客户端通信也如此</p>
 
       
     </div>
@@ -290,7 +274,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/27/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/140/">140</a><a class="extend next" rel="next" href="/page/29/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/27/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/144/">144</a><a class="extend next" rel="next" href="/page/29/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -336,7 +320,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">140</span>
+          <span class="site-state-item-count">144</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
