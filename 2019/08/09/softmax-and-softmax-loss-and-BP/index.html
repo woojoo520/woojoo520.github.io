@@ -47,12 +47,12 @@
   };
 </script>
 
-  <meta name="description" content="http://freemind.pluskid.org/machine-learning/softmax-vs-softmax-loss-numerical-stability/  联想逻辑回归的重要公式就是，得到预测结果，然后再经过sigmoid转换成0到1的概率值，而在softmax中则通过取exponential的方式并进行归一化得到某个样本属于某类的概率。非负的意义不用说，就是避免正负值抵">
+  <meta name="description" content="http://freemind.pluskid.org/machine-learning/softmax-vs-softmax-loss-numerical-stability/   联想逻辑回归的重要公式就是，得到预测结果，然后再经过sigmoid转换成0到1的概率值，而在softmax中则通过取exponential的方式并进行归一化得到某个样本属于某类的概率。非负的意义不用说，就是避免正负值">
 <meta property="og:type" content="article">
 <meta property="og:title" content="softmax and softmax-loss and BP">
 <meta property="og:url" content="https://woojoo520.github.io/2019/08/09/softmax-and-softmax-loss-and-BP/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="http://freemind.pluskid.org/machine-learning/softmax-vs-softmax-loss-numerical-stability/  联想逻辑回归的重要公式就是，得到预测结果，然后再经过sigmoid转换成0到1的概率值，而在softmax中则通过取exponential的方式并进行归一化得到某个样本属于某类的概率。非负的意义不用说，就是避免正负值抵">
+<meta property="og:description" content="http://freemind.pluskid.org/machine-learning/softmax-vs-softmax-loss-numerical-stability/   联想逻辑回归的重要公式就是，得到预测结果，然后再经过sigmoid转换成0到1的概率值，而在softmax中则通过取exponential的方式并进行归一化得到某个样本属于某类的概率。非负的意义不用说，就是避免正负值">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://img-blog.csdn.net/20170504203817251?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDM4MDE2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
 <meta property="og:image" content="https://img-blog.csdn.net/20170504203942767?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDM4MDE2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
@@ -64,7 +64,7 @@
 <meta property="og:updated_time" content="2019-08-09T06:17:12.355Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="softmax and softmax-loss and BP">
-<meta name="twitter:description" content="http://freemind.pluskid.org/machine-learning/softmax-vs-softmax-loss-numerical-stability/  联想逻辑回归的重要公式就是，得到预测结果，然后再经过sigmoid转换成0到1的概率值，而在softmax中则通过取exponential的方式并进行归一化得到某个样本属于某类的概率。非负的意义不用说，就是避免正负值抵">
+<meta name="twitter:description" content="http://freemind.pluskid.org/machine-learning/softmax-vs-softmax-loss-numerical-stability/   联想逻辑回归的重要公式就是，得到预测结果，然后再经过sigmoid转换成0到1的概率值，而在softmax中则通过取exponential的方式并进行归一化得到某个样本属于某类的概率。非负的意义不用说，就是避免正负值">
 <meta name="twitter:image" content="https://img-blog.csdn.net/20170504203817251?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDM4MDE2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/08/09/softmax-and-softmax-loss-and-BP/">
@@ -248,7 +248,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><a href="http://freemind.pluskid.org/machine-learning/softmax-vs-softmax-loss-numerical-stability/" target="_blank" rel="noopener">http://freemind.pluskid.org/machine-learning/softmax-vs-softmax-loss-numerical-stability/</a></p>
+        <p><a href="http://freemind.pluskid.org/machine-learning/softmax-vs-softmax-loss-numerical-stability/" target="_blank" rel="noopener">http://freemind.pluskid.org/machine-learning/softmax-vs-softmax-loss-numerical-stability/</a> </p>
 <p><img src="https://img-blog.csdn.net/20170504203817251?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDM4MDE2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
 <p>联想逻辑回归的重要公式就是<img src="https://img-blog.csdn.net/20170504203942767?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDM4MDE2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img">，得到预测结果，然后再经过sigmoid转换成0到1的概率值，而在softmax中则通过取exponential的方式并进行归一化得到某个样本属于某类的概率。非负的意义不用说，就是避免正负值抵消。</p>
 <p><img src="https://img-blog.csdn.net/20170504204409994?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDM4MDE2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
@@ -336,7 +336,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

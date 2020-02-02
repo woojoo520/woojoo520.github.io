@@ -47,17 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="SQLServer—Day3  TOP子句 TOP子句用于规定要返回的记录的数目（并非所有的数据库系统都支持TOP子句）  SELECT TOP number | percent column_name(s) FROM table_name  MySQL和Oracle中的SQL SELECT TOP是等价的 MySQL语法： 123SELECT column_name(s)FROM table_">
+  <meta name="description" content="SQLServer—Day3TOP子句TOP子句用于规定要返回的记录的数目（并非所有的数据库系统都支持TOP子句）  SELECT TOP number | percent column_name(s) FROM table_name  MySQL和Oracle中的SQL SELECT TOP是等价的 MySQL语法： 123SELECT column_name(s)FROM table_name">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQLServer-Day3">
 <meta property="og:url" content="https://woojoo520.github.io/2019/10/12/SQLServer-Day3/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="SQLServer—Day3  TOP子句 TOP子句用于规定要返回的记录的数目（并非所有的数据库系统都支持TOP子句）  SELECT TOP number | percent column_name(s) FROM table_name  MySQL和Oracle中的SQL SELECT TOP是等价的 MySQL语法： 123SELECT column_name(s)FROM table_">
+<meta property="og:description" content="SQLServer—Day3TOP子句TOP子句用于规定要返回的记录的数目（并非所有的数据库系统都支持TOP子句）  SELECT TOP number | percent column_name(s) FROM table_name  MySQL和Oracle中的SQL SELECT TOP是等价的 MySQL语法： 123SELECT column_name(s)FROM table_name">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-10-13T07:34:45.414Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQLServer-Day3">
-<meta name="twitter:description" content="SQLServer—Day3  TOP子句 TOP子句用于规定要返回的记录的数目（并非所有的数据库系统都支持TOP子句）  SELECT TOP number | percent column_name(s) FROM table_name  MySQL和Oracle中的SQL SELECT TOP是等价的 MySQL语法： 123SELECT column_name(s)FROM table_">
+<meta name="twitter:description" content="SQLServer—Day3TOP子句TOP子句用于规定要返回的记录的数目（并非所有的数据库系统都支持TOP子句）  SELECT TOP number | percent column_name(s) FROM table_name  MySQL和Oracle中的SQL SELECT TOP是等价的 MySQL语法： 123SELECT column_name(s)FROM table_name">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/10/12/SQLServer-Day3/">
 
@@ -246,9 +246,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="sqlserverday3"><a class="markdownIt-Anchor" href="#sqlserverday3"></a> SQLServer—Day3</h2>
-<h3 id="top子句"><a class="markdownIt-Anchor" href="#top子句"></a> TOP子句</h3>
-<p><code>TOP</code>子句用于规定要返回的记录的数目（并非所有的数据库系统都支持TOP子句）</p>
+        <h2 id="SQLServer—Day3"><a href="#SQLServer—Day3" class="headerlink" title="SQLServer—Day3"></a>SQLServer—Day3</h2><h3 id="TOP子句"><a href="#TOP子句" class="headerlink" title="TOP子句"></a>TOP子句</h3><p><code>TOP</code>子句用于规定要返回的记录的数目（并非所有的数据库系统都支持TOP子句）</p>
 <blockquote>
 <p>SELECT TOP number | percent column_name(s)</p>
 <p>FROM table_name</p>
@@ -263,6 +261,7 @@
 <p>例子：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">ROWNUM</span> &lt;= <span class="number">5</span></span><br></pre></td></tr></table></figure>
 <p>原始表 Persons表：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -304,9 +303,11 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>例1：从上面的Persons表中选取头两条记录</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> TOP <span class="number">2</span> * <span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
 <p>结果：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -334,17 +335,18 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>例2：从Persons表中选取50%的记录</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> TOP <span class="number">50</span> <span class="keyword">PERCENT</span> * <span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
 <p>结果同上述</p>
-<h3 id="like操作符"><a class="markdownIt-Anchor" href="#like操作符"></a> LIKE操作符</h3>
-<p>用于在<code>WHERE</code>子句中搜索列中的指定模式</p>
+<h3 id="LIKE操作符"><a href="#LIKE操作符" class="headerlink" title="LIKE操作符"></a>LIKE操作符</h3><p>用于在<code>WHERE</code>子句中搜索列中的指定模式</p>
 <blockquote>
 <p>SELECT column_name(s)</p>
 <p>FROM table_name</p>
 <p>WHERE column_name LIKE pattern</p>
 </blockquote>
 <p>Persons表：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -379,12 +381,14 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>例1：从上面的Persons表中选取居住在以”N”开始的城市里的人</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">WHERE</span> City <span class="keyword">LIKE</span> <span class="string">'N%'</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>Tips: “%”可用于定义通配符（模式中缺少的字母）</p>
 </blockquote>
 <p>结果：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -405,9 +409,11 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>例2：从上面的Persons表中选取居住在以“g”结尾的城市里的人</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> City <span class="keyword">LIKE</span> <span class="string">'%g'</span></span><br></pre></td></tr></table></figure>
 <p>结果：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -428,9 +434,11 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>例3：从上面的Persons表中选取居住在包含“lon”的城市里的人</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> City <span class="keyword">LIKE</span> <span class="string">'%lon%'</span></span><br></pre></td></tr></table></figure>
 <p>结果：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -451,9 +459,11 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>例4：通过使用关键字 <code>NOT</code>，我们可以从Persons表中选取居住在不包含‘lon’的城市里的人：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">WHERE</span> City <span class="keyword">NOT</span> <span class="keyword">LIKE</span> <span class="string">'%lon%'</span></span><br></pre></td></tr></table></figure>
 <p>结果：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -481,10 +491,11 @@
 </tr>
 </tbody>
 </table>
-<h3 id="通配符"><a class="markdownIt-Anchor" href="#通配符"></a> 通配符</h3>
-<p>在搜索数据库中的数据是，SQL通配符可以代替一个或多个字符。</p>
+</div>
+<h3 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h3><p>在搜索数据库中的数据是，SQL通配符可以代替一个或多个字符。</p>
 <p>SQL通配符必须和<code>LIKE</code>运算符一起使用</p>
 <p>在SQL中，可使用一下通配符：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -506,12 +517,14 @@
 <td>字符列中的任何单一字符</td>
 </tr>
 <tr>
-<td>[^charlist]  or [!charlist]</td>
+<td><sup><a href="#fn_charlist" id="reffn_charlist">charlist</a></sup>  or [!charlist]</td>
 <td>不在字符列中的任何单一字符</td>
 </tr>
 </tbody>
 </table>
+</div>
 <p>原始Persons表：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -546,6 +559,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p><strong><code>_</code>通配符：</strong></p>
 <p>例1：我们希望从Persons表中选取名字的第一个字符之后是“eorge”的人：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">WHERE</span> FirstName <span class="keyword">LIKE</span> <span class="string">'_eorge'</span></span><br></pre></td></tr></table></figure>
@@ -556,6 +570,7 @@
 <p>例1：我们希望从上面的“Persons”表中选取居住的城市以‘A’或‘L’或’N‘开头的人</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> City <span class="keyword">LIKE</span> <span class="string">'[ALN]%'</span></span><br></pre></td></tr></table></figure>
 <p>结果：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -583,6 +598,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>例2：从“Persons”表中选取居住城市不以‘A’或’L‘或’N‘开头的人：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> City <span class="keyword">LIKE</span> <span class="string">'[!ALN]%'</span></span><br></pre></td></tr></table></figure>
 
@@ -645,7 +661,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#sqlserverday3"><span class="nav-number">1.</span> <span class="nav-text"> SQLServer—Day3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#top子句"><span class="nav-number">1.1.</span> <span class="nav-text"> TOP子句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#like操作符"><span class="nav-number">1.2.</span> <span class="nav-text"> LIKE操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通配符"><span class="nav-number">1.3.</span> <span class="nav-text"> 通配符</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQLServer—Day3"><span class="nav-number">1.</span> <span class="nav-text">SQLServer—Day3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TOP子句"><span class="nav-number">1.1.</span> <span class="nav-text">TOP子句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LIKE操作符"><span class="nav-number">1.2.</span> <span class="nav-text">LIKE操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通配符"><span class="nav-number">1.3.</span> <span class="nav-text">通配符</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -661,7 +677,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

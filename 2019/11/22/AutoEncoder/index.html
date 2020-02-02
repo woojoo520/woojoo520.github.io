@@ -47,12 +47,12 @@
   };
 </script>
 
-  <meta name="description" content="AutoEncoder  压缩与解压 有一个神经网络，他在做的事情是：接受一张图片，然后给他打码，最后再从打码的图片中还原。  假设刚刚的神经网络是这样，对应上刚刚的图片，可以看出，图片实际上是经过了压缩，再解压的这一道工序，原有的图片质量被缩减，解压时用信息量小却包含了所有关键信息的文件恢复出原本的图片。 为什么要这样做呢？  有的时候神经网路偶要接受大量的输入信息，比如输入信息是高清图片时。">
+  <meta name="description" content="AutoEncoder压缩与解压有一个神经网络，他在做的事情是：接受一张图片，然后给他打码，最后再从打码的图片中还原。  假设刚刚的神经网络是这样，对应上刚刚的图片，可以看出，图片实际上是经过了压缩，再解压的这一道工序，原有的图片质量被缩减，解压时用信息量小却包含了所有关键信息的文件恢复出原本的图片。 为什么要这样做呢？  有的时候神经网路偶要接受大量的输入信息，比如输入信息是高清图片时。输入信息">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AutoEncoder">
 <meta property="og:url" content="https://woojoo520.github.io/2019/11/22/AutoEncoder/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="AutoEncoder  压缩与解压 有一个神经网络，他在做的事情是：接受一张图片，然后给他打码，最后再从打码的图片中还原。  假设刚刚的神经网络是这样，对应上刚刚的图片，可以看出，图片实际上是经过了压缩，再解压的这一道工序，原有的图片质量被缩减，解压时用信息量小却包含了所有关键信息的文件恢复出原本的图片。 为什么要这样做呢？  有的时候神经网路偶要接受大量的输入信息，比如输入信息是高清图片时。">
+<meta property="og:description" content="AutoEncoder压缩与解压有一个神经网络，他在做的事情是：接受一张图片，然后给他打码，最后再从打码的图片中还原。  假设刚刚的神经网络是这样，对应上刚刚的图片，可以看出，图片实际上是经过了压缩，再解压的这一道工序，原有的图片质量被缩减，解压时用信息量小却包含了所有关键信息的文件恢复出原本的图片。 为什么要这样做呢？  有的时候神经网路偶要接受大量的输入信息，比如输入信息是高清图片时。输入信息">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://pic3.zhimg.com/v2-7370f2fd8e6dabe4b24b71118ebf3b52_b.png">
 <meta property="og:image" content="https://pic2.zhimg.com/v2-948d5ede26f9e6c0e484640b92c1dcad_b.png">
@@ -61,7 +61,7 @@
 <meta property="og:updated_time" content="2019-11-22T06:36:17.383Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AutoEncoder">
-<meta name="twitter:description" content="AutoEncoder  压缩与解压 有一个神经网络，他在做的事情是：接受一张图片，然后给他打码，最后再从打码的图片中还原。  假设刚刚的神经网络是这样，对应上刚刚的图片，可以看出，图片实际上是经过了压缩，再解压的这一道工序，原有的图片质量被缩减，解压时用信息量小却包含了所有关键信息的文件恢复出原本的图片。 为什么要这样做呢？  有的时候神经网路偶要接受大量的输入信息，比如输入信息是高清图片时。">
+<meta name="twitter:description" content="AutoEncoder压缩与解压有一个神经网络，他在做的事情是：接受一张图片，然后给他打码，最后再从打码的图片中还原。  假设刚刚的神经网络是这样，对应上刚刚的图片，可以看出，图片实际上是经过了压缩，再解压的这一道工序，原有的图片质量被缩减，解压时用信息量小却包含了所有关键信息的文件恢复出原本的图片。 为什么要这样做呢？  有的时候神经网路偶要接受大量的输入信息，比如输入信息是高清图片时。输入信息">
 <meta name="twitter:image" content="https://pic3.zhimg.com/v2-7370f2fd8e6dabe4b24b71118ebf3b52_b.png">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/11/22/AutoEncoder/">
@@ -245,9 +245,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="autoencoder"><a class="markdownIt-Anchor" href="#autoencoder"></a> AutoEncoder</h2>
-<h3 id="压缩与解压"><a class="markdownIt-Anchor" href="#压缩与解压"></a> 压缩与解压</h3>
-<p>有一个神经网络，他在做的事情是：接受一张图片，然后给他打码，最后再从打码的图片中还原。</p>
+        <h2 id="AutoEncoder"><a href="#AutoEncoder" class="headerlink" title="AutoEncoder"></a>AutoEncoder</h2><h3 id="压缩与解压"><a href="#压缩与解压" class="headerlink" title="压缩与解压"></a>压缩与解压</h3><p>有一个神经网络，他在做的事情是：接受一张图片，然后给他打码，最后再从打码的图片中还原。</p>
 <p><img src="https://pic3.zhimg.com/v2-7370f2fd8e6dabe4b24b71118ebf3b52_b.png" alt="img"></p>
 <p>假设刚刚的神经网络是这样，对应上刚刚的图片，可以看出，图片实际上是经过了压缩，再解压的这一道工序，原有的图片质量被缩减，解压时用信息量小却包含了所有关键信息的文件恢复出原本的图片。</p>
 <p>为什么要这样做呢？</p>
@@ -255,8 +253,7 @@
 <p>有的时候神经网路偶要接受大量的输入信息，比如输入信息是高清图片时。输入信息可能达到上千万，让神经网络直接从上千万个信息源中学习是一件很吃力的事情，所以，何不压缩一下，提取出原图片中的最具代表性的信息，缩减信息量，再把缩减过后的信息放进神经网络学习，这样学习起来就简单轻松很多了，所以，自编码就能在这时发挥作用。</p>
 <p>通过将元数据白色的X压缩，解压成黑色的X，然后通过对比黑白，求出预测误差，进行反向传递，逐步提升自编码的准确性，训练好的自编码中间这一部分就是元数据的精髓，可以看出，从头到尾，我们只用到了输入数据X，并没有用到X对应的数据标签，所以也可以说自编码是一种非监督学习</p>
 <p>到了真正使用自编码的时候，通常只会用到自编码的前半部分。</p>
-<h3 id="编码器encoder"><a class="markdownIt-Anchor" href="#编码器encoder"></a> 编码器Encoder</h3>
-<p><img src="https://pic2.zhimg.com/v2-948d5ede26f9e6c0e484640b92c1dcad_b.png" alt="img"></p>
+<h3 id="编码器Encoder"><a href="#编码器Encoder" class="headerlink" title="编码器Encoder"></a>编码器Encoder</h3><p><img src="https://pic2.zhimg.com/v2-948d5ede26f9e6c0e484640b92c1dcad_b.png" alt="img"></p>
 <p>编码器得到原数据的精髓，然后我们只需要再创建一个小的神经网络学习这个精髓的数据，不仅减少了神经网络的负担，而且同样能达到很好的效果</p>
 <p><img src="https://pic1.zhimg.com/v2-9032ff2d01cdb7310245c7f397289550_b.png" alt="img"></p>
 <p>这是通过一个自编码整理出来的数据，他能从原数据中总结出每种类型数据的特征，如果把这些特征全部放在一张二维的图片上，每种类型都已经被很好的用原数据的精髓区分开来。</p>
@@ -321,7 +318,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#autoencoder"><span class="nav-number">1.</span> <span class="nav-text"> AutoEncoder</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#压缩与解压"><span class="nav-number">1.1.</span> <span class="nav-text"> 压缩与解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编码器encoder"><span class="nav-number">1.2.</span> <span class="nav-text"> 编码器Encoder</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AutoEncoder"><span class="nav-number">1.</span> <span class="nav-text">AutoEncoder</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#压缩与解压"><span class="nav-number">1.1.</span> <span class="nav-text">压缩与解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编码器Encoder"><span class="nav-number">1.2.</span> <span class="nav-text">编码器Encoder</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -337,7 +334,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -47,17 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="LeetCode-Day22  120. 三角形最小路径和 动态规划！ 给定一个三角形，找出自顶向下的最小路径和。每一步只能移动到下一行中相邻的结点上。 例如，给定三角形： 1234567[     [2],    [3,4],   [6,5,7],  [4,1,8,3]]自顶向下的最小路径和为 11（即，2 + 3 + 5 + 1 = 11）。 本题采用动态规划 + 滚动数组的方法。 1234">
+  <meta name="description" content="LeetCode-Day22120. 三角形最小路径和动态规划！ 给定一个三角形，找出自顶向下的最小路径和。每一步只能移动到下一行中相邻的结点上。 例如，给定三角形： 1234567[     [2],    [3,4],   [6,5,7],  [4,1,8,3]]自顶向下的最小路径和为 11（即，2 + 3 + 5 + 1 = 11）。 本题采用动态规划 + 滚动数组的方法。 1234[2],">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode-Day22">
 <meta property="og:url" content="https://woojoo520.github.io/2019/09/06/LeetCode-Day22/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="LeetCode-Day22  120. 三角形最小路径和 动态规划！ 给定一个三角形，找出自顶向下的最小路径和。每一步只能移动到下一行中相邻的结点上。 例如，给定三角形： 1234567[     [2],    [3,4],   [6,5,7],  [4,1,8,3]]自顶向下的最小路径和为 11（即，2 + 3 + 5 + 1 = 11）。 本题采用动态规划 + 滚动数组的方法。 1234">
+<meta property="og:description" content="LeetCode-Day22120. 三角形最小路径和动态规划！ 给定一个三角形，找出自顶向下的最小路径和。每一步只能移动到下一行中相邻的结点上。 例如，给定三角形： 1234567[     [2],    [3,4],   [6,5,7],  [4,1,8,3]]自顶向下的最小路径和为 11（即，2 + 3 + 5 + 1 = 11）。 本题采用动态规划 + 滚动数组的方法。 1234[2],">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-09-06T13:34:48.363Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode-Day22">
-<meta name="twitter:description" content="LeetCode-Day22  120. 三角形最小路径和 动态规划！ 给定一个三角形，找出自顶向下的最小路径和。每一步只能移动到下一行中相邻的结点上。 例如，给定三角形： 1234567[     [2],    [3,4],   [6,5,7],  [4,1,8,3]]自顶向下的最小路径和为 11（即，2 + 3 + 5 + 1 = 11）。 本题采用动态规划 + 滚动数组的方法。 1234">
+<meta name="twitter:description" content="LeetCode-Day22120. 三角形最小路径和动态规划！ 给定一个三角形，找出自顶向下的最小路径和。每一步只能移动到下一行中相邻的结点上。 例如，给定三角形： 1234567[     [2],    [3,4],   [6,5,7],  [4,1,8,3]]自顶向下的最小路径和为 11（即，2 + 3 + 5 + 1 = 11）。 本题采用动态规划 + 滚动数组的方法。 1234[2],">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/09/06/LeetCode-Day22/">
 
@@ -240,9 +240,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="leetcode-day22"><a class="markdownIt-Anchor" href="#leetcode-day22"></a> LeetCode-Day22</h2>
-<h3 id="120-三角形最小路径和"><a class="markdownIt-Anchor" href="#120-三角形最小路径和"></a> 120. 三角形最小路径和</h3>
-<p><strong>动态规划！</strong></p>
+        <h2 id="LeetCode-Day22"><a href="#LeetCode-Day22" class="headerlink" title="LeetCode-Day22"></a>LeetCode-Day22</h2><h3 id="120-三角形最小路径和"><a href="#120-三角形最小路径和" class="headerlink" title="120. 三角形最小路径和"></a>120. 三角形最小路径和</h3><p><strong>动态规划！</strong></p>
 <p>给定一个三角形，找出自顶向下的最小路径和。每一步只能移动到下一行中相邻的结点上。</p>
 <p>例如，给定三角形：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">     [2],</span><br><span class="line">    [3,4],</span><br><span class="line">   [6,5,7],</span><br><span class="line">  [4,1,8,3]</span><br><span class="line">]</span><br><span class="line">自顶向下的最小路径和为 11（即，2 + 3 + 5 + 1 = 11）。</span><br></pre></td></tr></table></figure>
@@ -251,19 +249,15 @@
 <p>假设右边的二维数组是<code>ans[i][j]</code>，则每一行除了第一个和最后一个数字，其余位置都是由<code>min(ans[i - 1][j - 1], ans[i - 1][j]) + triangle[i][j]</code>得到的，第一个则直接加上<code>triangle[i][0]</code>，最后一个直接加上<code>triangle[i][j]</code>。</p>
 <p>上面是动态规划的思想，但是仔细想想，每一行的<code>ans</code>只与上一行的<code>ans</code>有关系，因此并不需要保存整个二维数组，只需要建立两行即可，然后来回滚动，所谓的<code>i - 1</code>是来源于第一行或者是第0行即可。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minimumTotal</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; triangle)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(triangle.size() == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> triangle[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(triangle.size() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans[<span class="number">2</span>][triangle.size() + <span class="number">1</span>] = &#123;&#123;<span class="number">0</span>&#125;&#125;;</span><br><span class="line">        ans[<span class="number">0</span>][<span class="number">0</span>] = triangle[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> k = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; triangle.size();i++) &#123;</span><br><span class="line">            k = k ? <span class="number">0</span> : <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; triangle[i].size();j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(j == <span class="number">0</span>) &#123;</span><br><span class="line">                    ans[(i % <span class="number">2</span>)][j] = triangle[i][j] + ans[k][<span class="number">0</span>];</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span>(j == triangle[i].size() - <span class="number">1</span>) &#123;</span><br><span class="line">                    ans[i % <span class="number">2</span>][j] = ans[k][j - <span class="number">1</span>] + triangle[i][j];</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    ans[i % <span class="number">2</span>][j] = min(ans[k][j - <span class="number">1</span>], ans[k][j]) + triangle[i][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">        k = (k + <span class="number">1</span>) % <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> res = ans[k][<span class="number">0</span>];     </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; triangle.size();i++) &#123;</span><br><span class="line">            res = min(res, ans[k][i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="134-加油站"><a class="markdownIt-Anchor" href="#134-加油站"></a> 134. 加油站</h3>
-<p>在一条环路上有 N 个加油站，其中第 i 个加油站有汽油 gas[i] 升。</p>
+<h3 id="134-加油站"><a href="#134-加油站" class="headerlink" title="134. 加油站"></a>134. 加油站</h3><p>在一条环路上有 N 个加油站，其中第 i 个加油站有汽油 gas[i] 升。</p>
 <p>你有一辆油箱容量无限的的汽车，从第 i 个加油站开往第 i+1 个加油站需要消耗汽油 cost[i] 升。你从其中的一个加油站出发，开始时油箱为空。</p>
 <p>如果你可以绕环路行驶一周，则返回出发时加油站的编号，否则返回 -1。</p>
-<p>说明:</p>
-<p>如果题目有解，该答案即为唯一答案。<br>
-输入数组均为非空数组，且长度相同。<br>
-输入数组中的元素均为非负数。<br>
-示例 1:</p>
+<p>说明: </p>
+<p>如果题目有解，该答案即为唯一答案。<br>输入数组均为非空数组，且长度相同。<br>输入数组中的元素均为非负数。<br>示例 1:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">输入: </span><br><span class="line">gas  = [1,2,3,4,5]</span><br><span class="line">cost = [3,4,5,1,2]</span><br><span class="line">输出: 3</span><br><span class="line"></span><br><span class="line">解释:</span><br><span class="line">从 3 号加油站(索引为 3 处)出发，可获得 4 升汽油。此时油箱有 = 0 + 4 = 4 升汽油</span><br><span class="line">开往 4 号加油站，此时油箱有 4 - 1 + 5 = 8 升汽油</span><br><span class="line">开往 0 号加油站，此时油箱有 8 - 2 + 1 = 7 升汽油</span><br><span class="line">开往 1 号加油站，此时油箱有 7 - 3 + 2 = 6 升汽油</span><br><span class="line">开往 2 号加油站，此时油箱有 6 - 4 + 3 = 5 升汽油</span><br><span class="line">开往 3 号加油站，你需要消耗 5 升汽油，正好足够你返回到 3 号加油站。</span><br><span class="line">因此，3 可为起始索引。</span><br></pre></td></tr></table></figure>
 <p>示例 2:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">输入: </span><br><span class="line">gas  = [2,3,4]</span><br><span class="line">cost = [3,4,3]</span><br><span class="line"></span><br><span class="line">输出: -1</span><br><span class="line"></span><br><span class="line">解释:</span><br><span class="line">你不能从 0 号或 1 号加油站出发，因为没有足够的汽油可以让你行驶到下一个加油站。</span><br><span class="line">我们从 2 号加油站出发，可以获得 4 升汽油。 此时油箱有 = 0 + 4 = 4 升汽油</span><br><span class="line">开往 0 号加油站，此时油箱有 4 - 3 + 2 = 3 升汽油</span><br><span class="line">开往 1 号加油站，此时油箱有 3 - 3 + 3 = 3 升汽油</span><br><span class="line">你无法返回 2 号加油站，因为返程需要消耗 4 升汽油，但是你的油箱只有 3 升汽油。</span><br><span class="line">因此，无论怎样，你都不可能绕环路行驶一周。</span><br></pre></td></tr></table></figure>
-<p>本质上和这个是一样的	<code>53. 最大子序和</code></p>
+<p>本质上和这个是一样的    <code>53. 最大子序和</code></p>
 <p>给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
 <p>示例:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [-2,1,-3,4,-1,2,1,-5,4],</span><br><span class="line">输出: 6</span><br><span class="line">解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。</span><br></pre></td></tr></table></figure>
@@ -329,7 +323,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#leetcode-day22"><span class="nav-number">1.</span> <span class="nav-text"> LeetCode-Day22</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#120-三角形最小路径和"><span class="nav-number">1.1.</span> <span class="nav-text"> 120. 三角形最小路径和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#134-加油站"><span class="nav-number">1.2.</span> <span class="nav-text"> 134. 加油站</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-Day22"><span class="nav-number">1.</span> <span class="nav-text">LeetCode-Day22</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#120-三角形最小路径和"><span class="nav-number">1.1.</span> <span class="nav-text">120. 三角形最小路径和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#134-加油站"><span class="nav-number">1.2.</span> <span class="nav-text">134. 加油站</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -345,7 +339,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Celery Fairy" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://woojoo520.github.io').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="最近公共祖先（LCA, lowest common ancestor)基于二分搜索的算法/1580440175576.png) 123456789101112131415161718192021222324252627282930313233343536373839// 如果只计算一次LCA的话，这就足够了，算法的复杂度为O(n)// 输入vector&amp;lt;int&amp;gt; G[MAX_V];">
+<meta property="og:type" content="article">
+<meta property="og:title" content="挑战程序设计竞赛-day14">
+<meta property="og:url" content="https://woojoo520.github.io/2020/01/31/挑战程序设计竞赛-day14/index.html">
+<meta property="og:site_name" content="Celery Fairy">
+<meta property="og:description" content="最近公共祖先（LCA, lowest common ancestor)基于二分搜索的算法/1580440175576.png) 123456789101112131415161718192021222324252627282930313233343536373839// 如果只计算一次LCA的话，这就足够了，算法的复杂度为O(n)// 输入vector&amp;lt;int&amp;gt; G[MAX_V];">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://woojoo520.github.io/2020/01/31/images/$(filename">
+<meta property="og:image" content="https://woojoo520.github.io/2020/01/31/images/$(filename">
+<meta property="og:image" content="https://woojoo520.github.io/2020/01/31/images/$(filename">
+<meta property="og:image" content="https://woojoo520.github.io/2020/01/31/images/$(filename">
+<meta property="og:updated_time" content="2020-01-31T03:11:58.154Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="挑战程序设计竞赛-day14">
+<meta name="twitter:description" content="最近公共祖先（LCA, lowest common ancestor)基于二分搜索的算法/1580440175576.png) 123456789101112131415161718192021222324252627282930313233343536373839// 如果只计算一次LCA的话，这就足够了，算法的复杂度为O(n)// 输入vector&amp;lt;int&amp;gt; G[MAX_V];">
+<meta name="twitter:image" content="https://woojoo520.github.io/2020/01/31/images/$(filename">
+
+<link rel="canonical" href="https://woojoo520.github.io/2020/01/31/挑战程序设计竞赛-day14/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>挑战程序设计竞赛-day14 | Celery Fairy</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Celery Fairy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Celery's Blog</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2020/01/31/挑战程序设计竞赛-day14/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.gif">
+      <meta itemprop="name" content="Woojoo">
+      <meta itemprop="description" content="a study blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          挑战程序设计竞赛-day14
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-31 09:08:43 / 修改时间：11:11:58" itemprop="dateCreated datePublished" datetime="2020-01-31T09:08:43+08:00">2020-01-31</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/01/31/挑战程序设计竞赛-day14/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/31/挑战程序设计竞赛-day14/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="最近公共祖先（LCA-lowest-common-ancestor"><a href="#最近公共祖先（LCA-lowest-common-ancestor" class="headerlink" title="最近公共祖先（LCA, lowest common ancestor)"></a>最近公共祖先（LCA, lowest common ancestor)</h3><h4 id="基于二分搜索的算法"><a href="#基于二分搜索的算法" class="headerlink" title="基于二分搜索的算法"></a>基于二分搜索的算法</h4><p><img src="../images/$(filename" alt="1580440175576">/1580440175576.png)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果只计算一次LCA的话，这就足够了，算法的复杂度为O(n)</span></span><br><span class="line"><span class="comment">// 输入</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; G[MAX_V];   <span class="comment">// 图的邻接表表示</span></span><br><span class="line"><span class="keyword">int</span> root;               <span class="comment">// 根节点的编号</span></span><br><span class="line"><span class="keyword">int</span> parent[MAX_V];      <span class="comment">// 父亲节点(根节点的父亲记为-1)</span></span><br><span class="line"><span class="keyword">int</span> depth[MAX_V];      <span class="comment">// 节点的深度</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> p, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">    parent[v] = p;</span><br><span class="line">    depth[v] = d;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; G[v].size(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(G[v][i] != p) &#123;</span><br><span class="line">            dfs(G[v][i], v, d + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 预处理</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 预处理出parent和depth</span></span><br><span class="line">    dfs(root, <span class="number">-1</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计算u和v的LCA</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lca</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 让u和v向上走到同一深度</span></span><br><span class="line">    <span class="keyword">while</span>(depth[u] &gt; depth[v]) &#123;</span><br><span class="line">        u = parent[u];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(depth[v] &gt; depth[u]) &#123;</span><br><span class="line">        v = parent[v];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 让u和v向上走到同一节点</span></span><br><span class="line">    <span class="keyword">while</span>(u != v) &#123;</span><br><span class="line">        u = parent[u];</span><br><span class="line">        v = parent[v];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> u;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="../images/$(filename" alt="1580440243333">/1580440243333.png)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX_V = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX_LOG_V = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果只计算一次LCA的话，这就足够了，算法的复杂度为O(n)</span></span><br><span class="line"><span class="comment">// 输入</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; G[MAX_V];               <span class="comment">// 图的邻接表表示</span></span><br><span class="line"><span class="keyword">int</span> root;                           <span class="comment">// 根节点的编号</span></span><br><span class="line"><span class="keyword">int</span> parent[MAX_LOG_V][MAX_V];       <span class="comment">// v向上走2^k所到达的节点(超过根时记为-1)</span></span><br><span class="line"><span class="keyword">int</span> depth[MAX_V];                   <span class="comment">// 节点的深度</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> p, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">    parent[<span class="number">0</span>][v] = p;</span><br><span class="line">    depth[v] = d;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; G[v].size(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(G[v][i] != p) &#123;</span><br><span class="line">            dfs(G[v][i], v, d + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 预处理</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">int</span> V)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 预处理出parent[0]和depth</span></span><br><span class="line">    dfs(root, <span class="number">-1</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 预处理出parent</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; MAX_LOG_V; k++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; V; v++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(parent[k][v] &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                parent[k + <span class="number">1</span>][v] = <span class="number">-1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                parent[k + <span class="number">1</span>][v] = parent[k][parent[k][v]];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计算u和v的LCA</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lca</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 让u和v向上走到同一深度</span></span><br><span class="line">    <span class="keyword">if</span>(depth[u] &gt; depth[v]) &#123;</span><br><span class="line">        swap(u, v);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 将两者深度之差表示成二进制的形式，然后从最低位开始，如果最低位为第k位，并且是1，表示应该向上走2^k步，即parent[k][v]</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; MAX_LOG_V; k++) &#123;</span><br><span class="line">        <span class="keyword">if</span>((depth[v] - depth[u]) &gt;&gt; k &amp; <span class="number">1</span>) &#123;</span><br><span class="line">            v = parent[k][v];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(u == v) &#123;</span><br><span class="line">        <span class="keyword">return</span> u;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 利用二分搜索计算LCA</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> k = MAX_LOG_V - <span class="number">1</span>; k &gt;= <span class="number">0</span>; k--) &#123;</span><br><span class="line">        <span class="keyword">if</span>(parent[k][u] != parent[k][v]) &#123;</span><br><span class="line">            u = parent[k][u];</span><br><span class="line">            v = parent[k][v];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> parent[<span class="number">0</span>][u];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="基于RMQ的算法"><a href="#基于RMQ的算法" class="headerlink" title="基于RMQ的算法"></a>基于RMQ的算法</h4><p><img src="../images/$(filename" alt="1580440138731">/1580440138731.png)</p>
+<p><img src="../images/$(filename" alt="1580440282070">/1580440282070.png)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX_V = <span class="number">100</span>;</span><br><span class="line"><span class="comment">// 输入</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; G[MAX_V];</span><br><span class="line"><span class="keyword">int</span> root; </span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> vs[MAX_V * <span class="number">2</span> - <span class="number">1</span>];      <span class="comment">// DFS的访问顺序</span></span><br><span class="line"><span class="keyword">int</span> depth[MAX_V * <span class="number">2</span> - <span class="number">1</span>];   <span class="comment">// 节点的深度</span></span><br><span class="line"><span class="keyword">int</span> id[MAX_V];              <span class="comment">// 各个顶点在vs中首次出现的下标</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> p, <span class="keyword">int</span> d, <span class="keyword">int</span> &amp;k)</span> </span>&#123;</span><br><span class="line">    id[v] = k;</span><br><span class="line">    vs[k] = v;</span><br><span class="line">    depth[k++] = d;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; G[v].size(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(G[v][i] != p) &#123;</span><br><span class="line">            dfs(G[v][i], v, d + <span class="number">1</span>, k);</span><br><span class="line">            vs[k] = v;</span><br><span class="line">            depth[k++] = d;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 预处理</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">int</span> V)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 预处理出vs、depth和id</span></span><br><span class="line">    <span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">    dfs(root, <span class="number">-1</span>, <span class="number">0</span>, k);</span><br><span class="line">    <span class="comment">// 预处理出RMQ(返回的不是最小值，而是最小值对应下标)</span></span><br><span class="line">    rmg_init(depth, V * <span class="number">2</span> - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计算u和v的LCA</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lca</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> vs[query(min(id[u], id[v]), max(id[u], id[v]) + <span class="number">1</span>)];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/30/挑战程序设计竞赛-day13/" rel="prev" title="挑战程序设计竞赛-day13">
+      <i class="fa fa-chevron-left"></i> 挑战程序设计竞赛-day13
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/01/LeetCode-Day44/" rel="next" title="LeetCode-Day44">
+      LeetCode-Day44 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#最近公共祖先（LCA-lowest-common-ancestor"><span class="nav-number">1.</span> <span class="nav-text">最近公共祖先（LCA, lowest common ancestor)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基于二分搜索的算法"><span class="nav-number">1.1.</span> <span class="nav-text">基于二分搜索的算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于RMQ的算法"><span class="nav-number">1.2.</span> <span class="nav-text">基于RMQ的算法</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Woojoo"
+      src="/images/logo.gif">
+  <p class="site-author-name" itemprop="name">Woojoo</p>
+  <div class="site-description" itemprop="description">a study blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">149</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Woojoo</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'aKRj8pzPJm0LdONJb0Ci0U5L-gzGzoHsz',
+    appKey: 'vA8nbcq2HgWrqovGq6LwXRG1',
+    placeholder: "Just go go",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

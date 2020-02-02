@@ -47,12 +47,12 @@
   };
 </script>
 
-  <meta name="description" content="NAS综述  1.NAS综述 AutoML（automated machine learning）是模型选择、特征提取和超参数调优的一系列自动化方法，可以实现自动训练有价值的模型。 深度学习可以自动学习出有用的特征，脱离了对特征工程的依赖，在图像、语音等任务上取得了超越其他算法的结果。这种成功很大程度上得益于新神经网络结构的出现，如ResNet、Inception、DenseNet等。但设计出高">
+  <meta name="description" content="NAS综述1.NAS综述AutoML（automated machine learning）是模型选择、特征提取和超参数调优的一系列自动化方法，可以实现自动训练有价值的模型。 深度学习可以自动学习出有用的特征，脱离了对特征工程的依赖，在图像、语音等任务上取得了超越其他算法的结果。这种成功很大程度上得益于新神经网络结构的出现，如ResNet、Inception、DenseNet等。但设计出高性能的神">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NAS">
 <meta property="og:url" content="https://woojoo520.github.io/2019/09/09/NAS/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="NAS综述  1.NAS综述 AutoML（automated machine learning）是模型选择、特征提取和超参数调优的一系列自动化方法，可以实现自动训练有价值的模型。 深度学习可以自动学习出有用的特征，脱离了对特征工程的依赖，在图像、语音等任务上取得了超越其他算法的结果。这种成功很大程度上得益于新神经网络结构的出现，如ResNet、Inception、DenseNet等。但设计出高">
+<meta property="og:description" content="NAS综述1.NAS综述AutoML（automated machine learning）是模型选择、特征提取和超参数调优的一系列自动化方法，可以实现自动训练有价值的模型。 深度学习可以自动学习出有用的特征，脱离了对特征工程的依赖，在图像、语音等任务上取得了超越其他算法的结果。这种成功很大程度上得益于新神经网络结构的出现，如ResNet、Inception、DenseNet等。但设计出高性能的神">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-261f4e89d5c60e5d336052e7fc6d116d_hd.png">
 <meta property="og:image" content="https://pic3.zhimg.com/80/v2-0e574807c1ef41d73e80d67eb6dbe5d2_hd.png">
@@ -110,7 +110,7 @@
 <meta property="og:updated_time" content="2019-09-09T07:13:01.695Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NAS">
-<meta name="twitter:description" content="NAS综述  1.NAS综述 AutoML（automated machine learning）是模型选择、特征提取和超参数调优的一系列自动化方法，可以实现自动训练有价值的模型。 深度学习可以自动学习出有用的特征，脱离了对特征工程的依赖，在图像、语音等任务上取得了超越其他算法的结果。这种成功很大程度上得益于新神经网络结构的出现，如ResNet、Inception、DenseNet等。但设计出高">
+<meta name="twitter:description" content="NAS综述1.NAS综述AutoML（automated machine learning）是模型选择、特征提取和超参数调优的一系列自动化方法，可以实现自动训练有价值的模型。 深度学习可以自动学习出有用的特征，脱离了对特征工程的依赖，在图像、语音等任务上取得了超越其他算法的结果。这种成功很大程度上得益于新神经网络结构的出现，如ResNet、Inception、DenseNet等。但设计出高性能的神">
 <meta name="twitter:image" content="https://pic2.zhimg.com/80/v2-261f4e89d5c60e5d336052e7fc6d116d_hd.png">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/09/09/NAS/">
@@ -294,29 +294,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="nas综述"><a class="markdownIt-Anchor" href="#nas综述"></a> NAS综述</h2>
-<h3 id="1nas综述"><a class="markdownIt-Anchor" href="#1nas综述"></a> 1.NAS综述</h3>
-<p>AutoML（automated machine learning）是模型选择、特征提取和超参数调优的一系列自动化方法，可以实现自动训练有价值的模型。</p>
+        <h2 id="NAS综述"><a href="#NAS综述" class="headerlink" title="NAS综述"></a>NAS综述</h2><h3 id="1-NAS综述"><a href="#1-NAS综述" class="headerlink" title="1.NAS综述"></a>1.NAS综述</h3><p>AutoML（automated machine learning）是模型选择、特征提取和超参数调优的一系列自动化方法，可以实现自动训练有价值的模型。</p>
 <p>深度学习可以自动学习出有用的特征，脱离了对特征工程的依赖，在图像、语音等任务上取得了超越其他算法的结果。这种成功很大程度上得益于新神经网络结构的出现，如ResNet、Inception、DenseNet等。但设计出高性能的神经网络需要大量的专业知识与反复实验，成本极高，限制了神经网络在很多问题上的应用。神经结构搜索（Neural Architecture Search ，简称NAS）是<strong>一种自动设计神经网络的技术</strong>，可以通过算法根据样本集自动设计出高性能的网络结构，在某些任务上甚至可以媲美人类专家的水准，甚至发现某些人类之前未曾提出过的网络结构，这可以有效的降低神经网络的使用和实现成本。</p>
 <p>NAS的<strong>原理</strong>是给定一个称为<strong>搜索空间</strong>的候选神经网络结构集合，用某种策略从中<strong>搜索出最优网络结构</strong>。神经网络结构的优劣即性能用某些指标如精度、速度来度量，称为<strong>性能评估</strong>。</p>
 <p><img src="https://pic2.zhimg.com/80/v2-261f4e89d5c60e5d336052e7fc6d116d_hd.png" alt="img"></p>
-<p>在搜索的每次迭代中，从<strong>搜索空间产生“样本”<strong>即得到一个神经网络结构，称为“子网络”。在</strong>训练样本集上训练子网络</strong>，然后<strong>在验证集上评估其性能</strong>。逐步优化网络结构，知道找到最优子结构。</p>
+<p>在搜索的每次迭代中，从<strong>搜索空间产生“样本”</strong>即得到一个神经网络结构，称为“子网络”。在<strong>训练样本集上训练子网络</strong>，然后<strong>在验证集上评估其性能</strong>。逐步优化网络结构，知道找到最优子结构。</p>
 <p><strong>搜索空间</strong>、<strong>搜索策略</strong>、<strong>性能评估</strong>策略是<code>NAS算法</code>的核心要素。搜索空间定义了可以搜索的神经网络结构的集合，即解的空间。搜索策略定义了如何在搜索空间中寻找最有网络结构。性能评估策略定义了如何评估搜索出的网络结构的性能。对这些要素的不同实现得到了各种不同的NAS算法。</p>
-<h3 id="空间"><a class="markdownIt-Anchor" href="#空间"></a> 空间</h3>
-<p>搜索空间定义了NAS算法可以搜索的神经网络的类型，同时也定义了如何描述神经网络。神经网络所实现的计算可以抽象成一个无孤立节点的有向无环图（DAG），图的节点代表神经网络的层，边代表数据的流动。每个节点从其前驱节点（有边射入）接收数据，经过计算之后将数据输出到后续节点（有边射出）。理论上说，只要是无孤立节点的DAG，都是合法的神经网络结构。按照不同的尺度，神经网络的结构定义包含如下层次的信息：</p>
+<h3 id="空间"><a href="#空间" class="headerlink" title="空间"></a>空间</h3><p>搜索空间定义了NAS算法可以搜索的神经网络的类型，同时也定义了如何描述神经网络。神经网络所实现的计算可以抽象成一个无孤立节点的有向无环图（DAG），图的节点代表神经网络的层，边代表数据的流动。每个节点从其前驱节点（有边射入）接收数据，经过计算之后将数据输出到后续节点（有边射出）。理论上说，只要是无孤立节点的DAG，都是合法的神经网络结构。按照不同的尺度，神经网络的结构定义包含如下层次的信息：</p>
 <ul>
-<li>
-<p><strong>网络的拓扑结构</strong></p>
+<li><p><strong>网络的拓扑结构</strong></p>
 <p>网络有多少个层，这些层的连接关系。从简单的图结构到任意的DAG也反映了整个神经网络结构的发展历程。最简单的神经网络是线性链式结构，其对应的图的每个节点最多只有一个前驱，一个后续，类似于数据结构中的链表。早期的全连接神经网络，卷积神经网络都是这种拓扑结构。Inception、ResNet、DenseNet中的节点允许有多个前驱，多个后续，从而形成了多分支、跨层连接结构，它们是更复杂的图。这些典型的拓扑结构如下图所示。</p>
 <p><img src="https://pic3.zhimg.com/80/v2-0e574807c1ef41d73e80d67eb6dbe5d2_hd.png" alt="img"></p>
 <p>在描述网络的拓扑结构时，一般采用前驱节点来定义，即定义每个节点的前驱节点，一旦该信息确定，则网络拓扑结构确定。</p>
 </li>
-<li>
-<p><strong>每个层的类型。</strong></p>
+<li><p><strong>每个层的类型。</strong></p>
 <p>除了第一个层必须为输入层，最后一个层必须为输出之外，中间的层的类型是可选的，它们代表了各种不同的运算即层的类型。典型有<code>全连接，卷积，反卷积，空洞卷积，池化，激活函数</code>等。但这些层的组合使用一般要符合某些规则。</p>
 </li>
-<li>
-<p><strong>每个层内部的超参数</strong></p>
+<li><p><strong>每个层内部的超参数</strong></p>
 <p><code>卷积层</code>的超参数有<code>卷积核的数量，卷积核的通道数，高度，宽度，水平方向的步长，垂直方向的步长</code>等。<code>全连接层</code>的超参数有<code>神经元的数量</code>。<code>激活函数层</code>的超参数有<code>激活函数的类型，函数的参数（如果有）</code>等。各种典型层的超参数如下表所示</p>
 <p><img src="https://pic1.zhimg.com/80/v2-926c10c9ca9f9a5feff26ad0cd1b10f8_hd.png" alt="img"></p>
 </li>
@@ -324,10 +318,8 @@
 <p>​        如果一个节点的前驱节点只有一个，则直接以前驱节点的输出值作为本节点的输入。如果<code>前驱节点有多个</code>，需要将前驱节点的值汇总后输入本节点，这里有两种策略：<strong>相加和拼接</strong>，前者的典型代表是<code>ResNet</code>，后者的典型代表是<code>DenseNet</code>。由于神经网络的层数不固定，每层的超参数数量也不固定，因此描述网络结构的参数是变长的。</p>
 <p>​        为了提高搜索效率，有时候会<strong>对搜索空间进行限定或简化</strong>。在某些NAS实现中会<code>把网络切分成基本单元</code>（cell，或block），通过这些单元的堆叠形成更复杂的网络。基本单元由多个节点（神经网络的层）组成，它们在整个网络中重复出现多次，但具有不同的权重参数。另外一种做法是<strong>限定神经网络的整体拓扑结构</strong>，借鉴于人类设计神经网络的经验。这些做法虽然减少了NAS算法的计算量，但也限定了算法能够寻找的神经网络的类型。</p>
 <p>​        由于描述神经网络结构的参数含有离散数据（如拓扑结构的定义，层的类型，层内的离散型超参数），因此<strong>网络结构搜索是一个离散优化问题</strong>。定义结构的参数数量一般比较大，因此<strong>属于高维优化问题</strong>。另外，对于该问题，<strong>算法不知道优化目标函数的具体形式</strong>（每种网络结构与该网络的性能的函数关系），因此属于<strong>黑盒优化</strong>问题。这些特点为NAS带来了巨大的挑战。</p>
-<h3 id="搜索策略"><a class="markdownIt-Anchor" href="#搜索策略"></a> 搜索策略</h3>
-<p><strong>搜索策略定义了如何找到最优的网络结构</strong>，通常是一个<strong>迭代优化</strong>过程，<strong>本质上是超参数优化问题</strong>。目前已知的搜索方法有随机搜索，贝叶斯优化，遗传算法，强化学习，基于梯度的算法。其中强化学习，遗传学习，基于梯度的优化是目前的主流算法，也是本章介绍的重点。</p>
-<h4 id="强化学习"><a class="markdownIt-Anchor" href="#强化学习"></a> 强化学习</h4>
-<p>​        基于强化学习的NAS算法[4-6]将神经网络结构设计看作一个强化学习问题，学习得到一个产生网络结构的最优策略。这里的智能体是设计神经网络结构的算法，用于输出神经网络结构描述，强化学习算法使得生成的神经网络的性能最优化。为了用强化学习求解，可以<strong>将神经网络的设计看做一个动作序列</strong>，每次执行动作确定网络的一部分结构如层。神经网络在验证集上的性能值是强化学习中的奖励值。</p>
+<h3 id="搜索策略"><a href="#搜索策略" class="headerlink" title="搜索策略"></a>搜索策略</h3><p><strong>搜索策略定义了如何找到最优的网络结构</strong>，通常是一个<strong>迭代优化</strong>过程，<strong>本质上是超参数优化问题</strong>。目前已知的搜索方法有随机搜索，贝叶斯优化，遗传算法，强化学习，基于梯度的算法。其中强化学习，遗传学习，基于梯度的优化是目前的主流算法，也是本章介绍的重点。</p>
+<h4 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h4><p>​        基于强化学习的NAS算法[4-6]将神经网络结构设计看作一个强化学习问题，学习得到一个产生网络结构的最优策略。这里的智能体是设计神经网络结构的算法，用于输出神经网络结构描述，强化学习算法使得生成的神经网络的性能最优化。为了用强化学习求解，可以<strong>将神经网络的设计看做一个动作序列</strong>，每次执行动作确定网络的一部分结构如层。神经网络在验证集上的性能值是强化学习中的奖励值。</p>
 <p>​        由于神经网络的结构参数长度不固定，因此需要用一个可变长度的串描述网络结构，算法需要输出这种不定长的串。循环神经网络可以输出不固定长度是数据，因此可以用它来生成网络结构的描述，文献[2]提出的NAS采用了这种方案。</p>
 <p>​        算法用一个称为<strong>控制器</strong>的<strong>循环神经网络</strong>生成描述子网络结构的串，从而确定子网络的结构。然后在训练集上训练子网络，在验证集上计算其精度值。以精度值作为反馈信号，采用策略梯度算法更新控制器网络的参数。在迭代时，控制器会以给予那些有更高精度值的神经网络以更高的概率值，从而确保策略函数能够输出最优网络结构。这一过程如下图所示。</p>
 <p><img src="https://pic2.zhimg.com/80/v2-b4040b08e683800e815365184d6f6025_hd.png" alt="img"></p>
@@ -337,11 +329,10 @@
 <p>​         实现时考虑典型的网络结构。对于卷积核的数量，取值范围为[ 24,36,48,64]，卷积核的高度取值范围为[ 1,3,5,7]，卷积核宽度的取值范围与高度相同。卷积步长可以固定为1，也可以按照 [ 1,2,3]取值。</p>
 <p>​        这里需要考虑的一个问题是<strong>何时终止预测</strong>，实现时限定了神经网络的层数，达到一定的层之后，停止输出。<strong>在训练过程中这个值会逐步增加</strong>。</p>
 <p>​        控制器生成该描述串之后，接下来在训练集上训练该子网络，这里采用了<strong>REINFORCE算法</strong>。<strong>目标函数为子网络在验证集上的精度的数学期望</strong></p>
-<p><img src="https://www.zhihu.com/equation?tex=L%28%5Ctheta+%29%3DE_%7B%5CDelta+%5Csim+p_%7B%5Ctheta+%28%5Ccdot+%29%7D%7D%5Cleft+%5B+R%28%5CDelta+%29+%5Cright+%5D" alt="[å¬å¼]"></p>
+<p><img src="https://www.zhihu.com/equation?tex=L%28%5Ctheta+%29%3DE_%7B%5CDelta+%5Csim+p_%7B%5Ctheta+%28%5Ccdot+%29%7D%7D%5Cleft+%5B+R%28%5CDelta+%29+%5Cright+%5D" alt="[å¬å¼]"></p>
 <p>其中 <img src="https://www.zhihu.com/equation?tex=%5Ctheta+" alt="[公式]"> 是控制器的参数， <img src="https://www.zhihu.com/equation?tex=%5CDelta+" alt="[公式]"> 是子网络， <img src="https://www.zhihu.com/equation?tex=P_%7B%5Ctheta+%7D%28%5CDelta+%29" alt="[公式]"> 是控制器输出的子网络所服从的概率分布， <img src="https://www.zhihu.com/equation?tex=R%28%5CDelta+%29" alt="[公式]"> 是子网络在验证集上的精度值。<strong>直观的目标是某种结构的子网络准确率越高，则控制器生成该网络结构的概率越大</strong>。因此可以按照下式计算控制器的参数</p>
 <p><img src="https://www.zhihu.com/equation?tex=%5Cbigtriangledown+_%7B%5Ctheta+%7DL%28%5Ctheta+%29%3D+%5Csum_%7B1%7D%5E%7BT%7DE_%7Bp%28a_%7B1%3AT%7D%3B%5Ctheta+%29%7D%5Cleft+%5B+%5Cbigtriangledown+_%7B%5Ctheta+%7D%5Cln+p%28a_%7Bt%7D%5Cmid+a_%7Bt-1%3A1%7D%3B%5Ctheta+%29+R%5Cright+%5D" alt="[公式]"></p>
-<p>其中R为子网络的准确率，p为生成该子网络结构的概率。实现时使用采样来近似数学期望值<br>
-<img src="https://www.zhihu.com/equation?tex=%5Cfrac%7B1%7D%7Bm%7D%5Csum_%7Bk%3D1%7D%5E%7Bm%7D%5Csum_%7Bt%3D1%7D%5E%7BT%7D%5Cbigtriangledown+_%7B%5Ctheta+%7D%5Cln+p%28a_%7Bt%7D%5Cmid+a_%7Bt-1%3A1%7D%3B%5Ctheta+%29R_%7Bk%7D" alt="[公式]"></p>
+<p>其中R为子网络的准确率，p为生成该子网络结构的概率。实现时使用采样来近似数学期望值<br>  <img src="https://www.zhihu.com/equation?tex=%5Cfrac%7B1%7D%7Bm%7D%5Csum_%7Bk%3D1%7D%5E%7Bm%7D%5Csum_%7Bt%3D1%7D%5E%7BT%7D%5Cbigtriangledown+_%7B%5Ctheta+%7D%5Cln+p%28a_%7Bt%7D%5Cmid+a_%7Bt-1%3A1%7D%3B%5Ctheta+%29R_%7Bk%7D" alt="[公式]"></p>
 <p>其中m为mini-batch的样本数，T为神经网络的层数。为了解决REINFORCE算法计算出的梯度值偏差问题，在计算梯度时减掉了均值b</p>
 <p><img src="https://www.zhihu.com/equation?tex=%5Cfrac%7B1%7D%7Bm%7D%5Csum_%7Bk%3D1%7D%5E%7Bm%7D%5Csum_%7Bt%3D1%7D%5E%7BT%7D%5Cbigtriangledown+_%7B%5Ctheta+%7D%5Cln+p%28a_%7Bt%7D%5Cmid+a_%7Bt-1%3A1%7D%3B%5Ctheta+%29%28R_%7Bk%7D-b%29" alt="[公式]"></p>
 <p>其中b为所有奖励的均值。前面介绍的方法只能生成标准的线性结构网络，通过改进可以生成跨层连接的卷积神经网络以及循环神经网络，通过在控制器softmax输出中增加相关信息而实现。</p>
@@ -387,26 +378,24 @@
 <p>​       假设循环神经网络的单元有N个节点，在生成第i个节点时，可以选择的前驱节点为[0,i-1]之间的整数，有i种情况，因此网络的拓扑结构有N!种。对于每种网络拓扑，每个节点的激活函数有4种选择，分别为tanh，sigmoid，identity，ReLU。因此可以搜索的网络结构总共有 <img src="https://www.zhihu.com/equation?tex=4%5E%7BN%7D%5Ctimes+N%21" alt="[公式]"> 种情况。</p>
 <p>​        下面介绍卷积神经网络的生成方式。下图给4个节点的卷积神经网络，同样的，红色的边表示有效边，黑色的未激活。这个图对应的网络结构如右图所示。</p>
 <p><img src="https://pic2.zhimg.com/80/v2-25b74be6615d7c472de50487c0729a01_hd.png" alt="img"></p>
-<pre><code>	与循环神经网络不同的是，**这里每个节点可以允许有多个前驱节点**。例如节点3有两个前驱，分别为1和2。
-</code></pre>
-<p>​		生成卷积神经网络结构的方法与循环神经网络类似：为当前节点选择前驱节点，为当前节点选择要使用的运算。这两个决策结果形成卷积神经网络的一个层。这一过程如上图所示。</p>
-<p>​		<strong>对于第k层，小于等于k-1的不同层都可以用来作为它的输入</strong>，因此有 <img src="https://www.zhihu.com/equation?tex=2%5E%7Bk-1%7D" alt="[公式]"> 种连接关系。对于上图中的卷积神经网络，在k=4时选择{1,3}作为它的前驱，导致第1、3个层都与第4个层连接。这种做法可以形成任意的跨层连接。</p>
-<p>​		在每个节点处允许的运算有6种情况，分别是： <img src="https://www.zhihu.com/equation?tex=3%5Ctimes+3" alt="[公式]"> 卷积， <img src="https://www.zhihu.com/equation?tex=5%5Ctimes+5" alt="[公式]"> 卷积， <img src="https://www.zhihu.com/equation?tex=3%5Ctimes+3" alt="[公式]"> 深度可分离卷积， <img src="https://www.zhihu.com/equation?tex=5%5Ctimes+5" alt="[公式]"> 深度可分离卷积， <img src="https://www.zhihu.com/equation?tex=3%5Ctimes+3" alt="[公式]"> 均值池化， <img src="https://www.zhihu.com/equation?tex=3%5Ctimes+3" alt="[公式]"> 最大值池化。与循环神经网络相同，每个节点处都有所有运算的参数，并被所有网络结构共享。生成卷积神经网络结构的过程如下图所示。</p>
+<pre><code>      与循环神经网络不同的是，**这里每个节点可以允许有多个前驱节点**。例如节点3有两个前驱，分别为1和2。
+</code></pre><p>​        生成卷积神经网络结构的方法与循环神经网络类似：为当前节点选择前驱节点，为当前节点选择要使用的运算。这两个决策结果形成卷积神经网络的一个层。这一过程如上图所示。</p>
+<p>​        <strong>对于第k层，小于等于k-1的不同层都可以用来作为它的输入</strong>，因此有 <img src="https://www.zhihu.com/equation?tex=2%5E%7Bk-1%7D" alt="[公式]"> 种连接关系。对于上图中的卷积神经网络，在k=4时选择{1,3}作为它的前驱，导致第1、3个层都与第4个层连接。这种做法可以形成任意的跨层连接。</p>
+<p>​        在每个节点处允许的运算有6种情况，分别是： <img src="https://www.zhihu.com/equation?tex=3%5Ctimes+3" alt="[公式]"> 卷积， <img src="https://www.zhihu.com/equation?tex=5%5Ctimes+5" alt="[公式]"> 卷积， <img src="https://www.zhihu.com/equation?tex=3%5Ctimes+3" alt="[公式]"> 深度可分离卷积， <img src="https://www.zhihu.com/equation?tex=5%5Ctimes+5" alt="[公式]"> 深度可分离卷积， <img src="https://www.zhihu.com/equation?tex=3%5Ctimes+3" alt="[公式]"> 均值池化， <img src="https://www.zhihu.com/equation?tex=3%5Ctimes+3" alt="[公式]"> 最大值池化。与循环神经网络相同，每个节点处都有所有运算的参数，并被所有网络结构共享。生成卷积神经网络结构的过程如下图所示。</p>
 <p><img src="https://pic1.zhimg.com/80/v2-1b54654c641c486000a35ab5a1eb4abc_hd.png" alt="img"></p>
 <p>如果一个卷积神经网络有L个层，则在第k层处有 <img src="https://www.zhihu.com/equation?tex=2%5E%7Bk-1%7D" alt="[公式]"> 种连接关系，由于各个层之间的连接关系是单独确定即相互独立的，因此网络的连接关系及拓扑结构有</p>
 <p><img src="https://www.zhihu.com/equation?tex=2%5E%7B1%2B2%2B...%2BL-1%7D%3D2%5E%7BL%28L-1%29%2F2%7D" alt="[公式]"></p>
 <p>种情况，对于每种网络结构，在每个层有6种可供选择的运算，因此所有可能的网络结构有</p>
 <p><img src="https://www.zhihu.com/equation?tex=6%5E%7BL%7D%5Ctimes+2%5E%7BL%28L-1%29%2F2%7D" alt="[公式]"></p>
 <p>种情况。如果L=12，则所有可能的网络结构数为 <img src="https://www.zhihu.com/equation?tex=1.6%5Ctimes+10%5E%7B29%7D" alt="[公式]">。</p>
-<p>​		除了生成整个卷积网络，还可以生成卷积网络额单元然后将其堆叠形成完整的网络，具体做法与NASNet类似，不再重复介绍。</p>
-<p>​		生成网络结构之后，接下来的核心任务是训练子网络和控制器网络。假设控制器网络的参数为 <img src="https://www.zhihu.com/equation?tex=%5Ctheta" alt="[公式]"> ，子网络的参数为W，后者被所有子网络共享。这两组参数交替训练，在每次迭代时分两个阶段，首先训练W，然后训练 <img src="https://www.zhihu.com/equation?tex=%5Ctheta" alt="[公式]"> 。</p>
-<p>​		<strong>第一阶段先固定住控制器的参数</strong>，控制器的输出策略为 <img src="https://www.zhihu.com/equation?tex=%5Cpi+%28m%3B%5Ctheta+%29" alt="[公式]">，<strong>从中采样出网络结构</strong>。以交叉熵作为损失函数，计算损失函数对w的梯度并更新。<strong>第二阶段固定住w</strong>，用 REINFORCE算法更新控制器的参数 <img src="https://www.zhihu.com/equation?tex=%5Ctheta" alt="[公式]"> ，<strong>最大化奖励值的数学期望</strong></p>
+<p>​        除了生成整个卷积网络，还可以生成卷积网络额单元然后将其堆叠形成完整的网络，具体做法与NASNet类似，不再重复介绍。</p>
+<p>​        生成网络结构之后，接下来的核心任务是训练子网络和控制器网络。假设控制器网络的参数为 <img src="https://www.zhihu.com/equation?tex=%5Ctheta" alt="[公式]"> ，子网络的参数为W，后者被所有子网络共享。这两组参数交替训练，在每次迭代时分两个阶段，首先训练W，然后训练 <img src="https://www.zhihu.com/equation?tex=%5Ctheta" alt="[公式]"> 。</p>
+<p>​        <strong>第一阶段先固定住控制器的参数</strong>，控制器的输出策略为 <img src="https://www.zhihu.com/equation?tex=%5Cpi+%28m%3B%5Ctheta+%29" alt="[公式]">，<strong>从中采样出网络结构</strong>。以交叉熵作为损失函数，计算损失函数对w的梯度并更新。<strong>第二阶段固定住w</strong>，用 REINFORCE算法更新控制器的参数 <img src="https://www.zhihu.com/equation?tex=%5Ctheta" alt="[公式]"> ，<strong>最大化奖励值的数学期望</strong></p>
 <p><img src="https://www.zhihu.com/equation?tex=E_%7Bm-%5Cpi+%28m%3B%5Ctheta+%29%7D%5Cleft+%5B+R%28m%2Cw%29+%5Cright+%5D" alt="[公式]"></p>
 <p>奖励值 <img src="https://www.zhihu.com/equation?tex=R%28m%2Cw%29" alt="[公式]"> 为子网络m在验证集上的<strong>精度值</strong>。训练完成之后，根据控制器的策略 <img src="https://www.zhihu.com/equation?tex=%5Cpi+%28m%3B%5Ctheta+%29" alt="[公式]"> 采样出多个子网络并训练，计算它们在验证集上的表现，选择表现最好的网络作为最终生成的网络。</p>
-<p>​		除上述方法之外，用强化学习实现NAS还有其他方案，具体可以阅读参考文献[11-13]。</p>
-<h3 id="性能评估策略"><a class="markdownIt-Anchor" href="#性能评估策略"></a> 性能评估策略</h3>
-<p>​		对于搜索策略搜索出的神经网络结构，首先在一个训练集上训练，然后在验证集上测试精度值。训练和验证过程非常耗时，因此有必要采取措施以降低性能评估的成本。<strong>降低训练成本的简单做法有减少训练时间（迭代次数）</strong>，在训练样本的一个子集上进行训练，在低分辨率的图像上进行训练，或者在训练时减少某些层的卷积核的数量。这些做法在降低计算成本的同时可能会导致性能评估值的偏差。虽然搜索策略只需对各种网络结构的优劣进行排序，无需知道它们准确的性能指标，但这种近似可能还是会导致排序结果的偏差。</p>
-<p>​		更复杂的做法是<strong>对神经网络的性能进行预测（外推），即通过训练时前面若干次迭代时的性能表现推断其最终的性能，或者用搜索出的单元（块）的特性预测整个网络的性能</strong>。<strong>权值共享</strong>也是一种方案。以之前训练过的子网络的权重作为当前要评估的子网络的初始权重可以有效的提高训练速度，加速收敛，避免从头开始训练。<strong>ENAS和DARTS则直接让各个子网络共享同一套权重参数</strong>。</p>
+<p>​        除上述方法之外，用强化学习实现NAS还有其他方案，具体可以阅读参考文献[11-13]。</p>
+<h3 id="性能评估策略"><a href="#性能评估策略" class="headerlink" title="性能评估策略"></a>性能评估策略</h3><p>​        对于搜索策略搜索出的神经网络结构，首先在一个训练集上训练，然后在验证集上测试精度值。训练和验证过程非常耗时，因此有必要采取措施以降低性能评估的成本。<strong>降低训练成本的简单做法有减少训练时间（迭代次数）</strong>，在训练样本的一个子集上进行训练，在低分辨率的图像上进行训练，或者在训练时减少某些层的卷积核的数量。这些做法在降低计算成本的同时可能会导致性能评估值的偏差。虽然搜索策略只需对各种网络结构的优劣进行排序，无需知道它们准确的性能指标，但这种近似可能还是会导致排序结果的偏差。</p>
+<p>​        更复杂的做法是<strong>对神经网络的性能进行预测（外推），即通过训练时前面若干次迭代时的性能表现推断其最终的性能，或者用搜索出的单元（块）的特性预测整个网络的性能</strong>。<strong>权值共享</strong>也是一种方案。以之前训练过的子网络的权重作为当前要评估的子网络的初始权重可以有效的提高训练速度，加速收敛，避免从头开始训练。<strong>ENAS和DARTS则直接让各个子网络共享同一套权重参数</strong>。</p>
 
     </div>
 
@@ -467,7 +456,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#nas综述"><span class="nav-number">1.</span> <span class="nav-text"> NAS综述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1nas综述"><span class="nav-number">1.1.</span> <span class="nav-text"> 1.NAS综述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空间"><span class="nav-number">1.2.</span> <span class="nav-text"> 空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搜索策略"><span class="nav-number">1.3.</span> <span class="nav-text"> 搜索策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#强化学习"><span class="nav-number">1.3.1.</span> <span class="nav-text"> 强化学习</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能评估策略"><span class="nav-number">1.4.</span> <span class="nav-text"> 性能评估策略</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#NAS综述"><span class="nav-number">1.</span> <span class="nav-text">NAS综述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-NAS综述"><span class="nav-number">1.1.</span> <span class="nav-text">1.NAS综述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空间"><span class="nav-number">1.2.</span> <span class="nav-text">空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搜索策略"><span class="nav-number">1.3.</span> <span class="nav-text">搜索策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#强化学习"><span class="nav-number">1.3.1.</span> <span class="nav-text">强化学习</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能评估策略"><span class="nav-number">1.4.</span> <span class="nav-text">性能评估策略</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -483,7 +472,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

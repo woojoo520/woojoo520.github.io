@@ -47,12 +47,12 @@
   };
 </script>
 
-  <meta name="description" content="Center Loss  一. 简介 论文链接：http://ydwen.github.io/papers/WenECCV16.pdf  二. 为什么要使用Center Loss？ 简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。 仅仅使用softmax作为监督信号的输出处理就只能做">
+  <meta name="description" content="Center Loss一. 简介论文链接：http://ydwen.github.io/papers/WenECCV16.pdf  二. 为什么要使用Center Loss？简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。 仅仅使用softmax作为监督信号的输出处理就只能做到sepe">
 <meta property="og:type" content="article">
 <meta property="og:title" content="center loss">
 <meta property="og:url" content="https://woojoo520.github.io/2019/08/09/center-loss/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="Center Loss  一. 简介 论文链接：http://ydwen.github.io/papers/WenECCV16.pdf  二. 为什么要使用Center Loss？ 简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。 仅仅使用softmax作为监督信号的输出处理就只能做">
+<meta property="og:description" content="Center Loss一. 简介论文链接：http://ydwen.github.io/papers/WenECCV16.pdf  二. 为什么要使用Center Loss？简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。 仅仅使用softmax作为监督信号的输出处理就只能做到sepe">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://img-blog.csdn.net/20180727140845416?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="https://img-blog.csdn.net/20180727150130651?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
@@ -65,7 +65,7 @@
 <meta property="og:updated_time" content="2019-08-09T06:59:02.033Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="center loss">
-<meta name="twitter:description" content="Center Loss  一. 简介 论文链接：http://ydwen.github.io/papers/WenECCV16.pdf  二. 为什么要使用Center Loss？ 简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。 仅仅使用softmax作为监督信号的输出处理就只能做">
+<meta name="twitter:description" content="Center Loss一. 简介论文链接：http://ydwen.github.io/papers/WenECCV16.pdf  二. 为什么要使用Center Loss？简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。 仅仅使用softmax作为监督信号的输出处理就只能做到sepe">
 <meta name="twitter:image" content="https://img-blog.csdn.net/20180727140845416?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/08/09/center-loss/">
@@ -249,49 +249,40 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="center-loss"><a class="markdownIt-Anchor" href="#center-loss"></a> Center Loss</h2>
-<h3 id="一-简介"><a class="markdownIt-Anchor" href="#一-简介"></a> 一. 简介</h3>
-<p>论文链接：<a href="http://ydwen.github.io/papers/WenECCV16.pdf" target="_blank" rel="noopener">http://ydwen.github.io/papers/WenECCV16.pdf</a></p>
-<h3 id="二-为什么要使用center-loss"><a class="markdownIt-Anchor" href="#二-为什么要使用center-loss"></a> 二. 为什么要使用Center Loss？</h3>
-<p>简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。</p>
+        <h2 id="Center-Loss"><a href="#Center-Loss" class="headerlink" title="Center Loss"></a>Center Loss</h2><h3 id="一-简介"><a href="#一-简介" class="headerlink" title="一. 简介"></a>一. 简介</h3><p>论文链接：<a href="http://ydwen.github.io/papers/WenECCV16.pdf" target="_blank" rel="noopener">http://ydwen.github.io/papers/WenECCV16.pdf</a> </p>
+<h3 id="二-为什么要使用Center-Loss？"><a href="#二-为什么要使用Center-Loss？" class="headerlink" title="二. 为什么要使用Center Loss？"></a>二. 为什么要使用Center Loss？</h3><p>简单的来说，我们在做分类的时候，不光需要学得separable的特征，更想要这些特征是discriminative的，这就意味着我们需要在loss上做更多的约束。</p>
 <p>仅仅使用softmax作为监督信号的输出处理就只能做到seperable而不是discriminative，如下图:</p>
 <p><img src="https://img-blog.csdn.net/20180727140845416?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<h3 id="三-如何使学到的特征差异化更大center-loss"><a class="markdownIt-Anchor" href="#三-如何使学到的特征差异化更大center-loss"></a> 三. 如何使学到的特征差异化更大——Center Loss</h3>
-<p>融合Softmax Loss与Center loss</p>
+<h3 id="三-如何使学到的特征差异化更大——Center-Loss"><a href="#三-如何使学到的特征差异化更大——Center-Loss" class="headerlink" title="三. 如何使学到的特征差异化更大——Center Loss"></a>三. 如何使学到的特征差异化更大——Center Loss</h3><p>融合Softmax Loss与Center loss</p>
 <p><strong>Softmax Loss（保证类之间的feature距离最大）与Center Loss（保证类内的feature距离最小，更接近于类中心）</strong></p>
 <p><img src="https://img-blog.csdn.net/20180727150130651?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
 <p><img src="https://img-blog.csdn.net/2018072715022915?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<p>m是mini-batch、n是class。在Lc公式中有一个缺陷，就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>C</mi><msub><mi>y</mi><mi>i</mi></msub></msub></mrow><annotation encoding="application/x-tex">C_{y_{i}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3280857142857143em;"><span style="top:-2.357em;margin-left:-0.03588em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>是i这个样本对应的类别yi所属于的类中心C∈ Rd，d代表d维。</p>
+<p>m是mini-batch、n是class。在Lc公式中有一个缺陷，就是$C_{y_{i}}$是i这个样本对应的类别yi所属于的类中心C∈ Rd，d代表d维。</p>
 <p>理想情况下，Cyi需要随着学到的feature变化而实时更新，也就是要在每一次迭代中用整个数据集的feature来算每个类的中心。</p>
 <p>但这显然不现实，做以下两个修改：</p>
-<p>1、由整个训练集更新center改为mini-batch更改center</p>
-<p>2、避免错误分类的样本的干扰，使用scalar α 来控制center的学习率</p>
+<p>1、由整个训练集更新center改为mini-batch更改center  </p>
+<p>2、避免错误分类的样本的干扰，使用scalar α 来控制center的学习率  </p>
 <p>因此求算梯度的公式如下：</p>
 <p><img src="https://img-blog.csdn.net/20180727153311160?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
 <p>即：当yi = j，也就是mini-batch中某一个sample是对应要更新的那一个类的center的时候就累加起来除以某类的个数+1。</p>
 <p><img src="https://img-blog.csdn.net/2018072715370270?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
 <p>最终loss联立起来如上图，λ用于平衡softmax loss与center loss，越大则区分度 越大，如下图效果：</p>
 <p><img src="https://img-blog.csdn.net/20180727150702547?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<h3 id="四-center-loss的实现"><a class="markdownIt-Anchor" href="#四-center-loss的实现"></a> 四. Center Loss的实现</h3>
-<p>pytorch实现：<a href="https://github.com/jxgu1016/MNIST_center_loss_pytorch" target="_blank" rel="noopener">https://github.com/jxgu1016/MNIST_center_loss_pytorch</a></p>
+<h3 id="四-Center-Loss的实现"><a href="#四-Center-Loss的实现" class="headerlink" title="四. Center Loss的实现"></a>四. Center Loss的实现</h3><p>pytorch实现：<a href="https://github.com/jxgu1016/MNIST_center_loss_pytorch" target="_blank" rel="noopener">https://github.com/jxgu1016/MNIST_center_loss_pytorch</a></p>
 <ul>
 <li>网络结构</li>
 </ul>
 <p><img src="https://img-blog.csdn.net/20180727162522989?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
 <p>即在特征层输出（classification前最后一层）引入center loss：</p>
 <p><img src="https://img-blog.csdn.net/20180727162755579?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1Y2lmZXJfenpx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<h4 id="fully-connected-和-local-connected"><a class="markdownIt-Anchor" href="#fully-connected-和-local-connected"></a> fully-connected 和 local-connected</h4>
-<h5 id="判断fully-connected的方法"><a class="markdownIt-Anchor" href="#判断fully-connected的方法"></a> 判断fully-connected的方法：</h5>
-<ul>
-<li>
-<p>对于neuron的链接（点对点的链接）都是fully connected（这里其实就是MLP）</p>
+<h4 id="fully-connected-和-local-connected"><a href="#fully-connected-和-local-connected" class="headerlink" title="fully-connected 和 local-connected"></a>fully-connected 和 local-connected</h4><h5 id="判断fully-connected的方法："><a href="#判断fully-connected的方法：" class="headerlink" title="判断fully-connected的方法："></a>判断fully-connected的方法：</h5><ul>
+<li><p>对于neuron的链接（点对点的链接）都是fully connected（这里其实就是MLP）</p>
 </li>
-<li>
-<p>对于有filter的network，不是看filter的size，而是看output的feature map的size。如果output feature map的size还是1 * 1 * N的话，这个layer就是fully connected layer</p>
+<li><p>对于有filter的network，不是看filter的size，而是看output的feature map的size。如果output feature map的size还是1 <em> 1 </em> N的话，这个layer就是fully connected layer</p>
 <p><strong>解释第二个判断方法：</strong></p>
 <ul>
-<li>1 * 1的filter size不一定是fully connected。比如input size是10 * 10 * 100， filter size是1 * 1 * 100， 重复50次，则该layer的总weights是：1 * 1 * 100 * 50</li>
-<li>1 * 1的filter size如果要是 fully connected， 则input size必须是1 * 1</li>
+<li>1 <em> 1的filter size不一定是fully connected。比如input size是10 </em> 10 <em> 100， filter size是1 </em> 1 <em> 100， 重复50次，则该layer的总weights是：1 </em> 1 <em> 100 </em> 50</li>
+<li>1 <em> 1的filter size如果要是 fully connected， 则input size必须是1 </em> 1</li>
 <li>input size是10x10的时候却是fully connected的情况：这里我们的output size肯定是1x1，且我们的filter size肯定是10x10。</li>
 </ul>
 <p><strong>总结：filter size等于input size则是fully connected</strong></p>
@@ -301,8 +292,8 @@
 <ul>
 <li>fully connected没有weight share</li>
 <li>对于neuron的连接（点对点的链接）都是fully connected（MLP——多层感知器）</li>
-<li>Convolution中当filter size等于input size时，就是fully connected，此时的output size为1 * 1 * N</li>
-<li>当1 *1不等于input size时，1 * 1一样具备weights share的能力。</li>
+<li>Convolution中当filter size等于input size时，就是fully connected，此时的output size为1 <em> 1 </em> N</li>
+<li>当1 <em>1不等于input size时，1 </em> 1一样具备weights share的能力。</li>
 </ul>
 
     </div>
@@ -364,7 +355,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#center-loss"><span class="nav-number">1.</span> <span class="nav-text"> Center Loss</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-简介"><span class="nav-number">1.1.</span> <span class="nav-text"> 一. 简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-为什么要使用center-loss"><span class="nav-number">1.2.</span> <span class="nav-text"> 二. 为什么要使用Center Loss？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-如何使学到的特征差异化更大center-loss"><span class="nav-number">1.3.</span> <span class="nav-text"> 三. 如何使学到的特征差异化更大——Center Loss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-center-loss的实现"><span class="nav-number">1.4.</span> <span class="nav-text"> 四. Center Loss的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fully-connected-和-local-connected"><span class="nav-number">1.4.1.</span> <span class="nav-text"> fully-connected 和 local-connected</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#判断fully-connected的方法"><span class="nav-number">1.4.1.1.</span> <span class="nav-text"> 判断fully-connected的方法：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Center-Loss"><span class="nav-number">1.</span> <span class="nav-text">Center Loss</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-简介"><span class="nav-number">1.1.</span> <span class="nav-text">一. 简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-为什么要使用Center-Loss？"><span class="nav-number">1.2.</span> <span class="nav-text">二. 为什么要使用Center Loss？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-如何使学到的特征差异化更大——Center-Loss"><span class="nav-number">1.3.</span> <span class="nav-text">三. 如何使学到的特征差异化更大——Center Loss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-Center-Loss的实现"><span class="nav-number">1.4.</span> <span class="nav-text">四. Center Loss的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fully-connected-和-local-connected"><span class="nav-number">1.4.1.</span> <span class="nav-text">fully-connected 和 local-connected</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#判断fully-connected的方法："><span class="nav-number">1.4.1.1.</span> <span class="nav-text">判断fully-connected的方法：</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -380,7 +371,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

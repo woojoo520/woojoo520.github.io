@@ -47,12 +47,12 @@
   };
 </script>
 
-  <meta name="description" content="42. 接雨水 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。  上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。 示例: 12输入: [0,1,0,2,1,0,1,3,2,1,2,1]输出: 6 方法一：自己写的…先将height排序，然后从最高的两个">
+  <meta name="description" content="42. 接雨水给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。  上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。 示例: 12输入: [0,1,0,2,1,0,1,3,2,1,2,1]输出: 6 方法一：自己写的…先将height排序，然后从最高的两个柱子">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode-Day14">
 <meta property="og:url" content="https://woojoo520.github.io/2019/08/28/LeetCode-Day14/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="42. 接雨水 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。  上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。 示例: 12输入: [0,1,0,2,1,0,1,3,2,1,2,1]输出: 6 方法一：自己写的…先将height排序，然后从最高的两个">
+<meta property="og:description" content="42. 接雨水给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。  上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。 示例: 12输入: [0,1,0,2,1,0,1,3,2,1,2,1]输出: 6 方法一：自己写的…先将height排序，然后从最高的两个柱子">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/22/rainwatertrap.png">
 <meta property="og:image" content="https://pic.leetcode-cn.com/53ab7a66023039ed4dce42b709b4997d2ba0089077912d39a0b31d3572a55d0b-trapping_rain_water.png">
@@ -69,7 +69,7 @@
 <meta property="og:updated_time" content="2019-08-28T13:42:55.511Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode-Day14">
-<meta name="twitter:description" content="42. 接雨水 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。  上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。 示例: 12输入: [0,1,0,2,1,0,1,3,2,1,2,1]输出: 6 方法一：自己写的…先将height排序，然后从最高的两个">
+<meta name="twitter:description" content="42. 接雨水给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。  上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。 示例: 12输入: [0,1,0,2,1,0,1,3,2,1,2,1]输出: 6 方法一：自己写的…先将height排序，然后从最高的两个柱子">
 <meta name="twitter:image" content="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/22/rainwatertrap.png">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/08/28/LeetCode-Day14/">
@@ -253,8 +253,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="42-接雨水"><a class="markdownIt-Anchor" href="#42-接雨水"></a> 42. 接雨水</h3>
-<p>给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。</p>
+        <h3 id="42-接雨水"><a href="#42-接雨水" class="headerlink" title="42. 接雨水"></a>42. 接雨水</h3><p>给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。</p>
 <p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/22/rainwatertrap.png" alt="img"></p>
 <p>上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。</p>
 <p>示例:</p>
@@ -267,18 +266,14 @@
 <ul>
 <li>找到数组中从下标 i 到最左端最高的条形块高度<code>left_max</code>。</li>
 <li>找到数组中从下标 i 到最右端最高的条形块高度<code>right_max</code>。</li>
-<li>扫描数组 <code>height</code>并更新答案：
-<ul>
+<li>扫描数组 <code>height</code>并更新答案：<ul>
 <li>累加 <code>min(max_left[i], max_right[i])-hright[i]</code>到<code>ans</code> 上</li>
 </ul>
 </li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">trap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(height.size() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> size = height.size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; left_max(size), right_max(size);</span><br><span class="line">        left_max[<span class="number">0</span>] = height[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; size;i++) &#123;</span><br><span class="line">            left_max[i] = max(height[i], left_max[i - <span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        right_max[size - <span class="number">1</span>] = height[size - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = size - <span class="number">2</span>;i &gt;= <span class="number">0</span>;i--) &#123;</span><br><span class="line">            right_max[i] = max(height[i], right_max[i + <span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; size - <span class="number">1</span>;i++) &#123;</span><br><span class="line">            ans += (min(left_max[i], right_max[i]) - height[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>方法三：使用双指针</p>
-<p>和方法 2 相比，我们不从左和从右分开计算，我们想办法一次完成遍历。<br>
-从动态编程方法的示意图中我们注意到，只要<code>right_max[i]&gt;left_max[i]</code>（元素 0 到元素 6），积水高度将由 <code>left_max</code> 决定，类似地<code>left_max[i] &gt; right_max[i]</code>（元素 8 到元素 11）。<br>
-所以我们可以认为如果一端有更高的条形块（例如右端），积水的高度依赖于当前方向的高度（从左到右）。当我们发现另一侧（右侧）的条形块高度不是最高的，我们则开始从相反的方向遍历（从右到左）。<br>
-我们必须在遍历时维护 <code>left_max</code> 和 <code>right_max</code> ，但是我们现在可以使用两个指针交替进行，实现 1 次遍历即可完成。</p>
+<p>和方法 2 相比，我们不从左和从右分开计算，我们想办法一次完成遍历。<br>从动态编程方法的示意图中我们注意到，只要<code>right_max[i]&gt;left_max[i]</code>（元素 0 到元素 6），积水高度将由 <code>left_max</code> 决定，类似地<code>left_max[i] &gt; right_max[i]</code>（元素 8 到元素 11）。<br>所以我们可以认为如果一端有更高的条形块（例如右端），积水的高度依赖于当前方向的高度（从左到右）。当我们发现另一侧（右侧）的条形块高度不是最高的，我们则开始从相反的方向遍历（从右到左）。<br>我们必须在遍历时维护 <code>left_max</code> 和 <code>right_max</code> ，但是我们现在可以使用两个指针交替进行，实现 1 次遍历即可完成。</p>
 <p><strong>算法如下</strong></p>
 <p><img src="https://pic.leetcode-cn.com/dca8d12e6eeb3030fda9ff5dd93fc006f0198ae3b536da3ad34306f1e2eabf33-image.png" alt="img"></p>
 <p><img src="https://pic.leetcode-cn.com/25947aa4298e665dd7fe65c7a0e0dd61e185a36059a7ed0b9e7a8d7321a5de2a-image.png" alt="img"></p>
@@ -290,8 +285,7 @@
 <p><img src="https://pic.leetcode-cn.com/f2606dd3a2c879f7acc5ad9e16ef850d5cda52c256df3f18adb86877339f0907-image.png" alt="img"></p>
 <p>省略…</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">trap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = height.size() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> left_max = <span class="number">0</span>, right_max = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(left  &lt; right) &#123;</span><br><span class="line">            <span class="keyword">if</span>(height[left] &lt; height[right]) &#123;</span><br><span class="line">                height[left] &gt;= left_max ? (left_max = height[left]) : ans += (left_max - height[left]);</span><br><span class="line">                ++left;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                height[right] &gt;= right_max ? (right_max = height[right]) : ans += (right_max - height[right]);</span><br><span class="line">                right--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="45-跳跃游戏贪心算法"><a class="markdownIt-Anchor" href="#45-跳跃游戏贪心算法"></a> 45. 跳跃游戏（贪心算法）</h3>
-<p>给定一个非负整数数组，你最初位于数组的第一个位置。</p>
+<h3 id="45-跳跃游戏（贪心算法）"><a href="#45-跳跃游戏（贪心算法）" class="headerlink" title="45. 跳跃游戏（贪心算法）"></a>45. 跳跃游戏（贪心算法）</h3><p>给定一个非负整数数组，你最初位于数组的第一个位置。</p>
 <p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
 <p>你的目标是使用最少的跳跃次数到达数组的最后一个位置。</p>
 <p><strong>示例:</strong></p>
@@ -300,7 +294,7 @@
 <p>假设你总是可以到达数组的最后一个位置。</p>
 <p>一开始的想法是，利用动态规划（不知道算不算），当前位于 i 的位置，然后<code>nums[i]</code>表示当前可以往下跳的范围。更新<code>jumps数组中</code>下标为<code>i ~ i + nums[i]</code>范围的值。（<code>jumps</code>数组表示从起始位置跳到当前位置所需要的最少的跳跃数）。然后返回<code>jumps</code>数组的最后一个元素</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">jump</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> jumps[nums.size()] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; nums.size() - <span class="number">1</span>;i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>;i + j &lt; nums.size() &amp;&amp; j &lt; nums[i];j++) &#123;</span><br><span class="line">            jumps[i + j] = jumps[i] + <span class="number">1</span> &lt; jumps[i + j] ? jumps[i] + <span class="number">1</span> : jumps[i + j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;       </span><br><span class="line">    <span class="keyword">return</span> jumps[nums.size() - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>不幸的是，超时了…</p>
+<p>不幸的是，超时了……</p>
 <p>所以需要其他的解决方法了…</p>
 <p><strong>贪心算法</strong>出场了！！！</p>
 <p>贪心算法，我们每次在可跳范围内选择可以使得跳的更远的位置。</p>
@@ -309,8 +303,7 @@
 <p>如下图，然后现在的位置就是 3 了，能跳的范围是橙色的，然后因为 4 可以跳的更远，所以下次跳到 4 的位置。</p>
 <p><img src="https://pic.leetcode-cn.com/1c13a73f3ddd9c5badd83f818455c1ed16a251956473659ffcee6eb9a65ecdbf-image.png" alt="image.png"></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">jump</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; nums.size() - <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> index;</span><br><span class="line">            <span class="keyword">int</span> far = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= nums[i];j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(i + j &gt;= nums.size() - <span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="keyword">return</span> count + <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(j + nums[i + j] &gt; far) &#123;</span><br><span class="line">                    index = i + j;</span><br><span class="line">                    far = j + nums[i + j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            i = index;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="47-全排列ii"><a class="markdownIt-Anchor" href="#47-全排列ii"></a> 47. 全排列II</h3>
-<p>给定一个可包含重复数字的序列，返回所有不重复的全排列。</p>
+<h3 id="47-全排列II"><a href="#47-全排列II" class="headerlink" title="47. 全排列II"></a>47. 全排列II</h3><p>给定一个可包含重复数字的序列，返回所有不重复的全排列。</p>
 <p>示例:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,1,2]</span><br><span class="line">输出:</span><br><span class="line">[</span><br><span class="line">  [1,1,2],</span><br><span class="line">  [1,2,1],</span><br><span class="line">  [2,1,1]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 <p><strong>方法：回溯+剪枝（剪枝的效果是去重复）</strong></p>
@@ -380,7 +373,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#42-接雨水"><span class="nav-number">1.</span> <span class="nav-text"> 42. 接雨水</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#45-跳跃游戏贪心算法"><span class="nav-number">2.</span> <span class="nav-text"> 45. 跳跃游戏（贪心算法）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#47-全排列ii"><span class="nav-number">3.</span> <span class="nav-text"> 47. 全排列II</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#42-接雨水"><span class="nav-number">1.</span> <span class="nav-text">42. 接雨水</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#45-跳跃游戏（贪心算法）"><span class="nav-number">2.</span> <span class="nav-text">45. 跳跃游戏（贪心算法）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#47-全排列II"><span class="nav-number">3.</span> <span class="nav-text">47. 全排列II</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -396,7 +389,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

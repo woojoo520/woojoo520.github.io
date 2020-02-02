@@ -47,17 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="SQLServer-Day5  UNION 操作符 UNION操作符用于合并两个或多个SELECT语句的结果集 请注意，UNION内部的SELECT语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每条SELECT语句中的列的顺序必须相同。  SELECT column_name(s)  FROM table_name1 UNION SELECT column_name(s) FROM">
+  <meta name="description" content="SQLServer-Day5UNION 操作符UNION操作符用于合并两个或多个SELECT语句的结果集 请注意，UNION内部的SELECT语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每条SELECT语句中的列的顺序必须相同。  SELECT column_name(s)  FROM table_name1 UNION SELECT column_name(s) FROM tab">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQLServer-Day5">
 <meta property="og:url" content="https://woojoo520.github.io/2019/10/14/SQLServer-Day5/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="SQLServer-Day5  UNION 操作符 UNION操作符用于合并两个或多个SELECT语句的结果集 请注意，UNION内部的SELECT语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每条SELECT语句中的列的顺序必须相同。  SELECT column_name(s)  FROM table_name1 UNION SELECT column_name(s) FROM">
+<meta property="og:description" content="SQLServer-Day5UNION 操作符UNION操作符用于合并两个或多个SELECT语句的结果集 请注意，UNION内部的SELECT语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每条SELECT语句中的列的顺序必须相同。  SELECT column_name(s)  FROM table_name1 UNION SELECT column_name(s) FROM tab">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-10-14T14:59:16.143Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQLServer-Day5">
-<meta name="twitter:description" content="SQLServer-Day5  UNION 操作符 UNION操作符用于合并两个或多个SELECT语句的结果集 请注意，UNION内部的SELECT语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每条SELECT语句中的列的顺序必须相同。  SELECT column_name(s)  FROM table_name1 UNION SELECT column_name(s) FROM">
+<meta name="twitter:description" content="SQLServer-Day5UNION 操作符UNION操作符用于合并两个或多个SELECT语句的结果集 请注意，UNION内部的SELECT语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每条SELECT语句中的列的顺序必须相同。  SELECT column_name(s)  FROM table_name1 UNION SELECT column_name(s) FROM tab">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/10/14/SQLServer-Day5/">
 
@@ -240,9 +240,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="sqlserver-day5"><a class="markdownIt-Anchor" href="#sqlserver-day5"></a> SQLServer-Day5</h2>
-<h3 id="union-操作符"><a class="markdownIt-Anchor" href="#union-操作符"></a> UNION 操作符</h3>
-<p><code>UNION</code>操作符用于合并两个或多个SELECT语句的结果集</p>
+        <h2 id="SQLServer-Day5"><a href="#SQLServer-Day5" class="headerlink" title="SQLServer-Day5"></a>SQLServer-Day5</h2><h3 id="UNION-操作符"><a href="#UNION-操作符" class="headerlink" title="UNION 操作符"></a>UNION 操作符</h3><p><code>UNION</code>操作符用于合并两个或多个SELECT语句的结果集</p>
 <p>请注意，<code>UNION</code>内部的<code>SELECT</code>语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每条<code>SELECT</code>语句中的列的顺序必须相同。</p>
 <blockquote>
 <p>SELECT column_name(s)  FROM table_name1</p>
@@ -258,6 +256,7 @@
 <p>另外，<code>UNION</code>结果集中的列名总是等于<code>UNION中</code>第一个<code>SELECT</code>语句中的列名</p>
 <p>原始表：</p>
 <p>Employees_China：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -284,7 +283,9 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>Employees_USA:</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -311,10 +312,12 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>例：</p>
 <p>列出所有在中国和美国的不同的雇员名</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> E_Name</span><br><span class="line"><span class="keyword">FROM</span> Employees_China</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">FROM</span> Employees_USA</span><br></pre></td></tr></table></figure>
 <p>结果：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -345,9 +348,9 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>注释：这个命令无法列出在中国和美国的所有雇员，因为<code>UNION</code>命令只会选取不同的值。</p>
-<h3 id="select-into语句"><a class="markdownIt-Anchor" href="#select-into语句"></a> SELECT INTO语句</h3>
-<p>用于创建表的备份复件</p>
+<h3 id="SELECT-INTO语句"><a href="#SELECT-INTO语句" class="headerlink" title="SELECT INTO语句"></a>SELECT INTO语句</h3><p>用于创建表的备份复件</p>
 <p><code>SELECT INTO</code> 语句从一个表中选取数据，然后把数据插入另一个表中</p>
 <p><code>SELECT INTO</code> 语句常用于创建表的备份文件或者用于对记录进行存档</p>
 <p>可以将所有的列插入列表：</p>
@@ -362,30 +365,23 @@
 <p>INTO new_table_name [IN externaldatabase]</p>
 <p>FROM old_tablename</p>
 </blockquote>
-<h5 id="例下面的例子会制作persons表的备份复件"><a class="markdownIt-Anchor" href="#例下面的例子会制作persons表的备份复件"></a> 例：下面的例子会制作“Persons”表的备份复件</h5>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">INTO</span> Persons_backup</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
-<h5 id="in子句可用于向另一个数据库中拷贝表"><a class="markdownIt-Anchor" href="#in子句可用于向另一个数据库中拷贝表"></a> IN子句可用于向另一个数据库中拷贝表：</h5>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">INTO</span> Persons <span class="keyword">IN</span> <span class="string">'Backup.mdb'</span></span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
-<h5 id="如果我们希望拷贝某些域可以在select语句后列出这些域"><a class="markdownIt-Anchor" href="#如果我们希望拷贝某些域可以在select语句后列出这些域"></a> 如果我们希望拷贝某些域，可以在SELECT语句后列出这些域：</h5>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  LastName, FIrstName</span><br><span class="line"><span class="keyword">INTO</span> Persons_backup</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
-<h5 id="带有where子句"><a class="markdownIt-Anchor" href="#带有where子句"></a> 带有WHERE子句：</h5>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> LastName, FirstName</span><br><span class="line"><span class="keyword">INTO</span> Persons_backup</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> City = <span class="string">'Beijing'</span></span><br></pre></td></tr></table></figure>
+<h5 id="例：下面的例子会制作“Persons”表的备份复件"><a href="#例：下面的例子会制作“Persons”表的备份复件" class="headerlink" title="例：下面的例子会制作“Persons”表的备份复件"></a>例：下面的例子会制作“Persons”表的备份复件</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">INTO</span> Persons_backup</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
+<h5 id="IN子句可用于向另一个数据库中拷贝表："><a href="#IN子句可用于向另一个数据库中拷贝表：" class="headerlink" title="IN子句可用于向另一个数据库中拷贝表："></a>IN子句可用于向另一个数据库中拷贝表：</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">INTO</span> Persons <span class="keyword">IN</span> <span class="string">'Backup.mdb'</span></span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
+<h5 id="如果我们希望拷贝某些域，可以在SELECT语句后列出这些域："><a href="#如果我们希望拷贝某些域，可以在SELECT语句后列出这些域：" class="headerlink" title="如果我们希望拷贝某些域，可以在SELECT语句后列出这些域："></a>如果我们希望拷贝某些域，可以在SELECT语句后列出这些域：</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  LastName, FIrstName</span><br><span class="line"><span class="keyword">INTO</span> Persons_backup</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
+<h5 id="带有WHERE子句："><a href="#带有WHERE子句：" class="headerlink" title="带有WHERE子句："></a>带有WHERE子句：</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> LastName, FirstName</span><br><span class="line"><span class="keyword">INTO</span> Persons_backup</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> City = <span class="string">'Beijing'</span></span><br></pre></td></tr></table></figure>
 <p>表示从“Pesons”表中提取居住在“Beijing”的人的信息，创建了一个带有两个列的名为“Persons_backup”的表</p>
-<h5 id="被连接的表"><a class="markdownIt-Anchor" href="#被连接的表"></a> 被连接的表</h5>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Orders.OrderNo</span><br><span class="line"><span class="keyword">INTO</span> Persons_Order_Backup</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br></pre></td></tr></table></figure>
+<h5 id="被连接的表"><a href="#被连接的表" class="headerlink" title="被连接的表"></a>被连接的表</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Orders.OrderNo</span><br><span class="line"><span class="keyword">INTO</span> Persons_Order_Backup</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br></pre></td></tr></table></figure>
 <p>表示创建一个名为“Persons_Order_Backup”的新表，其中包含了从Persons和Orders两个表中的内容。</p>
-<h3 id="create-database-语句"><a class="markdownIt-Anchor" href="#create-database-语句"></a> CREATE DATABASE 语句</h3>
-<p>用于创建数据库</p>
+<h3 id="CREATE-DATABASE-语句"><a href="#CREATE-DATABASE-语句" class="headerlink" title="CREATE DATABASE 语句"></a>CREATE DATABASE 语句</h3><p>用于创建数据库</p>
 <blockquote>
 <p>CREATE DATABASE database_name</p>
 </blockquote>
 <p>例：创建一个名为my_db的数据库</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> my_db</span><br></pre></td></tr></table></figure>
 <p>可以通过<code>CREATE TABLE</code>来添加数据库表</p>
-<h3 id="create-table-语句"><a class="markdownIt-Anchor" href="#create-table-语句"></a> CREATE TABLE 语句</h3>
-<p>用于创建数据库中的表</p>
+<h3 id="CREATE-TABLE-语句"><a href="#CREATE-TABLE-语句" class="headerlink" title="CREATE TABLE 语句"></a>CREATE TABLE 语句</h3><p>用于创建数据库中的表</p>
 <blockquote>
-<p>CREATE TABLE 表名称</p>
+<p>CREATE TABLE 表名称 </p>
 <p>(</p>
 <p>列名称1 数据类型，</p>
 <p>列名称2 数据类型，</p>
@@ -394,6 +390,7 @@
 <p>)</p>
 </blockquote>
 <p>数据类型(data_type) 规定了列可容纳何种数据类型。下面的表格包含了SQL中最常用的数据类型</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -424,10 +421,12 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>例：</p>
 <p>创建”Persons”表，其中包含5个列，列明分别是“Id_P”, “LastName”, “FirstName”, “Address”以及“City”</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line">(</span><br><span class="line">Id_P <span class="built_in">int</span>, </span><br><span class="line">LastName <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">FirstName <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">Address <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">City <span class="built_in">varchar</span>(<span class="number">255</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <p>空的表类似这样</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -444,13 +443,12 @@
 <td></td>
 <td></td>
 <td></td>
-<td></td>
 </tr>
 </tbody>
 </table>
+</div>
 <p>可使用INSERT INTO语句向空表写入数据</p>
-<h3 id="sql-约束constraints"><a class="markdownIt-Anchor" href="#sql-约束constraints"></a> SQL 约束（Constraints）</h3>
-<p>约束用于限制加入表的数据的类型</p>
+<h3 id="SQL-约束（Constraints）"><a href="#SQL-约束（Constraints）" class="headerlink" title="SQL 约束（Constraints）"></a>SQL 约束（Constraints）</h3><p>约束用于限制加入表的数据的类型</p>
 <p>可以在创建表时规定约束（通过<code>CREATE TABLE</code>语句），或者在表创建之后也可以（通过<code>ALTER TABLE</code>语句）</p>
 <p>主要有以下几种约束：</p>
 <ul>
@@ -461,8 +459,7 @@
 <li>CHECK</li>
 <li>DEFAULT</li>
 </ul>
-<h3 id="not-null约束"><a class="markdownIt-Anchor" href="#not-null约束"></a> NOT NULL约束</h3>
-<p><code>NOT NULL</code>约束强制列不接受<code>NULL</code>值</p>
+<h3 id="NOT-NULL约束"><a href="#NOT-NULL约束" class="headerlink" title="NOT NULL约束"></a>NOT NULL约束</h3><p><code>NOT NULL</code>约束强制列不接受<code>NULL</code>值</p>
 <p><code>NOT NULL</code>约束强制字段始终包含值。这意味着，如果不向字段添加值，就无法插入新记录或者更新记录</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line">(</span><br><span class="line">Id_P <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">LastName <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">FirstName <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">Address <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">City <span class="built_in">varchar</span>(<span class="number">255</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
@@ -525,7 +522,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#sqlserver-day5"><span class="nav-number">1.</span> <span class="nav-text"> SQLServer-Day5</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#union-操作符"><span class="nav-number">1.1.</span> <span class="nav-text"> UNION 操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#select-into语句"><span class="nav-number">1.2.</span> <span class="nav-text"> SELECT INTO语句</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#例下面的例子会制作persons表的备份复件"><span class="nav-number">1.2.0.1.</span> <span class="nav-text"> 例：下面的例子会制作“Persons”表的备份复件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#in子句可用于向另一个数据库中拷贝表"><span class="nav-number">1.2.0.2.</span> <span class="nav-text"> IN子句可用于向另一个数据库中拷贝表：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如果我们希望拷贝某些域可以在select语句后列出这些域"><span class="nav-number">1.2.0.3.</span> <span class="nav-text"> 如果我们希望拷贝某些域，可以在SELECT语句后列出这些域：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#带有where子句"><span class="nav-number">1.2.0.4.</span> <span class="nav-text"> 带有WHERE子句：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#被连接的表"><span class="nav-number">1.2.0.5.</span> <span class="nav-text"> 被连接的表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#create-database-语句"><span class="nav-number">1.3.</span> <span class="nav-text"> CREATE DATABASE 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#create-table-语句"><span class="nav-number">1.4.</span> <span class="nav-text"> CREATE TABLE 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sql-约束constraints"><span class="nav-number">1.5.</span> <span class="nav-text"> SQL 约束（Constraints）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#not-null约束"><span class="nav-number">1.6.</span> <span class="nav-text"> NOT NULL约束</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQLServer-Day5"><span class="nav-number">1.</span> <span class="nav-text">SQLServer-Day5</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UNION-操作符"><span class="nav-number">1.1.</span> <span class="nav-text">UNION 操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SELECT-INTO语句"><span class="nav-number">1.2.</span> <span class="nav-text">SELECT INTO语句</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#例：下面的例子会制作“Persons”表的备份复件"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">例：下面的例子会制作“Persons”表的备份复件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#IN子句可用于向另一个数据库中拷贝表："><span class="nav-number">1.2.0.2.</span> <span class="nav-text">IN子句可用于向另一个数据库中拷贝表：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如果我们希望拷贝某些域，可以在SELECT语句后列出这些域："><span class="nav-number">1.2.0.3.</span> <span class="nav-text">如果我们希望拷贝某些域，可以在SELECT语句后列出这些域：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#带有WHERE子句："><span class="nav-number">1.2.0.4.</span> <span class="nav-text">带有WHERE子句：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#被连接的表"><span class="nav-number">1.2.0.5.</span> <span class="nav-text">被连接的表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CREATE-DATABASE-语句"><span class="nav-number">1.3.</span> <span class="nav-text">CREATE DATABASE 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CREATE-TABLE-语句"><span class="nav-number">1.4.</span> <span class="nav-text">CREATE TABLE 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL-约束（Constraints）"><span class="nav-number">1.5.</span> <span class="nav-text">SQL 约束（Constraints）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NOT-NULL约束"><span class="nav-number">1.6.</span> <span class="nav-text">NOT NULL约束</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -541,7 +538,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

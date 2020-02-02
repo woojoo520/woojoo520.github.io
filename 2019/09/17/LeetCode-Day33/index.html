@@ -47,17 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="LeetCode-Day33——继续贪心  757. 设置交集大小至少为2 一个整数区间 [a, b]  ( a &amp;lt; b ) 代表着从 a 到 b 的所有连续整数，包括 a 和 b。 给你一组整数区间intervals，请找到一个最小的集合 S，使得 S 里的元素与区间intervals中的每一个整数区间都至少有2个元素相交。 输出这个最小集合S的大小。 示例 1: 12345输入: in">
+  <meta name="description" content="LeetCode-Day33——继续贪心757. 设置交集大小至少为2一个整数区间 [a, b]  ( a &amp;lt; b ) 代表着从 a 到 b 的所有连续整数，包括 a 和 b。 给你一组整数区间intervals，请找到一个最小的集合 S，使得 S 里的元素与区间intervals中的每一个整数区间都至少有2个元素相交。 输出这个最小集合S的大小。 示例 1: 12345输入: interv">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode-Day33">
 <meta property="og:url" content="https://woojoo520.github.io/2019/09/17/LeetCode-Day33/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="LeetCode-Day33——继续贪心  757. 设置交集大小至少为2 一个整数区间 [a, b]  ( a &amp;lt; b ) 代表着从 a 到 b 的所有连续整数，包括 a 和 b。 给你一组整数区间intervals，请找到一个最小的集合 S，使得 S 里的元素与区间intervals中的每一个整数区间都至少有2个元素相交。 输出这个最小集合S的大小。 示例 1: 12345输入: in">
+<meta property="og:description" content="LeetCode-Day33——继续贪心757. 设置交集大小至少为2一个整数区间 [a, b]  ( a &amp;lt; b ) 代表着从 a 到 b 的所有连续整数，包括 a 和 b。 给你一组整数区间intervals，请找到一个最小的集合 S，使得 S 里的元素与区间intervals中的每一个整数区间都至少有2个元素相交。 输出这个最小集合S的大小。 示例 1: 12345输入: interv">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-09-17T13:52:47.085Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode-Day33">
-<meta name="twitter:description" content="LeetCode-Day33——继续贪心  757. 设置交集大小至少为2 一个整数区间 [a, b]  ( a &amp;lt; b ) 代表着从 a 到 b 的所有连续整数，包括 a 和 b。 给你一组整数区间intervals，请找到一个最小的集合 S，使得 S 里的元素与区间intervals中的每一个整数区间都至少有2个元素相交。 输出这个最小集合S的大小。 示例 1: 12345输入: in">
+<meta name="twitter:description" content="LeetCode-Day33——继续贪心757. 设置交集大小至少为2一个整数区间 [a, b]  ( a &amp;lt; b ) 代表着从 a 到 b 的所有连续整数，包括 a 和 b。 给你一组整数区间intervals，请找到一个最小的集合 S，使得 S 里的元素与区间intervals中的每一个整数区间都至少有2个元素相交。 输出这个最小集合S的大小。 示例 1: 12345输入: interv">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/09/17/LeetCode-Day33/">
 
@@ -240,9 +240,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="leetcode-day33继续贪心"><a class="markdownIt-Anchor" href="#leetcode-day33继续贪心"></a> LeetCode-Day33——继续贪心</h2>
-<h3 id="757-设置交集大小至少为2"><a class="markdownIt-Anchor" href="#757-设置交集大小至少为2"></a> 757. 设置交集大小至少为2</h3>
-<p>一个整数区间 [a, b]  ( a &lt; b ) 代表着从 a 到 b 的所有连续整数，包括 a 和 b。</p>
+        <h2 id="LeetCode-Day33——继续贪心"><a href="#LeetCode-Day33——继续贪心" class="headerlink" title="LeetCode-Day33——继续贪心"></a>LeetCode-Day33——继续贪心</h2><h3 id="757-设置交集大小至少为2"><a href="#757-设置交集大小至少为2" class="headerlink" title="757. 设置交集大小至少为2"></a>757. 设置交集大小至少为2</h3><p>一个整数区间 [a, b]  ( a &lt; b ) 代表着从 a 到 b 的所有连续整数，包括 a 和 b。</p>
 <p>给你一组整数区间intervals，请找到一个最小的集合 S，使得 S 里的元素与区间intervals中的每一个整数区间都至少有2个元素相交。</p>
 <p>输出这个最小集合S的大小。</p>
 <p>示例 1:</p>
@@ -261,13 +259,11 @@
 </ul>
 <p>所以，Code如下：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">intersectionSizeTwo</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; intervals)</span> </span>&#123;</span><br><span class="line">        sort(intervals.begin(), intervals.end(), [](<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; a, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; b) &#123;</span><br><span class="line">        <span class="keyword">return</span> a[<span class="number">1</span>] &lt; b[<span class="number">1</span>] || (a[<span class="number">1</span>] == b[<span class="number">1</span>] &amp;&amp; a[<span class="number">0</span>] &gt; b[<span class="number">0</span>]);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v&#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; intervals.size();i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> len = v.size();</span><br><span class="line">        <span class="keyword">if</span>(intervals[i][<span class="number">0</span>] &lt;= v[len - <span class="number">2</span>]) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(intervals[i][<span class="number">0</span>] &gt; v.back()) &#123;</span><br><span class="line">            v.push_back(intervals[i][<span class="number">1</span>] - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        v.push_back(intervals[i][<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> v.size() - <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="763-划分字母区间"><a class="markdownIt-Anchor" href="#763-划分字母区间"></a> 763. 划分字母区间</h3>
-<p>字符串 S 由小写字母组成。我们要把这个字符串划分为尽可能多的片段，同一个字母只会出现在其中的一个片段。返回一个表示每个字符串片段的长度的列表。</p>
+<h3 id="763-划分字母区间"><a href="#763-划分字母区间" class="headerlink" title="763. 划分字母区间"></a>763. 划分字母区间</h3><p>字符串 S 由小写字母组成。我们要把这个字符串划分为尽可能多的片段，同一个字母只会出现在其中的一个片段。返回一个表示每个字符串片段的长度的列表。</p>
 <p>示例 1:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入: S = &quot;ababcbacadefegdehijhklij&quot;</span><br><span class="line">输出: [9,7,8]</span><br><span class="line">解释:</span><br><span class="line">划分结果为 &quot;ababcbaca&quot;, &quot;defegde&quot;, &quot;hijhklij&quot;。</span><br><span class="line">每个字母最多出现在一个片段中。</span><br><span class="line">像 &quot;ababcbacadefegde&quot;, &quot;hijhklij&quot; 的划分是错误的，因为划分的片段数较少。</span><br></pre></td></tr></table></figure>
 <p>注意:</p>
-<p>S的长度在[1, 500]之间。<br>
-S只包含小写字母’a’到’z’。</p>
+<p>S的长度在[1, 500]之间。<br>S只包含小写字母’a’到’z’。</p>
 <p>思路：其实这道题是map的一个应用。</p>
 <p>首先遍历统计每个字母出现的最后的位置。</p>
 <p>然后再遍历一遍，设置变量right用于表示分隔开的字符串的末尾在S里面的小标，变量left表示子字符串的开头在S里的下标</p>
@@ -335,7 +331,7 @@ S只包含小写字母’a’到’z’。</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#leetcode-day33继续贪心"><span class="nav-number">1.</span> <span class="nav-text"> LeetCode-Day33——继续贪心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#757-设置交集大小至少为2"><span class="nav-number">1.1.</span> <span class="nav-text"> 757. 设置交集大小至少为2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#763-划分字母区间"><span class="nav-number">1.2.</span> <span class="nav-text"> 763. 划分字母区间</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-Day33——继续贪心"><span class="nav-number">1.</span> <span class="nav-text">LeetCode-Day33——继续贪心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#757-设置交集大小至少为2"><span class="nav-number">1.1.</span> <span class="nav-text">757. 设置交集大小至少为2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#763-划分字母区间"><span class="nav-number">1.2.</span> <span class="nav-text">763. 划分字母区间</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -351,7 +347,7 @@ S只包含小写字母’a’到’z’。</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

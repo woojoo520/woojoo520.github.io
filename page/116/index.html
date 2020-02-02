@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/卷积/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/14/Pytorch-transforms/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/08/09/卷积/" class="post-title-link" itemprop="url">卷积在图像处理中的应用</a>
+            <a href="/2019/08/14/Pytorch-transforms/" class="post-title-link" itemprop="url">Pytorch transforms</a>
         </h1>
 
         <div class="post-meta">
@@ -210,10 +210,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-08-09 15:09:44 / 修改时间：19:01:49" itemprop="dateCreated datePublished" datetime="2019-08-09T15:09:44+08:00">2019-08-09</time>
+              <time title="创建时间：2019-08-14 14:59:19" itemprop="dateCreated datePublished" datetime="2019-08-14T14:59:19+08:00">2019-08-14</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-08-15 10:05:14" itemprop="dateModified" datetime="2019-08-15T10:05:14+08:00">2019-08-15</time>
+              </span>
 
           
   
@@ -224,8 +230,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/08/09/卷积/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/09/卷积/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/08/14/Pytorch-transforms/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/14/Pytorch-transforms/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,16 +246,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>卷积的用途：</p>
-<p>将图像相邻子区域的像素值与卷积核执行“卷积”操作，可以获取相邻数据之间的统计关系，从而可挖掘图像中的某些重要特征。</p>
-<p>比较抽象…所以特征到底是什么？用图像来形象的说明一下</p>
-<p><img src="https://pic4.zhimg.com/v2-b0f198aa46872eb91cb7f1f593073f13_b.jpg" alt="img"></p>
-<p>下面我们简单介绍一下常用的“久经考验”的卷积核。<br>
-（1）同一化核（Identity）。从图13-6可见，这个滤波器什么也没有做，卷积后得到的图像和原图一样。因为这个核只有中心点的值是1。邻域点的权值都是0，所以对滤波后的取值没有任何影响。<br>
-（2）边缘检测核（Edge Detection），也称为高斯-拉普拉斯算子。需要注意的是，这个核矩阵的元素总和为0（即中间元素为8，而周围8个元素之和为-8），所以滤波后的图像会很暗，而只有边缘位置是有亮度的。<br>
-（3）图像锐化核（Sharpness Filter）。图像的锐化和边缘检测比较相似。首先找到边缘，然后再把边缘加到原来的图像上面，如此一来，就强化了图像的边缘，使得图像看起来更加锐利。<br>
-（4）均值模糊（Box Blur /Averaging）。这个核矩阵的每个元素值都是1，它将当前像素和它的四邻域的像素一起取平均，然后再除以9。均值模糊比较简单，但图像处理得不够平滑。因此，还可以采用高斯模糊核（Gaussian Blur），这个核被广泛用在图像降噪上。</p>
-
+          <h2 id="Transfroms"><a href="#Transfroms" class="headerlink" title="Transfroms"></a>Transfroms</h2><h3 id="1-裁剪——Crop"><a href="#1-裁剪——Crop" class="headerlink" title="1. 裁剪——Crop"></a>1. 裁剪——Crop</h3><h4 id="1-1-随机裁剪：transforms-RandomCrop"><a href="#1-1-随机裁剪：transforms-RandomCrop" class="headerlink" title="1.1 随机裁剪：transforms.RandomCrop()"></a>1.1 随机裁剪：transforms.RandomCrop()</h4><ul>
+<li><p><code>torchvision.transforms.RandomCrop(size, padding=None, pad_if_needed=False, fill=0, padding_mode=&#39;constant&#39;)</code></p>
+<ul>
+<li><p>功能：依据给定的size随机裁剪</p>
+</li>
+<li><p>参数：</p>
+<ul>
+<li><p><code>size-(sequence or int),若为sequence， 则为(h, w),若为int， 则(size, size)</code></p>
+</li>
+<li><p><code>padding-(sequence or int, optional)</code>,此参数是设置为多少个pixel，当为int时，图像上下左右均填充int个，例如<code>padding=4</code>，则上下左右均填充4个padding， 若为32 <em> 32，则会变成40 </em> 40；当为sequence时，若有两个数，则第一个数表示左右扩充多少，第二个数表示上下的，当有4个数是，则为左、上、右、下</p>
+</li>
+<li><p><code>fill-(int or tuple)</code>，填充的值是什么（仅当填充模式为constant时有用）。int时，各通道均填充该值，当长度为3的tuple时，表示RGB通道需要填充的值</p>
+</li>
+<li><p><code>padding-mode</code>,填充模式（constant（常量）， edge（按照图片边缘的像素值来填充），reflect， symmetric）</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-2-中心裁剪：transforms-CenterCrop"><a href="#1-2-中心裁剪：transforms-CenterCrop" class="headerlink" title="1.2 中心裁剪：transforms.CenterCrop()"></a>1.2 中心裁剪：transforms.CenterCrop()</h4><h4 id="1-3-随机长宽比裁剪-transforms-RandomResizedCrop"><a href="#1-3-随机长宽比裁剪-transforms-RandomResizedCrop" class="headerlink" title="1.3 随机长宽比裁剪 transforms.RandomResizedCrop()"></a>1.3 随机长宽比裁剪 transforms.RandomResizedCrop()</h4><h4 id="1-4-上下左右中心裁剪：transforms-FiveCrop"><a href="#1-4-上下左右中心裁剪：transforms-FiveCrop" class="headerlink" title="1.4 上下左右中心裁剪：transforms.FiveCrop()"></a>1.4 上下左右中心裁剪：transforms.FiveCrop()</h4><h4 id="1-5-上下左右中心裁剪后翻转：transform-TenCrop"><a href="#1-5-上下左右中心裁剪后翻转：transform-TenCrop" class="headerlink" title="1.5 上下左右中心裁剪后翻转：transform.TenCrop()"></a>1.5 上下左右中心裁剪后翻转：transform.TenCrop()</h4><h3 id="2-翻转和旋转——Flip-and-Rotation"><a href="#2-翻转和旋转——Flip-and-Rotation" class="headerlink" title="2. 翻转和旋转——Flip and Rotation"></a>2. 翻转和旋转——Flip and Rotation</h3><h4 id="2-1-依概率p水平翻转-transfroms-RandomHorizontalFlip"><a href="#2-1-依概率p水平翻转-transfroms-RandomHorizontalFlip" class="headerlink" title="2.1 依概率p水平翻转 transfroms. RandomHorizontalFlip()"></a>2.1 依概率p水平翻转 transfroms. RandomHorizontalFlip()</h4><h4 id="2-2-依概率p垂直翻转-transforms-RandomVerticalFlip"><a href="#2-2-依概率p垂直翻转-transforms-RandomVerticalFlip" class="headerlink" title="2.2 依概率p垂直翻转 transforms.RandomVerticalFlip()"></a>2.2 依概率p垂直翻转 transforms.RandomVerticalFlip()</h4><h4 id="2-3-随机旋转-transforms-RandomRotation"><a href="#2-3-随机旋转-transforms-RandomRotation" class="headerlink" title="2.3 随机旋转 transforms.RandomRotation()"></a>2.3 随机旋转 transforms.RandomRotation()</h4><h3 id="3-图像变换"><a href="#3-图像变换" class="headerlink" title="3. 图像变换"></a>3. 图像变换</h3><h4 id="3-1-resize-transform-Resize"><a href="#3-1-resize-transform-Resize" class="headerlink" title="3.1 resize  transform.Resize"></a>3.1 resize  transform.Resize</h4><h4 id="3-2-标准化-transform-Normalize"><a href="#3-2-标准化-transform-Normalize" class="headerlink" title="3.2 标准化 transform.Normalize"></a>3.2 标准化 transform.Normalize</h4><h4 id="3-3-转为tensor-transforms-ToTensor"><a href="#3-3-转为tensor-transforms-ToTensor" class="headerlink" title="3.3 转为tensor transforms.ToTensor"></a>3.3 转为tensor transforms.ToTensor</h4><h4 id="3-4-填充-transforms-Pad"><a href="#3-4-填充-transforms-Pad" class="headerlink" title="3.4 填充 transforms.Pad"></a>3.4 填充 transforms.Pad</h4><h4 id="3-5-修改亮度、对比度和饱和度-transforms-ColorJitter"><a href="#3-5-修改亮度、对比度和饱和度-transforms-ColorJitter" class="headerlink" title="3.5 修改亮度、对比度和饱和度 transforms.ColorJitter()"></a>3.5 修改亮度、对比度和饱和度 transforms.ColorJitter()</h4><h4 id="3-6-转灰度图-transforms-GrayScale"><a href="#3-6-转灰度图-transforms-GrayScale" class="headerlink" title="3.6 转灰度图 transforms.GrayScale"></a>3.6 转灰度图 transforms.GrayScale</h4><h4 id="3-7-线性变换-transforms-LinearTransformation"><a href="#3-7-线性变换-transforms-LinearTransformation" class="headerlink" title="3.7 线性变换 transforms.LinearTransformation()"></a>3.7 线性变换 transforms.LinearTransformation()</h4><h4 id="3-8-放射变换-transform-RandomAffine"><a href="#3-8-放射变换-transform-RandomAffine" class="headerlink" title="3.8 放射变换 transform.RandomAffine"></a>3.8 放射变换 transform.RandomAffine</h4><h4 id="3-9-依概率p转为灰度图-transforms-RandomGrayScale"><a href="#3-9-依概率p转为灰度图-transforms-RandomGrayScale" class="headerlink" title="3.9 依概率p转为灰度图 transforms.RandomGrayScale"></a>3.9 依概率p转为灰度图 transforms.RandomGrayScale</h4><h4 id="3-10-将数据转换为PILImage-transforms-ToPILImage"><a href="#3-10-将数据转换为PILImage-transforms-ToPILImage" class="headerlink" title="3.10 将数据转换为PILImage transforms.ToPILImage"></a>3.10 将数据转换为PILImage transforms.ToPILImage</h4><h4 id="3-11-transforms-Lambda"><a href="#3-11-transforms-Lambda" class="headerlink" title="3.11 transforms.Lambda"></a>3.11 transforms.Lambda</h4><h3 id="4-对transforms操作，使数据增强更灵活"><a href="#4-对transforms操作，使数据增强更灵活" class="headerlink" title="4. 对transforms操作，使数据增强更灵活"></a>4. 对transforms操作，使数据增强更灵活</h3><h4 id="4-1-transforms-RandomChoice-transfroms"><a href="#4-1-transforms-RandomChoice-transfroms" class="headerlink" title="4.1 transforms.RandomChoice(transfroms)"></a>4.1 transforms.RandomChoice(transfroms)</h4><h4 id="4-2-transforms-RandomApply-transforms-p-0-5"><a href="#4-2-transforms-RandomApply-transforms-p-0-5" class="headerlink" title="4.2 transforms.RandomApply(transforms, p=0.5)"></a>4.2 transforms.RandomApply(transforms, p=0.5)</h4><h4 id="4-3-transforms-RandomOrder"><a href="#4-3-transforms-RandomOrder" class="headerlink" title="4.3 transforms.RandomOrder"></a>4.3 transforms.RandomOrder</h4><h4 id><a href="#" class="headerlink" title=" "></a> </h4>
       
     </div>
 
@@ -268,7 +285,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/115/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/115/">115</a><span class="page-number current">116</span><a class="page-number" href="/page/117/">117</a><span class="space">&hellip;</span><a class="page-number" href="/page/144/">144</a><a class="extend next" rel="next" href="/page/117/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/115/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/115/">115</a><span class="page-number current">116</span><a class="page-number" href="/page/117/">117</a><span class="space">&hellip;</span><a class="page-number" href="/page/149/">149</a><a class="extend next" rel="next" href="/page/117/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -314,7 +331,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

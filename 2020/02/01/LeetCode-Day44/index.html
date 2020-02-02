@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Celery Fairy" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://woojoo520.github.io').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="重新开始刷LeetCode了…Fighting!! 306 累加数累加数是一个字符串，组成它的数字可以形成累加序列。 一个有效的累加序列必须至少包含 3 个数。除了最开始的两个数以外，字符串中的其他数都等于它之前两个数相加的和。 给定一个只包含数字 ‘0’-‘9’ 的字符串，编写一个算法来判断给定输入是否是累加数。 说明: 累加序列里的数不会以 0 开头，所以不会出现 1, 2, 03 或者 1,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode-Day44">
+<meta property="og:url" content="https://woojoo520.github.io/2020/02/01/LeetCode-Day44/index.html">
+<meta property="og:site_name" content="Celery Fairy">
+<meta property="og:description" content="重新开始刷LeetCode了…Fighting!! 306 累加数累加数是一个字符串，组成它的数字可以形成累加序列。 一个有效的累加序列必须至少包含 3 个数。除了最开始的两个数以外，字符串中的其他数都等于它之前两个数相加的和。 给定一个只包含数字 ‘0’-‘9’ 的字符串，编写一个算法来判断给定输入是否是累加数。 说明: 累加序列里的数不会以 0 开头，所以不会出现 1, 2, 03 或者 1,">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-01T09:59:48.101Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LeetCode-Day44">
+<meta name="twitter:description" content="重新开始刷LeetCode了…Fighting!! 306 累加数累加数是一个字符串，组成它的数字可以形成累加序列。 一个有效的累加序列必须至少包含 3 个数。除了最开始的两个数以外，字符串中的其他数都等于它之前两个数相加的和。 给定一个只包含数字 ‘0’-‘9’ 的字符串，编写一个算法来判断给定输入是否是累加数。 说明: 累加序列里的数不会以 0 开头，所以不会出现 1, 2, 03 或者 1,">
+
+<link rel="canonical" href="https://woojoo520.github.io/2020/02/01/LeetCode-Day44/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>LeetCode-Day44 | Celery Fairy</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Celery Fairy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Celery's Blog</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2020/02/01/LeetCode-Day44/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.gif">
+      <meta itemprop="name" content="Woojoo">
+      <meta itemprop="description" content="a study blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode-Day44
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-01 10:36:11 / 修改时间：17:59:48" itemprop="dateCreated datePublished" datetime="2020-02-01T10:36:11+08:00">2020-02-01</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/01/LeetCode-Day44/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/LeetCode-Day44/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>重新开始刷LeetCode了…Fighting!!</p>
+<h3 id="306-累加数"><a href="#306-累加数" class="headerlink" title="306 累加数"></a>306 累加数</h3><p>累加数是一个字符串，组成它的数字可以形成累加序列。</p>
+<p>一个有效的累加序列必须至少包含 3 个数。除了最开始的两个数以外，字符串中的其他数都等于它之前两个数相加的和。</p>
+<p>给定一个只包含数字 ‘0’-‘9’ 的字符串，编写一个算法来判断给定输入是否是累加数。</p>
+<p>说明: 累加序列里的数不会以 0 开头，所以不会出现 1, 2, 03 或者 1, 02, 3 的情况。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;112358&quot;</span><br><span class="line">输出: true </span><br><span class="line">解释: 累加序列为: 1, 1, 2, 3, 5, 8 。1 + 1 = 2, 1 + 2 = 3, 2 + 3 = 5, 3 + 5 = 8</span><br><span class="line"></span><br><span class="line">输入: &quot;199100199&quot;</span><br><span class="line">输出: true </span><br><span class="line">解释: 累加序列为: 1, 99, 100, 199。1 + 99 = 100, 99 + 100 = 199</span><br></pre></td></tr></table></figure>
+<p>Ps：处理一个溢出的过大的整数输入?</p>
+<p>思路：</p>
+<p>首先想到的就是处理过长整数的相加，肯定是采用字符串的方法来求解加法啊！就是不断的相加进位。</p>
+<p>其实会发现，在第一二个数确定之后，整个串是否为累加数就可以确定了。因此，我们只需要枚举前两个数的情况就可以了。进一步，这两个数可以用在字符串的下标位置来确定</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 处理字符串相加，这里可以利用string的reverse方法，因此可以先记录下低位-&gt;高位，最后reverse一下即可</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">add</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s1, <span class="keyword">const</span> <span class="built_in">string</span>&amp; s2)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> res;</span><br><span class="line">    <span class="keyword">int</span> n1 = s1.size();</span><br><span class="line">    <span class="keyword">int</span> n2 = s2.size();</span><br><span class="line">    <span class="keyword">int</span> carry = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> i = n1 - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> j = n2 - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (i &gt;= <span class="number">0</span> || j &gt;= <span class="number">0</span> || carry &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> t1 = (i &gt;= <span class="number">0</span>) ? s1[i--] - <span class="string">'0'</span> : <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> t2 = (j &gt;= <span class="number">0</span>) ? s2[j--] - <span class="string">'0'</span> : <span class="number">0</span>;</span><br><span class="line">        res += ((t1 + t2 + carry) % <span class="number">10</span>) + <span class="string">'0'</span>;</span><br><span class="line">        carry = (t1 + t2 + carry) / <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    reverse(res.begin(), res.end());</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 递归求解两个数确定的情况下下一个数是否满足条件</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">valid</span><span class="params">(<span class="built_in">string</span>&amp; num, <span class="keyword">int</span> l1, <span class="keyword">int</span> r1, <span class="keyword">int</span> l2, <span class="keyword">int</span> r2)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 不符合 累加数序列中以0开头但是长度却不为1</span></span><br><span class="line">    <span class="keyword">if</span> ((r1 &gt; l1 &amp;&amp; num[l1] == <span class="string">'0'</span>) || (r2 &gt; l2  &amp;&amp; num[l2] == <span class="string">'0'</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">// 如果枚举刚好到末尾，则符合条件</span></span><br><span class="line">    <span class="keyword">if</span> (r2 == num.size() - <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="built_in">string</span> s1 = num.substr(l1, r1 - l1 + <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">string</span> s2 = num.substr(l2, r2 - l2 + <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">string</span> s3 = add(s1, s2);</span><br><span class="line">    <span class="keyword">int</span> n = s3.size();</span><br><span class="line">    <span class="comment">// 如果最后一个数位数不足，或者后面的值与前两个数相加的值不等，则返回false</span></span><br><span class="line">    <span class="keyword">if</span> (r2 + n &gt;= num.size() || s3.compare(<span class="number">0</span>, n, num, r2 + <span class="number">1</span>, n) != <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">// 递归计算</span></span><br><span class="line">    <span class="keyword">return</span> valid(num, l2, r2, r2 + <span class="number">1</span>, r2 + n);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isAdditiveNumber</span><span class="params">(<span class="built_in">string</span> num)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> N = num.size();</span><br><span class="line">    <span class="comment">// 不断枚举前两个数的位置</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N / <span class="number">2</span>; ++i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; N - <span class="number">1</span>; ++j) &#123;</span><br><span class="line">            <span class="keyword">if</span> (valid(num, <span class="number">0</span>, i, i + <span class="number">1</span>, j)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="310-最小高度树"><a href="#310-最小高度树" class="headerlink" title="310 最小高度树"></a>310 最小高度树</h3><p>对于一个具有树特征的无向图，我们可选择任何一个节点作为根。图因此可以成为树，在所有可能的树中，具有最小高度的树被称为最小高度树。给出这样的一个图，写出一个函数找到所有的最小高度树并返回他们的根节点。</p>
+<p>格式</p>
+<p>该图包含 n 个节点，标记为 0 到 n - 1。给定数字 n 和一个无向边 edges 列表（每一个边都是一对标签）。</p>
+<p>你可以假设没有重复的边会出现在 edges 中。由于所有的边都是无向边， [0, 1]和 [1, 0] 是相同的，因此不会同时出现在 edges 里。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">输入: n = 4, edges = [[1, 0], [1, 2], [1, 3]]</span><br><span class="line"></span><br><span class="line">        0</span><br><span class="line">        |</span><br><span class="line">        1</span><br><span class="line">       / \</span><br><span class="line">      2   3 </span><br><span class="line"></span><br><span class="line">输出: [1]</span><br><span class="line"></span><br><span class="line">输入: n = 6, edges = [[0, 3], [1, 3], [2, 3], [4, 3], [5, 4]]</span><br><span class="line"></span><br><span class="line">     0  1  2</span><br><span class="line">      \ | /</span><br><span class="line">        3</span><br><span class="line">        |</span><br><span class="line">        4</span><br><span class="line">        |</span><br><span class="line">        5 </span><br><span class="line"></span><br><span class="line">输出: [3, 4]</span><br></pre></td></tr></table></figure>
+<p>思路：</p>
+<p>参考了某些大神的思路，他们真的太厉害了趴~</p>
+<p>通过分析我们可以得到，其实这个树的根越在中心，这个数的高度就越小，如果取边缘的值，则输的高度一定很高。</p>
+<p>同时，我们也可以证明，最后剩下的只可能为一个节点或两个节点。因为题目中有说具有树特征，即不存在环，因此我们一定可以通过不断的去除叶子节点，最后得到树根。因此最后只可能剩下一个或者两个节点。</p>
+<p>因此，我们可以采用贪心的方法：</p>
+<p>先计算每个节点的度，然后选取边缘的节点（即<code>degree=1</code>），然后删去，同时，更新一下与该节点相连的节点的度（即<code>degree -= 1</code>）。</p>
+<p>不断重复上述操作，直至节点个数小于等于2。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; findMinHeightTrees(<span class="keyword">int</span> n, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt;&amp; edges) &#123;</span><br><span class="line">    <span class="keyword">int</span> in_degrees[n] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">bool</span> isDelete[n] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="comment">// 邻接表</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; adjs(n, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;());</span><br><span class="line">    <span class="keyword">int</span> m = edges.size();</span><br><span class="line">    <span class="keyword">int</span> num = n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">        <span class="comment">// 计算每个节点的度</span></span><br><span class="line">        in_degrees[edges[i][<span class="number">0</span>]] += <span class="number">1</span>;</span><br><span class="line">        in_degrees[edges[i][<span class="number">1</span>]] += <span class="number">1</span>;</span><br><span class="line">        adjs[edges[i][<span class="number">0</span>]].push_back(edges[i][<span class="number">1</span>]);</span><br><span class="line">        adjs[edges[i][<span class="number">1</span>]].push_back(edges[i][<span class="number">0</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 这个队列记录每个度为1的节点</span></span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(in_degrees[i] == <span class="number">1</span>) &#123;</span><br><span class="line">            q.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(num &gt; <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> size = q.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">            isDelete[q.front()] = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">int</span> temp = q.front();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; adjs[temp].size(); j++) &#123;</span><br><span class="line">                <span class="comment">// temp&lt;---&gt;j 之间有边 并且j顶点还没有删除，则j顶点的入度-1</span></span><br><span class="line">                <span class="keyword">if</span>(!isDelete[adjs[temp][j]]) &#123;</span><br><span class="line">                    in_degrees[adjs[temp][j]]--;</span><br><span class="line">                    <span class="keyword">if</span>(in_degrees[adjs[temp][j]] == <span class="number">1</span>) &#123;</span><br><span class="line">                        q.push(adjs[temp][j]);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            q.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        num -= size;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!isDelete[i]) &#123;</span><br><span class="line">            res.push_back(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以后可以用图的方式去存储这种比较稀疏的图，否则可能会出现超出内存的问题，因此可以采用邻接表的方式，存储与每个顶点相连的顶点即可。</p>
+<p>善用队列！</p>
+<h3 id="313-超级丑数"><a href="#313-超级丑数" class="headerlink" title="313 超级丑数"></a>313 超级丑数</h3><p>编写一段程序来查找第 n 个超级丑数。</p>
+<p>超级丑数是指其所有质因数都是长度为 k 的质数列表 primes 中的正整数。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: n = 12, primes = [2,7,13,19]</span><br><span class="line">输出: 32 </span><br><span class="line">解释: 给定长度为 4 的质数列表 primes = [2,7,13,19]，前 12 个超级丑数序列为：[1,2,4,7,8,13,14,16,19,26,28,32]</span><br></pre></td></tr></table></figure>
+<p>思路：这个问题我想了好久才想明白，但想通之后又挺简单的。</p>
+<ul>
+<li><p>为每个素数列表构建一个<code>id</code>数组</p>
+</li>
+<li><p>遍历素数列表，列表中第i个素数可以构造的下一个最小的新丑数为<code>primes[i] * res[id[i]]</code></p>
+</li>
+<li>选取所有下一个最小的新丑数中的最小值作为真正的新丑数(注意，最小值有可能有重复，直接更新重复最小值的素数的<code>id</code>即可)</li>
+<li>更新取得最小值的素数的<code>id</code></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">nthSuperUglyNumber</span><span class="params">(<span class="keyword">int</span> n, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; primes)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> size = primes.size();</span><br><span class="line">    <span class="keyword">int</span> id[size] = &#123;<span class="number">0</span>&#125;, res[n];</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    res[i++] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; n) &#123;</span><br><span class="line">        <span class="keyword">int</span> minNum = INT_MAX;</span><br><span class="line">        <span class="keyword">int</span> pos = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; size; j++) &#123;</span><br><span class="line">            <span class="keyword">int</span> tmin = primes[j] * res[id[j]];</span><br><span class="line">            <span class="keyword">if</span>(tmin &lt; minNum) &#123;</span><br><span class="line">                minNum = tmin;</span><br><span class="line">                pos = j;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(tmin == minNum) &#123;</span><br><span class="line">                id[j]++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        id[pos]++;</span><br><span class="line">        res[i++] = minNum;</span><br><span class="line">        <span class="comment">// cout &lt;&lt; "minNum = " &lt;&lt; minNum &lt;&lt; endl;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res[n - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="318-最大单词长度乘积"><a href="#318-最大单词长度乘积" class="headerlink" title="318 最大单词长度乘积"></a>318 最大单词长度乘积</h3><p>给定一个字符串数组 words，找到 length(word[i]) * length(word[j]) 的最大值，并且这两个单词不含有公共字母。你可以认为每个单词只包含小写字母。如果不存在这样的两个单词，返回 0。</p>
+<p>示例 :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">输入: [&quot;abcw&quot;,&quot;baz&quot;,&quot;foo&quot;,&quot;bar&quot;,&quot;xtfn&quot;,&quot;abcdef&quot;]</span><br><span class="line">输出: 16 </span><br><span class="line">解释: 这两个单词为 &quot;abcw&quot;, &quot;xtfn&quot;。</span><br><span class="line"></span><br><span class="line">输入: [&quot;a&quot;,&quot;ab&quot;,&quot;abc&quot;,&quot;d&quot;,&quot;cd&quot;,&quot;bcd&quot;,&quot;abcd&quot;]</span><br><span class="line">输出: 4 </span><br><span class="line">解释: 这两个单词为 &quot;ab&quot;, &quot;cd&quot;。</span><br><span class="line"></span><br><span class="line">输入: [&quot;a&quot;,&quot;aa&quot;,&quot;aaa&quot;,&quot;aaaa&quot;]</span><br><span class="line">输出: 0 </span><br><span class="line">解释: 不存在这样的两个单词。</span><br></pre></td></tr></table></figure>
+<p>思路：</p>
+<p>主要是对二进制的使用。</p>
+<p>因为字符串全部都由小写字母组成，因此可以用26个bit来表示每个字母是否出现在此字符串当中。然后两个字符串是否有交集，即这两个比特串按位与是否等于0。（实际上是用32bit去表示的，因为方便）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">str2int</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> c : s)</span><br><span class="line">        res |= <span class="number">1</span> &lt;&lt; (c - <span class="string">'a'</span>);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProduct</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; words)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> N = words.size();</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; m(N, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">        m[i] = str2int(words[i]);</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; ++j) &#123;</span><br><span class="line">            <span class="keyword">if</span> ((m[i] &amp; m[j]) == <span class="number">0</span> &amp;&amp; words[i].size() * words[j].size() &gt; res)</span><br><span class="line">                res = words[i].size() * words[j].size();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="319-灯泡开关"><a href="#319-灯泡开关" class="headerlink" title="319 灯泡开关"></a>319 灯泡开关</h3><p>初始时有 n 个灯泡关闭。 第 1 轮，你打开所有的灯泡。 第 2 轮，每两个灯泡你关闭一次。 第 3 轮，每三个灯泡切换一次开关（如果关闭则开启，如果开启则关闭）。第 i 轮，每 i 个灯泡切换一次开关。 对于第 n 轮，你只切换最后一个灯泡的开关。 找出 n 轮后有多少个亮着的灯泡。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">输入: 3</span><br><span class="line">输出: 1 </span><br><span class="line">解释: </span><br><span class="line">初始时, 灯泡状态 [关闭, 关闭, 关闭].</span><br><span class="line">第一轮后, 灯泡状态 [开启, 开启, 开启].</span><br><span class="line">第二轮后, 灯泡状态 [开启, 关闭, 开启].</span><br><span class="line">第三轮后, 灯泡状态 [开启, 关闭, 关闭]. </span><br><span class="line"></span><br><span class="line">你应该返回 1，因为只有一个灯泡还亮着。</span><br></pre></td></tr></table></figure>
+<p>我没想到这个题这么简单。</p>
+<p>其实就是求一下n个数里面有多少个平方数。</p>
+<p>因为：如果不是平方数的话，他的两个对应的两个乘积是对称的，因此比自己小的因子一定是偶数个。</p>
+<p>所以答案直接开方然后强制类型转换返回即可。</p>
+<h3 id="线段树知识补充"><a href="#线段树知识补充" class="headerlink" title="线段树知识补充"></a>线段树知识补充</h3>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/31/挑战程序设计竞赛-day14/" rel="prev" title="挑战程序设计竞赛-day14">
+      <i class="fa fa-chevron-left"></i> 挑战程序设计竞赛-day14
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/02/LeetCode-Day45/" rel="next" title="LeetCode-Day45">
+      LeetCode-Day45 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#306-累加数"><span class="nav-number">1.</span> <span class="nav-text">306 累加数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#310-最小高度树"><span class="nav-number">2.</span> <span class="nav-text">310 最小高度树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#313-超级丑数"><span class="nav-number">3.</span> <span class="nav-text">313 超级丑数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#318-最大单词长度乘积"><span class="nav-number">4.</span> <span class="nav-text">318 最大单词长度乘积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#319-灯泡开关"><span class="nav-number">5.</span> <span class="nav-text">319 灯泡开关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线段树知识补充"><span class="nav-number">6.</span> <span class="nav-text">线段树知识补充</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Woojoo"
+      src="/images/logo.gif">
+  <p class="site-author-name" itemprop="name">Woojoo</p>
+  <div class="site-description" itemprop="description">a study blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">149</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Woojoo</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'aKRj8pzPJm0LdONJb0Ci0U5L-gzGzoHsz',
+    appKey: 'vA8nbcq2HgWrqovGq6LwXRG1',
+    placeholder: "Just go go",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

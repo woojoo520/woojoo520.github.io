@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/22/AutoEncoder/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/25/机器学习概述/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/11/22/AutoEncoder/" class="post-title-link" itemprop="url">AutoEncoder</a>
+            <a href="/2019/11/25/机器学习概述/" class="post-title-link" itemprop="url">机器学习概述</a>
         </h1>
 
         <div class="post-meta">
@@ -210,10 +210,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-11-22 14:25:00 / 修改时间：14:36:17" itemprop="dateCreated datePublished" datetime="2019-11-22T14:25:00+08:00">2019-11-22</time>
+              <time title="创建时间：2019-11-25 20:52:32" itemprop="dateCreated datePublished" datetime="2019-11-25T20:52:32+08:00">2019-11-25</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-26 10:49:00" itemprop="dateModified" datetime="2019-11-26T10:49:00+08:00">2019-11-26</time>
+              </span>
 
           
   
@@ -224,8 +230,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/11/22/AutoEncoder/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/22/AutoEncoder/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/11/25/机器学习概述/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/25/机器学习概述/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,22 +246,168 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="autoencoder"><a class="markdownIt-Anchor" href="#autoencoder"></a> AutoEncoder</h2>
-<h3 id="压缩与解压"><a class="markdownIt-Anchor" href="#压缩与解压"></a> 压缩与解压</h3>
-<p>有一个神经网络，他在做的事情是：接受一张图片，然后给他打码，最后再从打码的图片中还原。</p>
-<p><img src="https://pic3.zhimg.com/v2-7370f2fd8e6dabe4b24b71118ebf3b52_b.png" alt="img"></p>
-<p>假设刚刚的神经网络是这样，对应上刚刚的图片，可以看出，图片实际上是经过了压缩，再解压的这一道工序，原有的图片质量被缩减，解压时用信息量小却包含了所有关键信息的文件恢复出原本的图片。</p>
-<p>为什么要这样做呢？</p>
-<p><img src="https://pic2.zhimg.com/v2-948d5ede26f9e6c0e484640b92c1dcad_b.png" alt="img"></p>
-<p>有的时候神经网路偶要接受大量的输入信息，比如输入信息是高清图片时。输入信息可能达到上千万，让神经网络直接从上千万个信息源中学习是一件很吃力的事情，所以，何不压缩一下，提取出原图片中的最具代表性的信息，缩减信息量，再把缩减过后的信息放进神经网络学习，这样学习起来就简单轻松很多了，所以，自编码就能在这时发挥作用。</p>
-<p>通过将元数据白色的X压缩，解压成黑色的X，然后通过对比黑白，求出预测误差，进行反向传递，逐步提升自编码的准确性，训练好的自编码中间这一部分就是元数据的精髓，可以看出，从头到尾，我们只用到了输入数据X，并没有用到X对应的数据标签，所以也可以说自编码是一种非监督学习</p>
-<p>到了真正使用自编码的时候，通常只会用到自编码的前半部分。</p>
-<h3 id="编码器encoder"><a class="markdownIt-Anchor" href="#编码器encoder"></a> 编码器Encoder</h3>
-<p><img src="https://pic2.zhimg.com/v2-948d5ede26f9e6c0e484640b92c1dcad_b.png" alt="img"></p>
-<p>编码器得到原数据的精髓，然后我们只需要再创建一个小的神经网络学习这个精髓的数据，不仅减少了神经网络的负担，而且同样能达到很好的效果</p>
-<p><img src="https://pic1.zhimg.com/v2-9032ff2d01cdb7310245c7f397289550_b.png" alt="img"></p>
-<p>这是通过一个自编码整理出来的数据，他能从原数据中总结出每种类型数据的特征，如果把这些特征全部放在一张二维的图片上，每种类型都已经被很好的用原数据的精髓区分开来。</p>
-<p>PCA主成分分析，在提取主要特征时，自编码和PCA一样，甚至超越了PCA。换句话说自编码可以像PCA一样给特征属性降维。</p>
+          <h2 id="机器学习概述"><a href="#机器学习概述" class="headerlink" title="机器学习概述"></a>机器学习概述</h2><p>写这几篇的原因，是因为该复习了……</p>
+<p>没错，不然就落下太多了…每次课上一提问就满脑子空白</p>
+<h3 id="1-机器学习"><a href="#1-机器学习" class="headerlink" title="1. 机器学习"></a>1. 机器学习</h3><p>机器学习的种类：</p>
+<p>根据处理的数据种类不同，可以分为监督学习、无监督学习和强化学习</p>
+<h4 id="1-1-机器学习的概念和种类"><a href="#1-1-机器学习的概念和种类" class="headerlink" title="1.1 机器学习的概念和种类"></a>1.1 机器学习的概念和种类</h4><h5 id="监督学习"><a href="#监督学习" class="headerlink" title="监督学习"></a>监督学习</h5><p>指计算机算法从监督者（周围的环境）获取知识、信息，并有监督者提供对错指示、告知最终答案的学习过程（训练集、测试集）</p>
+<p>泛华能力：根据在学习过程中所获得的经验、技能，对没有学习过的问题也能做出正确解答，使计算机获得某种泛华能力是监督学习的最终目标</p>
+<p>应用：预测数值型数据的回归、预测分类标签的分类等</p>
+<h5 id="无监督学习"><a href="#无监督学习" class="headerlink" title="无监督学习"></a>无监督学习</h5><p>指计算机在没有监督者的情况下，自学获取知识、信息</p>
+<p>无监督学习的应用：不仅仅局限于解决像监督学习那样的有明确答案的问题，因而学习目标不必十分明确</p>
+<p>在人造卫星故障诊断，视频分析、社交网站分析和声音信号分析等方面应用十分广泛</p>
+<h5 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h5><p>是指在没有监督者提示的情况下，计算机算法对自己预测的结果进行评价的方法</p>
+<p>与监督学习的关系：</p>
+<p>与监督学习类似，也是使计算机获得对没有学习过的问题作出正确加大的泛化能力为目标，但是在学习过程中，不设置老师提示对错，告知最终答案的环节，然而，如果真的在学习过程中不能从周围环境中获得任何信息的话，强化学习就变成无监督学习了</p>
+<h4 id="1-2-机器学习的例子"><a href="#1-2-机器学习的例子" class="headerlink" title="1.2 机器学习的例子"></a>1.2 机器学习的例子</h4><h5 id="回归"><a href="#回归" class="headerlink" title="回归"></a>回归</h5><p>是对一个或多的自变量和因变量之间的关系进行建模、求解的一种统计方法；即把实函数在样本点附近加以近似的有监督的函数近似方法</p>
+<p>以d为实向量x作为输入，实数y作为输出的函数y=f(x)的学习问题</p>
+<p>在监督学习力，这里的真实函数关系f是未知的，作为训练集的输入输出样本$\{(x_i, y_i)\}^n_{i=1}$是已知的</p>
+<p><img src="/2019/11/25/机器学习概述/Users\12751\AppData\Roaming\Typora\typora-user-images\1574687336324.png" alt="1574687336324"></p>
+<h5 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h5><p>指对于指定的模式进行识别的有监督的模型识别问题</p>
+<p>以d次方的实数向量x作为输入样本，而所有的输入样本，可以被划分为c个类别的问题来进行说明。作为训练集的输入输出样本$\{(xi,<br>yi)\}^n_{i=1}$是已知的。但是分类问题中的输出样本$y_i$并不是具体的实数，而是分别代表类别1, 2, …, c</p>
+<p><img src="/2019/11/25/机器学习概述/Users\12751\AppData\Roaming\Typora\typora-user-images\1574687716951.png" alt="1574687716951"></p>
+<h5 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h5><p>与分类问题相同，也是模式识别的问题，但是属于无监督学习的一种</p>
+<p>即只给出输入样本$\{x_i\}^n_{i=1}$，然后判断各个样本分别属于1, 2, …, c中的哪个簇。隶属于相同簇的样本之间具有相似的性质，不同簇的样本之间具有不同的性质。在聚类问题中，如何准确的计算样本之间的相似度是很重要的课题</p>
+<p><img src="/2019/11/25/机器学习概述/Users\12751\AppData\Roaming\Typora\typora-user-images\1574687725551.png" alt="1574687725551"></p>
+<h5 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h5><p>指从高纬度数据中提取关键信息，将其转换为易于计算的低纬度问题进而求解的方法</p>
+<p>当输入样本$\{x_i\}^n_{i=1}$的维数d非常大的时候，可以把样本转换为较低维度的样本$\{x_i\}^n_{i=1}$降维，根据数据种类的不同，可以分为监督学习和无监督学习两种</p>
+<p><img src="/2019/11/25/机器学习概述/Users\12751\AppData\Roaming\Typora\typora-user-images\1574687881922.png" alt="1574687881922"></p>
+<h5 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h5><p>是指寻找输入样本$\{x_i\}^n_{i=1}$中所包含的异常数据的问题</p>
+<p>在已知正常数据与异常数据的例子的情况下，其与有监督的分类问题是相同的。但是一般情况下，在异常检测任务重，对于什么样的数据是正常的，在事先是位置的。在这样的无监督的异常检测问题中，一般采用密度估计的方法。把靠近密度中心的数据作为正常的数据，把偏离密度中心的数据作为异常的数据</p>
+<h4 id="1-3-机器学习的方法"><a href="#1-3-机器学习的方法" class="headerlink" title="1.3 机器学习的方法"></a>1.3 机器学习的方法</h4><p>不同的流派：</p>
+<p>产生式分类、判别式分类、频率派、贝叶斯派</p>
+<h5 id="1-3-1-生成的分类和识别的分类"><a href="#1-3-1-生成的分类和识别的分类" class="headerlink" title="1.3.1 生成的分类和识别的分类"></a>1.3.1 生成的分类和识别的分类</h5><h6 id="判别式的分类"><a href="#判别式的分类" class="headerlink" title="判别式的分类"></a>判别式的分类</h6><p>在已知模式x的时候，如果能求得使分类类别y的条件概率$p(y|x)$达到最大值的类别y的话，就可以进行模式识别了</p>
+<p>$\hat{y}=\underset{y}{\operatorname{argmax}} p(y | x)$</p>
+<p>“argmax”是取得最大值时的参数的意思。所以$\underset{y}\max p(y | x)$是指当y取特定值时$p(y|x)$的最大值，而$\hat{y}=\underset{y}{\operatorname{argmax}} p(y | x)$是指当$p(y|x)$取最大值时对应的y的值。在模式识别里，条件概率$p(y | x)$通常也称为后验概率</p>
+<h6 id="生成式的分类"><a href="#生成式的分类" class="headerlink" title="生成式的分类"></a>生成式的分类</h6><p>在模式识别里，联合概率$p(x, y)$也称为数据生成概率，通过预测数据生成概率$p(x, y)$来进行模式识别的分类方法，称为生成的分类</p>
+<p>$p(y | \boldsymbol{x})=\frac{p(\boldsymbol{x}, y)}{p(\boldsymbol{x})} \propto p(\boldsymbol{x}, y)$</p>
+<p>通过上式，我们可以发现模式$x$和类别$y$的联合概率$p(x, y)$与后验概率$p(y|x)$是成比例的。正因为有这样的关系，我们可以通过使联合概率$p(x, y)$达到最大值的方法，来得到使后验概率$p(y|x)$达到最大值的类别$\hat y$</p>
+<p><img src="/2019/11/25/机器学习概述/Users\12751\AppData\Roaming\Typora\typora-user-images\1574688708591.png" alt="1574688708591"></p>
+<h6 id="判别式VS生成式"><a href="#判别式VS生成式" class="headerlink" title="判别式VS生成式"></a>判别式VS生成式</h6><p>在实际问题中，信息往往是有限的。在解决一个感兴趣的问题中，<strong>不要把解决一个更一般的问题作为一个中间步骤</strong>。要试图得到所需要的答案，而不是更一般的答案。很可能你拥有足够的信息来很好的解决一个感兴趣的特定问题，但却没有足够的信息来解决一个一般性的问题</p>
+<p>$p(y | \boldsymbol{x})=\frac{p(\boldsymbol{x}, y)}{p(\boldsymbol{x})}=\frac{p(\boldsymbol{x}, y)}{\sum_{y} p(\boldsymbol{x}, y)}$</p>
+<p>即使，手头的信息量不足以解决一般性问题，但对于解决特定问题，很可能信息是足够的</p>
+<p>如果数据生成概率$p(x, y)$是一致的，那么，从上面的式子，就可以推出后验概率$p(y|x)$。然而，如果后验概率已知，却不能由此推导出数据生成概率$P(x, y)$</p>
+<h5 id="1-3-2-统计概率与朴素贝叶斯"><a href="#1-3-2-统计概率与朴素贝叶斯" class="headerlink" title="1.3.2 统计概率与朴素贝叶斯"></a>1.3.2 统计概率与朴素贝叶斯</h5><h6 id="统计概率方案"><a href="#统计概率方案" class="headerlink" title="统计概率方案"></a>统计概率方案</h6><p>在包含参数$\theta$的模型$(x, y)$为例，将模式$\theta$作为决定论的变量，使用手头的训练样本$D=\{x_i, y_i\}^n_{i=1}$对模式$\theta$进行学习。开入没在最大似然估计算法中，一般对生成训练集D的最容易的方法所对应的模式$\theta$进行学习</p>
+<p>$\max _{\boldsymbol{\theta}} \prod_{i=1}^{y} q\left(\boldsymbol{x}_{i}, y_{i} ; \boldsymbol{\theta}\right)$</p>
+<p>在统计概率方法中，如何由训练集D得到高精度的模式$\theta$是主要的研究课题</p>
+<h6 id="朴素贝叶斯方法"><a href="#朴素贝叶斯方法" class="headerlink" title="朴素贝叶斯方法"></a>朴素贝叶斯方法</h6><p>以包含参数$\theta$的模型$q(x, y)$为例，将模式$\theta$作为概率变量，对其先验概率$p(\theta)$加以考虑，计算与训练集D相对应的后验概率$p(\theta|D)$。通过运用贝叶斯定理，就可以使用先验概率$p(\theta)$来求解后验概率$p(\theta|D)$</p>
+<p>$p(\boldsymbol{\theta} | \mathcal{D})=\frac{p(\mathcal{D} | \boldsymbol{\theta}) p(\boldsymbol{\theta})}{p(\mathcal{D})}=\frac{\prod_{i=1}^{n} q\left(\boldsymbol{x}_{i}, y_{i} | \boldsymbol{\theta}\right) p(\boldsymbol{\theta})}{\int \prod_{i=1}^{n} q\left(\boldsymbol{x}_{i}, y_{i} | \boldsymbol{\theta}\right) p(\boldsymbol{\theta}) \mathrm{d} \boldsymbol{\theta}}$</p>
+<p>在朴素贝叶斯算法中，如何精确的计算后验概率是一个主要的研究课题</p>
+<h3 id="2-学习模型——如何使特定函数与数据集相近似"><a href="#2-学习模型——如何使特定函数与数据集相近似" class="headerlink" title="2. 学习模型——如何使特定函数与数据集相近似"></a>2. 学习模型——如何使特定函数与数据集相近似</h3><p>主要学习模型：</p>
+<p>线性模型——线性回归模型</p>
+<p>核模型——高斯核函数</p>
+<p>层次模型——逻辑回归</p>
+<h4 id="2-1-线性模型"><a href="#2-1-线性模型" class="headerlink" title="2.1 线性模型"></a>2.1 线性模型</h4><p>$f_\theta(x)= \underset{j=1} \sum\theta_j\phi_j(x)=\theta^T\phi(x)$</p>
+<p>在上式中，$\phi_j(x)$是基函数向量$\phi(x)=(\phi_1(x), …, \phi_b(x))^T$的第$j$个因子，$\theta_j$是参数向量$\theta=(\theta_1, …, \theta_b)^T$的第$j$个因子。另外，b是基函数的个数，T表示转置，我们可以看到，虽然上式依然是基于参数向量$\theta$的线性形式，但是，如果把基函数变为多项式的形式</p>
+<p>$\phi(x)=\left(1, x, x^{2}, \cdots, x^{b-1}\right)^{\top}$</p>
+<p>或者变成$b=2m+1$的三角多项式形式：</p>
+<p>$\phi(x)=(1, \sin x, \cos x, \sin 2 x, \cos 2 x, \cdots, \sin m x, \cos m x)^{\top}$</p>
+<p>上述的线性模型就可以表示复杂的非线性模型了</p>
+<p>在上述模型中，一维的输入x还可以扩展为d维的向量形式</p>
+<p>$\boldsymbol{x}=\left(x^{(1)}, \cdots, x^{(d)}\right)^{\top}$</p>
+<p><strong>乘法模型</strong>：把一维的基函数作为因子，通过使其<strong>相乘</strong>而获得多维基函数的方法</p>
+<p>$f_{\boldsymbol{\theta}}(\boldsymbol{x})=\sum_{j_{1}=1}^{b^{\prime}} \cdots \sum_{j_{d}=1}^{b^{\prime}} \theta_{j_{1}, \cdots, j_{d}} \phi_{j_{1}}\left(x^{(1)}\right) \cdots \phi_{j_{d}}\left(x^{(d)}\right)$</p>
+<p><strong>加法模型</strong>：把一维的基函数作为因子，通过使其<strong>相加</strong>而获得多维基函数的方法</p>
+<p>$f_{\theta}(x)=\sum_{k=1}^{d} \sum_{j=1}^{b^{\prime}} \theta_{k, j} \phi_{j}\left(x^{(k)}\right)$</p>
+<p>乘法模型 VS 加法模型</p>
+<p><img src="/2019/11/25/机器学习概述/Users\12751\AppData\Roaming\Typora\typora-user-images\1574694623618.png" alt="1574694623618"></p>
+<p>乘法模型的<strong>表现力丰富</strong>，但是<strong>参数的个数会随着输入维数d呈指数增长</strong>。另一方面，虽然加法模型的参数个数是随着输入维数d呈线性增长，但其表现力又相对较弱</p>
+<h5 id="线性模型——回归模型"><a href="#线性模型——回归模型" class="headerlink" title="线性模型——回归模型"></a>线性模型——回归模型</h5><p>回归：属于监督学习中的一种方法。该方法的核心思想是从连续型统计数据中得到数学模型，然后将该数学模型用于预测或者分类</p>
+<p>回归方法能够解决特征多维，结果是一维多离散值或一维连续值的问题</p>
+<h6 id="学习过程"><a href="#学习过程" class="headerlink" title="学习过程"></a>学习过程</h6><p>首先给出一个输入数据，算法通过一系列的过程得到一个估计的函数，这个函数有能力对没有见过的新数据给出一个新的估计，也被称为构建一个模型</p>
+<p><img src="/2019/11/25/机器学习概述/Users\12751\AppData\Roaming\Typora\typora-user-images\1574732837157.png" alt="1574732837157"></p>
+<h6 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h6><p>线性回归是利用称为<strong>线性回归方程</strong>的最小平方函数对一个或多个自变量和因变量之间关系进行建模的一种回归分析</p>
+<p>线性回归属于<strong>监督学习</strong>，因此方法和监督学习是一样的，先给定一个训练集，根据这个训练集学习出一个<strong>线性函数</strong>，然后测试这个函数训练的好不好（即此函数是否足够拟合训练集数据），挑选出最好的函数即可</p>
+<h6 id="如何评判函数拟合的好不好？"><a href="#如何评判函数拟合的好不好？" class="headerlink" title="如何评判函数拟合的好不好？"></a>如何评判函数拟合的好不好？</h6><p><strong>代价函数</strong>：对假设的函数进行评价，cost function越小的函数，说明拟合训练数据拟合的越好</p>
+<h6 id="代价函数与参数的关系"><a href="#代价函数与参数的关系" class="headerlink" title="代价函数与参数的关系"></a>代价函数与参数的关系</h6><p>$J\left(\theta_{0}, \theta_{1}\right)=\frac{1}{2 m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right)^{2}$</p>
+<p><img src="/2019/11/25/机器学习概述/Users\12751\AppData\Roaming\Typora\typora-user-images\1574733110185.png" alt="1574733110185"></p>
+<p>注意：如果是线性回归，则$cost function J$与$\theta$与$\theta_1$的函数一定是碗状的，即只有一个最小点</p>
+<p>一般情况：</p>
+<p> $x^{(i)} \in R^n$         $h_{\theta}(x)=\theta_{0}+\theta_{0} x_{1}+\cdots \theta_{\mathrm{n}} x_{n}=\boldsymbol{\theta} X$</p>
+<p>$\begin{array}{l}{J(\theta)=\frac{1}{2} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right)^{2}} \\ {\min _{\theta} J_{\theta}}\end{array}$</p>
+<p>最小二乘损失函数</p>
+<h6 id="求解方法"><a href="#求解方法" class="headerlink" title="求解方法"></a>求解方法</h6><ul>
+<li><p>最小二乘法：$\theta=\left(X^{T} X\right)^{-1} X^{T} \vec{y}$</p>
+<p>是一个直接的数学求解公式，不过它要求X是列满秩的</p>
+</li>
+<li><p>梯度下降法</p>
+<ul>
+<li><p>先确定向下一步的步伐大小，我们称为learning rate</p>
+</li>
+<li><p>任意给定一个初始值：$\theta_0, \theta_1$</p>
+</li>
+<li>确定一个向下的方向，并向下走预先规定的步伐，并更新$\theta_0, \theta_1$</li>
+<li>当下降的高度小于某个定义的值，则停止下降</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2019/11/25/机器学习概述/Users\12751\AppData\Roaming\Typora\typora-user-images\1574733439432.png" alt="1574733439432"></p>
+<h6 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h6><ul>
+<li>初始点不同，获得的最小值可能也不同，因此梯度下降求得的只是局部最小值</li>
+<li>越接近最小值时，下降速度越慢</li>
+</ul>
+<h6 id="如何取-alpha-值？"><a href="#如何取-alpha-值？" class="headerlink" title="如何取$\alpha$值？"></a>如何取$\alpha$值？</h6><p>随时观察$\alpha$值，如果cost function变小了，则OK，反之，再取一个更小的值</p>
+<p>注意：下降的步伐代销非常重要，因为如果太小，则得到函数最小值的速度就很慢，如果太大，则可能会出现overshoot the minimum的现象</p>
+<p><img src="/2019/11/25/机器学习概述/Users\12751\AppData\Roaming\Typora\typora-user-images\1574733668371.png" alt="1574733668371"></p>
+<p>如果Learning rate取值后，发现J function增长了，则需要减小Learning rate的值</p>
+<h4 id="2-2-核模型"><a href="#2-2-核模型" class="headerlink" title="2.2 核模型"></a>2.2 核模型</h4><p>在线性模型中，多项式或者三角多项式等基函数与训练样本$\{(x_1, y_i)\}^n_{j=1}$是毫不相关的。而核模型在进行基函数的设计时就要用到输入样本$\{x_i\}^n_{j=1}$</p>
+<p>核模型：以使用被称为核函数的二元函数$K(, …)$，以$\boldsymbol{K}(\boldsymbol{x}, \boldsymbol{x})^{\mathrm{n}}_{j=1}$的线性结合方式加以定义</p>
+<p>$f_{\theta}(x)=\underset{j=1}\sum(\theta_jK(x, x_j))$</p>
+<p>在众多的核函数中，以高斯核函数的使用，最为广泛</p>
+<p>$K(x, c) = exp(- \frac{||x-c||^2} {2h^2})$</p>
+<p><img src="/2019/11/25/机器学习概述/Users\12751\AppData\Roaming\Typora\typora-user-images\1574734055109.png" alt="1574734055109"></p>
+<p>$||x||$表示2范数，即$||x||=\sqrt {x^Tx}$。h和c分别对应于高斯核函数的带宽与均值</p>
+<p><img src="/2019/11/25/机器学习概述/Users\12751\AppData\Roaming\Typora\typora-user-images\1574734188553.png" alt="1574734188553"></p>
+<p>只在训练集的输入样本附近对函数进行近似，可以减轻维数灾难的影响：</p>
+<p><img src="/2019/11/25/机器学习概述/Users\12751\AppData\Roaming\Typora\typora-user-images\1574734267528.png" alt="1574734267528"></p>
+<h4 id="2-3-层次模型"><a href="#2-3-层次模型" class="headerlink" title="2.3 层次模型"></a>2.3 层次模型</h4><p>与参数相关的非线性模型，称之为非线性模型</p>
+<p>层次模型是常用的非线性模型，在神经网络中应用广泛</p>
+<p>（逻辑回归也是一种层次模型）</p>
+<h5 id="逻辑回归（Logistic-Regression）"><a href="#逻辑回归（Logistic-Regression）" class="headerlink" title="逻辑回归（Logistic Regression）"></a>逻辑回归（Logistic Regression）</h5><p><strong>sigmoid函数</strong>，又称<strong>逻辑回归函数</strong>。但是它本质上又是一个线性回归模型，因为除去sigmoid映射函数关系，其他的步骤、算法都是线性回归的，但是sigmoid可以轻松处理0/1分类问题</p>
+<h6 id="Logistic函数"><a href="#Logistic函数" class="headerlink" title="Logistic函数"></a>Logistic函数</h6><p>如果我们忽略二分类问题中y的取值是一个离散的取值（0或1），我们继续使用线性回归来预测y的取值。这样做会导致y的取值并不为0或1。逻辑回归使用一个函数来归一 化y值，使y的取值在区间(0,1)内，这个函数称为Logistic函数(logistic function)，也称为Sigmoid函数(sigmoid function)。函数公式如下：</p>
+<p>$g(z)=\frac {1} {1+e^{-z}}$</p>
+<p><img src="/2019/11/25/机器学习概述/Users\12751\AppData\Roaming\Typora\typora-user-images\1574734548274.png" alt="1574734548274"></p>
+<h6 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h6><p>$g’(z) = g(z)(1-g(z))$</p>
+<h5 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h5><p><img src="/2019/11/25/机器学习概述/Users\12751\AppData\Roaming\Typora\typora-user-images\1574734653196.png" alt="1574734653196"></p>
+<h6 id="线性决策边界"><a href="#线性决策边界" class="headerlink" title="线性决策边界"></a>线性决策边界</h6><p>对于线性决策边界的情况，边界形式如下:</p>
+<p>$\theta_0+\theta_1x_1+,…+\theta_{n} x_{n}=  \sum_{i=1}^n\theta_ix_i=\theta^Tx$</p>
+<p>构造预测函数为：$h_\theta(x)=g(\theta^Tx)=\frac{1} {1+e^{-\theta^T}}$</p>
+<p>函数$h_\theta(x)$的值有着特殊的含义，它表示结果取1个概率，因此对于输入x分类结果为类别1的概率和类别为0的概率分别为</p>
+<p>$P(y=1|x;\theta)=h_\theta(x)$</p>
+<p>$P(y=0|x;\theta)=1-h_\theta(x)$</p>
+<p><strong>构造损失函数</strong></p>
+<p>它们是基于最大似然估计推导得到的：</p>
+<p><img src="/2019/11/25/机器学习概述/Users\12751\AppData\Roaming\Typora\typora-user-images\1574735271784.png" alt="1574735271784"></p>
+<p><img src="/2019/11/25/机器学习概述/Users\12751\AppData\Roaming\Typora\typora-user-images\1574735278632.png" alt="1574735278632"></p>
+<h5 id="正则化-Regularization"><a href="#正则化-Regularization" class="headerlink" title="正则化(Regularization)"></a>正则化(Regularization)</h5><h6 id="过拟合问题"><a href="#过拟合问题" class="headerlink" title="过拟合问题"></a>过拟合问题</h6><p>对于线性回归或逻辑回归的损失函数构成的模型，可能会有些权重很大，有些权重很小，导致过拟合（就是过分拟合了训练数据），使得模型的复杂度提高，泛 化能力较差（对未知数据的预测能力）。</p>
+<p><img src="/2019/11/25/机器学习概述/Users\12751\AppData\Roaming\Typora\typora-user-images\1574735342490.png" alt="1574735342490"></p>
+<p>问题的主因：过拟合问题往往源自过多的特征</p>
+<p>解决方法：</p>
+<ul>
+<li><p>减少特征数量（减少特征会失去一些信息，即使特征选的很好）</p>
+</li>
+<li><p>可用人工选择要保留的数据</p>
+</li>
+<li>模型选择算法<ul>
+<li>正则化（特征较多时比较有用）</li>
+<li>保留所有特征，但减少$\theta$的大小</li>
+</ul>
+</li>
+</ul>
+<h6 id="正则化方法"><a href="#正则化方法" class="headerlink" title="正则化方法"></a>正则化方法</h6><p>正则化是结构风险最小化策略的实现，是在经验风险上增加一个正则化项或惩罚项。正则化项一般是模型复杂度的单调递增函数，模型越复杂，正则化项就越大</p>
+<p>例如，在房价预测问题上，多项式回归：</p>
+<p><img src="/2019/11/25/机器学习概述/Users\12751\AppData\Roaming\Typora\typora-user-images\1574735634696.png" alt="1574735634696"></p>
+<p>直观上来看，如果我们想解决这个例子中的过拟合问题，最好能将$x^3$和$x^4$的影响消除，也就是让$\theta_3 \approx 0, \theta_4 \approx 0$，假设我们对$\theta_3, \theta_4$进行惩罚，并且令其很小，一个简单的办法就是给原有的Cost函数加上两个略大的惩罚项</p>
+<p>$\underset{\theta} min \frac{1}{2m} \sum_{i=1}^n (h_{\theta}(x_i)-y_i)^2+1000\theta_3^2+1000\theta_4^2$</p>
+<p>这样在最小化cost函数的时候，$\theta_3 \approx 0, \theta_4 \approx 0$</p>
+<p>正则项可以取不同的形式，在回归问题中取平方损失，就是参数的L2范数，也可以取L1范数。取平方损失时，模型的损失函数变为</p>
+<p>$J(\theta) = \frac{1}{2m} \sum_{i=1}^n(h_\theta(x_i)-y_i)^2+\lambda\sum_{j=1}^n\theta_j^2$</p>
+<p>如果$\lambda$是正则项系数：</p>
+<ul>
+<li>如果它的值很大，说明对模型的复杂惩罚大，对拟合数据的损失惩罚小，这样它就不会过拟合数据，在训练数据上的偏差越大，在未知数据上的方差越小，但是可能出现欠拟合的现象</li>
+<li>如果它的值很大，说明比较注重对训练数据的拟合，在训练数据上的偏差小，但是可能会导致过拟合</li>
+</ul>
+<p>有监督回归</p>
 
       
     </div>
@@ -275,7 +427,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/22/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><span class="space">&hellip;</span><a class="page-number" href="/page/144/">144</a><a class="extend next" rel="next" href="/page/24/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/22/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><span class="space">&hellip;</span><a class="page-number" href="/page/149/">149</a><a class="extend next" rel="next" href="/page/24/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -321,7 +473,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

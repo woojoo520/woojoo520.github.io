@@ -47,17 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="起源 为什么今天会些这样一片文章呢… 因为在做程序设计大作业的时候突然发现不知道怎么实现QQ聊天 在之前的C++大作业当中，我实现通信的方法是利用ip地址（当时好像写的是确定的ip地址），但是想到这个软件应该是在不同的地方都能够运行的，所以，用什么来表示用户，然后怎么实现通信呢？ 所以搜索了相应的资料之后得到以下几个问题的回答： 参考：https://blog.csdn.net/li_xiao_">
+  <meta name="description" content="起源为什么今天会些这样一片文章呢… 因为在做程序设计大作业的时候突然发现不知道怎么实现QQ聊天 在之前的C++大作业当中，我实现通信的方法是利用ip地址（当时好像写的是确定的ip地址），但是想到这个软件应该是在不同的地方都能够运行的，所以，用什么来表示用户，然后怎么实现通信呢？ 所以搜索了相应的资料之后得到以下几个问题的回答： 参考：https://blog.csdn.net/li_xiao_mi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="QQ通信原理Fenix">
 <meta property="og:url" content="https://woojoo520.github.io/2019/11/13/QQ通信原理分析/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="起源 为什么今天会些这样一片文章呢… 因为在做程序设计大作业的时候突然发现不知道怎么实现QQ聊天 在之前的C++大作业当中，我实现通信的方法是利用ip地址（当时好像写的是确定的ip地址），但是想到这个软件应该是在不同的地方都能够运行的，所以，用什么来表示用户，然后怎么实现通信呢？ 所以搜索了相应的资料之后得到以下几个问题的回答： 参考：https://blog.csdn.net/li_xiao_">
+<meta property="og:description" content="起源为什么今天会些这样一片文章呢… 因为在做程序设计大作业的时候突然发现不知道怎么实现QQ聊天 在之前的C++大作业当中，我实现通信的方法是利用ip地址（当时好像写的是确定的ip地址），但是想到这个软件应该是在不同的地方都能够运行的，所以，用什么来表示用户，然后怎么实现通信呢？ 所以搜索了相应的资料之后得到以下几个问题的回答： 参考：https://blog.csdn.net/li_xiao_mi">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-11-13T12:08:34.419Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="QQ通信原理Fenix">
-<meta name="twitter:description" content="起源 为什么今天会些这样一片文章呢… 因为在做程序设计大作业的时候突然发现不知道怎么实现QQ聊天 在之前的C++大作业当中，我实现通信的方法是利用ip地址（当时好像写的是确定的ip地址），但是想到这个软件应该是在不同的地方都能够运行的，所以，用什么来表示用户，然后怎么实现通信呢？ 所以搜索了相应的资料之后得到以下几个问题的回答： 参考：https://blog.csdn.net/li_xiao_">
+<meta name="twitter:description" content="起源为什么今天会些这样一片文章呢… 因为在做程序设计大作业的时候突然发现不知道怎么实现QQ聊天 在之前的C++大作业当中，我实现通信的方法是利用ip地址（当时好像写的是确定的ip地址），但是想到这个软件应该是在不同的地方都能够运行的，所以，用什么来表示用户，然后怎么实现通信呢？ 所以搜索了相应的资料之后得到以下几个问题的回答： 参考：https://blog.csdn.net/li_xiao_mi">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/11/13/QQ通信原理分析/">
 
@@ -240,21 +240,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="起源"><a class="markdownIt-Anchor" href="#起源"></a> 起源</h4>
-<p>为什么今天会些这样一片文章呢…</p>
+        <h4 id="起源"><a href="#起源" class="headerlink" title="起源"></a>起源</h4><p>为什么今天会些这样一片文章呢…</p>
 <p>因为在做程序设计大作业的时候突然发现不知道怎么实现QQ聊天</p>
 <p>在之前的C++大作业当中，我实现通信的方法是利用ip地址（当时好像写的是确定的ip地址），但是想到这个软件应该是在不同的地方都能够运行的，所以，用什么来表示用户，然后怎么实现通信呢？</p>
 <p>所以搜索了相应的资料之后得到以下几个问题的回答：</p>
 <p>参考：<a href="https://blog.csdn.net/li_xiao_ming/article/details/8106857" target="_blank" rel="noopener">https://blog.csdn.net/li_xiao_ming/article/details/8106857</a></p>
-<h5 id="1-为什么只要连上互联网的计算机都可以用qq互相建立通信需不需要固定ip"><a class="markdownIt-Anchor" href="#1-为什么只要连上互联网的计算机都可以用qq互相建立通信需不需要固定ip"></a> 1. 为什么只要连上互联网的计算机都可以用QQ互相建立通信，需不需要固定ip？</h5>
-<p>也就是说这个QQ用户端是怎样找到另一个QQ用户的，而用户在每次使用时他可能用的是不同的计算机，有着不同的IP地址。</p>
+<h5 id="1-为什么只要连上互联网的计算机都可以用QQ互相建立通信，需不需要固定ip？"><a href="#1-为什么只要连上互联网的计算机都可以用QQ互相建立通信，需不需要固定ip？" class="headerlink" title="1. 为什么只要连上互联网的计算机都可以用QQ互相建立通信，需不需要固定ip？"></a>1. 为什么只要连上互联网的计算机都可以用QQ互相建立通信，需不需要固定ip？</h5><p>也就是说这个QQ用户端是怎样找到另一个QQ用户的，而用户在每次使用时他可能用的是不同的计算机，有着不同的IP地址。</p>
 <p>服务器端会以QQ账号作为唯一表示，一个账号登录时每次都可以有不同的IP地址，但账号却相同，当账号a登录服务器，服务器会记录下账号a的ip地址，去通知a的好友，告诉他们，a上线了和现在的ip地址，a的好友就可以和他们进行通信了</p>
-<h5 id="2-是不是qq在通信时根本不适用ipqq客户端先是访问qq服务器端然后qq服务器端再为要建立连接的qq客户端建立连接"><a class="markdownIt-Anchor" href="#2-是不是qq在通信时根本不适用ipqq客户端先是访问qq服务器端然后qq服务器端再为要建立连接的qq客户端建立连接"></a> 2. 是不是QQ在通信时根本不适用IP，QQ客户端先是访问QQ服务器端，然后QQ服务器端再为要建立连接的QQ客户端建立连接？</h5>
-<p>只要是网络层的通信，都会涉及到ip/tcp协议，就肯定需要ip，qq客户端登陆qq服务器，服务器只是记录登陆状态，不会一直和qq保持通信，只会每隔一段时间发送心跳数据包，来确实qq客户端是否还在网络上。当qq客户端a上线后，服务器会告诉a，目前a的在线好友的最新ip地址，当a需要与任意好友通信时，直接使用ip地址就ok了。qq客户端a与qq客户端b通信，可以两种方式，第一就是qq服务器有转发的服务器，第二是，a与b直接通信，不会告诉qq服务器</p>
-<h5 id="3-qq客户端可以访问qq服务器端然后服务器端获取qq客户端的ip建立通信是不是这样的过程如果是这个过程是怎么处理的呢"><a class="markdownIt-Anchor" href="#3-qq客户端可以访问qq服务器端然后服务器端获取qq客户端的ip建立通信是不是这样的过程如果是这个过程是怎么处理的呢"></a> 3. QQ客户端可以访问QQ服务器端，然后服务器端获取QQ客户端的IP建立通信，是不是这样的过程…如果是，这个过程是怎么处理的呢？</h5>
-<p>是这样的过程，qq客户端请求一个连接给服务器，服务器接收后，知道qq端a上线，把qq端a的账号跟目前的ip会记录下来，放在在线列表里或者其他的地方，然后每隔几分钟或者几秒钟给qq端a发送心跳包，问他是否还在线，来确保qq端a的最新状态。这里客户端与服务器的通信方式是udp。而不会时时刻刻都在用tcp连接。</p>
-<h5 id="4-qq客户端虽然ip地址不固定但是在建立与qq服务器端的通信时必须提供自己的ip被服务器获取然后才能建立他们之间的通信进而在建立客户端之间的通信-也就是只要能上网就有ip只不过客户端的ip是被qq客户端获取了然后才建立通信的-这是自己的猜测不知对否"><a class="markdownIt-Anchor" href="#4-qq客户端虽然ip地址不固定但是在建立与qq服务器端的通信时必须提供自己的ip被服务器获取然后才能建立他们之间的通信进而在建立客户端之间的通信-也就是只要能上网就有ip只不过客户端的ip是被qq客户端获取了然后才建立通信的-这是自己的猜测不知对否"></a> 4. QQ客户端虽然IP地址不固定，但是在建立与QQ服务器端的通信时，必须提供自己的IP被服务器获取，然后才能建立他们之间的通信，进而在建立客户端之间的通信。也就是，只要能上网就有IP，只不过客户端的IP，是被QQ客户端获取了，然后才建立通信的。（这是自己的猜测，不知对否…）</h5>
-<p>服务器不会以ip作为唯一标识，会以账号作为唯一标识，但与账号通信的时候会用到账号目前所对应的ip，客户端与客户端通信也如此</p>
+<h5 id="2-是不是QQ在通信时根本不适用IP，QQ客户端先是访问QQ服务器端，然后QQ服务器端再为要建立连接的QQ客户端建立连接？"><a href="#2-是不是QQ在通信时根本不适用IP，QQ客户端先是访问QQ服务器端，然后QQ服务器端再为要建立连接的QQ客户端建立连接？" class="headerlink" title="2. 是不是QQ在通信时根本不适用IP，QQ客户端先是访问QQ服务器端，然后QQ服务器端再为要建立连接的QQ客户端建立连接？"></a>2. 是不是QQ在通信时根本不适用IP，QQ客户端先是访问QQ服务器端，然后QQ服务器端再为要建立连接的QQ客户端建立连接？</h5><p>只要是网络层的通信，都会涉及到ip/tcp协议，就肯定需要ip，qq客户端登陆qq服务器，服务器只是记录登陆状态，不会一直和qq保持通信，只会每隔一段时间发送心跳数据包，来确实qq客户端是否还在网络上。当qq客户端a上线后，服务器会告诉a，目前a的在线好友的最新ip地址，当a需要与任意好友通信时，直接使用ip地址就ok了。qq客户端a与qq客户端b通信，可以两种方式，第一就是qq服务器有转发的服务器，第二是，a与b直接通信，不会告诉qq服务器</p>
+<h5 id="3-QQ客户端可以访问QQ服务器端，然后服务器端获取QQ客户端的IP建立通信，是不是这样的过程…如果是，这个过程是怎么处理的呢？"><a href="#3-QQ客户端可以访问QQ服务器端，然后服务器端获取QQ客户端的IP建立通信，是不是这样的过程…如果是，这个过程是怎么处理的呢？" class="headerlink" title="3. QQ客户端可以访问QQ服务器端，然后服务器端获取QQ客户端的IP建立通信，是不是这样的过程…如果是，这个过程是怎么处理的呢？"></a>3. QQ客户端可以访问QQ服务器端，然后服务器端获取QQ客户端的IP建立通信，是不是这样的过程…如果是，这个过程是怎么处理的呢？</h5><p>是这样的过程，qq客户端请求一个连接给服务器，服务器接收后，知道qq端a上线，把qq端a的账号跟目前的ip会记录下来，放在在线列表里或者其他的地方，然后每隔几分钟或者几秒钟给qq端a发送心跳包，问他是否还在线，来确保qq端a的最新状态。这里客户端与服务器的通信方式是udp。而不会时时刻刻都在用tcp连接。</p>
+<h5 id="4-QQ客户端虽然IP地址不固定，但是在建立与QQ服务器端的通信时，必须提供自己的IP被服务器获取，然后才能建立他们之间的通信，进而在建立客户端之间的通信。也就是，只要能上网就有IP，只不过客户端的IP，是被QQ客户端获取了，然后才建立通信的。（这是自己的猜测，不知对否…）"><a href="#4-QQ客户端虽然IP地址不固定，但是在建立与QQ服务器端的通信时，必须提供自己的IP被服务器获取，然后才能建立他们之间的通信，进而在建立客户端之间的通信。也就是，只要能上网就有IP，只不过客户端的IP，是被QQ客户端获取了，然后才建立通信的。（这是自己的猜测，不知对否…）" class="headerlink" title="4. QQ客户端虽然IP地址不固定，但是在建立与QQ服务器端的通信时，必须提供自己的IP被服务器获取，然后才能建立他们之间的通信，进而在建立客户端之间的通信。也就是，只要能上网就有IP，只不过客户端的IP，是被QQ客户端获取了，然后才建立通信的。（这是自己的猜测，不知对否…）"></a>4. QQ客户端虽然IP地址不固定，但是在建立与QQ服务器端的通信时，必须提供自己的IP被服务器获取，然后才能建立他们之间的通信，进而在建立客户端之间的通信。也就是，只要能上网就有IP，只不过客户端的IP，是被QQ客户端获取了，然后才建立通信的。（这是自己的猜测，不知对否…）</h5><p>服务器不会以ip作为唯一标识，会以账号作为唯一标识，但与账号通信的时候会用到账号目前所对应的ip，客户端与客户端通信也如此</p>
 
     </div>
 
@@ -315,7 +310,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#起源"><span class="nav-number">1.</span> <span class="nav-text"> 起源</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-为什么只要连上互联网的计算机都可以用qq互相建立通信需不需要固定ip"><span class="nav-number">1.1.</span> <span class="nav-text"> 1. 为什么只要连上互联网的计算机都可以用QQ互相建立通信，需不需要固定ip？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-是不是qq在通信时根本不适用ipqq客户端先是访问qq服务器端然后qq服务器端再为要建立连接的qq客户端建立连接"><span class="nav-number">1.2.</span> <span class="nav-text"> 2. 是不是QQ在通信时根本不适用IP，QQ客户端先是访问QQ服务器端，然后QQ服务器端再为要建立连接的QQ客户端建立连接？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-qq客户端可以访问qq服务器端然后服务器端获取qq客户端的ip建立通信是不是这样的过程如果是这个过程是怎么处理的呢"><span class="nav-number">1.3.</span> <span class="nav-text"> 3. QQ客户端可以访问QQ服务器端，然后服务器端获取QQ客户端的IP建立通信，是不是这样的过程…如果是，这个过程是怎么处理的呢？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-qq客户端虽然ip地址不固定但是在建立与qq服务器端的通信时必须提供自己的ip被服务器获取然后才能建立他们之间的通信进而在建立客户端之间的通信-也就是只要能上网就有ip只不过客户端的ip是被qq客户端获取了然后才建立通信的-这是自己的猜测不知对否"><span class="nav-number">1.4.</span> <span class="nav-text"> 4. QQ客户端虽然IP地址不固定，但是在建立与QQ服务器端的通信时，必须提供自己的IP被服务器获取，然后才能建立他们之间的通信，进而在建立客户端之间的通信。也就是，只要能上网就有IP，只不过客户端的IP，是被QQ客户端获取了，然后才建立通信的。（这是自己的猜测，不知对否…）</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#起源"><span class="nav-number">1.</span> <span class="nav-text">起源</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-为什么只要连上互联网的计算机都可以用QQ互相建立通信，需不需要固定ip？"><span class="nav-number">1.1.</span> <span class="nav-text">1. 为什么只要连上互联网的计算机都可以用QQ互相建立通信，需不需要固定ip？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-是不是QQ在通信时根本不适用IP，QQ客户端先是访问QQ服务器端，然后QQ服务器端再为要建立连接的QQ客户端建立连接？"><span class="nav-number">1.2.</span> <span class="nav-text">2. 是不是QQ在通信时根本不适用IP，QQ客户端先是访问QQ服务器端，然后QQ服务器端再为要建立连接的QQ客户端建立连接？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-QQ客户端可以访问QQ服务器端，然后服务器端获取QQ客户端的IP建立通信，是不是这样的过程…如果是，这个过程是怎么处理的呢？"><span class="nav-number">1.3.</span> <span class="nav-text">3. QQ客户端可以访问QQ服务器端，然后服务器端获取QQ客户端的IP建立通信，是不是这样的过程…如果是，这个过程是怎么处理的呢？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-QQ客户端虽然IP地址不固定，但是在建立与QQ服务器端的通信时，必须提供自己的IP被服务器获取，然后才能建立他们之间的通信，进而在建立客户端之间的通信。也就是，只要能上网就有IP，只不过客户端的IP，是被QQ客户端获取了，然后才建立通信的。（这是自己的猜测，不知对否…）"><span class="nav-number">1.4.</span> <span class="nav-text">4. QQ客户端虽然IP地址不固定，但是在建立与QQ服务器端的通信时，必须提供自己的IP被服务器获取，然后才能建立他们之间的通信，进而在建立客户端之间的通信。也就是，只要能上网就有IP，只不过客户端的IP，是被QQ客户端获取了，然后才建立通信的。（这是自己的猜测，不知对否…）</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -331,7 +326,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/22/LeetCode-Day38/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/25/cGAN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/09/22/LeetCode-Day38/" class="post-title-link" itemprop="url">LeetCode-Day38</a>
+            <a href="/2019/09/25/cGAN/" class="post-title-link" itemprop="url">cGAN</a>
         </h1>
 
         <div class="post-meta">
@@ -211,14 +211,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-09-22 21:53:02" itemprop="dateCreated datePublished" datetime="2019-09-22T21:53:02+08:00">2019-09-22</time>
+              <time title="创建时间：2019-09-25 21:17:11" itemprop="dateCreated datePublished" datetime="2019-09-25T21:17:11+08:00">2019-09-25</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-09-23 14:24:12" itemprop="dateModified" datetime="2019-09-23T14:24:12+08:00">2019-09-23</time>
+                <time title="修改时间：2019-09-27 07:30:54" itemprop="dateModified" datetime="2019-09-27T07:30:54+08:00">2019-09-27</time>
               </span>
 
           
@@ -230,8 +230,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/09/22/LeetCode-Day38/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/22/LeetCode-Day38/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/09/25/cGAN/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/25/cGAN/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -246,21 +246,45 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="189-旋转数组"><a class="markdownIt-Anchor" href="#189-旋转数组"></a> 189. 旋转数组</h3>
-<p>给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。</p>
-<p>示例 1:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,2,3,4,5,6,7] 和 k = 3</span><br><span class="line">输出: [5,6,7,1,2,3,4]</span><br><span class="line">解释:</span><br><span class="line">向右旋转 1 步: [7,1,2,3,4,5,6]</span><br><span class="line">向右旋转 2 步: [6,7,1,2,3,4,5]</span><br><span class="line">向右旋转 3 步: [5,6,7,1,2,3,4]</span><br></pre></td></tr></table></figure>
-<p>示例 2:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入: [-1,-100,3,99] 和 k = 2</span><br><span class="line">输出: [3,99,-1,-100]</span><br><span class="line">解释: </span><br><span class="line">向右旋转 1 步: [99,-1,-100,3]</span><br><span class="line">向右旋转 2 步: [3,99,-1,-100]</span><br></pre></td></tr></table></figure>
-<p>思路：这道题虽然很简单，但是却有更加快速的操作。</p>
-<p>就是先翻转整个数组，然后在要求的节点前后进行两次翻转。</p>
-<p>举个栗子：</p>
-<p><code>[1, 2, 3, 4, 5, 6, 7] k = 3</code></p>
-<p>整个数组翻转：<code>[7, 6, 5, 4, 3, 2, 1]</code></p>
-<p>前半部分翻转：<code>[5, 6, 7, 4, 3, 2, 1]</code></p>
-<p>后半部分翻转：<code>[5, 6, 7, 1, 2, 3, 4]</code></p>
-<p>上Code：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums.size() &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        k %= nums.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n / <span class="number">2</span>;i++) &#123;</span><br><span class="line">            swap(nums[i], nums[n - <span class="number">1</span> - i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; k / <span class="number">2</span>;i++) &#123;</span><br><span class="line">            swap(nums[i], nums[k - i - <span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = k;i &lt; (n + k) / <span class="number">2</span>;i++) &#123;</span><br><span class="line">            swap(nums[i], nums[n - <span class="number">1</span> - i + k]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          <h2 id="cGAN"><a href="#cGAN" class="headerlink" title="cGAN"></a>cGAN</h2><h3 id="为什么要有cGAN？"><a href="#为什么要有cGAN？" class="headerlink" title="为什么要有cGAN？"></a>为什么要有cGAN？</h3><p>首先，GAN虽然厉害，但有个问题，其生成模型生成的样本完全是随机的，也就是完全取决于输入的噪声z，根本无法预测会生成数字1还是数字2.因此偶人提出了条件GAN，其思想也很简单，就是想要生成哪个数字，你输入的时候告诉我你想要的标签即可。为了达到这个目标，在训练的时候，就要加上标签。也就是G想要伪造数字1，就要在原本的z向量后面加十维的one-hot向量，在D那里也是，要判别什么，也要在尾部加上十维的one-hot向量</p>
+<p><img src="https://pic4.zhimg.com/v2-b112245a817b2e813a65cdb3fe4620eb_b.jpg" alt="img"></p>
+<p>以上图为例，如果迷行的输入是文字，输出是图片，使用传统的做法会产生模糊的问题。比如输入火车，希望得到一张火车的图片，可是火车有侧面，有不同的形态，如果不加约束，则可能产生一张包含各种样式的火车的平均（模糊）图。</p>
+<p>​    GAN的机制是只要识别器能分辨得出一张图是人工生成的还是原图就行，所以不能确保输入火车就回生成火车图片，比如输入火车生成一张很逼真的猫图，生成器也会被认为是一个成功的生成器（GAN容易钻空子，即如果某种特定形式可以骗过生成器，生成器会倾向于生成这种模式）</p>
+<p>生成器输出一张图片，然后将同样的语句（条件）和生成的图片一起输入识别器，关键是，识别器不仅需要分辨真假，还需要分辨出语句（条件）和图片是否匹配。总的来说有三种情况：</p>
+<p>原图 + 图和条件匹配   ——&gt;     高分</p>
+<p>原图 + 图和条件不匹配   ——&gt;     低分</p>
+<p>人工图      ——&gt;     低分</p>
+<p><img src="https://pic1.zhimg.com/v2-ec6da03ab4ea2b7eb4cb7b32bb81b428_b.jpg" alt="img"></p>
+<p>通过这样的操作，可以确保输出样本和条件是匹配的</p>
+<p>CGAN有两种比较常用的结构：</p>
+<p><img src="https://pic4.zhimg.com/v2-2e71198971ecf978048df60d6862dfef_b.jpg" alt="img"></p>
+<p>这两种结构的主要区别在生成器的输出部分，下面的可能更加合理：</p>
+<p>下半部分的结构中生成器的输出分为两部分：</p>
+<ul>
+<li>是否是真实图片</li>
+<li>输出与条件是否匹配</li>
+</ul>
+<p>这样做的好处是，直观上说，模型能分别知道两个任务的性能，更有针对性地提高模型能力，如果输出的图像不够真实，但是能比较好地是辈出是否匹配，则主要调节生成样本的分支，而第一种结构由于是混合在一起的，就没有这种针对性调节的能力。</p>
+<p>值得一提的是，论文里的识别器使用了Patch的方法，即先将输出样本划分为若干个Patch，然后对每个Patch进行评分，最后将所有patch的得分平均作为最后得分。这样做的好处是，识别器能更加关注到生成图像的细节部分，即对高频的部分更加敏感，当然，最极端是每一个像素就是一个patch，这样的话识别器会失去大局观，即失去不同部分空间部分之间的相关信息</p>
+<p><img src="https://pic3.zhimg.com/v2-e99cc2059b659feab28652048fda92ba_b.jpg" alt="img"></p>
+<p>一些用到的函数的详解：</p>
+<p><code>torch.nn.Embedding(num_embeddings, emcedding_dim, padding_idx = None, max_norm = None, norm_type = 2, scale_grad_by_freq = False, sparse = False)</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Pytorch官网的解释是：一个保存了固定字典的带下和简单查找表。这个模块常用来保存字典嵌入和用下标检索它们。模块的输入是一个下标的列表，输出是对应的词嵌入</span></span><br><span class="line"><span class="comment"># 个人理解：这是一个矩阵类，里面初始化了一个随机矩阵，矩阵的长是字典的大小，宽是用来表示字典中每个元素的属性向量，向量的维度根据你想要的元素的复杂度而定。类实例化之后可以根据字典中元素的下标来查找元素对应的向量。例如输入下标0， 输出就是embeds矩阵中的第0行</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> torch</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>label = nn.Embedding(<span class="number">10</span>, <span class="number">10</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>label(Variable(torch.LongTensor([<span class="number">4</span>])))</span><br><span class="line">tensor([[<span class="number">-0.6134</span>,  <span class="number">0.0528</span>,  <span class="number">2.4490</span>, <span class="number">-0.0294</span>,  <span class="number">1.2371</span>,  <span class="number">0.5792</span>, <span class="number">-1.2843</span>,  <span class="number">0.6881</span>,</span><br><span class="line">         <span class="number">-0.9275</span>,  <span class="number">1.2503</span>]], grad_fn=&lt;EmbeddingBackward&gt;)</span><br></pre></td></tr></table></figure>
+<p><code>nn.prod()</code>        连乘函数</p>
+<p><code>torch.cat()</code>    连接函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = torch.randn(<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y = torch.randn(<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x</span><br><span class="line">tensor([[ <span class="number">2.2045</span>,  <span class="number">1.0283</span>,  <span class="number">0.7637</span>],</span><br><span class="line">        [ <span class="number">0.8578</span>, <span class="number">-0.8376</span>, <span class="number">-0.3780</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y</span><br><span class="line">tensor([[<span class="number">-0.5941</span>, <span class="number">-0.8588</span>,  <span class="number">0.9540</span>],</span><br><span class="line">        [<span class="number">-1.1115</span>,  <span class="number">0.3655</span>,  <span class="number">0.2471</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>torch.cat((x, y), <span class="number">0</span>)</span><br><span class="line">tensor([[ <span class="number">2.2045</span>,  <span class="number">1.0283</span>,  <span class="number">0.7637</span>],</span><br><span class="line">        [ <span class="number">0.8578</span>, <span class="number">-0.8376</span>, <span class="number">-0.3780</span>],</span><br><span class="line">        [<span class="number">-0.5941</span>, <span class="number">-0.8588</span>,  <span class="number">0.9540</span>],</span><br><span class="line">        [<span class="number">-1.1115</span>,  <span class="number">0.3655</span>,  <span class="number">0.2471</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>torch.cat((x, y), <span class="number">1</span>)</span><br><span class="line">tensor([[ <span class="number">2.2045</span>,  <span class="number">1.0283</span>,  <span class="number">0.7637</span>, <span class="number">-0.5941</span>, <span class="number">-0.8588</span>,  <span class="number">0.9540</span>],</span><br><span class="line">        [ <span class="number">0.8578</span>, <span class="number">-0.8376</span>, <span class="number">-0.3780</span>, <span class="number">-1.1115</span>,  <span class="number">0.3655</span>,  <span class="number">0.2471</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>torch.cat((x, y), <span class="number">-1</span>)</span><br><span class="line">tensor([[ <span class="number">2.2045</span>,  <span class="number">1.0283</span>,  <span class="number">0.7637</span>, <span class="number">-0.5941</span>, <span class="number">-0.8588</span>,  <span class="number">0.9540</span>],</span><br><span class="line">        [ <span class="number">0.8578</span>, <span class="number">-0.8376</span>, <span class="number">-0.3780</span>, <span class="number">-1.1115</span>,  <span class="number">0.3655</span>,  <span class="number">0.2471</span>]])</span><br><span class="line"><span class="comment"># torch.cat((), 0)	竖着连接</span></span><br><span class="line"><span class="comment"># torch.cat((), 1 or -1)	横着连接</span></span><br></pre></td></tr></table></figure>
+<p><code>numpy.random.randint(low, high, size)</code></p>
+<p>low、high、size三个参数。默认high是None，如果只有low，那范围就是<code>[0, low)</code>。如果有high，范围就是<code>[low, high)</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.random.randint(<span class="number">5</span>, <span class="number">16</span>, <span class="number">64</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">array([<span class="number">13</span>, <span class="number">14</span>, <span class="number">12</span>, <span class="number">15</span>,  <span class="number">8</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">11</span>, <span class="number">11</span>, <span class="number">10</span>, <span class="number">14</span>, <span class="number">15</span>,  <span class="number">8</span>, <span class="number">15</span>,  <span class="number">5</span>, <span class="number">12</span>,  <span class="number">6</span>,</span><br><span class="line">       <span class="number">15</span>,  <span class="number">9</span>,  <span class="number">5</span>,  <span class="number">5</span>, <span class="number">13</span>, <span class="number">13</span>,  <span class="number">8</span>, <span class="number">15</span>, <span class="number">10</span>, <span class="number">11</span>,  <span class="number">6</span>,  <span class="number">8</span>, <span class="number">15</span>,  <span class="number">9</span>,  <span class="number">9</span>,  <span class="number">9</span>,  <span class="number">5</span>,</span><br><span class="line">       <span class="number">13</span>, <span class="number">12</span>, <span class="number">12</span>,  <span class="number">8</span>,  <span class="number">5</span>, <span class="number">14</span>,  <span class="number">7</span>, <span class="number">15</span>, <span class="number">11</span>,  <span class="number">6</span>,  <span class="number">7</span>, <span class="number">12</span>, <span class="number">10</span>,  <span class="number">8</span>, <span class="number">10</span>,  <span class="number">5</span>, <span class="number">13</span>,</span><br><span class="line">        <span class="number">9</span>, <span class="number">14</span>,  <span class="number">8</span>,  <span class="number">7</span>,  <span class="number">6</span>,  <span class="number">7</span>,  <span class="number">6</span>,  <span class="number">6</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">15</span>, <span class="number">14</span>, <span class="number">10</span>])</span><br></pre></td></tr></table></figure>
+<p><code>np.random.normal(loc=0.0, scale=1.0, siez=None)</code></p>
+<p>loc：float，此概率分布的均值（对应整个分布的重心center）</p>
+<p>scale：float，此概率分布的标准差（对应于分布的宽度，scale越大越矮胖。scale越小，越瘦高）</p>
+<p>size：int or tuple of ints</p>
+<p>输出的shape，默认为None， 值输出一个值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.random.normal(<span class="number">5</span>, <span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line"><span class="number">4.687275350809846</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.random.normal(<span class="number">5</span>, <span class="number">1</span>, [<span class="number">2</span>, <span class="number">2</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">array([[<span class="number">5.18009118</span>, <span class="number">4.91448971</span>],</span><br><span class="line">       [<span class="number">6.2771917</span> , <span class="number">5.15529855</span>]])</span><br></pre></td></tr></table></figure>
+<p>$IS(G) = exp(E_{x \sim p_g}D_{KL}(p(y|x)||p(y)))$</p>
+<p>$D(p||q) = \sum p(x) log \frac{p(x)} {q(x)} $</p>
+<p>$FID = ||u_r - u_g||^2 + T_r(\sum_r + \sum_g - 2(\sum_r - \sum_g)^{\frac{1} {2}})$</p>
 
       
     </div>
@@ -280,7 +304,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/57/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/57/">57</a><span class="page-number current">58</span><a class="page-number" href="/page/59/">59</a><span class="space">&hellip;</span><a class="page-number" href="/page/144/">144</a><a class="extend next" rel="next" href="/page/59/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/57/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/57/">57</a><span class="page-number current">58</span><a class="page-number" href="/page/59/">59</a><span class="space">&hellip;</span><a class="page-number" href="/page/149/">149</a><a class="extend next" rel="next" href="/page/59/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -326,7 +350,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

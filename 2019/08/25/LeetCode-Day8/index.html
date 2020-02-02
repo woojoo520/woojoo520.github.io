@@ -47,17 +47,19 @@
   };
 </script>
 
-  <meta name="description" content="25. k个一组翻转链表 给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。 k 是一个正整数，它的值小于或等于链表的长度。 如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序。 示例 : 123给定这个链表：1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5当 k = 2 时，应当返回: 2-&amp;gt;1-&amp;gt;4-&amp;gt;3-&amp;gt;5当 k = 3 时，应当返">
+  <meta name="description" content="25. k个一组翻转链表给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。 k 是一个正整数，它的值小于或等于链表的长度。 如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序。 示例 : 123给定这个链表：1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5当 k = 2 时，应当返回: 2-&amp;gt;1-&amp;gt;4-&amp;gt;3-&amp;gt;5当 k = 3 时，应当返回:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode-Day8">
 <meta property="og:url" content="https://woojoo520.github.io/2019/08/25/LeetCode-Day8/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="25. k个一组翻转链表 给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。 k 是一个正整数，它的值小于或等于链表的长度。 如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序。 示例 : 123给定这个链表：1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5当 k = 2 时，应当返回: 2-&amp;gt;1-&amp;gt;4-&amp;gt;3-&amp;gt;5当 k = 3 时，应当返">
+<meta property="og:description" content="25. k个一组翻转链表给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。 k 是一个正整数，它的值小于或等于链表的长度。 如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序。 示例 : 123给定这个链表：1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5当 k = 2 时，应当返回: 2-&amp;gt;1-&amp;gt;4-&amp;gt;3-&amp;gt;5当 k = 3 时，应当返回:">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="file:///C:/Users/12751/Documents/Tencent%20Files/1275121799/Image/C2C/%7BF4B410F0-99BD-8F5D-3C49-BC4EA40B6DEE%7D.png">
 <meta property="og:updated_time" content="2019-08-25T02:56:27.053Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode-Day8">
-<meta name="twitter:description" content="25. k个一组翻转链表 给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。 k 是一个正整数，它的值小于或等于链表的长度。 如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序。 示例 : 123给定这个链表：1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5当 k = 2 时，应当返回: 2-&amp;gt;1-&amp;gt;4-&amp;gt;3-&amp;gt;5当 k = 3 时，应当返">
+<meta name="twitter:description" content="25. k个一组翻转链表给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。 k 是一个正整数，它的值小于或等于链表的长度。 如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序。 示例 : 123给定这个链表：1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5当 k = 2 时，应当返回: 2-&amp;gt;1-&amp;gt;4-&amp;gt;3-&amp;gt;5当 k = 3 时，应当返回:">
+<meta name="twitter:image" content="file:///C:/Users/12751/Documents/Tencent%20Files/1275121799/Image/C2C/%7BF4B410F0-99BD-8F5D-3C49-BC4EA40B6DEE%7D.png">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/08/25/LeetCode-Day8/">
 
@@ -240,20 +242,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="25-k个一组翻转链表"><a class="markdownIt-Anchor" href="#25-k个一组翻转链表"></a> 25. k个一组翻转链表</h3>
-<p>给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。</p>
+        <h3 id="25-k个一组翻转链表"><a href="#25-k个一组翻转链表" class="headerlink" title="25. k个一组翻转链表"></a>25. k个一组翻转链表</h3><p>给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。</p>
 <p>k 是一个正整数，它的值小于或等于链表的长度。</p>
 <p>如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序。</p>
 <p><strong>示例 :</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定这个链表：1-&gt;2-&gt;3-&gt;4-&gt;5</span><br><span class="line">当 k = 2 时，应当返回: 2-&gt;1-&gt;4-&gt;3-&gt;5</span><br><span class="line">当 k = 3 时，应当返回: 3-&gt;2-&gt;1-&gt;4-&gt;5</span><br></pre></td></tr></table></figure>
 <p>说明 :</p>
-<p><strong>你的算法只能使用常数的额外空间。</strong><br>
-<strong>你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。</strong></p>
+<p><strong>你的算法只能使用常数的额外空间。</strong><br><strong>你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">reverseK</span><span class="params">(ListNode*&amp; cur, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">      ListNode* head = cur;</span><br><span class="line">      ListNode* tail = <span class="literal">NULL</span>;</span><br><span class="line">      ListNode* pre = cur-&gt;next;</span><br><span class="line">      ListNode* back = pre-&gt;next;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; k;i++) &#123;</span><br><span class="line">          pre-&gt;next = tail;</span><br><span class="line">          tail = pre;</span><br><span class="line">          pre = back;</span><br><span class="line">          back = back-&gt;next;</span><br><span class="line">      &#125;</span><br><span class="line">      pre-&gt;next = tail;</span><br><span class="line">      cur-&gt;next = pre;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; k;i++) &#123;</span><br><span class="line">          cur = cur-&gt;next;</span><br><span class="line">      &#125;</span><br><span class="line">      cur-&gt;next = back;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">PrintList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">while</span>(head != <span class="literal">NULL</span>) &#123;</span><br><span class="line">          <span class="built_in">cout</span> &lt;&lt; head-&gt;val &lt;&lt; <span class="string">" "</span>; </span><br><span class="line">      &#125;</span><br><span class="line">     <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">ListNode* <span class="title">reverseKGroup</span><span class="params">(ListNode* head, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">      ListNode* H = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">      H-&gt;next = head;</span><br><span class="line">      ListNode* tmp = head;</span><br><span class="line">      <span class="keyword">while</span>(tmp != <span class="literal">NULL</span>) &#123;</span><br><span class="line">          tmp = tmp-&gt;next;</span><br><span class="line">          count++;</span><br><span class="line">      &#125;</span><br><span class="line">      tmp = H;</span><br><span class="line">      <span class="keyword">while</span>(count &gt;= k) &#123;</span><br><span class="line">          reverseK(H, k);</span><br><span class="line">          <span class="comment">//PrintList(head);</span></span><br><span class="line">          count -= k;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> tmp-&gt;next;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>解释：大致的想法就是先遍历一遍链表，然后记录下链表的个数count</p>
 <p>每k个进行一次翻转，然后count - k，直到count &lt; k，则停止循环</p>
 <p>翻转的过程如下图：</p>
-<p>![img](file:///C:\Users\12751\Documents\Tencent Files\1275121799\Image\C2C{F4B410F0-99BD-8F5D-3C49-BC4EA40B6DEE}.png)</p>
+<p><img src="file:///C:\Users\12751\Documents\Tencent Files\1275121799\Image\C2C\{F4B410F0-99BD-8F5D-3C49-BC4EA40B6DEE}.png" alt="img"></p>
 
     </div>
 
@@ -314,7 +314,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#25-k个一组翻转链表"><span class="nav-number">1.</span> <span class="nav-text"> 25. k个一组翻转链表</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#25-k个一组翻转链表"><span class="nav-number">1.</span> <span class="nav-text">25. k个一组翻转链表</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -330,7 +330,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
