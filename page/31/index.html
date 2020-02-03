@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/14/Transaction/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/21/Scrapy/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/11/14/Transaction/" class="post-title-link" itemprop="url">Transaction</a>
+            <a href="/2019/11/21/Scrapy/" class="post-title-link" itemprop="url">Scrapy</a>
         </h1>
 
         <div class="post-meta">
@@ -211,8 +211,15 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-11-14 16:29:16" itemprop="dateCreated datePublished" datetime="2019-11-14T16:29:16+08:00">2019-11-14</time>
+              <time title="创建时间：2019-11-21 07:07:29" itemprop="dateCreated datePublished" datetime="2019-11-21T07:07:29+08:00">2019-11-21</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-29 16:06:12" itemprop="dateModified" datetime="2020-01-29T16:06:12+08:00">2020-01-29</time>
+              </span>
 
           
   
@@ -223,8 +230,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/11/14/Transaction/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/14/Transaction/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/11/21/Scrapy/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/21/Scrapy/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -239,7 +246,163 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h2 id="Scrapy框架的学习"><a href="#Scrapy框架的学习" class="headerlink" title="Scrapy框架的学习"></a>Scrapy框架的学习</h2><h3 id="1-Scrapy的工作原理"><a href="#1-Scrapy的工作原理" class="headerlink" title="1. Scrapy的工作原理"></a>1. Scrapy的工作原理</h3><p><img src="../images/$(filename" alt="1580195020653">/1580195020653.png)</p>
+<h3 id="2-实现一个简单的爬虫框架所需要进行的步骤"><a href="#2-实现一个简单的爬虫框架所需要进行的步骤" class="headerlink" title="2. 实现一个简单的爬虫框架所需要进行的步骤"></a>2. 实现一个简单的爬虫框架所需要进行的步骤</h3><h4 id="1-创建一个start-py文件"><a href="#1-创建一个start-py文件" class="headerlink" title="1. 创建一个start.py文件"></a>1. 创建一个start.py文件</h4><p>这个纯粹是为了不想每次启动爬虫都重新输入一下命令（毕竟也不是记得所有爬虫的名字）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入cmdline用于执行cmd命令的</span></span><br><span class="line"><span class="keyword">from</span> scrapy <span class="keyword">import</span> cmdline</span><br><span class="line"><span class="comment"># scrapy crawl 爬虫名字 是启动爬虫所需要输入的cmd命令</span></span><br><span class="line"><span class="comment"># cmd.execute是需要获取到一个类似于列表的东西，因此需要把所有的命令都拆开，故使用了一个split</span></span><br><span class="line">cmdline.execute(<span class="string">"scrapy crawl lianjia_spider"</span>.split())</span><br></pre></td></tr></table></figure>
+<h4 id="2-修改settings-py"><a href="#2-修改settings-py" class="headerlink" title="2. 修改settings.py"></a>2. 修改settings.py</h4><h5 id="2-1-ROBOTSTXT-OBEY-False"><a href="#2-1-ROBOTSTXT-OBEY-False" class="headerlink" title="2.1 ROBOTSTXT_OBEY = False"></a>2.1 ROBOTSTXT_OBEY = False</h5><p>默认选项是<code>True</code>，即遵守<code>robots.txt</code>的规则。而这个<code>robots.txt</code>是遵循<code>Robot</code>协议的一个文件，它保存在网站的服务器中，作用是：告诉搜索引擎，本网站哪些目录下的网页 <strong>不希望</strong> 你进行爬取收录。在Scrapy启动后，会在第一时间访问网站的<code>robots.txt</code>文件，然后决定该网站的爬取范围。</p>
+<p>当然，我们并不是在做搜索引擎，而且在某些情况下我们想要获取的内容恰恰是被<code>robots.txt</code>所禁止访问的。所以，有些时候，我们就要将此配置项设置为<code>False</code>，拒绝遵守<code>robot</code>协议。</p>
+<h5 id="2-2-启用DEFAULT-REQUEST-HEADERS"><a href="#2-2-启用DEFAULT-REQUEST-HEADERS" class="headerlink" title="2.2 启用DEFAULT_REQUEST_HEADERS"></a>2.2 启用DEFAULT_REQUEST_HEADERS</h5><p>因为现在的大部分网站都进行了<strong>反爬虫</strong>措施，比如知乎，豆瓣等等。作为一个spider就要学会反反爬虫。最简单实用的措施就是设置headers。</p>
+<p>在<code>settings.py</code>里面开启<code>DEFAULT_REQUEST_HEADERS</code>，根据需要设置相关内容即可，主要就是配置<code>User-Agent</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DEFAULT_REQUEST_HEADERS = &#123;</span><br><span class="line">  <span class="string">'Accept'</span>: <span class="string">'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'</span>,</span><br><span class="line">  <span class="string">'Accept-Language'</span>: <span class="string">'en'</span>,</span><br><span class="line">  <span class="string">"User-Agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2-3-如果想要将爬取的数据记录在文件-json格式等-中，需要开启ITEM-PIPELINES"><a href="#2-3-如果想要将爬取的数据记录在文件-json格式等-中，需要开启ITEM-PIPELINES" class="headerlink" title="2.3 如果想要将爬取的数据记录在文件(json格式等)中，需要开启ITEM_PIPELINES"></a>2.3 如果想要将爬取的数据记录在文件(json格式等)中，需要开启ITEM_PIPELINES</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   <span class="string">'House.pipelines.HousePipeline'</span>: <span class="number">300</span>,</span><br><span class="line">    <span class="comment"># 'House.pipelines.HouseCsvPipeline': 300,</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Ps：后面的数字表示优先级，数字越小表示优先级越高</p>
+<h4 id="3-完善items-py"><a href="#3-完善items-py" class="headerlink" title="3. 完善items.py"></a>3. 完善items.py</h4><p>默认有一个<code>Item</code>类，里面需要填写你要获取的内容，如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HouseItem</span><span class="params">(scrapy.Item)</span>:</span></span><br><span class="line">    <span class="comment"># define the fields for your item here like:</span></span><br><span class="line">    <span class="comment"># name = scrapy.Field()</span></span><br><span class="line">    <span class="comment"># pass</span></span><br><span class="line">    name = scrapy.Field()</span><br><span class="line">    district = scrapy.Field()</span><br><span class="line">    location_2 = scrapy.Field()</span><br><span class="line">    location_3 = scrapy.Field()</span><br><span class="line">    price = scrapy.Field()</span><br><span class="line">    area = scrapy.Field()</span><br></pre></td></tr></table></figure>
+<p><code>Field</code>对象用于为每个字段指定元数据。我们可以为每个字段指定任何种类的元数据。对<code>Field</code>对象接受的值没有限制。处于同样原因，没有所有可用元数据键的参考列表。<code>Field</code>对象中定义的每个键可以由不同的组件使用，并且只有那些组件知道它。<code>Field</code>对象的主要目标是提供一种在一个地方定义所有字段元数据的方法。通常，那些行为取决于每个字段的组件使用某些字段键来配置该行为、</p>
+<h4 id="4-创建spider-py"><a href="#4-创建spider-py" class="headerlink" title="4. 创建spider.py"></a>4. 创建spider.py</h4><p>运行cmd命令</p>
+<blockquote>
+<p>scrapy genspider xxx(爬虫名字)  “XXX(网址域名)”</p>
+</blockquote>
+<p>里面默认应该有<code>name(爬虫名字), allowed_domains(允许爬取的网站的域名), start_urls(首先爬取的网页的url，注意这个是一个列表，意味着可以有很多网址)</code></p>
+<p>还有一个<code>parse(self, response)</code>方法：这个是用来具体在爬取到一个页面，然后对这个页面进行解析的一个方法，最后需要返回爬取的东西（即上一步定义过的一些属性）</p>
+<p>在这个<code>parse</code>方法中，我们需要定义爬取该网页的什么内容。首先需要了解网页的组成。然后通过浏览器带有的<code>右键-&gt;检查</code>来查看网页元素，然后获取我们所需要的内容在网页的什么地方。可以学习xPath的表示方法，不过直接找到该元素，然后<code>右键-&gt;Copy-&gt;Copy xPath</code>即可轻松获取到xpath</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">    print(<span class="string">"="</span> * <span class="number">40</span>)</span><br><span class="line">    <span class="comment"># 创建一个item实例</span></span><br><span class="line">    item = HouseItem()</span><br><span class="line">    <span class="comment"># 由于我们获取的东西在一个大的li标签下面，因此我们可以用循环来解决这个问题</span></span><br><span class="line">    path = <span class="string">'/html/body/div[4]/ul[2]/li'</span></span><br><span class="line">    <span class="keyword">for</span> each <span class="keyword">in</span> response.xpath(path):</span><br><span class="line">        <span class="comment"># 获取a标签下的内容，用get函数即可</span></span><br><span class="line">        item[<span class="string">"name"</span>] = each.xpath(<span class="string">'./div/div[1]/a/text()'</span>).get()</span><br><span class="line">        <span class="comment"># 如果我们需要获取到span标签的所有内容，可以采用getall()函数，然后返回值即为我们想要获取的多个内容</span></span><br><span class="line">        priceNumber, priceUnit = each.xpath(<span class="string">'./div/div[6]/div[1]/span/text()'</span>).getall()</span><br><span class="line">        print(priceNumber, priceUnit)</span><br><span class="line">        item[<span class="string">"price"</span>] = priceNumber + priceUnit[<span class="number">1</span>:]</span><br><span class="line">        item[<span class="string">"area"</span>] = each.xpath(<span class="string">'./div/div[3]/span/text()'</span>).get()</span><br><span class="line">        item[<span class="string">"district"</span>] = each.xpath(<span class="string">'./div/div[2]/span[1]/text()'</span>).get()</span><br><span class="line">        item[<span class="string">"location_2"</span>] = each.xpath(<span class="string">'./div/div[2]/span[2]/text()'</span>).get()</span><br><span class="line">        item[<span class="string">"location_3"</span>] = each.xpath(<span class="string">'./div/div[2]/a/text()'</span>).get()</span><br><span class="line">        <span class="comment"># 判断我们获取的数据是否为有效数据</span></span><br><span class="line">        <span class="keyword">if</span> item[<span class="string">"name"</span>] <span class="keyword">and</span> item[<span class="string">"price"</span>] <span class="keyword">and</span> item[<span class="string">"area"</span>]:</span><br><span class="line">            <span class="comment"># 如果获取的数据为有效数据，则需要将该item返回</span></span><br><span class="line">            <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
+<h4 id="5-修改pipelines-py"><a href="#5-修改pipelines-py" class="headerlink" title="5. 修改pipelines.py"></a>5. 修改pipelines.py</h4><p>该文件中默认有<code>process_item(self, item, spider)</code>方法，该方法主要是将获取到的item写入文件。在此之前，我们需要定义<code>open_spider(self, spider)和close_spider(self, spider)</code>方法</p>
+<p>当然，也可以先写一个<code>__init__(self)</code>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HousePipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">     	<span class="comment"># 将打开文件的操作写在open_spider方法中或者__init__方法中都可</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">open_spider</span><span class="params">(self, spider)</span>:</span></span><br><span class="line">        self.fp = open(<span class="string">"data.json"</span>, <span class="string">"w"</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        <span class="comment"># 先将item变换成字典</span></span><br><span class="line">        dict_item = dict(item)</span><br><span class="line">        <span class="comment"># 变成json格式, 注意这边一定要设置ensure_ascii=False,不然会出现一堆看不懂的东西</span></span><br><span class="line">        json_str = json.dumps(dict_item, ensure_ascii=<span class="literal">False</span>) + <span class="string">'\n'</span></span><br><span class="line">        <span class="comment"># 写入文件</span></span><br><span class="line">        self.fp.write(json_str)</span><br><span class="line">        <span class="comment"># 返回</span></span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(self, spider)</span>:</span></span><br><span class="line">        self.fp.close()</span><br></pre></td></tr></table></figure>
+<p>基本上就大功告成了。最后只需要<code>python start.py</code>即可。</p>
+<h3 id="3-CrawlSpider"><a href="#3-CrawlSpider" class="headerlink" title="3. CrawlSpider"></a>3. CrawlSpider</h3><p>创建爬虫文件：</p>
+<blockquote>
+<p>scrapy genspider -t crawl xxx(爬虫名字) “XXXX(网站域名)”</p>
+</blockquote>
+<p>需要使用<code>LinkWxtractor</code>和<code>Rule</code>。这两个东西决定爬虫的具体走向。</p>
+<ul>
+<li>allow设置规则的方法：要能够限制在我们想要的<code>url</code>上面，不要跟其他的<code>url</code>产生相同的正则表达式即可</li>
+<li>什么情况下使用<code>follow</code>：如果在爬取页面的时候，需要将满足当前条件的<code>url</code>再进行跟进，那么就设置为<code>True</code>，否则设置为<code>False</code></li>
+<li>什么情况下指定<code>callback</code>：如果这个url对应的页面，只是为了获取更多的<code>url</code>，并不需要里面的数据，那么就可以不指定<code>callback</code>，如果想要获取<code>url</code>对应页面中的数据，那么就需要指定一个<code>callback</code>来解析数据</li>
+</ul>
+<p>如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WxappSpiderSpider</span><span class="params">(CrawlSpider)</span>:</span></span><br><span class="line">    name = <span class="string">'wxapp_spider'</span></span><br><span class="line">    allowed_domains = [<span class="string">'wxapp-union.com'</span>]</span><br><span class="line">    start_urls = [<span class="string">'http://www.wxapp-union.com/portal.php?mod=list&amp;catid=2&amp;page=1'</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># callback,如果需要对于爬到的页面进行解析，就需要callback，如果只需要爬取网页链接，则不需要callback函数，不过需要考虑是否设置follow，跟进下一页</span></span><br><span class="line">    rules = (</span><br><span class="line">        <span class="comment"># 因为这个页面是主页面，有很多具体文章的链接，对于这种页面我们通常只需要提取出里面具体文章的链接即可，因此我们不需要callback函数，同时，在页面下面有很多第xx页，因此针对这种情况，我们需要follow跟进继续爬取页面</span></span><br><span class="line">        Rule(LinkExtractor(allow=<span class="string">r'.+mod=list&amp;catid=2&amp;page=\d'</span>), follow=<span class="literal">True</span>),</span><br><span class="line">        <span class="comment"># 这个页面是具体文章的页面，我们需要具体爬取文章的名称，作者，时间，内容等信息，因此我们需要指定callback来具体解析该网页，并且我们不需要再在这个页面上继续点击进入别的页面，里面的网址的信息我们不需要，设置follow=False</span></span><br><span class="line">        Rule(LinkExtractor(allow=<span class="string">r'.+article-.+\.html'</span>), callback=<span class="string">"parse_item"</span>, follow=<span class="literal">False</span>)</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_item</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        item = &#123;&#125;</span><br><span class="line">        print(<span class="string">"="</span> * <span class="number">40</span>)</span><br><span class="line">        title = response.xpath(<span class="string">"//*[@id='ct']/div[1]/div/div[1]/div/div[2]/div[1]/h1/text()"</span>).get()</span><br><span class="line">        author_p = response.xpath(<span class="string">"//*[@id='ct']/div[1]/div/div[1]/div/div[2]/div[3]/div[1]/p"</span>)</span><br><span class="line">        author = author_p.xpath(<span class="string">".//a/text()"</span>).get()</span><br><span class="line">        pub_time = author_p.xpath(<span class="string">".//span/text()"</span>).get()</span><br><span class="line">        print(title)</span><br><span class="line">        print(<span class="string">"author:%s/pub_time:%s"</span> % (author, pub_time))</span><br><span class="line">        print(<span class="string">"="</span> * <span class="number">40</span>)</span><br><span class="line">        item = WxappItem(title=title, author=author, pub_time=pub_time)</span><br><span class="line">        <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
+<p>Ps:  还有一个稍微不同的地方，因为这个pipelines的方式有很多，这边我们采取了exporter的方式，写法如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.exporters <span class="keyword">import</span> JsonLinesItemExporter</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WxappPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.fp = open(<span class="string">'wechat_data.json'</span>, <span class="string">'wb'</span>)</span><br><span class="line">        self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=<span class="literal">False</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        self.exporter.export_item(item)</span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(self, spider)</span>:</span></span><br><span class="line">        self.fp.close()</span><br></pre></td></tr></table></figure>
+<h3 id="Scrapy-Shell"><a href="#Scrapy-Shell" class="headerlink" title="Scrapy Shell"></a>Scrapy Shell</h3><p>我们想要在爬虫中使用<code>xpath, beautifulsoup, 正则表达式, css选择器</code>等来提取想要的数据。但是因为<code>Scrapy</code>是一个比较重的框架。每次运行起来都需要等待一段时间。因此要去验证我们写的提取规则是否正确，是一个比较麻烦的事情。因此<code>Scrapy</code>提供了一个<code>shell</code>，用来方便的测试规则。当然也不局限于这一个功能。</p>
+<p>如果想要执行<code>Scrapy</code>命令，需要进入到<code>Scrapy</code>所在的环境中</p>
+<p>如果想要读取某个项目的配置信息，那么先应该进入到这个项目中，再执行下面的命令：</p>
+<blockquote>
+<p>scrapy shell XXX(网站地址)</p>
+</blockquote>
+<p>然后，就像在写代码一样操作即可</p>
+<p><img src="../images/$(filename" alt="1580200971133">/1580200971133.png)</p>
+<h3 id="Request和Response对象"><a href="#Request和Response对象" class="headerlink" title="Request和Response对象"></a>Request和Response对象</h3><h5 id="GET-amp-POST"><a href="#GET-amp-POST" class="headerlink" title="GET &amp; POST"></a>GET &amp; POST</h5><p>在客户机和服务器之间进行请求-响应时，两种最常被用到的方法是：<code>GET</code>和<code>POST</code></p>
+<p>GET：从指定的资源请求数据</p>
+<p>POST：向指定的资源提交要被处理的数据</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>GET</th>
+<th>POST</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>后退按钮/刷新</td>
+<td>无害</td>
+<td>数据会被重新提交（浏览器应该告知用户数据会被重新提交）</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td>能被缓存</td>
+<td>不能缓存</td>
+</tr>
+<tr>
+<td>对数据长度的限制</td>
+<td>是的。当发送数据时，GET方法向URL添加数据；URL的长度是被限制的（URL的最大长度是2048个字符）</td>
+<td>无限制</td>
+</tr>
+<tr>
+<td>对数据类型的限制</td>
+<td>只允许ASCII字符</td>
+<td>没有限制，也允许二进制字符</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td>与POST相比，GET的安全性较差，因为发送的数据是URL的一部分。（在发送密码或其他敏感信息的时候绝对不要使用GET！）</td>
+<td>POST比GET更安全，因为参数不会被保存在浏览器历史或web服务器日志中</td>
+</tr>
+<tr>
+<td>可见性</td>
+<td>数据在URL中对所有人是可见的</td>
+<td>数据不会显示在URL中</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="Request对象"><a href="#Request对象" class="headerlink" title="Request对象"></a>Request对象</h4><p>Request对象在我们写爬虫时，爬去一页的数据需要重新发送一个请求的时候调用。这个类需要传递一些参数，较常用的有以下：</p>
+<ul>
+<li><p><code>url</code>：这个request对象发送请求的<code>url</code></p>
+</li>
+<li><p><code>callback</code>：在下载器下载完相应的数据后执行的回调函数</p>
+</li>
+<li><p><code>method</code>：请求的方法，默认为GET方法，可以设置为其他方法（如POST）</p>
+<p>如果我们想要在请求数据的时候发送<code>post</code>对象，那么这时候需要使用<code>Request</code>的子类<code>FormRequest</code>来实现。如果想要在爬虫一开始的时候我们就发送<code>POST</code>请求，那么需要在爬虫类中重写<code>start_requests(self)</code>方法，并且不再调用<code>start_urls</code>里的<code>url</code>。（如果不重写的话，就回默认从<code>startUrls</code>中读取<code>url</code>，并且是发送<code>GET</code>请求）</p>
+</li>
+<li><p><code>headers</code>：请求头，对于一些固定的设置，放在<code>settings.py</code>中指定就可以了。对于那些非固定的，可以在发送请求的时候指定</p>
+</li>
+<li><p><code>meta</code>：比较常用。用于在不同的请求之间传递数据</p>
+<p>​    比如，我们在浏览概览页和浏览详情页的时候，有些东西我们在概览页就可以得知，例如文章名字，作者，发布时间等等，那么我们在详情页中就可以只获取文章的内容，那么我们有些数据就需要共享，可以写在meta中。</p>
+</li>
+<li><p><code>encoding</code>：编码，默认为<code>utf-8</code></p>
+</li>
+<li><p><code>dont_filter</code>：表示不由调度器过滤，在执行多次重复的请求的时候用的比较多</p>
+<p>不发送重复的请求~~</p>
+</li>
+<li><p><code>errback</code>：在发生错误的时候执行</p>
+</li>
+</ul>
+<h4 id="Response对象"><a href="#Response对象" class="headerlink" title="Response对象"></a>Response对象</h4><p><code>Response</code>对象一般是由<code>Scrapy</code>给你自动构建的。因此开发者不需要关心如何创建<code>Response</code>对象，而是如何使用。<code>Response</code>对象有很多属性，可以用来提取数据的。主要有以下属性：</p>
+<ul>
+<li><p><code>meta</code>：从其他请求传过来的meta属性。可以用来保持多个请求之间的数据连接</p>
+</li>
+<li><p><code>encoding</code>：返回当前字符串编码和解码的格式</p>
+</li>
+<li><p><code>text</code>：将返回来的数据作为<code>unicode</code>字符串返回</p>
+<p>其实<code>text</code>和<code>body</code>保存的都是网页源代码，但是<code>body</code>是没有解码过的，而<code>text</code>是解码成<code>unicode</code>字符的，如果想要解码成别的字符，则可以通过<code>body</code>自己解码</p>
+</li>
+<li><p><code>body</code>：将返回来的数据作为<code>byte</code>字符串返回（在网络和硬盘之间通信的时候，其实用的是<code>byte</code>类型）</p>
+</li>
+<li><p><code>xpath</code>：<code>xpath</code>选择器</p>
+</li>
+<li><p><code>css</code>：<code>css</code>选择器</p>
+</li>
+</ul>
+<h3 id="下载文件和图片"><a href="#下载文件和图片" class="headerlink" title="下载文件和图片"></a>下载文件和图片</h3><p>Scrapy为下载item中包含的文件（比如在爬取到产品时，同时也想保存对应的图片）提供了一个可重用的item pipelines。这些pipelines有些共同的方法和结构，我们称之为<code>media pipeline</code>。一般来说你会使用<code>File pipelines</code>或者<code>Image Pipeline</code></p>
+<h4 id="为什么要使用scrapy内置的下载方法？"><a href="#为什么要使用scrapy内置的下载方法？" class="headerlink" title="为什么要使用scrapy内置的下载方法？"></a>为什么要使用scrapy内置的下载方法？</h4><ul>
+<li>可避免重新下载最近已经下载过的数据</li>
+<li>可以方便的指定文件存储的路径</li>
+<li>可以将下载的图片转换成通用的格式，比如jpg, png等</li>
+<li>可以方便的生成缩略图</li>
+<li>可以方便的检测图片的宽和高，确保满足最小限制</li>
+<li>异步下载，效率非常高</li>
+</ul>
+<h4 id="下载文件的Files-Pipeline"><a href="#下载文件的Files-Pipeline" class="headerlink" title="下载文件的Files Pipeline"></a>下载文件的<code>Files Pipeline</code></h4><p>当使用<code>Files Pipeline</code>下载文件的时候，按照以下步骤来完成：</p>
+<ul>
+<li>定义好一个<code>Item</code>，然后在这个<code>item</code>中定义两个属性，分别为<code>file_urls</code>以及<code>files</code>。<code>file_urls</code>是用来存储需要下载的文件的url链接，需要给一个列表。</li>
+<li>当文件下载完成后，会把文件下载的相关信息存储到<code>item</code>的<code>files</code>属性中。比如下载路径，下载的<code>url</code>和文件的校验码等</li>
+<li>在配置文件的<code>settings.py</code>中设置<code>FILE_STORE</code>，这个配置是用来设置文件下载下来的路径</li>
+<li>启动<code>pipeline</code>：在<code>ITEM_PIPELINES</code>中设置<code>scrapy.pipelines.files.FilesPipeline:1</code></li>
+</ul>
+<h4 id="下载图片的Images-Pipeline"><a href="#下载图片的Images-Pipeline" class="headerlink" title="下载图片的Images Pipeline"></a>下载图片的<code>Images Pipeline</code></h4><p>当使用<code>Images Pipeline</code>下载文件的时候，按照以下步骤来完成：</p>
+<ul>
+<li>定义好一个<code>Item</code>，然后在这个<code>item</code>中定义两个属性，分别为<code>image_urls</code>以及<code>images</code>。<code>Image_urls</code>是用来存储需要下载的图片的url链接，需要给一个列表</li>
+<li>当文件下载完成后，会把文件下载的相关信息存储到<code>item</code>的<code>images</code>属性中。比如下载路径、下载的url和图片的校验码等等呢个</li>
+<li><p>在配置文件的<code>settings.py</code>中设置<code>IMAGES_STORE</code>，这个配置是用来设置图片下载下来的路径</p>
+</li>
+<li><p>启动<code>pipeline</code>：在<code>ITEM_PIPELINES</code>中设置<code>scrapy.pipelines, images,scrapy.pipelines.images.ImagesPipeline:1</code></p>
+</li>
+</ul>
+
       
     </div>
 
@@ -258,7 +421,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/30/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><span class="page-number current">31</span><a class="page-number" href="/page/32/">32</a><span class="space">&hellip;</span><a class="page-number" href="/page/149/">149</a><a class="extend next" rel="next" href="/page/32/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/30/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><span class="page-number current">31</span><a class="page-number" href="/page/32/">32</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/32/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -304,7 +467,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">149</span>
+          <span class="site-state-item-count">150</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

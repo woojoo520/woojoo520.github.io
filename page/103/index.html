@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/22/GCN/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/23/GAN-pix2pix-CycleGAN-pix3pixHD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/08/22/GCN/" class="post-title-link" itemprop="url">GCN</a>
+            <a href="/2019/08/23/GAN-pix2pix-CycleGAN-pix3pixHD/" class="post-title-link" itemprop="url">GAN-pix2pix-CycleGAN-pix3pixHD</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-08-22 08:42:59 / 修改时间：14:41:58" itemprop="dateCreated datePublished" datetime="2019-08-22T08:42:59+08:00">2019-08-22</time>
+              <time title="创建时间：2019-08-23 11:04:42 / 修改时间：12:33:47" itemprop="dateCreated datePublished" datetime="2019-08-23T11:04:42+08:00">2019-08-23</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/08/22/GCN/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/22/GCN/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/08/23/GAN-pix2pix-CycleGAN-pix3pixHD/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/23/GAN-pix2pix-CycleGAN-pix3pixHD/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,74 +240,51 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="CNN和GCN的联系与区别"><a href="#CNN和GCN的联系与区别" class="headerlink" title="CNN和GCN的联系与区别"></a>CNN和GCN的联系与区别</h2><h4 id="1-什么是离散卷积？CNN中卷积发挥什么作用？"><a href="#1-什么是离散卷积？CNN中卷积发挥什么作用？" class="headerlink" title="1. 什么是离散卷积？CNN中卷积发挥什么作用？"></a>1. 什么是离散卷积？CNN中卷积发挥什么作用？</h4><p>CNN中的卷积本质上就是利用一个共享参数的过滤器（kernel），通过计算中心像素点以及相邻像素点的加权和来构成feature map实现空间特征的提取，当然加权系数就是卷积核的权重系数。</p>
-<p>那么卷积核的系数如何确定的呢？是随机化初值，然后根据误差函数通过反向传播梯度下降进行迭代优化。这是一个关键点，<strong>卷积核的参数通过优化求出才能实现特征提取的作用，GCN的理论很大一部分工作就是为了引入可以优化的卷积参数</strong>。</p>
-<h3 id="2-GCN中的Graph指什么？为什么要研究GCN？"><a href="#2-GCN中的Graph指什么？为什么要研究GCN？" class="headerlink" title="2. GCN中的Graph指什么？为什么要研究GCN？"></a>2. GCN中的Graph指什么？为什么要研究GCN？</h3><h4 id="GCN中的Graph"><a href="#GCN中的Graph" class="headerlink" title="GCN中的Graph"></a>GCN中的Graph</h4><p>CNN可以有效的提取空间特征。但是有一点需要注意：<strong>CNN处理的图像或者视频中像素点是排列成很整齐的（也就是很多论文中所提到的Euclidean Structure）</strong></p>
-<p>与之相对应，科学研究中还有很多 Non Euclidean Structure的数据，例如社交网络、信息网络中有很多类似的结构。</p>
-<p><img src="/2019/08/22/GCN/Users\12751\AppData\Roaming\Typora\typora-user-images\1566438663453.png" alt="1566438663453"></p>
-<p>实际上，这样的网络结构就是图论中抽象意义上的拓扑图</p>
-<p>所以，<strong>Graph Convolution Network中的Graph是指数学（图论）中的用顶点和边建立相应关系的拓扑图</strong></p>
-<h4 id="那么为什么要研究GCN？"><a href="#那么为什么要研究GCN？" class="headerlink" title="那么为什么要研究GCN？"></a>那么为什么要研究GCN？</h4><ul>
-<li>CNN无法处理Non Euclidean Structure的数据，学术上的表达就是<strong>传统的离散卷积，在Non Euclidean Structure的数据上无法保持平移不变性</strong>。通俗理解就是在拓扑图中每个定点的相邻顶点数目都可能不同，那么当然无法用一个同样尺寸的卷积核来进行卷积运算</li>
-<li>由于CNN无法处理Non Euclidean Structure的数据，又<strong>希望在这样的数据结构（拓扑图）上有效地提取特征空间来进行机器学习</strong>，所以GCN成为了研究的重点</li>
-<li>广义上来讲，任何数据在赋范空间内都可以建立拓扑关联，谱聚类就是应用了这样的思想。<strong>所以说拓扑连接是一种广义的数据结构</strong>，GCN有很大的应用空间。</li>
-</ul>
-<h3 id="3-提取拓扑图空间特征的两种方式"><a href="#3-提取拓扑图空间特征的两种方式" class="headerlink" title="3. 提取拓扑图空间特征的两种方式"></a>3. 提取拓扑图空间特征的两种方式</h3><p>GCN的本质目的就是用来提取拓扑图的空间特征，目前实现这个目标的最主要的两种方式是：vertex domain(spatial domain)和spectral domain</p>
-<h4 id="vertex-domain-spatial-domain"><a href="#vertex-domain-spatial-domain" class="headerlink" title="vertex domain(spatial domain)"></a>vertex domain(spatial domain)</h4><p>这是一种非常直观的方式，顾名思义：提取拓扑图上的空间特征，那么就把每个顶点相邻的neighbors找出来。这里面蕴含的科学问题有二：</p>
+          <h3 id="GAN"><a href="#GAN" class="headerlink" title="GAN"></a>GAN</h3><p>解决的问题：</p>
+<p>$\min _{G} \max _{D} \mathbb{E}[\log D(G(z))+\log (1-D(x))]$</p>
+<p>传统的GAN的不足：</p>
 <ul>
-<li>按照什么条件去找中心vertex的neighbors，也就是如何确定receptive field？</li>
-<li>确定receptive field，按照什么方式处理包含不同neighbors的特征？</li>
-</ul>
-<p>根据这两个问题设计算法，就可以实现目标了。</p>
-<p>这种方法主要的缺点如下：</p>
-<ul>
-<li>每个定点提取出来的neighbors不同，使得计算处理必须针对每个顶点</li>
-<li>提取特征的效果可能没有卷积好</li>
-</ul>
-<h4 id="spectral-domain"><a href="#spectral-domain" class="headerlink" title="spectral domain"></a>spectral domain</h4><p>就是GCN的理论寄出了。这种思路就是希望接组合图谱的理论来实现拓扑图上的卷积操作。从整个研究的时间进程来看：首先研究GSP（Graph signal processing）的学者定义了graph上的Fourier Transformation，进而定义了graph上的convolution，最后与深度学习结合提出了Graph Convolution Network</p>
-<h5 id="Q1：什么是Spectral-graph-theory？"><a href="#Q1：什么是Spectral-graph-theory？" class="headerlink" title="Q1：什么是Spectral graph theory？"></a>Q1：什么是Spectral graph theory？</h5><p>简单的概括就是借助图的拉普拉斯矩阵的特征值和特征向量来研究图的性质</p>
-<h5 id="Q2：GCN为什么要利用Spectral-graph-theory？"><a href="#Q2：GCN为什么要利用Spectral-graph-theory？" class="headerlink" title="Q2：GCN为什么要利用Spectral graph theory？"></a>Q2：GCN为什么要利用Spectral graph theory？</h5><h3 id="4-什么是拉普拉斯矩阵？为什么GCN要用拉普拉斯矩阵？"><a href="#4-什么是拉普拉斯矩阵？为什么GCN要用拉普拉斯矩阵？" class="headerlink" title="4. 什么是拉普拉斯矩阵？为什么GCN要用拉普拉斯矩阵？"></a>4. 什么是拉普拉斯矩阵？为什么GCN要用拉普拉斯矩阵？</h3><h4 id="什么是拉普拉斯矩阵？"><a href="#什么是拉普拉斯矩阵？" class="headerlink" title="什么是拉普拉斯矩阵？"></a>什么是拉普拉斯矩阵？</h4><p>Graph Fourier Transformation及Graph Convolution的定义都用到了拉普拉斯矩阵，那么首先介绍一下拉普拉斯矩阵</p>
-<p>对于图$G = (V, E)$，其$Laplacian$矩阵的定义为$L = D - A$，其中$L$是$Laplacian$矩阵，$D$是定点的度矩阵（对角矩阵），对角线上元素依次为各个顶点的度，$A$是图的邻接矩阵。看下图，很快就能知道$Laplacian$矩阵的计算方法</p>
-<p><img src="https://pic2.zhimg.com/80/v2-5f9cf5fdeed19b63e1079ed2b87617b4_hd.jpg" alt="img"></p>
-<p>这里要说明的是：<strong>常用的拉普拉斯矩阵实际有三种:</strong></p>
-<ul>
-<li><p>$L = D - A$定义的$Laplacian$矩阵更专业的名称叫<strong>Combinatorial Laplacian</strong></p>
+<li><p>没有<strong>用户控制</strong>能力</p>
+<p>在传统的GAN里，输入一个随机噪声，就回输出一幅随机图像</p>
+<p>但是，用户想输出的图像是和输入<strong>有对应的、有关联的</strong>。比如输入一只猫的草图，输出同一形态的猫的真实图片（这里对形态的要求就是一种用户控制）</p>
+<p><img src="https://img-blog.csdn.net/20180914044453345?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
 </li>
-<li><p>$L^{sys} = D^{-1/2}LD^{-1/2}$定义的叫<strong>Symmetric normalized Laplacian</strong> </p>
-</li>
-<li><p>$L^{rw} = D^{-1}L$定义的叫<strong>Random walk normalized Laplacian</strong></p>
+<li><p>低分辨率（Low resolution）和低质量（Low quality）问题</p>
+<p>尽管生成的图片看起来很不错，但是如果放大看，就会发现细节相当模糊</p>
+<p><img src="https://img-blog.csdn.net/20180914044507384?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
 </li>
 </ul>
-<h4 id="为什么GCN要用拉普拉斯矩阵？"><a href="#为什么GCN要用拉普拉斯矩阵？" class="headerlink" title="为什么GCN要用拉普拉斯矩阵？"></a>为什么GCN要用拉普拉斯矩阵？</h4><ul>
-<li>拉普拉斯矩阵是对称矩阵，可以进行特征分解（谱分解），这就和GCN的spectral domain对应上了</li>
-<li>拉普拉斯矩阵只在中心定点和一阶相连的顶点上（1-hop neighbor）有非0元素，其余之处全为0</li>
-<li>通过拉普拉斯算子与拉普拉斯矩阵进行类比</li>
-</ul>
-<h3 id="拉普拉斯矩阵的谱分解（特征分解）"><a href="#拉普拉斯矩阵的谱分解（特征分解）" class="headerlink" title="拉普拉斯矩阵的谱分解（特征分解）"></a>拉普拉斯矩阵的谱分解（特征分解）</h3><p>GCN的核心基于拉普拉斯矩阵的谱分解。</p>
-<p>首先，<strong>矩阵的谱分解，特征分解，对角化都是一个概念</strong></p>
-<p><strong>不是所有的矩阵都可以特征分解</strong>，其充要条件为n阶方阵存在n个线性无关的特征向量。</p>
-<p>但是拉普拉斯矩阵是半正定对称矩阵（半正定矩阵本身就是对称矩阵），有如下三个性质：</p>
+<p>改善的目的就是（1）提高GAN的用户控制能力（2）提高GAN生成图片的分辨率和质量</p>
+<p><strong>步骤：</strong></p>
+<p><strong>pix2pix</strong>：有条件地使用用户输入，它使用<strong>成对的数据</strong>进行训练</p>
+<p><strong>CycleGAN：</strong>使用<strong>不成对的数据</strong>就能训练</p>
+<p><strong>pix2pixHD：</strong>生成<strong>高分辨率、高质量</strong>的图片</p>
+<p><img src="https://img-blog.csdn.net/20180914044518280?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
+<h3 id="pix2pix"><a href="#pix2pix" class="headerlink" title="pix2pix"></a>pix2pix</h3><p>对传统的GAN做了一个小改动，它不再输入随机噪声，而是输入用户给的图片：</p>
+<p>然后建立输入和输出的对应关系：<strong>将G的输入和输出一起作为D的输入</strong></p>
+<p><img src="https://img-blog.csdn.net/20180914044620941?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
+<h3 id="CycleGAN"><a href="#CycleGAN" class="headerlink" title="CycleGAN"></a>CycleGAN</h3><p>pix2pix必须使用成对的数据进行训练</p>
+<p>而CycleGAN值需要输入数据的一个集合（比如一堆马的照片）和输出数据的一个集合（一如一堆斑马的照片）就可以了</p>
+<p><img src="https://img-blog.csdn.net/20180914044822913?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
+<p>pix2pix</p>
+<p><img src="https://img-blog.csdn.net/20180914044837669?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
+<p>CycleGAN</p>
+<p><img src="https://img-blog.csdn.net/20180914044908950?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
+<p>但是，直接使用不成对的数据是不奏效的。网络会直接忽略输入，随机产生输出！所以需要对网络增加<strong>限制</strong></p>
+<p>即我们如果将马变成斑马，然后再变成马，那么最后的马和开始输入的马应该是一样的</p>
+<p>具体细节。除了之前提到的把马斑马的网络G，我们还需要一个把斑马变回马的网络F</p>
+<p>那么，一匹马x用G变成斑马s = G(x)，然后再用F把它变回马F(s)，得到的马应该和一开始的马是一样的，即x = F(G(x))</p>
+<p><img src="https://img-blog.csdn.net/20180914044947503?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
+<p>翻过来，斑马变成马再变回斑马也需要满足要求，注意这一步最好不要省略。</p>
+<p>然后同时优化G和F，最后就能拿到一个想要的网络G</p>
+<h4 id="CycleGAN为什么有效"><a href="#CycleGAN为什么有效" class="headerlink" title="CycleGAN为什么有效"></a>CycleGAN为什么有效</h4><p>CycleGAN成功的原因在于它分离了<strong>风格（Style）和内容（content）</strong>。人工设计这种分离的算法是很难的，但有了神经网络，我们很容易让它学习者去自动<strong>保持内容而改变风格</strong></p>
+<p>存在的问题：CycleGAN只能输出256p/512p的低分辨率图片</p>
+<h3 id="pix2pixHD"><a href="#pix2pixHD" class="headerlink" title="pix2pixHD"></a>pix2pixHD</h3><p>pix2pixHD采取了金字塔的方式</p>
 <ul>
-<li><strong>对称矩阵一定有n个线性无关的特征向量</strong></li>
-<li><strong>半正定矩阵的特征值一定非负</strong></li>
-<li><strong>对称矩阵的特征向量相互正交，即所有特征向量构成的矩阵为正交矩阵</strong></li>
+<li>先输出低分辨率的图片</li>
+<li>将之前输出的低分辨率图片作为另一个网络的输入，然后生成分辨率更高的图片</li>
 </ul>
-<p>由上可以知道拉普拉斯矩阵一定可以谱分解，且分解后有特殊的形式。</p>
-<p>对于拉普拉斯矩阵其谱分解为：</p>
-<p>$L=U\left(\begin{array}{ccc}{\lambda_{1}} &amp; {} \\ {} &amp; {\ddots} &amp; {} \\ {} &amp; {} &amp; {\lambda_{n}}\end{array}\right) U^{-1}$</p>
-<p>其中$U=(\overrightarrow{u_{1}}, \overrightarrow{u_{2}}, \cdots, \overrightarrow{u_{n}})$，是列向量为单位特征向量的矩阵，也就是$\overrightarrow{u_{l}}$是列向量。</p>
-<p>$\left(\begin{array}{cccc}{\lambda_{1}} \\ {} &amp; {} &amp; {\ddots} \\ {} &amp; {} &amp; {} &amp; {\lambda_{n}}\end{array}\right)$是n个特征值构成的对角矩阵</p>
-<p>由于$U$是正交矩阵，即$UU^{T} = E$</p>
-<p>所以特征分解又可以写成：</p>
-<p>$L=U\left(\begin{array}{ccc}{\lambda_{1}} &amp; {} &amp; {} \\ {} &amp; {\ddots} &amp; {} \\ {} &amp; {} &amp; {\lambda_{n}}\end{array}\right) U^{T}$</p>
-<h3 id="6-如何从传统的傅里叶变换、卷积类比到Graph上的傅里叶变换及卷积？"><a href="#6-如何从传统的傅里叶变换、卷积类比到Graph上的傅里叶变换及卷积？" class="headerlink" title="6. 如何从传统的傅里叶变换、卷积类比到Graph上的傅里叶变换及卷积？"></a>6. 如何从传统的傅里叶变换、卷积类比到Graph上的傅里叶变换及卷积？</h3><p>把传统的傅里叶变换以及卷积迁移到Graph上来，核心工作其实就是把拉普拉斯算子的特征函数$e^{-iwt}$变为Graph对应的拉普拉斯矩阵的特征向量</p>
-<ul>
-<li><p>Graph上的傅里叶变换</p>
-<p>传统的傅里叶变换定义为：</p>
-<p>$F(\omega)=\mathcal{F}[f(t)]=\int f(t) e^{-i \omega t} d t$</p>
-</li>
-</ul>
-<p>信号$f(t)$与基函数$e^{-iwt}$的积分，那么为什么要找</p>
+<p><img src="https://img-blog.csdn.net/20180914045410513?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
 
       
     </div>
@@ -327,7 +304,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/102/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/102/">102</a><span class="page-number current">103</span><a class="page-number" href="/page/104/">104</a><span class="space">&hellip;</span><a class="page-number" href="/page/149/">149</a><a class="extend next" rel="next" href="/page/104/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/102/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/102/">102</a><span class="page-number current">103</span><a class="page-number" href="/page/104/">104</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/104/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -373,7 +350,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">149</span>
+          <span class="site-state-item-count">150</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

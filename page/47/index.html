@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/09/LisGAN/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/09/SQLServer-Day1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/10/09/LisGAN/" class="post-title-link" itemprop="url">LisGAN</a>
+            <a href="/2019/10/09/SQLServer-Day1/" class="post-title-link" itemprop="url">SQLServer-Day1</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-10-09 15:54:52 / 修改时间：16:43:57" itemprop="dateCreated datePublished" datetime="2019-10-09T15:54:52+08:00">2019-10-09</time>
+              <time title="创建时间：2019-10-09 21:05:27 / 修改时间：21:44:01" itemprop="dateCreated datePublished" datetime="2019-10-09T21:05:27+08:00">2019-10-09</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/10/09/LisGAN/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/09/LisGAN/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/10/09/SQLServer-Day1/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/09/SQLServer-Day1/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,65 +240,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="论文阅读：Leveraging-the-Invariant-Side-of-Generative-Zero-Shot-Learning"><a href="#论文阅读：Leveraging-the-Invariant-Side-of-Generative-Zero-Shot-Learning" class="headerlink" title="论文阅读：Leveraging the Invariant Side of Generative Zero-Shot Learning"></a>论文阅读：Leveraging the Invariant Side of Generative Zero-Shot Learning</h2><h3 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h3><p><img src="/2019/10/09/LisGAN/Users\12751\AppData\Roaming\Typora\typora-user-images\1570607788988.png" alt="1570607788988"></p>
-<p>基于GAN的ZSL方法，通过生成样本的方式，将ZSL问题转换成全监督问题</p>
-<p>本文的动机是利用（域）边的信息的GAN来<strong>生成特征</strong>，而不是生成样本。</p>
-<blockquote>
-<p>生成特征比生成样本好在那里?</p>
-</blockquote>
+          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">表1: Person</span><br><span class="line"></span><br><span class="line">+-------------+---------+</span><br><span class="line">| 列名         | 类型     |</span><br><span class="line">+-------------+---------+</span><br><span class="line">| PersonId    | int     |</span><br><span class="line">| FirstName   | varchar |</span><br><span class="line">| LastName    | varchar |</span><br><span class="line">+-------------+---------+</span><br><span class="line">PersonId 是上表主键</span><br><span class="line">表2: Address</span><br><span class="line"></span><br><span class="line">+-------------+---------+</span><br><span class="line">| 列名         | 类型    |</span><br><span class="line">+-------------+---------+</span><br><span class="line">| AddressId   | int     |</span><br><span class="line">| PersonId    | int     |</span><br><span class="line">| City        | varchar |</span><br><span class="line">| State       | varchar |</span><br><span class="line">+-------------+---------+</span><br><span class="line">AddressId 是上表主键</span><br></pre></td></tr></table></figure>
+<p>编写一个 SQL 查询，满足条件：无论 person 是否有地址信息，都需要基于上述两表提供 person 的以下信息：</p>
+<p><code>FirstName, LastName, City, State</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> FirstName, LastName, City, State</span><br><span class="line"><span class="keyword">FROM</span> Person <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> Address</span><br><span class="line"><span class="keyword">on</span> Person.PersonId = Address.PersonId;</span><br></pre></td></tr></table></figure>
+<p>数据库在连接两张或多张表来返回记录时，都会生成一张中间的临时表，然后再将这张临时表返回给用户。在使用<code>left join</code>时，<code>on</code>和<code>while</code>条件的区别如下：</p>
 <ul>
-<li>提出了一个conditional Wasserstein GAN，输入是噪声和语义描述</li>
-<li><p>定义了soul sample来作为generative ZSL不变方面【soul sample是类别的元表示】</p>
-</li>
-<li><p>提出串联的两个分类器，得到由粗到细的结果</p>
-</li>
+<li><code>on</code>条件实在生成临时表时使用的条件，他不管on中的条件是否为真，都会返回左边表中的记录</li>
+<li><code>where</code>条件是在临时表生成好后，再对临时表进行过滤的条件。这时已经没有<code>left join</code>的含义（必须返回左边表的记录了），条件不为真的就全部过滤掉。</li>
 </ul>
-<blockquote>
-<p>generative ZSL不变的方面是每个类的soul sample，变的方面是每一个生成的样本，具体来说，seen类，每个生成样本是2048维的Resnet特征，而soul sample是seen类所有特征的均值</p>
-</blockquote>
-<p>GAN-based方法的主要问题：</p>
-<ul>
-<li>diversity多样性：怎么保证有限（一个）或者详细的属性条件下的生成多样性</li>
-<li>reliability可靠性（discrimination判别性）：怎么确保每个生成样本和真实样本及其语义描述高度相关？</li>
-</ul>
-<h3 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h3><p><img src="/2019/10/09/LisGAN/Users\12751\AppData\Roaming\Typora\typora-user-images\1570608194811.png" alt="1570608194811"></p>
-<ul>
-<li>利用WGAN生成未见类特征，输入是随机噪声和语义描述</li>
-<li>多个soul samples用来对生成器进行调整</li>
-<li>利用信心分数的未见类样本微调最后的结果</li>
-</ul>
-<h4 id="问题定义"><a href="#问题定义" class="headerlink" title="问题定义"></a>问题定义</h4><p>ZSL：$f: \mathcal {X}_{u} \rightarrow \mathcal {Y}_{u}$</p>
-<p>GZSL: $f:\{ \mathcal {X}, \mathcal {X}_{u} \} \rightarrow \mathcal {Y} \cup {\mathcal {Y}_{u}}$</p>
-<h4 id="整体的想法"><a href="#整体的想法" class="headerlink" title="整体的想法"></a>整体的想法</h4><ul>
-<li>部署CWGAN是为了让类别嵌入（属性，语义描述）能够并入生成器G和判别器D</li>
-<li>因为$\{A, Y\}$ 和 $\{A_u, Y_u\}$ 是有联系的，即 $A$ 和 $A_u$ 有共同的语义空间，条件GAN如果能够为类生成高质量的样本，也可以期待它为unseen类生成高质量的样本</li>
-</ul>
-<h4 id="两个创新点"><a href="#两个创新点" class="headerlink" title="两个创新点"></a>两个创新点</h4><ul>
-<li>利用soul sample来调整生成器</li>
-<li>利用高信心分数的unseen类样本来微调后面的unseen类样本</li>
-</ul>
-<h4 id="soul-sample的好处"><a href="#soul-sample的好处" class="headerlink" title="soul sample的好处"></a>soul sample的好处</h4><p>soul sample缓解了域漂移问题</p>
-<h3 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h3><h4 id="G的loss："><a href="#G的loss：" class="headerlink" title="G的loss："></a>G的loss：</h4><p>$L_{G}=-\mathbb{E}[D(G(z, a))]-\lambda \mathbb{E}[\log P(y | G(z, a))]$</p>
-<p>其中，随机噪声${\mathrm{z}} \sim \mathcal{N}(0,1)$，语义描述a。第一项是Wasserstein损失，第二项是监督分类损失。</p>
-<h4 id="D的loss："><a href="#D的loss：" class="headerlink" title="D的loss："></a>D的loss：</h4><p>$\begin{array}{c}{L_{D}=\mathbb{E}[D(G(z, a))]-E[D(x)]} \\ {-\lambda(\mathbb{E}[\log P(y | G(z, a))])+\mathbb{E}[\log P(y | x)]} \\ {-\beta \mathbb{E}\left[\left(\left|\nabla_{\hat{x}} D(\hat{x})\right|_{2}-1\right)^{2}\right]}\end{array}$</p>
-<p>最后一项是强制的Lipschitz约束，$\hat{x}=\mu x+(1-\mu) G(z, a), \mu \sim U(0,1)$</p>
-<h4 id="k个soul-sample"><a href="#k个soul-sample" class="headerlink" title="k个soul sample"></a>k个soul sample</h4><p>c类所有样本的均值就是c类的soul sample</p>
-<h4 id="每个类别c应该有多个soul-sample来解决多视角问题"><a href="#每个类别c应该有多个soul-sample来解决多视角问题" class="headerlink" title="每个类别c应该有多个soul sample来解决多视角问题"></a>每个类别c应该有多个soul sample来解决多视角问题</h4><p>作者提出，将所有特征聚类成k个簇。为了简便，论文中k=3</p>
-<p>每个类训练样本的soul sample的定义：</p>
-<p>$s_{k}^{c}=\frac{1}{\left|X_{k}^{c}\right|} \sum_{x_{i} \in X_{k}^{c}} x_{i}$</p>
-<p>每个类生成样本的soul sample的定义：</p>
-<p>$\widetilde{s}_{k}^{c}=\frac{1}{\left|\tilde{X}_{k}^{c}\right|} \sum_{\tilde{x}_{i} \in \tilde{X}_{k}^{c}} \tilde{x}_{i}$</p>
-<p>其中，$\tilde{x}_{i}=G(z, a)$是生成特征。</p>
-<h4 id="两个正则项"><a href="#两个正则项" class="headerlink" title="两个正则项"></a>两个正则项</h4><p>每个生成样本至少要靠近某一个soul sample</p>
-<p>$L_{R 1}=\frac{1}{n_{1}} \sum_{i=1}^{n_{1}} \min _{j \in[1, k]}\left|\tilde{x}_{i}-s_{j}^{c}\right|_{2}^{2}$</p>
-<p>每个生成的soul sample必须靠近至少一个真实的soul sample</p>
-<p>$L_{R 2}=\frac{1}{C} \sum_{c=1}^{C} \min _{j \in[1, k]}\left|\tilde{s}_{j}^{c}-s_{j}^{c}\right|_{2}^{2}$</p>
-<h3 id="预测unseen类"><a href="#预测unseen类" class="headerlink" title="预测unseen类"></a>预测unseen类</h3><p>论文训练一个softmax分类器，对生成样本进行分类</p>
-<p>$\begin{array}{l}{\min _{\theta}-\frac{1}{|\mathcal{X}|} \sum_{(x, y) \in(\mathcal{X}, \mathcal{Y})} \log P(y | x ; \theta)} \\ {\log P(y | x ; \theta)=\frac{\exp \left(\theta_{y}^{T} x\right)}{\sum_{i=1}^{N} \exp \left(\theta_{i}^{T} x\right)}}\end{array}$</p>
-<p>向量的熵可以用来测量结果的确定性。如果一个概率向量比较低的熵，我们对结果更有信心。</p>
-<p>所以我们利用分类熵较低的样本，部署他们作为参考来对其他的未见类样本进行分类。</p>
-<h4 id="样本熵"><a href="#样本熵" class="headerlink" title="样本熵"></a>样本熵</h4><p>$E(y)=-\sum_{c=1}^{C} y_{c} \log y_{c}$</p>
-<p>本文的模型包含两个分类器。第一个分类器用来评估分类信心，第二个分类器用来利用正确分类的样本。本文的领样本是杯中，第一个分类器是一个生成假样本上训练的softmax，第二个分类器可以是一个训练的分类器，比如softmax分类器，SVM，或者就是一个不用训练的最近邻分类器。</p>
+<h3 id="183-从不订购的客户"><a href="#183-从不订购的客户" class="headerlink" title="183. 从不订购的客户"></a>183. 从不订购的客户</h3><p>某网站包含两个表，Customers 表和 Orders 表。编写一个 SQL 查询，找出所有从不订购任何东西的客户。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Customers 表：</span><br><span class="line">+----+-------+</span><br><span class="line">| Id | Name  |</span><br><span class="line">+----+-------+</span><br><span class="line">| 1  | Joe   |</span><br><span class="line">| 2  | Henry |</span><br><span class="line">| 3  | Sam   |</span><br><span class="line">| 4  | Max   |</span><br><span class="line">+----+-------+</span><br><span class="line">Orders 表：</span><br><span class="line">+----+------------+</span><br><span class="line">| Id | CustomerId |</span><br><span class="line">+----+------------+</span><br><span class="line">| 1  | 3          |</span><br><span class="line">| 2  | 1          |</span><br><span class="line">+----+------------+</span><br><span class="line">例如给定上述表格，你的查询应返回：</span><br><span class="line">+-----------+</span><br><span class="line">| Customers |</span><br><span class="line">+-----------+</span><br><span class="line">| Henry     |</span><br><span class="line">| Max       |</span><br><span class="line">+-----------+</span><br></pre></td></tr></table></figure>
+<p>可以使用 <code>not in</code> 来查询不在此列表中的客户</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> customers.name <span class="keyword">as</span> <span class="string">'Customers'</span></span><br><span class="line"><span class="keyword">FROM</span> customers</span><br><span class="line"><span class="keyword">where</span> customers.id <span class="keyword">not</span> <span class="keyword">in</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> customerid <span class="keyword">from</span> orders   </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h3 id="196-删除重复的电子邮箱"><a href="#196-删除重复的电子邮箱" class="headerlink" title="196. 删除重复的电子邮箱"></a>196. 删除重复的电子邮箱</h3><p>编写一个 SQL 查询，来删除 Person 表中所有重复的电子邮箱，重复的邮箱里只保留 Id 最小 的那个。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">+----+------------------+</span><br><span class="line">| Id | Email            |</span><br><span class="line">+----+------------------+</span><br><span class="line">| 1  | john@example.com |</span><br><span class="line">| 2  | bob@example.com  |</span><br><span class="line">| 3  | john@example.com |</span><br><span class="line">+----+------------------+</span><br><span class="line">Id 是这个表的主键。</span><br><span class="line">例如，在运行你的查询语句之后，上面的 Person 表应返回以下几行:</span><br><span class="line"></span><br><span class="line">+----+------------------+</span><br><span class="line">| Id | Email            |</span><br><span class="line">+----+------------------+</span><br><span class="line">| 1  | john@example.com |</span><br><span class="line">| 2  | bob@example.com  |</span><br><span class="line">+----+------------------+</span><br></pre></td></tr></table></figure>
+<p>先将词表与它自身在电子邮箱列中连接起来，然后我们需要找到其他记录中具有相同电子邮件地址的更大ID。所以在<code>`WHERE</code>自自居中添加一个新的条件。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> p1 <span class="keyword">FROM</span> Person p1,</span><br><span class="line">    Person p2</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">    p1.Email = p2.Email <span class="keyword">AND</span> p1.Id &gt; p2.Id</span><br></pre></td></tr></table></figure>
+<h3 id="197-上升的温度"><a href="#197-上升的温度" class="headerlink" title="197. 上升的温度"></a>197. 上升的温度</h3><p>给定一个 Weather 表，编写一个 SQL 查询，来查找与之前（昨天的）日期相比温度更高的所有日期的 Id。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">+---------+------------------+------------------+</span><br><span class="line">| Id(INT) | RecordDate(DATE) | Temperature(INT) |</span><br><span class="line">+---------+------------------+------------------+</span><br><span class="line">|       1 |       2015-01-01 |               10 |</span><br><span class="line">|       2 |       2015-01-02 |               25 |</span><br><span class="line">|       3 |       2015-01-03 |               20 |</span><br><span class="line">|       4 |       2015-01-04 |               30 |</span><br><span class="line">+---------+------------------+------------------+</span><br><span class="line">例如，根据上述给定的 Weather 表格，返回如下 Id:</span><br><span class="line"></span><br><span class="line">+----+</span><br><span class="line">| Id |</span><br><span class="line">+----+</span><br><span class="line">|  2 |</span><br><span class="line">|  4 |</span><br><span class="line">+----+</span><br></pre></td></tr></table></figure>
+<p>DATEIFF：计算DATA时间差</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> A.Id <span class="keyword">as</span> <span class="string">"Id"</span></span><br><span class="line"><span class="keyword">FROM</span> Weather <span class="keyword">as</span> A, Weather <span class="keyword">as</span> B </span><br><span class="line"><span class="keyword">where</span> <span class="keyword">DATEDIFF</span>(A.RecordDate, B.RecordDate) = <span class="number">1</span> <span class="keyword">AND</span> A.Temperature &gt; B.Temperature</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -318,7 +280,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/46/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/46/">46</a><span class="page-number current">47</span><a class="page-number" href="/page/48/">48</a><span class="space">&hellip;</span><a class="page-number" href="/page/149/">149</a><a class="extend next" rel="next" href="/page/48/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/46/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/46/">46</a><span class="page-number current">47</span><a class="page-number" href="/page/48/">48</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/48/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -364,7 +326,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">149</span>
+          <span class="site-state-item-count">150</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/13/SQLServer-Day4/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/14/SQLServer-Day5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/10/13/SQLServer-Day4/" class="post-title-link" itemprop="url">SQLServer-Day4</a>
+            <a href="/2019/10/14/SQLServer-Day5/" class="post-title-link" itemprop="url">SQLServer-Day5</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-10-13 15:22:53 / 修改时间：18:35:06" itemprop="dateCreated datePublished" datetime="2019-10-13T15:22:53+08:00">2019-10-13</time>
+              <time title="创建时间：2019-10-14 20:17:37 / 修改时间：22:59:16" itemprop="dateCreated datePublished" datetime="2019-10-14T20:17:37+08:00">2019-10-14</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/10/13/SQLServer-Day4/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/13/SQLServer-Day4/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/10/14/SQLServer-Day5/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/14/SQLServer-Day5/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,254 +240,192 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="SQLServer-Day4"><a href="#SQLServer-Day4" class="headerlink" title="SQLServer-Day4"></a>SQLServer-Day4</h2><h3 id="IN操作符"><a href="#IN操作符" class="headerlink" title="IN操作符"></a><code>IN</code>操作符</h3><p>允许我们在<code>WHERE</code>子句中规定多个值</p>
+          <h2 id="SQLServer-Day5"><a href="#SQLServer-Day5" class="headerlink" title="SQLServer-Day5"></a>SQLServer-Day5</h2><h3 id="UNION-操作符"><a href="#UNION-操作符" class="headerlink" title="UNION 操作符"></a>UNION 操作符</h3><p><code>UNION</code>操作符用于合并两个或多个SELECT语句的结果集</p>
+<p>请注意，<code>UNION</code>内部的<code>SELECT</code>语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每条<code>SELECT</code>语句中的列的顺序必须相同。</p>
 <blockquote>
-<p>SELECT column_name(s)</p>
-<p>FROM table_name</p>
-<p>WHERE column_name IN (value1, value2, …)</p>
+<p>SELECT column_name(s)  FROM table_name1</p>
+<p><strong>UNION</strong></p>
+<p>SELECT column_name(s) FROM table_name2</p>
 </blockquote>
-<p>原始的Persons表：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Id</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td>Oxford Street</td>
-<td>London</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Bush</td>
-<td>George</td>
-<td>Fifth Avenue</td>
-<td>New York</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Carter</td>
-<td>Thomas</td>
-<td>Changan Street</td>
-<td>Beijing</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>例：寻找姓氏为Adams和Carter的人</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> LastName <span class="keyword">IN</span> (<span class="string">'Adams'</span>, <span class="string">'Carter'</span>)</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Id</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td>Oxford Street</td>
-<td>London</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Carter</td>
-<td>Thomas</td>
-<td>Changan Street</td>
-<td>Beijing</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="BETWEEN操作符"><a href="#BETWEEN操作符" class="headerlink" title="BETWEEN操作符"></a><code>BETWEEN</code>操作符</h3><p>在<code>WHERE</code>子句中使用，作用是选取介于两个值之间的数据范围。</p>
-<p>操作符<code>BETWEEN ... AND</code>会选取介于两个值之间的数据范围。这些值可以是数据、文本或者日期。</p>
+<p><strong>Tips</strong>：默认地，<code>UNION</code>操作符取不同的值，如果允许重复的值，需使用<code>UNION ALL</code></p>
 <blockquote>
-<p><strong>SELECT</strong> column_name(s)</p>
-<p><strong>FROM</strong> table_name</p>
-<p><strong>WHERE</strong> column_name</p>
-<p><strong>BETWEEN</strong> value1 <strong>AND</strong> value2</p>
+<p>SELECT column_name(s)  FROM table_name1</p>
+<p><strong>UNION ALL</strong></p>
+<p>SELECT column_name(s) FROM table_name2</p>
 </blockquote>
-<p>原始的Persons表：</p>
+<p>另外，<code>UNION</code>结果集中的列名总是等于<code>UNION中</code>第一个<code>SELECT</code>语句中的列名</p>
+<p>原始表：</p>
+<p>Employees_China：</p>
 <div class="table-container">
 <table>
 <thead>
 <tr>
-<th>Id</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
+<th>E_ID</th>
+<th>E_Name</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td>Oxford Street</td>
-<td>London</td>
+<td>01</td>
+<td>Zhang, Hua</td>
 </tr>
 <tr>
-<td>2</td>
-<td>Bush</td>
-<td>George</td>
-<td>Fifth Avenue</td>
-<td>New York</td>
+<td>02</td>
+<td>Wang, Wei</td>
 </tr>
 <tr>
-<td>3</td>
-<td>Carter</td>
-<td>Thomas</td>
-<td>Changan Street</td>
-<td>Beijing</td>
+<td>03</td>
+<td>Carter, Thomas</td>
 </tr>
 <tr>
-<td>4</td>
-<td>Gates</td>
-<td>Bill</td>
-<td>Xuanwumen 10</td>
-<td>Beijing</td>
+<td>04</td>
+<td>Yang, Ming</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>例：寻找以字母顺序介于‘Adams’（包括）和‘Carter’（不包括）之间的人：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> LastName</span><br><span class="line"><span class="keyword">BETWEEN</span> <span class="string">'Adams'</span> <span class="keyword">AND</span> <span class="string">'Carter'</span></span><br></pre></td></tr></table></figure>
-<p>结果：</p>
+<p>Employees_USA:</p>
 <div class="table-container">
 <table>
 <thead>
 <tr>
-<th>Id</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
+<th>E_ID</th>
+<th>E_Name</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td>Oxford Street</td>
-<td>London</td>
+<td>01</td>
+<td>Adam, John</td>
 </tr>
 <tr>
-<td>2</td>
-<td>Bush</td>
-<td>George</td>
-<td>Fifth Avenue</td>
-<td>New York</td>
+<td>02</td>
+<td>Bush, George</td>
+</tr>
+<tr>
+<td>03</td>
+<td>Carter, Thomas</td>
+</tr>
+<tr>
+<td>04</td>
+<td>Gates, Bill</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p><strong>重要事项：</strong>不同数据库对<code>BETWEEN...AND</code>操作符的处理方式是有差异的。某些数据库会列出介于‘Adams’和‘Carter’的人，但不包括‘Adams’和‘Carter’；某些数据库会列出介于 ‘Adams’和‘Carter’之间并包括‘Adams’和‘Carter’的人；而另一些数据库会列出介于‘Adams’和‘Carter’之间的人，包括‘Adams’，但不包括‘Carter’</p>
-<p>所以，需要检查自己的数据库是如何处理<code>BETWEEN...AND</code>操作符的</p>
-<p>例2：如果需要显示该范围之外的人，需要使用<code>NOT</code>操作符：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">WHERE</span> LastName</span><br><span class="line"><span class="keyword">NOT</span> <span class="keyword">BETWEEN</span> <span class="string">'Adams'</span> <span class="keyword">AND</span> <span class="string">'Carter'</span></span><br></pre></td></tr></table></figure>
-<h3 id="Alias-别名"><a href="#Alias-别名" class="headerlink" title="Alias (别名)"></a>Alias (别名)</h3><p>可以为列名称和表名称指定别名（Alias）</p>
-<h4 id="表的SQL-Alias语法"><a href="#表的SQL-Alias语法" class="headerlink" title="表的SQL Alias语法"></a>表的SQL Alias语法</h4><blockquote>
-<p>SELECT column_name(s)</p>
-<p>FROM table_name </p>
-<p><strong>AS</strong> alias_name</p>
-</blockquote>
-<h4 id="列的SQL-Alias语法"><a href="#列的SQL-Alias语法" class="headerlink" title="列的SQL Alias语法"></a>列的SQL Alias语法</h4><blockquote>
-<p>SELECT column_name <strong>AS</strong> alias_name</p>
-<p>FROM table_name</p>
-</blockquote>
-<p>例：使用表名称别名</p>
-<p>假设我们有两个表分别是：”Persons” 和 “Product_Orders”。我们分别为它们指定别名 “p” 和 “po”。</p>
-<p>现在，我们希望列出 “John Adams” 的所有定单。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> po.OrderID, p.LastName, p.FirstName</span><br><span class="line"><span class="keyword">FROM</span> Persons, Product_Orders</span><br><span class="line"><span class="keyword">WHERE</span> p.LastName = <span class="string">'Adams'</span> <span class="keyword">AND</span> p.FirstName = <span class="string">'John'</span></span><br></pre></td></tr></table></figure>
-<p>如果不使用别名：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.OrderID, Product_Orders.LastName, Product_Orders.FirstName</span><br><span class="line"><span class="keyword">FROM</span> Persons, Product_Orders</span><br><span class="line"><span class="keyword">WHERE</span> Product_Orders.LastName = <span class="string">'Adams'</span> <span class="keyword">AND</span> Product_Orders.FirstName = <span class="string">'John'</span></span><br></pre></td></tr></table></figure>
 <p>例：</p>
-<p>Persons表：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Id</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td>Oxford Street</td>
-<td>London</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Bush</td>
-<td>George</td>
-<td>Fifth Avenue</td>
-<td>New York</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Carter</td>
-<td>Thomas</td>
-<td>Changan Street</td>
-<td>Beijing</td>
-</tr>
-</tbody>
-</table>
-</div>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> LastName <span class="keyword">AS</span> Family, FirstName <span class="keyword">as</span> <span class="keyword">Name</span></span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
+<p>列出所有在中国和美国的不同的雇员名</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> E_Name</span><br><span class="line"><span class="keyword">FROM</span> Employees_China</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">FROM</span> Employees_USA</span><br></pre></td></tr></table></figure>
 <p>结果：</p>
 <div class="table-container">
 <table>
 <thead>
 <tr>
-<th>Family</th>
-<th>FirstName</th>
+<th>E_Name</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Adams</td>
-<td>John</td>
+<td>Zhang, Hua</td>
 </tr>
 <tr>
-<td>Bush</td>
-<td>George</td>
+<td>Wang, Wei</td>
 </tr>
 <tr>
-<td>Carter</td>
-<td>Thomas</td>
+<td>Carter, Thomas</td>
+</tr>
+<tr>
+<td>Yang, Ming</td>
+</tr>
+<tr>
+<td>Adam, John</td>
+</tr>
+<tr>
+<td>Bush, George</td>
+</tr>
+<tr>
+<td>Gates, Bill</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p><strong>注意：这里的列的名称也发生了改变！</strong></p>
-<h3 id="JOIN"><a href="#JOIN" class="headerlink" title="JOIN"></a>JOIN</h3><p><code>join</code>用于根据两个或多个表中的列之间的关系，从这些表中查询数据</p>
-<h4 id="Join和Key"><a href="#Join和Key" class="headerlink" title="Join和Key"></a>Join和Key</h4><p>有时，为了得到完整的结果，我们需要从两个或更多的表中获取数据，我们就需要执行join</p>
-<p>数据库中的表可通过键值将彼此联系起来。主键（Primary Key）是一个列，在这个列中的每一行的值都是唯一的。在表中，每个主键的值都是唯一的。这样说的目的是在不重复每个表中的所有数据的情况下，把表间的数据交叉捆绑在一起。</p>
-<p>例如，Persons表</p>
+<p>注释：这个命令无法列出在中国和美国的所有雇员，因为<code>UNION</code>命令只会选取不同的值。</p>
+<h3 id="SELECT-INTO语句"><a href="#SELECT-INTO语句" class="headerlink" title="SELECT INTO语句"></a>SELECT INTO语句</h3><p>用于创建表的备份复件</p>
+<p><code>SELECT INTO</code> 语句从一个表中选取数据，然后把数据插入另一个表中</p>
+<p><code>SELECT INTO</code> 语句常用于创建表的备份文件或者用于对记录进行存档</p>
+<p>可以将所有的列插入列表：</p>
+<blockquote>
+<p>SELECT *</p>
+<p>INTO new_table_name [IN externaldatabase]</p>
+<p>FROM old_tablename</p>
+</blockquote>
+<p>或者只把希望的列插入列表：</p>
+<blockquote>
+<p>SELECT column_name(s)</p>
+<p>INTO new_table_name [IN externaldatabase]</p>
+<p>FROM old_tablename</p>
+</blockquote>
+<h5 id="例：下面的例子会制作“Persons”表的备份复件"><a href="#例：下面的例子会制作“Persons”表的备份复件" class="headerlink" title="例：下面的例子会制作“Persons”表的备份复件"></a>例：下面的例子会制作“Persons”表的备份复件</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">INTO</span> Persons_backup</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
+<h5 id="IN子句可用于向另一个数据库中拷贝表："><a href="#IN子句可用于向另一个数据库中拷贝表：" class="headerlink" title="IN子句可用于向另一个数据库中拷贝表："></a>IN子句可用于向另一个数据库中拷贝表：</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">INTO</span> Persons <span class="keyword">IN</span> <span class="string">'Backup.mdb'</span></span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
+<h5 id="如果我们希望拷贝某些域，可以在SELECT语句后列出这些域："><a href="#如果我们希望拷贝某些域，可以在SELECT语句后列出这些域：" class="headerlink" title="如果我们希望拷贝某些域，可以在SELECT语句后列出这些域："></a>如果我们希望拷贝某些域，可以在SELECT语句后列出这些域：</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  LastName, FIrstName</span><br><span class="line"><span class="keyword">INTO</span> Persons_backup</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
+<h5 id="带有WHERE子句："><a href="#带有WHERE子句：" class="headerlink" title="带有WHERE子句："></a>带有WHERE子句：</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> LastName, FirstName</span><br><span class="line"><span class="keyword">INTO</span> Persons_backup</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> City = <span class="string">'Beijing'</span></span><br></pre></td></tr></table></figure>
+<p>表示从“Pesons”表中提取居住在“Beijing”的人的信息，创建了一个带有两个列的名为“Persons_backup”的表</p>
+<h5 id="被连接的表"><a href="#被连接的表" class="headerlink" title="被连接的表"></a>被连接的表</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Orders.OrderNo</span><br><span class="line"><span class="keyword">INTO</span> Persons_Order_Backup</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br></pre></td></tr></table></figure>
+<p>表示创建一个名为“Persons_Order_Backup”的新表，其中包含了从Persons和Orders两个表中的内容。</p>
+<h3 id="CREATE-DATABASE-语句"><a href="#CREATE-DATABASE-语句" class="headerlink" title="CREATE DATABASE 语句"></a>CREATE DATABASE 语句</h3><p>用于创建数据库</p>
+<blockquote>
+<p>CREATE DATABASE database_name</p>
+</blockquote>
+<p>例：创建一个名为my_db的数据库</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> my_db</span><br></pre></td></tr></table></figure>
+<p>可以通过<code>CREATE TABLE</code>来添加数据库表</p>
+<h3 id="CREATE-TABLE-语句"><a href="#CREATE-TABLE-语句" class="headerlink" title="CREATE TABLE 语句"></a>CREATE TABLE 语句</h3><p>用于创建数据库中的表</p>
+<blockquote>
+<p>CREATE TABLE 表名称 </p>
+<p>(</p>
+<p>列名称1 数据类型，</p>
+<p>列名称2 数据类型，</p>
+<p>列名称3 数据类型，</p>
+<p>…</p>
+<p>)</p>
+</blockquote>
+<p>数据类型(data_type) 规定了列可容纳何种数据类型。下面的表格包含了SQL中最常用的数据类型</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>interger(size)  <br>int(size)<br>smallint(size)<br>tinyint(size)</td>
+<td>仅容纳整数，在括号内规定数字的最大位数</td>
+</tr>
+<tr>
+<td>decimal(size, d)<br>numeric(size, d)</td>
+<td>容纳带有小数的数字<br>“size”规定数字的最大位数。“d”规定小数点右侧的最大位数</td>
+</tr>
+<tr>
+<td>char(size)</td>
+<td>容纳固定长度的字符串（可容纳字母、数字以及特殊字符）<br>在括号中规定字符串的最大长度</td>
+</tr>
+<tr>
+<td>varchar(size)</td>
+<td>容纳可变长度的字符串（可容纳字母、数字以及特殊字符）<br>在括号中规定字符串的最大长度</td>
+</tr>
+<tr>
+<td>date（yyyymmdd）</td>
+<td>容纳日期</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>例：</p>
+<p>创建”Persons”表，其中包含5个列，列明分别是“Id_P”, “LastName”, “FirstName”, “Address”以及“City”</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line">(</span><br><span class="line">Id_P <span class="built_in">int</span>, </span><br><span class="line">LastName <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">FirstName <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">Address <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">City <span class="built_in">varchar</span>(<span class="number">255</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>空的表类似这样</p>
 <div class="table-container">
 <table>
 <thead>
@@ -501,291 +439,29 @@
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td>Oxford Street</td>
-<td>London</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Bush</td>
-<td>George</td>
-<td>Fifth Avenue</td>
-<td>New York</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Carter</td>
-<td>Thomas</td>
-<td>Changan Street</td>
-<td>Beijing</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>这里：<strong>Id_P</strong>是Persons表中的主键，这意味着没有两行能够拥有相同的<code>Id_P</code></p>
-<p>Orders表：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Id_O</th>
-<th>OrderNo</th>
-<th>Id_P</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>77895</td>
-<td>3</td>
-</tr>
-<tr>
-<td>2</td>
-<td>44678</td>
-<td>3</td>
-</tr>
-<tr>
-<td>3</td>
-<td>22456</td>
-<td>1</td>
-</tr>
-<tr>
-<td>4</td>
-<td>24562</td>
-<td>1</td>
-</tr>
-<tr>
-<td>5</td>
-<td>34764</td>
-<td>65</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>注意：“<strong>Id_O</strong>“列值Orders表中的主键，同时，”Orders“表中的”Id_P“列用于引用”Persons“表中的人，而无需使用他人的确切姓名</p>
-<p>这个时候“Id_P”列把上面两个表联系起来了</p>
-<p><strong>引用两个表</strong>，我们可以知道谁订购了什么产品？</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Persons.FirstName, Orders.No</span><br><span class="line"><span class="keyword">FROM</span> Persons, Orders</span><br><span class="line"><span class="keyword">WHERE</span> Persons.Id_P = Orders.Id_P</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>LastName</th>
-<th>FirstName</th>
-<th>OrderNo</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Adams</td>
-<td>John</td>
-<td>22456</td>
-</tr>
-<tr>
-<td>Adams</td>
-<td>John</td>
-<td>24562</td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>77895</td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>44678</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>除了上面的方法，我们还可以使用关键字<code>JOIN</code>来从两个表中获取数据</p>
-<p>如果我们希望列出所有人的订购，可以这样写：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Persons.FirstName, Orders.OrderNo</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Persons.LastName</span><br></pre></td></tr></table></figure>
-<p>不同的SQL JOIN</p>
-<p>除了上面使用的<code>INNER JOIN</code>（内连接），还有其他的连接方式</p>
+<p>可使用INSERT INTO语句向空表写入数据</p>
+<h3 id="SQL-约束（Constraints）"><a href="#SQL-约束（Constraints）" class="headerlink" title="SQL 约束（Constraints）"></a>SQL 约束（Constraints）</h3><p>约束用于限制加入表的数据的类型</p>
+<p>可以在创建表时规定约束（通过<code>CREATE TABLE</code>语句），或者在表创建之后也可以（通过<code>ALTER TABLE</code>语句）</p>
+<p>主要有以下几种约束：</p>
 <ul>
-<li><code>JOIN</code>：如果表中至少有一个匹配，则返回</li>
-<li><code>LEFT JOIN</code>：即使右表中没有匹配，也从左表返回所有的行</li>
-<li><code>RIGHT JOIN</code>：即使左表中没有匹配，也从右表中返回所有的行</li>
-<li><code>FULL JOIN</code>：只要其中一个表中存在匹配，就返回行</li>
+<li>NOT NULL</li>
+<li>UNIQUE</li>
+<li>PRIMARY KEY</li>
+<li>FOREIGN KEY</li>
+<li>CHECK</li>
+<li>DEFAULT</li>
 </ul>
-<h3 id="INNER-JOIN-关键字"><a href="#INNER-JOIN-关键字" class="headerlink" title="INNER JOIN 关键字"></a>INNER JOIN 关键字</h3><p>在表中至少存在一个匹配项时，INNER JOIN关键字返回行</p>
-<blockquote>
-<p>SELECT column_name(s)</p>
-<p>FROM table_name1</p>
-<p><strong>INNER JOIN</strong> table_name2</p>
-<p><strong>ON</strong> table_name1.column_name = table_name2.column_name</p>
-</blockquote>
-<p>注释：<code>INNER JOIN</code>和<code>JOIN</code>是相同的</p>
-<p>如果在”Persons“中的行在“Orders”中没有匹配，则不会返回</p>
-<h3 id="LEFT-JOIN关键字"><a href="#LEFT-JOIN关键字" class="headerlink" title="LEFT JOIN关键字"></a>LEFT JOIN关键字</h3><p><code>LEFT JOIN</code>关键字会从左表（table_name1）那里返回所有的行，即使在右表（table_name2）中没有匹配</p>
-<blockquote>
-<p>SELECT column_name(s)</p>
-<p>FROM table_name1</p>
-<p><strong>LEFT JOIN</strong> table_name2</p>
-<p><strong>ON</strong> table_name1.column_name = table_name2.column_name</p>
-</blockquote>
-<p>注释：在某些数据库中，<code>LEFT JOIN</code> 称为 <code>LEFT OUTER JOIN</code></p>
-<p>如果在上述的Persons表和Orders表中采用左连接，即：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Persons.FirstName, Orders,OrderNo</span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Persons.LastName</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>LastName</th>
-<th>FirstName</th>
-<th>OrderNo</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Adams</td>
-<td>John</td>
-<td>22456</td>
-</tr>
-<tr>
-<td>Adams</td>
-<td>John</td>
-<td>24562</td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>77895</td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>44678</td>
-</tr>
-<tr>
-<td>Bush</td>
-<td>George</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="RIGHT-JOIN-关键字"><a href="#RIGHT-JOIN-关键字" class="headerlink" title="RIGHT JOIN 关键字"></a>RIGHT JOIN 关键字</h3><p><code>RIGHT JOIN</code>关键字会在右表（table_name2）那里返回所有的行，即使在左表（table_name1）中没有匹配的行</p>
-<blockquote>
-<p>SELECT column_name(s)</p>
-<p>FROM table_name1</p>
-<p><strong>RIGHT JOIN</strong> table_name2</p>
-<p><strong>ON</strong> table_name1.column_name = table_name2.column_name</p>
-</blockquote>
-<p>还是上面那两张表</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Persons.FirstName, Orders.OrderNo</span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Persons.LastName</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>LastName</th>
-<th>FirstName</th>
-<th>OrderNo</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Adams</td>
-<td>John</td>
-<td>22456</td>
-</tr>
-<tr>
-<td>Adams</td>
-<td>John</td>
-<td>24562</td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>77895</td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>44678</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>34764</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p><code>RIGHT JOIN</code>关键字会从右表（Orders）那里返回所有的行，即使在左表（Persons）中没有匹配的行</p>
-<h3 id="FULL-JOIN-关键字"><a href="#FULL-JOIN-关键字" class="headerlink" title="FULL JOIN 关键字"></a>FULL JOIN 关键字</h3><p>只要其中某个表存在匹配，<code>FULL JOIN</code>关键字就回返回行</p>
-<blockquote>
-<p>SELECT column_name(s)</p>
-<p>FROM table_name1</p>
-<p><strong>FULL JOIN</strong> table_name2</p>
-<p><strong>ON</strong> table_name1.column_name = table_name2.column_name</p>
-</blockquote>
-<p>Persons表和Orders表同上</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Persons.FirstName, Orders.OrderNo</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">FULL</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Persons.LastName</span><br></pre></td></tr></table></figure>
-<p>结果</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>LastName</th>
-<th>FirstName</th>
-<th>OrderNo</th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Adams</td>
-<td>John</td>
-<td>22456</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Adams</td>
-<td>John</td>
-<td>24562</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>77895</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>44678</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Bush</td>
-<td>George</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>34764</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p><code>FLLL JOIN</code>关键字会从左表（Persons）和右表（Orders）那里返回所有的行。如果“Persons”中的行在表“Orders”中没有匹配，或者如果“Orders”中的行在表“Persons”中没有匹配，这些行同样会列出。</p>
+<h3 id="NOT-NULL约束"><a href="#NOT-NULL约束" class="headerlink" title="NOT NULL约束"></a>NOT NULL约束</h3><p><code>NOT NULL</code>约束强制列不接受<code>NULL</code>值</p>
+<p><code>NOT NULL</code>约束强制字段始终包含值。这意味着，如果不向字段添加值，就无法插入新记录或者更新记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line">(</span><br><span class="line">Id_P <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">LastName <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">FirstName <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">Address <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">City <span class="built_in">varchar</span>(<span class="number">255</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -805,7 +481,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/41/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/41/">41</a><span class="page-number current">42</span><a class="page-number" href="/page/43/">43</a><span class="space">&hellip;</span><a class="page-number" href="/page/149/">149</a><a class="extend next" rel="next" href="/page/43/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/41/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/41/">41</a><span class="page-number current">42</span><a class="page-number" href="/page/43/">43</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/43/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -851,7 +527,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">149</span>
+          <span class="site-state-item-count">150</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

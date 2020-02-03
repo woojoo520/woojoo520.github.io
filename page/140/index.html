@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/YOLO/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/ResNet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/07/25/YOLO/" class="post-title-link" itemprop="url">YOLO</a>
+            <a href="/2019/07/25/ResNet/" class="post-title-link" itemprop="url">ResNet</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-07-25 20:37:09 / 修改时间：22:17:28" itemprop="dateCreated datePublished" datetime="2019-07-25T20:37:09+08:00">2019-07-25</time>
+              <time title="创建时间：2019-07-25 20:48:56 / 修改时间：22:17:23" itemprop="dateCreated datePublished" datetime="2019-07-25T20:48:56+08:00">2019-07-25</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/07/25/YOLO/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/07/25/YOLO/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/07/25/ResNet/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/07/25/ResNet/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,17 +240,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="《You-Only-Look-Once-Unified-Real-Time-Object-Detection》——YOLO"><a href="#《You-Only-Look-Once-Unified-Real-Time-Object-Detection》——YOLO" class="headerlink" title="《You Only Look Once: Unified, Real-Time Object Detection》——YOLO"></a>《You Only Look Once: Unified, Real-Time Object Detection》——YOLO</h2><p>目前，基于深度学习算法的一系列目标检测算法大致可以分为两个流派：</p>
-<ol>
-<li>两步走（two-stage）算法：先生产候选区域然后再进行CNN分类（RCNN系列）</li>
-<li>一步走（one-stage）算法：直接对输入图像应用算法并输出类别和相应的定位（YOLO系列）</li>
-</ol>
-<p>之前的R-CNN系列虽然准确率比较高，但是即使是发展到Faster R-CNN，检测一张图片如下图所示也要7pfd（原文为5fps），为了使得检测的工作能够应用到实时的场景中，提出了YOLO</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/6983308-92902dcbd7c8262d.png?imageMogr2/auto-orient/" alt="img"></p>
-<p>WOLO的检测思想不同于R-CNN系列的思想，它将目标检测作为回归任务来解决。</p>
-<p>YOLO的整体结构：</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/6983308-d54136f1eb0cd733.png?imageMogr2/auto-orient/" alt="img"></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/6983308-0d1e8d42480e1c1a.png?imageMogr2/auto-orient/" alt="img"></p>
+          <h2 id="ResNet（Residual-Neural-Network）"><a href="#ResNet（Residual-Neural-Network）" class="headerlink" title="ResNet（Residual Neural Network）"></a>ResNet（Residual Neural Network）</h2><h3 id="一-简要概括"><a href="#一-简要概括" class="headerlink" title="一. 简要概括"></a>一. 简要概括</h3><p>ResNet的结构可以极快的加速神经网络的训练，模型的准确率也有比较大的提升。同时ResNe的推广性非常好，甚至可以直接用到InceptionNet网络中</p>
+<p>ResNet的主要思想是在网络中增加了直连通道，即Highway Network的思想。此前的网络结构是性能输入做一个非线性变换，而Highway Network则允许保留之前网络层的一定比例的输出。ResNet的思想和way Network的思想也十分类似，允许原始输入信息直接传到后面的层中：</p>
+<p><img src="https://img-blog.csdn.net/20180710193536899?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMxODE1OTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p>这样的话这一层的神经网络可以不用学习整个的输出，而是学习上一个网络输出的残差，因此ResNet又叫做残差网络</p>
+<h3 id="二-创新点"><a href="#二-创新点" class="headerlink" title="二. 创新点"></a>二. 创新点</h3><p>提出残差学习的思想。传统的卷积网络或者全连接网络在信息传递的时候或多或少会存在信息丢失，损耗等问题，同时还有导致梯度消失或者梯度爆炸，导致很深的网络无法训练。ResNet在一定程度上解决了这个问题，通过直接将输入信息绕道传到输出，保护信息的完整性，整个网络只需要学习输入、输出差别的那一部分，简化学习目标和难度。VGGNet和ResNet的对比：</p>
+<p><img src="https://img-blog.csdn.net/20180710193619121?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMxODE1OTU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p>ResNet最大的区别在于有很多的旁路将输入直接连接到后面的层，这种结构也被称为shortcut或者skip connection</p>
+<h3 id="三-深度残差学习（Deep-Residual-Learning）"><a href="#三-深度残差学习（Deep-Residual-Learning）" class="headerlink" title="三. 深度残差学习（Deep Residual Learning）"></a>三. 深度残差学习（Deep Residual Learning）</h3><h4 id="残差学习"><a href="#残差学习" class="headerlink" title="残差学习"></a>残差学习</h4><p>若将输入设为x，将某一有参网络层设为H，那么以X为输入的此层的输出将为H(X)。一般的CNN网络如Alexnet/VGG等会直接通过训练学习出参数函数H的表达，从而直接学习 X -&gt; H(X)</p>
+<p>而残差学习则是致力于使用多个有参网络层来学习输入、输出之间的残差，即H(X) - X，即学习 X -&gt; (H(X) - X) + X。其中X这一部分为直接的Identity mapping，而H(X) - X则为有参网络层要学习的输入输出间残差。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5971313-ba5e9ef4e622908f.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/430" alt="img"></p>
+<h4 id="Identity-mapping"><a href="#Identity-mapping" class="headerlink" title="Identity mapping"></a>Identity mapping</h4><p>残差学习单元通过Identity mapping的引入在输入、输出之间建立了一条直接的关联通道，从而使得强大的有参层集中精力学习输入、输出之间的残差。一般我们用 $F(X,W_i)$ 来表示残差映射，那么输出即为： $Y=F(X,W_i)+X$。 当输入、输出通道数相同时，我们自然可以如此直接使用X进行相加。而当他们之间的通道数目不同时，我们就需要考虑建立一种有效的Identity mapping函数从而可以使得处理后的输入X与输出Y的通道数目相同即 $Y=F(X,W_i)+W_s*X$。</p>
+<p>当X与Y通道数目不同时，作者尝试了两种Identity mapping的方式。一种即简单地将X相对Y确实的通道直接补零从而时期能够相对器的方式，另一种则是通过使用1 * 1的conv来表示 $W_s$ 映射从而使得最终输入与输出的通道达到一致的方式。</p>
 
       
     </div>
@@ -270,7 +271,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/139/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/139/">139</a><span class="page-number current">140</span><a class="page-number" href="/page/141/">141</a><span class="space">&hellip;</span><a class="page-number" href="/page/149/">149</a><a class="extend next" rel="next" href="/page/141/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/139/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/139/">139</a><span class="page-number current">140</span><a class="page-number" href="/page/141/">141</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/141/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -316,7 +317,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">149</span>
+          <span class="site-state-item-count">150</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

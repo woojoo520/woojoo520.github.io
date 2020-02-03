@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/02/LeetCode-Day18/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/09/03/LeetCode-Day19/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/09/02/LeetCode-Day18/" class="post-title-link" itemprop="url">LeetCode-Day18</a>
+            <a href="/2019/09/03/LeetCode-Day19/" class="post-title-link" itemprop="url">LeetCode-Day19</a>
         </h1>
 
         <div class="post-meta">
@@ -210,16 +210,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2019-09-02 19:36:59" itemprop="dateCreated datePublished" datetime="2019-09-02T19:36:59+08:00">2019-09-02</time>
+              <time title="创建时间：2019-09-03 09:38:40 / 修改时间：10:10:28" itemprop="dateCreated datePublished" datetime="2019-09-03T09:38:40+08:00">2019-09-03</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-09-03 09:38:57" itemprop="dateModified" datetime="2019-09-03T09:38:57+08:00">2019-09-03</time>
-              </span>
 
           
   
@@ -230,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/09/02/LeetCode-Day18/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/02/LeetCode-Day18/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/09/03/LeetCode-Day19/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/03/LeetCode-Day19/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -246,80 +240,38 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="80-删除排序数组中的重复项II"><a href="#80-删除排序数组中的重复项II" class="headerlink" title="80. 删除排序数组中的重复项II"></a>80. 删除排序数组中的重复项II</h3><p>给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素最多出现两次，返回移除后数组的新长度。</p>
-<p>不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。</p>
-<p><strong>示例 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [1,1,1,2,2,3],</span><br><span class="line"></span><br><span class="line">函数应返回新长度 length = 5, 并且原数组的前五个元素被修改为 1, 1, 2, 2, 3 。</span><br><span class="line"></span><br><span class="line">你不需要考虑数组中超出新长度后面的元素。</span><br></pre></td></tr></table></figure>
-<p><strong>示例 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [0,0,1,1,1,1,2,3,3],</span><br><span class="line"></span><br><span class="line">函数应返回新长度 length = 7, 并且原数组的前五个元素被修改为 0, 0, 1, 1, 2, 3, 3 。</span><br><span class="line"></span><br><span class="line">你不需要考虑数组中超出新长度后面的元素。</span><br></pre></td></tr></table></figure>
-<h4 id="思路："><a href="#思路：" class="headerlink" title="思路："></a><strong>思路：</strong></h4><p>原地删除肯定是<strong>双指针</strong>，一个指向遍历元素，一个指向可以写入的位置，后者的大小是小于等于前者的，关键在于题目条件的转换，如何实现限制最多两次的重复。</p>
-<p>先不考虑边界的情况，只考虑中间的情况，假设当前的遍历位置为<code>i</code>，写指针的可写入位置为<code>current +1</code>，对于<code>i</code>处的值，其写入的条件时重复小于等于2次，我们考虑已经写入的最后两位<code>current</code>和<code>current - 1</code>，这两个位置的情况有两个，相等和不相等，首先考虑相等的情况，此时若<code>i</code>处的值和<code>current - 1</code>或者说与<code>current</code>处的值相同，那么<code>i</code>处的值肯定不能加入；然后考虑不相等的情况，即<code>current - 1</code>和<code>current</code>处值不相等，那么<code>i</code>处的值无论为什么，都满足题意，即可以加入，综上所述，当<code>i</code>处的值与<code>current - 1</code>的值不相等时，<code>i</code>处的值可以加入，其他情况均不能加入</p>
-<p>接着考虑边界的情况，我们只需要考虑开始即可，开始时，前两个值无论等还是不等，都要原封不动的挪到新数组里，由于新数组就是在原数组上进行修改的，因此前两位直接不动即可，只需要修改遍历指针和写入指针就行</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">removeDuplicates</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() &lt;= <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> nums.size();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> current = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>;i &lt; nums.size();i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i] != nums[current - <span class="number">1</span>]) &#123;</span><br><span class="line">                nums[++current] = nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> current + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="84-柱状图中的最大矩形"><a href="#84-柱状图中的最大矩形" class="headerlink" title="84. 柱状图中的最大矩形"></a>84. 柱状图中的最大矩形</h3><p>给定 <em>n</em> 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。</p>
-<p>求在该柱状图中，能够勾勒出来的矩形的最大面积。</p>
-<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram.png" alt="img"></p>
-<p>以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 <code>[2,1,5,6,2,3]</code>。</p>
-<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram_area.png" alt="img"></p>
-<p>图中阴影部分为所能勾勒出的最大矩形面积，其面积为 <code>10</code> 个单位。</p>
-<p><strong>示例:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [2,1,5,6,2,3]</span><br><span class="line">输出: 10</span><br></pre></td></tr></table></figure>
-<h4 id="方法一-暴力"><a href="#方法一-暴力" class="headerlink" title="方法一. 暴力"></a><strong>方法一. 暴力</strong></h4><p>首先我们可以想到，两个柱子间矩形的高由他们之间最矮的柱子决定，如下图所示：</p>
-<p><img src="https://pic.leetcode-cn.com/0239df28a3a9d97a96c773a4b5babc59cf55219332f815eda3fc240a7d530cda-image.png" alt="image.png"></p>
-<p>右移，我们可以考虑所有亮亮竹子之间形成的矩形面积，该矩形的高为他们之间最矮柱子的高度，宽为他们之间的距离，这样可以找到所要求的最大面积的矩形</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; heights)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(heights.size() == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> heights[<span class="number">0</span>];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(heights.size() == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> maxArea = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; heights.size();i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt; heights.size();j++) &#123;</span><br><span class="line">            <span class="keyword">int</span> maxH = heights[i];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = i;k &lt;= j;k++) &#123;</span><br><span class="line">                maxH = min(maxH, heights[k]);</span><br><span class="line">            &#125;</span><br><span class="line">            maxArea = max(maxArea, maxH * (j - i + <span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> maxArea;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>复杂度分析：</p>
+          <h3 id="C-中map的使用"><a href="#C-中map的使用" class="headerlink" title="C++中map的使用"></a>C++中map的使用</h3><h4 id="1-基本构造函数"><a href="#1-基本构造函数" class="headerlink" title="1. 基本构造函数"></a>1. 基本构造函数</h4><p>标准的STL map是以红黑树为底层机制完成的，每一个节点的内容是一个pair</p>
+<p><code>map&lt;string, int&gt; strMap</code></p>
+<p><code>map&lt;int, string&gt; intMap</code></p>
+<h4 id="2-map添加数据"><a href="#2-map添加数据" class="headerlink" title="2. map添加数据"></a>2. map添加数据</h4><p><code>map&lt;int, string&gt; maplive</code></p>
 <ul>
-<li>时间复杂度: $O(n^3)$。我们需要使用$O(n)$ 的时间找到$O(n^2)$枚举出啦的所有柱子对之间的最矮柱子</li>
-<li>空间复杂度：$O(1)$。只需要常数空间的额外变量</li>
-</ul>
-<h4 id="方法二-优化的暴力"><a href="#方法二-优化的暴力" class="headerlink" title="方法二. 优化的暴力"></a>方法二. 优化的暴力</h4><p><strong>算法：</strong></p>
-<p>我们可以基于方法1进行一点点修改来优化算法。我们可以用前一对柱子之间的最低高度来求出当前柱子对间的最低高度</p>
-<p>即：$minHeight = min(minHeight, heights[j])$，其中$heights[j]$是第<code>j</code>个柱子的高度</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; heights)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(heights.size() == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> heights[<span class="number">0</span>];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(heights.size() == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> maxArea = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; heights.size();i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> maxH = heights[i];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt; heights.size();j++) &#123;</span><br><span class="line">            maxH = min(maxH, heights[j]);</span><br><span class="line">            maxArea = max(maxArea, maxH * (j - i + <span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> maxArea;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>复杂度分析：</p>
-<ul>
-<li>时间复杂度： $O(n^2)$，需要枚举所有可能的柱子对</li>
-<li>空间复杂度： $O(1)$，不需要额外的空间</li>
-</ul>
-<p>然鹅…还是超时了…</p>
-<h4 id="方法三-分治"><a href="#方法三-分治" class="headerlink" title="方法三. 分治"></a>方法三. 分治</h4><p>通过观察，可以发现，最大面积矩形存在于以下几种可能</p>
-<ul>
-<li>确定了最矮柱子以后，矩形的宽尽可能往两边延伸</li>
-<li>在最矮柱子左边的最大面积矩形（子问题）</li>
-<li>在最矮柱子右边的最大面积矩形（子问题）</li>
-</ul>
-<p>举个例子：</p>
-<p><code>[6, 4, 5, 2, 4, 3, 9]</code><br>这里最矮柱子高度为 2 。以 2 为高的最大子矩阵面积是 2x7=14 。现在，我们考虑上面提到的第二种和第三种情况。我们对高度为 2 柱子的左边和右边采用同样的过程。在 2 的左边， 4 是最小的，形成区域为 4x3=12 。将左边区域再继续分，矩形的面积分别为 6x1=6 和 5x1=5 。同样的，我们可以求出右边区域的面积为 3x3=9, 4x1=4 和 9x1=9 。因此，我们得到最大面积是 16 。具体过程可参考下图：</p>
-<p><img src="https://pic.leetcode-cn.com/2013f70b237a16bcf8bae8f5873669b8b21d5300b2ed254adbddd2b9b577f02b-image.png" alt="image.png"></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">calculate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; heights, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(start &gt; end) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> midindex = start;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = start;i &lt;= end;i++) &#123;</span><br><span class="line">        midindex = heights[midindex] &lt; heights[i] ? midindex : i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max(heights[midindex] * (end - start + <span class="number">1</span>), max(calculate(heights, midindex + <span class="number">1</span>, end), calculate(heights, start, midindex - <span class="number">1</span>)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; heights)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> calculate(heights, <span class="number">0</span>, heights.size() - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>复杂度分析：</p>
-<ul>
-<li><p>时间复杂度：</p>
-<ul>
-<li>平均开销：$O(nlogn)$</li>
-<li>最坏情况：$O(n^2)$。如果数组中的数字是有序的，分治算法将没有任何优化效果</li>
-</ul>
+<li><p><code>pair&lt;int, string&gt; value(1, &quot;a&quot;);</code></p>
+<p><code>maplive.insert(value);</code></p>
 </li>
-<li><p>空间复杂度：$O(n)$。最坏情况下递归需要$O(n)$的空间</p>
+<li><p><code>maplive.insert(pair&lt;int, string&gt;(1,&quot;a&quot;));</code></p>
 </li>
+<li><code>maplive[1] = “a”</code>    (map中最简单最常用的插入添加)</li>
 </ul>
-<h4 id="方法四-优化的分治"><a href="#方法四-优化的分治" class="headerlink" title="方法四. 优化的分治"></a>方法四. 优化的分治</h4><p>可以观察到，方法三中大的问题被分解成更小的子问题来求解，所以分治方法会有一定程度的优化。但是如果数组本身是升序或者降序的，将没有任何优化作用，原因是我们每次都需要一个很大的$O(n)$级别的数组里找最小值。因此，最坏情况下总的时间复杂度变成了$O(n^2)$。我们可以用线段树代替遍历来找到区间的最小值。单词查询复杂度就变成了$O(logn)$</p>
-<p>复杂度分析：</p>
-<ul>
-<li>时间复杂度：$O(nlogn)$。对于长度为n的查询，线段树需要$logn$的时间</li>
-<li>空间复杂度：$O(n)$。这是线段树的空间开销</li>
-</ul>
-<h4 id="方法五-栈"><a href="#方法五-栈" class="headerlink" title="方法五. 栈"></a>方法五. 栈</h4><p><strong>算法</strong></p>
-<p>在这种方法中，我们维护一个栈。一开始，我们把-1放进栈的顶部来表示开始。初始化时，按照从左到右的顺序，我们不断将柱子的序号放进栈中，直到遇到相邻柱子呈下降关系，也就是<code>a[i-1] &gt; a[i]​</code>。现在，我们开始将栈中的序号弹出，直到遇到$stack[j]$满足<code>a[stack[j]] &lt;= a[i]</code>。每次我们弹出下标的的时候，我们用弹出元素作为高形成的最大面积的矩形的高，宽是当前元素与<code>stack[top - 1]</code>之间的那些柱子。也就是当我们弹出<code>stack[top]</code>时，记当前元素在原数组中的下标为<code>i</code>，当前弹出元素为高的最大矩形面积为：</p>
-<p><code>(i - stack[top - 1] - 1) * a[stack[top]]</code></p>
-<p>更进一步，当我们达到数组的尾部时，我们将栈中的元素全部弹出栈。在弹出每一个元素时，我们用下面的式子来求面积：<code>(stack[top] - stack[top - 1]) * a[stack[top]]</code>。其中<code>stack[top]</code>表示刚刚被弹出的元素。因此，我们可以通过每次比较新计算的矩形面积来获得最大的矩形面积</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; heights)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; st;</span><br><span class="line">    st.push(<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">int</span> maxArea = <span class="number">0</span>, size = heights.size();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; size;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(st.top() == <span class="number">-1</span> || heights[st.top()] &lt;= heights[i]) &#123;</span><br><span class="line">            st.push(i);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">while</span>(st.top() != <span class="number">-1</span> &amp;&amp; heights[st.top()] &gt;= heights[i]) &#123;</span><br><span class="line">                <span class="keyword">int</span> maxH = st.top();</span><br><span class="line">                st.pop();</span><br><span class="line">                maxArea = max(maxArea, heights[maxH] * (i - st.top() - <span class="number">1</span>));</span><br><span class="line">            &#125;</span><br><span class="line">            st.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(st.top() != <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> maxH = st.top();</span><br><span class="line">        st.pop();</span><br><span class="line">        maxArea = max(maxArea, heights[maxH] * (size - st.top() - <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> maxArea;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>复杂度分析：</p>
-<ul>
-<li>时间复杂度： $O(n)$，n个数字每个会被压栈弹栈各一次</li>
-<li>空间复杂度：$O(n)$。用来存放栈中元素</li>
-</ul>
+<h4 id="3-map的基本操作函数"><a href="#3-map的基本操作函数" class="headerlink" title="3. map的基本操作函数"></a>3. map的基本操作函数</h4><p><code>begin()</code> 返回指向map头部的迭代器</p>
+<p><code>clear()</code> 删除所有元素</p>
+<p><code>count()</code> 返回指定元素出现的次数</p>
+<p><code>empty()</code> 如果map为空则返回true</p>
+<p><code>end()</code> 返回指向map末尾的迭代器</p>
+<p><code>equal_range()</code> 返回特殊条目的迭代器对</p>
+<p><code>erase()</code> 删除一个元素</p>
+<p><code>find()</code> 查找一个元素</p>
+<p><code>get_allocator()</code> 返回map的配置器</p>
+<p><code>insert()</code> 插入元素</p>
+<p><code>key_comp()</code> 返回比较元素key的函数</p>
+<p><code>lower_bound()</code> 返回键值 &gt;= 给定元素的第一个位置</p>
+<p><code>max_size()</code> 返回可以容纳的最大元素个数</p>
+<p><code>rbegin()</code> 返回一个指向map尾部的逆向迭代器</p>
+<p><code>rend()</code> 返回一个指向map头部的逆向迭代器</p>
+<p><code>size()</code> 返回map中元素的个数</p>
+<p><code>swap()</code> 交换两个map</p>
+<p><code>upper_bound()</code> 返回键值 &gt; 给定元素的第一个位置</p>
+<p><code>value_comp()</code> 返回比较元素value的函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; strMap;    <span class="comment">// 以string为键值，以int为实值</span></span><br><span class="line">    strMap[<span class="built_in">string</span>(<span class="string">"jjhou"</span>)] = <span class="number">1</span>;</span><br><span class="line">    strMap[<span class="built_in">string</span>(<span class="string">"jerry"</span>)] = <span class="number">2</span>;</span><br><span class="line">    strMap[<span class="built_in">string</span>(<span class="string">"jason"</span>)] = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    pair&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; temp(<span class="string">"jimmy"</span>, <span class="number">4</span>);</span><br><span class="line">    strMap.insert(temp);</span><br><span class="line"></span><br><span class="line">    strMap.insert(pair&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt;(<span class="string">"david"</span>, <span class="number">5</span>));</span><br><span class="line"></span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt;::iterator strmap_iter = strMap.begin();</span><br><span class="line">    <span class="keyword">for</span>(; strmap_iter != strMap.end();strmap_iter++) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; strmap_iter-&gt;first &lt;&lt; <span class="string">" "</span> &lt;&lt; strmap_iter-&gt;second &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查找元素</span></span><br><span class="line">    <span class="keyword">int</span> num = strMap[<span class="built_in">string</span>(<span class="string">"jjhou"</span>)];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"number = "</span> &lt;&lt; num &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt;::iterator iter1;</span><br><span class="line">    <span class="comment">// 面对关联式容器，应该使用其所提供的find函数来搜索元素，会比使用STL算法find()更有效率，因为STL算法find()只是循环搜索</span></span><br><span class="line">    iter1 = strMap.find(<span class="built_in">string</span>(<span class="string">"jerry"</span>));</span><br><span class="line">    <span class="keyword">if</span>(iter1 != strMap.end()) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"jerry found"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 修改实值，键值不可修改</span></span><br><span class="line">    iter1-&gt;second = <span class="number">9</span>;</span><br><span class="line">    <span class="keyword">int</span> number = strMap[<span class="built_in">string</span>(<span class="string">"jerry"</span>)];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"number = "</span> &lt;&lt; number &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//删除元素</span></span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt;::iterator strmap_iter1 = strMap.begin();</span><br><span class="line">    <span class="keyword">for</span>(;strmap_iter1 != strMap.end();strmap_iter1++) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; strmap_iter1-&gt;first &lt;&lt; <span class="string">" "</span> &lt;&lt; strmap_iter1-&gt;second &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    strMap.erase(iter1);    <span class="comment">// 删除一个条目</span></span><br><span class="line">    strMap.erase(<span class="built_in">string</span>(<span class="string">"jason"</span>));  <span class="comment">//根据键值删除</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt;::iterator strmap_iter2 = strMap.begin();</span><br><span class="line">    <span class="keyword">for</span>(;strmap_iter2 != strMap.end();strmap_iter2++) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; strmap_iter2-&gt;first &lt;&lt; <span class="string">" "</span> &lt;&lt; strmap_iter2-&gt;second &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* output:</span></span><br><span class="line"><span class="comment">david 5</span></span><br><span class="line"><span class="comment">jason 3</span></span><br><span class="line"><span class="comment">jerry 2</span></span><br><span class="line"><span class="comment">jimmy 4</span></span><br><span class="line"><span class="comment">jjhou 1</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">number = 1</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">jerry found</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">number = 9</span></span><br><span class="line"><span class="comment">david 5</span></span><br><span class="line"><span class="comment">jason 3</span></span><br><span class="line"><span class="comment">jerry 9</span></span><br><span class="line"><span class="comment">jimmy 4</span></span><br><span class="line"><span class="comment">jjhou 1</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">david 5</span></span><br><span class="line"><span class="comment">jimmy 4</span></span><br><span class="line"><span class="comment">jjhou 1</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -339,7 +291,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/89/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/89/">89</a><span class="page-number current">90</span><a class="page-number" href="/page/91/">91</a><span class="space">&hellip;</span><a class="page-number" href="/page/149/">149</a><a class="extend next" rel="next" href="/page/91/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/89/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/89/">89</a><span class="page-number current">90</span><a class="page-number" href="/page/91/">91</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/91/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -385,7 +337,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">149</span>
+          <span class="site-state-item-count">150</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

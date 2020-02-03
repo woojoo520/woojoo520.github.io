@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/09/NormFace/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/11/CenterLossTest/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/08/09/NormFace/" class="post-title-link" itemprop="url">NormFace</a>
+            <a href="/2019/08/11/CenterLossTest/" class="post-title-link" itemprop="url">CenterLossTest</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-08-09 16:29:48 / 修改时间：19:01:42" itemprop="dateCreated datePublished" datetime="2019-08-09T16:29:48+08:00">2019-08-09</time>
+              <time title="创建时间：2019-08-11 15:26:38 / 修改时间：21:47:00" itemprop="dateCreated datePublished" datetime="2019-08-11T15:26:38+08:00">2019-08-11</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/08/09/NormFace/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/09/NormFace/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/08/11/CenterLossTest/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/11/CenterLossTest/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,41 +240,88 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="人脸识别：NormFace"><a href="#人脸识别：NormFace" class="headerlink" title="人脸识别：NormFace"></a>人脸识别：NormFace</h2><p>参考链接：<a href="https://blog.csdn.net/wfei101/article/details/82890444" target="_blank" rel="noopener">https://blog.csdn.net/wfei101/article/details/82890444</a></p>
-<h3 id="提出问题"><a href="#提出问题" class="headerlink" title="提出问题"></a>提出问题</h3><p>之前的人脸识别工作，在特征比较阶段，通常使用的都是特征的余弦距离</p>
-<p>$cos \theta = \frac {a * b} {||a|| ||b||}$</p>
-<p>而余弦距离等价于L2归一化后的内积，也等价于L2归一化后的欧氏距离（欧氏距离表示超球面上的弦长，两个向量之间的夹角越大，弦长也越大）</p>
-<p>然而，实际上训练的时候用的都是没有L2归一化的内积</p>
-<p>关于这一点，可以这样解释，softmax函数是：</p>
-<p>$P_{k}= \frac {e^{W_{k}x}} {\sum_{j=0}^{d} e^{W_{j}x}}$</p>
-<p>可以理解为$W_{k}$ 和特征向量 $x$的内积越大，x属于第k类概率也就越大，训练过程就是最大化x与其标签项所对应项的权值$W_{label(x)}$的过程</p>
-<p><img src="https://img-blog.csdn.net/20180318154156748?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L0ZpcmVfTGlnaHRf/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>也就是说在训练时使用的距离度量与在测试时使用的度量是不一样的</p>
-<h3 id="测试时是否需要归一化？"><a href="#测试时是否需要归一化？" class="headerlink" title="测试时是否需要归一化？"></a>测试时是否需要归一化？</h3><p>事实证明，进行人脸验证时，使用归一化后的内积或者欧氏距离效果会优于直接计算两个特征向量的内积或者欧氏距离，实验结果如下</p>
-<p><img src="https://img-blog.csdn.net/20180318154219273?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L0ZpcmVfTGlnaHRf/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+          <h2 id="CenterLossTest"><a href="#CenterLossTest" class="headerlink" title="CenterLossTest"></a>CenterLossTest</h2><ul>
+<li><p><code>class torch.nn.PReLU(num_paramenter=1, init=0.25)</code></p>
+<p>对输入的每一个元素运用函数 $PReLU(x) = max(0,x) + a*min(0, x)$，<code>a</code>是一个可学习参数。当没有声明时，<code>nn.PReLU()</code>在所有的输入中只有一个参数a；如果是<code>nn.PReLU(nChannels)</code>，a将应用到每个输入。</p>
+<p><strong>注意：</strong>当为了表现更加的模型而学习参数a时不要使用权重衰减</p>
+<p>参数：</p>
 <ul>
-<li>注意这个Normalization不同于batch normalization，一个是对L2翻书进行归一化，一个是均值归0，方差归1</li>
+<li>num_parameters：需要学习的a的个数，默认等于1</li>
+<li>init：a的初始值，默认等于0.25</li>
 </ul>
-<h3 id="那么是否可以直接在训练时也对特征向量归一化？"><a href="#那么是否可以直接在训练时也对特征向量归一化？" class="headerlink" title="那么是否可以直接在训练时也对特征向量归一化？"></a>那么是否可以直接在训练时也对特征向量归一化？</h3><p>针对上面的问题，作者设计实验，通过归一化Softmax所有的特征和权重来创建一个cosine layer，实验结果是<strong>网络不收敛了</strong>。</p>
-<h3 id="本论文要解决的四大问题："><a href="#本论文要解决的四大问题：" class="headerlink" title="本论文要解决的四大问题："></a>本论文要解决的四大问题：</h3><ul>
-<li>为什么在测试时必须要归一化？</li>
-<li>为什么直接优化余弦相似度会导致网络不收敛？</li>
-<li>怎么样使用softmaxloss优化余弦相似度？</li>
-<li>既然softmax loss在优化余弦相似度时不能收敛，那么其他的损失函数可以收敛吗？</li>
+<p>shape：</p>
+<ul>
+<li>输入：$(N, )$，代表任意数目附加维度</li>
+<li>输出：$(N,*)$，与输入拥有同样的shape属性</li>
 </ul>
-<h3 id="L2归一化"><a href="#L2归一化" class="headerlink" title="L2归一化"></a>L2归一化</h3><h4 id="为什么要归一化"><a href="#为什么要归一化" class="headerlink" title="为什么要归一化"></a>为什么要归一化</h4><p>全连接层特征降至二维的MNIST特征图</p>
-<p>左图中，f2f3是同一类的两个特征，但是可以看到f1和f2的距离明显小于f2和f3的距离，因此，加入不对特征进行归一化再比较距离的话，可能就会误判f1f2为同一类</p>
-<p><img src="https://img-blog.csdn.net/20180318154315787?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L0ZpcmVfTGlnaHRf/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<h4 id="为什么特征会呈辐射状分布？"><a href="#为什么特征会呈辐射状分布？" class="headerlink" title="为什么特征会呈辐射状分布？"></a>为什么特征会呈辐射状分布？</h4><p>Softmax实际上是一种（Soft）软的max（最大化）操作,考虑Softmax的概率</p>
-<p>$P_{i}(f)= \frac {e^{W_{i}^{T}f}} {\sum_{j=1}^{n} e^{W_{j}^{T}f}}$</p>
-<p>假设是一个十个分类问题，那么每个类都会对应一个权值向量W0,W1…W9,某个特征f会被分为哪一类，<strong>取决f和哪一个权值向量的内积最大</strong>。</p>
-<p>也就是说，靠近W0的向量会被归为第一类，靠近W1的向量会归为第二类，以此类推。网络在训练过程中，为了使得各个分类更明显，会让各个权值向量W逐渐分散开，相互之间有一定的角度，而<strong>靠近某一权值向量的特征就会被归为相应的类别</strong>，因此特征最终会呈辐射状分布。</p>
-<h4 id="如果添加了偏置，结果会是怎么样的呢？"><a href="#如果添加了偏置，结果会是怎么样的呢？" class="headerlink" title="如果添加了偏置，结果会是怎么样的呢？"></a>如果添加了偏置，结果会是怎么样的呢？</h4><p>$L_{s}= - \frac{1}{m} \sum_{i = 1}^{m} log\frac {e^{W_{y_{i}}^{T} f_{i} + b_{y_{i}}}} {\sum_{j=1}^{n} e^{W_{j}^{T}f_{i} + b_{j}}}$</p>
-<p>如果添加了骗纸，不同类的b不同，则会造成有的类w角度近似相等，而依据b来区分的情况。如下图：</p>
-<p><img src="https://img-blog.csdn.net/20180318154405545?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L0ZpcmVfTGlnaHRf/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>在这种情况下，如果再对w进行归一化，那个中间这些类会散步在单位圆上各个方向，造成错误分类。</p>
-<p>所以添加偏置对我们通过余弦距离来分类没有帮助，弱化了网络的学习能力，所以我们不添加偏置</p>
-<h4 id="网络为何不收敛？"><a href="#网络为何不收敛？" class="headerlink" title="网络为何不收敛？"></a>网络为何不收敛？</h4>
+</li>
+<li><p><code>nn.Linear(in_features, out_features, bias=True)</code></p>
+<p>具体形式为：<code>y = wx + b</code></p>
+<p><code>weight = Parameter(torch.Tensor(out_features, in_features))</code></p>
+<p><code>bias = Parameter(torch.Tensor(out_features))</code></p>
+<p><code>bias</code>如果设置为False，则图层不会学习附加偏差。默认值：True</p>
+</li>
+<li><p><code>self.v = torch.nn.Parameters()</code></p>
+<p>可以把这个函数理解为类型转换函数，讲一个不可训练的类型<code>Tensor</code>转换成可以训练的类型<code>parameter</code>，并将这个<code>parameter</code>绑定到这个<code>module</code>里面(<code>net.parameter()</code>中就有这个绑定的<code>parameter</code>，所以在参数优化的时候可以进行优化的)，所以经过类型转换这个<code>self.v</code>变成了模型的一部分，成为了模型中根据训练可以改动的参数了。使用这个函数的目的也是想让某些变量在学习的过程中不断的修改其值以达到最优化</p>
+</li>
+<li><p><code>torch.pow()</code></p>
+<p>这里对应的矩阵乘法只是每一位上的乘法</p>
+<p>例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line">a = torch.rand(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">print(a)</span><br><span class="line">b = torch.pow(a)</span><br><span class="line">print(b)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output：</span></span><br><span class="line"><span class="string">tensor([[-0.6702,  0.1811],</span></span><br><span class="line"><span class="string">        [-0.7064, -0.3418]])</span></span><br><span class="line"><span class="string">tensor([[0.4491, 0.0328],</span></span><br><span class="line"><span class="string">        [0.4990, 0.1168]])</span></span><br><span class="line"><span class="string">0.4491 = (-0.6702)*(-0.6702)        </span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>torch.sum(input, dim, out=None)</code>  <code>----&gt;Tensor</code></p>
+<p>返回输入张量给定维度上每行的和。输出形状与输入相同，除了给定维度上为1.</p>
+<p>参数：</p>
+<ul>
+<li>input(Tensor)——输入张量</li>
+<li>dim(int)——缩减的维度</li>
+<li>out(Tensor, optional)——结果张量</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line">a = torch.randn(<span class="number">4</span>, <span class="number">4</span>)</span><br><span class="line">print(a)</span><br><span class="line">print(torch.sum(a, <span class="number">1</span>))</span><br><span class="line">print(torch.sum(a))</span><br><span class="line">print(torch.sum(a, dim=<span class="number">1</span>, keepdim=<span class="literal">True</span>))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[-0.9850, -0.6207, -0.6559, -0.1220],</span></span><br><span class="line"><span class="string">        [-1.0619,  0.0158, -1.0086,  0.3370],</span></span><br><span class="line"><span class="string">        [ 0.5729, -1.7753,  1.2464, -1.6284],</span></span><br><span class="line"><span class="string">        [-0.3275, -0.5711, -0.6691,  1.2357]])</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">tensor([-2.3836, -1.7177, -1.5843, -0.3320])	# 变成了行向量</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">tensor(-6.0177)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">tensor([[-2.3836],</span></span><br><span class="line"><span class="string">        [-1.7177],</span></span><br><span class="line"><span class="string">        [-1.5843],</span></span><br><span class="line"><span class="string">        [-0.3320]])	# 仍然保持了列向量</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>expand</code></p>
+<p>扩展某个size为1的维度。如(2, 2, 1)扩展为(2, 2, 3)</p>
+<p>举例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line">x = torch.randn(<span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line">print(x)</span><br><span class="line">y = x.expand(<span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">print(y)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[[ 0.3814],</span></span><br><span class="line"><span class="string">         [ 1.4493]],</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        [[-0.0204],</span></span><br><span class="line"><span class="string">         [-0.9141]]])</span></span><br><span class="line"><span class="string">     </span></span><br><span class="line"><span class="string">tensor([[[ 0.3814,  0.3814,  0.3814],</span></span><br><span class="line"><span class="string">         [ 1.4493,  1.4493,  1.4493]],</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        [[-0.0204, -0.0204, -0.0204],</span></span><br><span class="line"><span class="string">         [-0.9141, -0.9141, -0.9141]]])     </span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>torch.squeeze()</code></p>
+<p>将维度为1的压缩掉。如size为(3, 1, 1, 2)，压缩之后为(3, 2)</p>
+<p>举例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line">a = torch.randn(<span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">print(a)</span><br><span class="line">print(a.squeeze())</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[[[ 2.2045,  0.2968,  0.2945]]],</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        [[[ 0.2579,  0.9719, -0.8220]]]])</span></span><br><span class="line"><span class="string">tensor([[ 2.2045,  0.2968,  0.2945],</span></span><br><span class="line"><span class="string">        [ 0.2579,  0.9719, -0.8220]])        </span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>torch.unsqueeze(input, dim, out=None)</code></p>
+<p>返回一个新的张量，对输入的指定位置插入维度1</p>
+<p><strong>注意：</strong>返回张量与输入张量共享内存，所以改变其中一个的内容会改变另一个</p>
+<p>如果dim为负，则会被转换为<code>dim + input.dim() + 1</code></p>
+<p>参数：</p>
+<ul>
+<li>tensor(Tensor)——输入张量</li>
+<li>dim(int)——插入维度的索引</li>
+<li>out(Tensor, optional)——结果张量</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line">a = torch.randn(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">print(a)</span><br><span class="line">b = a.unsqueeze(<span class="number">1</span>)</span><br><span class="line">print(b)</span><br><span class="line">print(b.size())</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[-0.2329,  0.0805]])</span></span><br><span class="line"><span class="string">tensor([[[-0.2329,  0.0805]]])</span></span><br><span class="line"><span class="string">torch.Size([1, 1, 2])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>t()</code>     转置</p>
+</li>
+<li><p><code>torch.addmm(beta-1, mat, alpha=1, mat1, mat2, out=None)    ----&gt;Tensor</code></p>
+<p>对矩阵mat1和mat2进行矩阵乘操作，矩阵mat加到最终结果。alpha和beta分别是两个矩阵mat1×mat2和mat的比例因子，即$out=(beta <em> M) + (alpha </em> mat1 × mat2)$</p>
+<p>对类型为FloatTensor或DoubleTensor的输入，beta和alpha必须为实数，否则两个参数必须为整数</p>
+<p>举例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line">a = torch.randn(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">b = torch.randn(<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">c = torch.randn(<span class="number">3</span>, <span class="number">2</span>)</span><br><span class="line">print(a)</span><br><span class="line">print(b)</span><br><span class="line">print(c)</span><br><span class="line">print(a.addmm(<span class="number">1</span>, <span class="number">2</span>, b, c))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[ 1.2774,  0.2344],</span></span><br><span class="line"><span class="string">        [-0.2572,  0.0019]])</span></span><br><span class="line"><span class="string">tensor([[0.4277, 0.8812, 0.7919],</span></span><br><span class="line"><span class="string">        [0.5476, 0.2299, 0.9781]])</span></span><br><span class="line"><span class="string">tensor([[-1.2772, -0.9458],</span></span><br><span class="line"><span class="string">        [ 1.6094,  0.7200],</span></span><br><span class="line"><span class="string">        [ 0.0633,  0.0571]])</span></span><br><span class="line"><span class="string">tensor([[ 3.1216,  0.7847],</span></span><br><span class="line"><span class="string">        [-0.7920, -0.5911]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>torch.clamp(input, min, max, out=None)   ---&gt;Tensor</code></p>
+<p>将输入input张量每个元素都夹紧到区间[min, max]，并返回结果到一个新张量。</p>
+<p>举例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line">a = torch.randint(low=<span class="number">0</span>, high=<span class="number">10</span>, size=(<span class="number">2</span>, <span class="number">3</span>))</span><br><span class="line">print(a)</span><br><span class="line">a = torch.clamp(a, <span class="number">3</span>, <span class="number">7</span>)</span><br><span class="line">print(a)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[1, 1, 4],</span></span><br><span class="line"><span class="string">        [8, 9, 2]])</span></span><br><span class="line"><span class="string">tensor([[3, 3, 4],</span></span><br><span class="line"><span class="string">        [7, 7, 3]])        </span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<p>$y_{i}=\left\{\begin{array}{l}{ min, x_{i} &lt; min} \\ {x_{i}, min \leq x_{i} \leq max} \\ {max, x_{i} &gt; max}\end{array}\right.$</p>
+</li>
+<li><p><code>torch.eq()</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line">outputs = torch.FloatTensor([[<span class="number">1</span>], [<span class="number">2</span>], [<span class="number">3</span>]])</span><br><span class="line">targets = torch.FloatTensor([[<span class="number">0</span>], [<span class="number">2</span>], [<span class="number">3</span>]])</span><br><span class="line">print(targets.eq(outputs.data))	<span class="comment"># 比较相等</span></span><br><span class="line">print(targets.eq(outputs.data).cpu().sum())	<span class="comment"># 统计相等的个数</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string">tensor([[False],</span></span><br><span class="line"><span class="string">        [ True],</span></span><br><span class="line"><span class="string">        [ True]])</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">tensor(2)</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
       
     </div>
 
@@ -293,7 +340,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/119/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/119/">119</a><span class="page-number current">120</span><a class="page-number" href="/page/121/">121</a><span class="space">&hellip;</span><a class="page-number" href="/page/149/">149</a><a class="extend next" rel="next" href="/page/121/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/119/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/119/">119</a><span class="page-number current">120</span><a class="page-number" href="/page/121/">121</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/121/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -339,7 +386,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">149</span>
+          <span class="site-state-item-count">150</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

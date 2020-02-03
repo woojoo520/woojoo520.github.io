@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/24/DANN/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/24/损失函数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/11/24/DANN/" class="post-title-link" itemprop="url">DANN</a>
+            <a href="/2019/11/24/损失函数/" class="post-title-link" itemprop="url">损失函数</a>
         </h1>
 
         <div class="post-meta">
@@ -210,16 +210,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2019-11-24 12:37:33" itemprop="dateCreated datePublished" datetime="2019-11-24T12:37:33+08:00">2019-11-24</time>
+              <time title="创建时间：2019-11-24 13:36:54 / 修改时间：22:01:24" itemprop="dateCreated datePublished" datetime="2019-11-24T13:36:54+08:00">2019-11-24</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-27 09:38:33" itemprop="dateModified" datetime="2019-11-27T09:38:33+08:00">2019-11-27</time>
-              </span>
 
           
   
@@ -230,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/11/24/DANN/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/24/DANN/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/11/24/损失函数/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/24/损失函数/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -246,41 +240,55 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="DANN"><a href="#DANN" class="headerlink" title="DANN"></a>DANN</h2><h3 id="Domain-Adaption"><a href="#Domain-Adaption" class="headerlink" title="Domain Adaption"></a>Domain Adaption</h3><p>主要目的：</p>
-<p>想想一个分类任务，假设现在我们手中有源域数据和目标域数据。其中源域数据是丰富并且有标记的，而目标域数据是充足的但是没有标记的，但是源域和目标域的特征空间和标记空间相同。很显然，我们可以利用源域数据建立一个分类器，但是由于目标域数据本身没有标记，那么我们无法通过常规方法为目标域构建分类器，这时候就需要用到Domain Adaption了：</p>
-<p><img src="https://pic2.zhimg.com/80/v2-0975878ddcedfaf101b10358317b8691_hd.jpg" alt="img"></p>
-<p>Domain Adaptation的思想就是通过消除源域和目标域的分布差异，使得源域数据和目标域数据能同时被分开。</p>
-<h3 id="DANN（Domain-Adaptation-Training-of-Neural-Networks）"><a href="#DANN（Domain-Adaptation-Training-of-Neural-Networks）" class="headerlink" title="DANN（Domain-Adaptation Training of Neural Networks）"></a>DANN（Domain-Adaptation Training of Neural Networks）</h3><p>DANN的应用背景：</p>
-<p>源域数据充足并且有标记，目标域数据充足但是无标记，源域和目标域的特征空间和标记空间相同，任务是借助源域数据对目标域数据进行分类</p>
-<p>DANN结构：</p>
-<p><img src="https://pic2.zhimg.com/80/v2-4fc596dfbc7f7ff56b32df7d0f7c0c71_hd.jpg" alt="img"></p>
-<p>网络分为三部分：</p>
-<ul>
-<li>Feature extractor（特征提取器）<ul>
-<li>提取后续网络后续完成任务所需要的特征</li>
-<li>将源域样本和目标域样本进行映射和混合</li>
-</ul>
-</li>
-<li>Label extractoe（域分类器）<ul>
-<li>利用Feature extractor提取的信息对样本进行分类</li>
-</ul>
-</li>
-<li>Domain classifier（域分类器）<ul>
-<li>判断feature extractor提取的信息来自源域还是目标域</li>
-</ul>
-</li>
-</ul>
-<p>特征提取器提取的信息会传入域分类器，之后域分类器会判断传入的信息到底是来自于源域还是目标域，并计算损失。在反向传播更新参数的过程中，域分类器和特征提取器中间有一个梯度翻转层，也就是说域分类器的训练目标是尽量将输入的信息分到正确的域类别（源域还是目标域），而特征提取与的训练目的恰恰相反（由于梯度翻转层的存在），特征提取器所提取的特征（或者说映射的结果）目的是使域判别器不能正确的判断出信息是来自哪一个域，因此形成一种对抗关系。课件，当域分类器不能将接受的信息正确分为源域样本还是目标域样本时，特征提取器的任务就圆满完成了，因为此时源域样本和目标域样本在某个空间中已经被混合在一起不能分开了。</p>
-<p>但是，我们最终的目的是对目标域样本进行分类，那么我们如何保证特征提取器提取的信息是能够用来分类的呢？加入无论输入什么样本给特征提取器，它都输出一个单位向量，这样依旧可以”骗过“域分类器，但是却无法完成后续的分类工作。</p>
-<p>这个时候就需要靠Label predictor（类别预测期），因为源域样本是有标记的，所以在提取特征时不仅仅要考虑后面的域判别器的情况，还要利用源域的带标记样本进行有监督训练从而兼顾分类的准确性。</p>
-<p>综上，当把特征提取器、域分类器和类别预测器都训练完成后，就可以做到把源域和目标域混合在一起并进行分类了：</p>
-<p><img src="https://pic1.zhimg.com/80/v2-fd13bf28230d5e4cacd26d2149a8dd30_hd.jpg" alt="img"></p>
-<p>所以，最后得到的损失函数是长介个样子的：</p>
-<p><img src="https://www.zhihu.com/equation?tex=%5Cell%3D%5Cell_C+%2B+%5Clambda+%5Cell_D" alt="[公式]"></p>
-<p>那么怎么理解这个损失函数呢？</p>
-<p>实际上前半部分就是label predictor的损失函数，因为我们需要实现迁移之后，仍然能够提取出能区分不同类之间的特征，所以需要最小化label predictor的损失</p>
-<p>后半部分就是domain classifier的损失，但是前面有一个$\lambda$的超参数，因为我们实际上需要这个特征提取器提取出来的特征是与对领域特征不敏感的特征，所以需要最大化这个损失，即使这个domain classifier分辨不出来是属于哪一个域的。为了使这两个损失函数同一，所以，我们需要添加一个梯度翻转层，用来取反</p>
-<p>最后，将这两项参数相加，最后取最小值就是我们的目标啦！❤</p>
+          <h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><h3 id="平方误差损失"><a href="#平方误差损失" class="headerlink" title="平方误差损失"></a>平方误差损失</h3><p>每个训练样本的平方误差损失（也称为L2 Loss）是实际值和预测值之差的平方</p>
+<p><img src="https://pic2.zhimg.com/v2-776284ef8ef1892adca72454c80723dd_b.jpg" alt="img"></p>
+<p>相应的成本函数是这些平方误差的平均值（MSE），它是一个二次函数（形式为ax^2+bx+c），并且值大于等于0,。二次函数具有全局最小值，由于没有局部最小值，所以永远不会陷入它。因此，可以保证梯度下降将收敛到全局最小值（如果完全收敛的话）</p>
+<p>MSE损失函数通过使用平方误差来惩罚模型，有一个缺点，把一个比较大的数的平方会使它变得更大。但有一点需要注意，这个属性使<strong>MSE成本函数对异常值的健壮性降低。因此，如果我们的数据容易出现许多的异常值，则不应该使用它</strong></p>
+<h3 id="绝对误差损失"><a href="#绝对误差损失" class="headerlink" title="绝对误差损失"></a>绝对误差损失</h3><p>每个训练样本的绝对误差是预测值和实际值之间的距离，与符号无关。绝对误差也称为L1 Loss</p>
+<p><img src="https://pic2.zhimg.com/v2-77f5689dd45999c25bb55a1008e2cdf1_b.jpg" alt="img"></p>
+<p>成本是这些绝对误差的平均值（MAE）。与MSE相比，<strong>MAE成本对异常值更加健壮</strong>。但是，<strong>在数学方程中处理绝对或模数运算符并不容易</strong>。</p>
+<h3 id="Huber损失"><a href="#Huber损失" class="headerlink" title="Huber损失"></a>Huber损失</h3><p>结合了MSE和MAE的最佳特性。对于较小的误差，他是二次的，否则是线性的（对于其梯度也是如此）。Huber损失需要确定$\delta$参数</p>
+<p><img src="https://pic2.zhimg.com/v2-333ad2d90605b5d0de9ee4ec509ee49d_b.jpg" alt="img"></p>
+<p>Huber损失对于异常值比MSE更强。<strong>它用于稳健回归，M估计法（M-estimator）和可加模型（additive model）。Huber损失的变体也可用于分类。</strong></p>
+<h3 id="二分类损失函数"><a href="#二分类损失函数" class="headerlink" title="二分类损失函数"></a>二分类损失函数</h3><p>给分类基于应用于输入特征向量的规则则</p>
+<h4 id="二元交叉熵损失"><a href="#二元交叉熵损失" class="headerlink" title="二元交叉熵损失"></a>二元交叉熵损失</h4><p>熵是用来表示无序性和不确定性。测量具有芥蓝菜分布$P(X)$的随机变量X</p>
+<p><img src="https://pic4.zhimg.com/v2-dd86aad2ba3885b36dfc9db902baadc3_b.jpg" alt="img"></p>
+<p>负号使用于最后结果为正数</p>
+<blockquote>
+<p>概率分布的熵值越大，表明分布的不确定性越大。同样，一个较小的值代表一个更确定的分布</p>
+</blockquote>
+<p>这使得二元交叉熵适合作为损失函数（你希望最小化其值）。我们对输出概率p的分类模型使用二元交叉熵损失</p>
+<blockquote>
+<p>元素属于第1类（或正类）的概率=p</p>
+<p>元素属于第0类（或负类）的概率=1-p</p>
+</blockquote>
+<p>然后，输出标签y（可以取值0和1）的交叉熵损失和预测概率p定义为：</p>
+<p><img src="https://pic2.zhimg.com/v2-47ddb7df995d3978f53bd2b877e4c25d_b.jpg" alt="img"></p>
+<p>这也称为Log-Loss（对数损失）。为了计算概率p，可以使用sigmoid函数。其中，z是输入功能的函数</p>
+<p><img src="https://pic1.zhimg.com/v2-d6a0a7f3bb804cd5c0dcaa2f1b908ee8_b.jpg" alt="img"></p>
+<p>sigmoid函数的范围是[0, 1]这使得它适合于计算概率</p>
+<p><img src="https://pic1.zhimg.com/v2-95dba4bbda5ed968482df244137cbcf4_b.jpg" alt="img"></p>
+<h4 id="Hinge损失"><a href="#Hinge损失" class="headerlink" title="Hinge损失"></a>Hinge损失</h4><p><strong>Hinge损失主要用于带有类标签-1和1的支持向量机（SVM）</strong>。因此，请确保将数据集中“恶性”类标签从0更改为-1</p>
+<blockquote>
+<p>Hinge损失不仅会惩罚错误的预测，还会惩罚不自信的正确预测</p>
+</blockquote>
+<p>数据对<code>(x, y)</code>的Hinge损失如图：</p>
+<p><img src="https://pic4.zhimg.com/v2-739534b9c71db800ca910f72a3152e13_b.jpg" alt="img"></p>
+<p>Hinge损失简化了SVM的数学运算，同时最大化了损失（与对数损失（Log-Loss）相比）。当我们想要做实时决策而不是高度关注准确性时，就可以使用它</p>
+<h3 id="多分类损失函数"><a href="#多分类损失函数" class="headerlink" title="多分类损失函数"></a>多分类损失函数</h3><h4 id="多分类交叉熵"><a href="#多分类交叉熵" class="headerlink" title="多分类交叉熵"></a>多分类交叉熵</h4><p>多分类交叉熵损失是二元交叉熵损失的退矿。输入向量$X_i$和相应的ont-hot编码目标向量$Y_i$的损失是：</p>
+<p><img src="https://pic2.zhimg.com/v2-c465dd0ad165c0e3501d7d6608188c41_b.jpg" alt="img"></p>
+<p>使用softmax函数来找到概率$P_{ij}$</p>
+<p><img src="https://pic3.zhimg.com/v2-953d3605358f94ee5833084e75705756_b.jpg" alt="img"></p>
+<p>softmax层是接在神经网络的输出层前。Softmax层必须与输出层具有相同数量的节点</p>
+<p><img src="https://pic3.zhimg.com/v2-be2d1fea2669befa924891c3bd7c8e12_b.jpg" alt="img"></p>
+<p>最后，我们的输出是具有给定输入的最大概率的类别</p>
+<h4 id="KL散度"><a href="#KL散度" class="headerlink" title="KL散度"></a>KL散度</h4><p>KL散度是概率分布与另一个概率分布区别的度量。KL散度为零表示分布相同</p>
+<p><img src="https://pic3.zhimg.com/v2-e78029297910deac90414234151aca9e_b.jpg" alt="img"></p>
+<p>注意，发散函数不对称</p>
+<p>与多分类分类相比，KL散度更常用于逼近复杂函数。我们在使用变分自动编码器（VAE）等深度生成模型时经常使用KL散度</p>
+<h3 id="Pytorch实战"><a href="#Pytorch实战" class="headerlink" title="Pytorch实战"></a>Pytorch实战</h3><p>损失函数的基本用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">criterion = LossCriterion()	# 构造函数有自己的参数</span><br><span class="line">loss = criterion(x, y)		# 调用标准时也有参数</span><br></pre></td></tr></table></figure>
+<p>得到的loss结果已经对mini-batch数量取了平均值</p>
 
       
     </div>
@@ -300,7 +308,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/25/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/149/">149</a><a class="extend next" rel="next" href="/page/27/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/25/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/27/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -346,7 +354,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">149</span>
+          <span class="site-state-item-count">150</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
