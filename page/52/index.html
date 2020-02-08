@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/06/2019-10-6/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/09/CPU-affinity/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/10/06/2019-10-6/" class="post-title-link" itemprop="url">2019.10.6</a>
+            <a href="/2019/10/09/CPU-affinity/" class="post-title-link" itemprop="url">CPU affinity</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-10-06 17:18:00 / 修改时间：18:39:55" itemprop="dateCreated datePublished" datetime="2019-10-06T17:18:00+08:00">2019-10-06</time>
+              <time title="创建时间：2019-10-09 09:17:13 / 修改时间：11:02:42" itemprop="dateCreated datePublished" datetime="2019-10-09T09:17:13+08:00">2019-10-09</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/10/06/2019-10-6/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/06/2019-10-6/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/10/09/CPU-affinity/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/09/CPU-affinity/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,8 +240,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="np-random-permutation"><a href="#np-random-permutation" class="headerlink" title="np.random.permutation()"></a>np.random.permutation()</h4><p><code>permutation:</code>返回一个新的，打乱顺序的数组，与shuffle的不同之处在于shuffle是直接在原数组上进行操作，没有返回值。而permutation不直接在原来的数组上进行操作，而是返回一个新的打乱顺序的数组，并不改变原来的数组</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = np.random.permutation(a)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b</span><br><span class="line">array([<span class="number">3</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">9</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">2</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.random.shuffle(a)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="number">6</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">7</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br></pre></td></tr></table></figure>
+          <h2 id="cpu-affinity亲和性"><a class="markdownIt-Anchor" href="#cpu-affinity亲和性"></a> CPU affinity（亲和性）</h2>
+<h3 id="1-基本概念"><a class="markdownIt-Anchor" href="#1-基本概念"></a> 1. 基本概念</h3>
+<p>CPU affinity是一种调度属性，它可以将一个进程“绑定”到一个或一组CPU上</p>
+<p>在SMP（Symmetric Multi-Processing对称多处理器）架构下，Linux调度器（scheduler）会根据CPU affinity的设置让指定的进程运行在“绑定”的CPU上，而不会在别的CPU上运行。</p>
+<p>Linux调度器同样支持自然CPU亲和性；调度器会试图保持进程在相同的CPU上运行，这意味着进程通常不会在处理器之间频繁迁移，进程迁移的频率小意味着产生的负载小</p>
+<p>因为程序的坐着比调度器更了解程序，所以我们可以手动地为其分配CPU核，而不会过多的占用CPU0，或者让我们关键进程和一对别的进程挤在一起，所有设置CPU亲和性可以是某些程序提高性能</p>
+<h3 id="2-表示方法"><a class="markdownIt-Anchor" href="#2-表示方法"></a> 2. 表示方法</h3>
+<p>CPU affinity 使用位掩码（bitmask）表示，每一位都表示一个CPU，置1表示“绑定”</p>
+<p>最低位表示第一个逻辑CPU，最高位表示最后一个逻辑CPU</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">0x00000001</span><br><span class="line">    is processor #0</span><br><span class="line">0x00000003</span><br><span class="line">    is processors #0 and #1</span><br><span class="line">0xFFFFFFFF</span><br><span class="line">    is all processors (#0 through #31)</span><br></pre></td></tr></table></figure>
+<h3 id="3-taskset-命令"><a class="markdownIt-Anchor" href="#3-taskset-命令"></a> 3. taskset 命令</h3>
+<p>taskset命令用于获取或设定CPU亲和性</p>
 
       
     </div>
@@ -261,7 +271,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/51/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/51/">51</a><span class="page-number current">52</span><a class="page-number" href="/page/53/">53</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/53/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/51/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/51/">51</a><span class="page-number current">52</span><a class="page-number" href="/page/53/">53</a><span class="space">&hellip;</span><a class="page-number" href="/page/153/">153</a><a class="extend next" rel="next" href="/page/53/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -307,7 +317,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">150</span>
+          <span class="site-state-item-count">153</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

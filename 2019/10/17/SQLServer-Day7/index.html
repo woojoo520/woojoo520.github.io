@@ -47,17 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="SQLServer-Day7DROP INDEX语句可以使用DROP INDEX命令删除表格中的索引 用于 Microsoft SQLJet (以及 Microsoft Access) 的语法:  DROP INDEX index_name ON table_name  用于 MS SQL Server的语法  DROP INDEX table_name.index_name  用于IBM DB2">
+  <meta name="description" content="SQLServer-Day7  DROP INDEX语句 可以使用DROP INDEX命令删除表格中的索引 用于 Microsoft SQLJet (以及 Microsoft Access) 的语法:  DROP INDEX index_name ON table_name  用于 MS SQL Server的语法  DROP INDEX table_name.index_name  用于IBM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQLServer-Day7">
 <meta property="og:url" content="https://woojoo520.github.io/2019/10/17/SQLServer-Day7/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="SQLServer-Day7DROP INDEX语句可以使用DROP INDEX命令删除表格中的索引 用于 Microsoft SQLJet (以及 Microsoft Access) 的语法:  DROP INDEX index_name ON table_name  用于 MS SQL Server的语法  DROP INDEX table_name.index_name  用于IBM DB2">
+<meta property="og:description" content="SQLServer-Day7  DROP INDEX语句 可以使用DROP INDEX命令删除表格中的索引 用于 Microsoft SQLJet (以及 Microsoft Access) 的语法:  DROP INDEX index_name ON table_name  用于 MS SQL Server的语法  DROP INDEX table_name.index_name  用于IBM">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-10-17T12:51:43.354Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQLServer-Day7">
-<meta name="twitter:description" content="SQLServer-Day7DROP INDEX语句可以使用DROP INDEX命令删除表格中的索引 用于 Microsoft SQLJet (以及 Microsoft Access) 的语法:  DROP INDEX index_name ON table_name  用于 MS SQL Server的语法  DROP INDEX table_name.index_name  用于IBM DB2">
+<meta name="twitter:description" content="SQLServer-Day7  DROP INDEX语句 可以使用DROP INDEX命令删除表格中的索引 用于 Microsoft SQLJet (以及 Microsoft Access) 的语法:  DROP INDEX index_name ON table_name  用于 MS SQL Server的语法  DROP INDEX table_name.index_name  用于IBM">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/10/17/SQLServer-Day7/">
 
@@ -240,7 +240,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="SQLServer-Day7"><a href="#SQLServer-Day7" class="headerlink" title="SQLServer-Day7"></a>SQLServer-Day7</h2><h3 id="DROP-INDEX语句"><a href="#DROP-INDEX语句" class="headerlink" title="DROP INDEX语句"></a>DROP INDEX语句</h3><p>可以使用<code>DROP INDEX</code>命令删除表格中的索引</p>
+        <h2 id="sqlserver-day7"><a class="markdownIt-Anchor" href="#sqlserver-day7"></a> SQLServer-Day7</h2>
+<h3 id="drop-index语句"><a class="markdownIt-Anchor" href="#drop-index语句"></a> DROP INDEX语句</h3>
+<p>可以使用<code>DROP INDEX</code>命令删除表格中的索引</p>
 <p>用于 Microsoft SQLJet (以及 Microsoft Access) 的语法:</p>
 <blockquote>
 <p>DROP INDEX index_name ON table_name</p>
@@ -257,19 +259,23 @@
 <blockquote>
 <p>ALTER TABLE table_name DROP index_name</p>
 </blockquote>
-<h3 id="DROP-TABLE-语句"><a href="#DROP-TABLE-语句" class="headerlink" title="DROP TABLE 语句"></a>DROP TABLE 语句</h3><p>用于删除表（表的结构、属性以及索引也会被删除）</p>
+<h3 id="drop-table-语句"><a class="markdownIt-Anchor" href="#drop-table-语句"></a> DROP TABLE 语句</h3>
+<p>用于删除表（表的结构、属性以及索引也会被删除）</p>
 <blockquote>
 <p>DROP TABLE 表名称</p>
 </blockquote>
-<h3 id="DROP-DATABASE语句"><a href="#DROP-DATABASE语句" class="headerlink" title="DROP DATABASE语句"></a>DROP DATABASE语句</h3><p>用于删除数据库</p>
+<h3 id="drop-database语句"><a class="markdownIt-Anchor" href="#drop-database语句"></a> DROP DATABASE语句</h3>
+<p>用于删除数据库</p>
 <blockquote>
 <p>DROP DATABASE 数据库名称</p>
 </blockquote>
-<h3 id="TRUNCATE-TABLE语句"><a href="#TRUNCATE-TABLE语句" class="headerlink" title="TRUNCATE TABLE语句"></a>TRUNCATE TABLE语句</h3><p>如果我们仅仅需要删除表内的数据，但并不删除表本身，可以使用<code>TRUNCATE TABLE</code>命令，仅仅删除表格中的数据</p>
+<h3 id="truncate-table语句"><a class="markdownIt-Anchor" href="#truncate-table语句"></a> TRUNCATE TABLE语句</h3>
+<p>如果我们仅仅需要删除表内的数据，但并不删除表本身，可以使用<code>TRUNCATE TABLE</code>命令，仅仅删除表格中的数据</p>
 <blockquote>
 <p>TRUNCATE TABLE 表名称</p>
 </blockquote>
-<h3 id="ALTER-TABLE语句"><a href="#ALTER-TABLE语句" class="headerlink" title="ALTER TABLE语句"></a>ALTER TABLE语句</h3><p>用于在已有的表中添加、修改或删除列</p>
+<h3 id="alter-table语句"><a class="markdownIt-Anchor" href="#alter-table语句"></a> ALTER TABLE语句</h3>
+<p>用于在已有的表中添加、修改或删除列</p>
 <p>添加列：</p>
 <blockquote>
 <p>ALTER TABLE table_name</p>
@@ -280,7 +286,7 @@
 <p>ALTER TABLE table_name</p>
 <p>DROP COLUMN column_name</p>
 </blockquote>
-<p><strong>Tips：</strong>某些数据库系统不允许这种在数据库表中删除列的方式</p>
+<p>**Tips：**某些数据库系统不允许这种在数据库表中删除列的方式</p>
 <p>要更改表中列的数据类型：</p>
 <blockquote>
 <p>ALTER TABLE table_name</p>
@@ -288,7 +294,6 @@
 </blockquote>
 <p>例1：</p>
 <p>原始的Persons表：</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -323,12 +328,10 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p>现在，需要在表“Persons”中添加一个名为“Birthday”的新列</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line"><span class="keyword">ADD</span> Birthday <span class="built_in">date</span></span><br></pre></td></tr></table></figure>
 <p>请注意，新列 “Birthday” 的类型是 date，可以存放日期。数据类型规定列中可以存放的数据的类型。</p>
 <p>所以，新的表长这样：</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -363,15 +366,16 @@
 <td>Thomas</td>
 <td>Changan Street</td>
 <td>Beijing</td>
+<td></td>
 </tr>
 </tbody>
 </table>
-</div>
 <p>例2：改变数据类型实例</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">COLUMN</span> Birthday <span class="keyword">year</span></span><br></pre></td></tr></table></figure>
 <p>例3：删除Birthday列</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Persons </span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">COLUMN</span> Birthday</span><br></pre></td></tr></table></figure>
-<h3 id="AUTO-INCREMENT-字段"><a href="#AUTO-INCREMENT-字段" class="headerlink" title="AUTO INCREMENT 字段"></a>AUTO INCREMENT 字段</h3><p>会在新纪录插入表示生成一个唯一的数字</p>
+<h3 id="auto-increment-字段"><a class="markdownIt-Anchor" href="#auto-increment-字段"></a> AUTO INCREMENT 字段</h3>
+<p>会在新纪录插入表示生成一个唯一的数字</p>
 <p>我们通常希望在每次插入记录时，自动创建主键字段的值，这时候，可以在表中创建一个auto-increament字段</p>
 <p>用于MySQL的语法：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE</span><br><span class="line">(</span><br><span class="line">P_Id int NOT NULL AUTO_INCREAMENT, </span><br><span class="line">LastName varchar(255) NOT NULL, </span><br><span class="line">FirstName varcahr(255), </span><br><span class="line">Address varcahr(255), </span><br><span class="line">City varcahr(255), </span><br><span class="line">PRIMARY KEY (P_Id)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
@@ -394,10 +398,12 @@
 <p>要在“Persons”表中插入新纪录，必须使用nextval函数（该函数从seq_person）序列中取回下一个值</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO Persons(P_Id, FirstName, LastName)</span><br><span class="line">VALUES (seq_person.nextval, &apos;Lars&apos;, &apos;Monsen&apos;)</span><br></pre></td></tr></table></figure>
 <p>“P_Id” 的赋值是来自 seq_person 序列的下一个数字</p>
-<h3 id="Date函数"><a href="#Date函数" class="headerlink" title="Date函数"></a>Date函数</h3><h4 id="SQL日期"><a href="#SQL日期" class="headerlink" title="SQL日期"></a>SQL日期</h4><p>当我们处理日期时，最难的任务恐怕是确保所插入的日期的格式，与数据库中日期列的格式相匹配</p>
+<h3 id="date函数"><a class="markdownIt-Anchor" href="#date函数"></a> Date函数</h3>
+<h4 id="sql日期"><a class="markdownIt-Anchor" href="#sql日期"></a> SQL日期</h4>
+<p>当我们处理日期时，最难的任务恐怕是确保所插入的日期的格式，与数据库中日期列的格式相匹配</p>
 <p>只要数据包含的只是日期部分，运行查询就不会出问题。但是，如果涉及时间，情况就有点复杂了</p>
 <p>在讨论日期查询的复杂性之前，先看看内置日期的处理函数</p>
-<h4 id="MySQL-Date函数"><a href="#MySQL-Date函数" class="headerlink" title="MySQL Date函数"></a>MySQL Date函数</h4><div class="table-container">
+<h4 id="mysql-date函数"><a class="markdownIt-Anchor" href="#mysql-date函数"></a> MySQL Date函数</h4>
 <table>
 <thead>
 <tr>
@@ -444,8 +450,7 @@
 </tr>
 </tbody>
 </table>
-</div>
-<h4 id="SQL-Server-Date函数"><a href="#SQL-Server-Date函数" class="headerlink" title="SQL Server Date函数"></a>SQL Server Date函数</h4><div class="table-container">
+<h4 id="sql-server-date函数"><a class="markdownIt-Anchor" href="#sql-server-date函数"></a> SQL Server Date函数</h4>
 <table>
 <thead>
 <tr>
@@ -476,8 +481,8 @@
 </tr>
 </tbody>
 </table>
-</div>
-<h4 id="SQL-Date-数据类型"><a href="#SQL-Date-数据类型" class="headerlink" title="SQL Date 数据类型"></a>SQL Date 数据类型</h4><p>MySQL 使用下列数据类型在数据库中存储日期或日期/时间值：</p>
+<h4 id="sql-date-数据类型"><a class="markdownIt-Anchor" href="#sql-date-数据类型"></a> SQL Date 数据类型</h4>
+<p>MySQL 使用下列数据类型在数据库中存储日期或日期/时间值：</p>
 <ul>
 <li>DATE - 格式 YYYY-MM-DD</li>
 <li>DATETIME - 格式 YYYY-MM-DD HH:MM:SS</li>
@@ -491,9 +496,9 @@
 <li>SMALLDATETIME- 格式 YYYY-MM-DD HH:MM:SS</li>
 <li>TIMESTAMP - 格式 唯一的数字</li>
 </ul>
-<h4 id="日期处理"><a href="#日期处理" class="headerlink" title="日期处理"></a>日期处理</h4><p>如果不涉及时间部分，可以轻松的比较两个日期</p>
+<h4 id="日期处理"><a class="markdownIt-Anchor" href="#日期处理"></a> 日期处理</h4>
+<p>如果不涉及时间部分，可以轻松的比较两个日期</p>
 <p>比如，有下面这个”Orders”表：</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -525,11 +530,9 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p>希望获取OrderDate为“2008-12-26”的记录</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM Orders WHERE OrderDate = &apos;2008-12-16&apos;</span><br></pre></td></tr></table></figure>
 <p>结果：</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -551,9 +554,7 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p>如果Orders表长成这样：</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -585,19 +586,20 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p>依然使用上面的语句，将得不到结果，因为该查询不含有时间部分的日期</p>
-<p><strong>Tips：</strong>如果希望使查询简单并且更容易维护，那么尽量不要使用时间部分</p>
-<h3 id="NULL值"><a href="#NULL值" class="headerlink" title="NULL值"></a>NULL值</h3><p>NULL值是一楼的位置数据</p>
+<p>**Tips：**如果希望使查询简单并且更容易维护，那么尽量不要使用时间部分</p>
+<h3 id="null值"><a class="markdownIt-Anchor" href="#null值"></a> NULL值</h3>
+<p>NULL值是一楼的位置数据</p>
 <p>默认的，表的列可以存放NULL值</p>
-<h4 id="SQL-NULL值"><a href="#SQL-NULL值" class="headerlink" title="SQL NULL值"></a>SQL NULL值</h4><p>如果表中的某个列是可选的，那么可以在不向改列添加值的情况下插入新记录或更新已有记录，这意味着该字段将以NULL值保存</p>
+<h4 id="sql-null值"><a class="markdownIt-Anchor" href="#sql-null值"></a> SQL NULL值</h4>
+<p>如果表中的某个列是可选的，那么可以在不向改列添加值的情况下插入新记录或更新已有记录，这意味着该字段将以NULL值保存</p>
 <p>NULL值的处理方式与其他值不同</p>
 <p>NULL用作为止的或不适用的值的占位符</p>
-<p><strong>Tips：</strong>无法比较NULL 和 0，他们是不等价的</p>
+<p>**Tips：**无法比较NULL 和 0，他们是不等价的</p>
 <p>无法使用比较运算符来测试NULL值，比如<code>=</code>， <code>&lt;</code>或者<code>&lt;&gt;</code></p>
 <p>必须使用 <code>IS NULL</code>和<code>IS NOT NULL</code>操作符</p>
-<h4 id="SQL-IS-NULL"><a href="#SQL-IS-NULL" class="headerlink" title="SQL IS NULL"></a>SQL IS NULL</h4><p>Persons表</p>
-<div class="table-container">
+<h4 id="sql-is-null"><a class="markdownIt-Anchor" href="#sql-is-null"></a> SQL IS NULL</h4>
+<p>Persons表</p>
 <table>
 <thead>
 <tr>
@@ -632,13 +634,13 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p>仅仅选取在“Address”列中带有NULL值的记录</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> LastName, FirstName, Address <span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> Address <span class="keyword">IS</span> <span class="literal">NULL</span></span><br></pre></td></tr></table></figure>
 <p><strong>Tips:</strong> 只能使用<code>IS NULL</code>来查找NULL值</p>
-<h4 id="SQL-IS-NOT-NULL"><a href="#SQL-IS-NOT-NULL" class="headerlink" title="SQL IS NOT NULL"></a>SQL IS NOT NULL</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> LastName, FirstName, Address <span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> Address <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span></span><br></pre></td></tr></table></figure>
-<h3 id="NULL函数"><a href="#NULL函数" class="headerlink" title="NULL函数"></a>NULL函数</h3><p>Products表:</p>
-<div class="table-container">
+<h4 id="sql-is-not-null"><a class="markdownIt-Anchor" href="#sql-is-not-null"></a> SQL IS NOT NULL</h4>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> LastName, FirstName, Address <span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> Address <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span></span><br></pre></td></tr></table></figure>
+<h3 id="null函数"><a class="markdownIt-Anchor" href="#null函数"></a> NULL函数</h3>
+<p>Products表:</p>
 <table>
 <thead>
 <tr>
@@ -673,19 +675,22 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p>假设“UnitsOnOrder”是可选的，而且可以包含NULL值</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ProductName, UnitPrices*(UnitsInStock+UnitsOnOrder)</span><br><span class="line"><span class="keyword">FROM</span> Products</span><br></pre></td></tr></table></figure>
 <p>在上面的例子中，如果有“UnitOnOrder”值是NULL，那么结果是NULL</p>
 <p>微软的<code>ISNULL()</code>函数用于规定如何处理NULL值</p>
 <p><code>NVL()</code>, <code>IFNULL()</code>和<code>COALESCE()</code>函数也可以达到相同的结果</p>
-<h4 id="SQL-Server-MS-Access"><a href="#SQL-Server-MS-Access" class="headerlink" title="SQL Server / MS Access"></a>SQL Server / MS Access</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ProductName, UnitPrice*(UnitsInStock+<span class="keyword">ISNULL</span>(UnitsOnOrder, <span class="number">0</span>))</span><br><span class="line"><span class="keyword">FROM</span> Products</span><br></pre></td></tr></table></figure>
-<h4 id="Oracle"><a href="#Oracle" class="headerlink" title="Oracle"></a>Oracle</h4><p>Oracle没有<code>ISNULL()</code>函数，但是可以使用<code>NVL()</code>函数达到相同的效果</p>
+<h4 id="sql-server-ms-access"><a class="markdownIt-Anchor" href="#sql-server-ms-access"></a> SQL Server / MS Access</h4>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ProductName, UnitPrice*(UnitsInStock+<span class="keyword">ISNULL</span>(UnitsOnOrder, <span class="number">0</span>))</span><br><span class="line"><span class="keyword">FROM</span> Products</span><br></pre></td></tr></table></figure>
+<h4 id="oracle"><a class="markdownIt-Anchor" href="#oracle"></a> Oracle</h4>
+<p>Oracle没有<code>ISNULL()</code>函数，但是可以使用<code>NVL()</code>函数达到相同的效果</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ProductName, UnitPrice*(UnitsInStock+NVL(UnitsOnOrder, <span class="number">0</span>))</span><br><span class="line"><span class="keyword">FROM</span> Products</span><br></pre></td></tr></table></figure>
-<h4 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT ProductName, UnitPrice*(UnitsInStock+IFNULL(UnitsOnOrder, 0))</span><br><span class="line">FROM Products</span><br></pre></td></tr></table></figure>
+<h4 id="mysql"><a class="markdownIt-Anchor" href="#mysql"></a> MySQL</h4>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT ProductName, UnitPrice*(UnitsInStock+IFNULL(UnitsOnOrder, 0))</span><br><span class="line">FROM Products</span><br></pre></td></tr></table></figure>
 <p>或者</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT ProductName,UnitPrice*(UnitsInStock+COALESCE(UnitsOnOrder,0))</span><br><span class="line">FROM Products</span><br></pre></td></tr></table></figure>
-<h3 id="SQL-Server数据类型"><a href="#SQL-Server数据类型" class="headerlink" title="SQL Server数据类型"></a>SQL Server数据类型</h3><h4 id="Character字符串："><a href="#Character字符串：" class="headerlink" title="Character字符串："></a>Character字符串：</h4><div class="table-container">
+<h3 id="sql-server数据类型"><a class="markdownIt-Anchor" href="#sql-server数据类型"></a> SQL Server数据类型</h3>
+<h4 id="character字符串"><a class="markdownIt-Anchor" href="#character字符串"></a> Character字符串：</h4>
 <table>
 <thead>
 <tr>
@@ -712,8 +717,7 @@
 </tr>
 </tbody>
 </table>
-</div>
-<h4 id="UniCode字符串"><a href="#UniCode字符串" class="headerlink" title="UniCode字符串"></a>UniCode字符串</h4><div class="table-container">
+<h4 id="unicode字符串"><a class="markdownIt-Anchor" href="#unicode字符串"></a> UniCode字符串</h4>
 <table>
 <thead>
 <tr>
@@ -740,8 +744,7 @@
 </tr>
 </tbody>
 </table>
-</div>
-<h4 id="Binary类型"><a href="#Binary类型" class="headerlink" title="Binary类型"></a>Binary类型</h4><div class="table-container">
+<h4 id="binary类型"><a class="markdownIt-Anchor" href="#binary类型"></a> Binary类型</h4>
 <table>
 <thead>
 <tr>
@@ -772,8 +775,7 @@
 </tr>
 </tbody>
 </table>
-</div>
-<h4 id="Number类型"><a href="#Number类型" class="headerlink" title="Number类型"></a>Number类型</h4><div class="table-container">
+<h4 id="number类型"><a class="markdownIt-Anchor" href="#number类型"></a> Number类型</h4>
 <table>
 <thead>
 <tr>
@@ -835,8 +837,7 @@
 </tr>
 </tbody>
 </table>
-</div>
-<h4 id="Date-类型："><a href="#Date-类型：" class="headerlink" title="Date 类型："></a>Date 类型：</h4><div class="table-container">
+<h4 id="date-类型"><a class="markdownIt-Anchor" href="#date-类型"></a> Date 类型：</h4>
 <table>
 <thead>
 <tr>
@@ -879,11 +880,11 @@
 <tr>
 <td style="text-align:left">timestamp</td>
 <td style="text-align:left">存储唯一的数字，每当创建或修改某行时，该数字会更新。timestamp 基于内部时钟，不对应真实时间。每个表只能有一个 timestamp 变量。</td>
+<td style="text-align:left"></td>
 </tr>
 </tbody>
 </table>
-</div>
-<h4 id="其他数据类型："><a href="#其他数据类型：" class="headerlink" title="其他数据类型："></a>其他数据类型：</h4><div class="table-container">
+<h4 id="其他数据类型"><a class="markdownIt-Anchor" href="#其他数据类型"></a> 其他数据类型：</h4>
 <table>
 <thead>
 <tr>
@@ -914,7 +915,6 @@
 </tr>
 </tbody>
 </table>
-</div>
 
     </div>
 
@@ -975,7 +975,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQLServer-Day7"><span class="nav-number">1.</span> <span class="nav-text">SQLServer-Day7</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DROP-INDEX语句"><span class="nav-number">1.1.</span> <span class="nav-text">DROP INDEX语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DROP-TABLE-语句"><span class="nav-number">1.2.</span> <span class="nav-text">DROP TABLE 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DROP-DATABASE语句"><span class="nav-number">1.3.</span> <span class="nav-text">DROP DATABASE语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TRUNCATE-TABLE语句"><span class="nav-number">1.4.</span> <span class="nav-text">TRUNCATE TABLE语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ALTER-TABLE语句"><span class="nav-number">1.5.</span> <span class="nav-text">ALTER TABLE语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AUTO-INCREMENT-字段"><span class="nav-number">1.6.</span> <span class="nav-text">AUTO INCREMENT 字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Date函数"><span class="nav-number">1.7.</span> <span class="nav-text">Date函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL日期"><span class="nav-number">1.7.1.</span> <span class="nav-text">SQL日期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL-Date函数"><span class="nav-number">1.7.2.</span> <span class="nav-text">MySQL Date函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-Server-Date函数"><span class="nav-number">1.7.3.</span> <span class="nav-text">SQL Server Date函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-Date-数据类型"><span class="nav-number">1.7.4.</span> <span class="nav-text">SQL Date 数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#日期处理"><span class="nav-number">1.7.5.</span> <span class="nav-text">日期处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NULL值"><span class="nav-number">1.8.</span> <span class="nav-text">NULL值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-NULL值"><span class="nav-number">1.8.1.</span> <span class="nav-text">SQL NULL值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-IS-NULL"><span class="nav-number">1.8.2.</span> <span class="nav-text">SQL IS NULL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-IS-NOT-NULL"><span class="nav-number">1.8.3.</span> <span class="nav-text">SQL IS NOT NULL</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NULL函数"><span class="nav-number">1.9.</span> <span class="nav-text">NULL函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-Server-MS-Access"><span class="nav-number">1.9.1.</span> <span class="nav-text">SQL Server / MS Access</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Oracle"><span class="nav-number">1.9.2.</span> <span class="nav-text">Oracle</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL"><span class="nav-number">1.9.3.</span> <span class="nav-text">MySQL</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL-Server数据类型"><span class="nav-number">1.10.</span> <span class="nav-text">SQL Server数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Character字符串："><span class="nav-number">1.10.1.</span> <span class="nav-text">Character字符串：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UniCode字符串"><span class="nav-number">1.10.2.</span> <span class="nav-text">UniCode字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Binary类型"><span class="nav-number">1.10.3.</span> <span class="nav-text">Binary类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Number类型"><span class="nav-number">1.10.4.</span> <span class="nav-text">Number类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Date-类型："><span class="nav-number">1.10.5.</span> <span class="nav-text">Date 类型：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他数据类型："><span class="nav-number">1.10.6.</span> <span class="nav-text">其他数据类型：</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#sqlserver-day7"><span class="nav-number">1.</span> <span class="nav-text"> SQLServer-Day7</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#drop-index语句"><span class="nav-number">1.1.</span> <span class="nav-text"> DROP INDEX语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#drop-table-语句"><span class="nav-number">1.2.</span> <span class="nav-text"> DROP TABLE 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#drop-database语句"><span class="nav-number">1.3.</span> <span class="nav-text"> DROP DATABASE语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#truncate-table语句"><span class="nav-number">1.4.</span> <span class="nav-text"> TRUNCATE TABLE语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#alter-table语句"><span class="nav-number">1.5.</span> <span class="nav-text"> ALTER TABLE语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#auto-increment-字段"><span class="nav-number">1.6.</span> <span class="nav-text"> AUTO INCREMENT 字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#date函数"><span class="nav-number">1.7.</span> <span class="nav-text"> Date函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sql日期"><span class="nav-number">1.7.1.</span> <span class="nav-text"> SQL日期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql-date函数"><span class="nav-number">1.7.2.</span> <span class="nav-text"> MySQL Date函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sql-server-date函数"><span class="nav-number">1.7.3.</span> <span class="nav-text"> SQL Server Date函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sql-date-数据类型"><span class="nav-number">1.7.4.</span> <span class="nav-text"> SQL Date 数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#日期处理"><span class="nav-number">1.7.5.</span> <span class="nav-text"> 日期处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null值"><span class="nav-number">1.8.</span> <span class="nav-text"> NULL值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sql-null值"><span class="nav-number">1.8.1.</span> <span class="nav-text"> SQL NULL值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sql-is-null"><span class="nav-number">1.8.2.</span> <span class="nav-text"> SQL IS NULL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sql-is-not-null"><span class="nav-number">1.8.3.</span> <span class="nav-text"> SQL IS NOT NULL</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null函数"><span class="nav-number">1.9.</span> <span class="nav-text"> NULL函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sql-server-ms-access"><span class="nav-number">1.9.1.</span> <span class="nav-text"> SQL Server / MS Access</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#oracle"><span class="nav-number">1.9.2.</span> <span class="nav-text"> Oracle</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql"><span class="nav-number">1.9.3.</span> <span class="nav-text"> MySQL</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sql-server数据类型"><span class="nav-number">1.10.</span> <span class="nav-text"> SQL Server数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#character字符串"><span class="nav-number">1.10.1.</span> <span class="nav-text"> Character字符串：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#unicode字符串"><span class="nav-number">1.10.2.</span> <span class="nav-text"> UniCode字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#binary类型"><span class="nav-number">1.10.3.</span> <span class="nav-text"> Binary类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#number类型"><span class="nav-number">1.10.4.</span> <span class="nav-text"> Number类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#date-类型"><span class="nav-number">1.10.5.</span> <span class="nav-text"> Date 类型：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他数据类型"><span class="nav-number">1.10.6.</span> <span class="nav-text"> 其他数据类型：</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -991,7 +991,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">150</span>
+          <span class="site-state-item-count">153</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

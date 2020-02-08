@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/09/CPU-affinity/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/10/Python-Day1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/10/09/CPU-affinity/" class="post-title-link" itemprop="url">CPU affinity</a>
+            <a href="/2019/10/10/Python-Day1/" class="post-title-link" itemprop="url">Python</a>
         </h1>
 
         <div class="post-meta">
@@ -210,10 +210,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-10-09 09:17:13 / 修改时间：11:02:42" itemprop="dateCreated datePublished" datetime="2019-10-09T09:17:13+08:00">2019-10-09</time>
+              <time title="创建时间：2019-10-10 08:41:51" itemprop="dateCreated datePublished" datetime="2019-10-10T08:41:51+08:00">2019-10-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-24 15:50:25" itemprop="dateModified" datetime="2020-01-24T15:50:25+08:00">2020-01-24</time>
+              </span>
 
           
   
@@ -224,8 +230,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/10/09/CPU-affinity/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/09/CPU-affinity/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/10/10/Python-Day1/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/10/Python-Day1/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,15 +246,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="CPU-affinity（亲和性）"><a href="#CPU-affinity（亲和性）" class="headerlink" title="CPU affinity（亲和性）"></a>CPU affinity（亲和性）</h2><h3 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1. 基本概念"></a>1. 基本概念</h3><p>CPU affinity是一种调度属性，它可以将一个进程“绑定”到一个或一组CPU上</p>
-<p>在SMP（Symmetric Multi-Processing对称多处理器）架构下，Linux调度器（scheduler）会根据CPU affinity的设置让指定的进程运行在“绑定”的CPU上，而不会在别的CPU上运行。</p>
-<p>Linux调度器同样支持自然CPU亲和性；调度器会试图保持进程在相同的CPU上运行，这意味着进程通常不会在处理器之间频繁迁移，进程迁移的频率小意味着产生的负载小</p>
-<p>因为程序的坐着比调度器更了解程序，所以我们可以手动地为其分配CPU核，而不会过多的占用CPU0，或者让我们关键进程和一对别的进程挤在一起，所有设置CPU亲和性可以是某些程序提高性能</p>
-<h3 id="2-表示方法"><a href="#2-表示方法" class="headerlink" title="2. 表示方法"></a>2. 表示方法</h3><p>CPU affinity 使用位掩码（bitmask）表示，每一位都表示一个CPU，置1表示“绑定”</p>
-<p>最低位表示第一个逻辑CPU，最高位表示最后一个逻辑CPU</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">0x00000001</span><br><span class="line">    is processor #0</span><br><span class="line">0x00000003</span><br><span class="line">    is processors #0 and #1</span><br><span class="line">0xFFFFFFFF</span><br><span class="line">    is all processors (#0 through #31)</span><br></pre></td></tr></table></figure>
-<h3 id="3-taskset-命令"><a href="#3-taskset-命令" class="headerlink" title="3. taskset 命令"></a>3. taskset 命令</h3><p>taskset命令用于获取或设定CPU亲和性</p>
-
+          
       
     </div>
 
@@ -267,7 +265,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/48/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><span class="page-number current">49</span><a class="page-number" href="/page/50/">50</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/50/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/48/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><span class="page-number current">49</span><a class="page-number" href="/page/50/">50</a><span class="space">&hellip;</span><a class="page-number" href="/page/153/">153</a><a class="extend next" rel="next" href="/page/50/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -313,7 +311,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">150</span>
+          <span class="site-state-item-count">153</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

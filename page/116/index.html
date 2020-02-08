@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/15/常见的loss函数-TV-Loss/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/17/HDR的简单介绍/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/08/15/常见的loss函数-TV-Loss/" class="post-title-link" itemprop="url">常见的loss函数-TV_Loss</a>
+            <a href="/2019/08/17/HDR的简单介绍/" class="post-title-link" itemprop="url">HDR的简单介绍</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-08-15 10:56:54 / 修改时间：12:12:36" itemprop="dateCreated datePublished" datetime="2019-08-15T10:56:54+08:00">2019-08-15</time>
+              <time title="创建时间：2019-08-17 08:57:27 / 修改时间：09:15:11" itemprop="dateCreated datePublished" datetime="2019-08-17T08:57:27+08:00">2019-08-17</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/08/15/常见的loss函数-TV-Loss/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/15/常见的loss函数-TV-Loss/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/08/17/HDR的简单介绍/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/17/HDR的简单介绍/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,18 +240,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="TV-Loss"><a href="#TV-Loss" class="headerlink" title="TV Loss"></a>TV Loss</h1><p>在图像复原过程中，图像上的一点点噪声可能就会对复原的结果产生非常大的影响，因为很过复原算法都会放大噪声。这时候我们就需要在最优化问题的模型中添加一些正则项来保持图像的光滑性，TV Loss是常用的一种正则项（<strong>注意是正则项，配合其他loss、</strong></p>
-<p><strong>一起使用，约束噪声</strong>）。图片中相邻像素值的差异可以通过降低TV Loss来一定程度上解决。比如降噪，对抗checkboard等等。</p>
-<h3 id="1-初始定义"><a href="#1-初始定义" class="headerlink" title="1.初始定义"></a>1.初始定义</h3><p>Rudin等人观察到，受噪声污染的图像的总变分比无噪图像的总变分明显的大。那么最小化TV理论上就可以最小化噪声。图片中相邻像素值的差异可以通过降低TV loss来一定程度上解决。</p>
-<p>总编分定义为梯度幅值的积分：</p>
-<p>$J_{T_{0}}(u)=\int_{\Omega_{u}}\left|\nabla_{u}\right| d x d y=\int_{D_{u}} \sqrt{u_{x}^{2}+u_{y}^{2}} d x d y$</p>
-<p>其中$u_{x}=\frac{\partial u}{\partial x}$， $u_{y}=\frac{\partial u}{\partial y}$，$D_{u}$是图像的支持域。限制总变分就会限制噪声</p>
-<h3 id="2-扩展定义"><a href="#2-扩展定义" class="headerlink" title="2.扩展定义"></a>2.扩展定义</h3><p>带阶数的TV loss定义如下：</p>
-<p>$\Re_{V^{\beta}}(f)=\int_{\Omega}\left(\frac{\partial f}{\partial u}(u, v)^{2}+\frac{\partial f}{\partial v}(u, v)^{2}\right)^{\frac{\beta}{2}}$</p>
-<p>但是在图像中，连续域的积分就变成了像素离散域中求和，所以可以这么算：<br>$\Re_{V^{\beta}}(x)=\sum_{i, j}\left(\left(x_{i, j-1}-x_{i, j}\right)^{2}+\left(x_{i+1, j}-x_{i, j}\right)^{2}\right)^{\frac{\beta}{2}}$</p>
-<p>即：求每一个像素和横向下一个像素的差的平方，加上纵向下一个像素的差的平方。然后开β/2次根</p>
-<h3 id="3-效果"><a href="#3-效果" class="headerlink" title="3.效果"></a>3.效果</h3><p>总变差（TV）损失促进了生成的图像中的空间平滑性，根据论文的描述，当β &lt; 1时，会出现下图左侧的小点点的artifact, 当β &gt; 1时，图像中的小点点会被消除，但是代价就是图像的清晰度</p>
-<p><img src="https://img-blog.csdnimg.cn/20190311152735551.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lleGlhb2d1MTEwNA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+          <h2 id="hdr"><a class="markdownIt-Anchor" href="#hdr"></a> HDR</h2>
+<h3 id="hdr的简介"><a class="markdownIt-Anchor" href="#hdr的简介"></a> HDR的简介</h3>
+<p><strong>HDR——High-Dynamic Range（高动态光照渲染）</strong>，相比普通的图像，可以提供更多的动态范围和图像细节，根据不同的曝光时间的LDR(Low-Dynamic Range)图像，利用曝光时间相对应最佳细节的LDR图像来合成最终的HDR图像，能够更好的反映出真实环境中的视觉效果。</p>
+<p>说白了，就是一张图片尽可能得同时显示最亮和最暗的地方，或者说是让亮的地方更亮，让暗的地方更暗（或者理解为<strong>能够大幅提高画面细节的明暗对比度</strong>）。HDR显示下的色彩更接近人眼真实的感知，所以HDR提供更逼真，更身临其境的电影、游戏和内容创作体验。</p>
+<p>人眼的视觉是目前最强大的摄影器材跟显像设备，我们不断升级的摄影跟显示器设备都是为了还原人眼所见，以求达到所见即所得的效果。</p>
+<h3 id="hdr的组成"><a class="markdownIt-Anchor" href="#hdr的组成"></a> HDR的组成</h3>
+<p>HDR由两部分组成：<strong>动态曝光控制</strong>和<strong>光晕效果</strong>。</p>
+<h4 id="动态曝光控制"><a class="markdownIt-Anchor" href="#动态曝光控制"></a> 动态曝光控制</h4>
+<p>通常，显示器能够显示R、G、B分量在[0, 255]之间的像素值。而256个不同的亮度级别显然不能表示自然界中光线的亮度情况。举个例子，太阳的亮度是白炽灯亮度的几千倍或者被漫反射照亮的室内亮度的几万倍，这远远超出了显示器的亮度表示能力。HDR技术所要解决的问题就是在有限的亮度范围内表示出宽广的亮度范围。原理类似于照相机的曝光功能，通过算法调整光线亮度，将光线从高动态范围映射到低动态范围，从而得到令人信服的光照效果</p>
+<h4 id="光晕效果"><a class="markdownIt-Anchor" href="#光晕效果"></a> 光晕效果</h4>
+<p>人从暗处走到光亮的地方，瞳孔由于来不及收缩，眼睛会自己眯起来，以保护视网膜上的感光细胞。HDR通过对原始图像进行调整，可以模拟这种人眼自动适应光线变化的胜利反应，产生类似于光晕的效果</p>
+<p>图像经DHR处理后的理想效果是亮处足够耀眼，暗处能够分辨物体的轮廓与深度，而非原图的一团漆黑。</p>
 
       
     </div>
@@ -271,7 +271,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/115/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/115/">115</a><span class="page-number current">116</span><a class="page-number" href="/page/117/">117</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/117/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/115/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/115/">115</a><span class="page-number current">116</span><a class="page-number" href="/page/117/">117</a><span class="space">&hellip;</span><a class="page-number" href="/page/153/">153</a><a class="extend next" rel="next" href="/page/117/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -317,7 +317,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">150</span>
+          <span class="site-state-item-count">153</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

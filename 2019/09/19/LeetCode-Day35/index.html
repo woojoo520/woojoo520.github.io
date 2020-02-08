@@ -47,17 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="354. 俄罗斯套娃信封问题给定一些标记了宽度和高度的信封，宽度和高度以整数对形式 (w, h) 出现。当另一个信封的宽度和高度都比这个信封大的时候，这个信封就可以放进另一个信封里，如同俄罗斯套娃一样。 请计算最多能有多少个信封能组成一组“俄罗斯套娃”信封（即可以把一个信封放到另一个信封里面）。 说明:不允许旋转信封。 示例: 123输入: envelopes = [[5,4],[6,4],[6,">
+  <meta name="description" content="354. 俄罗斯套娃信封问题 给定一些标记了宽度和高度的信封，宽度和高度以整数对形式 (w, h) 出现。当另一个信封的宽度和高度都比这个信封大的时候，这个信封就可以放进另一个信封里，如同俄罗斯套娃一样。 请计算最多能有多少个信封能组成一组“俄罗斯套娃”信封（即可以把一个信封放到另一个信封里面）。 说明: 不允许旋转信封。 示例: 123输入: envelopes = [[5,4],[6,4],">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode-Day35">
 <meta property="og:url" content="https://woojoo520.github.io/2019/09/19/LeetCode-Day35/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="354. 俄罗斯套娃信封问题给定一些标记了宽度和高度的信封，宽度和高度以整数对形式 (w, h) 出现。当另一个信封的宽度和高度都比这个信封大的时候，这个信封就可以放进另一个信封里，如同俄罗斯套娃一样。 请计算最多能有多少个信封能组成一组“俄罗斯套娃”信封（即可以把一个信封放到另一个信封里面）。 说明:不允许旋转信封。 示例: 123输入: envelopes = [[5,4],[6,4],[6,">
+<meta property="og:description" content="354. 俄罗斯套娃信封问题 给定一些标记了宽度和高度的信封，宽度和高度以整数对形式 (w, h) 出现。当另一个信封的宽度和高度都比这个信封大的时候，这个信封就可以放进另一个信封里，如同俄罗斯套娃一样。 请计算最多能有多少个信封能组成一组“俄罗斯套娃”信封（即可以把一个信封放到另一个信封里面）。 说明: 不允许旋转信封。 示例: 123输入: envelopes = [[5,4],[6,4],">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-09-20T06:11:56.256Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode-Day35">
-<meta name="twitter:description" content="354. 俄罗斯套娃信封问题给定一些标记了宽度和高度的信封，宽度和高度以整数对形式 (w, h) 出现。当另一个信封的宽度和高度都比这个信封大的时候，这个信封就可以放进另一个信封里，如同俄罗斯套娃一样。 请计算最多能有多少个信封能组成一组“俄罗斯套娃”信封（即可以把一个信封放到另一个信封里面）。 说明:不允许旋转信封。 示例: 123输入: envelopes = [[5,4],[6,4],[6,">
+<meta name="twitter:description" content="354. 俄罗斯套娃信封问题 给定一些标记了宽度和高度的信封，宽度和高度以整数对形式 (w, h) 出现。当另一个信封的宽度和高度都比这个信封大的时候，这个信封就可以放进另一个信封里，如同俄罗斯套娃一样。 请计算最多能有多少个信封能组成一组“俄罗斯套娃”信封（即可以把一个信封放到另一个信封里面）。 说明: 不允许旋转信封。 示例: 123输入: envelopes = [[5,4],[6,4],">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/09/19/LeetCode-Day35/">
 
@@ -246,14 +246,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="354-俄罗斯套娃信封问题"><a href="#354-俄罗斯套娃信封问题" class="headerlink" title="354. 俄罗斯套娃信封问题"></a>354. 俄罗斯套娃信封问题</h3><p>给定一些标记了宽度和高度的信封，宽度和高度以整数对形式 (w, h) 出现。当另一个信封的宽度和高度都比这个信封大的时候，这个信封就可以放进另一个信封里，如同俄罗斯套娃一样。</p>
+        <h3 id="354-俄罗斯套娃信封问题"><a class="markdownIt-Anchor" href="#354-俄罗斯套娃信封问题"></a> 354. 俄罗斯套娃信封问题</h3>
+<p>给定一些标记了宽度和高度的信封，宽度和高度以整数对形式 (w, h) 出现。当另一个信封的宽度和高度都比这个信封大的时候，这个信封就可以放进另一个信封里，如同俄罗斯套娃一样。</p>
 <p>请计算最多能有多少个信封能组成一组“俄罗斯套娃”信封（即可以把一个信封放到另一个信封里面）。</p>
-<p>说明:<br>不允许旋转信封。</p>
+<p>说明:<br>
+不允许旋转信封。</p>
 <p>示例:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: envelopes = [[5,4],[6,4],[6,7],[2,3]]</span><br><span class="line">输出: 3 </span><br><span class="line">解释: 最多信封的个数为 3, 组合为: [2,3] =&gt; [5,4] =&gt; [6,7]。</span><br></pre></td></tr></table></figure>
 <p>思路：</p>
 <p>其实这个问题就是最长上升子序列的一个升级版本。</p>
-<p>但是我还是使用了$O(n^2)$的方法解决了问题，在评论区看到了对二分搜索的实现，所以拿出来讲一讲。</p>
+<p>但是我还是使用了<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>的方法解决了问题，在评论区看到了对二分搜索的实现，所以拿出来讲一讲。</p>
 <p>但是还没有看懂这个基于<code>envelopes[0]</code>排序，然后对<code>envelopes[1]</code>进行二分的骚操作。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxEnvelopes</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; envelopes)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(envelopes.size() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    sort(envelopes.begin(), envelopes.end(), [](<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; a, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; b) &#123;</span><br><span class="line">        <span class="keyword">return</span> a[<span class="number">0</span>] &lt; b[<span class="number">0</span>] || (a[<span class="number">0</span>] == b[<span class="number">0</span>] &amp;&amp; a[<span class="number">1</span>] &gt; b[<span class="number">1</span>]);</span><br><span class="line">    &#125;);    </span><br><span class="line">    <span class="keyword">int</span> n = envelopes.size(), maxSum = <span class="number">1</span>;;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec(n, INT_MAX);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> e : envelopes) &#123;</span><br><span class="line">        <span class="keyword">int</span> low = <span class="number">0</span>, high = envelopes.size() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (low &lt; high)&#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (low + high) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(vec[mid] &gt;= e[<span class="number">1</span>]) &#123;</span><br><span class="line">                high = mid;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                low = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        vec[low] = e[<span class="number">1</span>];</span><br><span class="line">        res = max(res, low);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
@@ -316,7 +318,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#354-俄罗斯套娃信封问题"><span class="nav-number">1.</span> <span class="nav-text">354. 俄罗斯套娃信封问题</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#354-俄罗斯套娃信封问题"><span class="nav-number">1.</span> <span class="nav-text"> 354. 俄罗斯套娃信封问题</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -332,7 +334,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">150</span>
+          <span class="site-state-item-count">153</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

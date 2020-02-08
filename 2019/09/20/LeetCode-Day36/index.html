@@ -47,17 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="264. 丑数II编写一个程序，找出第 n 个丑数。 丑数就是只包含质因数 2, 3, 5 的正整数。 示例: 123456输入: n = 10输出: 12解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。说明:      1 是丑数。    n 不超过1690。 思路：动态规划 每次都找已经存在的数中  2或  3 或 * 5之后较小的值 12345678">
+  <meta name="description" content="264. 丑数II 编写一个程序，找出第 n 个丑数。 丑数就是只包含质因数 2, 3, 5 的正整数。 示例: 123456输入: n = 10输出: 12解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。说明:      1 是丑数。    n 不超过1690。 思路：动态规划 每次都找已经存在的数中 * 2或 * 3 或 * 5之后较小的值 1234">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode-Day36">
 <meta property="og:url" content="https://woojoo520.github.io/2019/09/20/LeetCode-Day36/index.html">
 <meta property="og:site_name" content="Celery Fairy">
-<meta property="og:description" content="264. 丑数II编写一个程序，找出第 n 个丑数。 丑数就是只包含质因数 2, 3, 5 的正整数。 示例: 123456输入: n = 10输出: 12解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。说明:      1 是丑数。    n 不超过1690。 思路：动态规划 每次都找已经存在的数中  2或  3 或 * 5之后较小的值 12345678">
+<meta property="og:description" content="264. 丑数II 编写一个程序，找出第 n 个丑数。 丑数就是只包含质因数 2, 3, 5 的正整数。 示例: 123456输入: n = 10输出: 12解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。说明:      1 是丑数。    n 不超过1690。 思路：动态规划 每次都找已经存在的数中 * 2或 * 3 或 * 5之后较小的值 1234">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-09-20T06:14:09.810Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode-Day36">
-<meta name="twitter:description" content="264. 丑数II编写一个程序，找出第 n 个丑数。 丑数就是只包含质因数 2, 3, 5 的正整数。 示例: 123456输入: n = 10输出: 12解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。说明:      1 是丑数。    n 不超过1690。 思路：动态规划 每次都找已经存在的数中  2或  3 或 * 5之后较小的值 12345678">
+<meta name="twitter:description" content="264. 丑数II 编写一个程序，找出第 n 个丑数。 丑数就是只包含质因数 2, 3, 5 的正整数。 示例: 123456输入: n = 10输出: 12解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。说明:      1 是丑数。    n 不超过1690。 思路：动态规划 每次都找已经存在的数中 * 2或 * 3 或 * 5之后较小的值 1234">
 
 <link rel="canonical" href="https://woojoo520.github.io/2019/09/20/LeetCode-Day36/">
 
@@ -240,12 +240,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="264-丑数II"><a href="#264-丑数II" class="headerlink" title="264. 丑数II"></a>264. 丑数II</h3><p>编写一个程序，找出第 n 个丑数。</p>
+        <h3 id="264-丑数ii"><a class="markdownIt-Anchor" href="#264-丑数ii"></a> 264. 丑数II</h3>
+<p>编写一个程序，找出第 n 个丑数。</p>
 <p>丑数就是只包含质因数 2, 3, 5 的正整数。</p>
 <p>示例:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入: n = 10</span><br><span class="line">输出: 12</span><br><span class="line">解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。</span><br><span class="line">说明:  </span><br><span class="line">    1 是丑数。</span><br><span class="line">    n 不超过1690。</span><br></pre></td></tr></table></figure>
 <p>思路：<strong>动态规划</strong></p>
-<p>每次都找已经存在的数中 <em> 2或 </em> 3 或 * 5之后较小的值</p>
+<p>每次都找已经存在的数中 * 2或 * 3 或 * 5之后较小的值</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">nthUglyNumber</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">int</span> i2 = <span class="number">0</span>, i3 = <span class="number">0</span>, i5 = <span class="number">0</span>, i = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(i++ &lt; n) &#123;</span><br><span class="line">            <span class="keyword">int</span> tmp = min(<span class="number">2</span> * res[i2], min(<span class="number">3</span> * res[i3], <span class="number">5</span> * res[i5]));</span><br><span class="line">            res.push_back(tmp);</span><br><span class="line">            <span class="keyword">if</span>(tmp == <span class="number">2</span> * res[i2])  i2++;</span><br><span class="line">            <span class="keyword">if</span>(tmp == <span class="number">3</span> * res[i3])  i3++;</span><br><span class="line">            <span class="keyword">if</span>(tmp == <span class="number">5</span> * res[i5])  i5++;</span><br><span class="line">        &#125;     </span><br><span class="line">        <span class="keyword">return</span> res.back();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
     </div>
@@ -307,7 +308,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#264-丑数II"><span class="nav-number">1.</span> <span class="nav-text">264. 丑数II</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#264-丑数ii"><span class="nav-number">1.</span> <span class="nav-text"> 264. 丑数II</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -323,7 +324,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">150</span>
+          <span class="site-state-item-count">153</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

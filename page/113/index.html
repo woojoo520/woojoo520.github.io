@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/17/HDR的简单介绍/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/19/LeetCode-Day4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/08/17/HDR的简单介绍/" class="post-title-link" itemprop="url">HDR的简单介绍</a>
+            <a href="/2019/08/19/LeetCode-Day4/" class="post-title-link" itemprop="url">LeetCode-Day4</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-08-17 08:57:27 / 修改时间：09:15:11" itemprop="dateCreated datePublished" datetime="2019-08-17T08:57:27+08:00">2019-08-17</time>
+              <time title="创建时间：2019-08-19 09:10:55 / 修改时间：09:45:43" itemprop="dateCreated datePublished" datetime="2019-08-19T09:10:55+08:00">2019-08-19</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/08/17/HDR的简单介绍/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/17/HDR的简单介绍/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/08/19/LeetCode-Day4/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/19/LeetCode-Day4/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,13 +240,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="HDR"><a href="#HDR" class="headerlink" title="HDR"></a>HDR</h2><h3 id="HDR的简介"><a href="#HDR的简介" class="headerlink" title="HDR的简介"></a>HDR的简介</h3><p><strong>HDR——High-Dynamic Range（高动态光照渲染）</strong>，相比普通的图像，可以提供更多的动态范围和图像细节，根据不同的曝光时间的LDR(Low-Dynamic Range)图像，利用曝光时间相对应最佳细节的LDR图像来合成最终的HDR图像，能够更好的反映出真实环境中的视觉效果。</p>
-<p>说白了，就是一张图片尽可能得同时显示最亮和最暗的地方，或者说是让亮的地方更亮，让暗的地方更暗（或者理解为<strong>能够大幅提高画面细节的明暗对比度</strong>）。HDR显示下的色彩更接近人眼真实的感知，所以HDR提供更逼真，更身临其境的电影、游戏和内容创作体验。</p>
-<p>人眼的视觉是目前最强大的摄影器材跟显像设备，我们不断升级的摄影跟显示器设备都是为了还原人眼所见，以求达到所见即所得的效果。</p>
-<h3 id="HDR的组成"><a href="#HDR的组成" class="headerlink" title="HDR的组成"></a>HDR的组成</h3><p>HDR由两部分组成：<strong>动态曝光控制</strong>和<strong>光晕效果</strong>。</p>
-<h4 id="动态曝光控制"><a href="#动态曝光控制" class="headerlink" title="动态曝光控制"></a>动态曝光控制</h4><p>通常，显示器能够显示R、G、B分量在[0, 255]之间的像素值。而256个不同的亮度级别显然不能表示自然界中光线的亮度情况。举个例子，太阳的亮度是白炽灯亮度的几千倍或者被漫反射照亮的室内亮度的几万倍，这远远超出了显示器的亮度表示能力。HDR技术所要解决的问题就是在有限的亮度范围内表示出宽广的亮度范围。原理类似于照相机的曝光功能，通过算法调整光线亮度，将光线从高动态范围映射到低动态范围，从而得到令人信服的光照效果</p>
-<h4 id="光晕效果"><a href="#光晕效果" class="headerlink" title="光晕效果"></a>光晕效果</h4><p>人从暗处走到光亮的地方，瞳孔由于来不及收缩，眼睛会自己眯起来，以保护视网膜上的感光细胞。HDR通过对原始图像进行调整，可以模拟这种人眼自动适应光线变化的胜利反应，产生类似于光晕的效果</p>
-<p>图像经DHR处理后的理想效果是亮处足够耀眼，暗处能够分辨物体的轮廓与深度，而非原图的一团漆黑。</p>
+          <h3 id="14-最长公共前缀"><a class="markdownIt-Anchor" href="#14-最长公共前缀"></a> 14. 最长公共前缀</h3>
+<p>编写一个函数来查找字符串数组中的最长公共前缀。</p>
+<p>如果不存在公共前缀，返回空字符串 “”。</p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;]</span><br><span class="line">输出: &quot;fl&quot;</span><br></pre></td></tr></table></figure>
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [&quot;dog&quot;,&quot;racecar&quot;,&quot;car&quot;]</span><br><span class="line">输出: &quot;&quot;</span><br><span class="line">解释: 输入不存在公共前缀。</span><br></pre></td></tr></table></figure>
+<p><strong>说明:</strong></p>
+<p>所有输入只包含小写字母 a-z 。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">longestCommonPrefix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; strs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(strs.empty()) <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j&lt;strs[<span class="number">0</span>].size(); j++)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;strs.size(); i++)</span><br><span class="line">                <span class="keyword">if</span>(j&gt;strs[i].size() || strs[<span class="number">0</span>][j] != strs[i][j])</span><br><span class="line">                    <span class="keyword">return</span> strs[i].substr(<span class="number">0</span>,j);</span><br><span class="line">        <span class="keyword">return</span> strs[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>解释：</p>
+<p>如果strs的长度为0，直接返回“”</p>
+<p>然后同时遍历每个字母的第一个字符，第二个字符…直到遇到不相等的就直接返回。</p>
+<h3 id="15-三数之和"><a class="markdownIt-Anchor" href="#15-三数之和"></a> 15. 三数之和</h3>
+<p>给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。</p>
+<p>注意：答案中不可以包含重复的三元组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，</span><br><span class="line"></span><br><span class="line">满足要求的三元组集合为：</span><br><span class="line">[</span><br><span class="line">  [-1, 0, 1],</span><br><span class="line">  [-1, -1, 2]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><strong>解题方案：</strong></p>
+<ul>
+<li>首先对数组进行排序， 排序后固定一个数nums[i]，再使用左右指针指向nums[i]后面的两端，数字分别为nums[L]和nums[R]， 计算三个数的和sum，判断是否满足为0，满足则添加进结果集</li>
+<li>如果nums[i] 大于0，则三数之和必然无法等于0，结束循环</li>
+<li>如果nums[i] == nums[i - 1]，则说明该数字重复，会导致结果重复，所以应该跳过</li>
+<li>当sum == 0时，nums[L] == nums[L + 1]则会导致结果重复，应该跳过,L++</li>
+<li>当sum == 0时，nums[R] == nums[R - 1]时会导致结果重复，应该跳过，R–</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; threeSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        sort(nums.begin(), nums.end());</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; ans;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; nums.size() &amp;&amp; nums[i] &lt;= <span class="number">0</span>;i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(i == <span class="number">0</span> || nums[i] &gt; nums[i - <span class="number">1</span>]) &#123;</span><br><span class="line">                <span class="keyword">int</span> l = i + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">int</span> r = nums.size() - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span>(l &lt; r) &#123;</span><br><span class="line">                    <span class="keyword">int</span> sum = nums[i] + nums[l] + nums[r];</span><br><span class="line">                    <span class="keyword">if</span>(sum == <span class="number">0</span>) &#123;</span><br><span class="line">                        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; temp;</span><br><span class="line">                        temp.push_back(nums[i]);</span><br><span class="line">                        temp.push_back(nums[l]);</span><br><span class="line">                        temp.push_back(nums[r]);</span><br><span class="line">                        ans.push_back(temp);</span><br><span class="line">                        l += <span class="number">1</span>;</span><br><span class="line">                        r -= <span class="number">1</span>;</span><br><span class="line">                        <span class="keyword">while</span>(l &lt; r &amp;&amp; nums[l] == nums[l - <span class="number">1</span>]) &#123;</span><br><span class="line">                            l++;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">while</span>(l &lt; r &amp;&amp; nums[r] == nums[r + <span class="number">1</span>]) &#123;</span><br><span class="line">                            r--;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(sum &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                        l++;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        r--;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -266,7 +285,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/112/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/112/">112</a><span class="page-number current">113</span><a class="page-number" href="/page/114/">114</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/114/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/112/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/112/">112</a><span class="page-number current">113</span><a class="page-number" href="/page/114/">114</a><span class="space">&hellip;</span><a class="page-number" href="/page/153/">153</a><a class="extend next" rel="next" href="/page/114/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -312,7 +331,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">150</span>
+          <span class="site-state-item-count">153</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

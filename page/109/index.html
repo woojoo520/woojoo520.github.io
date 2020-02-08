@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/19/物体检测/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/21/ZSL/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/08/19/物体检测/" class="post-title-link" itemprop="url">物体检测</a>
+            <a href="/2019/08/21/ZSL/" class="post-title-link" itemprop="url">ZSL</a>
         </h1>
 
         <div class="post-meta">
@@ -210,16 +210,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2019-08-19 14:37:47" itemprop="dateCreated datePublished" datetime="2019-08-19T14:37:47+08:00">2019-08-19</time>
+              <time title="创建时间：2019-08-21 16:42:41 / 修改时间：21:27:53" itemprop="dateCreated datePublished" datetime="2019-08-21T16:42:41+08:00">2019-08-21</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-20 10:26:03" itemprop="dateModified" datetime="2019-08-20T10:26:03+08:00">2019-08-20</time>
-              </span>
 
           
   
@@ -230,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/08/19/物体检测/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/19/物体检测/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/08/21/ZSL/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/21/ZSL/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -246,151 +240,110 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="物体检测"><a href="#物体检测" class="headerlink" title="物体检测"></a>物体检测</h2><h3 id="1-物体检测与图片分类的不同点："><a href="#1-物体检测与图片分类的不同点：" class="headerlink" title="1. 物体检测与图片分类的不同点："></a>1. 物体检测与图片分类的不同点：</h3><ul>
-<li>图片分类器通常只需要输出对图片中的主物体的分类。但物体检测必须能够识别多个物体，即使有些物体可能在图片中不是占主要版面。严格来讲，这个任务一般叫<strong>多类物体检测</strong>，但绝大部分研究都是针对多类的设置，这里为了简单去掉了“多类”。</li>
-<li>图片分类器只需要输出将图片识别成某类的概率，但物体检测不仅需要输出识别的概率，还需要识别物体在图片中的位置。这个通常是一个括住这个物体的方框，通常也被称之为<strong>边界框(bounding box)</strong></li>
-</ul>
-<h3 id="2-基于卷积神经网络的物体检测算法"><a href="#2-基于卷积神经网络的物体检测算法" class="headerlink" title="2. 基于卷积神经网络的物体检测算法"></a>2. 基于卷积神经网络的物体检测算法</h3><ul>
-<li><h4 id="RCNN-https-arxiv-org-abs-1311-2524"><a href="#RCNN-https-arxiv-org-abs-1311-2524" class="headerlink" title="RCNN    https://arxiv.org/abs/1311.2524"></a>RCNN    <a href="https://arxiv.org/abs/1311.2524" target="_blank" rel="noopener">https://arxiv.org/abs/1311.2524</a></h4></li>
-<li><h4 id="Fast-R-CNN-https-arxiv-org-abs-1504-08083"><a href="#Fast-R-CNN-https-arxiv-org-abs-1504-08083" class="headerlink" title="Fast R-CNN    https://arxiv.org/abs/1504.08083"></a>Fast R-CNN    <a href="https://arxiv.org/abs/1504.08083" target="_blank" rel="noopener">https://arxiv.org/abs/1504.08083</a></h4></li>
-<li><h4 id="Faster-R-CNN-https-arxiv-org-abs-1506-01497"><a href="#Faster-R-CNN-https-arxiv-org-abs-1506-01497" class="headerlink" title="Faster R-CNN    https://arxiv.org/abs/1506.01497"></a>Faster R-CNN    <a href="https://arxiv.org/abs/1506.01497" target="_blank" rel="noopener">https://arxiv.org/abs/1506.01497</a></h4></li>
-<li><h4 id="Mask-R-CNN-https-arxiv-org-abs-1703-06870"><a href="#Mask-R-CNN-https-arxiv-org-abs-1703-06870" class="headerlink" title="Mask R-CNN    https://arxiv.org/abs/1703.06870"></a>Mask R-CNN    <a href="https://arxiv.org/abs/1703.06870" target="_blank" rel="noopener">https://arxiv.org/abs/1703.06870</a></h4></li>
-<li><h4 id="SSD-https-arxiv-org-abs-1512-02325"><a href="#SSD-https-arxiv-org-abs-1512-02325" class="headerlink" title="SSD    https://arxiv.org/abs/1512.02325"></a>SSD    <a href="https://arxiv.org/abs/1512.02325" target="_blank" rel="noopener">https://arxiv.org/abs/1512.02325</a></h4></li>
-<li><h4 id="YOLO-https-arxiv-org-abs-1506-02640"><a href="#YOLO-https-arxiv-org-abs-1506-02640" class="headerlink" title="YOLO    https://arxiv.org/abs/1506.02640"></a>YOLO    <a href="https://arxiv.org/abs/1506.02640" target="_blank" rel="noopener">https://arxiv.org/abs/1506.02640</a></h4></li>
-<li><h4 id="YOLOv2-https-arxiv-org-abs-1612-08242"><a href="#YOLOv2-https-arxiv-org-abs-1612-08242" class="headerlink" title="YOLOv2    https://arxiv.org/abs/1612.08242"></a>YOLOv2    <a href="https://arxiv.org/abs/1612.08242" target="_blank" rel="noopener">https://arxiv.org/abs/1612.08242</a></h4></li>
-</ul>
-<h3 id="3-具体介绍"><a href="#3-具体介绍" class="headerlink" title="3. 具体介绍"></a>3. 具体介绍</h3><h4 id="3-1-R-CNN-区域卷积神经网络"><a href="#3-1-R-CNN-区域卷积神经网络" class="headerlink" title="3.1 R-CNN(区域卷积神经网络)"></a>3.1 R-CNN(区域卷积神经网络)</h4><p>这是一个基于卷积神经网络的物体检测的奠基之作。其核心思想是在对每张图片选取多个区域，然后每个区域作为一个样本进入一个卷积神经网络来抽取特征，最后使用分类器来对其进行分类，和一个回归器来得到准确的边框。</p>
-<p><img src="/2019/08/19/物体检测/Users\12751\AppData\Roaming\Typora\typora-user-images\1566198219445.png" alt="1566198219445"></p>
-<p>具体来说，这个算法有如下几个步骤：</p>
-<ul>
-<li>对每张输入图片使用一个基于规则的“选择型搜索”算法来选取多候选区域</li>
-<li>跟微调迁移学习里那样，选取一个预先训练好的神经网络并去掉最后一个输入层。每个区域被调整成整个网络要求的输入大小并计算输出。这个输出将作为这个区域的特征。</li>
-<li>使用这些区域特征训练多个SVM来做物体识别，每个SVM预测一个区域是不是包含某个物体</li>
-<li>使用这些区域特征来训练线性回归器将候选区域</li>
-</ul>
-<p>直观上R-CNN很好理解，但<strong>问题是它可能特别慢</strong>。一张图片我们可能选出上千个区域，导致一张图片需要做上千次预测。虽然跟微调不一样，这里训练可以不用更新用来抽特征的卷积神经网络，从而我们可以事先算好每个区域的特征并保存。但对于预测，我们无法避免这个。从而导致R-CNN很难在十几种被使用</p>
-<h4 id="3-2-Fast-R-CNN-快速的区域卷积神经网络"><a href="#3-2-Fast-R-CNN-快速的区域卷积神经网络" class="headerlink" title="3.2 Fast R-CNN(快速的区域卷积神经网络)"></a>3.2 Fast R-CNN(快速的区域卷积神经网络)</h4><p>Fast-RCNN对R-CNN主要做了两点改进来提升性能</p>
-<ul>
-<li>考虑到<strong>R-CNN里面的大量区域可能是相互覆盖</strong>，每次重新抽取特征过于浪费。因此<strong>Fast R-CNN先对输入图片抽取特征，然后再选取区域</strong></li>
-<li>代替R-CNN使用多个SVM来做分类，Fast-RCNN使用单个多类逻辑回归，这也是前面教程里默认使用的</li>
-</ul>
-<p><img src="/2019/08/19/物体检测/Users\12751\AppData\Roaming\Typora\typora-user-images\1566201897248.png" alt="1566201897248"></p>
-<p>从示意图中可以看到，使用选择型搜索选取的区域是作用在卷积神经网络提取的特征上。这样我们只需要对原始的输入图片做一次特征提取即可，如此节省了大量重复计算。</p>
-<p>Fast R-CNN提出<strong>特征区域池化层（Region of Interest(RoI) Pooling）</strong>，它的输入为特征和一系列的区域，对每个区域它将其均匀划分成n <em> m的小区域，并对每个小区域做最大池化，从而得到一个n </em> m的输出。因此不管输入区域的大小，RoI池化层都将其池化成固定大小输出。</p>
-<p>下面，详细的来看一下ROI Pooling：</p>
-<p>ROIs Pooling顾名思义，是Pooling层的一种，而且是针对RoIs的Pooling，它的特点是<strong>输入特征图尺寸不固定，但是输出特征图尺寸固定</strong>。</p>
-<ul>
-<li>在Fast R-CNN中，RoI是指Selective Search完成后得到的“候选框”在特征图上的映射，如下图所示</li>
-<li>在Faster R-CNN中，候选框是经过RPN产生的，然后再把各个“候选框”映射到特征图上，得到RoIs</li>
-</ul>
-<p><img src="https://img-blog.csdn.net/20180119150020632?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGFucmFuMg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p>图1 Fast R-CNN整体结构</p>
-<p><strong>ROI Pooling的输入：</strong></p>
-<ul>
-<li><strong>特征图：</strong>指的是图1中所示的特征图，在Fast R-CNN中，它位于RoI Pooling之前，在Faster RCNN中，它是与RPN共享的那个特征图，通常我们称之为“share_conv”</li>
-<li><strong>rois：</strong>在Fast R-CNN中，指的是Selective Search的输出；在Faster R-CNN中指的是RPN的输出，一堆矩形候选框框，形状为1 <em> 5 </em> 1 <em> 1 (4个坐标+索引index)，其中值得注意的是：<strong>坐标的参考系</strong>不是针对feature map这张图的，而<em>*是针对原图的（神经网络最开始的输入）</em></em></li>
-</ul>
-<p><strong>ROI Pooling的输出：</strong></p>
-<p>输出是batch个vector，其中batch的值等于RoI的个数，vector的大小为channel <em> w </em> h；RoI Pooling的过程就是将一个个大小不同的box矩形框，都映射成大小固定（w * h）的矩形框</p>
-<p><strong>ROI Pooling的过程：</strong></p>
-<ul>
-<li>根据输入image，将RoI映射到feature map对应位置</li>
-<li>将映射后的区域划分为相同大小的sections（sections数量与输出的维度相同）</li>
-<li>对每个sections进行max pooling操作</li>
-</ul>
-<p>这样我们就可以从不同大小的方框得到固定大小的相应的feature maps。值得一提的是，输出的feature maps的大小不取决与ROI和卷积feature maps的大小。ROI Pooling最大的好处就在于极大地提高了处理速度</p>
-<p><strong>Example：</strong></p>
-<p>考虑一个8 <em> 8大小的feature map，一个ROI，以及输出大小为2 </em> 2</p>
-<p>1）输入固定大小的feature map</p>
-<p><img src="https://img-blog.csdn.net/20171112193549325?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQVVUTzE5OTM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
-<p>2）region proposal投影之后位置（左上角，右下角坐标）：（0，3），（7，8）</p>
-<p><img src="https://img-blog.csdn.net/20171112193608750?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQVVUTzE5OTM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
-<p>3）将其划分为（2 <em> 2）个sections（因为输出大小为2 </em> 2），我们可以得到：</p>
-<p><img src="https://img-blog.csdn.net/20171112193628721?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQVVUTzE5OTM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
-<p>4）对每个section做max pooling，可以得到</p>
-<p><img src="https://img-blog.csdn.net/20171112193709781?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQVVUTzE5OTM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
-<p>Faster R-CNN</p>
-<p>Fast R-CNN沿用了R-CNN的选择型搜索方法来选择区域，这个通常很慢。Faster R-CNN做的主要改进就是提出了<strong>区域候选网络（Region Proposal Network, RPN）</strong>来代替选择型搜索。</p>
-<p>它是这么工作的：</p>
-<ul>
-<li>在输入特征上放置一个填充为1通道是256 的3 * 3卷积。这样，连同他的周围8个像素，都被映射成一个长为256的向量</li>
-<li>以对每个像素为中心生成数个大小和长宽比预先设计好的k个默认框，通常也叫做锚框</li>
-<li>对每个边框，使用其中心像素对应的256维向量作为特征，RPN训练一个2类分类器来判断这个区域是不是含有任何感兴趣的物体还是只是背景，和一个4位输出的回归分类器来预测一个更准确的边框</li>
-<li>对于所有的锚框，个数为n m k，如果输入大小是n * m, 选出被判断成还有物体的，然后对他们对应的回归器预测的边框作为输入放进接下来的RoI池化层</li>
-</ul>
-<p>虽然看上去有些复杂，但RPN思想非常直观。首先候选预先配置好的一些区域，然后通过神经网络来判断这些区域是不是感兴趣的。如果是，那么再预测一个更加准确的边框。这样我们能有效降低搜索任何形状的边框的代价。</p>
-<p><strong>Faster R-CNN的RPN详解：</strong></p>
-<ul>
-<li><p>anchors：特征可以看做一个尺度51<em>39的256通道图像，对于该图像的每一个位置，考虑9个可能的候选窗口：三种面积{128,256,512}×{128,256,512}×三种比例{1:1,1:2,2:1}{1:1,1:2,2:1}。这些候选窗口称为anchors。下图示出51</em>39个anchor中心，以及9种anchor示例。</p>
-<p>特征可以看做一个尺度51<em>39的256通道图像，对于该图像的每一个位置，考虑9个可能的候选窗口：三种面积{128,256,512}×{128,256,512}×三种比例{1:1,1:2,2:1}{1:1,1:2,2:1}。这些候选窗口称为anchors。下图示出51</em>39个anchor中心，以及9种anchor示例。<br><img src="/2019/08/19/物体检测/Users\12751\AppData\Roaming\Typora\typora-user-images\1566260296023.png" alt="1566260296023"></p>
-</li>
-<li><p>SOFTMAX的两支</p>
-<p><img src="/2019/08/19/物体检测/Users\12751\AppData\Roaming\Typora\typora-user-images\1566260328221.png" alt="1566260328221"></p>
-<p> 计算每个像素256-d的9个尺度下的值，得到9个anchor，我们给每个anchor分配一个二进制的标签（前景背景）。我们分配正标签前景给两类anchor：1）与某个ground truth（GT）包围盒有最高的IoU重叠的anchor（也许不到0.7），2）与任意GT包围盒有大于0.7的IoU交叠的anchor。注意到一个GT包围盒可能分配正标签给多个anchor。我们分配负标签（背景）给与所有GT包围盒的IoU比率都低于0.3的anchor。非正非负的anchor对训练目标没有任何作用，由此输出维度为（2*9）18，一共18维。</p>
-<p>假设在conv5 feature map中每个点上有k个anchor（默认k=9），而每个anhcor要分foreground和background，所以每个点由256d feature转化为cls=2k scores；而每个anchor都有[x, y, w, h]对应4个偏移量，所以reg=4k coordinates</p>
-<p>补充一点，全部anchors拿去训练太多了，训练程序会在合适的anchors中随机选取128个postive anchors+128个negative anchors进行训练。<br><strong>以上是传统的RPN，下面是Faster R-CNN 的RPN部分</strong>。</p>
-</li>
-<li><p><strong>bounding box regression</strong></p>
-<p>前2.）中已经计算出foreground anchors，使用bounding box regression回归得到预设anchor-box到ground-truth-box之间的变换参数，即平移（dx和dy）和伸缩参数（dw和dh），由此得到初步确定proposal。</p>
-</li>
-</ul>
-<p>  如图9所示绿色框为飞机的Ground Truth(GT)，红色为提取的foreground anchors，那么即便红色的框被分类器识别为飞机，但是由于红色的框定位不准，这张图相当于没有正确的检测出飞机。所以我们希望采用一种方法对红色的框进行微调，使得foreground anchors和GT更加接近。<br>  <img src="/2019/08/19/物体检测/Users\12751\AppData\Roaming\Typora\typora-user-images\1566260396876.png" alt="1566260396876"></p>
-<p>  对于窗口一般使用四维向量(x, y, w, h)表示，分别表示窗口的中心点坐标和宽高。对于图 10，红色的框A代表原始的Foreground Anchors，绿色的框G代表目标的GT，我们的目标是寻找一种关系，使得输入原始的anchor A经过映射得到一个跟真实窗口G更接近的回归窗口G’，即：给定A=(Ax, Ay, Aw, Ah)，寻找一种映射f，使得f(Ax, Ay, Aw, Ah)=(G’x, G’y, G’w, G’h)，其中(G’x, G’y, G’w, G’h)≈(Gx, Gy, Gw, Gh)。<br>  <img src="/2019/08/19/物体检测/Users\12751\AppData\Roaming\Typora\typora-user-images\1566260415053.png" alt="1566260415053"></p>
-<p>  那么经过何种变换才能从图6中的A变为G’呢？ 比较简单的思路就是:</p>
+          <h2 id="zsl的相关论文"><a class="markdownIt-Anchor" href="#zsl的相关论文"></a> ZSL的相关论文</h2>
 <ol>
-<li><p>先做平移</p>
-<p><img src="/2019/08/19/物体检测/Users\12751\AppData\Roaming\Typora\typora-user-images\1566260462344.png" alt="1566260462344"></p>
-</li>
-<li><p>再做缩放</p>
-<p><img src="/2019/08/19/物体检测/Users\12751\AppData\Roaming\Typora\typora-user-images\1566260476062.png" alt="1566260476062"></p>
-<p>观察上面4个公式发现，需要学习的是dx(A)，dy(A)，dw(A)，dh(A)这四个变换。当输入的anchor与GT相差较小时，可以认为这种变换是一种线性变换， 那么就可以用线性回归来建模对窗口进行微调（注意，只有当anchors和GT比较接近时，才能使用线性回归模型，否则就是复杂的非线性问题了）。对应于Faster RCNN原文，平移量(tx, ty)与尺度因子(tw, th)如下：</p>
-</li>
+<li>基于attribute description构建语义空间A</li>
 </ol>
-<p>  接下来的问题就是如何通过线性回归获得dx(A)，dy(A)，dw(A)，dh(A)了。线性回归就是给定输入的特征向量X, 学习一组参数W, 使得经过线性回归后的值跟真实值Y（即GT）非常接近，即Y=WX。对于该问题，输入X是一张经过卷积获得的feature map，定义为Φ；同时还有训练传入的GT，即(tx, ty, tw, th)。输出是dx(A)，dy(A)，dw(A)，dh(A)四个变换。那么目标函数可以表示为：$d_{<em>}(P) = w_{</em>}^T \phi_{s}(P)$ </p>
-<p>  其中Φ(A)是对应anchor的feature map组成的特征向量，w是需要学习的参数，d(A)是得到的预测值（*表示 x，y，w，h，也就是每一个变换对应一个上述目标函数）。为了让预测值(tx, ty, tw, th)与真实值最小，得到损失函数：</p>
-<p>  $Loss = \sum_{i}^{N}(t_{<em>}^{i} - w_{</em>}^{T} \phi_{s}(P^{i})^2)$</p>
-<p>  函数优化目标为：<img src="/2019/08/19/物体检测/Users\12751\AppData\Roaming\Typora\typora-user-images\1566260749902.png" alt="1566260749902"></p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>L</mi><mi>e</mi><mi>a</mi><mi>r</mi><mi>n</mi><mi>i</mi><mi>n</mi><mi>g</mi><mi>T</mi><mi>o</mi><mi>D</mi><mi>e</mi><mi>t</mi><mi>e</mi><mi>c</mi><mi>t</mi><mi>U</mi><mi>n</mi><mi>s</mi><mi>e</mi><mi>e</mi><mi>n</mi><mi>O</mi><mi>b</mi><mi>j</mi><mi>e</mi><mi>c</mi><mi>t</mi><mi>C</mi><mi>l</mi><mi>a</mi><mi>s</mi><mi>s</mi><mi>e</mi><mi>s</mi><mi>b</mi><mi>y</mi><mi>B</mi><mi>e</mi><mi>t</mi><mi>w</mi><mi>e</mi><mi>e</mi><mi>n</mi><mo>−</mo><mi>C</mi><mi>l</mi><mi>a</mi><mi>s</mi><mi>s</mi><mi>A</mi><mi>t</mi><mi>t</mi><mi>r</mi><mi>i</mi><mi>b</mi><mi>u</mi><mi>t</mi><mi>e</mi><mi>T</mi><mi>r</mi><mi>a</mi><mi>n</mi><mi>s</mi><mi>f</mi><mi>e</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">Learning To Detect Unseen Object Classes by Between-Class Attribute Transfer</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">L</span><span class="mord mathdefault">e</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">n</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord mathdefault">e</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault">c</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault">b</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mord mathdefault">e</span><span class="mord mathdefault">c</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord mathdefault">s</span><span class="mord mathdefault">b</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mord mathdefault">e</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">e</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span><span class="mord mathdefault">s</span><span class="mord mathdefault">A</span><span class="mord mathdefault">t</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">i</span><span class="mord mathdefault">b</span><span class="mord mathdefault">u</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">a</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span></p>
+<p><a href="http://pub.ist.ac.at/~chl/papers/lampert-cvpr2009.pdf" target="_blank" rel="noopener">http://pub.ist.ac.at/~chl/papers/lampert-cvpr2009.pdf</a></p>
+<p>基于attribute description的方法，其数据集中的每张图片都标注了若干attribute用以描述图片信息。一些标注了attribute的示例图片如下图所示</p>
+<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-3.jpeg" alt="img"></p>
+<p>这篇论文通过上述每张图片预定义的特征，构建了样本数据的特征表示空间X；同时，通过若干classes集合或图片集合学习可用于表示数据集中所有class的attribute description，完成语义空间A的构建；最后，论文提出了使用两种方式建立X和A之间的映射。两种方式为：Direct Attribute Prediction（DAP）和 Indirect Attribute Prediction（IAP），如下图所示：</p>
+<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-4.jpeg" alt="img"></p>
+<p><strong>DAP：</strong></p>
+<p>训练时，由一直标签的训练集，学习有关attribute的参数β；预测时，为每一个测试样本预测其attribute参数，进而根据attribute建立的seen class(y) 和 unseen class(z)之间的关系，推导得出测试样本的label</p>
+<p><strong>IAP：</strong></p>
+<p>训练时，按多分类的方式学习参数α；预测时，根据attribute建立的seen class(y) 和 unseen class(z)之间的关系，推到得到unseen class 的分布。</p>
+<p>DAP在训练是仅依据属性层，而IAP将训练样本的类标也作为一个中间层，一定程度上能限定测试样本生成新类标的范围，使得学习到的链接控制在对于Y来说，有意义的范围之内，因此可以增强系统的鲁棒性。但实际上，在作者后面的实验中，DAP的效果要比IAP好很多</p>
+<p>效果虽然不是很好，但确实在一定程度上表达了“知识迁移”的思想，不仅利用图片训练相应的特征，更是加入了属性这类的高位特征描述，实现了“从低维图片特征分类器”到“高位语义特征（属性）分类器”的转变</p>
+<p><strong>Attribute description相关论文列表：</strong></p>
 <ul>
-<li><p>将预proposal利用feat_stride和im_info将anchors映射回原图，判断预proposal是否大范围超过边界，剔除严重超出边界的。</p>
-<p>按照softmax score进行从大到小排序，提取前2000个预proposal，对这个2000个进行NMS(非极大值抑制)，将得到的再次进行排序，输出300个proposal。</p>
+<li><cvpr-2009>Describing Objects by their Attributes</cvpr-2009></li>
+<li><tpami-2014>Attribute-based Classification for Zero-Shot Visual Object Categorization</tpami-2014></li>
+<li><tpami-2017>Zero-Shot Learning-A Comprehensive Evaluation of the Good, the Bad and the Ugly</tpami-2017></li>
+<li><cvpr-2017>Semantic Autoencoder for Zero-Shot Learning</cvpr-2017></li>
+<li><cvpr-2016>Recovering the Missing Link: Predicting Class-Attribute Associations for Unsupervised Zero-Shot Learning</cvpr-2016></li>
+</ul>
+<h3 id="2-基于embedding表示构建语义空间a"><a class="markdownIt-Anchor" href="#2-基于embedding表示构建语义空间a"></a> 2. 基于embedding表示构建语义空间A</h3>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi><mi>e</mi><mi>V</mi><mi>i</mi><mi>S</mi><mi>E</mi><mo>:</mo><mi>A</mi><mi>D</mi><mi>e</mi><mi>e</mi><mi>p</mi><mi>V</mi><mi>i</mi><mi>s</mi><mi>u</mi><mi>a</mi><mi>l</mi><mo>−</mo><mi>S</mi><mi>e</mi><mi>m</mi><mi>a</mi><mi>n</mi><mi>t</mi><mi>i</mi><mi>c</mi><mi>E</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>d</mi><mi>d</mi><mi>i</mi><mi>n</mi><mi>g</mi><mi>M</mi><mi>o</mi><mi>d</mi><mi>e</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">DeViSE: A Deep Visual-Semantic Embedding Model</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord mathdefault">e</span><span class="mord mathdefault">e</span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault">e</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">m</span><span class="mord mathdefault">b</span><span class="mord mathdefault">e</span><span class="mord mathdefault">d</span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span></p>
+<p><a href="http://papers.nips.cc/paper/5204-devise-a-deep-visual-semantic-embedding-model.pdf" target="_blank" rel="noopener">http://papers.nips.cc/paper/5204-devise-a-deep-visual-semantic-embedding-model.pdf</a></p>
+<p>本文提出的DeViSE模型，数据集每个class/label可作为一个词在语义空间进行embedding表示，如使用与训练skip-gram模型得到有关class的language feature vector，同时利用与训练的CNN-based模型提取图片的visual feature vector，将两个向量映射到同一纬度的空间，进行相似度的计算。测试时，即可根据语义之间的相似性进行图片的分类。模型结构如下图：</p>
+<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-6.jpeg" alt="img"></p>
+<p>考虑到训练时负样本发挥的通，模型的损失函数选择hinge loss。其中，通过dot-product 计算相似度。</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext>loss(image,label)</mtext><mo>=</mo><msub><mo>∑</mo><mrow><mi>j</mi><mi mathvariant="normal">≠</mi><mi>l</mi><mi>a</mi><mi>b</mi><mi>e</mi><mi>l</mi></mrow></msub><mi>max</mi><mo>⁡</mo><mrow><mo fence="true">[</mo><mn>0</mn><mo separator="true">,</mo><mtext>margin </mtext><mo>−</mo><mover accent="true"><msub><mi>t</mi><mrow><mi>l</mi><mi>a</mi><mi>b</mi><mi>e</mi><mi>l</mi></mrow></msub><mo stretchy="true">→</mo></mover><mi>M</mi><mover accent="true"><mi>v</mi><mo>⃗</mo></mover><mo stretchy="false">(</mo><mtext>image</mtext><mo stretchy="false">)</mo><mo>+</mo><msub><mover accent="true"><mi>t</mi><mo>⃗</mo></mover><mi>j</mi></msub><mi>M</mi><mover accent="true"><mi>v</mi><mo>⃗</mo></mover><mo stretchy="false">(</mo><mtext>image</mtext><mo stretchy="false">)</mo><mo fence="true">]</mo></mrow></mrow><annotation encoding="application/x-tex">\text {loss(image,label)}=\sum_{j \neq l a b e l} \max \left[0, \text {margin }-\overrightarrow{t_{l a b e l}} M \vec{v}(\text {image})+\vec{t}_{j} M \vec{v}(\text {image})\right]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">loss(image,label)</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.80002em;vertical-align:-0.65002em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.18639799999999984em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mrel mtight"><span class="mrel mtight"><span class="mord mtight"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-2.7em;"><span class="pstrut" style="height:2.7em;"></span><span class="rlap mtight"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="inner"><span class="mrel mtight"></span></span><span class="fix"></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span></span><span class="mrel mtight">=</span></span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">b</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.43581800000000004em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">max</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size2">[</span></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord text"><span class="mord">margin </span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.13708em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">b</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span class="svg-align" style="top:-3.61508em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width="400em" height="0.522em" viewbox="0 0 400000 522" preserveaspectratio="xMaxYMin slice"><path d="M0 241v40h399891c-47.3 35.3-84 78-110 128
+-16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
+ 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
+ 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
+-40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
+-12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
+ 151.7 139 205zm0 0v40h399900v-40z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.20772em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width="0.471em" height="0.714em" style="width:0.471em" viewbox="0 0 471 714" preserveaspectratio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z"/></svg></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord text"><span class="mord">image</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.89808em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">t</span></span></span><span style="top:-3.18408em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.15216em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width="0.471em" height="0.714em" style="width:0.471em" viewbox="0 0 471 714" preserveaspectratio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z"/></svg></span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.20772em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width="0.471em" height="0.714em" style="width:0.471em" viewbox="0 0 471 714" preserveaspectratio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z"/></svg></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord text"><span class="mord">image</span></span><span class="mclose">)</span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size2">]</span></span></span></span></span></span></p>
+<p><strong>Embedding表示相关论文列表：</strong></p>
+<ul>
+<li><iccv-2015>Predicting Deep Zero-Shot Convolutional Neural Networks using TextualDescriptions</iccv-2015></li>
+<li><cvpr-2016>Learning Deep Representations of Fine-grained Visual Descriptions</cvpr-2016></li>
+<li><cvpr-2015>Evaluation of Output Embeddings for Fine-grained Image Classification</cvpr-2015></li>
+<li><cvpr-2016>Latent Embeddings for Zero-shot Classification</cvpr-2016></li>
+</ul>
+<h3 id="3-基于kgkb构建语义空间a"><a class="markdownIt-Anchor" href="#3-基于kgkb构建语义空间a"></a> 3. 基于KG/KB构建语义空间A</h3>
+<h4 id="31-zero-shot-recognition-via-semantic-embeddings-and-knowledge-graphs"><a class="markdownIt-Anchor" href="#31-zero-shot-recognition-via-semantic-embeddings-and-knowledge-graphs"></a> 3.1 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Z</mi><mi>e</mi><mi>r</mi><mi>o</mi><mo>−</mo><mi>s</mi><mi>h</mi><mi>o</mi><mi>t</mi><mi>R</mi><mi>e</mi><mi>c</mi><mi>o</mi><mi>g</mi><mi>n</mi><mi>i</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mi>v</mi><mi>i</mi><mi>a</mi><mi>S</mi><mi>e</mi><mi>m</mi><mi>a</mi><mi>n</mi><mi>t</mi><mi>i</mi><mi>c</mi><mi>E</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>d</mi><mi>d</mi><mi>i</mi><mi>n</mi><mi>g</mi><mi>s</mi><mi>a</mi><mi>n</mi><mi>d</mi><mi>K</mi><mi>n</mi><mi>o</mi><mi>w</mi><mi>l</mi><mi>e</mi><mi>d</mi><mi>g</mi><mi>e</mi><mi>G</mi><mi>r</mi><mi>a</mi><mi>p</mi><mi>h</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">Zero-shot Recognition via Semantic Embeddings and Knowledge Graphs</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">Z</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">o</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">h</span><span class="mord mathdefault">o</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault">e</span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">i</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault">e</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">m</span><span class="mord mathdefault">b</span><span class="mord mathdefault">e</span><span class="mord mathdefault">d</span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">s</span><span class="mord mathdefault">a</span><span class="mord mathdefault">n</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="mord mathdefault">n</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault">G</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">a</span><span class="mord mathdefault">p</span><span class="mord mathdefault">h</span><span class="mord mathdefault">s</span></span></span></span></h4>
+<p>本文基于Graph COnvolution Network(GCN，一种处理Graph-structured数据的神经网络)引入Knowledge Graph的hierarchy结构进行计算。模型分为两个独立的部分，首先使用CNN-based方法（如resnet， Inception等）为输入的图片抽取特征向量，即CNN部分（图所示上方的CNN网络）；其次，GCN部分（图所示下方的GCN网络）将数据集中的每个class作为Graph中的一个节点，并对其做embedding表示输入GCN网络（即输入为有N个k为节点组成的N * k特征矩阵），通过神经网络每一层之间信息的传递和计算，为每个节点（class）输出一组权重向量（D维），即输出是一个N * D的特征矩阵。</p>
+<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-10.jpeg" alt="img"></p>
+<p>模型训练时，Graph中seen class节点有来自CNN部分的图片特征向量作为监督信号（图所示绿色节点）训练GCN模型的参数；而测试时，Graph中的unseen class节点输出对应的权重向量，同时，与CNN部分对应图片输出的特征向量，最终得到分类的结果。</p>
+<p>这里提及的Graph为克表示ImageNet class之间结构的WorldNet知识库，实验选取了其中一部分与ImageNet相关的子集</p>
+<h4 id="32-rethinking-knowledge-graph-propagation-for-zero-shot-learning"><a class="markdownIt-Anchor" href="#32-rethinking-knowledge-graph-propagation-for-zero-shot-learning"></a> 3.2 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi><mi>e</mi><mi>t</mi><mi>h</mi><mi>i</mi><mi>n</mi><mi>k</mi><mi>i</mi><mi>n</mi><mi>g</mi><mi>K</mi><mi>n</mi><mi>o</mi><mi>w</mi><mi>l</mi><mi>e</mi><mi>d</mi><mi>g</mi><mi>e</mi><mi>G</mi><mi>r</mi><mi>a</mi><mi>p</mi><mi>h</mi><mi>P</mi><mi>r</mi><mi>o</mi><mi>p</mi><mi>a</mi><mi>g</mi><mi>a</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mi>f</mi><mi>o</mi><mi>r</mi><mi>Z</mi><mi>e</mi><mi>r</mi><mi>o</mi><mo>−</mo><mi>S</mi><mi>h</mi><mi>o</mi><mi>t</mi><mi>L</mi><mi>e</mi><mi>a</mi><mi>r</mi><mi>n</mi><mi>i</mi><mi>n</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">Rethinking Knowledge Graph Propagation for Zero-Shot Learning</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault">e</span><span class="mord mathdefault">t</span><span class="mord mathdefault">h</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="mord mathdefault">n</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault">G</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">a</span><span class="mord mathdefault">p</span><span class="mord mathdefault">h</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.07153em;">Z</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">o</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault">h</span><span class="mord mathdefault">o</span><span class="mord mathdefault">t</span><span class="mord mathdefault">L</span><span class="mord mathdefault">e</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">n</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span></span></span></span></h4>
+<p><a href="https://arxiv.org/pdf/1805.11724v1.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1805.11724v1.pdf</a></p>
+<p>在1的基础上进行了改进，包括以下几个方面：</p>
+<ul>
+<li>
+<p>更少的GCN层数，论文1中使用了6层神经网络进行训练，考虑到模型参数的优化问题，本文只使用了2层神经网络进行计算，即GPM</p>
+</li>
+<li>
+<p>减少层数的同时，一些较远节点不被考虑在内，为了解决这个问题，作者将一些节点的祖先/子孙节点直接与该节点相连，生成了更密集的图，即DGPM；同时，这些直接相连的边按照距离的远近，加入attention机制进行了加权计算，即ADGPM</p>
+</li>
+<li>
+<p>作者还提出了在CNN部分根据Graph信息进行fine tune的计算方式，使得提取图片特征的卷积网络可根据一些新出现的class进行更新</p>
 </li>
 </ul>
-<p><strong>NMS（非极大抑制致）</strong></p>
-<p>由于锚点经常重叠，因此候选框最终也会在同一个目标上重叠。为了解决重复候选框的问题，我们使用一个简单的泛，称为非极大抑制(NMS)。NMS获取按照分数排序的候选列表并对已排序的列表进行迭代，丢弃那些IoU值大于某个预定义阈值的候选框，并提出一个具有更高分数的候选框。总之，抑制的过程是一个迭代-遍历-消除的过程，如下图所示：</p>
+<p><strong>KG/KB相关论文列表：</strong></p>
 <ul>
-<li><p>将所有候选框的得分进行排序，选中最高分及其所对应的框</p>
-<p><img src="/2019/08/19/物体检测/Users\12751\AppData\Roaming\Typora\typora-user-images\1566260974214.png" alt="1566260974214"></p>
-<p><img src="/2019/08/19/物体检测/Users\12751\AppData\Roaming\Typora\typora-user-images\1566260986791.png" alt="1566260986791"></p>
-</li>
-<li><p>遍历其余的框，如果它和当前最高得分框的重叠面积大于一定的阈值，我们将其删除</p>
-<p><img src="/2019/08/19/物体检测/Users\12751\AppData\Roaming\Typora\typora-user-images\1566261025214.png" alt="1566261025214"></p>
-</li>
-<li><p>从没有处理的框中继续选择一个得分最高的，重复上述过程。</p>
-</li>
+<li><ijcai-2018>Fine-grained Image Classification by Visual-Semantic Embedding</ijcai-2018></li>
+<li><cvpr-2018>Multi-Label Zero-Shot Learning with Structured Knowledge Graphs</cvpr-2018></li>
+<li><nips-2009>Zero-Shot Learning with Semantic Output Codes</nips-2009></li>
+<li>少样本学习（Few-Shot Learning, FSL）</li>
 </ul>
-<h4 id="Mask-R-CNN"><a href="#Mask-R-CNN" class="headerlink" title="Mask R-CNN"></a>Mask R-CNN</h4><p>Mask R-CNN在Faster R-CNN上加入了一个新的像素级别的预测层，它不仅对一个锚框预测它对应的类和真实的边框，而且他会判断这个锚框类每个像素对应的那个物体还是只是背景。后者是语义分割要解决的问题。Mask R-CNN使用了全连接卷积网络（FCN）来完成这个预测。当然这也意味着训练数据必须有像素级别的标注，而不是简单的边框。</p>
-<p><img src="/2019/08/19/物体检测/Users\12751\AppData\Roaming\Typora\typora-user-images\1566264201349.png" alt="1566264201349"></p>
-<p>因为FCN会精确预测每个像素的类别，就是输入图片中的每个像素都会在标注中对应一个类别。对于输入图片中的一个锚框，我们可以精确的匹配到像素标注中对应的区域。但是PoI池化是作用在卷积之后的特征上，其默认是将锚框做了定点化。例如假设选择的锚框是( x , y , w , h ) ，且特征抽取将图片变小了16倍，就是如果原始图片是256 × 256 ，那么特征大小就是16 × 16 。这时候在特征上对应的锚框就是变成了( ⌊ x / 16 ⌋ , ⌊ y / 16 ⌋ , ⌊ w / 16 ⌋ , ⌊ h / 16 ⌋ ) 。如果x , y , w , h 中有任何一个不被16整除，那么就可能发生错位。同样道理，在上面的样例中我们看到，如果锚框的长宽不被池化大小整除，那么同样会定点化，从而带来错位。</p>
-<p>通常这样的错位只是在几个像素之间，对于分类和边框预测影响不大。但对于像素级别的预测，这样的错位可能会带来大问题。Mask R-CNN提出一个RoI Align层，它类似于RoI池化层，但是去除掉了定点化步骤，就是移除了所有⌊ ⋅ ⌋ 。如果计算得到的表框不是刚好在像素之间，那么我们就用四周的像素来线性插值得到这个点上的值。</p>
-<h4 id="SSD：单发多框检测器"><a href="#SSD：单发多框检测器" class="headerlink" title="SSD：单发多框检测器"></a>SSD：单发多框检测器</h4><p>在R-CNN系列的模型里面。区域候选和分类是分作两块来进行的。SSD则将其统一成一个步骤来使得模型更加简单并且速度更快。</p>
-<p>它跟Faster R-CNN主要有两点不一样：</p>
+<p>前面 2.2 部分提到的论文，其迁移知识的方式主要是通过在语义空间构建 seen class 与 unseen class 之间的关系（下图左），而 Transductive Setting 则提出可通过 seen class 和 unseen class 的少量样本训练得到class之间的关联（下图右），即少样本学习（Few-ShotLearning, FSL）。</p>
+<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-13.jpeg" alt="img"></p>
+<h3 id="fslfew-shotlearning少样本学习"><a class="markdownIt-Anchor" href="#fslfew-shotlearning少样本学习"></a> FSL–Few-ShotLearning(少样本学习)</h3>
+<h4 id="learning-to-compare-relationnetwork-for-few-shot-learning"><a class="markdownIt-Anchor" href="#learning-to-compare-relationnetwork-for-few-shot-learning"></a> <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>L</mi><mi>e</mi><mi>a</mi><mi>r</mi><mi>n</mi><mi>i</mi><mi>n</mi><mi>g</mi><mi>t</mi><mi>o</mi><mi>C</mi><mi>o</mi><mi>m</mi><mi>p</mi><mi>a</mi><mi>r</mi><mi>e</mi><mo>:</mo><mi>R</mi><mi>e</mi><mi>l</mi><mi>a</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mi>N</mi><mi>e</mi><mi>t</mi><mi>w</mi><mi>o</mi><mi>r</mi><mi>k</mi><mi>f</mi><mi>o</mi><mi>r</mi><mi>F</mi><mi>e</mi><mi>w</mi><mo>−</mo><mi>S</mi><mi>h</mi><mi>o</mi><mi>t</mi><mi>L</mi><mi>e</mi><mi>a</mi><mi>r</mi><mi>n</mi><mi>i</mi><mi>n</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">Learning to Compare: RelationNetwork for Few-Shot Learning</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">L</span><span class="mord mathdefault">e</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">n</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">t</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault">o</span><span class="mord mathdefault">m</span><span class="mord mathdefault">p</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mord mathdefault">e</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault">h</span><span class="mord mathdefault">o</span><span class="mord mathdefault">t</span><span class="mord mathdefault">L</span><span class="mord mathdefault">e</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">n</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span></span></span></span></h4>
+<p><a href="https://arxiv.org/pdf/1711.06025.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1711.06025.pdf</a></p>
+<p>本文从每个 class 中采样少量样本，作为参考样本（如下图左侧 5 张图片，分别代表 5 个 classes），以建立 class 之间的关系。本文所构建的 class relation 主要为相似关系，模型通过 embedding module 提取图片的特征向量，再分别将测试图片（下图所示袋鼠图片）的特征向量与参考样本的特征向量进行拼接输入 relation module，通过神经网络计算测试图片和参考样本图片之间的相似性，最终判断测试图片属于参考图片代表 class 的哪一类。</p>
+<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-15.jpeg" alt="img"></p>
+<p><strong>FSL相关论文列表：</strong></p>
 <ul>
-<li><p>对于锚框，我们不再首先判断它是不是含有感兴趣物体，再将正类锚框放入真正物体分类。SSD里我们直接使用一个num_class+1类分类器来判断它对应的是哪类物体，还是只是背景。我们也不再有额外的回归器对边框再进一步预测，而是直接使用单个回归器来预测真实边框。</p>
-</li>
-<li><p>SSD不只是对卷积神经网络输出的特征做预测，它会进一步将特征通过卷积和池化层变小来做预测。这样达到多尺度预测的效果</p>
-<p><img src="/2019/08/19/物体检测/Users\12751\AppData\Roaming\Typora\typora-user-images\1566264662752.png" alt="1566264662752"></p>
-</li>
-</ul>
-<h4 id="YOLO：只需要看一遍"><a href="#YOLO：只需要看一遍" class="headerlink" title="YOLO：只需要看一遍"></a>YOLO：只需要看一遍</h4><p>不管是Faster R-CNN还是SSD， 他们声称的锚框仍然有大量是重叠的，从而导致仍然有大量的区域被重复计算了。YOLO试图来解决这个问题。它将图片特征均匀的切成S * S块，每一块当做一个锚框。每个锚框预测B个框，以及这个锚框主要包含哪个物体。</p>
-<p><img src="/2019/08/19/物体检测/Users\12751\AppData\Roaming\Typora\typora-user-images\1566264803189.png" alt="1566264803189"></p>
-<h4 id="YOLO-v2：更好，更快，更强"><a href="#YOLO-v2：更好，更快，更强" class="headerlink" title="YOLO v2：更好，更快，更强"></a>YOLO v2：更好，更快，更强</h4><p>YOLO v2 对WOLO进行一些改进的地方，其主要包括：</p>
-<ul>
-<li><p>使用更好的卷积神经网络来做特征提取，使用更大输入图片448 <em> 448 使得特征输出大小增大到13 </em> 13</p>
-</li>
-<li><p>不再使用均匀切割的锚框，而是对训练数据里的真实锚框做聚类，然后使用聚类中心作为锚框。相对于SSD 和Faster R-CNN来说可以大幅降低锚框的个数</p>
-</li>
-<li><p>不再使用YOLO的全连接层来预测，而是同SSD一样使用卷积。例如假设使用5个锚框（聚类为5类），那么物体分类使用通道数是 5 <em> (1 + num_classes)的1 </em> 1卷积，边框回归使用通道数为4 * 5</p>
-</li>
+<li><iclr-2018>Few-Shot Learning with Graph Neural Networks</iclr-2018></li>
+<li><bigdata-2017>One-shot Learning for Fine-grained Relation Extraction via ConvolutionalSiamese Neural Network</bigdata-2017></li>
+<li><nips-2016>Matching Networks for One Shot Learning</nips-2016></li>
+<li><nips-2017>Prototypical Networks for Few-hot Learning</nips-2017></li>
+<li><iclr-2017>Optimization as a model for few-shot learning</iclr-2017></li>
+<li><icml-2016>Meta-learningwith Memory-augmented Neural Networks</icml-2016></li>
 </ul>
 
       
@@ -411,7 +364,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/108/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/108/">108</a><span class="page-number current">109</span><a class="page-number" href="/page/110/">110</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/110/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/108/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/108/">108</a><span class="page-number current">109</span><a class="page-number" href="/page/110/">110</a><span class="space">&hellip;</span><a class="page-number" href="/page/153/">153</a><a class="extend next" rel="next" href="/page/110/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -457,7 +410,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">150</span>
+          <span class="site-state-item-count">153</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

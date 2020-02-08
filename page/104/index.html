@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/22/GCN/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/25/LeetCode-Day10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/08/22/GCN/" class="post-title-link" itemprop="url">GCN</a>
+            <a href="/2019/08/25/LeetCode-Day10/" class="post-title-link" itemprop="url">LeetCode-Day10</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-08-22 08:42:59 / 修改时间：14:41:58" itemprop="dateCreated datePublished" datetime="2019-08-22T08:42:59+08:00">2019-08-22</time>
+              <time title="创建时间：2019-08-25 09:07:13 / 修改时间：11:03:13" itemprop="dateCreated datePublished" datetime="2019-08-25T09:07:13+08:00">2019-08-25</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/08/22/GCN/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/22/GCN/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/08/25/LeetCode-Day10/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/25/LeetCode-Day10/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,74 +240,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="CNN和GCN的联系与区别"><a href="#CNN和GCN的联系与区别" class="headerlink" title="CNN和GCN的联系与区别"></a>CNN和GCN的联系与区别</h2><h4 id="1-什么是离散卷积？CNN中卷积发挥什么作用？"><a href="#1-什么是离散卷积？CNN中卷积发挥什么作用？" class="headerlink" title="1. 什么是离散卷积？CNN中卷积发挥什么作用？"></a>1. 什么是离散卷积？CNN中卷积发挥什么作用？</h4><p>CNN中的卷积本质上就是利用一个共享参数的过滤器（kernel），通过计算中心像素点以及相邻像素点的加权和来构成feature map实现空间特征的提取，当然加权系数就是卷积核的权重系数。</p>
-<p>那么卷积核的系数如何确定的呢？是随机化初值，然后根据误差函数通过反向传播梯度下降进行迭代优化。这是一个关键点，<strong>卷积核的参数通过优化求出才能实现特征提取的作用，GCN的理论很大一部分工作就是为了引入可以优化的卷积参数</strong>。</p>
-<h3 id="2-GCN中的Graph指什么？为什么要研究GCN？"><a href="#2-GCN中的Graph指什么？为什么要研究GCN？" class="headerlink" title="2. GCN中的Graph指什么？为什么要研究GCN？"></a>2. GCN中的Graph指什么？为什么要研究GCN？</h3><h4 id="GCN中的Graph"><a href="#GCN中的Graph" class="headerlink" title="GCN中的Graph"></a>GCN中的Graph</h4><p>CNN可以有效的提取空间特征。但是有一点需要注意：<strong>CNN处理的图像或者视频中像素点是排列成很整齐的（也就是很多论文中所提到的Euclidean Structure）</strong></p>
-<p>与之相对应，科学研究中还有很多 Non Euclidean Structure的数据，例如社交网络、信息网络中有很多类似的结构。</p>
-<p><img src="/2019/08/22/GCN/Users\12751\AppData\Roaming\Typora\typora-user-images\1566438663453.png" alt="1566438663453"></p>
-<p>实际上，这样的网络结构就是图论中抽象意义上的拓扑图</p>
-<p>所以，<strong>Graph Convolution Network中的Graph是指数学（图论）中的用顶点和边建立相应关系的拓扑图</strong></p>
-<h4 id="那么为什么要研究GCN？"><a href="#那么为什么要研究GCN？" class="headerlink" title="那么为什么要研究GCN？"></a>那么为什么要研究GCN？</h4><ul>
-<li>CNN无法处理Non Euclidean Structure的数据，学术上的表达就是<strong>传统的离散卷积，在Non Euclidean Structure的数据上无法保持平移不变性</strong>。通俗理解就是在拓扑图中每个定点的相邻顶点数目都可能不同，那么当然无法用一个同样尺寸的卷积核来进行卷积运算</li>
-<li>由于CNN无法处理Non Euclidean Structure的数据，又<strong>希望在这样的数据结构（拓扑图）上有效地提取特征空间来进行机器学习</strong>，所以GCN成为了研究的重点</li>
-<li>广义上来讲，任何数据在赋范空间内都可以建立拓扑关联，谱聚类就是应用了这样的思想。<strong>所以说拓扑连接是一种广义的数据结构</strong>，GCN有很大的应用空间。</li>
-</ul>
-<h3 id="3-提取拓扑图空间特征的两种方式"><a href="#3-提取拓扑图空间特征的两种方式" class="headerlink" title="3. 提取拓扑图空间特征的两种方式"></a>3. 提取拓扑图空间特征的两种方式</h3><p>GCN的本质目的就是用来提取拓扑图的空间特征，目前实现这个目标的最主要的两种方式是：vertex domain(spatial domain)和spectral domain</p>
-<h4 id="vertex-domain-spatial-domain"><a href="#vertex-domain-spatial-domain" class="headerlink" title="vertex domain(spatial domain)"></a>vertex domain(spatial domain)</h4><p>这是一种非常直观的方式，顾名思义：提取拓扑图上的空间特征，那么就把每个顶点相邻的neighbors找出来。这里面蕴含的科学问题有二：</p>
-<ul>
-<li>按照什么条件去找中心vertex的neighbors，也就是如何确定receptive field？</li>
-<li>确定receptive field，按照什么方式处理包含不同neighbors的特征？</li>
-</ul>
-<p>根据这两个问题设计算法，就可以实现目标了。</p>
-<p>这种方法主要的缺点如下：</p>
-<ul>
-<li>每个定点提取出来的neighbors不同，使得计算处理必须针对每个顶点</li>
-<li>提取特征的效果可能没有卷积好</li>
-</ul>
-<h4 id="spectral-domain"><a href="#spectral-domain" class="headerlink" title="spectral domain"></a>spectral domain</h4><p>就是GCN的理论寄出了。这种思路就是希望接组合图谱的理论来实现拓扑图上的卷积操作。从整个研究的时间进程来看：首先研究GSP（Graph signal processing）的学者定义了graph上的Fourier Transformation，进而定义了graph上的convolution，最后与深度学习结合提出了Graph Convolution Network</p>
-<h5 id="Q1：什么是Spectral-graph-theory？"><a href="#Q1：什么是Spectral-graph-theory？" class="headerlink" title="Q1：什么是Spectral graph theory？"></a>Q1：什么是Spectral graph theory？</h5><p>简单的概括就是借助图的拉普拉斯矩阵的特征值和特征向量来研究图的性质</p>
-<h5 id="Q2：GCN为什么要利用Spectral-graph-theory？"><a href="#Q2：GCN为什么要利用Spectral-graph-theory？" class="headerlink" title="Q2：GCN为什么要利用Spectral graph theory？"></a>Q2：GCN为什么要利用Spectral graph theory？</h5><h3 id="4-什么是拉普拉斯矩阵？为什么GCN要用拉普拉斯矩阵？"><a href="#4-什么是拉普拉斯矩阵？为什么GCN要用拉普拉斯矩阵？" class="headerlink" title="4. 什么是拉普拉斯矩阵？为什么GCN要用拉普拉斯矩阵？"></a>4. 什么是拉普拉斯矩阵？为什么GCN要用拉普拉斯矩阵？</h3><h4 id="什么是拉普拉斯矩阵？"><a href="#什么是拉普拉斯矩阵？" class="headerlink" title="什么是拉普拉斯矩阵？"></a>什么是拉普拉斯矩阵？</h4><p>Graph Fourier Transformation及Graph Convolution的定义都用到了拉普拉斯矩阵，那么首先介绍一下拉普拉斯矩阵</p>
-<p>对于图$G = (V, E)$，其$Laplacian$矩阵的定义为$L = D - A$，其中$L$是$Laplacian$矩阵，$D$是定点的度矩阵（对角矩阵），对角线上元素依次为各个顶点的度，$A$是图的邻接矩阵。看下图，很快就能知道$Laplacian$矩阵的计算方法</p>
-<p><img src="https://pic2.zhimg.com/80/v2-5f9cf5fdeed19b63e1079ed2b87617b4_hd.jpg" alt="img"></p>
-<p>这里要说明的是：<strong>常用的拉普拉斯矩阵实际有三种:</strong></p>
-<ul>
-<li><p>$L = D - A$定义的$Laplacian$矩阵更专业的名称叫<strong>Combinatorial Laplacian</strong></p>
-</li>
-<li><p>$L^{sys} = D^{-1/2}LD^{-1/2}$定义的叫<strong>Symmetric normalized Laplacian</strong> </p>
-</li>
-<li><p>$L^{rw} = D^{-1}L$定义的叫<strong>Random walk normalized Laplacian</strong></p>
-</li>
-</ul>
-<h4 id="为什么GCN要用拉普拉斯矩阵？"><a href="#为什么GCN要用拉普拉斯矩阵？" class="headerlink" title="为什么GCN要用拉普拉斯矩阵？"></a>为什么GCN要用拉普拉斯矩阵？</h4><ul>
-<li>拉普拉斯矩阵是对称矩阵，可以进行特征分解（谱分解），这就和GCN的spectral domain对应上了</li>
-<li>拉普拉斯矩阵只在中心定点和一阶相连的顶点上（1-hop neighbor）有非0元素，其余之处全为0</li>
-<li>通过拉普拉斯算子与拉普拉斯矩阵进行类比</li>
-</ul>
-<h3 id="拉普拉斯矩阵的谱分解（特征分解）"><a href="#拉普拉斯矩阵的谱分解（特征分解）" class="headerlink" title="拉普拉斯矩阵的谱分解（特征分解）"></a>拉普拉斯矩阵的谱分解（特征分解）</h3><p>GCN的核心基于拉普拉斯矩阵的谱分解。</p>
-<p>首先，<strong>矩阵的谱分解，特征分解，对角化都是一个概念</strong></p>
-<p><strong>不是所有的矩阵都可以特征分解</strong>，其充要条件为n阶方阵存在n个线性无关的特征向量。</p>
-<p>但是拉普拉斯矩阵是半正定对称矩阵（半正定矩阵本身就是对称矩阵），有如下三个性质：</p>
-<ul>
-<li><strong>对称矩阵一定有n个线性无关的特征向量</strong></li>
-<li><strong>半正定矩阵的特征值一定非负</strong></li>
-<li><strong>对称矩阵的特征向量相互正交，即所有特征向量构成的矩阵为正交矩阵</strong></li>
-</ul>
-<p>由上可以知道拉普拉斯矩阵一定可以谱分解，且分解后有特殊的形式。</p>
-<p>对于拉普拉斯矩阵其谱分解为：</p>
-<p>$L=U\left(\begin{array}{ccc}{\lambda_{1}} &amp; {} \\ {} &amp; {\ddots} &amp; {} \\ {} &amp; {} &amp; {\lambda_{n}}\end{array}\right) U^{-1}$</p>
-<p>其中$U=(\overrightarrow{u_{1}}, \overrightarrow{u_{2}}, \cdots, \overrightarrow{u_{n}})$，是列向量为单位特征向量的矩阵，也就是$\overrightarrow{u_{l}}$是列向量。</p>
-<p>$\left(\begin{array}{cccc}{\lambda_{1}} \\ {} &amp; {} &amp; {\ddots} \\ {} &amp; {} &amp; {} &amp; {\lambda_{n}}\end{array}\right)$是n个特征值构成的对角矩阵</p>
-<p>由于$U$是正交矩阵，即$UU^{T} = E$</p>
-<p>所以特征分解又可以写成：</p>
-<p>$L=U\left(\begin{array}{ccc}{\lambda_{1}} &amp; {} &amp; {} \\ {} &amp; {\ddots} &amp; {} \\ {} &amp; {} &amp; {\lambda_{n}}\end{array}\right) U^{T}$</p>
-<h3 id="6-如何从传统的傅里叶变换、卷积类比到Graph上的傅里叶变换及卷积？"><a href="#6-如何从传统的傅里叶变换、卷积类比到Graph上的傅里叶变换及卷积？" class="headerlink" title="6. 如何从传统的傅里叶变换、卷积类比到Graph上的傅里叶变换及卷积？"></a>6. 如何从传统的傅里叶变换、卷积类比到Graph上的傅里叶变换及卷积？</h3><p>把传统的傅里叶变换以及卷积迁移到Graph上来，核心工作其实就是把拉普拉斯算子的特征函数$e^{-iwt}$变为Graph对应的拉普拉斯矩阵的特征向量</p>
-<ul>
-<li><p>Graph上的傅里叶变换</p>
-<p>传统的傅里叶变换定义为：</p>
-<p>$F(\omega)=\mathcal{F}[f(t)]=\int f(t) e^{-i \omega t} d t$</p>
-</li>
-</ul>
-<p>信号$f(t)$与基函数$e^{-iwt}$的积分，那么为什么要找</p>
+          <h3 id="29-两数相除"><a class="markdownIt-Anchor" href="#29-两数相除"></a> 29. 两数相除</h3>
+<p>给定两个整数，被除数 dividend 和除数 divisor。将两数相除，要求不使用乘法、除法和 mod 运算符。</p>
+<p>返回被除数 dividend 除以除数 divisor 得到的商。</p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: dividend = 10, divisor = 3</span><br><span class="line">输出: 3</span><br></pre></td></tr></table></figure>
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: dividend = 7, divisor = -3</span><br><span class="line">输出: -2</span><br></pre></td></tr></table></figure>
+<p>说明:</p>
+<p>被除数和除数均为 32 位有符号整数。<br>
+除数不为 0。<br>
+假设我们的环境只能存储 32 位有符号整数，其数值范围是 [<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">−</mi><msup><mn>2</mn><mn>31</mn></msup></mrow><annotation encoding="application/x-tex">−2^{31}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span>,  <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mn>31</mn></msup></mrow><annotation encoding="application/x-tex">2^{31}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span> − 1]。本题中，如果除法结果溢出，则返回 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mn>31</mn></msup></mrow><annotation encoding="application/x-tex">2^{31}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span> − 1。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">divide</span><span class="params">(<span class="keyword">int</span> dividend, <span class="keyword">int</span> divisor)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> HALF_INT = <span class="number">1</span> &lt;&lt; <span class="number">30</span>;</span><br><span class="line">        <span class="keyword">if</span>(divisor == INT_MIN) &#123;</span><br><span class="line">            <span class="keyword">if</span>(dividend == INT_MIN) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> flag = <span class="number">1</span>, add = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span>(dividend &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span>(dividend == INT_MIN) &#123;   </span><br><span class="line">                    <span class="keyword">if</span>(divisor == <span class="number">-1</span>) &#123;</span><br><span class="line">                        <span class="keyword">return</span> INT_MAX;</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (divisor == <span class="number">1</span>) &#123;</span><br><span class="line">                        <span class="keyword">return</span> INT_MIN;</span><br><span class="line">                    &#125;</span><br><span class="line">                    add = <span class="number">1</span>;</span><br><span class="line">                    dividend = INT_MAX;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    add = <span class="number">0</span>;</span><br><span class="line">                    dividend = -dividend;</span><br><span class="line">                &#125;</span><br><span class="line">                flag = (flag == <span class="number">-1</span> ? <span class="number">1</span> : <span class="number">-1</span>);</span><br><span class="line">            &#125; </span><br><span class="line">            <span class="keyword">if</span>(divisor &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                flag = (flag == <span class="number">-1</span> ? <span class="number">1</span> : <span class="number">-1</span>);</span><br><span class="line">                divisor = -divisor;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> cnt = <span class="number">0</span>, bs = divisor;</span><br><span class="line">            <span class="keyword">while</span>(bs &lt; HALF_INT &amp;&amp; bs &lt; dividend) &#123;</span><br><span class="line">                bs &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">                cnt++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = cnt; i &gt;= <span class="number">0</span>; --i, bs &gt;&gt;= <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">while</span>(dividend &gt;= bs) &#123;</span><br><span class="line">                    dividend -= bs;</span><br><span class="line">                    res += <span class="number">1</span> &lt;&lt; i;</span><br><span class="line">                    <span class="keyword">if</span>(add) &#123;</span><br><span class="line">                        dividend += add;</span><br><span class="line">                        add = <span class="number">0</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> flag == <span class="number">-1</span> ? -res : res;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>解释：npy帮忙写的…我还没看…</p>
 
       
     </div>
@@ -327,7 +272,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/103/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/103/">103</a><span class="page-number current">104</span><a class="page-number" href="/page/105/">105</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/105/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/103/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/103/">103</a><span class="page-number current">104</span><a class="page-number" href="/page/105/">105</a><span class="space">&hellip;</span><a class="page-number" href="/page/153/">153</a><a class="extend next" rel="next" href="/page/105/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -373,7 +318,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">150</span>
+          <span class="site-state-item-count">153</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

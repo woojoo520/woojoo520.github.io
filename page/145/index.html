@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/加速神经网络训练/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/Something-about-TensorFlow/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/07/25/加速神经网络训练/" class="post-title-link" itemprop="url">加速神经网络训练</a>
+            <a href="/2019/07/25/Something-about-TensorFlow/" class="post-title-link" itemprop="url">Something about TensorFlow</a>
         </h1>
 
         <div class="post-meta">
@@ -210,10 +210,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-07-25 09:05:37 / 修改时间：10:26:33" itemprop="dateCreated datePublished" datetime="2019-07-25T09:05:37+08:00">2019-07-25</time>
+              <time title="创建时间：2019-07-25 17:16:29" itemprop="dateCreated datePublished" datetime="2019-07-25T17:16:29+08:00">2019-07-25</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-08-15 16:48:10" itemprop="dateModified" datetime="2019-08-15T16:48:10+08:00">2019-08-15</time>
+              </span>
 
           
   
@@ -224,8 +230,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/07/25/加速神经网络训练/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/07/25/加速神经网络训练/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/07/25/Something-about-TensorFlow/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/07/25/Something-about-TensorFlow/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,32 +246,69 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="Speed-Up-Training"><a href="#Speed-Up-Training" class="headerlink" title="Speed Up Training"></a>Speed Up Training</h3><p>主要包括以下几种模式：</p>
+          <h3 id="1-tensorflow中tftrainslice_input_producer和tftrainbatch函数"><a class="markdownIt-Anchor" href="#1-tensorflow中tftrainslice_input_producer和tftrainbatch函数"></a> 1. TensorFlow中tf.train.slice_input_producer和tf.train.batch函数</h3>
+<h4 id="tensorflow数据读取机制"><a class="markdownIt-Anchor" href="#tensorflow数据读取机制"></a> TensorFlow数据读取机制</h4>
+<p>TensorFlow中为了充分利用GPU，减少GPU等待数据的空闲时间，使用了两个线程分别执行数据读入和数据计算。</p>
+<p>具体来说就是使用一个线程源源不断的将硬盘中的图片数据读入到一个内存队列中，另一个线程负责计算任务，所需数据直接从内存队列中获取。</p>
+<p>tf在内存队列之前，还设立了一个文件名队列，文件名队列存放的是参与训练的文件名，要训练N个epoch，则文件名队列中就含有N个批次的所有文件名。</p>
+<p><img src="https://img-blog.csdn.net/20180401131308152" alt="img"></p>
+<p>在N个epoch的文件名最后是一个结束标志，当tf读到这个结束标志的时候，会抛出一个AutoRange的异常，外部捕获到之歌异常之后皆可以结束进程了。而创建tf的文件名队列就需要使用到tf.train.slice_input_producer函数</p>
+<h4 id="tftrainslice_input_producer"><a class="markdownIt-Anchor" href="#tftrainslice_input_producer"></a> tf.train.slice_input_producer</h4>
+<p>tf.train.slice_input_producer是一个tensor生成器，作用是按照规定，每次从一个tensor列表中按顺序或者随机抽取出一个tensor放入文件名队列。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slice_input_producer(tensor_list, num_epochs=None, shuffle=True, seed=None,                         capacity=32, shared_name=None, name=None)</span><br></pre></td></tr></table></figure>
 <ul>
-<li>Stochastic Gradient Descent (SGD)</li>
-<li>Momentum</li>
-<li>AdaGrad</li>
-<li>RMP Prop</li>
-<li>Adam</li>
+<li>
+<p>第一个参数 tensor_list：包含一系列tensor的列表，表中tensor的第一维度的值必须相等，即个数必须相等，有多少个图像，就应该有多少个对应的标签。</p>
+</li>
+<li>
+<p>第二个参数<strong>num_epochs: 可选参数，是一个整数值，代表迭代的次数</strong>，如果设置 num_epochs=None,生成器可以无限次遍历tensor列表，如果设置为 num_epochs=N，生成器只能遍历tensor列表N次。</p>
+</li>
+<li>
+<p>第三个参数shuffle： bool类型，设置是否打乱样本的顺序。<strong>一般情况下，如果shuffle=True，生成的样本顺序就被打乱了，在批处理的时候不需要再次打乱样本，使用 tf.train.batch函数就可以了;如果shuffle=False,就需要在批处理时候使用 tf.train.shuffle_batch函数打乱样本。</strong></p>
+</li>
+<li>
+<p>第四个参数seed: <strong>可选的整数，是生成随机数的种子，在第三个参数设置为shuffle=True的情况下才有用。</strong></p>
+</li>
+<li>
+<p>第五个参数capacity：设置tensor列表的容量。</p>
+</li>
+<li>
+<p>第六个参数shared_name：可选参数，如果设置一个‘shared_name’，则在不同的上下文环境（Session）中可以通过这个名字共享生成的tensor。</p>
+</li>
+<li>
+<p>第七个参数name：可选，设置操作的名称。</p>
+</li>
 </ul>
-<h4 id="Stochastic-Gradient-Descent-SGD"><a href="#Stochastic-Gradient-Descent-SGD" class="headerlink" title="Stochastic Gradient Descent (SGD)"></a>Stochastic Gradient Descent (SGD)</h4><p><img src="https://morvanzhou.github.io/static/results/ML-intro/speedup2.png" alt="SGD"></p>
-<p>想象红色方块使我们要训练的data，如果用普通的训练方法，就需要重复不断的把整套数据放入神经网络NN训练，这样消耗的计算资源会很大</p>
-<p>SGD的正确打开方式：将这些数据拆分成小批小批的，然后再分批不断放入NN中计算。每次使用批数据，虽然不能反映整体数据情况，不过却很大程度上加速了NN的训练过程，而且也不会丢失太多准确率</p>
-<p><img src="https://morvanzhou.github.io/static/results/ML-intro/speedup3.png" alt="SGD"></p>
-<h4 id="Momentum"><a href="#Momentum" class="headerlink" title="Momentum"></a>Momentum</h4><p>大多数途径是在更新神经网络参数那一步上东东手脚。传统的参数W的更新是把原始的W累加上一个负的学习效率（Learning Rate）乘以校正值（dx）。这种方法可能会让学习的过程曲折无比，看起来像喝醉的人回家时，摇摇晃晃走了很多弯路</p>
-<p><img src="https://morvanzhou.github.io/static/results/ML-intro/speedup4.png" alt="Momentum"></p>
-<p>所以我们把这个人从平地上放到了一个斜坡上, 只要他往下坡的方向走一点点, 由于向下的惯性, 他不自觉地就一直往下走, 走的弯路也变少了. 这就是 Momentum 参数更新</p>
-<p><img src="https://morvanzhou.github.io/static/results/ML-intro/speedup5.png" alt="Momentum"></p>
-<h4 id="AdaGrad"><a href="#AdaGrad" class="headerlink" title="AdaGrad"></a>AdaGrad</h4><p><a href="https://morvanzhou.github.io/static/results/ML-intro/speedup6.png" target="_blank" rel="noopener"><img src="https://morvanzhou.github.io/static/results/ML-intro/speedup6.png" alt="加速神经网络训练 (Speed Up Training)"> </a></p>
-<p>这种方法是在学习率上面动手脚, 使得每一个参数更新都会有自己与众不同的学习率, 他的作用和 momentum 类似, 不过不是给喝醉酒的人安排另一个下坡, 而是给他一双不好走路的鞋子, 使得他一摇晃着走路就脚疼, 鞋子成为了走弯路的阻力, 逼着他往前直着走. 他的数学形式是这样的. </p>
-<h4 id="RMSProp"><a href="#RMSProp" class="headerlink" title="RMSProp"></a>RMSProp</h4><p><a href="https://morvanzhou.github.io/static/results/ML-intro/speedup7.png" target="_blank" rel="noopener"><img src="https://morvanzhou.github.io/static/results/ML-intro/speedup7.png" alt="加速神经网络训练 (Speed Up Training)"> </a></p>
-<p>有了 momentum 的惯性原则 , 加上 adagrad 的对错误方向的阻力, 我们就能合并成这样. 让 RMSProp同时具备他们两种方法的优势. 不过还没把 Momentum合并完全, RMSProp 还缺少了 momentum 中的 这一部分. 所以, 我们在 Adam 方法中补上了这种想法.</p>
-<h4 id="Adam"><a href="#Adam" class="headerlink" title="Adam"></a>Adam</h4><p><a href="https://morvanzhou.github.io/static/results/ML-intro/speedup8.png" target="_blank" rel="noopener"><img src="https://morvanzhou.github.io/static/results/ML-intro/speedup8.png" alt="加速神经网络训练 (Speed Up Training)"> </a></p>
-<p>计算m 时有 momentum 下坡的属性, 计算 v 时有 adagrad 阻力的属性, 然后再更新参数时 把 m 和 V 都考虑进去. 实验证明, 大多数时候, 使用 adam 都能又快又好的达到目标, 迅速收敛. 所以说, 在加速神经网络训练的时候, 一个下坡, 一双破鞋子, 功不可没.</p>
-<p>源代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line"><span class="keyword">import</span> torch.utils.data <span class="keyword">as</span> Data</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F </span><br><span class="line"><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt </span><br><span class="line"></span><br><span class="line"><span class="comment"># hyper parameters</span></span><br><span class="line">LR = <span class="number">0.01</span></span><br><span class="line">BATCH_SIZE = <span class="number">32</span></span><br><span class="line">EPOCH = <span class="number">12</span></span><br><span class="line"></span><br><span class="line">x = torch.unsqueeze(torch.linspace(<span class="number">-1</span>, <span class="number">1</span>, <span class="number">1000</span>), dim=<span class="number">1</span>)</span><br><span class="line">y = x.pow(<span class="number">2</span>) + <span class="number">0.1</span>*torch.normal(torch.zeros(*x.size()))</span><br><span class="line"></span><br><span class="line"><span class="comment"># plt.scatter(x.numpy(), y.numpy())</span></span><br><span class="line"><span class="comment"># plt.show()</span></span><br><span class="line"></span><br><span class="line">torch_dataset = Data.TensorDataset(x, y)</span><br><span class="line">loader = Data.DataLoader(</span><br><span class="line">    dataset=torch_dataset,</span><br><span class="line">    batch_size=BATCH_SIZE,</span><br><span class="line">    shuffle=<span class="literal">True</span>,</span><br><span class="line">    num_workers=<span class="number">2</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net</span><span class="params">(torch.nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(Net, self).__init__()</span><br><span class="line">        self.hidden = torch.nn.Linear(<span class="number">1</span>, <span class="number">20</span>)</span><br><span class="line">        self.predict = torch.nn.Linear(<span class="number">20</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        x = F.relu(self.hidden(x))</span><br><span class="line">        x = self.predict(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># different nets</span></span><br><span class="line">    net_SGD =       Net()</span><br><span class="line">    net_Momentum =  Net()</span><br><span class="line">    net_RMSprop =   Net()</span><br><span class="line">    net_Adam =      Net()</span><br><span class="line">    nets =[net_SGD, net_Momentum, net_RMSprop, net_Adam]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># different optimizers</span></span><br><span class="line">    <span class="comment"># 为每一个优化器创建一个net</span></span><br><span class="line">    opt_SGD = torch.optim.SGD(net_SGD.parameters(), lr=LR)</span><br><span class="line">    opt_Momentum = torch.optim.SGD(net_Momentum.parameters(), lr=LR, momentum=<span class="number">0.8</span>)</span><br><span class="line">    opt_RMSprop = torch.optim.RMSprop(net_RMSprop.parameters(), lr=LR, alpha=<span class="number">0.9</span>)</span><br><span class="line">    opt_Adam = torch.optim.Adam(net_Adam.parameters(), lr=LR, betas=(<span class="number">0.9</span>, <span class="number">0.99</span>))</span><br><span class="line">    optimizers = [opt_SGD, opt_Momentum, opt_RMSprop, opt_Adam]</span><br><span class="line"></span><br><span class="line">    loss_func = torch.nn.MSELoss()</span><br><span class="line">    <span class="comment"># 记录training时不同神经网络的loss</span></span><br><span class="line">    losses_his = [[], [], [], []]   <span class="comment"># record loss</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># training</span></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> range(EPOCH):</span><br><span class="line">        print(<span class="string">'Epoch: '</span>, epoch)</span><br><span class="line">        <span class="keyword">for</span> step, (b_x, b_y) <span class="keyword">in</span> enumerate(loader):</span><br><span class="line">            <span class="comment"># 对每个优化器，优化属于他的神经网络</span></span><br><span class="line">            <span class="keyword">for</span> net, opt, l_his <span class="keyword">in</span> zip(nets, optimizers, losses_his):</span><br><span class="line">                output = net(b_x)               <span class="comment"># get output for every net</span></span><br><span class="line">                loss = loss_func(output, b_y)   <span class="comment"># compute loss for every net</span></span><br><span class="line">                opt.zero_grad()                 <span class="comment"># clear gradients for next train</span></span><br><span class="line">                loss.backward()                 <span class="comment"># backpropagation, compute gradients</span></span><br><span class="line">                opt.step()                      <span class="comment"># apply gradients</span></span><br><span class="line">                l_his.append(loss.data.numpy()) <span class="comment"># loss recorder</span></span><br><span class="line"></span><br><span class="line">    labels = [<span class="string">'SGD'</span>, <span class="string">'Momentum'</span>, <span class="string">'RMSprop'</span>, <span class="string">'Adam'</span>]</span><br><span class="line">    <span class="keyword">for</span> i, l_his <span class="keyword">in</span> enumerate(losses_his):</span><br><span class="line">        plt.plot(l_his, label=labels[i])</span><br><span class="line">    plt.legend(loc=<span class="string">'best'</span>)</span><br><span class="line">    plt.xlabel(<span class="string">'Steps'</span>)</span><br><span class="line">    plt.ylabel(<span class="string">'Loss'</span>)</span><br><span class="line">    plt.ylim((<span class="number">0</span>, <span class="number">0.2</span>))</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
-<p>最后的图表：</p>
-<p><img src="https://github.com/woojoo520/MyPostImages/raw/master/optimizer.png" alt="optimizer"></p>
+<p>tf.train.slice_input_producer定义了样本放入文件名队列的方式，包括迭代次数，是否乱序等，<strong>要真正将文件放入文件名队列，还需要调用tf.train.start_queue_runners 函数来启动执行文件名队列填充的线程，之后计算单元才可以把数据读出来，否则文件名队列为空的，计算单元就会处于一直等待状态，导致系统阻塞。</strong></p>
+<h4 id="tfcontriblayersbatch_norm"><a class="markdownIt-Anchor" href="#tfcontriblayersbatch_norm"></a> <strong>tf.contrib.layers.batch_norm</strong></h4>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">tf.contrib.layers.batch_norm(</span><br><span class="line">    inputs,</span><br><span class="line">    decay=0.999,</span><br><span class="line">    center=True,</span><br><span class="line">    scale=False,</span><br><span class="line">    epsilon=0.001,</span><br><span class="line">    activation_fn=None,</span><br><span class="line">    param_initializers=None,</span><br><span class="line">    param_regularizers=None,</span><br><span class="line">    updates_collections=tf.GraphKeys.UPDATE_OPS,</span><br><span class="line">    is_training=True,</span><br><span class="line">    reuse=None,</span><br><span class="line">    variables_collections=None,</span><br><span class="line">    outputs_collections=None,</span><br><span class="line">    trainable=True,</span><br><span class="line">    batch_weights=None,</span><br><span class="line">    fused=None,</span><br><span class="line">    data_format=DATA_FORMAT_NHWC,</span><br><span class="line">    zero_debias_moving_mean=False,</span><br><span class="line">    scope=None,</span><br><span class="line">    renorm=False,</span><br><span class="line">    renorm_clipping=None,</span><br><span class="line">    renorm_decay=0.99,</span><br><span class="line">    adjustment=None</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>Batch Normalization 通过减少内部使用协变量加速神经网络的训练</p>
+<p>可以用作conv2d或fully_connected的标准化函数</p>
+<p>参数：</p>
+<p>1 inputs： 输入</p>
+<p>2 decay ：衰减系数。合适的衰减系数值接近1.0,特别是含多个9的值：0.999,0.99,0.9。如果训练集表现很好而验证/测试集表现得不好，选择小的系数（推荐使用0.9）。如果想要提高稳定性，zero_debias_moving_mean设为True</p>
+<p>3 center：如果为True，有beta偏移量；如果为False，无beta偏移量</p>
+<p>4 scale：如果为True，则乘以gamma。如果为False，gamma则不使用。当下一层是线性的时（例如nn.relu），由于缩放可以由下一层完成，所以可以禁用该层。</p>
+<p>5 epsilon：避免被零除</p>
+<p>6 activation_fn：用于激活，默认为线性激活函数</p>
+<p>7 param_initializers ： beta, gamma, moving mean and moving variance的优化初始化</p>
+<p>8 param_regularizers ： beta and gamma正则化优化</p>
+<p>9 updates_collections ：Collections来收集计算的更新操作。updates_ops需要使用train_op来执行。如果为None，则会添加控件依赖项以确保更新已计算到位。</p>
+<p>10 is_training:图层是否处于训练模式。在训练模式下，它将积累转入的统计量moving_mean并 moving_variance使用给定的指数移动平均值 decay。当它不是在训练模式，那么它将使用的数值moving_mean和moving_variance。<br>
+11 scope：可选范围variable_scope</p>
+<h4 id="tfcontriblayersconvolution2d"><a class="markdownIt-Anchor" href="#tfcontriblayersconvolution2d"></a> tf.contrib.layers.convolution2d</h4>
+<h4 id="tfreduce_mean"><a class="markdownIt-Anchor" href="#tfreduce_mean"></a> tf.reduce_mean</h4>
+<p>用于计算张量tensor沿着指定的数轴（tensor的某一维度）上的平均值，主要用作降维或者计算tensor（图像）的平均值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">reduce_mean(</span><br><span class="line">	input_tensor， </span><br><span class="line">    axis=<span class="literal">None</span>, </span><br><span class="line">	keep_dims=<span class="literal">False</span>,</span><br><span class="line">	name=<span class="literal">None</span>, </span><br><span class="line">	reduction_indices=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>参数：
+<ul>
+<li>axis：指定的轴，如果不指定，则计算所有元素的均值</li>
+<li>keep_dims：是否降维度，设置为True， 则输出的结果保持输入tensor的结果，设置为False， 输出结果会降低维度</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf </span><br><span class="line"></span><br><span class="line">x = [[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">     [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]]</span><br><span class="line"></span><br><span class="line">xx = tf.cast(x, tf.float32)</span><br><span class="line">mean_all = tf.reduce_mean(xx, keep_dims=<span class="literal">False</span>)</span><br><span class="line">mean_0 = tf.reduce_mean(xx, axis=<span class="number">0</span>, keep_dims=<span class="literal">False</span>)</span><br><span class="line">mean_1 = tf.reduce_mean(xx, axis=<span class="number">1</span>, keep_dims=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    m_a, m_0, m_1 = sess.run([mean_all, mean_0, mean_1])</span><br><span class="line"></span><br><span class="line">print(mean_a)</span><br><span class="line">print(mean_0)</span><br><span class="line">print(mean_1)    </span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">output:</span></span><br><span class="line"><span class="string"> 2.0</span></span><br><span class="line"><span class="string">[ 1. 2. 3.]</span></span><br><span class="line"><span class="string">[ 2. 2.]</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">如果keep_dims=True，则结果为</span></span><br><span class="line"><span class="string">[[ 2.]]</span></span><br><span class="line"><span class="string">[[ 1. 2. 3.]]</span></span><br><span class="line"><span class="string">[[ 2.], [ 2.]]</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -285,7 +328,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/144/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/144/">144</a><span class="page-number current">145</span><a class="page-number" href="/page/146/">146</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/146/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/144/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/144/">144</a><span class="page-number current">145</span><a class="page-number" href="/page/146/">146</a><span class="space">&hellip;</span><a class="page-number" href="/page/153/">153</a><a class="extend next" rel="next" href="/page/146/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -331,7 +374,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">150</span>
+          <span class="site-state-item-count">153</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

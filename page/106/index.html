@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/21/ZSL/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/23/GAN-pix2pix-CycleGAN-pix3pixHD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/08/21/ZSL/" class="post-title-link" itemprop="url">ZSL</a>
+            <a href="/2019/08/23/GAN-pix2pix-CycleGAN-pix3pixHD/" class="post-title-link" itemprop="url">GAN-pix2pix-CycleGAN-pix3pixHD</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-08-21 16:42:41 / 修改时间：21:27:53" itemprop="dateCreated datePublished" datetime="2019-08-21T16:42:41+08:00">2019-08-21</time>
+              <time title="创建时间：2019-08-23 11:04:42 / 修改时间：12:33:47" itemprop="dateCreated datePublished" datetime="2019-08-23T11:04:42+08:00">2019-08-23</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/08/21/ZSL/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/21/ZSL/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/08/23/GAN-pix2pix-CycleGAN-pix3pixHD/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/23/GAN-pix2pix-CycleGAN-pix3pixHD/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,77 +240,58 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="ZSL的相关论文"><a href="#ZSL的相关论文" class="headerlink" title="ZSL的相关论文"></a>ZSL的相关论文</h2><ol>
-<li>基于attribute description构建语义空间A</li>
-</ol>
-<p>$Learning To Detect Unseen Object Classes by Between-Class Attribute Transfer$</p>
-<p><a href="http://pub.ist.ac.at/~chl/papers/lampert-cvpr2009.pdf" target="_blank" rel="noopener">http://pub.ist.ac.at/~chl/papers/lampert-cvpr2009.pdf</a></p>
-<p>基于attribute description的方法，其数据集中的每张图片都标注了若干attribute用以描述图片信息。一些标注了attribute的示例图片如下图所示</p>
-<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-3.jpeg" alt="img"></p>
-<p>这篇论文通过上述每张图片预定义的特征，构建了样本数据的特征表示空间X；同时，通过若干classes集合或图片集合学习可用于表示数据集中所有class的attribute description，完成语义空间A的构建；最后，论文提出了使用两种方式建立X和A之间的映射。两种方式为：Direct Attribute Prediction（DAP）和 Indirect Attribute Prediction（IAP），如下图所示：</p>
-<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-4.jpeg" alt="img"></p>
-<p><strong>DAP：</strong></p>
-<p>训练时，由一直标签的训练集，学习有关attribute的参数β；预测时，为每一个测试样本预测其attribute参数，进而根据attribute建立的seen class(y) 和 unseen class(z)之间的关系，推导得出测试样本的label</p>
-<p><strong>IAP：</strong></p>
-<p>训练时，按多分类的方式学习参数α；预测时，根据attribute建立的seen class(y) 和 unseen class(z)之间的关系，推到得到unseen class 的分布。</p>
-<p>DAP在训练是仅依据属性层，而IAP将训练样本的类标也作为一个中间层，一定程度上能限定测试样本生成新类标的范围，使得学习到的链接控制在对于Y来说，有意义的范围之内，因此可以增强系统的鲁棒性。但实际上，在作者后面的实验中，DAP的效果要比IAP好很多</p>
-<p>效果虽然不是很好，但确实在一定程度上表达了“知识迁移”的思想，不仅利用图片训练相应的特征，更是加入了属性这类的高位特征描述，实现了“从低维图片特征分类器”到“高位语义特征（属性）分类器”的转变</p>
-<p><strong>Attribute description相关论文列表：</strong></p>
+          <h3 id="gan"><a class="markdownIt-Anchor" href="#gan"></a> GAN</h3>
+<p>解决的问题：</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mo><mi>min</mi><mo>⁡</mo></mo><mi>G</mi></msub><msub><mo><mi>max</mi><mo>⁡</mo></mo><mi>D</mi></msub><mi mathvariant="double-struck">E</mi><mo stretchy="false">[</mo><mi>log</mi><mo>⁡</mo><mi>D</mi><mo stretchy="false">(</mo><mi>G</mi><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>+</mo><mi>log</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>D</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">\min _{G} \max _{D} \mathbb{E}[\log D(G(z))+\log (1-D(x))]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop"><span class="mop">min</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">G</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop"><span class="mop">max</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">D</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathbb">E</span></span><span class="mopen">[</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mopen">(</span><span class="mord mathdefault">G</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mclose">)</span><span class="mclose">]</span></span></span></span></p>
+<p>传统的GAN的不足：</p>
 <ul>
-<li><cvpr-2009>Describing Objects by their Attributes</cvpr-2009></li>
-<li><tpami-2014>Attribute-based Classification for Zero-Shot Visual Object Categorization</tpami-2014></li>
-<li><tpami-2017>Zero-Shot Learning-A Comprehensive Evaluation of the Good, the Bad and the Ugly</tpami-2017></li>
-<li><cvpr-2017>Semantic Autoencoder for Zero-Shot Learning</cvpr-2017></li>
-<li><cvpr-2016>Recovering the Missing Link: Predicting Class-Attribute Associations for Unsupervised Zero-Shot Learning</cvpr-2016></li>
-</ul>
-<h3 id="2-基于embedding表示构建语义空间A"><a href="#2-基于embedding表示构建语义空间A" class="headerlink" title="2. 基于embedding表示构建语义空间A"></a>2. 基于embedding表示构建语义空间A</h3><p>$DeViSE: A Deep Visual-Semantic Embedding Model$</p>
-<p><a href="http://papers.nips.cc/paper/5204-devise-a-deep-visual-semantic-embedding-model.pdf" target="_blank" rel="noopener">http://papers.nips.cc/paper/5204-devise-a-deep-visual-semantic-embedding-model.pdf</a></p>
-<p>本文提出的DeViSE模型，数据集每个class/label可作为一个词在语义空间进行embedding表示，如使用与训练skip-gram模型得到有关class的language feature vector，同时利用与训练的CNN-based模型提取图片的visual feature vector，将两个向量映射到同一纬度的空间，进行相似度的计算。测试时，即可根据语义之间的相似性进行图片的分类。模型结构如下图：</p>
-<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-6.jpeg" alt="img"></p>
-<p>考虑到训练时负样本发挥的通，模型的损失函数选择hinge loss。其中，通过dot-product 计算相似度。</p>
-<p>$\text {loss(image,label)}=\sum_{j \neq l a b e l} \max \left[0, \text {margin }-\overrightarrow{t_{l a b e l}} M \vec{v}(\text {image})+\vec{t}_{j} M \vec{v}(\text {image})\right]$</p>
-<p><strong>Embedding表示相关论文列表：</strong></p>
-<ul>
-<li><iccv-2015>Predicting Deep Zero-Shot Convolutional Neural Networks using TextualDescriptions</iccv-2015></li>
-<li><cvpr-2016>Learning Deep Representations of Fine-grained Visual Descriptions</cvpr-2016></li>
-<li><cvpr-2015>Evaluation of Output Embeddings for Fine-grained Image Classification</cvpr-2015></li>
-<li><cvpr-2016>Latent Embeddings for Zero-shot Classification</cvpr-2016></li>
-</ul>
-<h3 id="3-基于KG-KB构建语义空间A"><a href="#3-基于KG-KB构建语义空间A" class="headerlink" title="3. 基于KG/KB构建语义空间A"></a>3. 基于KG/KB构建语义空间A</h3><h4 id="3-1-Zero-shot-Recognition-via-Semantic-Embeddings-and-Knowledge-Graphs"><a href="#3-1-Zero-shot-Recognition-via-Semantic-Embeddings-and-Knowledge-Graphs" class="headerlink" title="3.1 $Zero-shot Recognition via Semantic Embeddings and Knowledge Graphs$"></a>3.1 $Zero-shot Recognition via Semantic Embeddings and Knowledge Graphs$</h4><p>本文基于Graph COnvolution Network(GCN，一种处理Graph-structured数据的神经网络)引入Knowledge Graph的hierarchy结构进行计算。模型分为两个独立的部分，首先使用CNN-based方法（如resnet， Inception等）为输入的图片抽取特征向量，即CNN部分（图所示上方的CNN网络）；其次，GCN部分（图所示下方的GCN网络）将数据集中的每个class作为Graph中的一个节点，并对其做embedding表示输入GCN网络（即输入为有N个k为节点组成的N <em> k特征矩阵），通过神经网络每一层之间信息的传递和计算，为每个节点（class）输出一组权重向量（D维），即输出是一个N </em> D的特征矩阵。</p>
-<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-10.jpeg" alt="img"></p>
-<p>模型训练时，Graph中seen class节点有来自CNN部分的图片特征向量作为监督信号（图所示绿色节点）训练GCN模型的参数；而测试时，Graph中的unseen class节点输出对应的权重向量，同时，与CNN部分对应图片输出的特征向量，最终得到分类的结果。</p>
-<p>这里提及的Graph为克表示ImageNet class之间结构的WorldNet知识库，实验选取了其中一部分与ImageNet相关的子集</p>
-<h4 id="3-2-Rethinking-Knowledge-Graph-Propagation-for-Zero-Shot-Learning"><a href="#3-2-Rethinking-Knowledge-Graph-Propagation-for-Zero-Shot-Learning" class="headerlink" title="3.2 $Rethinking Knowledge Graph Propagation for Zero-Shot Learning$"></a>3.2 $Rethinking Knowledge Graph Propagation for Zero-Shot Learning$</h4><p><a href="https://arxiv.org/pdf/1805.11724v1.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1805.11724v1.pdf</a></p>
-<p>在1的基础上进行了改进，包括以下几个方面：</p>
-<ul>
-<li><p>更少的GCN层数，论文1中使用了6层神经网络进行训练，考虑到模型参数的优化问题，本文只使用了2层神经网络进行计算，即GPM</p>
+<li>
+<p>没有<strong>用户控制</strong>能力</p>
+<p>在传统的GAN里，输入一个随机噪声，就回输出一幅随机图像</p>
+<p>但是，用户想输出的图像是和输入<strong>有对应的、有关联的</strong>。比如输入一只猫的草图，输出同一形态的猫的真实图片（这里对形态的要求就是一种用户控制）</p>
+<p><img src="https://img-blog.csdn.net/20180914044453345?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
 </li>
-<li><p>减少层数的同时，一些较远节点不被考虑在内，为了解决这个问题，作者将一些节点的祖先/子孙节点直接与该节点相连，生成了更密集的图，即DGPM；同时，这些直接相连的边按照距离的远近，加入attention机制进行了加权计算，即ADGPM</p>
-</li>
-<li><p>作者还提出了在CNN部分根据Graph信息进行fine tune的计算方式，使得提取图片特征的卷积网络可根据一些新出现的class进行更新</p>
+<li>
+<p>低分辨率（Low resolution）和低质量（Low quality）问题</p>
+<p>尽管生成的图片看起来很不错，但是如果放大看，就会发现细节相当模糊</p>
+<p><img src="https://img-blog.csdn.net/20180914044507384?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
 </li>
 </ul>
-<p><strong>KG/KB相关论文列表：</strong></p>
+<p>改善的目的就是（1）提高GAN的用户控制能力（2）提高GAN生成图片的分辨率和质量</p>
+<p><strong>步骤：</strong></p>
+<p><strong>pix2pix</strong>：有条件地使用用户输入，它使用<strong>成对的数据</strong>进行训练</p>
+<p><strong>CycleGAN：<strong>使用</strong>不成对的数据</strong>就能训练</p>
+<p><strong>pix2pixHD：<strong>生成</strong>高分辨率、高质量</strong>的图片</p>
+<p><img src="https://img-blog.csdn.net/20180914044518280?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
+<h3 id="pix2pix"><a class="markdownIt-Anchor" href="#pix2pix"></a> pix2pix</h3>
+<p>对传统的GAN做了一个小改动，它不再输入随机噪声，而是输入用户给的图片：</p>
+<p>然后建立输入和输出的对应关系：<strong>将G的输入和输出一起作为D的输入</strong></p>
+<p><img src="https://img-blog.csdn.net/20180914044620941?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
+<h3 id="cyclegan"><a class="markdownIt-Anchor" href="#cyclegan"></a> CycleGAN</h3>
+<p>pix2pix必须使用成对的数据进行训练</p>
+<p>而CycleGAN值需要输入数据的一个集合（比如一堆马的照片）和输出数据的一个集合（一如一堆斑马的照片）就可以了</p>
+<p><img src="https://img-blog.csdn.net/20180914044822913?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
+<p>pix2pix</p>
+<p><img src="https://img-blog.csdn.net/20180914044837669?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
+<p>CycleGAN</p>
+<p><img src="https://img-blog.csdn.net/20180914044908950?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
+<p>但是，直接使用不成对的数据是不奏效的。网络会直接忽略输入，随机产生输出！所以需要对网络增加<strong>限制</strong></p>
+<p>即我们如果将马变成斑马，然后再变成马，那么最后的马和开始输入的马应该是一样的</p>
+<p>具体细节。除了之前提到的把马斑马的网络G，我们还需要一个把斑马变回马的网络F</p>
+<p>那么，一匹马x用G变成斑马s = G(x)，然后再用F把它变回马F(s)，得到的马应该和一开始的马是一样的，即x = F(G(x))</p>
+<p><img src="https://img-blog.csdn.net/20180914044947503?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
+<p>翻过来，斑马变成马再变回斑马也需要满足要求，注意这一步最好不要省略。</p>
+<p>然后同时优化G和F，最后就能拿到一个想要的网络G</p>
+<h4 id="cyclegan为什么有效"><a class="markdownIt-Anchor" href="#cyclegan为什么有效"></a> CycleGAN为什么有效</h4>
+<p>CycleGAN成功的原因在于它分离了<strong>风格（Style）和内容（content）</strong>。人工设计这种分离的算法是很难的，但有了神经网络，我们很容易让它学习者去自动<strong>保持内容而改变风格</strong></p>
+<p>存在的问题：CycleGAN只能输出256p/512p的低分辨率图片</p>
+<h3 id="pix2pixhd"><a class="markdownIt-Anchor" href="#pix2pixhd"></a> pix2pixHD</h3>
+<p>pix2pixHD采取了金字塔的方式</p>
 <ul>
-<li><ijcai-2018>Fine-grained Image Classification by Visual-Semantic Embedding</ijcai-2018></li>
-<li><cvpr-2018>Multi-Label Zero-Shot Learning with Structured Knowledge Graphs</cvpr-2018></li>
-<li><nips-2009>Zero-Shot Learning with Semantic Output Codes</nips-2009></li>
-<li>少样本学习（Few-Shot Learning, FSL）</li>
+<li>先输出低分辨率的图片</li>
+<li>将之前输出的低分辨率图片作为另一个网络的输入，然后生成分辨率更高的图片</li>
 </ul>
-<p>前面 2.2 部分提到的论文，其迁移知识的方式主要是通过在语义空间构建 seen class 与 unseen class 之间的关系（下图左），而 Transductive Setting 则提出可通过 seen class 和 unseen class 的少量样本训练得到class之间的关联（下图右），即少样本学习（Few-ShotLearning, FSL）。</p>
-<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-13.jpeg" alt="img"></p>
-<h3 id="FSL—Few-ShotLearning-少样本学习"><a href="#FSL—Few-ShotLearning-少样本学习" class="headerlink" title="FSL—Few-ShotLearning(少样本学习)"></a>FSL—Few-ShotLearning(少样本学习)</h3><h4 id="Learning-to-Compare-RelationNetwork-for-Few-Shot-Learning"><a href="#Learning-to-Compare-RelationNetwork-for-Few-Shot-Learning" class="headerlink" title="$Learning to Compare: RelationNetwork for Few-Shot Learning$"></a>$Learning to Compare: RelationNetwork for Few-Shot Learning$</h4><p><a href="https://arxiv.org/pdf/1711.06025.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1711.06025.pdf</a></p>
-<p>本文从每个 class 中采样少量样本，作为参考样本（如下图左侧 5 张图片，分别代表 5 个 classes），以建立 class 之间的关系。本文所构建的 class relation 主要为相似关系，模型通过 embedding module 提取图片的特征向量，再分别将测试图片（下图所示袋鼠图片）的特征向量与参考样本的特征向量进行拼接输入 relation module，通过神经网络计算测试图片和参考样本图片之间的相似性，最终判断测试图片属于参考图片代表 class 的哪一类。</p>
-<p><img src="http://blog.openkg.cn/wp-content/uploads/2018/11/word-image-15.jpeg" alt="img"></p>
-<p><strong>FSL相关论文列表：</strong></p>
-<ul>
-<li><iclr-2018>Few-Shot Learning with Graph Neural Networks</iclr-2018></li>
-<li><bigdata-2017>One-shot Learning for Fine-grained Relation Extraction via ConvolutionalSiamese Neural Network</bigdata-2017></li>
-<li><nips-2016>Matching Networks for One Shot Learning</nips-2016></li>
-<li><nips-2017>Prototypical Networks for Few-hot Learning</nips-2017></li>
-<li><iclr-2017>Optimization as a model for few-shot learning</iclr-2017></li>
-<li><icml-2016>Meta-learningwith Memory-augmented Neural Networks</icml-2016></li>
-</ul>
+<p><img src="https://img-blog.csdn.net/20180914045410513?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dkeW1pbmQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="è¿éåå¾çæè¿°"></p>
 
       
     </div>
@@ -330,7 +311,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/105/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/105/">105</a><span class="page-number current">106</span><a class="page-number" href="/page/107/">107</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/107/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/105/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/105/">105</a><span class="page-number current">106</span><a class="page-number" href="/page/107/">107</a><span class="space">&hellip;</span><a class="page-number" href="/page/153/">153</a><a class="extend next" rel="next" href="/page/107/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -376,7 +357,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">150</span>
+          <span class="site-state-item-count">153</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

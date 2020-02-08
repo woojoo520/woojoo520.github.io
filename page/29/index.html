@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/22/AutoEncoder/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/24/损失函数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/11/22/AutoEncoder/" class="post-title-link" itemprop="url">AutoEncoder</a>
+            <a href="/2019/11/24/损失函数/" class="post-title-link" itemprop="url">损失函数</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-11-22 14:25:00 / 修改时间：14:36:17" itemprop="dateCreated datePublished" datetime="2019-11-22T14:25:00+08:00">2019-11-22</time>
+              <time title="创建时间：2019-11-24 13:36:54 / 修改时间：22:01:24" itemprop="dateCreated datePublished" datetime="2019-11-24T13:36:54+08:00">2019-11-24</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/11/22/AutoEncoder/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/22/AutoEncoder/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/11/24/损失函数/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/24/损失函数/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,19 +240,66 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="AutoEncoder"><a href="#AutoEncoder" class="headerlink" title="AutoEncoder"></a>AutoEncoder</h2><h3 id="压缩与解压"><a href="#压缩与解压" class="headerlink" title="压缩与解压"></a>压缩与解压</h3><p>有一个神经网络，他在做的事情是：接受一张图片，然后给他打码，最后再从打码的图片中还原。</p>
-<p><img src="https://pic3.zhimg.com/v2-7370f2fd8e6dabe4b24b71118ebf3b52_b.png" alt="img"></p>
-<p>假设刚刚的神经网络是这样，对应上刚刚的图片，可以看出，图片实际上是经过了压缩，再解压的这一道工序，原有的图片质量被缩减，解压时用信息量小却包含了所有关键信息的文件恢复出原本的图片。</p>
-<p>为什么要这样做呢？</p>
-<p><img src="https://pic2.zhimg.com/v2-948d5ede26f9e6c0e484640b92c1dcad_b.png" alt="img"></p>
-<p>有的时候神经网路偶要接受大量的输入信息，比如输入信息是高清图片时。输入信息可能达到上千万，让神经网络直接从上千万个信息源中学习是一件很吃力的事情，所以，何不压缩一下，提取出原图片中的最具代表性的信息，缩减信息量，再把缩减过后的信息放进神经网络学习，这样学习起来就简单轻松很多了，所以，自编码就能在这时发挥作用。</p>
-<p>通过将元数据白色的X压缩，解压成黑色的X，然后通过对比黑白，求出预测误差，进行反向传递，逐步提升自编码的准确性，训练好的自编码中间这一部分就是元数据的精髓，可以看出，从头到尾，我们只用到了输入数据X，并没有用到X对应的数据标签，所以也可以说自编码是一种非监督学习</p>
-<p>到了真正使用自编码的时候，通常只会用到自编码的前半部分。</p>
-<h3 id="编码器Encoder"><a href="#编码器Encoder" class="headerlink" title="编码器Encoder"></a>编码器Encoder</h3><p><img src="https://pic2.zhimg.com/v2-948d5ede26f9e6c0e484640b92c1dcad_b.png" alt="img"></p>
-<p>编码器得到原数据的精髓，然后我们只需要再创建一个小的神经网络学习这个精髓的数据，不仅减少了神经网络的负担，而且同样能达到很好的效果</p>
-<p><img src="https://pic1.zhimg.com/v2-9032ff2d01cdb7310245c7f397289550_b.png" alt="img"></p>
-<p>这是通过一个自编码整理出来的数据，他能从原数据中总结出每种类型数据的特征，如果把这些特征全部放在一张二维的图片上，每种类型都已经被很好的用原数据的精髓区分开来。</p>
-<p>PCA主成分分析，在提取主要特征时，自编码和PCA一样，甚至超越了PCA。换句话说自编码可以像PCA一样给特征属性降维。</p>
+          <h2 id="损失函数"><a class="markdownIt-Anchor" href="#损失函数"></a> 损失函数</h2>
+<h3 id="平方误差损失"><a class="markdownIt-Anchor" href="#平方误差损失"></a> 平方误差损失</h3>
+<p>每个训练样本的平方误差损失（也称为L2 Loss）是实际值和预测值之差的平方</p>
+<p><img src="https://pic2.zhimg.com/v2-776284ef8ef1892adca72454c80723dd_b.jpg" alt="img"></p>
+<p>相应的成本函数是这些平方误差的平均值（MSE），它是一个二次函数（形式为ax^2+bx+c），并且值大于等于0,。二次函数具有全局最小值，由于没有局部最小值，所以永远不会陷入它。因此，可以保证梯度下降将收敛到全局最小值（如果完全收敛的话）</p>
+<p>MSE损失函数通过使用平方误差来惩罚模型，有一个缺点，把一个比较大的数的平方会使它变得更大。但有一点需要注意，这个属性使<strong>MSE成本函数对异常值的健壮性降低。因此，如果我们的数据容易出现许多的异常值，则不应该使用它</strong></p>
+<h3 id="绝对误差损失"><a class="markdownIt-Anchor" href="#绝对误差损失"></a> 绝对误差损失</h3>
+<p>每个训练样本的绝对误差是预测值和实际值之间的距离，与符号无关。绝对误差也称为L1 Loss</p>
+<p><img src="https://pic2.zhimg.com/v2-77f5689dd45999c25bb55a1008e2cdf1_b.jpg" alt="img"></p>
+<p>成本是这些绝对误差的平均值（MAE）。与MSE相比，<strong>MAE成本对异常值更加健壮</strong>。但是，<strong>在数学方程中处理绝对或模数运算符并不容易</strong>。</p>
+<h3 id="huber损失"><a class="markdownIt-Anchor" href="#huber损失"></a> Huber损失</h3>
+<p>结合了MSE和MAE的最佳特性。对于较小的误差，他是二次的，否则是线性的（对于其梯度也是如此）。Huber损失需要确定<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>δ</mi></mrow><annotation encoding="application/x-tex">\delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03785em;">δ</span></span></span></span>参数</p>
+<p><img src="https://pic2.zhimg.com/v2-333ad2d90605b5d0de9ee4ec509ee49d_b.jpg" alt="img"></p>
+<p>Huber损失对于异常值比MSE更强。<strong>它用于稳健回归，M估计法（M-estimator）和可加模型（additive model）。Huber损失的变体也可用于分类。</strong></p>
+<h3 id="二分类损失函数"><a class="markdownIt-Anchor" href="#二分类损失函数"></a> 二分类损失函数</h3>
+<p>给分类基于应用于输入特征向量的规则则</p>
+<h4 id="二元交叉熵损失"><a class="markdownIt-Anchor" href="#二元交叉熵损失"></a> 二元交叉熵损失</h4>
+<p>熵是用来表示无序性和不确定性。测量具有芥蓝菜分布<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>X</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">P(X)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span>的随机变量X</p>
+<p><img src="https://pic4.zhimg.com/v2-dd86aad2ba3885b36dfc9db902baadc3_b.jpg" alt="img"></p>
+<p>负号使用于最后结果为正数</p>
+<blockquote>
+<p>概率分布的熵值越大，表明分布的不确定性越大。同样，一个较小的值代表一个更确定的分布</p>
+</blockquote>
+<p>这使得二元交叉熵适合作为损失函数（你希望最小化其值）。我们对输出概率p的分类模型使用二元交叉熵损失</p>
+<blockquote>
+<p>元素属于第1类（或正类）的概率=p</p>
+<p>元素属于第0类（或负类）的概率=1-p</p>
+</blockquote>
+<p>然后，输出标签y（可以取值0和1）的交叉熵损失和预测概率p定义为：</p>
+<p><img src="https://pic2.zhimg.com/v2-47ddb7df995d3978f53bd2b877e4c25d_b.jpg" alt="img"></p>
+<p>这也称为Log-Loss（对数损失）。为了计算概率p，可以使用sigmoid函数。其中，z是输入功能的函数</p>
+<p><img src="https://pic1.zhimg.com/v2-d6a0a7f3bb804cd5c0dcaa2f1b908ee8_b.jpg" alt="img"></p>
+<p>sigmoid函数的范围是[0, 1]这使得它适合于计算概率</p>
+<p><img src="https://pic1.zhimg.com/v2-95dba4bbda5ed968482df244137cbcf4_b.jpg" alt="img"></p>
+<h4 id="hinge损失"><a class="markdownIt-Anchor" href="#hinge损失"></a> Hinge损失</h4>
+<p><strong>Hinge损失主要用于带有类标签-1和1的支持向量机（SVM）</strong>。因此，请确保将数据集中“恶性”类标签从0更改为-1</p>
+<blockquote>
+<p>Hinge损失不仅会惩罚错误的预测，还会惩罚不自信的正确预测</p>
+</blockquote>
+<p>数据对<code>(x, y)</code>的Hinge损失如图：</p>
+<p><img src="https://pic4.zhimg.com/v2-739534b9c71db800ca910f72a3152e13_b.jpg" alt="img"></p>
+<p>Hinge损失简化了SVM的数学运算，同时最大化了损失（与对数损失（Log-Loss）相比）。当我们想要做实时决策而不是高度关注准确性时，就可以使用它</p>
+<h3 id="多分类损失函数"><a class="markdownIt-Anchor" href="#多分类损失函数"></a> 多分类损失函数</h3>
+<h4 id="多分类交叉熵"><a class="markdownIt-Anchor" href="#多分类交叉熵"></a> 多分类交叉熵</h4>
+<p>多分类交叉熵损失是二元交叉熵损失的退矿。输入向量<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>X</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">X_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>和相应的ont-hot编码目标向量<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>Y</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">Y_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>的损失是：</p>
+<p><img src="https://pic2.zhimg.com/v2-c465dd0ad165c0e3501d7d6608188c41_b.jpg" alt="img"></p>
+<p>使用softmax函数来找到概率<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">P_{ij}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p><img src="https://pic3.zhimg.com/v2-953d3605358f94ee5833084e75705756_b.jpg" alt="img"></p>
+<p>softmax层是接在神经网络的输出层前。Softmax层必须与输出层具有相同数量的节点</p>
+<p><img src="https://pic3.zhimg.com/v2-be2d1fea2669befa924891c3bd7c8e12_b.jpg" alt="img"></p>
+<p>最后，我们的输出是具有给定输入的最大概率的类别</p>
+<h4 id="kl散度"><a class="markdownIt-Anchor" href="#kl散度"></a> KL散度</h4>
+<p>KL散度是概率分布与另一个概率分布区别的度量。KL散度为零表示分布相同</p>
+<p><img src="https://pic3.zhimg.com/v2-e78029297910deac90414234151aca9e_b.jpg" alt="img"></p>
+<p>注意，发散函数不对称</p>
+<p>与多分类分类相比，KL散度更常用于逼近复杂函数。我们在使用变分自动编码器（VAE）等深度生成模型时经常使用KL散度</p>
+<h3 id="pytorch实战"><a class="markdownIt-Anchor" href="#pytorch实战"></a> Pytorch实战</h3>
+<p>损失函数的基本用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">criterion = LossCriterion()	# 构造函数有自己的参数</span><br><span class="line">loss = criterion(x, y)		# 调用标准时也有参数</span><br></pre></td></tr></table></figure>
+<p>得到的loss结果已经对mini-batch数量取了平均值</p>
 
       
     </div>
@@ -272,7 +319,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/28/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><span class="page-number current">29</span><a class="page-number" href="/page/30/">30</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/30/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/28/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><span class="page-number current">29</span><a class="page-number" href="/page/30/">30</a><span class="space">&hellip;</span><a class="page-number" href="/page/153/">153</a><a class="extend next" rel="next" href="/page/30/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -318,7 +365,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">150</span>
+          <span class="site-state-item-count">153</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
