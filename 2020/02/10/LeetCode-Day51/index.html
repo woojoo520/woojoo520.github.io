@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Celery Fairy" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://woojoo520.github.io').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="背包问题  0/1背包问题 有NNN件物品和一个容量为VVV的背包。第iii件物品的费用是w[i]w[i]w[i]，价值是v[i]v[i]v[i]，求将哪些物品装入背包可使价值总和最大。 这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。 用子问题定义状态：即f[i][j]f[i][j]f[i][j]表示前iii件物品恰放入一个容量为jjj的背包可以获得的最大价值。则其状态转移方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode-Day51">
+<meta property="og:url" content="https://woojoo520.github.io/2020/02/10/LeetCode-Day51/index.html">
+<meta property="og:site_name" content="Celery Fairy">
+<meta property="og:description" content="背包问题  0/1背包问题 有NNN件物品和一个容量为VVV的背包。第iii件物品的费用是w[i]w[i]w[i]，价值是v[i]v[i]v[i]，求将哪些物品装入背包可使价值总和最大。 这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。 用子问题定义状态：即f[i][j]f[i][j]f[i][j]表示前iii件物品恰放入一个容量为jjj的背包可以获得的最大价值。则其状态转移方">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-11T02:15:50.036Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LeetCode-Day51">
+<meta name="twitter:description" content="背包问题  0/1背包问题 有NNN件物品和一个容量为VVV的背包。第iii件物品的费用是w[i]w[i]w[i]，价值是v[i]v[i]v[i]，求将哪些物品装入背包可使价值总和最大。 这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。 用子问题定义状态：即f[i][j]f[i][j]f[i][j]表示前iii件物品恰放入一个容量为jjj的背包可以获得的最大价值。则其状态转移方">
+
+<link rel="canonical" href="https://woojoo520.github.io/2020/02/10/LeetCode-Day51/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>LeetCode-Day51 | Celery Fairy</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Celery Fairy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Celery's Blog</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2020/02/10/LeetCode-Day51/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.gif">
+      <meta itemprop="name" content="Woojoo">
+      <meta itemprop="description" content="a study blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Celery Fairy">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode-Day51
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-10 10:03:42" itemprop="dateCreated datePublished" datetime="2020-02-10T10:03:42+08:00">2020-02-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-11 10:15:50" itemprop="dateModified" datetime="2020-02-11T10:15:50+08:00">2020-02-11</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/10/LeetCode-Day51/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/10/LeetCode-Day51/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="背包问题"><a class="markdownIt-Anchor" href="#背包问题"></a> 背包问题</h2>
+<h3 id="01背包问题"><a class="markdownIt-Anchor" href="#01背包问题"></a> 0/1背包问题</h3>
+<p>有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span>件物品和一个容量为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi></mrow><annotation encoding="application/x-tex">V</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span></span></span></span>的背包。第iii件物品的费用是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>w</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">w[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span>，价值是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">v[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span>，求将哪些物品装入背包可使价值总和最大。</p>
+<p>这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。<br>
+用子问题定义状态：即<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo><mo stretchy="false">[</mo><mi>j</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">f[i][j]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span></span></span></span>表示前<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>件物品恰放入一个容量为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span>的背包可以获得的最大价值。则其状态转移方程便是</p>
+<blockquote>
+<p><code>f[i][j]= max(f[i-1][j], f[i-1][j-w[i]]+v[i])</code></p>
+</blockquote>
+<p>优化空间复杂度之后的代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = V; j &gt;= w[i]; j--)</span><br><span class="line">        f[j] = max(f[j], f[j - w[i]] + v[i]);</span><br></pre></td></tr></table></figure>
+<h4 id="初始化的细节问题"><a class="markdownIt-Anchor" href="#初始化的细节问题"></a> 初始化的细节问题</h4>
+<h2 id="有的题目要求恰好装满背包时的最优解有的题目则并没有要求必须把背包装满-这两种问法的区别是在初始化的时候有所不同-如果是第一种问法要求恰好装满背包那么在初始化时除了f0为0其它f1v均设为这样就可以保证最终得到的fn是一种恰好装满背包的最优解-如果并没有要求必须把背包装满而是只希望价格尽量大初始化时应该将f0v全部设为0-为什么呢可以这样理解初始化的f数组事实上就是在没有任何物品可以放入背包时的合法状态-如果要求背包恰好装满那么此时只有容量为0的背包可能被价值为0的nothing恰好装满其它容量的背包均没有合法的解属于未定义的状态它们的值就都应该是了-如果背包并非必须被装满那么任何容量的背包都有一个合法解什么都不装这个解的价值为0所以初始时状态的值也就全部为0了"><a class="markdownIt-Anchor" href="#有的题目要求恰好装满背包时的最优解有的题目则并没有要求必须把背包装满-这两种问法的区别是在初始化的时候有所不同-如果是第一种问法要求恰好装满背包那么在初始化时除了f0为0其它f1v均设为这样就可以保证最终得到的fn是一种恰好装满背包的最优解-如果并没有要求必须把背包装满而是只希望价格尽量大初始化时应该将f0v全部设为0-为什么呢可以这样理解初始化的f数组事实上就是在没有任何物品可以放入背包时的合法状态-如果要求背包恰好装满那么此时只有容量为0的背包可能被价值为0的nothing恰好装满其它容量的背包均没有合法的解属于未定义的状态它们的值就都应该是了-如果背包并非必须被装满那么任何容量的背包都有一个合法解什么都不装这个解的价值为0所以初始时状态的值也就全部为0了"></a> 有的题目要求&quot;恰好装满背包&quot;时的最优解，有的题目则并没有要求必须把背包装满。这两种问法的区别是在初始化的时候有所不同。<br>
+如果是第一种问法，要求恰好装满背包，那么在初始化时除了<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo stretchy="false">[</mo><mn>0</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">f[0]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord">0</span><span class="mclose">]</span></span></span></span>为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>其它<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo stretchy="false">[</mo><mn>1...</mn><mi>V</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">f[1...V]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord">1</span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mclose">]</span></span></span></span>均设为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">−</mi><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">−∞</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord">∞</span></span></span></span>，这样就可以保证最终得到的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo stretchy="false">[</mo><mi>N</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">f[N]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mclose">]</span></span></span></span>是一种恰好装满背包的最优解。<br>
+如果并没有要求必须把背包装满，而是只希望价格尽量大，初始化时应该将<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo stretchy="false">[</mo><mn>0...</mn><mi>V</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">f[0...V]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord">0</span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mclose">]</span></span></span></span>全部设为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>。<br>
+为什么呢？可以这样理解：初始化的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi></mrow><annotation encoding="application/x-tex">f</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span></span></span></span>数组事实上就是在没有任何物品可以放入背包时的合法状态。如果要求背包恰好装满，那么此时只有容量为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>的背包可能被价值为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>o</mi><mi>t</mi><mi>h</mi><mi>i</mi><mi>n</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">nothing</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">o</span><span class="mord mathdefault">t</span><span class="mord mathdefault">h</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span></span></span></span>“恰好装满”，其它容量的背包均没有合法的解，属于未定义的状态，它们的值就都应该是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">−</mi><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">−∞</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord">∞</span></span></span></span>了。如果背包并非必须被装满，那么任何容量的背包都有一个合法解“什么都不装”，这个解的价值为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，所以初始时状态的值也就全部为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>了。</h2>
+<p>版权声明：本文为CSDN博主「良月澪二」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。<br>
+原文链接：<a href="https://blog.csdn.net/yandaoqiusheng/article/details/84782655" target="_blank" rel="noopener">https://blog.csdn.net/yandaoqiusheng/article/details/84782655</a></p>
+<p>例题：</p>
+<h4 id="hdu-3466-proud-merchants"><a class="markdownIt-Anchor" href="#hdu-3466-proud-merchants"></a> <strong><a href="http://acm.hdu.edu.cn/showproblem.php?pid=3466" target="_blank" rel="noopener">HDU 3466 Proud Merchants</a></strong></h4>
+<p>题目大意：有n件商品，每件商品的价格是pi，每件商品只有在你的钱大于等于qi时才可以买入，每件商品在你心目中都有价值vi。现在你有m元钱，如何实现使买到的商品价值最大。</p>
+<p>思路：如果没有q的存在，那就是一个典型的0/1背包问题。那么，在0/1背包的基础上考虑<code>q</code>，无疑是跟顺序有关。比方说有A、B、C三件物品如下，一旦确定要买之后，一定是先买A商品，再买C商品，那接下来是不是就不需要考虑顺序，只需要使用以上的0/1背包算法直接来。这就是我们的思路，先把顺序给考虑了，在套用以上0/1背包算法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3 10</span><br><span class="line">5 5 5 ----A商品</span><br><span class="line">3 3 6   ----B商品</span><br><span class="line">2 3 3   ----C商品</span><br></pre></td></tr></table></figure>
+<p>其实，就是让C商品的q不等于p，其他都相同，这时，你就会发现如果要买C商品的话，肯定得先买C商品，因为买C商品的代价最大。所以，我们可以按照<code>qi-pi</code>的顺序来确定大顺序。这里我们还可以用更严谨的方式来证明一下，比如<code>A:p1 q1, B:p2 q2</code>，然后，假设单独买A或者B的话，都是可以买到的。这时，若先买A，则你至少需要<code>p1+q2</code>的钱；若先买B，则至少需要<code>p2+q1</code>的钱。那肯定是花最少的钱咯，所以如果先买A再买B，那么<code>p1+q2&lt;p2+q1</code>，转换一下，就是<code>q1-p1&gt;q2-p2</code>，<strong>也就是说<code>qi-pi</code>大的先买</strong>。**这里还得注意一点就是，排序的时候，得按照<code>qi-pi</code>从小到大排序，因为你买第n件商品的时候，是在比较你是否要先买第n件商品。**打个比方让大家更好地理解，比如说f(3, 10)，是不是max(f(2, 10-p3)+v3, f(2, 10))，你会发现这个第一种情况f(2,10-p3)+v3中，是先买了第三件商品，也就是说排在后面的商品会先买。好的，排好序之后，就把问题就转换为不需要考虑顺序的问题了，那就是上面我们已经解决0/1背包问题了。这样，问题圆满解决了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">505</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXM = <span class="number">5005</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> p, q, v;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(node a, node b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (a. q - a.p) &lt; (b.q - b.p); </span><br><span class="line">&#125;</span><br><span class="line">node pro[MAXN];</span><br><span class="line"><span class="keyword">int</span> dp[MAXM];</span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(dp, <span class="number">0</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = m; j &gt;= pro[i].q; j--) &#123;</span><br><span class="line">            dp[j] = max(dp[j], dp[j - pro[i].p] + pro[i].v);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, dp[m]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m) != EOF) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;pro[i].p, &amp;pro[i].q, &amp;pro[i].v);</span><br><span class="line">        &#125;</span><br><span class="line">        sort(pro, pro + n, cmp);</span><br><span class="line">        solve();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="完全背包问题"><a class="markdownIt-Anchor" href="#完全背包问题"></a> 完全背包问题</h3>
+<p>有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span>种物品和一个容量为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi></mrow><annotation encoding="application/x-tex">V</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span></span></span></span>的背包，每种物品都有无限件可用。第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>种物品的费用是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>w</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">w[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span>，价值是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">v[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span>。求解将哪些物品装入背包可使这些物品的费用总和不超过背包容量，且价值总和最大。</p>
+<p>优化复杂度之后的代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = w[i]; j &lt;= V; j++)</span><br><span class="line">        f[j] = max(f[j], f[j - w[i]] + v[i]);</span><br></pre></td></tr></table></figure>
+<p>例题：</p>
+<h4 id="luogu-1853-投资的最大效益"><a class="markdownIt-Anchor" href="#luogu-1853-投资的最大效益"></a> <a href="https://www.luogu.org/problemnew/show/P1853#sub" target="_blank" rel="noopener">Luogu 1853 投资的最大效益</a></h4>
+<p>约翰先生获得了一大笔遗产，他暂时还用不上这一笔钱，他决定进行投资以获得更大的效益。银行工作人员向他提供了多种债券，每一种债券都能在固定的投资后，提供稳定的年利息。当然，每一种债券的投资额是不同的，一般来说，投资越大，收益也越大，而且，每一年还可以根据资金总额的增加，更换收益更大的债券。</p>
+<p>描述：</p>
+<p>例如：有如下两种不同的债券：①投资额4000，年利息4000，年利息400；②投资额3000，年利息3000，年利息250。初始时，有10000的总资产，可以投资两份债券①债券，一年获得10000的总资产，可以投资两份债券①债券，一年获得800的利息；而投资一份债券①和两份债券②，一年可获得900的利息，两年后，可获得900的利息，两年后，可获得1800的利息；而所有的资产达到11800，然后将卖掉一份债券②，换购债券①，年利息可达到11800，然后将卖掉一份债券②，换购债券①，年利息可达到1050；第三年后，总资产达到12850，可以购买三份债券①，年利息可达到12850，可以购买三份债券①，年利息可达到1200，第四年后，总资产可达到$14050。</p>
+<p>现给定若干种债券、最初的总资产，帮助约翰先生计算，经过n年的投资，总资产的最大值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">13</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXM = <span class="number">10000</span>;</span><br><span class="line"><span class="keyword">int</span> s, n, d;</span><br><span class="line"><span class="keyword">int</span> w[MAXN], v[MAXN];</span><br><span class="line"><span class="keyword">int</span> dp[MAXM];   </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">solve</span><span class="params">(<span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(dp, <span class="number">0</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; d; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="keyword">int</span>(w[i]/<span class="number">1000</span>); j &lt;= <span class="keyword">int</span>(s/<span class="number">1000</span>); j++) &#123;</span><br><span class="line">            dp[j] = max(dp[j], dp[j-(w[i]/<span class="number">1000</span>)] + v[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> s + dp[s/<span class="number">1000</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;s, &amp;n, &amp;d);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; d; i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;w[i], &amp;v[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        s = solve(s);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="多重背包问题"><a class="markdownIt-Anchor" href="#多重背包问题"></a> 多重背包问题</h3>
+<p>有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span>种物品和一个容量为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi></mrow><annotation encoding="application/x-tex">V</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span></span></span></span>的背包。第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>种物品最多有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">p[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span>件可用，每件费用是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>w</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">w[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span>，价值是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">v[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span>。求解将哪些物品装入背包可使这些物品的费用总和不超过背包容量，且价值总和最大。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    <span class="keyword">int</span> num = min(p[i], V / w[i]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">1</span>; num &gt; <span class="number">0</span>; k &lt;&lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (k &gt; num) k = num;</span><br><span class="line">        num -= k;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = V; j &gt;= w[i] * k; j--)</span><br><span class="line">            f[j] = max(f[j], f[j - w[i] * k] + v[i] * k);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="混合背包问题"><a class="markdownIt-Anchor" href="#混合背包问题"></a> 混合背包问题</h3>
+<h4 id="01背包与完全背包的混合"><a class="markdownIt-Anchor" href="#01背包与完全背包的混合"></a> 01背包与完全背包的混合</h4>
+<p>考虑到在01背包和完全背包中给出的伪代码只有一处不同，故如果只有两类物品：一类物品只能取一次，另一类物品可以取无限次，那么<strong>只需在对每个物品应用转移方程时，根据物品的类别选用顺序或逆序的循环即可</strong>，复杂度是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>V</mi><mi>N</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(VN)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span></span></span></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">p[i]:每个物品的件数，<span class="number">0</span>代表无穷个</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    <span class="keyword">if</span> (p[i] == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = w[i]; j &lt;= V; j++)</span><br><span class="line">            f[j] = max(f[j], f[j - w[i]] + v[i]);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">1</span>; k &lt;= p[i]; k++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = V; j &gt;= w[i]; j--)</span><br><span class="line">            f[j] = max(f[j], f[j - w[i]] + v[i]);</span><br></pre></td></tr></table></figure>
+<p>例题：</p>
+<h4 id="hdu-3535-areyoubusy"><a class="markdownIt-Anchor" href="#hdu-3535-areyoubusy"></a> HDU 3535 AreYouBusy</h4>
+<p><a href="https://www.cnblogs.com/coredux/archive/2012/07/26/2610868.html" target="_blank" rel="noopener">https://www.cnblogs.com/coredux/archive/2012/07/26/2610868.html</a></p>
+<p>这是一道综合性的背包问题。题目给出了多组工作，每组工作的选择规则不同，有些组至少要选一项，有些组最多选一项，有些组任意选。</p>
+<p>这道题花了很长时间，需要深入理解状态转移才能够明白。数组<code>dp[i][j]</code>,表示第<code>i</code>组，时间剩余为<code>j</code>时的快乐值。每得到一组工作就进行一次DP，所以<code>dp[i]</code>为第<code>i</code>组的结果。下面对三种情况进行讨论。</p>
+<p>第一类，至少选一项，即必须要选，那么在开始时，对于这一组的dp的初值，应该全部赋为负无穷，这样才能保证不会出现都不选的情况。状态转移方程为<code>dp[i][k]=max{ dp[i][k],dp[i-1][k-cost[j]]+val[k],dp[i][k-cost[j]]+val[j] }</code>。<code>dp[i][k]</code>是不选择当前工作；<code>dp[i-1][k-cost[j]]+val[k]</code>是选择当前工作，但是是第一次在本组中选，由于开始将该组<code>dp</code>赋为了负无穷，所以第一次取时，必须由上一组的结果推知，这样才能保证得到全局最优解；<code>dp[i][k-cost[j]]+val[j]</code>表示选择当前工作，并且不是第一次取。</p>
+<p>第二类，最多选一项，即要么不选，一旦选，只能是第一次选。所以状态转移方程为<code>dp[i][k]=max{ dp[i][k],dp[i-1][k-cost[j]]+val[k]}</code>。由于要保证得到全局最优解，所以在该组DP开始以前，应该将上一组的DP结果先复制到这一组的<code>dp[i]</code>数组里，因为这一组的数据是在上一组数据的基础上进行更新的。</p>
+<p>第三类，任意选，即不论选不选，选几次都可以，显然状态转移方程为<code>dp[i][k]=max{ dp[i][k],dp[i-1][k-cost[j]]+val[k],dp[i][k-cost[j]]+val[j] }</code>。同样要保证为得到全局最优解，先复制上一组解。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 1000000</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_LIMT 110</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n, t;</span><br><span class="line"><span class="keyword">int</span> dp[MAX_LIMT][MAX_LIMT];</span><br><span class="line"><span class="keyword">int</span> cost[MAX_LIMT], val[MAX_LIMT];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;t) != EOF) &#123;</span><br><span class="line">        <span class="built_in">memset</span>(dp, <span class="number">0</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> m, s;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;m, &amp;s);</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= m; j++) &#123;</span><br><span class="line">                <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;cost[j], &amp;val[j]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(s == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= t; j++) &#123;</span><br><span class="line">                    dp[i][j] = -INF;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= m; j++) &#123;</span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">int</span> k = t; k &gt;= cost[j]; k--) &#123;</span><br><span class="line">                        dp[i][k] = max(dp[i][k], dp[i][k - cost[j]] + val[j]);</span><br><span class="line">                        dp[i][k] = max(dp[i][k], dp[i - <span class="number">1</span>][k - cost[j]] + val[j]);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(s == <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= t; j++) &#123;</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= m; j++) &#123;</span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">int</span> k = t; k &gt;= cost[j]; k--) &#123;</span><br><span class="line">                        dp[i][k] = max(dp[i][k], dp[i - <span class="number">1</span>][k - cost[j]] + val[j]);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= t; j++) &#123;</span><br><span class="line">                    dp[i][j] = dp[i <span class="number">-1</span>][j];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= m; j++) &#123;</span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">int</span> k = t; k &gt;= cost[j]; k--) &#123;</span><br><span class="line">                        dp[i][k] = max(dp[i][k], dp[i][k - cost[j]] + val[j]);</span><br><span class="line">                        dp[i][k] = max(dp[i][k], dp[i - <span class="number">1</span>][k - cost[j]] + val[j]);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        dp[n][t] = max(dp[n][t], <span class="number">-1</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, dp[n][t]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/09/LeetCode-Day50/" rel="prev" title="LeetCode-Day50">
+      <i class="fa fa-chevron-left"></i> LeetCode-Day50
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/11/LeetCode-Day52/" rel="next" title="LeetCode-Day52">
+      LeetCode-Day52 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背包问题"><span class="nav-number">1.</span> <span class="nav-text"> 背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#01背包问题"><span class="nav-number">1.1.</span> <span class="nav-text"> 0/1背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化的细节问题"><span class="nav-number">1.1.1.</span> <span class="nav-text"> 初始化的细节问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有的题目要求恰好装满背包时的最优解有的题目则并没有要求必须把背包装满-这两种问法的区别是在初始化的时候有所不同-如果是第一种问法要求恰好装满背包那么在初始化时除了f0为0其它f1v均设为这样就可以保证最终得到的fn是一种恰好装满背包的最优解-如果并没有要求必须把背包装满而是只希望价格尽量大初始化时应该将f0v全部设为0-为什么呢可以这样理解初始化的f数组事实上就是在没有任何物品可以放入背包时的合法状态-如果要求背包恰好装满那么此时只有容量为0的背包可能被价值为0的nothing恰好装满其它容量的背包均没有合法的解属于未定义的状态它们的值就都应该是了-如果背包并非必须被装满那么任何容量的背包都有一个合法解什么都不装这个解的价值为0所以初始时状态的值也就全部为0了"><span class="nav-number">2.</span> <span class="nav-text"> 有的题目要求&quot;恰好装满背包&quot;时的最优解，有的题目则并没有要求必须把背包装满。这两种问法的区别是在初始化的时候有所不同。
+如果是第一种问法，要求恰好装满背包，那么在初始化时除了f[0]f[0]f[0]为000其它f[1...V]f[1...V]f[1...V]均设为−∞−∞−∞，这样就可以保证最终得到的f[N]f[N]f[N]是一种恰好装满背包的最优解。
+如果并没有要求必须把背包装满，而是只希望价格尽量大，初始化时应该将f[0...V]f[0...V]f[0...V]全部设为000。
+为什么呢？可以这样理解：初始化的fff数组事实上就是在没有任何物品可以放入背包时的合法状态。如果要求背包恰好装满，那么此时只有容量为000的背包可能被价值为000的nothingnothingnothing“恰好装满”，其它容量的背包均没有合法的解，属于未定义的状态，它们的值就都应该是−∞−∞−∞了。如果背包并非必须被装满，那么任何容量的背包都有一个合法解“什么都不装”，这个解的价值为000，所以初始时状态的值也就全部为000了。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hdu-3466-proud-merchants"><span class="nav-number">2.0.1.</span> <span class="nav-text"> HDU 3466 Proud Merchants</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完全背包问题"><span class="nav-number">2.1.</span> <span class="nav-text"> 完全背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#luogu-1853-投资的最大效益"><span class="nav-number">2.1.1.</span> <span class="nav-text"> Luogu 1853 投资的最大效益</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多重背包问题"><span class="nav-number">2.2.</span> <span class="nav-text"> 多重背包问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#混合背包问题"><span class="nav-number">2.3.</span> <span class="nav-text"> 混合背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#01背包与完全背包的混合"><span class="nav-number">2.3.1.</span> <span class="nav-text"> 01背包与完全背包的混合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hdu-3535-areyoubusy"><span class="nav-number">2.3.2.</span> <span class="nav-text"> HDU 3535 AreYouBusy</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Woojoo"
+      src="/images/logo.gif">
+  <p class="site-author-name" itemprop="name">Woojoo</p>
+  <div class="site-description" itemprop="description">a study blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">161</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Woojoo</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'aKRj8pzPJm0LdONJb0Ci0U5L-gzGzoHsz',
+    appKey: 'vA8nbcq2HgWrqovGq6LwXRG1',
+    placeholder: "Just go go",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

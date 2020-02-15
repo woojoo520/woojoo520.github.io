@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/22/AutoEncoder/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/27/test/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/11/22/AutoEncoder/" class="post-title-link" itemprop="url">AutoEncoder</a>
+            <a href="/2019/11/27/test/" class="post-title-link" itemprop="url">test</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-11-22 14:25:00 / 修改时间：14:36:17" itemprop="dateCreated datePublished" datetime="2019-11-22T14:25:00+08:00">2019-11-22</time>
+              <time title="创建时间：2019-11-27 11:34:27 / 修改时间：12:49:52" itemprop="dateCreated datePublished" datetime="2019-11-27T11:34:27+08:00">2019-11-27</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/11/22/AutoEncoder/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/22/AutoEncoder/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/11/27/test/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/27/test/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,22 +240,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="autoencoder"><a class="markdownIt-Anchor" href="#autoencoder"></a> AutoEncoder</h2>
-<h3 id="压缩与解压"><a class="markdownIt-Anchor" href="#压缩与解压"></a> 压缩与解压</h3>
-<p>有一个神经网络，他在做的事情是：接受一张图片，然后给他打码，最后再从打码的图片中还原。</p>
-<p><img src="https://pic3.zhimg.com/v2-7370f2fd8e6dabe4b24b71118ebf3b52_b.png" alt="img"></p>
-<p>假设刚刚的神经网络是这样，对应上刚刚的图片，可以看出，图片实际上是经过了压缩，再解压的这一道工序，原有的图片质量被缩减，解压时用信息量小却包含了所有关键信息的文件恢复出原本的图片。</p>
-<p>为什么要这样做呢？</p>
-<p><img src="https://pic2.zhimg.com/v2-948d5ede26f9e6c0e484640b92c1dcad_b.png" alt="img"></p>
-<p>有的时候神经网路偶要接受大量的输入信息，比如输入信息是高清图片时。输入信息可能达到上千万，让神经网络直接从上千万个信息源中学习是一件很吃力的事情，所以，何不压缩一下，提取出原图片中的最具代表性的信息，缩减信息量，再把缩减过后的信息放进神经网络学习，这样学习起来就简单轻松很多了，所以，自编码就能在这时发挥作用。</p>
-<p>通过将元数据白色的X压缩，解压成黑色的X，然后通过对比黑白，求出预测误差，进行反向传递，逐步提升自编码的准确性，训练好的自编码中间这一部分就是元数据的精髓，可以看出，从头到尾，我们只用到了输入数据X，并没有用到X对应的数据标签，所以也可以说自编码是一种非监督学习</p>
-<p>到了真正使用自编码的时候，通常只会用到自编码的前半部分。</p>
-<h3 id="编码器encoder"><a class="markdownIt-Anchor" href="#编码器encoder"></a> 编码器Encoder</h3>
-<p><img src="https://pic2.zhimg.com/v2-948d5ede26f9e6c0e484640b92c1dcad_b.png" alt="img"></p>
-<p>编码器得到原数据的精髓，然后我们只需要再创建一个小的神经网络学习这个精髓的数据，不仅减少了神经网络的负担，而且同样能达到很好的效果</p>
-<p><img src="https://pic1.zhimg.com/v2-9032ff2d01cdb7310245c7f397289550_b.png" alt="img"></p>
-<p>这是通过一个自编码整理出来的数据，他能从原数据中总结出每种类型数据的特征，如果把这些特征全部放在一张二维的图片上，每种类型都已经被很好的用原数据的精髓区分开来。</p>
-<p>PCA主成分分析，在提取主要特征时，自编码和PCA一样，甚至超越了PCA。换句话说自编码可以像PCA一样给特征属性降维。</p>
+          <p><img src="/images/$(filename)/1574825715872.png" alt="1574825715872"></p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>e</mi><mi>s</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">test</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mo>=</mo><mroot><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></mrow><mi>n</mi></mroot></mrow><annotation encoding="application/x-tex">c = \sqrt [n] {a^2+b^2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.12661100000000003em;"></span><span class="mord sqrt"><span class="root"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6873467999999999em;"><span style="top:-2.9720668em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size6 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.913389em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.740108em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.740108em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span><span style="top:-2.873389em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg width="400em" height="1.08em" viewbox="0 0 400000 1080" preserveaspectratio="xMinYMin slice"><path d="M95,702c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,
+-10,-9.5,-14c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54c44.2,-33.3,65.8,
+-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10s173,378,173,378c0.7,0,
+35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429c69,-144,104.5,-217.7,106.5,
+-221c5.3,-9.3,12,-14,20,-14H400000v40H845.2724s-225.272,467,-225.272,467
+s-235,486,-235,486c-2.7,4.7,-9,7,-19,7c-6,0,-10,-1,-12,-3s-194,-422,-194,-422
+s-65,47,-65,47z M834 80H400000v40H845z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.12661100000000003em;"><span></span></span></span></span></span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msqrt><mrow><mn>12</mn><mo>+</mo><mi>m</mi><mi>a</mi><mi>i</mi><msub><mi>n</mi><mrow><mi>g</mi><mi>r</mi><mi>e</mi><mi>a</mi><mi>t</mi></mrow></msub></mrow></msqrt></mrow><annotation encoding="application/x-tex">\sqrt{12+main_{great}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.3682940000000001em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8717059999999999em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mord" style="padding-left:1em;"><span class="mord">1</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.28055599999999997em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">g</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.831706em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg width="400em" height="1.28em" viewbox="0 0 400000 1296" preserveaspectratio="xMinYMin slice"><path d="M263,681c0.7,0,18,39.7,52,119c34,79.3,68.167,
+158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120c340,-704.7,510.7,-1060.3,512,-1067
+c4.7,-7.3,11,-11,19,-11H40000v40H1012.3s-271.3,567,-271.3,567c-38.7,80.7,-84,
+175,-136,283c-52,108,-89.167,185.3,-111.5,232c-22.3,46.7,-33.8,70.3,-34.5,71
+c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1s-109,-253,-109,-253c-72.7,-168,-109.3,
+-252,-110,-252c-10.7,8,-22,16.7,-34,26c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26
+s76,-59,76,-59s76,-60,76,-60z M1001 80H40000v40H1012z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3682940000000001em;"><span></span></span></span></span></span></span></span></span></p>
 
       
     </div>
@@ -275,7 +275,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/31/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><span class="page-number current">32</span><a class="page-number" href="/page/33/">33</a><span class="space">&hellip;</span><a class="page-number" href="/page/153/">153</a><a class="extend next" rel="next" href="/page/33/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/31/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><span class="page-number current">32</span><a class="page-number" href="/page/33/">33</a><span class="space">&hellip;</span><a class="page-number" href="/page/161/">161</a><a class="extend next" rel="next" href="/page/33/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -321,7 +321,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">153</span>
+          <span class="site-state-item-count">161</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -412,6 +412,54 @@
   
 
   
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
 

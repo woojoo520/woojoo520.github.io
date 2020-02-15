@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/13/SQLServer-Day4/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/13/初识LaTex/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/10/13/SQLServer-Day4/" class="post-title-link" itemprop="url">SQLServer-Day4</a>
+            <a href="/2019/11/13/初识LaTex/" class="post-title-link" itemprop="url">初识LaTex</a>
         </h1>
 
         <div class="post-meta">
@@ -210,10 +210,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-10-13 15:22:53 / 修改时间：18:35:06" itemprop="dateCreated datePublished" datetime="2019-10-13T15:22:53+08:00">2019-10-13</time>
+              <time title="创建时间：2019-11-13 14:30:53" itemprop="dateCreated datePublished" datetime="2019-11-13T14:30:53+08:00">2019-11-13</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-14 09:13:04" itemprop="dateModified" datetime="2019-11-14T09:13:04+08:00">2019-11-14</time>
+              </span>
 
           
   
@@ -224,8 +230,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/10/13/SQLServer-Day4/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/13/SQLServer-Day4/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/11/13/初识LaTex/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/13/初识LaTex/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,542 +246,116 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="sqlserver-day4"><a class="markdownIt-Anchor" href="#sqlserver-day4"></a> SQLServer-Day4</h2>
-<h3 id="in操作符"><a class="markdownIt-Anchor" href="#in操作符"></a> <code>IN</code>操作符</h3>
-<p>允许我们在<code>WHERE</code>子句中规定多个值</p>
-<blockquote>
-<p>SELECT column_name(s)</p>
-<p>FROM table_name</p>
-<p>WHERE column_name IN (value1, value2, …)</p>
-</blockquote>
-<p>原始的Persons表：</p>
-<table>
-<thead>
-<tr>
-<th>Id</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td>Oxford Street</td>
-<td>London</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Bush</td>
-<td>George</td>
-<td>Fifth Avenue</td>
-<td>New York</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Carter</td>
-<td>Thomas</td>
-<td>Changan Street</td>
-<td>Beijing</td>
-</tr>
-</tbody>
-</table>
-<p>例：寻找姓氏为Adams和Carter的人</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> LastName <span class="keyword">IN</span> (<span class="string">'Adams'</span>, <span class="string">'Carter'</span>)</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<table>
-<thead>
-<tr>
-<th>Id</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td>Oxford Street</td>
-<td>London</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Carter</td>
-<td>Thomas</td>
-<td>Changan Street</td>
-<td>Beijing</td>
-</tr>
-</tbody>
-</table>
-<h3 id="between操作符"><a class="markdownIt-Anchor" href="#between操作符"></a> <code>BETWEEN</code>操作符</h3>
-<p>在<code>WHERE</code>子句中使用，作用是选取介于两个值之间的数据范围。</p>
-<p>操作符<code>BETWEEN ... AND</code>会选取介于两个值之间的数据范围。这些值可以是数据、文本或者日期。</p>
-<blockquote>
-<p><strong>SELECT</strong> column_name(s)</p>
-<p><strong>FROM</strong> table_name</p>
-<p><strong>WHERE</strong> column_name</p>
-<p><strong>BETWEEN</strong> value1 <strong>AND</strong> value2</p>
-</blockquote>
-<p>原始的Persons表：</p>
-<table>
-<thead>
-<tr>
-<th>Id</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td>Oxford Street</td>
-<td>London</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Bush</td>
-<td>George</td>
-<td>Fifth Avenue</td>
-<td>New York</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Carter</td>
-<td>Thomas</td>
-<td>Changan Street</td>
-<td>Beijing</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Gates</td>
-<td>Bill</td>
-<td>Xuanwumen 10</td>
-<td>Beijing</td>
-</tr>
-</tbody>
-</table>
-<p>例：寻找以字母顺序介于‘Adams’（包括）和‘Carter’（不包括）之间的人：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> LastName</span><br><span class="line"><span class="keyword">BETWEEN</span> <span class="string">'Adams'</span> <span class="keyword">AND</span> <span class="string">'Carter'</span></span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<table>
-<thead>
-<tr>
-<th>Id</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td>Oxford Street</td>
-<td>London</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Bush</td>
-<td>George</td>
-<td>Fifth Avenue</td>
-<td>New York</td>
-</tr>
-</tbody>
-</table>
-<p>**重要事项：**不同数据库对<code>BETWEEN...AND</code>操作符的处理方式是有差异的。某些数据库会列出介于‘Adams’和‘Carter’的人，但不包括‘Adams’和‘Carter’；某些数据库会列出介于 ‘Adams’和‘Carter’之间并包括‘Adams’和‘Carter’的人；而另一些数据库会列出介于‘Adams’和‘Carter’之间的人，包括‘Adams’，但不包括‘Carter’</p>
-<p>所以，需要检查自己的数据库是如何处理<code>BETWEEN...AND</code>操作符的</p>
-<p>例2：如果需要显示该范围之外的人，需要使用<code>NOT</code>操作符：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">WHERE</span> LastName</span><br><span class="line"><span class="keyword">NOT</span> <span class="keyword">BETWEEN</span> <span class="string">'Adams'</span> <span class="keyword">AND</span> <span class="string">'Carter'</span></span><br></pre></td></tr></table></figure>
-<h3 id="alias-别名"><a class="markdownIt-Anchor" href="#alias-别名"></a> Alias (别名)</h3>
-<p>可以为列名称和表名称指定别名（Alias）</p>
-<h4 id="表的sql-alias语法"><a class="markdownIt-Anchor" href="#表的sql-alias语法"></a> 表的SQL Alias语法</h4>
-<blockquote>
-<p>SELECT column_name(s)</p>
-<p>FROM table_name</p>
-<p><strong>AS</strong> alias_name</p>
-</blockquote>
-<h4 id="列的sql-alias语法"><a class="markdownIt-Anchor" href="#列的sql-alias语法"></a> 列的SQL Alias语法</h4>
-<blockquote>
-<p>SELECT column_name <strong>AS</strong> alias_name</p>
-<p>FROM table_name</p>
-</blockquote>
-<p>例：使用表名称别名</p>
-<p>假设我们有两个表分别是：“Persons” 和 “Product_Orders”。我们分别为它们指定别名 “p” 和 “po”。</p>
-<p>现在，我们希望列出 “John Adams” 的所有定单。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> po.OrderID, p.LastName, p.FirstName</span><br><span class="line"><span class="keyword">FROM</span> Persons, Product_Orders</span><br><span class="line"><span class="keyword">WHERE</span> p.LastName = <span class="string">'Adams'</span> <span class="keyword">AND</span> p.FirstName = <span class="string">'John'</span></span><br></pre></td></tr></table></figure>
-<p>如果不使用别名：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.OrderID, Product_Orders.LastName, Product_Orders.FirstName</span><br><span class="line"><span class="keyword">FROM</span> Persons, Product_Orders</span><br><span class="line"><span class="keyword">WHERE</span> Product_Orders.LastName = <span class="string">'Adams'</span> <span class="keyword">AND</span> Product_Orders.FirstName = <span class="string">'John'</span></span><br></pre></td></tr></table></figure>
-<p>例：</p>
-<p>Persons表：</p>
-<table>
-<thead>
-<tr>
-<th>Id</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td>Oxford Street</td>
-<td>London</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Bush</td>
-<td>George</td>
-<td>Fifth Avenue</td>
-<td>New York</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Carter</td>
-<td>Thomas</td>
-<td>Changan Street</td>
-<td>Beijing</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> LastName <span class="keyword">AS</span> Family, FirstName <span class="keyword">as</span> <span class="keyword">Name</span></span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<table>
-<thead>
-<tr>
-<th>Family</th>
-<th>FirstName</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Adams</td>
-<td>John</td>
-</tr>
-<tr>
-<td>Bush</td>
-<td>George</td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-</tr>
-</tbody>
-</table>
-<p><strong>注意：这里的列的名称也发生了改变！</strong></p>
-<h3 id="join"><a class="markdownIt-Anchor" href="#join"></a> JOIN</h3>
-<p><code>join</code>用于根据两个或多个表中的列之间的关系，从这些表中查询数据</p>
-<h4 id="join和key"><a class="markdownIt-Anchor" href="#join和key"></a> Join和Key</h4>
-<p>有时，为了得到完整的结果，我们需要从两个或更多的表中获取数据，我们就需要执行join</p>
-<p>数据库中的表可通过键值将彼此联系起来。主键（Primary Key）是一个列，在这个列中的每一行的值都是唯一的。在表中，每个主键的值都是唯一的。这样说的目的是在不重复每个表中的所有数据的情况下，把表间的数据交叉捆绑在一起。</p>
-<p>例如，Persons表</p>
-<table>
-<thead>
-<tr>
-<th>Id_P</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Adams</td>
-<td>John</td>
-<td>Oxford Street</td>
-<td>London</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Bush</td>
-<td>George</td>
-<td>Fifth Avenue</td>
-<td>New York</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Carter</td>
-<td>Thomas</td>
-<td>Changan Street</td>
-<td>Beijing</td>
-</tr>
-</tbody>
-</table>
-<p>这里：<strong>Id_P</strong>是Persons表中的主键，这意味着没有两行能够拥有相同的<code>Id_P</code></p>
-<p>Orders表：</p>
-<table>
-<thead>
-<tr>
-<th>Id_O</th>
-<th>OrderNo</th>
-<th>Id_P</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>77895</td>
-<td>3</td>
-</tr>
-<tr>
-<td>2</td>
-<td>44678</td>
-<td>3</td>
-</tr>
-<tr>
-<td>3</td>
-<td>22456</td>
-<td>1</td>
-</tr>
-<tr>
-<td>4</td>
-<td>24562</td>
-<td>1</td>
-</tr>
-<tr>
-<td>5</td>
-<td>34764</td>
-<td>65</td>
-</tr>
-</tbody>
-</table>
-<p>注意：“<strong>Id_O</strong>“列值Orders表中的主键，同时，”Orders“表中的”Id_P“列用于引用”Persons“表中的人，而无需使用他人的确切姓名</p>
-<p>这个时候“Id_P”列把上面两个表联系起来了</p>
-<p><strong>引用两个表</strong>，我们可以知道谁订购了什么产品？</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Persons.FirstName, Orders.No</span><br><span class="line"><span class="keyword">FROM</span> Persons, Orders</span><br><span class="line"><span class="keyword">WHERE</span> Persons.Id_P = Orders.Id_P</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<table>
-<thead>
-<tr>
-<th>LastName</th>
-<th>FirstName</th>
-<th>OrderNo</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Adams</td>
-<td>John</td>
-<td>22456</td>
-</tr>
-<tr>
-<td>Adams</td>
-<td>John</td>
-<td>24562</td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>77895</td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>44678</td>
-</tr>
-</tbody>
-</table>
-<p>除了上面的方法，我们还可以使用关键字<code>JOIN</code>来从两个表中获取数据</p>
-<p>如果我们希望列出所有人的订购，可以这样写：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Persons.FirstName, Orders.OrderNo</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Persons.LastName</span><br></pre></td></tr></table></figure>
-<p>不同的SQL JOIN</p>
-<p>除了上面使用的<code>INNER JOIN</code>（内连接），还有其他的连接方式</p>
+          <h3 id="基本内容"><a class="markdownIt-Anchor" href="#基本内容"></a> 基本内容</h3>
 <ul>
-<li><code>JOIN</code>：如果表中至少有一个匹配，则返回</li>
-<li><code>LEFT JOIN</code>：即使右表中没有匹配，也从左表返回所有的行</li>
-<li><code>RIGHT JOIN</code>：即使左表中没有匹配，也从右表中返回所有的行</li>
-<li><code>FULL JOIN</code>：只要其中一个表中存在匹配，就返回行</li>
+<li>LaTeX的基本语法</li>
+<li>完成一篇LaTeX创建的简单论文</li>
 </ul>
-<h3 id="inner-join-关键字"><a class="markdownIt-Anchor" href="#inner-join-关键字"></a> INNER JOIN 关键字</h3>
-<p>在表中至少存在一个匹配项时，INNER JOIN关键字返回行</p>
-<blockquote>
-<p>SELECT column_name(s)</p>
-<p>FROM table_name1</p>
-<p><strong>INNER JOIN</strong> table_name2</p>
-<p><strong>ON</strong> table_name1.column_name = table_name2.column_name</p>
-</blockquote>
-<p>注释：<code>INNER JOIN</code>和<code>JOIN</code>是相同的</p>
-<p>如果在”Persons“中的行在“Orders”中没有匹配，则不会返回</p>
-<h3 id="left-join关键字"><a class="markdownIt-Anchor" href="#left-join关键字"></a> LEFT JOIN关键字</h3>
-<p><code>LEFT JOIN</code>关键字会从左表（table_name1）那里返回所有的行，即使在右表（table_name2）中没有匹配</p>
-<blockquote>
-<p>SELECT column_name(s)</p>
-<p>FROM table_name1</p>
-<p><strong>LEFT JOIN</strong> table_name2</p>
-<p><strong>ON</strong> table_name1.column_name = table_name2.column_name</p>
-</blockquote>
-<p>注释：在某些数据库中，<code>LEFT JOIN</code> 称为 <code>LEFT OUTER JOIN</code></p>
-<p>如果在上述的Persons表和Orders表中采用左连接，即：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Persons.FirstName, Orders,OrderNo</span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Persons.LastName</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<table>
-<thead>
-<tr>
-<th>LastName</th>
-<th>FirstName</th>
-<th>OrderNo</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Adams</td>
-<td>John</td>
-<td>22456</td>
-</tr>
-<tr>
-<td>Adams</td>
-<td>John</td>
-<td>24562</td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>77895</td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>44678</td>
-</tr>
-<tr>
-<td>Bush</td>
-<td>George</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h3 id="right-join-关键字"><a class="markdownIt-Anchor" href="#right-join-关键字"></a> RIGHT JOIN 关键字</h3>
-<p><code>RIGHT JOIN</code>关键字会在右表（table_name2）那里返回所有的行，即使在左表（table_name1）中没有匹配的行</p>
-<blockquote>
-<p>SELECT column_name(s)</p>
-<p>FROM table_name1</p>
-<p><strong>RIGHT JOIN</strong> table_name2</p>
-<p><strong>ON</strong> table_name1.column_name = table_name2.column_name</p>
-</blockquote>
-<p>还是上面那两张表</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Persons.FirstName, Orders.OrderNo</span><br><span class="line"><span class="keyword">FROM</span> Persons </span><br><span class="line"><span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Persons.LastName</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<table>
-<thead>
-<tr>
-<th>LastName</th>
-<th>FirstName</th>
-<th>OrderNo</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Adams</td>
-<td>John</td>
-<td>22456</td>
-</tr>
-<tr>
-<td>Adams</td>
-<td>John</td>
-<td>24562</td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>77895</td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>44678</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>34764</td>
-</tr>
-</tbody>
-</table>
-<p><code>RIGHT JOIN</code>关键字会从右表（Orders）那里返回所有的行，即使在左表（Persons）中没有匹配的行</p>
-<h3 id="full-join-关键字"><a class="markdownIt-Anchor" href="#full-join-关键字"></a> FULL JOIN 关键字</h3>
-<p>只要其中某个表存在匹配，<code>FULL JOIN</code>关键字就回返回行</p>
-<blockquote>
-<p>SELECT column_name(s)</p>
-<p>FROM table_name1</p>
-<p><strong>FULL JOIN</strong> table_name2</p>
-<p><strong>ON</strong> table_name1.column_name = table_name2.column_name</p>
-</blockquote>
-<p>Persons表和Orders表同上</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Persons.FirstName, Orders.OrderNo</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">FULL</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Persons.LastName</span><br></pre></td></tr></table></figure>
-<p>结果</p>
-<table>
-<thead>
-<tr>
-<th>LastName</th>
-<th>FirstName</th>
-<th>OrderNo</th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Adams</td>
-<td>John</td>
-<td>22456</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Adams</td>
-<td>John</td>
-<td>24562</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>77895</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Carter</td>
-<td>Thomas</td>
-<td>44678</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Bush</td>
-<td>George</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>34764</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p><code>FLLL JOIN</code>关键字会从左表（Persons）和右表（Orders）那里返回所有的行。如果“Persons”中的行在表“Orders”中没有匹配，或者如果“Orders”中的行在表“Persons”中没有匹配，这些行同样会列出。</p>
+<h3 id="latex的基本语法"><a class="markdownIt-Anchor" href="#latex的基本语法"></a> LaTeX的基本语法</h3>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">documentclass</span><span class="string">[UTF8]</span><span class="string">&#123;ctexart&#125;</span></span>	<span class="comment">% 使用中文版的artical文档类型排版，并选择UTF8编码格式</span></span><br><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;amsmath&#125;</span></span>	<span class="comment">% 使用宏包，这里使用的是调用公式宏包，可以调用多个宏包</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;document&#125;</span></span>	<span class="comment">% 开始写文章</span></span><br><span class="line">文章内容</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;document&#125;</span></span>	<span class="comment">% 结束写文章</span></span><br></pre></td></tr></table></figure>
+<p>以上就是完成一篇LaTeX文档的基本格式。LaTeX是使用各种各样的命令来操作文档格式以及文档内容的。</p>
+<h3 id="标准文类"><a class="markdownIt-Anchor" href="#标准文类"></a> 标准文类</h3>
+<ul>
+<li><code>artical</code>：短文，评论，学术论文；无左右页区分，无章设置。对应中文类ctexart</li>
+<li><code>book</code>：著作，学位论文；默认有左右页区分，章起右页，对应中文类ctexbook</li>
+<li><code>report</code>：商业，科技，实验报告，默认无左右页区分，章起新页。对应中文类：ctexrep</li>
+<li><code>beamer</code>：论文陈述幻灯片；提供多种主题式样，可方便更改幻灯片的整体风格</li>
+</ul>
+<h3 id="常用宏包"><a class="markdownIt-Anchor" href="#常用宏包"></a> 常用宏包</h3>
+<ul>
+<li>
+<p>amsmath 公式环境和数学命令</p>
+</li>
+<li>
+<p>amssymb 数学符号生成命令</p>
+</li>
+<li>
+<p>array 数组和表格制作</p>
+</li>
+<li>
+<p>calc 四则运算</p>
+</li>
+<li>
+<p>caption 插图和表格标题格式设置</p>
+</li>
+<li>
+<p>fancyhdr 页眉页脚设置</p>
+</li>
+<li>
+<p>fancyvrb 抄录格式设置</p>
+</li>
+<li>
+<p>fontspec 字体选择</p>
+</li>
+<li>
+<p>geometry 版面尺寸设置</p>
+</li>
+<li>
+<p>graphicx 插图处理</p>
+</li>
+<li>
+<p>hyperref 创建超文本链接和PDF书签</p>
+</li>
+<li>
+<p>longtable 制作跨页表格</p>
+</li>
+<li>
+<p>multicol 多栏排版</p>
+</li>
+<li>
+<p>ntheorem 定理设置</p>
+</li>
+<li>
+<p>paralist 多种列表环境</p>
+</li>
+<li>
+<p>tabularx 自动设置表格列宽</p>
+</li>
+<li>
+<p>titlesec 章节标题格式设置</p>
+</li>
+<li>
+<p>titletoc 目录格式设置</p>
+</li>
+<li>
+<p>xcolor 颜色处理</p>
+</li>
+<li>
+<p>xeCJK 中日朝文字处理和字体选择</p>
+</li>
+</ul>
+<h3 id="完成一篇简单的论文"><a class="markdownIt-Anchor" href="#完成一篇简单的论文"></a> 完成一篇简单的论文</h3>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">documentclass</span><span class="string">[UTF8]</span><span class="string">&#123;ctexart&#125;</span></span>	<span class="comment">% 使用中文版的artical文档类型排版，并选择UTF8编码格式</span></span><br><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;amsmath&#125;</span></span>	<span class="comment">% 使用宏包，这里使用的是调用公式宏包，可以调用多个宏包</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;document&#125;</span></span>	<span class="comment">% 开始写文章</span></span><br><span class="line">文章内容</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;document&#125;</span></span>	<span class="comment">% 结束写文章</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>设置作者名字，论文名字以及创作时间</li>
+</ul>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">title</span><span class="string">&#123;杂谈关于爱情&#125;</span></span> <span class="comment">% 大括号例填写标题</span></span><br><span class="line"><span class="tag">\<span class="name">author</span><span class="string">&#123;张三&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">date</span><span class="string">&#123;\today&#125;</span></span>	<span class="comment">% 大括号里填写\today会自动生成当前的日期</span></span><br><span class="line"><span class="tag">\<span class="name">maketitle</span></span>	<span class="comment">% 写了以上内容之后一定要添加这个，制作标题，否则上面的内容都是无效的</span></span><br></pre></td></tr></table></figure>
+<p>组合上述两块以内容：</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">documentclass</span><span class="string">[UTF8]</span><span class="string">&#123;ctexart&#125;</span></span>	<span class="comment">% 使用中文版的artical文档类型排版，并选择UTF8编码格式</span></span><br><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;amsmath&#125;</span></span>	<span class="comment">% 使用宏包，这里使用的是调用公式宏包，可以调用多个宏包</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;document&#125;</span></span>	<span class="comment">% 开始写文章</span></span><br><span class="line"><span class="tag">\<span class="name">title</span><span class="string">&#123;杂谈LaTex&#125;</span></span> <span class="comment">% 大括号例填写标题</span></span><br><span class="line"><span class="tag">\<span class="name">author</span><span class="string">&#123;张三&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">date</span><span class="string">&#123;\today&#125;</span></span>	<span class="comment">% 大括号里填写\today会自动生成当前的日期</span></span><br><span class="line"><span class="tag">\<span class="name">maketitle</span></span>	<span class="comment">% 写了以上内容之后一定要添加这个，制作标题，否则上面的内容都是无效的</span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;document&#125;</span></span>	<span class="comment">% 结束写文章</span></span><br></pre></td></tr></table></figure>
+<p>也可以将姓名标题填到<code>\begin{document}</code>的上面，将<code>\maketitle</code>放在<code>\begin{document}</code>的下面，效果也是一样的</p>
+<ul>
+<li>添加摘要部分</li>
+</ul>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;abstract&#125;</span></span>	<span class="comment">% 摘要部分</span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span><span class="tag">\<span class="name">centering</span></span>这是一篇关于MYQ爱情史的小论文。&amp;<span class="tag">\<span class="name">small</span></span>是使用缩小字体，<span class="tag">\<span class="name">centering</span></span>是使内容居中</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;abstract&#125;</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>添加目录</li>
+</ul>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">tableofcontents</span></span>	<span class="comment">% 表示目录部分的开始</span></span><br><span class="line"><span class="tag">\<span class="name">section</span><span class="string">&#123;萌芽&#125;</span></span>	<span class="comment">% 目录的前缀页面都会自动排版不需要手动排版</span></span><br><span class="line"><span class="tag">\<span class="name">section</span><span class="string">&#123;发展&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">addcontentsline</span><span class="string">&#123;toc&#125;</span><span class="string">&#123;section&#125;</span><span class="string">&#123;参考文献&#125;</span></span>	<span class="comment">% 用来添加文献的标准方式</span></span><br><span class="line"><span class="tag">\<span class="name">section</span><span class="string">&#123;附录&#125;</span></span>	<span class="comment">% 要写的附录</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>填写每一个小结的内容</li>
+</ul>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;graphicx&#125;</span></span>	<span class="comment">% 先添加宏包插图，方便接下来添加图片</span></span><br><span class="line"><span class="tag">\<span class="name">label</span><span class="string">&#123;sec:ancient&#125;</span></span>		<span class="comment">% 这是添加书签的命令，一会儿要用到</span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> MYQ<span class="tag">\<span class="name">footnote</span><span class="string">&#123;MYQ，北京邮电大学学生&#125;</span></span>是一个没有谈过恋爱的小仙女<span class="tag">\<span class="name">cite</span><span class="string">&#123;Kline&#125;</span></span>	<span class="comment">% 这里的cite&#123;Kline&#125;是为了一会儿添加文献标记用的，\footnote是在文章下面自动添加注释的命令，换行可以使用空一行的方法</span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> YJZ<span class="tag">\<span class="name">footnote</span><span class="string">&#123;YJZ, 北京邮电大学学生&#125;</span></span>是一个有过恋爱经历的傻子</span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 他们的官宣是这样子的 <span class="tag">\<span class="name">ref</span><span class="string">&#123;fig:xiantu&#125;</span></span> 是令人非常羡慕的一对哈哈哈哈<span class="tag">\<span class="name">cite</span><span class="string">&#123;quanjing&#125;</span></span>	<span class="comment">% \ref&#123;fig:xiantu&#125;用于读取标签xiantu,cite用于引用参考文献quanjing</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;figure&#125;</span><span class="string">[!ht]</span></span><span class="tag">\<span class="name">centering</span></span> 	<span class="comment">% 添加图片，图片文件名为xiantu.jpg</span></span><br><span class="line"><span class="tag">\<span class="name">includegraphics</span><span class="string">[scale=0.5]</span><span class="string">&#123;xiantu.jpg&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">caption</span><span class="string">&#123;这是他们两个的官宣之作\label&#123;fig:xiantu&#125;</span></span>&#125;	<span class="comment">% 在图片下面的文字说明</span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;figure&#125;</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>编写第二节</li>
+</ul>
+<p>要在最开始添加</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">usepacka</span></span> ge&#123;amsmath&#125;	</span><br><span class="line"><span class="tag">\<span class="name">newtheorem</span><span class="string">&#123;thm&#125;</span><span class="string">&#123;定理&#125;</span></span>	<span class="comment">% 定义标题为定理的定理类环境thm</span></span><br><span class="line"><span class="tag">\<span class="name">newcommand</span></span><span class="tag">\<span class="name">degree</span><span class="string">&#123;^\circ&#125;</span></span>	<span class="comment">% 定义新命令degree</span></span><br></pre></td></tr></table></figure>
+<p>正文部分</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;thm&#125;</span><span class="string">[\small爱情故事]</span></span>	<span class="comment">% 开始定理环境</span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 他们的故事开始于北邮沙河图书馆</span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 开始于矩阵论，就是<span class="formula">$A=B-C^T, C = B^T$</span>(随便写写)，进一步于概率论</span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;equation&#125;</span></span><span class="tag">\<span class="name">label</span><span class="string">&#123;eq:gougu&#125;</span></span>	<span class="comment">% 开始的单行公式环境equation，并添加了书签gougu </span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 1 + 1 &gt; 2</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;equation&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;thm&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 满足 <span class="tag">\<span class="name">eqref</span><span class="string">&#123;eq: gougu&#125;</span></span> 的是<span class="tag">\<span class="name">emph</span><span class="string">&#123;我们&#125;</span></span>。<span class="tag">\<span class="name">ref</span><span class="string">&#123;sec:萌芽&#125;</span></span>所说的就是他们的开始。下面给出一些他们的经历；<span class="comment">% \eqref&#123;eq:gougu&#125;读入书签gougu, emph强调我们，ref读入书签 萌芽</span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">vsapce</span><span class="string">&#123;3mm&#125;</span></span>	<span class="comment">% 空一行</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;tabular&#125;</span><span class="string">&#123;|c|c|c|&#125;</span></span><span class="tag">\<span class="name">hline</span></span>	<span class="comment">% 开始表格环境&#123;|c|c|c&#125;表示文字居中的三列. \hline...\hline表述画两条并排的水平线。\hline必须用于首行之前或者换行命令之后</span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 时间&amp;事件&amp;好感度<span class="tag">\<span class="name">\</span></span><span class="tag">\<span class="name">hline</span></span>	<span class="comment">% &amp;是数据分割符号</span></span><br><span class="line">2019.1.24&amp;在一起&amp;100<span class="tag">\<span class="name">\</span></span><span class="tag">\<span class="name">hline</span></span></span><br><span class="line">2019.2.14&amp;第一次过情人节&amp;120<span class="tag">\<span class="name">\</span></span><span class="tag">\<span class="name">hline</span></span></span><br><span class="line">2019.5.4&amp;大傻过生日&amp;200<span class="tag">\<span class="name">\</span></span><span class="tag">\<span class="name">hline</span></span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;tabular&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">small</span><span class="string">&#123;heart❤&#125;</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>书写附录和文献</li>
+</ul>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;thebibliography&#125;</span><span class="string">&#123;99&#125;</span></span>	<span class="comment">% 参考文献开始</span></span><br><span class="line"><span class="tag">\<span class="name">bibitem</span><span class="string">&#123;1&#125;</span></span>	孟烨青.有名的爱情史.北京邮电大学,2019.</span><br><span class="line"><span class="tag">\<span class="name">bibitem</span><span class="string">&#123;quanjing&#125;</span></span> 于珺泽.爱吃醋的同学.北京邮电大学,2019</span><br><span class="line"><span class="tag">\<span class="name">bibitem</span><span class="string">&#123;Kline&#125;</span></span> 助攻.没有.2019</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;thebibliography&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">addcontentsline</span><span class="string">&#123;toc&#125;</span><span class="string">&#123;section&#125;</span><span class="string">&#123;参考文献&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;appendix&#125;</span></span>	<span class="comment">% 附录开始</span></span><br><span class="line"><span class="tag">\<span class="name">small</span></span> 今天是他们在一起的293天，大火花的第351天</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;appendix&#125;</span></span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -795,7 +375,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/45/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/45/">45</a><span class="page-number current">46</span><a class="page-number" href="/page/47/">47</a><span class="space">&hellip;</span><a class="page-number" href="/page/153/">153</a><a class="extend next" rel="next" href="/page/47/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/45/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/45/">45</a><span class="page-number current">46</span><a class="page-number" href="/page/47/">47</a><span class="space">&hellip;</span><a class="page-number" href="/page/161/">161</a><a class="extend next" rel="next" href="/page/47/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -841,7 +421,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">153</span>
+          <span class="site-state-item-count">161</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

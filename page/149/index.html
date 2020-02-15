@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/25/批训练/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/07/28/Loss-Function/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/07/25/批训练/" class="post-title-link" itemprop="url">批训练</a>
+            <a href="/2019/07/28/Loss-Function/" class="post-title-link" itemprop="url">Loss Function</a>
         </h1>
 
         <div class="post-meta">
@@ -210,10 +210,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-07-25 07:43:09 / 修改时间：08:52:53" itemprop="dateCreated datePublished" datetime="2019-07-25T07:43:09+08:00">2019-07-25</time>
+              <time title="创建时间：2019-07-28 21:30:13" itemprop="dateCreated datePublished" datetime="2019-07-28T21:30:13+08:00">2019-07-28</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-07-29 09:52:01" itemprop="dateModified" datetime="2019-07-29T09:52:01+08:00">2019-07-29</time>
+              </span>
 
           
   
@@ -224,8 +230,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/07/25/批训练/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/07/25/批训练/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/07/28/Loss-Function/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/07/28/Loss-Function/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,34 +246,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="要点"><a class="markdownIt-Anchor" href="#要点"></a> 要点：</h4>
-<p>Torch中提供了一种帮你整理你的数据结构的好东西，叫做DataLoader，我们能用它来包装自己的数据，进行批训练，而且批训练可以有很多种途径</p>
-<h4 id="dataloader"><a class="markdownIt-Anchor" href="#dataloader"></a> DataLoader</h4>
-<p><strong>DataLoader</strong>是torch给你用来包装你的数据的工具，所以你要将自己的（numpy array或其他）数据形式装换成Tensor，然后再放进这个包装器中，使用DataLoader可以帮你有效地迭代数据</p>
-<p>举例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch </span><br><span class="line"><span class="keyword">import</span> torch.utils.data <span class="keyword">as</span> Data</span><br><span class="line"></span><br><span class="line">torch.manual_seed(<span class="number">1</span>)    <span class="comment">#reproducible</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 批训练的数据个数</span></span><br><span class="line">BATCH_SIZE = <span class="number">5</span></span><br><span class="line"></span><br><span class="line">x = torch.linspace(<span class="number">1</span>, <span class="number">10</span>, <span class="number">10</span>)       <span class="comment"># this is x data (torch tensor)</span></span><br><span class="line">y = torch.linspace(<span class="number">10</span>, <span class="number">1</span>, <span class="number">10</span>)       <span class="comment"># this is y data (torch tensor)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 先转换成torch能识别的Dataset</span></span><br><span class="line">torch_dataset = Data.TensorDataset(x, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 把dataset 放入 DataLoader</span></span><br><span class="line">loader = Data.DataLoader(</span><br><span class="line">    dataset=torch_dataset,          <span class="comment"># torch TensorDataset format</span></span><br><span class="line">    batch_size=BATCH_SIZE,          <span class="comment"># mini batch size</span></span><br><span class="line">    shuffle=<span class="literal">True</span>,                   <span class="comment"># 要不要打乱数据(打乱比较好)</span></span><br><span class="line">    num_workers=<span class="number">2</span>,                  <span class="comment"># 多线程来读取数据</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_batch</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># train entire dataset 3 times</span></span><br><span class="line">    <span class="keyword">for</span> eopch <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">        <span class="comment"># 每一步loader释放一小批数据用来学习</span></span><br><span class="line">        <span class="keyword">for</span> step, (batch_x, batch_y) <span class="keyword">in</span> enumerate(loader):</span><br><span class="line">            <span class="comment"># training your data...</span></span><br><span class="line">            print(<span class="string">'Epoch: '</span>, eopch, <span class="string">'| Step: '</span>, step, <span class="string">'| batch x: '</span>, batch_x.numpy(), <span class="string">'| batch y: '</span>, batch_y.numpy())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    show_batch()</span><br></pre></td></tr></table></figure>
-<p>得到的结果</p>
-<p>Epoch:  0 | Step:  0 | batch x:  [ 5.  7. 10.  3.  4.] | batch y:  [6. 4. 1. 8. 7.]</p>
-<p>Epoch:  0 | Step:  1 | batch x:  [2. 1. 8. 9. 6.] | batch y:  [ 9. 10.  3.  2.  5.]</p>
-<p>Epoch:  1 | Step:  0 | batch x:  [ 4.  6.  7. 10.  8.] | batch y:  [7. 5. 4. 1. 3.]</p>
-<p>Epoch:  1 | Step:  1 | batch x:  [5. 3. 2. 1. 9.] | batch y:  [ 6.  8.  9. 10.  2.]</p>
-<p>Epoch:  2 | Step:  0 | batch x:  [ 4.  2.  5.  6. 10.] | batch y:  [7. 9. 6. 5. 1.]</p>
-<p>Epoch:  2 | Step:  1 | batch x:  [3. 9. 1. 8. 7.] | batch y:  [ 8.  2. 10.  3.  4.]</p>
-<p>如果 <strong>shuffle = True</strong>，则导出的数据是</p>
-<p>Epoch:  0 | Step:  0 | batch x:  [1. 2. 3. 4. 5.] | batch y:  [10.  9.  8.  7.  6.]</p>
-<p>Epoch:  0 | Step:  1 | batch x:  [ 6.  7.  8.  9. 10.] | batch y:  [5. 4. 3. 2. 1.]</p>
-<p>Epoch:  1 | Step:  0 | batch x:  [1. 2. 3. 4. 5.] | batch y:  [10.  9.  8.  7.  6.]</p>
-<p>Epoch:  1 | Step:  1 | batch x:  [ 6.  7.  8.  9. 10.] | batch y:  [5. 4. 3. 2. 1.]</p>
-<p>Epoch:  2 | Step:  0 | batch x:  [1. 2. 3. 4. 5.] | batch y:  [10.  9.  8.  7.  6.]</p>
-<p>Epoch:  2 | Step:  1 | batch x:  [ 6.  7.  8.  9. 10.] | batch y:  [5. 4. 3. 2. 1.]</p>
-<p>可以看出来，每步都导出了5个数据进行学习，然后每个epoch的导出数据都是先打乱了以后再导出</p>
-<p>如果改变 <strong>BATCH_SIZE = 8</strong> ，这样 step = 0，就回导出8个数据 ，但是，step = 1 时数据库中的数据不够8个，则step1，只能给你返回epoch中剩下的数据了</p>
-<p>Epoch:  0 | Step:  0 | batch x:  [1. 2. 3. 4. 5. 6. 7. 8.] | batch y:  [10.  9.  8.  7.  6.  5.  4.  3.]</p>
-<p>Epoch:  0 | Step:  1 | batch x:  [ 9. 10.] | batch y:  [2. 1.]</p>
-<p>Epoch:  1 | Step:  0 | batch x:  [1. 2. 3. 4. 5. 6. 7. 8.] | batch y:  [10.  9.  8.  7.  6.  5.  4.  3.]</p>
-<p>Epoch:  1 | Step:  1 | batch x:  [ 9. 10.] | batch y:  [2. 1.]</p>
-<p>Epoch:  2 | Step:  0 | batch x:  [1. 2. 3. 4. 5. 6. 7. 8.] | batch y:  [10.  9.  8.  7.  6.  5.  4.  3.]</p>
-<p>Epoch:  2 | Step:  1 | batch x:  [ 9. 10.] | batch y:  [2. 1.]</p>
+          <h3 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h3>
+<p>损失函数（Loss Function）是用来估计模型的预测值f(x)与真实值Y的不一致程度；他是一个非负实值函数，通常使用 L(Y,f(x)) 来表示，损失函数越小，模型的鲁棒性就越好。损失函数是经验风险函数的核心部分，也是结构风险函数重要组成部分。模型的结构风险函数包括了经验风险和正则项，通常可以表示成如下式子：</p>
+<p><img src="//woojoo520.github.io/2019/07/28/Loss-Function/C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1564324156129.png" alt="1564324156129"></p>
+<p>其中，前面的均值函数表示的是经验风险函数，L代表的是损失函数</p>
+<h3 id="一-logloss对数损失函数逻辑回归交叉熵损失"><a class="markdownIt-Anchor" href="#一-logloss对数损失函数逻辑回归交叉熵损失"></a> 一. LogLoss对数损失函数（逻辑回归，交叉熵损失）</h3>
+<p>平方损失函数可以通过线性回归在假设样本是高斯分布的条件下推到得到的，而逻辑回归得到的不是平方损失。在逻辑回归的推导中，它假设样本服从伯努利分布（0-1分布），然后求得满足该分布的似然函数，接着取对数求极值等等。而逻辑回归并没有求似然函数的极值，而是吧极大化当做是一种思想，进而推导出它的经验风险函数为：最小化负的似然函数（即 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>a</mi><mi>x</mi><mi>F</mi><mo stretchy="false">(</mo><mi>y</mi><mo separator="true">,</mo><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>−</mo><mo>&gt;</mo><mi>m</mi><mi>i</mi><mi>n</mi><mo>−</mo><mi>F</mi><mo stretchy="false">(</mo><mi>y</mi><mo separator="true">,</mo><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">maxF(y, F(x)) -&gt; min -F(y, f(x))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mclose">)</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span> ）从损失函数的角度来看，它就成log损失函数了</p>
+<p>log损失函数的标准形式：</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>L</mi><mo stretchy="false">(</mo><mi>Y</mi><mo separator="true">,</mo><mi>P</mi><mo stretchy="false">(</mo><mi>Y</mi><mi mathvariant="normal">∣</mi><mi>X</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><mi>l</mi><mi>o</mi><mi>g</mi><mi>P</mi><mo stretchy="false">(</mo><mi>Y</mi><mi mathvariant="normal">∣</mi><mi>X</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">L(Y, P(Y|X)) = -logP(Y|X)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">L</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span></p>
+<p>取对数是为了方便计算极大似然值，因为MLE（最大似然估计）中，直接求导比较困难，所以通常都是先取对数再求导找极值点。损失函数 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>L</mi><mo stretchy="false">(</mo><mi>Y</mi><mo separator="true">,</mo><mi>P</mi><mo stretchy="false">(</mo><mi>Y</mi><mi mathvariant="normal">∣</mi><mi>X</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">L(Y, P(Y|X))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">L</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span> 表达的是样本X在分类Y的情况下，使概率 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>Y</mi><mi mathvariant="normal">∣</mi><mi>X</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">P(Y|X)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span> 达到最大值（换言之，就是利用已知的样本分布，找到最有可能（即最大概率）导致这种分布的参数值；或者说什么样的擦书才能使我们观测到目前这组数据的概率最大）。因为log函数是单调递增的，所以 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><mi>P</mi><mo stretchy="false">(</mo><mi>Y</mi><mi mathvariant="normal">∣</mi><mi>X</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">logP(Y|X)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span> 也会达到最大值，因此在前面加上负号之后，最大化 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>Y</mi><mi mathvariant="normal">∣</mi><mi>X</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">P(Y|X)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span> 就等价于最小化L了</p>
+<p><img src="//woojoo520.github.io/2019/07/28/Loss-Function/C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1564360345156.png" alt="1564360345156"></p>
+<p><img src="//woojoo520.github.io/2019/07/28/Loss-Function/C:%5CUsers%5C12751%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1564360352849.png" alt="1564360352849"></p>
+<p><strong>注意：softmax使用的即为交叉熵损失函数，binary_cossentropy为二分类交叉熵损失，categorical_crossentropy为多分类交叉熵损失，当使用多分类交叉熵损失函数时，标签应该为多分类模式，即使用one-hot编码的向量。</strong></p>
 
       
     </div>
@@ -287,7 +277,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/148/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/148/">148</a><span class="page-number current">149</span><a class="page-number" href="/page/150/">150</a><span class="space">&hellip;</span><a class="page-number" href="/page/153/">153</a><a class="extend next" rel="next" href="/page/150/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/148/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/148/">148</a><span class="page-number current">149</span><a class="page-number" href="/page/150/">150</a><span class="space">&hellip;</span><a class="page-number" href="/page/161/">161</a><a class="extend next" rel="next" href="/page/150/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -333,7 +323,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">153</span>
+          <span class="site-state-item-count">161</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

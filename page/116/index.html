@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/17/HDR的简单介绍/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/08/21/LeetCode-Day7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/08/17/HDR的简单介绍/" class="post-title-link" itemprop="url">HDR的简单介绍</a>
+            <a href="/2019/08/21/LeetCode-Day7/" class="post-title-link" itemprop="url">LeetCode-Day7</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-08-17 08:57:27 / 修改时间：09:15:11" itemprop="dateCreated datePublished" datetime="2019-08-17T08:57:27+08:00">2019-08-17</time>
+              <time title="创建时间：2019-08-21 21:21:16 / 修改时间：21:26:31" itemprop="dateCreated datePublished" datetime="2019-08-21T21:21:16+08:00">2019-08-21</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/08/17/HDR的简单介绍/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/17/HDR的简单介绍/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/08/21/LeetCode-Day7/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/21/LeetCode-Day7/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,18 +240,31 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="hdr"><a class="markdownIt-Anchor" href="#hdr"></a> HDR</h2>
-<h3 id="hdr的简介"><a class="markdownIt-Anchor" href="#hdr的简介"></a> HDR的简介</h3>
-<p><strong>HDR——High-Dynamic Range（高动态光照渲染）</strong>，相比普通的图像，可以提供更多的动态范围和图像细节，根据不同的曝光时间的LDR(Low-Dynamic Range)图像，利用曝光时间相对应最佳细节的LDR图像来合成最终的HDR图像，能够更好的反映出真实环境中的视觉效果。</p>
-<p>说白了，就是一张图片尽可能得同时显示最亮和最暗的地方，或者说是让亮的地方更亮，让暗的地方更暗（或者理解为<strong>能够大幅提高画面细节的明暗对比度</strong>）。HDR显示下的色彩更接近人眼真实的感知，所以HDR提供更逼真，更身临其境的电影、游戏和内容创作体验。</p>
-<p>人眼的视觉是目前最强大的摄影器材跟显像设备，我们不断升级的摄影跟显示器设备都是为了还原人眼所见，以求达到所见即所得的效果。</p>
-<h3 id="hdr的组成"><a class="markdownIt-Anchor" href="#hdr的组成"></a> HDR的组成</h3>
-<p>HDR由两部分组成：<strong>动态曝光控制</strong>和<strong>光晕效果</strong>。</p>
-<h4 id="动态曝光控制"><a class="markdownIt-Anchor" href="#动态曝光控制"></a> 动态曝光控制</h4>
-<p>通常，显示器能够显示R、G、B分量在[0, 255]之间的像素值。而256个不同的亮度级别显然不能表示自然界中光线的亮度情况。举个例子，太阳的亮度是白炽灯亮度的几千倍或者被漫反射照亮的室内亮度的几万倍，这远远超出了显示器的亮度表示能力。HDR技术所要解决的问题就是在有限的亮度范围内表示出宽广的亮度范围。原理类似于照相机的曝光功能，通过算法调整光线亮度，将光线从高动态范围映射到低动态范围，从而得到令人信服的光照效果</p>
-<h4 id="光晕效果"><a class="markdownIt-Anchor" href="#光晕效果"></a> 光晕效果</h4>
-<p>人从暗处走到光亮的地方，瞳孔由于来不及收缩，眼睛会自己眯起来，以保护视网膜上的感光细胞。HDR通过对原始图像进行调整，可以模拟这种人眼自动适应光线变化的胜利反应，产生类似于光晕的效果</p>
-<p>图像经DHR处理后的理想效果是亮处足够耀眼，暗处能够分辨物体的轮廓与深度，而非原图的一团漆黑。</p>
+          <h3 id="22-括号生成"><a class="markdownIt-Anchor" href="#22-括号生成"></a> 22. 括号生成</h3>
+<p>给出 n 代表生成括号的对数，请你写出一个函数，使其能够生成所有可能的并且有效的括号组合。</p>
+<p>例如，给出 n = 3，生成结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &quot;((()))&quot;,</span><br><span class="line">  &quot;(()())&quot;,</span><br><span class="line">  &quot;(())()&quot;,</span><br><span class="line">  &quot;()(())&quot;,</span><br><span class="line">  &quot;()()()&quot;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> N, <span class="keyword">int</span> l, <span class="keyword">int</span> r,<span class="built_in">string</span> str, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; ans)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(r &gt; l || l &gt; N || r &gt; N) &#123;</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(l == r &amp;&amp; l == N) &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; str &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">            ans.push_back(str);</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        dfs(N, l + <span class="number">1</span>, r, str + <span class="string">'('</span>, ans);</span><br><span class="line">        dfs(N, l, r + <span class="number">1</span>, str + <span class="string">')'</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; generateParenthesis(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; ans;</span><br><span class="line">        dfs(n, <span class="number">0</span>, <span class="number">0</span>, <span class="string">""</span>, ans);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>解释：暴力构造法+剪枝（递归）</p>
+<p>递归出口:</p>
+<ul>
+<li>
+<p>左括号数量小于右括号数量</p>
+</li>
+<li>
+<p>左括号或右括号的数量大于n</p>
+</li>
+<li>
+<p>左括号数量和有括号数量相等，且等于n，即符合题意的解</p>
+</li>
+</ul>
+<h3 id="23-合并k个排序链表"><a class="markdownIt-Anchor" href="#23-合并k个排序链表"></a> 23. 合并k个排序链表</h3>
+<p>合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">[</span><br><span class="line">  1-&gt;4-&gt;5,</span><br><span class="line">  1-&gt;3-&gt;4,</span><br><span class="line">  2-&gt;6</span><br><span class="line">]</span><br><span class="line">输出: 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">     <span class="function">ListNode* <span class="title">mergeTwoLists</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(l1 == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> l2;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(l2 == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> l1;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode* cur = (ListNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(ListNode));</span><br><span class="line">        ListNode* htmp = cur;</span><br><span class="line">        ListNode* cur1 = l1;</span><br><span class="line">        ListNode* cur2 = l2;</span><br><span class="line">        <span class="keyword">while</span>(cur1 != <span class="literal">NULL</span> &amp;&amp; cur2 != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(cur1-&gt;val &lt;= cur2-&gt;val) &#123;</span><br><span class="line">                cur-&gt;next = cur1;</span><br><span class="line">                cur1 = cur1-&gt;next;</span><br><span class="line">                cur = cur-&gt;next;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                cur-&gt;next = cur2;</span><br><span class="line">                cur2 = cur2-&gt;next;</span><br><span class="line">                cur = cur-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(cur1 != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            cur-&gt;next = cur1;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">if</span>(cur2 != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            cur-&gt;next = cur2;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> htmp-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ListNode* _mergeKLists(<span class="built_in">vector</span>&lt;ListNode*&gt;&amp; lists, <span class="keyword">int</span> begin, <span class="keyword">int</span> end) &#123;</span><br><span class="line">        <span class="keyword">if</span>(end &lt; begin) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(end == begin) &#123;</span><br><span class="line">            <span class="keyword">return</span> lists[begin];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> mid = (begin + end) / <span class="number">2</span>;</span><br><span class="line">        ListNode* p1 = _mergeKLists(lists, begin, mid);</span><br><span class="line">        ListNode* p2 = _mergeKLists(lists, mid + <span class="number">1</span>, end);</span><br><span class="line">        <span class="keyword">return</span> mergeTwoLists(p1, p2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">ListNode* <span class="title">mergeKLists</span><span class="params">(<span class="built_in">vector</span>&lt;ListNode*&gt;&amp; lists)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> _mergeKLists(lists, <span class="number">0</span>, lists.size() - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>解释：关于k路归并，这里采用了优先队列合并</p>
+<p>递归 + 二分</p>
 
       
     </div>
@@ -271,7 +284,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/115/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/115/">115</a><span class="page-number current">116</span><a class="page-number" href="/page/117/">117</a><span class="space">&hellip;</span><a class="page-number" href="/page/153/">153</a><a class="extend next" rel="next" href="/page/117/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/115/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/115/">115</a><span class="page-number current">116</span><a class="page-number" href="/page/117/">117</a><span class="space">&hellip;</span><a class="page-number" href="/page/161/">161</a><a class="extend next" rel="next" href="/page/117/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -317,7 +330,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">153</span>
+          <span class="site-state-item-count">161</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

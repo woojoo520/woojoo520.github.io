@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/10/14/SQLServer-Day5/">
+    <link itemprop="mainEntityOfPage" href="https://woojoo520.github.io/2019/11/13/QQ通信原理分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/10/14/SQLServer-Day5/" class="post-title-link" itemprop="url">SQLServer-Day5</a>
+            <a href="/2019/11/13/QQ通信原理分析/" class="post-title-link" itemprop="url">QQ通信原理Fenix</a>
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-10-14 20:17:37 / 修改时间：22:59:16" itemprop="dateCreated datePublished" datetime="2019-10-14T20:17:37+08:00">2019-10-14</time>
+              <time title="创建时间：2019-11-13 16:15:45 / 修改时间：20:08:34" itemprop="dateCreated datePublished" datetime="2019-11-13T16:15:45+08:00">2019-11-13</time>
             </span>
 
           
@@ -224,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/10/14/SQLServer-Day5/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/14/SQLServer-Day5/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/11/13/QQ通信原理分析/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/13/QQ通信原理分析/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,231 +240,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="sqlserver-day5"><a class="markdownIt-Anchor" href="#sqlserver-day5"></a> SQLServer-Day5</h2>
-<h3 id="union-操作符"><a class="markdownIt-Anchor" href="#union-操作符"></a> UNION 操作符</h3>
-<p><code>UNION</code>操作符用于合并两个或多个SELECT语句的结果集</p>
-<p>请注意，<code>UNION</code>内部的<code>SELECT</code>语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每条<code>SELECT</code>语句中的列的顺序必须相同。</p>
-<blockquote>
-<p>SELECT column_name(s)  FROM table_name1</p>
-<p><strong>UNION</strong></p>
-<p>SELECT column_name(s) FROM table_name2</p>
-</blockquote>
-<p><strong>Tips</strong>：默认地，<code>UNION</code>操作符取不同的值，如果允许重复的值，需使用<code>UNION ALL</code></p>
-<blockquote>
-<p>SELECT column_name(s)  FROM table_name1</p>
-<p><strong>UNION ALL</strong></p>
-<p>SELECT column_name(s) FROM table_name2</p>
-</blockquote>
-<p>另外，<code>UNION</code>结果集中的列名总是等于<code>UNION中</code>第一个<code>SELECT</code>语句中的列名</p>
-<p>原始表：</p>
-<p>Employees_China：</p>
-<table>
-<thead>
-<tr>
-<th>E_ID</th>
-<th>E_Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>01</td>
-<td>Zhang, Hua</td>
-</tr>
-<tr>
-<td>02</td>
-<td>Wang, Wei</td>
-</tr>
-<tr>
-<td>03</td>
-<td>Carter, Thomas</td>
-</tr>
-<tr>
-<td>04</td>
-<td>Yang, Ming</td>
-</tr>
-</tbody>
-</table>
-<p>Employees_USA:</p>
-<table>
-<thead>
-<tr>
-<th>E_ID</th>
-<th>E_Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>01</td>
-<td>Adam, John</td>
-</tr>
-<tr>
-<td>02</td>
-<td>Bush, George</td>
-</tr>
-<tr>
-<td>03</td>
-<td>Carter, Thomas</td>
-</tr>
-<tr>
-<td>04</td>
-<td>Gates, Bill</td>
-</tr>
-</tbody>
-</table>
-<p>例：</p>
-<p>列出所有在中国和美国的不同的雇员名</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> E_Name</span><br><span class="line"><span class="keyword">FROM</span> Employees_China</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">FROM</span> Employees_USA</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<table>
-<thead>
-<tr>
-<th>E_Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Zhang, Hua</td>
-</tr>
-<tr>
-<td>Wang, Wei</td>
-</tr>
-<tr>
-<td>Carter, Thomas</td>
-</tr>
-<tr>
-<td>Yang, Ming</td>
-</tr>
-<tr>
-<td>Adam, John</td>
-</tr>
-<tr>
-<td>Bush, George</td>
-</tr>
-<tr>
-<td>Gates, Bill</td>
-</tr>
-</tbody>
-</table>
-<p>注释：这个命令无法列出在中国和美国的所有雇员，因为<code>UNION</code>命令只会选取不同的值。</p>
-<h3 id="select-into语句"><a class="markdownIt-Anchor" href="#select-into语句"></a> SELECT INTO语句</h3>
-<p>用于创建表的备份复件</p>
-<p><code>SELECT INTO</code> 语句从一个表中选取数据，然后把数据插入另一个表中</p>
-<p><code>SELECT INTO</code> 语句常用于创建表的备份文件或者用于对记录进行存档</p>
-<p>可以将所有的列插入列表：</p>
-<blockquote>
-<p>SELECT *</p>
-<p>INTO new_table_name [IN externaldatabase]</p>
-<p>FROM old_tablename</p>
-</blockquote>
-<p>或者只把希望的列插入列表：</p>
-<blockquote>
-<p>SELECT column_name(s)</p>
-<p>INTO new_table_name [IN externaldatabase]</p>
-<p>FROM old_tablename</p>
-</blockquote>
-<h5 id="例下面的例子会制作persons表的备份复件"><a class="markdownIt-Anchor" href="#例下面的例子会制作persons表的备份复件"></a> 例：下面的例子会制作“Persons”表的备份复件</h5>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">INTO</span> Persons_backup</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
-<h5 id="in子句可用于向另一个数据库中拷贝表"><a class="markdownIt-Anchor" href="#in子句可用于向另一个数据库中拷贝表"></a> IN子句可用于向另一个数据库中拷贝表：</h5>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">INTO</span> Persons <span class="keyword">IN</span> <span class="string">'Backup.mdb'</span></span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
-<h5 id="如果我们希望拷贝某些域可以在select语句后列出这些域"><a class="markdownIt-Anchor" href="#如果我们希望拷贝某些域可以在select语句后列出这些域"></a> 如果我们希望拷贝某些域，可以在SELECT语句后列出这些域：</h5>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  LastName, FIrstName</span><br><span class="line"><span class="keyword">INTO</span> Persons_backup</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br></pre></td></tr></table></figure>
-<h5 id="带有where子句"><a class="markdownIt-Anchor" href="#带有where子句"></a> 带有WHERE子句：</h5>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> LastName, FirstName</span><br><span class="line"><span class="keyword">INTO</span> Persons_backup</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">WHERE</span> City = <span class="string">'Beijing'</span></span><br></pre></td></tr></table></figure>
-<p>表示从“Pesons”表中提取居住在“Beijing”的人的信息，创建了一个带有两个列的名为“Persons_backup”的表</p>
-<h5 id="被连接的表"><a class="markdownIt-Anchor" href="#被连接的表"></a> 被连接的表</h5>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Persons.LastName, Orders.OrderNo</span><br><span class="line"><span class="keyword">INTO</span> Persons_Order_Backup</span><br><span class="line"><span class="keyword">FROM</span> Persons</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Persons.Id_P = Orders.Id_P</span><br></pre></td></tr></table></figure>
-<p>表示创建一个名为“Persons_Order_Backup”的新表，其中包含了从Persons和Orders两个表中的内容。</p>
-<h3 id="create-database-语句"><a class="markdownIt-Anchor" href="#create-database-语句"></a> CREATE DATABASE 语句</h3>
-<p>用于创建数据库</p>
-<blockquote>
-<p>CREATE DATABASE database_name</p>
-</blockquote>
-<p>例：创建一个名为my_db的数据库</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> my_db</span><br></pre></td></tr></table></figure>
-<p>可以通过<code>CREATE TABLE</code>来添加数据库表</p>
-<h3 id="create-table-语句"><a class="markdownIt-Anchor" href="#create-table-语句"></a> CREATE TABLE 语句</h3>
-<p>用于创建数据库中的表</p>
-<blockquote>
-<p>CREATE TABLE 表名称</p>
-<p>(</p>
-<p>列名称1 数据类型，</p>
-<p>列名称2 数据类型，</p>
-<p>列名称3 数据类型，</p>
-<p>…</p>
-<p>)</p>
-</blockquote>
-<p>数据类型(data_type) 规定了列可容纳何种数据类型。下面的表格包含了SQL中最常用的数据类型</p>
-<table>
-<thead>
-<tr>
-<th>数据类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>interger(size)  <br>int(size)<br>smallint(size)<br>tinyint(size)</td>
-<td>仅容纳整数，在括号内规定数字的最大位数</td>
-</tr>
-<tr>
-<td>decimal(size, d)<br>numeric(size, d)</td>
-<td>容纳带有小数的数字<br>“size”规定数字的最大位数。“d”规定小数点右侧的最大位数</td>
-</tr>
-<tr>
-<td>char(size)</td>
-<td>容纳固定长度的字符串（可容纳字母、数字以及特殊字符）<br>在括号中规定字符串的最大长度</td>
-</tr>
-<tr>
-<td>varchar(size)</td>
-<td>容纳可变长度的字符串（可容纳字母、数字以及特殊字符）<br>在括号中规定字符串的最大长度</td>
-</tr>
-<tr>
-<td>date（yyyymmdd）</td>
-<td>容纳日期</td>
-</tr>
-</tbody>
-</table>
-<p>例：</p>
-<p>创建”Persons”表，其中包含5个列，列明分别是“Id_P”, “LastName”, “FirstName”, “Address”以及“City”</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line">(</span><br><span class="line">Id_P <span class="built_in">int</span>, </span><br><span class="line">LastName <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">FirstName <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">Address <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">City <span class="built_in">varchar</span>(<span class="number">255</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>空的表类似这样</p>
-<table>
-<thead>
-<tr>
-<th>Id_P</th>
-<th>LastName</th>
-<th>FirstName</th>
-<th>Address</th>
-<th>City</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>可使用INSERT INTO语句向空表写入数据</p>
-<h3 id="sql-约束constraints"><a class="markdownIt-Anchor" href="#sql-约束constraints"></a> SQL 约束（Constraints）</h3>
-<p>约束用于限制加入表的数据的类型</p>
-<p>可以在创建表时规定约束（通过<code>CREATE TABLE</code>语句），或者在表创建之后也可以（通过<code>ALTER TABLE</code>语句）</p>
-<p>主要有以下几种约束：</p>
-<ul>
-<li>NOT NULL</li>
-<li>UNIQUE</li>
-<li>PRIMARY KEY</li>
-<li>FOREIGN KEY</li>
-<li>CHECK</li>
-<li>DEFAULT</li>
-</ul>
-<h3 id="not-null约束"><a class="markdownIt-Anchor" href="#not-null约束"></a> NOT NULL约束</h3>
-<p><code>NOT NULL</code>约束强制列不接受<code>NULL</code>值</p>
-<p><code>NOT NULL</code>约束强制字段始终包含值。这意味着，如果不向字段添加值，就无法插入新记录或者更新记录</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Persons</span><br><span class="line">(</span><br><span class="line">Id_P <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">LastName <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">FirstName <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">Address <span class="built_in">varchar</span>(<span class="number">255</span>), </span><br><span class="line">City <span class="built_in">varchar</span>(<span class="number">255</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+          <h4 id="起源"><a class="markdownIt-Anchor" href="#起源"></a> 起源</h4>
+<p>为什么今天会些这样一片文章呢…</p>
+<p>因为在做程序设计大作业的时候突然发现不知道怎么实现QQ聊天</p>
+<p>在之前的C++大作业当中，我实现通信的方法是利用ip地址（当时好像写的是确定的ip地址），但是想到这个软件应该是在不同的地方都能够运行的，所以，用什么来表示用户，然后怎么实现通信呢？</p>
+<p>所以搜索了相应的资料之后得到以下几个问题的回答：</p>
+<p>参考：<a href="https://blog.csdn.net/li_xiao_ming/article/details/8106857" target="_blank" rel="noopener">https://blog.csdn.net/li_xiao_ming/article/details/8106857</a></p>
+<h5 id="1-为什么只要连上互联网的计算机都可以用qq互相建立通信需不需要固定ip"><a class="markdownIt-Anchor" href="#1-为什么只要连上互联网的计算机都可以用qq互相建立通信需不需要固定ip"></a> 1. 为什么只要连上互联网的计算机都可以用QQ互相建立通信，需不需要固定ip？</h5>
+<p>也就是说这个QQ用户端是怎样找到另一个QQ用户的，而用户在每次使用时他可能用的是不同的计算机，有着不同的IP地址。</p>
+<p>服务器端会以QQ账号作为唯一表示，一个账号登录时每次都可以有不同的IP地址，但账号却相同，当账号a登录服务器，服务器会记录下账号a的ip地址，去通知a的好友，告诉他们，a上线了和现在的ip地址，a的好友就可以和他们进行通信了</p>
+<h5 id="2-是不是qq在通信时根本不适用ipqq客户端先是访问qq服务器端然后qq服务器端再为要建立连接的qq客户端建立连接"><a class="markdownIt-Anchor" href="#2-是不是qq在通信时根本不适用ipqq客户端先是访问qq服务器端然后qq服务器端再为要建立连接的qq客户端建立连接"></a> 2. 是不是QQ在通信时根本不适用IP，QQ客户端先是访问QQ服务器端，然后QQ服务器端再为要建立连接的QQ客户端建立连接？</h5>
+<p>只要是网络层的通信，都会涉及到ip/tcp协议，就肯定需要ip，qq客户端登陆qq服务器，服务器只是记录登陆状态，不会一直和qq保持通信，只会每隔一段时间发送心跳数据包，来确实qq客户端是否还在网络上。当qq客户端a上线后，服务器会告诉a，目前a的在线好友的最新ip地址，当a需要与任意好友通信时，直接使用ip地址就ok了。qq客户端a与qq客户端b通信，可以两种方式，第一就是qq服务器有转发的服务器，第二是，a与b直接通信，不会告诉qq服务器</p>
+<h5 id="3-qq客户端可以访问qq服务器端然后服务器端获取qq客户端的ip建立通信是不是这样的过程如果是这个过程是怎么处理的呢"><a class="markdownIt-Anchor" href="#3-qq客户端可以访问qq服务器端然后服务器端获取qq客户端的ip建立通信是不是这样的过程如果是这个过程是怎么处理的呢"></a> 3. QQ客户端可以访问QQ服务器端，然后服务器端获取QQ客户端的IP建立通信，是不是这样的过程…如果是，这个过程是怎么处理的呢？</h5>
+<p>是这样的过程，qq客户端请求一个连接给服务器，服务器接收后，知道qq端a上线，把qq端a的账号跟目前的ip会记录下来，放在在线列表里或者其他的地方，然后每隔几分钟或者几秒钟给qq端a发送心跳包，问他是否还在线，来确保qq端a的最新状态。这里客户端与服务器的通信方式是udp。而不会时时刻刻都在用tcp连接。</p>
+<h5 id="4-qq客户端虽然ip地址不固定但是在建立与qq服务器端的通信时必须提供自己的ip被服务器获取然后才能建立他们之间的通信进而在建立客户端之间的通信-也就是只要能上网就有ip只不过客户端的ip是被qq客户端获取了然后才建立通信的-这是自己的猜测不知对否"><a class="markdownIt-Anchor" href="#4-qq客户端虽然ip地址不固定但是在建立与qq服务器端的通信时必须提供自己的ip被服务器获取然后才能建立他们之间的通信进而在建立客户端之间的通信-也就是只要能上网就有ip只不过客户端的ip是被qq客户端获取了然后才建立通信的-这是自己的猜测不知对否"></a> 4. QQ客户端虽然IP地址不固定，但是在建立与QQ服务器端的通信时，必须提供自己的IP被服务器获取，然后才能建立他们之间的通信，进而在建立客户端之间的通信。也就是，只要能上网就有IP，只不过客户端的IP，是被QQ客户端获取了，然后才建立通信的。（这是自己的猜测，不知对否…）</h5>
+<p>服务器不会以ip作为唯一标识，会以账号作为唯一标识，但与账号通信的时候会用到账号目前所对应的ip，客户端与客户端通信也如此</p>
 
       
     </div>
@@ -484,7 +274,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/44/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><span class="page-number current">45</span><a class="page-number" href="/page/46/">46</a><span class="space">&hellip;</span><a class="page-number" href="/page/153/">153</a><a class="extend next" rel="next" href="/page/46/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/44/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><span class="page-number current">45</span><a class="page-number" href="/page/46/">46</a><span class="space">&hellip;</span><a class="page-number" href="/page/161/">161</a><a class="extend next" rel="next" href="/page/46/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -530,7 +320,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">153</span>
+          <span class="site-state-item-count">161</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
